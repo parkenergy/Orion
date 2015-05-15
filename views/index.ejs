@@ -1,0 +1,33 @@
+<!-- Necessary metadata
+============================================================================ -->
+<!doctype html>
+<meta charset='utf8'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= title %></title>
+
+
+<!-- Styles
+============================================================================ -->
+<link rel='stylesheet' href='/stylesheets/site.css' />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+
+<!-- Angular App
+============================================================================ -->
+<html ng-app="<%= appName %>">
+	<div ng-view></div>
+</html>
+
+<!-- CDN scripts TODO: make these available offline for client app
+============================================================================ -->
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-resource.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-cookies.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-utils/0.1.1/angular-ui-utils.min.js"></script>
+
+
+<!-- Bundled Javascript
+============================================================================ -->
+<script src="bundle.js"></script>

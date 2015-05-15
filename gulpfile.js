@@ -26,7 +26,7 @@ var fs = require('fs');
 
 // bundle server side code needed by client
 gulp.task('browserify', function () {
-  return browserify('./dev_util/browserify/includes.js')
+  return browserify('./_dev_util/browserify/includes.js')
     .bundle()
     .pipe(vss('browserify.js')) //pass output filename to vinyl-source-stream
     .pipe(gulp.dest('public')); // pipe stream to tasks, triggers 'scripts' task
@@ -83,10 +83,13 @@ gulp.task('scripts', function() {
 // launches the server with nodemon
 gulp.task('launchserver', function() {
   var server = child.spawn('nodemon', ['app.js']);
-  var log = fs.createWriteStream('./dev_util/server.log', {flags: 'a'});
+  var log = fs.createWriteStream('./_dev_util/server.log', {flags: 'a'});
+  // 2-way stdio binding
   server.stdout.pipe(log);
+  server.stdout.pipe(process.stdout);
   server.stderr.pipe(log);
-  child.exec("start chrome --kiosk https://127.0.0.1:3000");
+  server.stderr.pipe(process.stdout);
+  process.stdin.pipe(server.stdin);
 });
 
 // Watch Files For Changes

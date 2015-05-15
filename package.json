@@ -4,8 +4,10 @@
   "description": "A workorder tracking software system for Park Energy",
   "main": "app.js",
   "dependencies": {
+    "compression": "^1.4.4",
     "express": "^4.12.3",
-    "mongoose": "^4.0.3"
+    "mongoose": "^4.0.3",
+    "passport": "^0.2.1"
   },
   "devDependencies": {
     "browserify": "^10.2.0",

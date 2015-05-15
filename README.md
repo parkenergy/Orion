@@ -22,6 +22,8 @@
 
 [express api](http://expressjs.com/4x/api.html)
 
+[express 4.x Changes](https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x)
+
 [angular api](https://docs.angularjs.org/api)
 
 [sequelize docs](http://sequelizejs.com/docs/1.7.8/installation)
