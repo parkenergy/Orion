@@ -7,8 +7,9 @@ var ObjectId = mongoose.Schema.ObjectId;
 ----------------------------------------------------------------------------- */
 var EngineSchema = new mongoose.Schema({
 
-  serial:   { type: String},
+  serial:   { type: String, required: true, index: { unique: true } },
   model:    { type: String },
+  
   engineHoursStartDate: { type: Date },
 
   unit: {type: 'ObjectId', ref: "Unit", index: true }

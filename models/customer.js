@@ -7,14 +7,14 @@ var ObjectId = mongoose.Schema.ObjectId;
 ----------------------------------------------------------------------------- */
 var CustomerSchema = new mongoose.Schema({
 
-  dbaCustomerName:  { type: String },
+  dbaCustomerName:  { type: String, required: true, index: { unique: true } },
   customerFamily:   { type: String },
   address:          { type: String },
   phone:            { type: String },
   email:            { type: String },
 
   locations: 	      [{type: ObjectId, ref: 'Locations', index: true}],
-  units:            [{type: ObjectId, ref: 'Units', index: true}],
+  units:            [{type: ObjectId, ref: 'Units', index: true}]
 
 });
 

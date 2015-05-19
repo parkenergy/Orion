@@ -7,43 +7,43 @@ var DateHelper = function () {
 /* Functions
 ----------------------------------------------------------------------------- */
 DateHelper.prototype.oneSecondAgo = function (fromDate) {
-  var date = (fromDate instanceof Date) ? fromDate : new Date(this.now);
+  var date = (fromDate instanceof Date) ? new Date(fromDate) : new Date(this.now);
   date.setSeconds(date.getSeconds() - 1);
   return date;
 };
 
 DateHelper.prototype.oneMinuteAgo = function (fromDate) {
-  var date = (fromDate instanceof Date) ? fromDate : new Date(this.now);
+  var date = (fromDate instanceof Date) ? new Date(fromDate) : new Date(this.now);
   date.setMinutes(date.getMinutes() - 1);
   return date;
 };
 
 DateHelper.prototype.oneHourAgo = function (fromDate) {
-  var date = (fromDate instanceof Date) ? fromDate : new Date(this.now);
+  var date = (fromDate instanceof Date) ? new Date(fromDate) : new Date(this.now);
   date.setHours(date.getHours() - 1);
   return date;
 };
 
 DateHelper.prototype.oneDayAgo = function (fromDate) {
-  var date = (fromDate instanceof Date) ? fromDate : new Date(this.now);
+  var date = (fromDate instanceof Date) ? new Date(fromDate) : new Date(this.now);
   date.setDate(date.getDate() - 1);
   return date;
 };
 
 DateHelper.prototype.oneWeekAgo = function (fromDate) {
-  var date = (fromDate instanceof Date) ? fromDate : new Date(this.now);
+  var date = (fromDate instanceof Date) ? new Date(fromDate) : new Date(this.now);
   date.setDate(date.getDate() - 7);
   return date;
 };
 
 DateHelper.prototype.oneMonthAgo = function (fromDate) {
-  var date = (fromDate instanceof Date) ? fromDate : new Date(this.now);
+  var date = (fromDate instanceof Date) ? new Date(fromDate) : new Date(this.now);
   date.setMonth(date.getMonth() - 1);
   return date;
 };
 
 DateHelper.prototype.oneYearAgo = function (fromDate) {
-  var date = (fromDate instanceof Date) ? fromDate : new Date(this.now);
+  var date = (fromDate instanceof Date) ? new Date(fromDate) : new Date(this.now);
   date.setYear(date.getYear() - 1);
   return date;
 };

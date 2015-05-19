@@ -10,7 +10,7 @@ var DataHelper = function (collection) {
   if (!db[collection]) {
     throw new Error('The database has no collection "' + collection + '"');
   }
-  this.collection = db[this.collection];
+  this.collection = db[collection];
 };
 
 /* Functions

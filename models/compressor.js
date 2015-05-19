@@ -9,11 +9,12 @@ var dateHelper = new DateHelper();
 ----------------------------------------------------------------------------- */
 var CompressorSchema = new mongoose.Schema({
 
-  serial:   { type: String},
-  model:    { type: String },
+  serial:   { type: String, required: true, index: { unique: true }},
+  model:    { type: String, required: true },
+
   compressorHoursStartDate: { type: Date },
 
-  unit: {type: 'ObjectId', ref: "Unit", index: true }
+  unit: {type: ObjectId, ref: 'Unit', index: true }
 
 });
 

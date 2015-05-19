@@ -7,14 +7,17 @@ var ObjectId = mongoose.Schema.ObjectId;
 ----------------------------------------------------------------------------- */
 var LocationSchema = new mongoose.Schema({
 
-  name:         { type: String },
+  name:         { type: String, required: true, index: { unique: true } },
   number:       { type: String },
-  state:        { type: String },
-  county:       { type: String },
+
   apiNumber:    { type: String },
 
   locationType: { type: String, enum: ["Lease", "Truck", "Yard"] },
-  customer:     { type: ObjectId, ref: 'Customer', index: true }
+  customer:     { type: ObjectId, ref: 'Customer', index: true },
+
+  area:         { type: ObjectId, ref: 'Area', index: true },
+  state:        { type: ObjectId, ref: 'State', index: true },
+  county:       { type: ObjectId, ref: 'County', index: true },
 
 });
 
