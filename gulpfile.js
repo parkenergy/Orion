@@ -11,6 +11,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var nodemon = require('gulp-nodemon');
+var mocha = require('gulp-mocha');
 var path = require('path');
 
 // used to bundle server side code needed by the client
@@ -45,7 +46,7 @@ gulp.task('back-end-lint', function () {
 });
 
 // ensure front-end code conforms to LINT standards
-gulp.task('front-end-lint', function() {
+gulp.task('front-end-lint', ['browserify'], function() {
   return gulp.src([
     // TODO: fix regex
       './public/app/**/*.js',
@@ -60,14 +61,14 @@ gulp.task('front-end-lint', function() {
 gulp.task('lint', ['back-end-lint', 'front-end-lint']);
 
 // compile LESS to CSS
-gulp.task('less', function() {
+gulp.task('less', ['lint'], function() {
   return gulp.src('./public/stylesheets/site.less')
     .pipe(less())
     .pipe(gulp.dest('public/stylesheets'));
 });
 
 // concat & minify js files
-gulp.task('scripts', function() {
+gulp.task('scripts', ['less'], function() {
   return gulp.src([
       './public/app/**/*.js',
       './public/scripts/**/*.js',
@@ -81,8 +82,13 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('public'));
 });
 
+gulp.task('mocha', ['scripts'] , function () {
+    return gulp.src('./tests/mocha/**/*.js', {read: false})
+        .pipe(mocha({reporter: 'nyan'}));
+});
+
 // launches the server with nodemon
-gulp.task('launchserver', function () {
+gulp.task('launchserver', ['mocha'], function () {
   nodemon({ script: 'app.js', ext: 'html js', tasks: ['back-end-lint'] })
     .on('restart', function () {
       console.log('nodemon restarted the server!')
@@ -90,7 +96,7 @@ gulp.task('launchserver', function () {
 })
 
 // Watch Files For Changes
-gulp.task('watch', function() {
+gulp.task('watch', ['launchserver'], function() {
 
   gulp.watch( ['./public/app/**/*.js', './public/scripts/**/*.js'],
               [ 'lint', 'scripts' ]);
@@ -110,6 +116,7 @@ gulp.task('watch', function() {
 gulp.task('default', [
   'browserify',
   'lint',
+  'mocha',
   'less',
   'watch',
   'launchserver'

@@ -10,7 +10,6 @@ var Controller = function (collection) {
   }
   this.collection = collection;
   this.dataHelper = new DataHelper(collection);
-  console.log(this.dataHelper);
 };
 
 /* Functions
