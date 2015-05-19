@@ -1,6 +1,11 @@
+/* Includes
+----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var PartEnumerationHelper = require('../helpers/enumeration.js');
 
+/* Declaration
+----------------------------------------------------------------------------- */
 var PartSchema = new mongoose.Schema({
 
   description:    { type: String },
@@ -21,25 +26,43 @@ var PartSchema = new mongoose.Schema({
 
 });
 
-// TODO: Add virtual fields for the following values
-
-/* Example
---------------------------------------------------------------------------------
-PartSchema.virtual('fullName')
+/* Virtual Fields
+----------------------------------------------------------------------------- */
+PartSchema.virtual('smartPartNumber')
 .get(function () {
-  return this.name.first + ' ' + this.name.last;
+  return PartEnumerationHelper.smartPartNumber(this);
 });
------------------------------------------------------------------------------ */
 
-/* Fields
---------------------------------------------------------------------------------
-  smartPartNumber
-  systemName
-  subsystemName
-  engineName
-  compressorName
-  subsystemConcatenateName
-  concatenateName
------------------------------------------------------------------------------ */
+PartSchema.virtual('systemName')
+.get(function () {
+  return PartEnumerationHelper.systemName(this);
+});
 
+PartSchema.virtual('subsystemName')
+.get(function () {
+  return PartEnumerationHelper.subsystemName(this);
+});
+
+PartSchema.virtual('engineName')
+.get(function () {
+  return PartEnumerationHelper.engineName(this);
+});
+
+PartSchema.virtual('compressorName')
+.get(function () {
+  return PartEnumerationHelper.compressorName(this);
+});
+
+PartSchema.virtual('subsystemConcatenateName')
+.get(function () {
+  return PartEnumerationHelper.subsystemConcatenateName(this);
+});
+
+PartSchema.virtual('concatenateName')
+.get(function () {
+  return PartEnumerationHelper.concatenateName(this);
+});
+
+/* Exports
+----------------------------------------------------------------------------- */
 module.exports = mongoose.model('Parts', PartSchema);

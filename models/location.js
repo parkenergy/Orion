@@ -1,6 +1,10 @@
+/* Includes
+----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
 
+/* Declaration
+----------------------------------------------------------------------------- */
 var LocationSchema = new mongoose.Schema({
 
   name:         { type: String },
@@ -14,4 +18,6 @@ var LocationSchema = new mongoose.Schema({
 
 });
 
+/* Exports
+----------------------------------------------------------------------------- */
 module.exports = mongoose.model('Locations', LocationSchema);

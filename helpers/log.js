@@ -1,7 +1,10 @@
-// a wrapper for console events
+/* Includes
+----------------------------------------------------------------------------- */
 var HookInstaller = require('./hookInstaller.js')
 var hookInstaller = new HookInstaller();
 
+/* Declaration -- This class wraps console events
+----------------------------------------------------------------------------- */
 var Log = function (db) {
   this.db = db;
   this.env = process.env.NODE_ENV;
@@ -11,7 +14,8 @@ var Log = function (db) {
   this.errors = [];
 };
 
-
+/* Functions
+----------------------------------------------------------------------------- */
 Log.prototype.initialize = function () {
   var self = this;
 
@@ -47,4 +51,6 @@ Log.prototype.initialize = function () {
 
 };
 
+/* Exports
+----------------------------------------------------------------------------- */
 module.exports = Log;

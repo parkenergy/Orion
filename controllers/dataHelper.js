@@ -1,9 +1,11 @@
-
-var DateHelper = require('./dateHelper');
+/* Includes
+----------------------------------------------------------------------------- */
+var DateHelper = require('../helpers/dateHelper');
 var dateHelper = new DateHelper();
-var db = require('../../models');
+var db = require('../models');
 
-
+/* Declaration
+----------------------------------------------------------------------------- */
 var DataHelper = function (collection) {
   if (!db[collection]) {
     throw new Error('The database has no collection "' + collection + '"');
@@ -11,7 +13,8 @@ var DataHelper = function (collection) {
   this.collection = db[this.collection];
 };
 
-
+/* Functions
+----------------------------------------------------------------------------- */
 DataHelper.prototype.list = function (req, callback) {
   var self = this;
 
@@ -100,4 +103,6 @@ DataHelper.prototype.update = function (req, callback) {
   }).exec(callback);
 };
 
+/* Exports
+----------------------------------------------------------------------------- */
 module.exports = DataHelper;

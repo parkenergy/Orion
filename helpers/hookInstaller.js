@@ -1,9 +1,13 @@
 // https://gist.github.com/iamkvein/2006752
 
+/* Declaration
+----------------------------------------------------------------------------- */
 var HookInstaller = function () {
 
 };
 
+/* Functions
+----------------------------------------------------------------------------- */
 HookInstaller.prototype.install_hook_to = function(obj) {
 
     if (obj.hook || obj.unhook) {
@@ -70,4 +74,6 @@ HookInstaller.prototype.install_hook_to = function(obj) {
     obj.unhook.methods = {};
 };
 
+/* Exports
+----------------------------------------------------------------------------- */
 module.exports = HookInstaller;

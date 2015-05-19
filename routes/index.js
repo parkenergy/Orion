@@ -1,13 +1,23 @@
+/* Exports
+----------------------------------------------------------------------------- */
 module.exports = function (app) {
 
-  require('./factory') (app, "customers");
-  // require('./location')(app);
-  // require('./part')(app);
-  // require('./unit')(app);
-  // require('./user')(app);
-  // require('./vendor')(app);
-  // require('./workorder')(app);
+  /* Custom Routes
+  --------------------------------------------------------------------------- */
+  require('./auth')(app);
 
+  /* Generalized CRUD REST API routes constructed via factory.js
+  --------------------------------------------------------------------------- */
+  require('./factory') (app, "customers");
+  require('./factory') (app, "locations");
+  require('./factory') (app, "parts");
+  require('./factory') (app, "units");
+  require('./factory') (app, "users");
+  require('./factory') (app, "vendors");
+  require('./factory') (app, "workorders");
+
+  /* Index Route
+  --------------------------------------------------------------------------- */
   app.get('/', function (req, res) {
     var model = { appName: "Orion", title: "Orion" };
     res.render('index', model);

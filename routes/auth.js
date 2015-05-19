@@ -1,3 +1,5 @@
+/* Includes
+----------------------------------------------------------------------------- */
 var passport = require('passport');
 var OAuthStrategy = require('passport-oauth-profile').OAuthStrategy;
 var GoogleStrategy = require('passport-google').Strategy;
@@ -6,6 +8,8 @@ var https = require('https');
 var successUrl = "/#/myaccount";
 var failureUrl = "/#/login?failure=true";
 
+/* Exports
+----------------------------------------------------------------------------- */
 module.exports = function(app) {
 
   // expose url's required by in-house identity server
@@ -38,9 +42,8 @@ module.exports = function(app) {
 
 };
 
-
-
-
+/* Private Functions
+----------------------------------------------------------------------------- */
 /*******************************************************************************
 /////////////////////////////// PASSPORT STUFF /////////////////////////////////
 *******************************************************************************/

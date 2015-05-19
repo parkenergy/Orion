@@ -1,11 +1,12 @@
+/* Includes
+----------------------------------------------------------------------------- */
 var Controller = require('../controllers');
 
+/* Declaration -- Exposes general API routes for all data models
+----------------------------------------------------------------------------- */
 var RouteFactory = function (app, collection) {
 
   var controller = new Controller(collection);
-
-  /* API
-  --------------------------------------------------------------------------- */
 
   // RETURNS A LIST OF ELEMENTS IN THE COLLECTION BASED ON req.query DATA
   app.get('/api/' + collection, controller.list);
@@ -24,4 +25,6 @@ var RouteFactory = function (app, collection) {
 
 };
 
+/* Exports
+----------------------------------------------------------------------------- */
 module.exports = RouteFactory;

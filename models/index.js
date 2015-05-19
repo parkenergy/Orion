@@ -1,7 +1,11 @@
+/* Includes
+----------------------------------------------------------------------------- */
 var fs = require('fs');
 var path = require('path');
 var mongoose = require('mongoose');
 
+/* Declaration
+----------------------------------------------------------------------------- */
 var Models = function () {
   var models = {};
 
@@ -15,4 +19,6 @@ var Models = function () {
   return models;
 };
 
+/* Exports
+----------------------------------------------------------------------------- */
 module.exports = Models();
