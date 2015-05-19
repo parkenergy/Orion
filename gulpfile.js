@@ -10,6 +10,7 @@ var less = require('gulp-less');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var nodemon = require('gulp-nodemon');
 var path = require('path');
 
 // used to bundle server side code needed by the client
@@ -81,16 +82,12 @@ gulp.task('scripts', function() {
 });
 
 // launches the server with nodemon
-gulp.task('launchserver', function() {
-  var server = child.spawn('nodemon', ['app.js']);
-  var log = fs.createWriteStream('./_dev_util/server.log', {flags: 'a'});
-  // 2-way stdio binding
-  server.stdout.pipe(log);
-  server.stdout.pipe(process.stdout);
-  server.stderr.pipe(log);
-  server.stderr.pipe(process.stdout);
-  process.stdin.pipe(server.stdin);
-});
+gulp.task('launchserver', function () {
+  nodemon({ script: 'app.js', ext: 'html js', tasks: ['back-end-lint'] })
+    .on('restart', function () {
+      console.log('nodemon restarted the server!')
+    })
+})
 
 // Watch Files For Changes
 gulp.task('watch', function() {

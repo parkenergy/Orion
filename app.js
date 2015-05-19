@@ -1,13 +1,14 @@
 
 /* Initialize an Express.js application
 ----------------------------------------------------------------------------- */
-var app = require('express')();
+var express = require('express');
+var app = express();
     app.set('port', process.env.PORT || 3000);
     app.set('view engine', 'ejs');
 
 /* Configure middleware for the  application
 ----------------------------------------------------------------------------- */
-    app.use(express.static(path.join(__dirname, '/public'))); //Expose public files
+    app.use(express.static(require('path').join(__dirname, '/public'))); //Expose public files
     app.use(require('compression')()); // gzip response data
 
 /* Include the express routes
@@ -16,6 +17,7 @@ var app = require('express')();
 
 /* Configure the MongoDB database
 ----------------------------------------------------------------------------- */
+var mongoose = require('mongoose');
 var env = process.env.NODE_ENV || 'development';
 switch (env) {
   case "production":
@@ -32,20 +34,25 @@ switch (env) {
     break;
 }
 
-/* Start an Orion server instance
------------------------------------------------------------------------------ */
-var server = http.createServer(app);
-server.listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
-});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
 
+  /* Start an Orion server instance
+  --------------------------------------------------------------------------- */
+  var server = app.listen(3000, function () {
+    var port = server.address().port;
+    var host = server.address().address === "::" ?
+                "localhost" :
+                server.address().address;
 
-var server = app.listen(3000, function () {
+    var Log = require('./helpers/log.js');
+    var log = new Log(db);
+    log.initialize();
 
-  var host = server.address().address;
-  var port = server.address().port;
+    console.log('Orion server listening at http://' + host + ':' + port);
+    console.log('Orion server running in ' + env + ' environment');
 
-  console.log('Orion server listening at http://%s:%s', host, port);
-  console.log('Orion server running in ' + env + ' environment');
+  });
 
 });

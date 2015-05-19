@@ -36,7 +36,7 @@ module.exports = function(app) {
 		res.redirect('/');
 	});
 
-}
+};
 
 
 
@@ -60,20 +60,17 @@ passport.deserializeUser(function (id, done) {
 });
 
 passport.getRealm = function () {
-    var env = process.env.NODE_ENV.toLowerCase();
-    switch (env) {
-      case "production":
-        return 'http://orion.parkenergyservices.com/';
-        break;
-      case "development":
-        return 'http://localhost:3000/';
-        break;
-      case "test":
-        return 'http://localhost:3000/';
-        break;
-      default:
-        throw new Error("OAuth is not configured for " + env + " environment.");
-        break;
+  var env = process.env.NODE_ENV.toLowerCase();
+  switch (env) {
+    case "production":
+      return 'http://orion.parkenergyservices.com/';
+    case "development":
+      return 'http://localhost:3000/';
+    case "test":
+      return 'http://localhost:3000/';
+    default:
+      throw new Error("OAuth is not configured for " + env + " environment.");
+	}
 };
 
 passport.getReturnUrl = function (providerName) {

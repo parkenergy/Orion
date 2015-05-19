@@ -13,7 +13,7 @@ var PartSchema = new mongoose.Schema({
   revision:       { type: Number },
 
   vendors: [{
-    vendor: { type: DataTypes.ObjectId, ref: 'Vendor', index: true },
+    vendor: { type: ObjectId, ref: 'Vendor', index: true },
     vendorPartNumber:       { type: String },
     vendorPartCost:         { type: Number},
     vendorPartDescription:  { type: String }
@@ -21,105 +21,25 @@ var PartSchema = new mongoose.Schema({
 
 });
 
-PartSchema.virtual('smartPartNumber').get(function () {
+// TODO: Add virtual fields for the following values
+
+/* Example
+--------------------------------------------------------------------------------
+PartSchema.virtual('fullName')
+.get(function () {
   return this.name.first + ' ' + this.name.last;
 });
+----------------------------------------------------------------------------- */
 
-PartSchema.virtual
-
-
-      smartPartNumber: function () {
-        return enumerationHelper.smartPartNumber(this);
-      },
-
-      systemName: function () {
-        return enumerationHelper.systemName(this);
-      },
-
-      subsystemName: function () {
-        return enumerationHelper.subsystemName(this);
-      },
-
-      engineName: function () {
-        return enumerationHelper.engineName(this);
-      },
-
-      compressorName: function () {
-        return enumerationHelper.compressorName(this);
-      },
-
-      subsystemConcatenateNumber: function () {
-        return enumerationHelper.subsystemConcatenateNumber(this);
-      },
-
-      subsystemConcatenateName: function () {
-        return enumerationHelper.subsystemConcatenateName(this);
-      },
-
-      concatenateName: function () {
-        return enumerationHelper.concatenateName(this);
-      }
+/* Fields
+--------------------------------------------------------------------------------
+  smartPartNumber
+  systemName
+  subsystemName
+  engineName
+  compressorName
+  subsystemConcatenateName
+  concatenateName
+----------------------------------------------------------------------------- */
 
 module.exports = mongoose.model('Parts', PartSchema);
-
-
-
-
-
-
-
-
-
-    id:  {
-      primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-    },
-
-    //migrated itemCode to vendorPartNumber on 20140821
-    vendorPartNumber: {
-      type: DataTypes.STRING
-    },
-
-    description: {
-      type: DataTypes.STRING
-    },
-
-    //migrated component name on 20140821
-    componentName: {
-      type: DataTypes.STRING
-    },
-
-    system: {
-      type: DataTypes.INTEGER
-    },
-
-    subsystem: {
-      type: DataTypes.INTEGER
-    },
-
-    //migrated engine on 20140821
-    engine: {
-      type: DataTypes.INTEGER
-    },
-
-    // migrated compressor on 20140821
-    compressor: {
-      type: DataTypes.INTEGER
-    },
-
-    component: {
-      type: DataTypes.INTEGER
-    },
-
-    revision: {
-      type:DataTypes.INTEGER
-    },
-
-    quantity: {
-      type: DataTypes.INTEGER
-    },
-
-    cost: {
-      type: DataTypes.FLOAT
-    },

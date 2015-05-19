@@ -10,7 +10,7 @@ var LocationSchema = new mongoose.Schema({
   apiNumber:    { type: String },
 
   locationType: { type: String, enum: ["Lease", "Truck", "Yard"] },
-  customer:     {type: ObjectId, ref: 'Customer', index: true}]
+  customer:     { type: ObjectId, ref: 'Customer', index: true }
 
 });
 
