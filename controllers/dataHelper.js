@@ -24,7 +24,7 @@ DataHelper.prototype.list = function (req, callback) {
     query.createdOn = (req.since instanceof Date) ?
                         { $gte: req.since } :
                         { $gte: dateHelper.oneYearAgo() };
-  };
+  }
 
   // optimization of find operation
   var select = req.select || null;
@@ -84,13 +84,14 @@ DataHelper.prototype.read = function (req, callback) {
 DataHelper.prototype.update = function (req, callback) {
   var self = this;
 
+  var msg = "";
   if (!req.obj) {
-    var msg = 'req.obj cannot be undefined for update operations.';
+    msg = 'req.obj cannot be undefined for update operations.';
     return callback(new Error(msg), null);
   }
 
   if (!req.obj._id) {
-    var msg = 'req.obj._id cannot be undefined for update operations.';
+    msg = 'req.obj._id cannot be undefined for update operations.';
     return callback(new Error(msg), null);
   }
 

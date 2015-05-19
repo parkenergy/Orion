@@ -46,7 +46,7 @@ function handler (fn, req, res, next) {
     if (err) { return next(err); }
     return res.send(data);
   });
-};
+}
 
 /* Exports
 ----------------------------------------------------------------------------- */

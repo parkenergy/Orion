@@ -1,6 +1,6 @@
 /* Includes
 ----------------------------------------------------------------------------- */
-var HookInstaller = require('./hookInstaller.js')
+var HookInstaller = require('./hookInstaller.js');
 var hookInstaller = new HookInstaller();
 
 /* Declaration -- This class wraps console events
@@ -42,8 +42,8 @@ Log.prototype.initialize = function () {
       error('dev_error: ' + data);
     } else {
       self.errors.push(data);
-      var error = new self.db.Error({ data: data});
-      error.save(function (err, data) {
+      var e = new self.db.Error({ data: data});
+      e.save(function (err, data) {
         if (err) return console.error(err); // seriously? This is bad!
       });
     }

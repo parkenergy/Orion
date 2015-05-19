@@ -37,9 +37,11 @@ gulp.task('browserify', function () {
 // ensure back-end code conforms to LINT standards
 gulp.task('back-end-lint', function () {
     return gulp.src([
-      // TODO: fix regex
-        './routes/**/*.js',
+        './controllers/**/*.js',
+        './helpers/**/*.js',
         './models/**/*.js',
+        './routes/**/*.js',
+        './tests/**/*.js'
       ])
       .pipe(jshint())
       .pipe(jshint.reporter('default'));
@@ -91,7 +93,7 @@ gulp.task('mocha', ['scripts'] , function () {
 gulp.task('launchserver', ['mocha'], function () {
   nodemon({ script: 'app.js', ext: 'html js', tasks: ['back-end-lint'] })
     .on('restart', function () {
-      console.log('nodemon restarted the server!')
+      console.log('\n\nChange detected, nodemon restarted the server.\n\n');
     })
 })
 

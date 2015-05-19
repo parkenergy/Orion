@@ -2,7 +2,7 @@
 ----------------------------------------------------------------------------- */
 var DateHelper = function () {
   this.now = new Date();
-}
+};
 
 /* Functions
 ----------------------------------------------------------------------------- */
@@ -53,8 +53,8 @@ DateHelper.prototype.beginningOfTime = function () {
 };
 
 DateHelper.prototype.timeDifferenceMilliseconds = function (date1, date2) {
-  var date1 = (date1 instanceof Date) ? date1 : new Date(this.now);
-  var date2 = (date2 instanceof Date) ? date2 : new Date(this.now);
+  date1 = (date1 instanceof Date) ? date1 : new Date(this.now);
+  date2 = (date2 instanceof Date) ? date2 : new Date(this.now);
   return Math.abs(date1.getTime() - date2.getTime());
 };
 

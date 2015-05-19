@@ -43,7 +43,7 @@ describe('DateHelper', function() {
       expect(result).to.not.equal(date); // objects not equal
       expect(result).to.eql(date); // fields are equal
     });
-  })
+  });
 
   describe('#oneMinuteAgo(fromDate)', function(){
     it('should return one minute prior to now for null argument', function () {

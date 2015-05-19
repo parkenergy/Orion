@@ -1,6 +1,6 @@
 /* Declaration
 ----------------------------------------------------------------------------- */
-var PartEnumerationHelper = function () {}
+var PartEnumerationHelper = function () {};
 
 /* Functions
 ----------------------------------------------------------------------------- */
