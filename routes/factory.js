@@ -6,7 +6,7 @@ var Controller = require('../controllers');
 ----------------------------------------------------------------------------- */
 var RouteFactory = function (app, collection) {
 
-  var controller = new Controller(collection);
+  var controller = Controller(collection);
 
   // RETURNS A LIST OF ELEMENTS IN THE COLLECTION BASED ON req.query DATA
   app.get('/api/' + collection, controller.list);

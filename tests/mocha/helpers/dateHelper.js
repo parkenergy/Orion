@@ -139,15 +139,15 @@ describe('DateHelper', function() {
     it('should return one year prior to now for null argument', function () {
       var dateHelper = new DateHelper();
       var result = dateHelper.oneYearAgo();
-      dateHelper.now.setYear(dateHelper.now.getYear()-1);
+      dateHelper.now.setYear(dateHelper.now.getFullYear()-1);
       expect(result).to.not.equal(dateHelper.now); // objects not equal
       expect(result).to.eql(dateHelper.now); // fields are equal
     });
-    it('should return one month prior to provided date argument ', function () {
+    it('should return one year prior to provided date argument ', function () {
       var date = new Date(0);
       var dateHelper = new DateHelper();
-      var result = dateHelper.oneMonthAgo(date);
-      date.setMonth(date.getMonth()-1);
+      var result = dateHelper.oneYearAgo(date);
+      date.setYear(date.getFullYear()-1);
       expect(result).to.not.equal(date); // objects not equal
       expect(result).to.eql(date); // fields are equal
     });
@@ -432,34 +432,3 @@ describe('DateHelper', function() {
   });
 
 });
-
-
-
-/*
-
-DateHelper.prototype.timeDifferenceMinutes = function (date1, date2) {
-  var seconds = this.timeDifferenceSeconds(date1, date2);
-  return (seconds / 60);
-};
-
-DateHelper.prototype.timeDifferenceHours = function (date1, date2) {
-  var minutes = this.timeDifferenceMinutes(date1, date2);
-  return (minutes / 60);
-};
-
-DateHelper.prototype.timeDifferenceDays = function (date1, date2) {
-  var hours = this.timeDifferenceHours(date1, date2);
-  return (hours / 24);
-};
-
-DateHelper.prototype.timeDifferenceWeeks = function (date1, date2) {
-  var days = this.timeDifferenceDays(date1, date2);
-  return (days / 7);
-};
-
-DateHelper.prototype.timeDifferenceYears = function (date1, date2) {
-  var weeks = this.timeDifferenceWeeks(date1, date2);
-  return (weeks / 52);
-};
-
-*/

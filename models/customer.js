@@ -18,6 +18,11 @@ var CustomerSchema = new mongoose.Schema({
 
 });
 
+CustomerSchema.virtual('createdOn')
+.get(function () {
+  return new Date(this._id.toTimestamp());
+});
+
 /* Exports
 ----------------------------------------------------------------------------- */
 module.exports = mongoose.model('Customers', CustomerSchema);

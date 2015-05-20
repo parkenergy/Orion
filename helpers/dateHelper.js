@@ -44,7 +44,7 @@ DateHelper.prototype.oneMonthAgo = function (fromDate) {
 
 DateHelper.prototype.oneYearAgo = function (fromDate) {
   var date = (fromDate instanceof Date) ? new Date(fromDate) : new Date(this.now);
-  date.setYear(date.getYear() - 1);
+  date.setYear(date.getFullYear() - 1);
   return date;
 };
 
