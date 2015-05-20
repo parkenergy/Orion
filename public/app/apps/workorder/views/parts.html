@@ -1,0 +1,138 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Smart Part Number
+      </th>
+      <th>
+        Vendor Item Code
+      </th>
+      <th>
+        Quantity
+      </th>
+      <th>
+        Part Cost
+      </th>
+      <th>
+        Description
+      </th>
+      <th>
+        Add/Remove
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr ng-repeat="workOrderPart in workorder.workOrderParts">
+      <td>
+        <input type="text" disabled class="form-control"
+        ng-model="workOrderPart.part.smartPartNumber" placeholder="Third Party Item">
+      </td>
+      <td>
+        <input type="text" disabled class="form-control"
+        ng-model="workOrderPart.part.vendorPartNumber" placeholder="Third Party Item">
+      </td>
+      <td>
+        <input type="text" number min="0" custom-validation disabled class="form-control"
+        ng-model="workOrderPart.quantity">
+      </td>
+      <td>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input type="text" number min="0" disabled class="form-control"
+          value="{{workOrderPart.cost | number:2}}">
+        </div>
+      </td>
+      <td>
+        <input type="text" disabled class="form-control"
+        ng-model="workOrderPart.description">
+      </td>
+      <td ng-click="removePart($index)">
+        <button class="btn btn-danger btn-large pull-right">
+          remove
+        </button>
+      </td>
+    </tr>
+
+    <tr ng-hide="newWorkOrderPart.isFreehandPart">
+      <td>
+        <select class="form-control" ng-model="newWorkOrderPart.part"
+        name="newWorkOrderPart.part"
+        ng-options="part as part.smartPartNumber for part in parts">
+      </td>
+      <td>
+        <select class="form-control" ng-model="newWorkOrderPart.part"
+        name="newWorkOrderPart.part"
+        ng-options="part as part.vendorPartNumber group by part.concatenateName for part in parts">
+      </td>
+      <td>
+        <input type="text" number integer-only
+        min="0" custom-validation class="form-control"
+        ng-model="newWorkOrderPart.quantity">
+      </td>
+      <td>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input type="text" number min="0" class="form-control" disabled
+          value="{{newWorkOrderPart.part.cost | number:2}}">
+        </div>
+      </td>
+      <td>
+        <!-- <input type="text" class="form-control" disabled
+        ng-model="newWorkOrderPart.part.description"> -->
+        <input type="text" ng-model="newWorkOrderPart.part"
+        typeahead="part as part.description for part in parts | filter:$viewValue | limitTo:12"
+        class="form-control" placeholder="description"
+        name="newWorkOrderPart.part">
+      </td>
+      <td ng-click="addNewPart()">
+        <button class="btn btn-success btn-large pull-right">
+          add
+        </button>
+      </td>
+    </tr>
+
+    <tr ng-show="newWorkOrderPart.isFreehandPart">
+      <td>
+        <select class="form-control" ng-model="newWorkOrderPart.part"
+        name="newWorkOrderPart.part"
+        ng-options="part as part.smartPartNumber for part in parts"
+        ng-disabled="true">
+      </td>
+      <td>
+        <input type="text"
+          class="form-control"
+          name="newWorkOrderPart.part.vendorPartNumber"
+          placeholder="Vendor Part Number"
+          ng-disabled="true"
+          ng-model="newWorkOrderPart.part.vendorPartNumber">
+      </td>
+      <td>
+        <input type="text" number integer-only
+        min="0" custom-validation class="form-control"
+        ng-model="newWorkOrderPart.quantity">
+      </td>
+      <td>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input type="text" number custom-validation min="0" class="form-control"
+          ng-model="newWorkOrderPart.part.cost">
+        </div>
+      </td>
+      <td>
+        <input type="text"
+        ng-model="newWorkOrderPart.part.description"
+        class="form-control" placeholder="description"
+        name="newWorkOrderPart.part.description">
+      </td>
+      <td ng-click="addNewPart()">
+        <button class="btn btn-success btn-large pull-right">
+          add
+        </button>
+      </td>
+    </tr>
+
+  </tbody>
+
+
+</table>

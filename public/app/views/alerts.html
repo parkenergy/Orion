@@ -1,0 +1,13 @@
+<div ng-repeat="obj in alerts" class="alert alert-{{obj.type}}">
+
+	<div class="alert-text pull-left">
+		{{obj.message}}
+	</div>
+
+	<div class="alert-close pull-right" ng-click="closeAlert(obj)">
+		&times;
+	</div>
+
+	<div class="clearfix"></div>
+
+</div>

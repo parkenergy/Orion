@@ -1,0 +1,72 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+    <p>{{"there are " + servicePartners.length + " service partners"}}</p>
+  </div>
+
+  <div>
+    <button class="btn btn-large btn-success pull-right list-create-button"
+            ng-click="createServicePartner()">
+      New Service Partner
+    </button>
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th ng-click="changeSorting('name')">
+          Name
+          <i ng-show="sort.column === 'name'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('number')">
+          Number
+          <i ng-show="sort.column === 'number'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('hourlyRate')">
+          Hourly Rate
+          <i ng-show="sort.column === 'hourlyRate'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('mileageRate')">
+          Mileage Rate
+          <i ng-show="sort.column === 'mileageRate'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="servicePartner in servicePartners | orderBy:sort.column:sort.descending">
+        <td>{{servicePartner.name}}</td>
+        <td>{{servicePartner.number}}</td>
+        <td>{{servicePartner.hourlyRate}}</td>
+        <td>{{servicePartner.mileageRate}}</td>
+        <td ng-click="editServicePartner(servicePartner.id)">
+          <button class="btn btn-primary btn-large pull-right">
+            edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>

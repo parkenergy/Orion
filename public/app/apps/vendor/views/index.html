@@ -1,0 +1,57 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+    <p>{{"there are " + vendors.length + " vendors"}}</p>
+  </div>
+
+  <div>
+    <button class="btn btn-large btn-success pull-right list-create-button"
+            ng-click="createVendor()">
+      New Vendor
+    </button>
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+
+        <th ng-click="changeSorting('firstName')">
+          Name
+          <i ng-show="sort.column === 'firstName'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('vendorFamily.name')">
+          Vendor Family
+          <i ng-show="sort.column === 'vendorFamily.name'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="vendor in vendors | orderBy:sort.column:sort.descending">
+        <td>{{vendor.name}}</td>
+        <td>{{vendor.vendorFamily.name}}</td>
+        <td ng-click="editVendor(vendor.id)">
+          <button class="btn btn-primary btn-large pull-right">
+            edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>

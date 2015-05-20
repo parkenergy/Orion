@@ -1,0 +1,105 @@
+<style>
+  .dashboard {
+    background: url("images/dashboard.png") no-repeat left top;
+    width: 72%;
+    height: 1100px;
+  }
+</style>
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+    <p>{{message}}</p>
+    <button class="btn btn-large btn-info pull-right"
+    ng-click="toggleHistory()"
+    ng-show="role === 'ADMIN' && workorder.workOrderHistories.length > 0">
+      {{ (!showHistory) ? "Show History" : "Hide History" }}
+    </button>
+  </div>
+
+  <div class="panel panel-default" ng-show="showHistory">
+    <div class="panel-heading">
+      <h3 class="panel-title">Work Order History</h3>
+    </div>
+    <div class="panel-body">
+      <div ng-repeat="history in workorder.workOrderHistories">
+        <strong>{{history.key}}</strong>
+        was changed from
+        <strong>{{history.originalValue}}</strong> to
+        <strong>{{history.updatedValue}}</strong> by
+        <strong>{{history.updatedBy.firstName}}
+        {{history.updatedBy.lastName}}</strong>.
+      </div>
+    </div>
+  </div>
+
+  <accordion close-others="oneAtATime">
+
+    <accordion-group heading="Work Order Information"
+      is-open="accordion.genInfo.open"
+      is-disabled="false">
+      <general-information></general-information>
+    </accordion-group>
+
+    <accordion-group heading="Application, Engine, and Compressor"
+      is-open="accordion.hardware.open"
+      is-disabled="!accordion.genInfo.valid">
+      <hardware></hardware>
+    </accordion-group>
+
+    <accordion-group heading="Types of Work Performed"
+      is-open="accordion.logs.open"
+      is-disabled="!accordion.hardware.valid">
+      <logs></logs>
+    </accordion-group>
+
+    <accordion-group heading="Customer Call Out"
+      is-open="accordion.callOut.open"
+      is-disabled="!accordion.laborCodes.valid"
+      ng-show="workorder.isCallOut">
+      <customer-call-out></customer-call-out>
+    </accordion-group>
+
+    <accordion-group heading="High Pressure / Low Pressure"
+      is-open="accordion.highPressure.open"
+      is-disabled="!accordion.laborCodes.valid"
+      ng-show="workorder.isHighPressure">
+      <pressure></pressure>
+    </accordion-group>
+
+    <accordion-group heading="Parts"
+      is-open="accordion.parts.open"
+      is-disabled="!accordion.logs.valid">
+      <parts></parts>
+    </accordion-group>
+
+  </accordion>
+
+  <div class="col-md-12 overview ">
+
+    <button class="btn btn-primary btn-large pull-right" ng-click="save()"
+    ng-disabled="!accordion.logs.valid || !accordion.parts.valid ||
+                 !accordion.callOut.valid || !accordion.highPressure.valid || submitting || workorder.status === 'APPROVED'">
+      {{submitButtonText}}
+    </button>
+
+    <button class="btn btn-danger btn-large pull-right" ng-click="destroy()"
+    ng-show="workorder.id" ng-disabled='submitting || workorder.status === "APPROVED"'>
+      {{rejectButtonText}}
+    </button>
+
+    <button class="btn btn-info btn-large pull-left" ng-click="toggleAll()"
+    ng-hide="!accordion.laborCodes.valid || !accordion.parts.valid ||
+             !accordion.callOut.valid || !accordion.highPressure.valid">
+       {{ (oneAtATime ? "View" : "Collapse") }} All
+    </button>
+
+  </div>
+
+</div>

@@ -1,0 +1,61 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+  </div>
+
+  <div class="col-md-6">
+
+    <div class="form-group">
+
+      <label for="servicePartner.name">Service Partner Name</label>
+      <input type="text" class="form-control" ng-model="servicePartner.name"
+        name="servicePartner.name" placeholder="Service Partner Name">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="servicePartner.number">Service Partner Number</label>
+      <input type="text" class="form-control" ng-model="servicePartner.number"
+        name="servicePartner.number" placeholder="Service Partner Number">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="servicePartner.hourlyRate">Hourly Rate</label>
+      <input type="text" number min="0" custom-validation class="form-control" ng-model="servicePartner.hourlyRate"
+        name="servicePartner.hourlyRate" placeholder="Service Partner Hourly Rate">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="servicePartner.mileageRate">Mileage Rate</label>
+      <input type="text" number min="0" custom-validation class="form-control" ng-model="servicePartner.mileageRate"
+        name="servicePartner.mileageRate" placeholder="Service Partner Mileage Rate">
+
+    </div>
+
+    <div>
+      <button class="btn btn-large btn-primary pull-right" ng-click="save()"
+              ng-disabled="submitting">
+        Save
+      </button>
+      <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
+        ng-click="destroy()" ng-show="servicePartner.id" ng-disabled="submitting">
+        Delete
+      </button>
+    </div>
+
+  </div>
+
+
+</div>

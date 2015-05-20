@@ -1,0 +1,106 @@
+
+<div class="col-md-6">
+
+  <div class="form-group">
+
+    <label for="transfer.unit.number">Unit Number</label>
+
+    <div class="input-group">
+
+      <input type="text" ng-model="transfer.unit.number"
+      typeahead="unit.number for unit in units | filter:$viewValue | limitTo:8"
+      class="form-control" placeholder="Unit Number" name="transfer.unit.number">
+
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-question-sign"
+        popover-placement="left"
+        Popover-animation="true"
+        popover-trigger="click"
+        popover-title="Can't find the right unit?"
+        popover-template="unitNumberPopover.html"/>
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="transfer.TechnicianId">Technician</label>
+    <select class="form-control" ng-model="transfer.TechnicianId"
+    name="transfer.TechnicianId"
+    ng-options="t.id as (t.firstName + ' ' + t.lastName) for t in technicians"
+    ng-disabled="techniciansLoading"></select>
+  </div>
+
+  <div class="form-group">
+
+    <label for="transfer.date">Date</label>
+
+    <datepicker ng-model="transfer.date" show-weeks="true"
+    class="well well-sm"></datepicker>
+
+  </div>
+
+</div>
+
+
+<div class="col-md-6">
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <label> Transfer Type </label>
+    </div>
+
+    <div class="panel-body">
+
+      <div class="form-group" ng-hide="!transfer.unit.location">
+
+        <label for="transfer.transferType">Unit Move</label>
+        <div ng-repeat="transferType in transfer.transferTypes | filter:filterUnitMove">
+          <input type="radio" ng-model="transfer.transferType"
+          value="{{transferType}}" ng-disabled="!transfer.unit.number">
+          {{transferType}}
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="transfer.transferType">New Set</label>
+        <div ng-repeat="transferType in transfer.transferTypes | filter:filterNewSet">
+          <input type="radio" ng-model="transfer.transferType"
+          value="{{transferType}}" ng-disabled="!transfer.unit.number">
+          {{transferType}}
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="transfer.transferType">Reassignment</label>
+        <div ng-repeat="transferType in transfer.transferTypes | filter:filterReassignment">
+          <input type="radio" ng-model="transfer.transferType"
+          value="{{transferType}}">
+          {{transferType}}
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="transfer.reason">Reason</label>
+        <input type="text" class="form-control" ng-model="transfer.reason"
+        name="transfer.reason"/>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script id="unitNumberPopover.html" type="text/ng-template">
+  <div>The list of units can be found <a href='#/unit'>here</a>.</div>
+</script>

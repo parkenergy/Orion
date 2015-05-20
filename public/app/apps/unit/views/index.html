@@ -1,0 +1,96 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+    <p>{{"there are " + units.length + " units"}}</p>
+  </div>
+
+  <div ng-show="role === 'ADMIN'">
+    <button class="btn btn-large btn-success pull-right list-create-button"
+            ng-click="createUnit()">
+      New Unit
+    </button>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+
+        <th ng-click="changeSorting('number')">
+          Number
+          <i ng-show="sort.column === 'number'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('engineSerial')">
+          Engine Serial
+          <i ng-show="sort.column === 'engineSerial'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('engineModel')">
+          Engine Model
+          <i ng-show="sort.column === 'engineModel'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('compressorSerial')">
+          Compressor Serial
+          <i ng-show="sort.column === 'compressorSerial'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('compressorModel')">
+          Compressor Model
+          <i ng-show="sort.column === 'compressorModel'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('customer.dbaCustomerName')">
+          Customer Name
+          <i ng-show="sort.column === 'customer.dbaCustomerName'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('location.name')">
+          Location
+          <i ng-show="sort.column === 'location.name'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+        <th ng-show="allowEdit">Edit</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="unit in units | orderBy:sort.column:sort.descending">
+        <td>{{unit.number}}</td>
+        <td>{{unit.engineSerial}}</td>
+        <td>{{unit.engineModel}}</td>
+        <td>{{unit.compressorSerial}}</td>
+        <td>{{unit.compressorModel}}</td>
+        <td>{{unit.customer.dbaCustomerName}}</td>
+        <td>{{unit.location.name}}</td>
+        <td>
+          <button ng-show="allowEdit"
+                  class="btn btn-primary btn-large" ng-click="editUnit(unit.id)">
+            edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

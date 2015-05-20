@@ -1,0 +1,81 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+    <p>{{"there are " + vendorparts.length + " vendor parts"}}</p>
+  </div>
+
+  <div>
+    <button class="btn btn-large btn-success pull-right list-create-button"
+            ng-click="createVendorPart()">
+      New Vendor Part
+    </button>
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+
+        <th ng-click="changeSorting('vendorPartNumber')">
+          Vendor Part Number
+          <i ng-show="sort.column === 'vendorPartNumber'" class="glyphicon
+            {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('vendorPartDescription')">
+          Vendor Part Description
+          <i ng-show="sort.column === 'vendorPartDescription'" class="glyphicon
+            {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('vendorPartCost')">
+          Vendor Part Cost
+          <i ng-show="sort.column === 'vendorPartCost'" class="glyphicon
+            {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('part.smartPartNumber')">
+          Smart Part Number
+          <i ng-show="sort.column === 'part.smartPartNumber'" class="glyphicon
+            {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('vendor.name')">
+          Vendor
+          <i ng-show="sort.column === 'vendor.name'" class="glyphicon
+            {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="vendorpart in vendorparts | orderBy:sort.column:sort.descending">
+        <td>{{vendorpart.vendorPartNumber}}</td>
+        <td>{{vendorpart.vendorPartDescription}}</td>
+        <td>${{vendorpart.vendorPartCost}}</td>
+        <td>{{vendorpart.part.smartPartNumber}}</td>
+        <td>{{vendorpart.vendor.name}}</td>
+        <td ng-click="editVendorPart(vendorpart.id)">
+          <button class="btn btn-primary btn-large pull-right">
+            edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>

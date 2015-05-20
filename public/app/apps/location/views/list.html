@@ -1,0 +1,60 @@
+<div>
+  <button class="btn btn-large btn-success pull-right list-create-button"
+          ng-click="createLocation()">
+    New Location
+  </button>
+</div>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th ng-click="changeSorting('name')">
+        Name
+        <i ng-show="sort.column === 'name'" class="glyphicon
+        {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+        </i>
+      </th>
+      <th ng-click="changeSorting('county')">
+        County
+        <i ng-show="sort.column === 'county'" class="glyphicon
+        {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+        </i>
+      </th>
+      <th ng-click="changeSorting('customer.dbaCustomerName')">
+        Customer
+        <i ng-show="sort.column === 'customer.dbaCustomerName'" class="glyphicon
+        {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+        </i>
+      </th>
+      <th ng-click="changeSorting('locationType')">
+        Type
+        <i ng-show="sort.column === 'locationType'" class="glyphicon
+        {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+        </i>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="location in locations | orderBy:sort.column:sort.descending">
+      <td>
+        {{location.name}}
+      </td>
+      <td>
+        {{location.county}}
+      </td>
+      <td>
+        {{location.customer.dbaCustomerName}}
+      </td>
+      <td style="color: {{!location.isLease ? '#CCCCCC' : 'inherit'}}">
+        {{location.locationType}}
+      </td>
+      <td ng-click="editLocation(location.id)">
+        <button class="btn btn-primary btn-large pull-right">
+          edit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

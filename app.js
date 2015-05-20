@@ -53,6 +53,11 @@ db.once('open', function (callback) {
     console.log('Orion server listening at http://' + host + ':' + port);
     console.log('Orion server running in ' + env + ' environment');
 
+    if(env === 'development' && false) { // change to true to load data
+      var DataLoader = require('./_dev_util/dataload');
+      var dataload = new DataLoader();
+    };
+
   });
 
 });

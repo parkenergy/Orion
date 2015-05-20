@@ -1,0 +1,97 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+    <p>{{"there are " + transfers.length + " transfers"}}</p>
+    <div class="form-group">
+
+      <input type="text" class="form-control"
+      ng-model="searchPhrase"
+      name="searchPhrase"
+      placeholder="Search here"
+      ng-keyup="searchTransfers(searchPhrase)">
+
+    </div>
+  </div>
+
+  <div>
+    <button class="btn btn-large btn-success pull-right list-create-button"
+            ng-click="createTransfer()">
+      New Transfer
+    </button>
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+
+        <th ng-click="changeSorting('number')">
+          Transfer Number
+          <i ng-show="sort.column === 'number'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('unit.number')">
+          Unit
+          <i ng-show="sort.column === 'unit.number'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('oldLocation.name')">
+          Old Location
+          <i ng-show="sort.column === 'oldLocation.name'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('newLocation.name')">
+          New Location
+          <i ng-show="sort.column === 'newLocation.name'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('date')">
+          Date
+          <i ng-show="sort.column === 'date'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th ng-click="changeSorting('transferType')">
+          Type
+          <i ng-show="sort.column === 'transferType'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="transfer in transfers | orderBy:sort.column:sort.descending">
+        <td>{{ transfer.number }}</td>
+        <td>{{ transfer.unit.number }}</td>
+        <td>{{ transfer.oldLocation.name }}</td>
+        <td>{{ transfer.newLocation.name }}</td>
+        <td>{{ transfer.date | date:'MM/dd/yyyy'}}</td>
+        <td>{{ transfer.transferType }}</td>
+        <td ng-click="editTransfer(transfer.id)">
+          <button class="btn btn-primary btn-large pull-right">
+            edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,95 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+  </div>
+
+  <div class="col-md-6">
+
+    <div class="form-group">
+
+      <label for="location.name">Location Name</label>
+      <input type="text" class="form-control" ng-model="location.name"
+        name="location.name" placeholder="Location Name">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="location.number">Location Number</label>
+      <input type="text" class="form-control" ng-model="location.number"
+        name="location.number" placeholder="Location Number">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="location.state">Location State</label>
+      <select ng-model="location.state" class="form-control"
+      name="location.state"
+      ng-options="state for state in states">
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="location.county">Location County</label>
+      <select ng-model="location.county" class="form-control"
+      name="location.county"
+      ng-options="county for county in counties">
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="location.CustomerId">Customer</label>
+      <select ng-model="location.CustomerId" class="form-control"
+      name="location.CustomerId"
+      ng-options="customer.id as customer.dbaCustomerName for customer in customers">
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="location.ServicePartnerId">Service Partner</label>
+      <select ng-model="location.ServicePartnerId" class="form-control"
+      name="location.ServicePartnerId"
+      ng-options="sp.id as sp.name for sp in servicePartners">
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="location.locationType">What type of location is this?</label>
+      <select ng-model="location.locationType" class="form-control"
+      name="location.locationType"
+      ng-options="t as t for t in ['Lease', 'Truck', 'Yard']">
+    </select>
+
+    </div>
+
+    <div>
+      <button class="btn btn-large btn-primary pull-right" ng-click="save()"
+              ng-disabled="submitting">
+        Save
+      </button>
+      <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
+        ng-click="destroy()" ng-show="location.id" ng-disabled="submitting">
+        Delete
+      </button>
+    </div>
+
+  </div>
+
+
+</div>

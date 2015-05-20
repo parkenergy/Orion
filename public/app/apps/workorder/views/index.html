@@ -1,0 +1,91 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+    <p>{{"there are " + workorders.length + " workorders"}}</p>
+
+    <div class="form-group">
+
+      <input type="text" class="form-control"
+      ng-model="searchPhrase"
+      name="searchPhrase"
+      placeholder="Search here"
+      ng-keyup="searchWorkorders(searchPhrase)">
+
+    </div>
+  </div>  
+
+  <div>
+    <button class="btn btn-large btn-success pull-right list-create-button"
+            ng-click="createWorkOrder()">
+      New Work Order
+    </button>
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th ng-click="changeSorting('number')">
+          Work Order Number
+          <i ng-show="sort.column === 'number'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+        <th ng-click="changeSorting('unit.location.customer.dbaCustomerName')">
+          Customer
+          <i ng-show="sort.column === 'unit.location.customer.dbaCustomerName'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+        <th ng-click="changeSorting('unit.number')">
+          Unit
+          <i ng-show="sort.column === 'unit.number'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+        <th ng-click="changeSorting('createdBy.firstName')">
+          Created By
+          <i ng-show="sort.column === 'createdBy.firstName'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+        <th ng-click="changeSorting('date')">
+          Date
+          <i ng-show="sort.column === 'date'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+        <th ng-click="changeSorting('status')">
+          Status
+          <i ng-show="sort.column === 'status'" class="glyphicon
+          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
+          </i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="workorder in workorders | orderBy:sort.column:sort.descending">
+        <td>{{workorder.number}}</td>
+        <td>{{workorder.unit.location.customer.dbaCustomerName}}</td>
+        <td>{{workorder.unit.number}}</td>
+        <td>{{workorder.createdBy.firstName+" "+workorder.createdBy.lastName}}</td>
+        <td>{{workorder.date | date:'MM/dd/yyyy'}}</td>
+        <td>{{workorder.status}}</td>
+        <td ng-click="editWorkOrder(workorder.id)">
+          <button class="btn btn-primary btn-large pull-right">
+            edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>

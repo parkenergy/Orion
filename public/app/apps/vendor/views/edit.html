@@ -1,0 +1,131 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+  </div>
+
+  <div class="col-md-6">
+
+    <div class="form-group" ng-hide="vendor.VendorFamilyId === 0">
+
+      <label for="vendor.VendorFamilyId">
+        Vendor Family
+      </label>
+
+      <select class="form-control" ng-model="vendor.VendorFamilyId"
+        ng-options="v.id as v.name for v in vendorFamilies"
+        name="vendor.VendorFamilyId">
+      </select>
+
+    </div>
+
+    <div class="form-group" ng-show="vendor.VendorFamilyId === 0">
+      <label for="vendor.newVendorFamilyName">
+        Vendor Family Name
+      </label>
+      <input type="text" class="form-control"
+      ng-model="vendor.newVendorFamilyName"
+      name="vendor.newVendorFamilyName" placeholder="Vendor Family Name">
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.name">Name</label>
+      <input type="text" class="form-control" ng-model="vendor.name"
+        name="vendor.name" placeholder="Vendor Name">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.contactName">Contact Name</label>
+      <input type="text" class="form-control" ng-model="vendor.contactName"
+      name="vendor.contactName" placeholder="Contact Name">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.contactPhone">Contact Phone</label>
+      <input type="phone" class="form-control" ng-model="vendor.contactPhone"
+      name="vendor.contactPhone">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.contactFax">Contact Fax</label>
+      <input type="phone" class="form-control" ng-model="vendor.contactFax"
+      name="vendor.contactFax">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.contactEmail">Contact Email</label>
+      <input type="email" class="form-control" ng-model="vendor.contactEmail"
+      name="vendor.contactEmail" placeholder="user@domain.ext">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.addressStreet1">Address Line 1</label>
+      <input type="text" class="form-control" ng-model="vendor.addressStreet1"
+      name="vendor.addressStreet1" placeholder="514 Colcord Dr">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.addressStreet2">Address Line 2</label>
+      <input type="text" class="form-control" ng-model="vendor.addressStreet2"
+      name="vendor.addressStreet2" placeholder="suite, unit, building, floor, etc.">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.addressCity">City</label>
+      <input type="text" class="form-control" ng-model="vendor.addressCity"
+      name="vendor.addressCity" placeholder="Oklahoma City">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.addressState">State</label>
+      <input type="text" class="form-control" ng-model="vendor.addressState"
+      name="vendor.addressState" placeholder="Oklahoma">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="vendor.addressZipCode">Zip Code</label>
+      <input type="text" class="form-control" ng-model="vendor.addressZipCode"
+      name="vendor.addressZipCode" placeholder="73115">
+
+    </div>
+
+    <div>
+      <button class="btn btn-large btn-primary pull-right" ng-click="save()"
+              ng-disabled='submitting'>
+        Save
+      </button>
+      <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
+        ng-click="destroy()" ng-show="vendor.id" ng-disabled='submitting'>
+        Delete
+      </button>
+    </div>
+
+  </div>
+
+
+</div>

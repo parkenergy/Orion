@@ -1,0 +1,70 @@
+
+<div class="form-group">
+
+  <label for="transfer.newLocation.name">Location Name</label>
+  <input type="text" class="form-control" ng-model="transfer.newLocation.name"
+    name="transfer.newLocation.name" placeholder="Location Name">
+
+</div>
+
+<div class="form-group">
+
+  <label for="transfer.newLocation.number">Location Number</label>
+  <input type="text" class="form-control" ng-model="transfer.newLocation.number"
+    name="transfer.newLocation.number" placeholder="Location Number">
+
+</div>
+
+<div class="form-group">
+
+  <label for="transfer.newLocation.state">Location State</label>
+  <select ng-model="transfer.newLocation.state" class="form-control"
+  name="transfer.newLocation.state"
+  ng-options="state for state in states">
+  </select>
+
+</div>
+
+<div class="form-group">
+
+  <label for="transfer.newLocation.county">Location County</label>
+  <select ng-model="transfer.newLocation.county" class="form-control"
+  name="transfer.newLocation.county"
+  ng-options="county for county in counties">
+  </select>
+
+</div>
+
+<input type="hidden" ng-model="transfer.newLocation.locationType"
+       name="transfer.newLocation.locationType" value="Lease">
+
+<input type="hidden" ng-model="transfer.newLocation.CustomerId"
+       name="transfer.newLocation.CustomerId"
+       ng-bind="transfer.NewCustomerId">
+
+<input type="hidden" ng-model="transfer.newLocation.ServicePartnerId"
+       name="transfer.newLocation.ServicePartnerId"
+       ng-bind="transfer.NewServicePartnerId">
+
+
+<div class="form-group">
+
+  <label for="transfer.NewServicePartnerId">Service Partner</label>
+
+  <select class="form-control" ng-model="transfer.NewServicePartnerId"
+  ng-options="servicePartner.id as servicePartner.name for servicePartner in servicePartners"
+  name="transfer.NewServicePartnerId"
+  ng-disabled="locationsLoading"></select>
+
+</div>
+
+<div class="form-group">
+
+  <label for="transfer.NewTechnicianId">Technician</label>
+
+  <select class="form-control" ng-model="transfer.NewTechnicianId"
+  ng-options="t.id as (t.firstName + ' ' + t.lastName) for t in newTechnicians"
+  name="transfer.newTechnicianId"
+  ng-disabled="newTechniciansLoading"></select>
+
+</div>

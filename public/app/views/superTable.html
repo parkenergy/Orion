@@ -1,0 +1,87 @@
+
+<div  class="panel panel-default">
+
+  <div class="panel-heading">
+
+    <h1 class="panel-title">{{tableName}}</h1>
+
+    <p> {{ "currently displaying " + oList.length + " " }}
+        {{ tableName.toLowerCase() }} </p>
+
+    <div class="form-group clearfix">
+      <input  type="text"
+              class="form-control pull-right"
+              name="searchPhrase"
+              ng-model="searchPhrase"
+              placeholder="Search here">
+    </div>
+    <!-- end search field -->
+
+  </div>
+
+
+  <div class="panel-body">
+
+    <table class="table table-hover">
+
+      <thead>
+
+        <tr>
+
+          <th ng-repeat="c in displayColumns"
+              ng-click="changeSorting(c.objKey)">
+
+            {{ c.title }}
+
+            <i  ng-show="sort.column == c.objKey"
+                class="glyphicon {{ sort.descending ? 'glyphicon-chevron-up' :
+                                                      'glyphicon-chevron-down'}}">
+            </i>
+
+          </th>
+          <!-- end column headers -->
+
+          <th ng-repeat="b in headerButtons">
+            <button class="btn btn-large btn-success pull-right" ng-click="b.action()">
+              {{ b.title }}
+            </button>
+          </th>
+          <!-- end header buttons -->
+
+        </tr>
+        <!-- end header row -->
+
+      </thead>
+      <!-- end table header -->
+
+      <tbody>
+        <tr ng-click="rowClickAction(obj)"
+            ng-repeat="obj in oList = (objectList
+                                        | filter:searchPhrase
+                                        | orderBy:sort.column:sort.descending)">
+
+          <td ng-repeat="c in displayColumns">
+            {{obj[c.objKey]}}
+          </td>
+          <!-- end row display fields -->
+
+          <td  ng-repeat="b in rowButtons">
+            <button class="btn btn-large btn-primary pull-right" ng-click="b.action(obj)">
+              {{ b.title }}
+            </button>
+          </td>
+          <!-- end row buttons -->
+
+        </tr>
+        <!-- end table row -->
+
+      </tbody>
+      <!-- end tss-table-body -->
+
+    </table>
+
+  </div>
+  <!-- end panel body -->
+
+</div>
+<!-- end panel -->
