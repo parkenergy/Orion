@@ -1,4 +1,4 @@
-angular.module('Orion.Controllers').controller('STCtrl',
+angular.module('Orion.Controllers').controller('SuperTableCtrl',
 ['$scope', 'AlertService', 'LoaderService',
   function ($scope, AlertService, LoaderService) {
 
@@ -28,8 +28,8 @@ angular.module('Orion.Controllers').controller('STCtrl',
       if (!m.objectList || !m.displayColumns) {
         console.log("WARNING!");
         console.log("You failed to provide required data for the directive.");
-        console.log("See TableSortSearch documentation for more info.");
-        var errMessage =  "TableSortSearchCtrl: " +
+        console.log("See super-table documentation for more info.");
+        var errMessage =  "SuperTabelCtrl: " +
                           "Required attributes were not assigned to model.";
         throw new Error(errMessage);
       } else {

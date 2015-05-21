@@ -58,6 +58,10 @@ function ($routeProvider) {
       }
     }
   })
+  .when('/example', {
+    controller: 'ExampleCtrl',
+    templateUrl: '/app/views/example.html'
+  })
   .when('/', {
     controller: 'HomepageCtrl',
     templateUrl: '/app/views/homepage.html'

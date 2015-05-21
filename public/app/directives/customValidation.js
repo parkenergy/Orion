@@ -16,8 +16,9 @@ angular.module('Orion.Directives')
         var originalText = text;
         var isNumber = attr.number !== undefined;
         var isTextOnly = attr.textonly !== undefined;
-        var isNonNegative = attr.nonNegative !== undefined;
-        var isIntegerOnly = attr.integerOnly !== undefined;
+        var isNonNegative = attr.nonNegative === "true";
+        var isIntegerOnly = attr.integerOnly === "true";
+        console.log(attr.integerOnly);
 
         if (isNumber) {
           text = text.replace(/[^-?\d+\.?\d*$]/g,'');

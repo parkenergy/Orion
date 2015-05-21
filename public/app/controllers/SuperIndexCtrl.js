@@ -27,8 +27,7 @@ function ($scope, RedirectService, title, objectList, displayColumns, sort, rowC
     var keys = Object.keys(objectList[0]);
     var key = keys[0];
     if (key == "id") { key = keys[1]; }
-    return { column: [key], descending: [false]
-    }
+    return { column: [key], descending: [false] };
   }
 
   function getRowClickAction () {

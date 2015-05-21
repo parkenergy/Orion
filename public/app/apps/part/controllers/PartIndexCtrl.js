@@ -83,7 +83,7 @@ angular.module('PartApp.Controllers').controller('PartIndexCtrl',
 
       var button = {};
       button.title = "edit";
-      button.action = tableRowAction;
+      button.action = function (obj) { return; }; // we want the same functionality as row click action
 
       arr.push(button);
 

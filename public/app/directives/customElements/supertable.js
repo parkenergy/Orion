@@ -1,13 +1,13 @@
 angular.module('Orion.Directives')
 
-.directive('supertable', ['$window', function ($window) {
+.directive('superTable', ['$window', function ($window) {
   return {
     restrict: 'E',
     scope: {
       model: '='
     },
-    controller: 'STCtrl',
-    templateUrl: '/app/views/superTable.html'
+    controller: 'SuperTableCtrl',
+    templateUrl: '/app/views/customElements/supertable.html'
   };
 }]);
 

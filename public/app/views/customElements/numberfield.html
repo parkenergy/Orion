@@ -1,0 +1,12 @@
+<!-- number-field  -->
+<div class="form-group">
+  <label for="{{data}}">{{labelText}}</label>
+  <input type="text"
+    custom-validation
+    number
+    non-negative="{{nonNegative}}"
+    integer-only="{{integerOnly}}"
+    class="form-control"
+    ng-model="data"
+    name="{{data}}" placeholder="{{placeholderText}}">
+</div>
