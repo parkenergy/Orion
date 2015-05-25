@@ -20,7 +20,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
     resolve: {
       workorder: function($route, $q, WorkOrders) {
         //determine if we're creating or editing a workorder.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           WorkOrders.get({id: id},

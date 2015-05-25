@@ -39,6 +39,21 @@
     data="model.isChecked">
 	</check-box>
 
+	<date-field
+		label-text="Example Date Label"
+    data="model.date">
+	</date-field>
+	{{model.date}}
+
+	<select-list
+		label-text="Example Select Label"
+    data="model.selected"
+		select-field="id"
+		display-field="text"
+		obj-list="list">
+	</select-list>
+	{{model.selected}}
+
 	<super-table model="superTableModel"><super-table>
 
 

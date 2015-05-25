@@ -55,7 +55,7 @@
       <label for="user.ServicePartnerId">Service Partner</label>
       <select class="form-control" ng-model="user.ServicePartnerId"
       name="user.ServicePartnerId"
-      ng-options="servicePartner.id as servicePartner.name for servicePartner in servicePartners">
+      ng-options="servicePartner._id as servicePartner.name for servicePartner in servicePartners">
       </select>
     </div>
 
@@ -72,7 +72,7 @@
         Save
       </button>
       <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
-        ng-click="destroy()" ng-show="user.id" ng-disabled='submitting'>
+        ng-click="destroy()" ng-show="user._id" ng-disabled='submitting'>
         Delete
       </button>
     </div>

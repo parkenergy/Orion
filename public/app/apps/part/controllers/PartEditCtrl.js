@@ -53,9 +53,9 @@ angular.module('PartApp.Controllers').controller('PartEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.part.id) {
+      if ($scope.part._id) {
         // Edit an existing part.
-        Parts.save({id: part.id}, $scope.part,
+        Parts.save({id: part._id}, $scope.part,
           function (response) {
             $location.path("/part");
             $scope.submitting = false;
@@ -70,8 +70,8 @@ angular.module('PartApp.Controllers').controller('PartEditCtrl',
         Parts.save({}, $scope.part,
           function (response) {
             if ($scope.part.unsavedVendorParts && $scope.part.unsavedVendorParts.length > 0) {
-              $scope.part.id = response.id;
-              console.log("part.id: ", $scope.part.id);
+              $scope.part._id = response._id;
+              console.log("part._id: ", $scope.part._id);
               console.log("unsavedVendorParts: ", $scope.part.unsavedVendorParts);
               $scope.saveMultipleVendorParts($scope.part.unsavedVendorParts,
                 function (err) {
@@ -97,7 +97,7 @@ angular.module('PartApp.Controllers').controller('PartEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Parts.delete({id: part.id},
+      Parts.delete({id: part._id},
         function (response) {
           $location.path("/part");
           $scope.submitting = false;
@@ -113,7 +113,7 @@ angular.module('PartApp.Controllers').controller('PartEditCtrl',
       if (vendorParts && vendorParts.length > 0) {
         // save one and recursively call self.
         var vp = vendorParts.pop();
-        vp.PartId = $scope.part.id;
+        vp.PartId = $scope.part._id;
         console.log("vp: ", vp);
         VendorParts.save({}, vp,
           function (response) {

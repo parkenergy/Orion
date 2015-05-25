@@ -12,7 +12,7 @@ angular.module('TransferApp.Services')
       console.log("transfer edit service");
       var self = this;
       if (self.transfer.unit) {
-        var id = self.transfer.unit.id;
+        var id = self.transfer.unit._id;
         var obj = { ServicePartnerId: id, role: "TECHNICIAN" };
         Users.query({ where: obj },
           function (response) {
@@ -39,7 +39,7 @@ angular.module('TransferApp.Services')
 
     TransferEditService.getLocations = function (callback) {
       var self = this;
-      if (self.transfer.newLocation && self.transfer.newLocation.id) {
+      if (self.transfer.newLocation && self.transfer.newLocation._id) {
         Locations.query({ where: { CustomerId: self.transfer.newLocation.CustomerId }},
           function (response) {
             response.push({id: null, name: "Other"});
@@ -103,13 +103,13 @@ angular.module('TransferApp.Services')
       }
       var type = transfer.transferType;
       setTransferStatus(transfer, role, true);
-      transfer.UnitId = transfer.unit.id;
+      transfer.UnitId = transfer.unit._id;
       if (type === "TEST" || type === "CONTRACT") {
-        transfer.NewCustomerId = transfer.newLocation.customer.id;
+        transfer.NewCustomerId = transfer.newLocation.customer._id;
       } else if (type === "TRANSFER" && transfer.isYardTransfer === "false") {
-        transfer.NewCustomerId = transfer.newLocation.customer.id;
+        transfer.NewCustomerId = transfer.newLocation.customer._id;
       }
-      var conditions = transfer.id ? { id: transfer.id } : {};
+      var conditions = transfer._id ? { id: transfer._id } : {};
       Transfers.save(conditions, transfer,
         function (response) { return callback(null, response); },
         function (err) { return callback(err, null); }
@@ -120,13 +120,13 @@ angular.module('TransferApp.Services')
     TransferEditService.destroy = function (transfer, role, callback) {
       setTransferStatus(transfer, role, false);
       if (!transfer.status) {
-        Transfers.delete({ id: transfer.id },
+        Transfers.delete({ id: transfer._id },
           function (response) { return callback(null, response); },
           function (err) { return callback(err, null); }
         );
       } else {
-        transfer.UnitId = transfer.unit.id;
-        Transfers.save({ id: transfer.id }, transfer,
+        transfer.UnitId = transfer.unit._id;
+        Transfers.save({ id: transfer._id }, transfer,
           function (response) { return callback(null, response); },
           function (err) { return callback(err, null); }
         );

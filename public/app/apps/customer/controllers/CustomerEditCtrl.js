@@ -10,9 +10,9 @@ angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.customer.id) {
+      if ($scope.customer._id) {
         // Edit an existing customer.
-        Customers.save({id: customer.id}, $scope.customer,
+        Customers.save({id: customer._id}, $scope.customer,
           function (response) {
             $location.path("/customer");
             $scope.submitting = false;
@@ -39,7 +39,7 @@ angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Customers.delete({id: customer.id},
+      Customers.delete({id: customer._id},
         function (response) {
           $location.path("/customer");
           $scope.submitting = false;

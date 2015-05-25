@@ -4,7 +4,7 @@ angular.module('WorkOrderApp.Services')
   var WorkOrderAccordionService = {};
 
   WorkOrderAccordionService.instantiate = function (workorder) {
-    var isCreate = !workorder.id;
+    var isCreate = !workorder._id;
     return {
       genInfo:      { open: true,      disabled: false, valid: false },
       hardware:     { open: !isCreate, disabled: true,  valid: false },

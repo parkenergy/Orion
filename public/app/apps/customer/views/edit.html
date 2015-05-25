@@ -49,14 +49,14 @@
           Save
         </button>
         <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
-          ng-click="destroy()" ng-show="customer.id">
+          ng-click="destroy()" ng-show="customer._id">
           Delete
         </button>
       </div>
     </div>
   </div>
 
-  <div class="panel panel-default" ng-hide="!customer.id">
+  <div class="panel panel-default" ng-hide="!customer._id">
     <div class="panel-heading">Customer Locations</div>
     <div class="panel-body">
       <location-list></location-list>

@@ -15,7 +15,7 @@
   <label for="transfer.NewLocationId">New Location</label>
 
   <select class="form-control" ng-model="transfer.NewLocationId"
-  ng-options="location.id as location.name for location in locations"
+  ng-options="location._id as location.name for location in locations"
   name="transfer.NewLocationId"
   ng-disabled="locationsLoading"></select>
 
@@ -37,7 +37,7 @@
   <label for="transfer.NewServicePartnerId">New Service Partner</label>
 
   <select class="form-control" ng-model="transfer.NewServicePartnerId"
-  ng-options="servicePartner.id as servicePartner.name for servicePartner in servicePartners"
+  ng-options="servicePartner._id as servicePartner.name for servicePartner in servicePartners"
   name="transfer.NewServicePartnerId"
   ng-disabled="locationsLoading"></select>
 
@@ -49,7 +49,7 @@
   <label for="transfer.NewTechnicianId">New Technician</label>
 
   <select class="form-control" ng-model="transfer.NewTechnicianId"
-  ng-options="t.id as (t.firstName + ' ' + t.lastName) for t in newTechnicians"
+  ng-options="t._id as (t.firstName + ' ' + t.lastName) for t in newTechnicians"
   name="transfer.NewTechnicianId"
   ng-disabled="newTechniciansLoading"></select>
 

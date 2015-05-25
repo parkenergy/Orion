@@ -22,7 +22,7 @@ angular.module('TransferApp.Controllers').controller('TransferInformationCtrl',
           $scope.transfer.unit = angular.copy($scope.units[i]);
           if ($scope.transfer.unit.location) {
             $scope.transfer.oldLocation = $scope.transfer.unit.location;
-            $scope.transfer.OldLocationId = $scope.transfer.unit.location.id;
+            $scope.transfer.OldLocationId = $scope.transfer.unit.location._id;
           }
           if ($scope.transfer.transferType === "REASSIGNMENT") {
             $scope.transfer.OldServicePartnerId = $scope.transfer.unit.ServicePartnerId;
@@ -59,7 +59,7 @@ angular.module('TransferApp.Controllers').controller('TransferInformationCtrl',
   $scope.$watch('transfer.TechnicianId', function (newVal, oldVal) {
     if (newVal !== oldVal) {
       $scope.technicians.forEach(function (element, index, array) {
-        if (element.id === $scope.transfer.TechnicianId) {
+        if (element._id === $scope.transfer.TechnicianId) {
           $scope.transfer.technician = element;
         }
       });

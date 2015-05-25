@@ -11,9 +11,9 @@ angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.location.id) {
+      if ($scope.location._id) {
         // Edit an existing location.
-        Locations.save({id: location.id}, $scope.location,
+        Locations.save({id: location._id}, $scope.location,
           function (response) {
             $location.path("/location");
             $scope.submitting = false;
@@ -40,7 +40,7 @@ angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Locations.delete({id: location.id},
+      Locations.delete({id: location._id},
         function (response) {
           $location.path("/location");
           $scope.submitting = false;

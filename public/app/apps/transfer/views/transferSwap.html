@@ -71,7 +71,7 @@
         <label for="transfer.NewLocationId">New Location</label>
 
         <select class="form-control" ng-model="transfer.NewLocationId"
-        ng-options="location.id as location.name for location in locations"
+        ng-options="location._id as location.name for location in locations"
         name="transfer.NewLocationId"
         ng-disabled="locationsLoading"></select>
 
@@ -82,7 +82,7 @@
         <label for="transfer.SwapUnitId">New Unit</label>
 
         <select class="form-control" ng-model="transfer.SwapUnitId"
-        ng-options="unit.id as unit.number for unit in swapUnits"
+        ng-options="unit._id as unit.number for unit in swapUnits"
         name="transfer.SwapUnitId"
         ng-disabled="unitsLoading"></select>
 

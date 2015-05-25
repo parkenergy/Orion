@@ -19,7 +19,7 @@ angular.module('PartApp').config(['$routeProvider',
     resolve: {
       part: function($route, $q, Parts) {
         //determine if we're creating or editing a part.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Parts.get({id: id},

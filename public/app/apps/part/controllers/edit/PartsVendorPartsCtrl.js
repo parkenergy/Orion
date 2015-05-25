@@ -8,7 +8,7 @@ function ($scope, $location, AlertService, VendorParts) {
 
     // we need to pull the name off of the vendor for UI reasons
     var vendorName = $scope.vendors.filter(function (v) {
-      return v.id === vp.VendorId;
+      return v._id === vp.VendorId;
     })[0].name;
 
     // add fill it out the way it's loaded from the DB
@@ -46,7 +46,7 @@ function ($scope, $location, AlertService, VendorParts) {
   // Removes a vendor part from the database
   $scope.removeVendorPart = function (index) {
     var removedPart = $scope.part.vendorParts.splice(index,1);
-    var id = removedPart[0].id;
+    var id = removedPart[0]._id;
     $scope.submitting = true;
     VendorParts.delete({id: id},
       function (response) {
@@ -63,14 +63,14 @@ function ($scope, $location, AlertService, VendorParts) {
 
   // Routes user to vendor part edit page.
   $scope.editVendorPart = function (index) {
-    var id = $scope.part.vendorParts[index].id;
+    var id = $scope.part.vendorParts[index]._id;
     console.log(id);
     $location.path("/vendorpart/edit/" + id);
   };
 
   $scope.emptyVendorPart = function () {
     return {
-      PartId: $scope.part.id,
+      PartId: $scope.part._id,
       VendorId: null,
       vendorPartNumber: null,
       vendorPartDescription: $scope.part.description,

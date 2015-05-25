@@ -90,7 +90,7 @@
     </button>
 
     <button class="btn btn-danger btn-large pull-right" ng-click="destroy()"
-    ng-show="workorder.id" ng-disabled='submitting || workorder.status === "APPROVED"'>
+    ng-show="workorder._id" ng-disabled='submitting || workorder.status === "APPROVED"'>
       {{rejectButtonText}}
     </button>
 

@@ -12,9 +12,9 @@ angular.module('UnitApp.Controllers').controller('UnitEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.unit.id) {
+      if ($scope.unit._id) {
         // Edit an existing unit.
-        Units.save({id: unit.id}, $scope.unit,
+        Units.save({id: unit._id}, $scope.unit,
           function (response) {
             $location.path("/unit");
             $scope.submitting = false;
@@ -41,7 +41,7 @@ angular.module('UnitApp.Controllers').controller('UnitEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Units.delete({id: unit.id},
+      Units.delete({id: unit._id},
         function (response) {
           $location.path("/unit");
           $scope.submitting = false;
@@ -92,7 +92,7 @@ angular.module('UnitApp.Controllers').controller('UnitEditCtrl',
     function filterLocations (locations) {
       var newLocations = locations.filter(function (location) {
         var shouldBeIncluded = true;
-        if (!$scope.unit.id) {
+        if (!$scope.unit._id) {
           if (location.isYard() === false) {
             shouldBeIncluded = false;
           }

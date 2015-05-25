@@ -4,7 +4,7 @@ angular.module('TransferApp.Services')
   var TransferAccordionService = {};
 
   TransferAccordionService.instantiate = function (transfer) {
-    var isCreate = !transfer.id;
+    var isCreate = !transfer._id;
     return {
       genInfo:    { open: true,      disabled: false, valid: false },
       transfer:   { open: !isCreate, disabled: true,  valid: false },

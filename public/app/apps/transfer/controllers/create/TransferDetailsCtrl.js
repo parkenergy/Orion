@@ -50,8 +50,8 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
           for (var i = 0, len = $scope.customers.length; i < len; i++) {
             if ($scope.customers[i].dbaCustomerName === newVal) {
               $scope.transfer.newLocation.customer = angular.copy($scope.customers[i]);
-              customerId = $scope.transfer.newLocation.customer.id;
-              $scope.transfer.newLocation.CustomerId = $scope.transfer.newLocation.customer.id;
+              customerId = $scope.transfer.newLocation.customer._id;
+              $scope.transfer.newLocation.CustomerId = $scope.transfer.newLocation.customer._id;
             }
           }
 
@@ -73,7 +73,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
 
         } else if (type === "RELEASE" || type === "SWAP") {
           // customer is preselcted, just load the yards for the service partner
-          var servicePartnerId = $scope.transfer.newLocation.servicePartner.id;
+          var servicePartnerId = $scope.transfer.newLocation.servicePartner._id;
           Locations.query({ where: { ServicePartnerId: servicePartnerId } },
             function (response) {
               $scope.locationsLoading = false;
@@ -95,7 +95,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
     function (newVal, oldVal) {
       if (newVal !== oldVal && newVal !== null) {
         for (var i = 0, len = $scope.locations.length; i < len; i++) {
-          if ($scope.locations[i].id === newVal) {
+          if ($scope.locations[i]._id === newVal) {
             $scope.allowFreehandLocation = false;
             $scope.transfer.freehandLocationCustomerId = null;
             $scope.transfer.freehandLocationName = null;
@@ -120,7 +120,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
         $scope.allowFreehandLocation = true;
         if ($scope.transfer.newLocation) {
           $scope.transfer.freehandLocationCustomerId =
-            $scope.transfer.newLocation.customer.id;
+            $scope.transfer.newLocation.customer._id;
         }
       }
     }, true);
@@ -179,7 +179,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
           $scope.technicians = $scope.newTechnicians;
           $scope.transfer.TechnicianId = newVal;
           $scope.transfer.technician = $scope.technicians.filter(function (m) {
-            return m.id === newVal;
+            return m._id === newVal;
           })[0];
         }
       }
@@ -188,7 +188,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
     $scope.$watch('transfer.SwapUnitId', function (newVal, oldVal) {
       if (newVal !== oldVal && $scope.swapUnits) {
         for (var i = 0, len = $scope.swapUnits.length; i < len; i++) {
-          if ($scope.swapUnits[i].id === newVal) {
+          if ($scope.swapUnits[i]._id === newVal) {
             $scope.transfer.swapUnit = angular.copy($scope.swapUnits[i]);
           }
         }

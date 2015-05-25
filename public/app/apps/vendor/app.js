@@ -19,7 +19,7 @@ angular.module('VendorApp').config(['$routeProvider',
     resolve: {
       vendor: function($route, $q, Vendors) {
         //determine if we're creating or editing a vendor.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Vendors.get({id: id},

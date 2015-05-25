@@ -6,42 +6,6 @@
 
   <header></header>
 
-  <div class="jumbotron">
-    <h1 class="page-title">{{title}}</h1>
-    <p>{{"there are " + customers.length + " customers"}}</p>
-  </div>
-
-  <div>
-    <button class="btn btn-large btn-success pull-right list-create-button"
-            ng-click="createCustomer()">
-      New Customer
-    </button>
-  </div>
-
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th ng-click="changeSorting('dbaCustomerName')">
-          Name
-          <i ng-show="sort.column === 'dbaCustomerName'" class="glyphicon
-          {{sort.descending?'glyphicon-chevron-up':'glyphicon-chevron-down'}}">
-          </i>
-        </th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="customer in customers | orderBy:sort.column:sort.descending">
-        <td> {{customer.dbaCustomerName}} </td>
-        <td ng-click="editCustomer(customer.id)">
-          <button class="btn btn-primary btn-large pull-right">
-            edit
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
+  <super-table model="superTableModel"><super-table>
 
 </div>

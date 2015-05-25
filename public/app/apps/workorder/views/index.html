@@ -78,7 +78,7 @@
         <td>{{workorder.createdBy.firstName+" "+workorder.createdBy.lastName}}</td>
         <td>{{workorder.date | date:'MM/dd/yyyy'}}</td>
         <td>{{workorder.status}}</td>
-        <td ng-click="editWorkOrder(workorder.id)">
+        <td ng-click="editWorkOrder(workorder._id)">
           <button class="btn btn-primary btn-large pull-right">
             edit
           </button>

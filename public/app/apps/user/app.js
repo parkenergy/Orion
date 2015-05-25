@@ -19,7 +19,7 @@ angular.module('UserApp').config(['$routeProvider',
     resolve: {
       user: function($route, $q, Users) {
         //determine if we're creating or editing a user.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Users.get({id: id},

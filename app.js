@@ -8,6 +8,8 @@ var app = express();
 
 /* Configure middleware for the  application
 ----------------------------------------------------------------------------- */
+    app.use(require('serve-favicon')(__dirname + '/public/images/favicon.ico'));
+    app.use(require('body-parser')());
     app.use(express.static(require('path').join(__dirname, '/public'))); //Expose public files
     app.use(require('compression')()); // gzip response data
 

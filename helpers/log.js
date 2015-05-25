@@ -23,7 +23,7 @@ Log.prototype.initialize = function () {
 
   console.hook('log', function(data, log) {
     if (self.env === 'development' || self.env === 'test') {
-      log('dev_log: ' + data);
+      log('dev_log: ', data);
     } else {
       self.logs.push(data);
     }
@@ -31,7 +31,7 @@ Log.prototype.initialize = function () {
 
   console.hook('warn', function(data, warn) {
     if (self.env === 'development' || self.env === 'test') {
-      warn('dev_warn: ' + data);
+      warn('dev_warn: ', data);
     } else {
       self.warns.push(data);
     }
@@ -39,7 +39,7 @@ Log.prototype.initialize = function () {
 
   console.hook('error', function(data, error) {
     if (self.env === 'development' || self.env === 'test') {
-      error('dev_error: ' + data);
+      error('dev_error: ', data);
     } else {
       self.errors.push(data);
       var e = new self.db.Error({ data: data});

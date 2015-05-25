@@ -30,7 +30,7 @@
     <label for="workorder.TechnicianId">Technician</label>
     <select class="form-control" ng-model="workorder.TechnicianId"
     name="workorder.TechnicianId"
-    ng-options="t.id as (t.firstName + ' ' + t.lastName) for t in technicians"
+    ng-options="t._id as (t.firstName + ' ' + t.lastName) for t in technicians"
     ng-disabled="techniciansLoading"></select>
   </div>
 

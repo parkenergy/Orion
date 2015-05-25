@@ -19,7 +19,7 @@ angular.module('UnitApp').config(['$routeProvider',
     resolve: {
       unit: function($route, $q, Units) {
         //determine if we're creating or editing a unit.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Units.get({id: id},

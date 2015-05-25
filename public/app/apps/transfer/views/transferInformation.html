@@ -28,7 +28,7 @@
     <label for="transfer.TechnicianId">Technician</label>
     <select class="form-control" ng-model="transfer.TechnicianId"
     name="transfer.TechnicianId"
-    ng-options="t.id as (t.firstName + ' ' + t.lastName) for t in technicians"
+    ng-options="t._id as (t.firstName + ' ' + t.lastName) for t in technicians"
     ng-disabled="techniciansLoading"></select>
   </div>
 

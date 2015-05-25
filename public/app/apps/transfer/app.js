@@ -20,7 +20,7 @@ angular.module('TransferApp').config(['$routeProvider',
     resolve: {
       transfer: function($route, $q, Transfers) {
         //determine if we're creating or editing a transfer.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Transfers.get({id: id},

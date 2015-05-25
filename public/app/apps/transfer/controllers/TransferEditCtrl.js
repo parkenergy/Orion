@@ -23,7 +23,7 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
 
         // Set up the accordion.
         $scope.accordion = TransferAccordionService.instantiate($scope.transfer);
-        $scope.oneAtATime = !$scope.transfer.id;
+        $scope.oneAtATime = !$scope.transfer._id;
         $timeout(function () { $scope.loadingData = false; }, 1000);
       }
     });

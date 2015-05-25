@@ -20,7 +20,7 @@
 
 <div class="col-md-12" ng-hide="transfer.reassignMultipleUnits">
 
-  <div class="alert alert-warning" role="alert" ng-show="!transfer.unit.id">
+  <div class="alert alert-warning" role="alert" ng-show="!transfer.unit._id">
     If you are not reassigning multiple units, please select a unit to reassign.
   </div>
 
@@ -30,7 +30,7 @@
 
       <label for="transfer.OldServicePartnerId">Old Service Partner</label>
       <select class="form-control" ng-model="transfer.OldServicePartnerId"
-      ng-options="servicePartner.id as servicePartner.name for servicePartner in servicePartners"
+      ng-options="servicePartner._id as servicePartner.name for servicePartner in servicePartners"
       name="transfer.OldServicePartnerId" ng-disabled="true"></select>
 
     </div>
@@ -44,9 +44,9 @@
       <label for="transfer.NewServicePartnerId">New Service Partner</label>
 
       <select class="form-control" ng-model="transfer.NewServicePartnerId"
-      ng-options="servicePartner.id as servicePartner.name for servicePartner in servicePartners"
+      ng-options="servicePartner._id as servicePartner.name for servicePartner in servicePartners"
       name="transfer.NewServicePartnerId"
-      ng-disabled="!transfer.unit.id"></select>
+      ng-disabled="!transfer.unit._id"></select>
 
     </div>
 
@@ -55,9 +55,9 @@
       <label for="transfer.NewTechnicianId">New Technician</label>
 
       <select class="form-control" ng-model="transfer.NewTechnicianId"
-      ng-options="t.id as (t.firstName + ' ' + t.lastName) for t in newTechnicians"
+      ng-options="t._id as (t.firstName + ' ' + t.lastName) for t in newTechnicians"
       name="transfer.newTechnicianId"
-      ng-disabled="!transfer.unit.id || !transfer.NewServicePartnerId"></select>
+      ng-disabled="!transfer.unit._id || !transfer.NewServicePartnerId"></select>
 
     </div>
 
@@ -72,7 +72,7 @@
 
       <label for="transfer.OldServicePartnerId">Old Service Partner</label>
       <select class="form-control" ng-model="transfer.OldServicePartnerId"
-      ng-options="servicePartner.id as servicePartner.name for servicePartner in servicePartners"
+      ng-options="servicePartner._id as servicePartner.name for servicePartner in servicePartners"
       name="transfer.OldServicePartnerId"></select>
 
     </div>
@@ -86,7 +86,7 @@
       <label for="transfer.NewServicePartnerId">New Service Partner</label>
 
       <select class="form-control" ng-model="transfer.NewServicePartnerId"
-      ng-options="servicePartner.id as servicePartner.name for servicePartner in servicePartners"
+      ng-options="servicePartner._id as servicePartner.name for servicePartner in servicePartners"
       name="transfer.NewServicePartnerId"
       ng-disabled="locationsLoading"></select>
 
@@ -97,7 +97,7 @@
       <label for="transfer.NewTechnicianId">New Technician</label>
 
       <select class="form-control" ng-model="transfer.NewTechnicianId"
-      ng-options="t.id as (t.firstName + ' ' + t.lastName) for t in newTechnicians"
+      ng-options="t._id as (t.firstName + ' ' + t.lastName) for t in newTechnicians"
       name="transfer.NewTechnicianId"
       ng-disabled="newTechniciansLoading"></select>
 

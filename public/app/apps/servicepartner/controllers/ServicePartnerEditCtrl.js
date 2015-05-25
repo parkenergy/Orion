@@ -9,9 +9,9 @@ angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerEditCt
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.servicePartner.id) {
+      if ($scope.servicePartner._id) {
         // Edit an existing servicePartner.
-        ServicePartners.save({id: servicePartner.id}, $scope.servicePartner,
+        ServicePartners.save({id: servicePartner._id}, $scope.servicePartner,
           function (response) {
             $location.path("/servicepartner");
             $scope.submitting = false;
@@ -38,7 +38,7 @@ angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerEditCt
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      ServicePartners.delete({id: servicePartner.id},
+      ServicePartners.delete({id: servicePartner._id},
         function (response) {
           $location.path("/servicepartner");
           $scope.submitting = false;

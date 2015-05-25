@@ -85,7 +85,7 @@
         <td>{{ transfer.newLocation.name }}</td>
         <td>{{ transfer.date | date:'MM/dd/yyyy'}}</td>
         <td>{{ transfer.transferType }}</td>
-        <td ng-click="editTransfer(transfer.id)">
+        <td ng-click="editTransfer(transfer._id)">
           <button class="btn btn-primary btn-large pull-right">
             edit
           </button>

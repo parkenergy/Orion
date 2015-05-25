@@ -17,7 +17,7 @@
         Vendor
       </label>
       <select class="form-control" ng-model="vendorpart.VendorId"
-        ng-options="v.id as v.name for v in vendors"
+        ng-options="v._id as v.name for v in vendors"
         name="vendorpart.VendorId">
       </select>
     </div>
@@ -27,7 +27,7 @@
         Part
       </label>
       <select class="form-control" ng-model="vendorpart.PartId"
-        ng-options="p.id as (p.smartPartNumber + ' -- ' + p.description)
+        ng-options="p._id as (p.smartPartNumber + ' -- ' + p.description)
                     group by p.concatenateName for p in parts"
         name="vendorpart.PartId">
       </select>
@@ -71,7 +71,7 @@
         Save
       </button>
       <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
-        ng-click="destroy()" ng-show="vendorpart.id" ng-disabled='submitting'>
+        ng-click="destroy()" ng-show="vendorpart._id" ng-disabled='submitting'>
         Delete
       </button>
     </div>

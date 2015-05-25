@@ -85,7 +85,7 @@
 
     </div>
 
-    <div class="form-group" ng-hide="!part.id">
+    <div class="form-group" ng-hide="!part._id">
 
       <label for="part.component">Component</label>
       <input type="text" number min="0" custom-validation class="form-control"
@@ -116,7 +116,7 @@
         Save
       </button>
       <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
-        ng-click="destroy()" ng-show="part.id" ng-disabled="submitting"
+        ng-click="destroy()" ng-show="part._id" ng-disabled="submitting"
         ng-show="role='ADMIN' || role='CORPORATE'">
         Delete
       </button>

@@ -14,9 +14,9 @@ angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.vendor.id) {
+      if ($scope.vendor._id) {
         // Edit an existing vendor.
-        Vendors.save({id: vendor.id}, $scope.vendor,
+        Vendors.save({id: vendor._id}, $scope.vendor,
           function (response) {
             $location.path("/vendor");
             $scope.submitting = false;
@@ -43,7 +43,7 @@ angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Vendors.delete({id: vendor.id},
+      Vendors.delete({id: vendor._id},
         function (response) {
           $location.path("/vendor");
           $scope.submitting = false;

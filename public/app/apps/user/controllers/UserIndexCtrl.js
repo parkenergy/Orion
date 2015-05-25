@@ -33,7 +33,7 @@ angular.module('UserApp.Controllers').controller('UserIndexCtrl',
     }
 
     var tableRowAction = function (obj) {
-      $scope.editUser(obj.id);
+      $scope.editUser(obj._id);
     };
 
     var tableHeaderAction = function (obj) {

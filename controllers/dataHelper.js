@@ -45,21 +45,24 @@ var DataHelper = function (collection) {
 
     create: function (req, callback) {
 
+      console.log(req.query);
+      console.log(req.body);
+
       if (!req.query) {
         console.warn("req.query should be defined for create operations.");
       }
 
-      if (!req.obj) {
-        var msg = 'req.obj cannot be undefined for create operations.';
+      if (!req.body) {
+        var msg = 'req.body cannot be undefined for create operations.';
         return callback(new Error(msg), null);
       }
 
-      var query = req.query || req.obj; // default to all fields
+      var query = req.query || req.body; // default to all fields
 
       // findOrCreate from query parameter (http://stackoverflow.com/a/16362833)
       collection.findOneAndUpdate(
         query,
-        req.obj,
+        req.body,
         { upsert: true, new: true } // insert the document if it does not exist
       ).exec(callback);
     },
@@ -78,31 +81,31 @@ var DataHelper = function (collection) {
 
     update: function (req, callback) {
       var msg = "";
-      if (!req.obj) {
-        msg = 'req.obj cannot be undefined for update operations.';
+      if (!req.body) {
+        msg = 'req.body cannot be undefined for update operations.';
         return callback(new Error(msg), null);
       }
-      if (!req.obj._id) {
-        msg = 'req.obj._id cannot be undefined for update operations.';
+      if (!req.body._id) {
+        msg = 'req.body._id cannot be undefined for update operations.';
         return callback(new Error(msg), null);
       }
 
       // findOrCreate from query parameter (http://stackoverflow.com/a/16362833)
       collection.findOneAndUpdate({
-        query: { id: req.obj._id },
-        update: req.obj,
+        query: { id: req.body._id },
+        update: req.body,
         new: true,   // return new doc if one is upserted
         upsert: true // insert the document if it does not exist
       }).exec(callback);
     },
 
     destroy: function (req, callback) {
-      if (!req.obj._id) {
-        msg = 'req.obj._id cannot be undefined for destroy operations.';
+      if (!req.body._id) {
+        msg = 'req.body._id cannot be undefined for destroy operations.';
         return callback(new Error(msg), null);
       }
       // findOrCreate from query parameter (http://stackoverflow.com/a/16362833)
-      collection.findOne(req.obj._id)
+      collection.findOne(req.body._id)
         .remove(select)
         .exec(callback);
     }

@@ -3,7 +3,7 @@
   <label for="transfer.NewServicePartnerId">New Service Partner</label>
 
   <select class="form-control" ng-model="transfer.NewServicePartnerId"
-  ng-options="servicePartner.id as servicePartner.name for servicePartner in servicePartners"
+  ng-options="servicePartner._id as servicePartner.name for servicePartner in servicePartners"
   name="transfer.NewServicePartnerId"
   ng-disabled="locationsLoading"></select>
 
@@ -14,7 +14,7 @@
   <label for="transfer.NewLocationId">New Location</label>
 
   <select class="form-control" ng-model="transfer.NewLocationId"
-  ng-options="location.id as location.name for location in locations"
+  ng-options="location._id as location.name for location in locations"
   name="transfer.NewLocationId"
   ng-disabled="locationsLoading"></select>
 

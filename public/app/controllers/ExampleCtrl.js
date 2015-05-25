@@ -7,6 +7,8 @@ angular.module('Orion.Controllers').controller('ExampleCtrl',
 
 	$scope.model = {}; // standard model wrapper
 
+	$scope.list = [{id: 1, text: 'a'}, {id: 2, text: 'b'}, {id: 3, text: 'c'}];
+
 	/* Watch an element for change event
 	--------------------------------------------------------------------------- */
 	$scope.$watch('model.textField', function (newval, oldval) {

@@ -19,7 +19,7 @@ angular.module('VendorPartApp').config(['$routeProvider',
     resolve: {
       vendorpart: function($route, $q, VendorParts) {
         //determine if we're creating or editing a vendorpart.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           VendorParts.get({id: id},

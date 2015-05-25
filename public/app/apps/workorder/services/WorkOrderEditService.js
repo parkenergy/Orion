@@ -67,8 +67,8 @@ angular.module('WorkOrderApp.Services')
 
       if (confirm(text)) {
         setWorkOrderStatus(workorder, role, true);
-        workorder.UnitId = workorder.unit.id;
-        conditions = workorder.id ? { id: workorder.id } : {};
+        workorder.UnitId = workorder.unit._id;
+        conditions = workorder._id ? { id: workorder._id } : {};
         WorkOrders.save(conditions, workorder,
           function (response) { return callback(null, response); },
           function (err) { return callback(err, null); }
@@ -78,8 +78,8 @@ angular.module('WorkOrderApp.Services')
       }
     } else {
       setWorkOrderStatus(workorder, role, true);
-      workorder.UnitId = workorder.unit.id;
-      conditions = workorder.id ? { id: workorder.id } : {};
+      workorder.UnitId = workorder.unit._id;
+      conditions = workorder._id ? { id: workorder._id } : {};
       WorkOrders.save(conditions, workorder,
         function (response) { return callback(null, response); },
         function (err) { return callback(err, null); }
@@ -94,13 +94,13 @@ angular.module('WorkOrderApp.Services')
     setWorkOrderStatus(workorder, role, false);
     console.log(workorder.status);
     if (!workorder.status) {
-      WorkOrders.delete({ id: workorder.id },
+      WorkOrders.delete({ id: workorder._id },
         function (response) { return callback(null, response); },
         function (err) { return callback(err, null); }
       );
     } else {
-      workorder.UnitId = workorder.unit.id;
-      WorkOrders.save({ id: workorder.id }, workorder,
+      workorder.UnitId = workorder.unit._id;
+      WorkOrders.save({ id: workorder._id }, workorder,
         function (response) { return callback(null, response); },
         function (err) { return callback(err, null); }
       );

@@ -6,15 +6,17 @@ angular.module('Orion', [
   'Orion.Controllers',
   'Orion.Directives',
   'Orion.Services',
-  'CustomerApp',
-  'LocationApp',
-  'PartApp',
-  'ServicePartnerApp',
-  'TransferApp',
-  'UnitApp',
-  'UserApp',
-  'VendorApp',
-  'VendorPartApp',
+  'AreaApp',
+  'CompressorApp',
+  // 'CountyApp',
+  // 'CustomerApp',
+  // 'EngineApp',
+  // 'LocationApp',
+  // 'PartApp',
+  // 'StateApp',
+  // 'UnitApp',
+  // 'UserApp',
+  // 'VendorApp',
   'WorkOrderApp',
   'ui.bootstrap',
   'ui.utils'
@@ -28,33 +30,17 @@ function ($routeProvider) {
     templateUrl: '/app/views/redirecting.html',
   })
   .when('/myaccount', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'MyAccountCtrl',
     templateUrl: '/app/views/myaccount.html',
     resolve: {
       workorders: function($route, $q, WorkOrders) {
         var deffered = $q.defer();
-        var now = new Date();
-        var DaysAgo30 = now.setDate(now.getDate()-30);
-        var temp;
-        WorkOrders.query({limit: 50, where: {status: "SUBMITTED"}},
-          function (response) {
-            return deffered.resolve(response);
-            //temp = response;
-            // WorkOrders.query({limit: 200, where: { updatedAt: {gte: DaysAgo30}, status: "APPROVED" } },
-            //   function (response) {
-            //     temp = temp.concat(response);
-            //     return deffered.resolve(temp);
-            //   },
-            //   function (err) { return deffered.reject(err); }
-            // );
-          },
+        WorkOrders.query({skip: 0, limit: 50},
+          function (response) { return deffered.resolve(response); },
           function (err) { return deffered.reject(err); }
         );
         return deffered.promise;
-      },
-      role: function ($route, $q, role) {
-        return role.get();
       }
     }
   })
@@ -129,6 +115,8 @@ angular.module('Orion.Controllers').controller('ExampleCtrl',
 	$scope.message = "this page shows how to build this app";
 
 	$scope.model = {}; // standard model wrapper
+
+	$scope.list = [{id: 1, text: 'a'}, {id: 2, text: 'b'}, {id: 3, text: 'c'}];
 
 	/* Watch an element for change event
 	--------------------------------------------------------------------------- */
@@ -258,12 +246,11 @@ angular.module('Orion.Controllers').controller('HomepageCtrl',
 }]);
 
 angular.module('Orion.Controllers').controller('MyAccountCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders', 'role',
-  function ($scope, $route, $location, AlertService, LoaderService, workorders, role) {
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders',
+  function ($scope, $route, $location, AlertService, LoaderService, workorders) {
 
     $scope.title = "My Account";
     $scope.workorders = workorders;
-    $scope.role = role;
 
     $scope.createWorkOrder = function () {
       $location.path('/workorder/create');
@@ -473,257 +460,6 @@ function ($scope, RedirectService, title, objectList, displayColumns, sort, rowC
       }
     ];
   }
-
-}]);
-
-/**
- * This service handles server side error responses for the whole app.
- * If a route has needsLogin: true, this will ensure the user is logged in.
- */
-
-angular.module('Orion.Services')
-.factory('Handler401', ['$q', '$cookies', '$window', '$injector', '$location',
-function ($q, $cookies, $window, $injector, $location) {
-
-  // Make them log in again.
-  function logInAgain() {
-    var url = $window.location.toString().split('#'),
-        returnUrl = url[0],
-        fragment = url[1];
-
-    $location
-    .search('returnUrl', returnUrl)
-    .search('fragment', fragment)
-    .path('/login');
-  }
-
-  // Pass an $http and $route.current.
-  // Set the cookies if the user is logged in!
-  function checkAuthorization(httpService, currentRoute) {
-    var deferred = $q.defer();
-
-    if ($cookies.userId !== null &&
-        $cookies.userId !== undefined &&
-        $cookies.userId !== 0 &&
-        $cookies.userId !== "undefined") {
-          deferred.resolve($cookies.userId);
-    } else {
-
-      httpService.get('/authorized').success(function (user) {
-        if (user !== '0' && user !== undefined && user !== null && user !== "undefined") {
-          $cookies.userId = user.id;
-          $cookies.userName = user.firstName + " " + user.lastName;
-          deferred.resolve($cookies.userId);
-        } else {
-          delete $cookies.userId;
-          delete $cookies.user;
-          deferred.reject("Unauthorized");
-        }
-      }).error(function (err) {
-        delete $cookies.userId;
-        delete $cookies.user;
-        deferred.reject(err);
-      });
-
-    }
-
-    return deferred.promise;
-
-  }
-
-  return {
-
-    // Cool hax, bro.
-    // Inject $http and $route to get around circular dependencies.
-    // On each request, we want to check the user's cookie is set.
-    request: function(config) {
-      return $injector.invoke(function ($http, $route) {
-        if ($route.current.needsLogin === true) {
-
-          $route.current.needsLogin = false; //prevent infinite callback loop.
-
-          checkAuthorization($http, $route.current)
-          .then(function (resolveValue) {
-            console.log("Resolve Value: ", resolveValue);
-          }, function (rejectionReason) {
-            console.log("Rejection Reason: ", rejectionReason);
-            logInAgain();
-          });
-        }
-
-        return config || $q.when(config);
-
-      });
-    },
-
-    requestError: function(rejection) {
-      logInAgain();
-      return $q.reject(rejection);
-    },
-
-    response: function(response) {
-      return response || $q.when(response);
-    },
-
-    // If the user is not logged in on the server side,
-    // we're returning a 401 error code, so this will catch that.
-    responseError: function(rejection) {
-      if (rejection.status === 401) { logInAgain(); }
-      return $q.reject(rejection);
-    }
-  };
-}]);
-
-angular.module('Orion.Services')
-.factory('AlertService', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
-
-  var AlertService = {};
-  // create an array of alerts available globally
-  $rootScope.alerts = [];
-
-  AlertService.add = function (type, message, timeout) {
-    if(!timeout) { timeout = 5000; }
-    if (timeout < 100) { timeout *= 1000; }
-    var alert = {'type': type, 'message': message};
-    $rootScope.alerts.push(alert);
-    $timeout(function () {
-      AlertService.closeAlert(alert);
-    }, timeout);
-  };
-
-  AlertService.closeAlert = function (alert) {
-    var indexOfAlert = $rootScope.alerts.indexOf(alert);
-    AlertService.closeAlertIndex(indexOfAlert);
-  };
-
-  AlertService.closeAlertIndex = function (index) {
-    $rootScope.alerts.splice(index, 1);
-  };
-
-  return AlertService;
-
-}]);
-
-angular.module('Orion.Services')
-.factory('LoaderService', ['$rootScope', function ($rootScope) {
-
-  var LoaderService = {};
-  $rootScope.showLoader = false;
-
-  LoaderService.show = function() {
-    $rootScope.showLoader = true;
-  };
-
-  LoaderService.hide = function() {
-    $rootScope.showLoader = false;
-  };
-
-  return LoaderService;
-
-}]);
-
-angular.module('Orion.Services')
-.factory('RedirectService', ['$location', function ($location) {
-
-  var RedirectService = {};
-
-  RedirectService.getEditRedirectFn = function (model) {
-    return function (obj) {
-      var id = obj ? obj.id : undefined;
-      $location.path("/" + model + "/edit/" + (id || ""));
-    };
-  };
-
-  RedirectService.getIndexRedirectFn = function (model) {
-    return function () { $location.path("/" + model); };
-  };
-
-  return RedirectService;
-
-}]);
-
-/**
- * These are resources. By default, a resource has these methods:
- * get({id: X}) GET -> /api/objects/X
- * save({}, newInfo) POST -> /api/objects/
- * save({id: X}, newInfo) POST (obj.$save()) -> /api/objects/X
- * query() get -> /api/objects
- * remove({id: X}) POST -> /api/objects/X
- * delete({id: X}) POST -> /api/objects/X
- */
-
-angular.module('Orion.Services')
-
-.factory('Areas', ['$resource', function ($resource) {
-  return $resource('/api/areas/:id', {id: '@id'});
-}])
-
-.factory('Compressors', ['$resource', function ($resource) {
-  return $resource('/api/compressors/:id', {id: '@id'});
-}])
-
-.factory('Counties', ['$resource', function ($resource) {
-  return $resource('/api/counties/:id', {id: '@id'});
-}])
-
-.factory('Customers', ['$resource', function ($resource) {
-  return $resource('/api/customers/:id', {id: '@id'});
-}])
-
-.factory('Engines', ['$resource', function ($resource) {
-  return $resource('/api/engines/:id', {id: '@id'});
-}])
-
-.factory('Locations', ['$resource', function ($resource) {
-  return $resource('/api/locations/:id', {id: '@id'});
-}])
-
-.factory('Parts', ['$resource', function ($resource) {
-  return $resource('/api/parts/:id', {id: '@id'});
-}])
-
-.factory('States', ['$resource', function ($resource) {
-  return $resource('/api/states/:id', {id: '@id'});
-}])
-
-.factory('Units', ['$resource', function ($resource) {
-  return $resource('/api/units/:id', {id: '@id'});
-}])
-
-.factory('Users', ['$resource', function ($resource) {
-  return $resource('/api/users/:id', {id: '@id'});
-}])
-
-.factory('Vendors', ['$resource', function ($resource) {
-  return $resource('/api/vendors/:id', {id: '@id'});
-}])
-
-.factory('WorkOrders', ['$resource', function ($resource) {
-  return $resource('/api/workorders/:id', {id: '@id'});
-}]);
-
-angular.module('Orion.Services')
-.factory('role', ['$q', '$http', function ($q, $http) {
-
-  var role = {};
-
-  role.get = function () {
-    var deferred = $q.defer();
-
-    var url = '/api/role';
-
-    $http.get(url)
-    .success(function (response) {
-      deferred.resolve(response);
-    })
-    .error(function (err) {
-      deferred.reject(err);
-    });
-
-    return deferred.promise;
-  };
-
-  return role;
 
 }]);
 
@@ -1003,6 +739,416 @@ angular.module('Orion.Directives')
 
 */
 
+/**
+ * This service handles server side error responses for the whole app.
+ * If a route has needsLogin: true, this will ensure the user is logged in.
+ */
+
+angular.module('Orion.Services')
+.factory('Handler401', ['$q', '$cookies', '$window', '$injector', '$location',
+function ($q, $cookies, $window, $injector, $location) {
+
+  // Make them log in again.
+  function logInAgain() {
+    var url = $window.location.toString().split('#'),
+        returnUrl = url[0],
+        fragment = url[1];
+
+    $location
+    .search('returnUrl', returnUrl)
+    .search('fragment', fragment)
+    .path('/login');
+  }
+
+  // Pass an $http and $route.current.
+  // Set the cookies if the user is logged in!
+  function checkAuthorization(httpService, currentRoute) {
+    var deferred = $q.defer();
+
+    if ($cookies.userId !== null &&
+        $cookies.userId !== undefined &&
+        $cookies.userId !== 0 &&
+        $cookies.userId !== "undefined") {
+          deferred.resolve($cookies.userId);
+    } else {
+
+      httpService.get('/authorized').success(function (user) {
+        if (user !== '0' && user !== undefined && user !== null && user !== "undefined") {
+          $cookies.userId = user.id;
+          $cookies.userName = user.firstName + " " + user.lastName;
+          deferred.resolve($cookies.userId);
+        } else {
+          delete $cookies.userId;
+          delete $cookies.user;
+          deferred.reject("Unauthorized");
+        }
+      }).error(function (err) {
+        delete $cookies.userId;
+        delete $cookies.user;
+        deferred.reject(err);
+      });
+
+    }
+
+    return deferred.promise;
+
+  }
+
+  return {
+
+    // Cool hax, bro.
+    // Inject $http and $route to get around circular dependencies.
+    // On each request, we want to check the user's cookie is set.
+    request: function(config) {
+      return $injector.invoke(function ($http, $route) {
+        if ($route.current.needsLogin === true) {
+
+          $route.current.needsLogin = false; //prevent infinite callback loop.
+
+          checkAuthorization($http, $route.current)
+          .then(function (resolveValue) {
+            console.log("Resolve Value: ", resolveValue);
+          }, function (rejectionReason) {
+            console.log("Rejection Reason: ", rejectionReason);
+            logInAgain();
+          });
+        }
+
+        return config || $q.when(config);
+
+      });
+    },
+
+    requestError: function(rejection) {
+      logInAgain();
+      return $q.reject(rejection);
+    },
+
+    response: function(response) {
+      return response || $q.when(response);
+    },
+
+    // If the user is not logged in on the server side,
+    // we're returning a 401 error code, so this will catch that.
+    responseError: function(rejection) {
+      if (rejection.status === 401) { logInAgain(); }
+      return $q.reject(rejection);
+    }
+  };
+}]);
+
+angular.module('Orion.Services')
+.factory('AlertService', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
+
+  var AlertService = {};
+  // create an array of alerts available globally
+  $rootScope.alerts = [];
+
+  AlertService.add = function (type, message, timeout) {
+    if(!timeout) { timeout = 5000; }
+    if (timeout < 100) { timeout *= 1000; }
+    var alert = {'type': type, 'message': message};
+    $rootScope.alerts.push(alert);
+    $timeout(function () {
+      AlertService.closeAlert(alert);
+    }, timeout);
+  };
+
+  AlertService.closeAlert = function (alert) {
+    var indexOfAlert = $rootScope.alerts.indexOf(alert);
+    AlertService.closeAlertIndex(indexOfAlert);
+  };
+
+  AlertService.closeAlertIndex = function (index) {
+    $rootScope.alerts.splice(index, 1);
+  };
+
+  return AlertService;
+
+}]);
+
+angular.module('Orion.Services')
+.factory('LoaderService', ['$rootScope', function ($rootScope) {
+
+  var LoaderService = {};
+  $rootScope.showLoader = false;
+
+  LoaderService.show = function() {
+    $rootScope.showLoader = true;
+  };
+
+  LoaderService.hide = function() {
+    $rootScope.showLoader = false;
+  };
+
+  return LoaderService;
+
+}]);
+
+angular.module('Orion.Services')
+.factory('RedirectService', ['$location', function ($location) {
+
+  var RedirectService = {};
+
+  RedirectService.getEditRedirectFn = function (model) {
+    return function (obj) {
+      var id = obj ? obj.id : undefined;
+      $location.path("/" + model + "/edit/" + (id || ""));
+    };
+  };
+
+  RedirectService.getIndexRedirectFn = function (model) {
+    return function () { $location.path("/" + model); };
+  };
+
+  return RedirectService;
+
+}]);
+
+/**
+ * These are resources. By default, a resource has these methods:
+ * get({id: X}) GET -> /api/objects/X
+ * save({}, newInfo) POST -> /api/objects/
+ * save({id: X}, newInfo) POST (obj.$save()) -> /api/objects/X
+ * query() get -> /api/objects
+ * remove({id: X}) POST -> /api/objects/X
+ * delete({id: X}) POST -> /api/objects/X
+ */
+
+angular.module('Orion.Services')
+
+.factory('Areas', ['$resource', function ($resource) {
+  return $resource('/api/areas/:id', {id: '@id'});
+}])
+
+.factory('Compressors', ['$resource', function ($resource) {
+  return $resource('/api/compressors/:id', {id: '@id'});
+}])
+
+.factory('Counties', ['$resource', function ($resource) {
+  return $resource('/api/counties/:id', {id: '@id'});
+}])
+
+.factory('Customers', ['$resource', function ($resource) {
+  return $resource('/api/customers/:id', {id: '@id'});
+}])
+
+.factory('Engines', ['$resource', function ($resource) {
+  return $resource('/api/engines/:id', {id: '@id'});
+}])
+
+.factory('Locations', ['$resource', function ($resource) {
+  return $resource('/api/locations/:id', {id: '@id'});
+}])
+
+.factory('Parts', ['$resource', function ($resource) {
+  return $resource('/api/parts/:id', {id: '@id'});
+}])
+
+.factory('States', ['$resource', function ($resource) {
+  return $resource('/api/states/:id', {id: '@id'});
+}])
+
+.factory('Units', ['$resource', function ($resource) {
+  return $resource('/api/units/:id', {id: '@id'});
+}])
+
+.factory('Users', ['$resource', function ($resource) {
+  return $resource('/api/users/:id', {id: '@id'});
+}])
+
+.factory('Vendors', ['$resource', function ($resource) {
+  return $resource('/api/vendors/:id', {id: '@id'});
+}])
+
+.factory('WorkOrders', ['$resource', function ($resource) {
+  return $resource('/api/workorders/:id', {id: '@id'});
+}]);
+
+angular.module('Orion.Services')
+.factory('role', ['$q', '$http', function ($q, $http) {
+
+  var role = {};
+
+  role.get = function () {
+    var deferred = $q.defer();
+
+    var url = '/api/role';
+
+    $http.get(url)
+    .success(function (response) {
+      deferred.resolve(response);
+    })
+    .error(function (err) {
+      deferred.reject(err);
+    });
+
+    return deferred.promise;
+  };
+
+  return role;
+
+}]);
+
+angular.module('Orion.Controllers').controller('SuperTableCtrl',
+['$scope', 'AlertService', 'LoaderService',
+  function ($scope, AlertService, LoaderService) {
+
+    $scope.changeSorting = function (column) {
+      var sort = $scope.sort;
+      if (sort.column == column) {
+        sort.descending = !sort.descending;
+      } else {
+        sort.column = column;
+        sort.descending = false;
+      }
+    };
+
+    /* -------------------------------------------------------------------------
+    CONFIGURATION / ON LOAD
+    ------------------------------------------------------------------------- */
+    $scope.getDefaultSort = function () {
+      var column = [];
+      for (var key in $scope.displayColumns) { column.push(key.toString()); }
+      $scope.defaultSort = { column: column, descending: [false] };
+    };
+
+    $scope.onLoad = function () {
+      var m = $scope.model;
+
+      // if the required fields are not present, bail out
+      if (!m.objectList || !m.displayColumns) {
+        console.log("WARNING!");
+        console.log("You failed to provide required data for the directive.");
+        console.log("See super-table documentation for more info.");
+        var errMessage =  "SuperTabelCtrl: " +
+                          "Required attributes were not assigned to model.";
+        throw new Error(errMessage);
+      } else {
+        $scope.tableName = m.tableName || "My Table Name";
+
+        // required variables
+        $scope.objectList = m.objectList;
+        $scope.displayColumns = m.displayColumns;
+
+        // optional variables
+        $scope.rowClickAction = m.rowClickAction;
+        $scope.headerButtons = m.headerButtons;
+        $scope.rowButtons = m.rowButtons;
+        $scope.sort = m.sort || $scope.getDefaultSort();
+
+      }
+    };
+
+    // call on load
+    (function () { $scope.onLoad(); })();
+
+}]);
+
+angular.module('AreaApp.Controllers', []);
+angular.module('AreaApp.Directives', []);
+angular.module('AreaApp.Services', ['ngResource', 'ngCookies']);
+
+angular.module('AreaApp', [
+  'AreaApp.Controllers',
+  'AreaApp.Directives',
+  'AreaApp.Services',
+]);
+
+
+angular.module('AreaApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
+
+  .when('/area/edit/:id?', {
+    controller: 'AreaEditCtrl',
+    templateUrl: '/app/apps/area/views/edit.html',
+    resolve: {
+      area: function($route, $q, Areas) {
+        //determine if we're creating or editing a area.
+        var id = $route.current.params._id || 0;
+        if (id) {
+          var deffered = $q.defer();
+          Areas.get({id: id},
+            function (response) { return deffered.resolve(response); },
+            function (err) { return deffered.reject(err); }
+          );
+          return deffered.promise;
+        } else {
+          return null;
+        }
+      }
+    }
+  })
+
+  .when('/area', {
+    controller: 'AreaIndexCtrl',
+    templateUrl: '/app/apps/area/views/index.html',
+    resolve: {
+      areas: function($route, $q, Areas) {
+        var deffered = $q.defer();
+        Areas.query({},
+          function (response) { return deffered.resolve(response); },
+          function (err) { return deffered.reject(err); }
+        );
+        return deffered.promise;
+      }
+    }
+  });
+}]);
+
+angular.module('CompressorApp.Controllers', []);
+angular.module('CompressorApp.Directives', []);
+angular.module('CompressorApp.Services', ['ngResource', 'ngCookies']);
+
+angular.module('CompressorApp', [
+  'CompressorApp.Controllers',
+  'CompressorApp.Directives',
+  'CompressorApp.Services',
+]);
+
+
+angular.module('CompressorApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
+
+  .when('/compressor/edit/:id?', {
+    controller: 'CompressorEditCtrl',
+    templateUrl: '/app/apps/compressor/views/edit.html',
+    resolve: {
+      compressor: function($route, $q, Compressors) {
+        //determine if we're creating or editing a compressor.
+        var id = $route.current.params._id || 0;
+        if (id) {
+          var deffered = $q.defer();
+          Compressors.get({id: id},
+            function (response) { return deffered.resolve(response); },
+            function (err) { return deffered.reject(err); }
+          );
+          return deffered.promise;
+        } else {
+          return null;
+        }
+      }
+    }
+  })
+
+  .when('/compressor', {
+    controller: 'CompressorIndexCtrl',
+    templateUrl: '/app/apps/compressor/views/index.html',
+    resolve: {
+      compressors: function($route, $q, Compressors) {
+        var deffered = $q.defer();
+        Compressors.query({},
+          function (response) { return deffered.resolve(response); },
+          function (err) { return deffered.reject(err); }
+        );
+        return deffered.promise;
+      }
+    }
+  });
+}]);
+
 angular.module('CustomerApp.Controllers', []);
 angular.module('CustomerApp.Directives', []);
 angular.module('CustomerApp.Services', ['ngResource', 'ngCookies']);
@@ -1024,7 +1170,7 @@ angular.module('CustomerApp').config(['$routeProvider',
     resolve: {
       customer: function($route, $q, Customers) {
         //determine if we're creating or editing a customer.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Customers.get({id: id},
@@ -1039,7 +1185,7 @@ angular.module('CustomerApp').config(['$routeProvider',
       locations: function($route, $q, Locations) {
         //determine if we're creating or editing a customer.
         //if editing show the locations; otherwise, nothing.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Locations.query({where: {CustomerId: id}},
@@ -1091,7 +1237,7 @@ angular.module('LocationApp').config(['$routeProvider',
     resolve: {
       location: function($route, $q, Locations) {
         //determine if we're creating or editing a location.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Locations.get({id: id},
@@ -1159,7 +1305,7 @@ angular.module('PartApp').config(['$routeProvider',
     resolve: {
       part: function($route, $q, Parts) {
         //determine if we're creating or editing a part.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Parts.get({id: id},
@@ -1225,7 +1371,7 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
     resolve: {
       servicePartner: function($route, $q, ServicePartners) {
         //determine if we're creating or editing a servicePartner.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           ServicePartners.get({id: id},
@@ -1278,7 +1424,7 @@ angular.module('TransferApp').config(['$routeProvider',
     resolve: {
       transfer: function($route, $q, Transfers) {
         //determine if we're creating or editing a transfer.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Transfers.get({id: id},
@@ -1374,7 +1520,7 @@ angular.module('UnitApp').config(['$routeProvider',
     resolve: {
       unit: function($route, $q, Units) {
         //determine if we're creating or editing a unit.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Units.get({id: id},
@@ -1437,7 +1583,7 @@ angular.module('UserApp').config(['$routeProvider',
     resolve: {
       user: function($route, $q, Users) {
         //determine if we're creating or editing a user.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Users.get({id: id},
@@ -1518,7 +1664,7 @@ angular.module('VendorApp').config(['$routeProvider',
     resolve: {
       vendor: function($route, $q, Vendors) {
         //determine if we're creating or editing a vendor.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Vendors.get({id: id},
@@ -1581,7 +1727,7 @@ angular.module('VendorPartApp').config(['$routeProvider',
     resolve: {
       vendorpart: function($route, $q, VendorParts) {
         //determine if we're creating or editing a vendorpart.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           VendorParts.get({id: id},
@@ -1653,7 +1799,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
     resolve: {
       workorder: function($route, $q, WorkOrders) {
         //determine if we're creating or editing a workorder.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           WorkOrders.get({id: id},
@@ -1740,6 +1886,19 @@ angular.module('Orion.Directives')
 }]);
 
 angular.module('Orion.Directives')
+.directive('dateField', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/views/customElements/datefield.html',
+    scope: {
+      labelText: '@',
+      data: '='
+    }
+  };
+}]);
+
+
+angular.module('Orion.Directives')
 .directive('numberField', [function() {
   return {
     restrict: 'E',
@@ -1763,6 +1922,21 @@ angular.module('Orion.Directives')
       data: '=',
       nonNegative: '@',
       integerOnly: '@',
+    }
+  };
+}]);
+
+angular.module('Orion.Directives')
+.directive('selectList', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/views/customElements/selectlist.html',
+    scope: {
+      labelText: '@',
+      data: '=',
+      selectField: '@',
+      displayField: '@',
+      objList: '='
     }
   };
 }]);
@@ -1902,58 +2076,260 @@ angular.module('Orion.Directives')
   };
 }]);
 
-angular.module('Orion.Controllers').controller('SuperTableCtrl',
-['$scope', 'AlertService', 'LoaderService',
-  function ($scope, AlertService, LoaderService) {
+angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Areas', 'area',
+  function ($scope, $route, $location, AlertService, LoaderService, Areas, area) {
 
-    $scope.changeSorting = function (column) {
-      var sort = $scope.sort;
-      if (sort.column == column) {
-        sort.descending = !sort.descending;
+    $scope.title = area ? "Edit " + area.name : "Create a new area";
+
+    $scope.area = area;
+    $scope.locations = area ? area.locations : null;
+
+    $scope.save = function () {
+      $scope.submitting = true;
+      if ($scope.area._id) {
+        // Edit an existing area.
+        Areas.save({_id: $scope.area._id}, $scope.area,
+          function (response) {
+            $location.path("/area");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
       } else {
-        sort.column = column;
-        sort.descending = false;
+        // Create a new area.
+        Areas.save({name: $scope.area.name}, $scope.area,
+          function (response) {
+            $location.path("/area");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
       }
     };
 
-    /* -------------------------------------------------------------------------
-    CONFIGURATION / ON LOAD
-    ------------------------------------------------------------------------- */
-    $scope.getDefaultSort = function () {
-      var column = [];
-      for (var key in $scope.displayColumns) { column.push(key.toString()); }
-      $scope.defaultSort = { column: column, descending: [false] };
+    $scope.destroy = function () {
+      $scope.submitting = true;
+      Areas.delete({id: area._id},
+        function (response) {
+          $location.path("/area");
+          $scope.submitting = false;
+        },
+        function (err) {
+          AlertService.add("error", err);
+          $scope.submitting = false;
+        }
+      );
     };
 
-    $scope.onLoad = function () {
-      var m = $scope.model;
+}]);
 
-      // if the required fields are not present, bail out
-      if (!m.objectList || !m.displayColumns) {
-        console.log("WARNING!");
-        console.log("You failed to provide required data for the directive.");
-        console.log("See super-table documentation for more info.");
-        var errMessage =  "SuperTabelCtrl: " +
-                          "Required attributes were not assigned to model.";
-        throw new Error(errMessage);
+angular.module('AreaApp.Controllers').controller('AreaIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'areas',
+  function ($scope, $route, $location, AlertService, LoaderService, areas) {
+
+    $scope.title = "Areas";
+
+    $scope.areas = areas;
+
+    $scope.editArea = function (id) {
+      $location.path("/area/edit/" + (id || ""));
+    };
+
+    $scope.createArea = function () {
+      $scope.editArea();
+    };
+
+    	/* Table
+    	--------------------------------------------------------------------------- */
+      $scope.superTableModel = {
+        tableName: "Areas", // displayed at top of page
+        objectList: getObjectList(), // objects to be shown in list
+        displayColumns: getTableDisplayColumns(),
+    		rowClickAction: null, // takes a function that accepts an obj param
+        rowButtons: getTableRowButtons(), // an array of button object (format below)
+        headerButtons: getTableHeaderButtons(), // an array of button object (format below)
+    		sort: getTableSort()
+      };
+
+    	function getObjectList () {
+    		return areas;
+    	}
+
+      function getTableDisplayColumns () {
+        return [ // which columns need to be displayed in the table
+          { title: "Name", objKey: "name" },
+          { title: "# Locations", objKey: "locations.length" },
+        ];
+      }
+
+      function rowClickAction (obj) { // takes the row object
+        $scope.editArea(obj._id);
+      }
+
+      function getTableRowButtons () {
+        var arr = [];
+        var button = {};
+        button.title = "edit";
+        button.action = rowClickAction;
+        arr.push(button);
+        return arr;
+      }
+
+      function tableHeaderAction () { // takes no parameters
+    		$scope.createArea();
+      }
+
+      function getTableHeaderButtons() {
+        var arr = [];
+        var button = {};
+        button.title = "new area";
+        button.action = tableHeaderAction;
+        arr.push(button);
+        return arr;
+      }
+
+      function getTableSort () {
+        return {
+          column: ["name"],
+          descending: [false],
+        };
+      }
+
+}]);
+
+angular.module('CompressorApp.Controllers').controller('CompressorEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Compressors', 'compressor', 'locations',
+  function ($scope, $route, $location, AlertService, LoaderService, Compressors, compressor, locations) {
+
+    $scope.title = compressor ? "Edit " + compressor.name : "Create a new compressor";
+
+    $scope.compressor = compressor;
+
+    $scope.save = function () {
+      $scope.submitting = true;
+      if ($scope.compressor._id) {
+        // Edit an existing compressor.
+        Compressors.save({id: $scope.compressor._id}, $scope.compressor,
+          function (response) {
+            $location.path("/compressor");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
       } else {
-        $scope.tableName = m.tableName || "My Table Name";
-
-        // required variables
-        $scope.objectList = m.objectList;
-        $scope.displayColumns = m.displayColumns;
-
-        // optional variables
-        $scope.rowClickAction = m.rowClickAction;
-        $scope.headerButtons = m.headerButtons;
-        $scope.rowButtons = m.rowButtons;
-        $scope.sort = m.sort || $scope.getDefaultSort();
-
+        // Create a new compressor.
+        Compressors.save({name: $scope.compressor.name}, $scope.compressor,
+          function (response) {
+            $location.path("/compressor");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
       }
     };
 
-    // call on load
-    (function () { $scope.onLoad(); })();
+    $scope.destroy = function () {
+      $scope.submitting = true;
+      Compressors.delete({id: compressor._id},
+        function (response) {
+          $location.path("/compressor");
+          $scope.submitting = false;
+        },
+        function (err) {
+          AlertService.add("error", err);
+          $scope.submitting = false;
+        }
+      );
+    };
+
+}]);
+
+angular.module('CompressorApp.Controllers').controller('CompressorIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'compressors',
+  function ($scope, $route, $location, AlertService, LoaderService, compressors) {
+
+    $scope.title = "Compressors";
+
+    $scope.compressors = compressors;
+
+    $scope.editCompressor = function (id) {
+      $location.path("/compressor/edit/" + (id || ""));
+    };
+
+    $scope.createCompressor = function () {
+      $scope.editCompressor();
+    };
+
+  	/* Table
+  	--------------------------------------------------------------------------- */
+    $scope.superTableModel = {
+      tableName: "Compressors", // displayed at top of page
+      objectList: getObjectList(), // objects to be shown in list
+      displayColumns: getTableDisplayColumns(),
+  		rowClickAction: null, // takes a function that accepts an obj param
+      rowButtons: getTableRowButtons(), // an array of button object (format below)
+      headerButtons: getTableHeaderButtons(), // an array of button object (format below)
+  		sort: getTableSort()
+    };
+
+  	function getObjectList () {
+  		return compressors;
+  	}
+
+    function getTableDisplayColumns () {
+      return [ // which columns need to be displayed in the table
+        { title: "Serial #", objKey: "serial" },
+        { title: "Model", objKey: "model" },
+        { title: "Hours", objKey: "compressorHours" },
+        { title: "Unit", objKey: "unit.number"}
+      ];
+    }
+
+    function rowClickAction (obj) { // takes the row object
+      $scope.editCompressor(obj._id);
+    }
+
+    function getTableRowButtons () {
+      var arr = [];
+      var button = {};
+      button.title = "edit";
+      button.action = rowClickAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function tableHeaderAction () { // takes no parameters
+  		$scope.createCompressor();
+    }
+
+    function getTableHeaderButtons() {
+      var arr = [];
+      var button = {};
+      button.title = "new compressor";
+      button.action = tableHeaderAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function getTableSort () {
+      return {
+        column: ["serial"],
+        descending: [false],
+      };
+    }
 
 }]);
 
@@ -1969,9 +2345,9 @@ angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.customer.id) {
+      if ($scope.customer._id) {
         // Edit an existing customer.
-        Customers.save({id: customer.id}, $scope.customer,
+        Customers.save({id: customer._id}, $scope.customer,
           function (response) {
             $location.path("/customer");
             $scope.submitting = false;
@@ -1998,7 +2374,7 @@ angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Customers.delete({id: customer.id},
+      Customers.delete({id: customer._id},
         function (response) {
           $location.path("/customer");
           $scope.submitting = false;
@@ -2033,28 +2409,61 @@ angular.module('CustomerApp.Controllers').controller('CustomerIndexCtrl',
       descending: false,
     };
 
-    $scope.changeSorting = function (column) {
-      var sort = $scope.sort;
-      if (sort.column == column) {
-        sort.descending = !sort.descending;
-      } else {
-        sort.column = column;
-        sort.descending = false;
-      }
+  	/* Table
+  	--------------------------------------------------------------------------- */
+    $scope.superTableModel = {
+      tableName: "Customers", // displayed at top of page
+      objectList: getObjectList(), // objects to be shown in list
+      displayColumns: getTableDisplayColumns(),
+  		rowClickAction: null, // takes a function that accepts an obj param
+      rowButtons: getTableRowButtons(), // an array of button object (format below)
+      headerButtons: getTableHeaderButtons(), // an array of button object (format below)
+  		sort: getTableSort()
     };
 
-}]);
+  	function getObjectList () {
+  		return customers;
+  	}
 
-angular.module('TransferApp.Directives')
-
-.directive('locationList', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/app/apps/location/views/list.html',
-    link: function (scope, elem, attrs, ctrl, $location) {
-
+    function getTableDisplayColumns () {
+      return [ // which columns need to be displayed in the table
+        { title: "DBA", objKey: "dbaCustomerName" }
+      ];
     }
-  };
+
+    function rowClickAction (obj) { // takes the row object
+      $scope.editCustomer(obj._id);
+    }
+
+    function getTableRowButtons () {
+      var arr = [];
+      var button = {};
+      button.title = "edit";
+      button.action = rowClickAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function tableHeaderAction () { // takes no parameters
+  		$scope.createCustomer();
+    }
+
+    function getTableHeaderButtons() {
+      var arr = [];
+      var button = {};
+      button.title = "new customer";
+      button.action = tableHeaderAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function getTableSort () {
+      return {
+        column: ["dbaCustomerName"],
+        descending: [false],
+      };
+    }
+
 }]);
 
 angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
@@ -2070,9 +2479,9 @@ angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.location.id) {
+      if ($scope.location._id) {
         // Edit an existing location.
-        Locations.save({id: location.id}, $scope.location,
+        Locations.save({id: location._id}, $scope.location,
           function (response) {
             $location.path("/location");
             $scope.submitting = false;
@@ -2099,7 +2508,7 @@ angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Locations.delete({id: location.id},
+      Locations.delete({id: location._id},
         function (response) {
           $location.path("/location");
           $scope.submitting = false;
@@ -2165,6 +2574,18 @@ angular.module('LocationApp.Controllers').controller('LocationIndexCtrl',
 
 }]);
 
+angular.module('TransferApp.Directives')
+
+.directive('locationList', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/location/views/list.html',
+    link: function (scope, elem, attrs, ctrl, $location) {
+
+    }
+  };
+}]);
+
 angular.module('PartApp.Controllers').controller('PartEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Parts', 'part', 'vendors', 'enumeration', '$window', 'VendorParts',
   function ($scope, $route, $location, AlertService, LoaderService, Parts, part, vendors, enumeration, $window, VendorParts) {
@@ -2220,9 +2641,9 @@ angular.module('PartApp.Controllers').controller('PartEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.part.id) {
+      if ($scope.part._id) {
         // Edit an existing part.
-        Parts.save({id: part.id}, $scope.part,
+        Parts.save({id: part._id}, $scope.part,
           function (response) {
             $location.path("/part");
             $scope.submitting = false;
@@ -2237,8 +2658,8 @@ angular.module('PartApp.Controllers').controller('PartEditCtrl',
         Parts.save({}, $scope.part,
           function (response) {
             if ($scope.part.unsavedVendorParts && $scope.part.unsavedVendorParts.length > 0) {
-              $scope.part.id = response.id;
-              console.log("part.id: ", $scope.part.id);
+              $scope.part._id = response._id;
+              console.log("part._id: ", $scope.part._id);
               console.log("unsavedVendorParts: ", $scope.part.unsavedVendorParts);
               $scope.saveMultipleVendorParts($scope.part.unsavedVendorParts,
                 function (err) {
@@ -2264,7 +2685,7 @@ angular.module('PartApp.Controllers').controller('PartEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Parts.delete({id: part.id},
+      Parts.delete({id: part._id},
         function (response) {
           $location.path("/part");
           $scope.submitting = false;
@@ -2280,7 +2701,7 @@ angular.module('PartApp.Controllers').controller('PartEditCtrl',
       if (vendorParts && vendorParts.length > 0) {
         // save one and recursively call self.
         var vp = vendorParts.pop();
-        vp.PartId = $scope.part.id;
+        vp.PartId = $scope.part._id;
         console.log("vp: ", vp);
         VendorParts.save({}, vp,
           function (response) {
@@ -2372,7 +2793,7 @@ angular.module('PartApp.Controllers').controller('PartIndexCtrl',
     }
 
     var tableRowAction = function (obj) {
-      $scope.editPart(obj.id);
+      $scope.editPart(obj._id);
     };
 
     var tableHeaderAction = function (obj) {
@@ -2451,9 +2872,9 @@ angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerEditCt
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.servicePartner.id) {
+      if ($scope.servicePartner._id) {
         // Edit an existing servicePartner.
-        ServicePartners.save({id: servicePartner.id}, $scope.servicePartner,
+        ServicePartners.save({id: servicePartner._id}, $scope.servicePartner,
           function (response) {
             $location.path("/servicepartner");
             $scope.submitting = false;
@@ -2480,7 +2901,7 @@ angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerEditCt
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      ServicePartners.delete({id: servicePartner.id},
+      ServicePartners.delete({id: servicePartner._id},
         function (response) {
           $location.path("/servicepartner");
           $scope.submitting = false;
@@ -2552,7 +2973,7 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
 
         // Set up the accordion.
         $scope.accordion = TransferAccordionService.instantiate($scope.transfer);
-        $scope.oneAtATime = !$scope.transfer.id;
+        $scope.oneAtATime = !$scope.transfer._id;
         $timeout(function () { $scope.loadingData = false; }, 1000);
       }
     });
@@ -2759,7 +3180,7 @@ angular.module('TransferApp.Services')
   var TransferAccordionService = {};
 
   TransferAccordionService.instantiate = function (transfer) {
-    var isCreate = !transfer.id;
+    var isCreate = !transfer._id;
     return {
       genInfo:    { open: true,      disabled: false, valid: false },
       transfer:   { open: !isCreate, disabled: true,  valid: false },
@@ -2822,7 +3243,7 @@ angular.module('TransferApp.Services')
       console.log("transfer edit service");
       var self = this;
       if (self.transfer.unit) {
-        var id = self.transfer.unit.id;
+        var id = self.transfer.unit._id;
         var obj = { ServicePartnerId: id, role: "TECHNICIAN" };
         Users.query({ where: obj },
           function (response) {
@@ -2849,7 +3270,7 @@ angular.module('TransferApp.Services')
 
     TransferEditService.getLocations = function (callback) {
       var self = this;
-      if (self.transfer.newLocation && self.transfer.newLocation.id) {
+      if (self.transfer.newLocation && self.transfer.newLocation._id) {
         Locations.query({ where: { CustomerId: self.transfer.newLocation.CustomerId }},
           function (response) {
             response.push({id: null, name: "Other"});
@@ -2913,13 +3334,13 @@ angular.module('TransferApp.Services')
       }
       var type = transfer.transferType;
       setTransferStatus(transfer, role, true);
-      transfer.UnitId = transfer.unit.id;
+      transfer.UnitId = transfer.unit._id;
       if (type === "TEST" || type === "CONTRACT") {
-        transfer.NewCustomerId = transfer.newLocation.customer.id;
+        transfer.NewCustomerId = transfer.newLocation.customer._id;
       } else if (type === "TRANSFER" && transfer.isYardTransfer === "false") {
-        transfer.NewCustomerId = transfer.newLocation.customer.id;
+        transfer.NewCustomerId = transfer.newLocation.customer._id;
       }
-      var conditions = transfer.id ? { id: transfer.id } : {};
+      var conditions = transfer._id ? { id: transfer._id } : {};
       Transfers.save(conditions, transfer,
         function (response) { return callback(null, response); },
         function (err) { return callback(err, null); }
@@ -2930,13 +3351,13 @@ angular.module('TransferApp.Services')
     TransferEditService.destroy = function (transfer, role, callback) {
       setTransferStatus(transfer, role, false);
       if (!transfer.status) {
-        Transfers.delete({ id: transfer.id },
+        Transfers.delete({ id: transfer._id },
           function (response) { return callback(null, response); },
           function (err) { return callback(err, null); }
         );
       } else {
-        transfer.UnitId = transfer.unit.id;
-        Transfers.save({ id: transfer.id }, transfer,
+        transfer.UnitId = transfer.unit._id;
+        Transfers.save({ id: transfer._id }, transfer,
           function (response) { return callback(null, response); },
           function (err) { return callback(err, null); }
         );
@@ -3023,9 +3444,9 @@ angular.module('UnitApp.Controllers').controller('UnitEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.unit.id) {
+      if ($scope.unit._id) {
         // Edit an existing unit.
-        Units.save({id: unit.id}, $scope.unit,
+        Units.save({id: unit._id}, $scope.unit,
           function (response) {
             $location.path("/unit");
             $scope.submitting = false;
@@ -3052,7 +3473,7 @@ angular.module('UnitApp.Controllers').controller('UnitEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Units.delete({id: unit.id},
+      Units.delete({id: unit._id},
         function (response) {
           $location.path("/unit");
           $scope.submitting = false;
@@ -3103,7 +3524,7 @@ angular.module('UnitApp.Controllers').controller('UnitEditCtrl',
     function filterLocations (locations) {
       var newLocations = locations.filter(function (location) {
         var shouldBeIncluded = true;
-        if (!$scope.unit.id) {
+        if (!$scope.unit._id) {
           if (location.isYard() === false) {
             shouldBeIncluded = false;
           }
@@ -3182,9 +3603,9 @@ angular.module('UserApp.Controllers').controller('UserEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.user.id) {
+      if ($scope.user._id) {
         // Edit an existing user.
-        Users.save({id: user.id}, $scope.user,
+        Users.save({id: user._id}, $scope.user,
           function (response) {
             $location.path("/user");
             $scope.submitting = false;
@@ -3211,7 +3632,7 @@ angular.module('UserApp.Controllers').controller('UserEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Users.delete({id: user.id},
+      Users.delete({id: user._id},
         function (response) {
           $location.path("/user");
           $scope.submitting = false;
@@ -3260,7 +3681,7 @@ angular.module('UserApp.Controllers').controller('UserIndexCtrl',
     }
 
     var tableRowAction = function (obj) {
-      $scope.editUser(obj.id);
+      $scope.editUser(obj._id);
     };
 
     var tableHeaderAction = function (obj) {
@@ -3319,9 +3740,9 @@ angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.vendor.id) {
+      if ($scope.vendor._id) {
         // Edit an existing vendor.
-        Vendors.save({id: vendor.id}, $scope.vendor,
+        Vendors.save({id: vendor._id}, $scope.vendor,
           function (response) {
             $location.path("/vendor");
             $scope.submitting = false;
@@ -3348,7 +3769,7 @@ angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Vendors.delete({id: vendor.id},
+      Vendors.delete({id: vendor._id},
         function (response) {
           $location.path("/vendor");
           $scope.submitting = false;
@@ -3426,9 +3847,9 @@ angular.module('VendorPartApp.Controllers').controller('VendorPartEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.vendorpart.id) {
+      if ($scope.vendorpart._id) {
         // Edit an existing vendor.
-        VendorParts.save({id: vendorpart.id}, $scope.vendorpart,
+        VendorParts.save({id: vendorpart._id}, $scope.vendorpart,
           function (response) {
             $location.path("/vendorpart");
             $scope.submitting = false;
@@ -3455,7 +3876,7 @@ angular.module('VendorPartApp.Controllers').controller('VendorPartEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      VendorParts.delete({id: vendorpart.id},
+      VendorParts.delete({id: vendorpart._id},
         function (response) {
           $location.path("/vendorpart");
           $scope.submitting = false;
@@ -3470,7 +3891,7 @@ angular.module('VendorPartApp.Controllers').controller('VendorPartEditCtrl',
     function getPartById (id) {
       if (!id) { return null; }
       var parts = $scope.parts.filter(function (p) {
-        return p.id === id;
+        return p._id === id;
       });
       if (parts.length < 0) { return null; }
       return parts[0];
@@ -3639,7 +4060,7 @@ angular.module('WorkOrderApp.Services')
   var WorkOrderAccordionService = {};
 
   WorkOrderAccordionService.instantiate = function (workorder) {
-    var isCreate = !workorder.id;
+    var isCreate = !workorder._id;
     return {
       genInfo:      { open: true,      disabled: false, valid: false },
       hardware:     { open: !isCreate, disabled: true,  valid: false },
@@ -3778,8 +4199,8 @@ angular.module('WorkOrderApp.Services')
 
       if (confirm(text)) {
         setWorkOrderStatus(workorder, role, true);
-        workorder.UnitId = workorder.unit.id;
-        conditions = workorder.id ? { id: workorder.id } : {};
+        workorder.UnitId = workorder.unit._id;
+        conditions = workorder._id ? { id: workorder._id } : {};
         WorkOrders.save(conditions, workorder,
           function (response) { return callback(null, response); },
           function (err) { return callback(err, null); }
@@ -3789,8 +4210,8 @@ angular.module('WorkOrderApp.Services')
       }
     } else {
       setWorkOrderStatus(workorder, role, true);
-      workorder.UnitId = workorder.unit.id;
-      conditions = workorder.id ? { id: workorder.id } : {};
+      workorder.UnitId = workorder.unit._id;
+      conditions = workorder._id ? { id: workorder._id } : {};
       WorkOrders.save(conditions, workorder,
         function (response) { return callback(null, response); },
         function (err) { return callback(err, null); }
@@ -3805,13 +4226,13 @@ angular.module('WorkOrderApp.Services')
     setWorkOrderStatus(workorder, role, false);
     console.log(workorder.status);
     if (!workorder.status) {
-      WorkOrders.delete({ id: workorder.id },
+      WorkOrders.delete({ id: workorder._id },
         function (response) { return callback(null, response); },
         function (err) { return callback(err, null); }
       );
     } else {
-      workorder.UnitId = workorder.unit.id;
-      WorkOrders.save({ id: workorder.id }, workorder,
+      workorder.UnitId = workorder.unit._id;
+      WorkOrders.save({ id: workorder._id }, workorder,
         function (response) { return callback(null, response); },
         function (err) { return callback(err, null); }
       );
@@ -3928,7 +4349,7 @@ function ($scope, $location, AlertService, VendorParts) {
 
     // we need to pull the name off of the vendor for UI reasons
     var vendorName = $scope.vendors.filter(function (v) {
-      return v.id === vp.VendorId;
+      return v._id === vp.VendorId;
     })[0].name;
 
     // add fill it out the way it's loaded from the DB
@@ -3966,7 +4387,7 @@ function ($scope, $location, AlertService, VendorParts) {
   // Removes a vendor part from the database
   $scope.removeVendorPart = function (index) {
     var removedPart = $scope.part.vendorParts.splice(index,1);
-    var id = removedPart[0].id;
+    var id = removedPart[0]._id;
     $scope.submitting = true;
     VendorParts.delete({id: id},
       function (response) {
@@ -3983,14 +4404,14 @@ function ($scope, $location, AlertService, VendorParts) {
 
   // Routes user to vendor part edit page.
   $scope.editVendorPart = function (index) {
-    var id = $scope.part.vendorParts[index].id;
+    var id = $scope.part.vendorParts[index]._id;
     console.log(id);
     $location.path("/vendorpart/edit/" + id);
   };
 
   $scope.emptyVendorPart = function () {
     return {
-      PartId: $scope.part.id,
+      PartId: $scope.part._id,
       VendorId: null,
       vendorPartNumber: null,
       vendorPartDescription: $scope.part.description,
@@ -4056,8 +4477,8 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
           for (var i = 0, len = $scope.customers.length; i < len; i++) {
             if ($scope.customers[i].dbaCustomerName === newVal) {
               $scope.transfer.newLocation.customer = angular.copy($scope.customers[i]);
-              customerId = $scope.transfer.newLocation.customer.id;
-              $scope.transfer.newLocation.CustomerId = $scope.transfer.newLocation.customer.id;
+              customerId = $scope.transfer.newLocation.customer._id;
+              $scope.transfer.newLocation.CustomerId = $scope.transfer.newLocation.customer._id;
             }
           }
 
@@ -4079,7 +4500,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
 
         } else if (type === "RELEASE" || type === "SWAP") {
           // customer is preselcted, just load the yards for the service partner
-          var servicePartnerId = $scope.transfer.newLocation.servicePartner.id;
+          var servicePartnerId = $scope.transfer.newLocation.servicePartner._id;
           Locations.query({ where: { ServicePartnerId: servicePartnerId } },
             function (response) {
               $scope.locationsLoading = false;
@@ -4101,7 +4522,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
     function (newVal, oldVal) {
       if (newVal !== oldVal && newVal !== null) {
         for (var i = 0, len = $scope.locations.length; i < len; i++) {
-          if ($scope.locations[i].id === newVal) {
+          if ($scope.locations[i]._id === newVal) {
             $scope.allowFreehandLocation = false;
             $scope.transfer.freehandLocationCustomerId = null;
             $scope.transfer.freehandLocationName = null;
@@ -4126,7 +4547,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
         $scope.allowFreehandLocation = true;
         if ($scope.transfer.newLocation) {
           $scope.transfer.freehandLocationCustomerId =
-            $scope.transfer.newLocation.customer.id;
+            $scope.transfer.newLocation.customer._id;
         }
       }
     }, true);
@@ -4185,7 +4606,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
           $scope.technicians = $scope.newTechnicians;
           $scope.transfer.TechnicianId = newVal;
           $scope.transfer.technician = $scope.technicians.filter(function (m) {
-            return m.id === newVal;
+            return m._id === newVal;
           })[0];
         }
       }
@@ -4194,7 +4615,7 @@ angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
     $scope.$watch('transfer.SwapUnitId', function (newVal, oldVal) {
       if (newVal !== oldVal && $scope.swapUnits) {
         for (var i = 0, len = $scope.swapUnits.length; i < len; i++) {
-          if ($scope.swapUnits[i].id === newVal) {
+          if ($scope.swapUnits[i]._id === newVal) {
             $scope.transfer.swapUnit = angular.copy($scope.swapUnits[i]);
           }
         }
@@ -4274,7 +4695,7 @@ angular.module('TransferApp.Controllers').controller('TransferInformationCtrl',
           $scope.transfer.unit = angular.copy($scope.units[i]);
           if ($scope.transfer.unit.location) {
             $scope.transfer.oldLocation = $scope.transfer.unit.location;
-            $scope.transfer.OldLocationId = $scope.transfer.unit.location.id;
+            $scope.transfer.OldLocationId = $scope.transfer.unit.location._id;
           }
           if ($scope.transfer.transferType === "REASSIGNMENT") {
             $scope.transfer.OldServicePartnerId = $scope.transfer.unit.ServicePartnerId;
@@ -4311,7 +4732,7 @@ angular.module('TransferApp.Controllers').controller('TransferInformationCtrl',
   $scope.$watch('transfer.TechnicianId', function (newVal, oldVal) {
     if (newVal !== oldVal) {
       $scope.technicians.forEach(function (element, index, array) {
-        if (element.id === $scope.transfer.TechnicianId) {
+        if (element._id === $scope.transfer.TechnicianId) {
           $scope.transfer.technician = element;
         }
       });

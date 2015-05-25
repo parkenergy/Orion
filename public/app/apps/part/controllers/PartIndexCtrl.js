@@ -71,7 +71,7 @@ angular.module('PartApp.Controllers').controller('PartIndexCtrl',
     }
 
     var tableRowAction = function (obj) {
-      $scope.editPart(obj.id);
+      $scope.editPart(obj._id);
     };
 
     var tableHeaderAction = function (obj) {

@@ -6,15 +6,17 @@ angular.module('Orion', [
   'Orion.Controllers',
   'Orion.Directives',
   'Orion.Services',
-  'CustomerApp',
-  'LocationApp',
-  'PartApp',
-  'ServicePartnerApp',
-  'TransferApp',
-  'UnitApp',
-  'UserApp',
-  'VendorApp',
-  'VendorPartApp',
+  'AreaApp',
+  'CompressorApp',
+  // 'CountyApp',
+  // 'CustomerApp',
+  // 'EngineApp',
+  // 'LocationApp',
+  // 'PartApp',
+  // 'StateApp',
+  // 'UnitApp',
+  // 'UserApp',
+  // 'VendorApp',
   'WorkOrderApp',
   'ui.bootstrap',
   'ui.utils'
@@ -28,33 +30,17 @@ function ($routeProvider) {
     templateUrl: '/app/views/redirecting.html',
   })
   .when('/myaccount', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'MyAccountCtrl',
     templateUrl: '/app/views/myaccount.html',
     resolve: {
       workorders: function($route, $q, WorkOrders) {
         var deffered = $q.defer();
-        var now = new Date();
-        var DaysAgo30 = now.setDate(now.getDate()-30);
-        var temp;
-        WorkOrders.query({limit: 50, where: {status: "SUBMITTED"}},
-          function (response) {
-            return deffered.resolve(response);
-            //temp = response;
-            // WorkOrders.query({limit: 200, where: { updatedAt: {gte: DaysAgo30}, status: "APPROVED" } },
-            //   function (response) {
-            //     temp = temp.concat(response);
-            //     return deffered.resolve(temp);
-            //   },
-            //   function (err) { return deffered.reject(err); }
-            // );
-          },
+        WorkOrders.query({skip: 0, limit: 50},
+          function (response) { return deffered.resolve(response); },
           function (err) { return deffered.reject(err); }
         );
         return deffered.promise;
-      },
-      role: function ($route, $q, role) {
-        return role.get();
       }
     }
   })

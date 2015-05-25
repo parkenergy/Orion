@@ -53,7 +53,7 @@
       <label for="location.CustomerId">Customer</label>
       <select ng-model="location.CustomerId" class="form-control"
       name="location.CustomerId"
-      ng-options="customer.id as customer.dbaCustomerName for customer in customers">
+      ng-options="customer._id as customer.dbaCustomerName for customer in customers">
       </select>
 
     </div>
@@ -63,7 +63,7 @@
       <label for="location.ServicePartnerId">Service Partner</label>
       <select ng-model="location.ServicePartnerId" class="form-control"
       name="location.ServicePartnerId"
-      ng-options="sp.id as sp.name for sp in servicePartners">
+      ng-options="sp._id as sp.name for sp in servicePartners">
       </select>
 
     </div>
@@ -84,7 +84,7 @@
         Save
       </button>
       <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
-        ng-click="destroy()" ng-show="location.id" ng-disabled="submitting">
+        ng-click="destroy()" ng-show="location._id" ng-disabled="submitting">
         Delete
       </button>
     </div>

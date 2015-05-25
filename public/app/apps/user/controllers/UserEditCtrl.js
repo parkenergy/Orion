@@ -20,9 +20,9 @@ angular.module('UserApp.Controllers').controller('UserEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.user.id) {
+      if ($scope.user._id) {
         // Edit an existing user.
-        Users.save({id: user.id}, $scope.user,
+        Users.save({id: user._id}, $scope.user,
           function (response) {
             $location.path("/user");
             $scope.submitting = false;
@@ -49,7 +49,7 @@ angular.module('UserApp.Controllers').controller('UserEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Users.delete({id: user.id},
+      Users.delete({id: user._id},
         function (response) {
           $location.path("/user");
           $scope.submitting = false;

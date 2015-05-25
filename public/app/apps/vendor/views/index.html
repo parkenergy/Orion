@@ -44,7 +44,7 @@
       <tr ng-repeat="vendor in vendors | orderBy:sort.column:sort.descending">
         <td>{{vendor.name}}</td>
         <td>{{vendor.vendorFamily.name}}</td>
-        <td ng-click="editVendor(vendor.id)">
+        <td ng-click="editVendor(vendor._id)">
           <button class="btn btn-primary btn-large pull-right">
             edit
           </button>

@@ -29,9 +29,9 @@ angular.module('VendorPartApp.Controllers').controller('VendorPartEditCtrl',
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.vendorpart.id) {
+      if ($scope.vendorpart._id) {
         // Edit an existing vendor.
-        VendorParts.save({id: vendorpart.id}, $scope.vendorpart,
+        VendorParts.save({id: vendorpart._id}, $scope.vendorpart,
           function (response) {
             $location.path("/vendorpart");
             $scope.submitting = false;
@@ -58,7 +58,7 @@ angular.module('VendorPartApp.Controllers').controller('VendorPartEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      VendorParts.delete({id: vendorpart.id},
+      VendorParts.delete({id: vendorpart._id},
         function (response) {
           $location.path("/vendorpart");
           $scope.submitting = false;
@@ -73,7 +73,7 @@ angular.module('VendorPartApp.Controllers').controller('VendorPartEditCtrl',
     function getPartById (id) {
       if (!id) { return null; }
       var parts = $scope.parts.filter(function (p) {
-        return p.id === id;
+        return p._id === id;
       });
       if (parts.length < 0) { return null; }
       return parts[0];

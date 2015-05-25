@@ -133,8 +133,8 @@
       <label for="unit.ServicePartnerId">Service Partner</label>
 
       <select class="form-control" ng-model="unit.ServicePartnerId"
-      ng-options="servicePartner.id as servicePartner.name for servicePartner in servicePartners"
-      name="unit.ServicePartnerId" ng-disabled="unit.id"></select>
+      ng-options="servicePartner._id as servicePartner.name for servicePartner in servicePartners"
+      name="unit.ServicePartnerId" ng-disabled="unit._id"></select>
 
     </div>
 
@@ -153,9 +153,9 @@
       </label>
 
       <select class="form-control" ng-model="unit.LocationId"
-      ng-options="location.id as location.name for location in locations"
+      ng-options="location._id as location.name for location in locations"
       name="unit.LocationId"
-      ng-disabled="unit.id || locationsLoading || !unit.ServicePartnerId">
+      ng-disabled="unit._id || locationsLoading || !unit.ServicePartnerId">
       </select>
 
     </div>
@@ -188,7 +188,7 @@
       </button>
 
       <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
-        ng-click="destroy()" ng-show="unit.id" ng-disabled="submitting">
+        ng-click="destroy()" ng-show="unit._id" ng-disabled="submitting">
         Delete
       </button>
 

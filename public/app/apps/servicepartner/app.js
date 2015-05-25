@@ -19,7 +19,7 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
     resolve: {
       servicePartner: function($route, $q, ServicePartners) {
         //determine if we're creating or editing a servicePartner.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           ServicePartners.get({id: id},

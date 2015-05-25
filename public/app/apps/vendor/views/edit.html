@@ -19,7 +19,7 @@
       </label>
 
       <select class="form-control" ng-model="vendor.VendorFamilyId"
-        ng-options="v.id as v.name for v in vendorFamilies"
+        ng-options="v._id as v.name for v in vendorFamilies"
         name="vendor.VendorFamilyId">
       </select>
 
@@ -120,7 +120,7 @@
         Save
       </button>
       <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
-        ng-click="destroy()" ng-show="vendor.id" ng-disabled='submitting'>
+        ng-click="destroy()" ng-show="vendor._id" ng-disabled='submitting'>
         Delete
       </button>
     </div>

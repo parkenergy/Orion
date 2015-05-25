@@ -1,10 +1,9 @@
 angular.module('Orion.Controllers').controller('MyAccountCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders', 'role',
-  function ($scope, $route, $location, AlertService, LoaderService, workorders, role) {
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders',
+  function ($scope, $route, $location, AlertService, LoaderService, workorders) {
 
     $scope.title = "My Account";
     $scope.workorders = workorders;
-    $scope.role = role;
 
     $scope.createWorkOrder = function () {
       $location.path('/workorder/create');

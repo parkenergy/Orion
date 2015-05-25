@@ -19,7 +19,7 @@ angular.module('LocationApp').config(['$routeProvider',
     resolve: {
       location: function($route, $q, Locations) {
         //determine if we're creating or editing a location.
-        var id = $route.current.params.id || 0;
+        var id = $route.current.params._id || 0;
         if (id) {
           var deffered = $q.defer();
           Locations.get({id: id},
