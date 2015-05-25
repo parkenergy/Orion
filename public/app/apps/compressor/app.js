@@ -30,6 +30,14 @@ angular.module('CompressorApp').config(['$routeProvider',
         } else {
           return null;
         }
+      },
+      units: function($route, $q, Units) {
+        var deffered = $q.defer();
+        Units.query({},
+          function (response) { return deffered.resolve(response); },
+          function (err) { return deffered.reject(err); }
+        );
+        return deffered.promise;
       }
     }
   })

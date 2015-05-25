@@ -1,10 +1,11 @@
 angular.module('CompressorApp.Controllers').controller('CompressorEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Compressors', 'compressor',
-  function ($scope, $route, $location, AlertService, LoaderService, Compressors, compressor) {
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Compressors', 'compressor', 'units',
+  function ($scope, $route, $location, AlertService, LoaderService, Compressors, compressor, units) {
 
     $scope.title = compressor ? "Edit " + compressor.name : "Create a new compressor";
 
     $scope.compressor = compressor;
+    $scope.units = units;
 
     $scope.save = function () {
       $scope.submitting = true;

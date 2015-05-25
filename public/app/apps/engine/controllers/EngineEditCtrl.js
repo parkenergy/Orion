@@ -1,10 +1,11 @@
 angular.module('EngineApp.Controllers').controller('EngineEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Engines', 'engine',
-  function ($scope, $route, $location, AlertService, LoaderService, Engines, engine) {
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Engines', 'engine', 'units',
+  function ($scope, $route, $location, AlertService, LoaderService, Engines, engine, units) {
 
     $scope.title = engine ? "Edit " + engine.name : "Create a new engine";
 
     $scope.engine = engine;
+    $scope.units = units;
 
     $scope.save = function () {
       $scope.submitting = true;
