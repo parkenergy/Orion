@@ -49,12 +49,12 @@ module.exports = function(app) {
 *******************************************************************************/
 
 passport.serializeUser(function (user, done) {
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser(function (id, done) {
   //TODO: find user with id
-  db.User.find({where: {id: id}})
+  db.User.find({where: {_id: id}})
   .success(function (user) {
     return done(null, user);
   }).error(function (err) {

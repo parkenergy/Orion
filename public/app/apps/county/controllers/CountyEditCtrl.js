@@ -1,19 +1,20 @@
-angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Areas', 'area',
-  function ($scope, $route, $location, AlertService, LoaderService, Areas, area) {
+angular.module('CountyApp.Controllers').controller('CountyEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Counties', 'county', 'states',
+  function ($scope, $route, $location, AlertService, LoaderService, Counties, county, states) {
 
-    $scope.title = area ? "Edit " + area.name : "Create a new area";
+    $scope.title = county ? "Edit " + county.name :
+                              "Create a new county";
 
-    $scope.area = area;
-    $scope.locations = area ? area.locations : null;
+    $scope.county = county;
+    $scope.states = states;
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.area._id) {
-        // Edit an existing area.
-        Areas.save({_id: $scope.area._id}, $scope.area,
+      if ($scope.county._id) {
+        // Edit an existing county.
+        Counties.save({_id: county._id}, $scope.county,
           function (response) {
-            $location.path("/area");
+            $location.path("/county");
             $scope.submitting = false;
           },
           function (err) {
@@ -22,10 +23,10 @@ angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
           }
         );
       } else {
-        // Create a new area.
-        Areas.save({name: $scope.area.name}, $scope.area,
+        // Create a new county.
+        Counties.save({}, $scope.county,
           function (response) {
-            $location.path("/area");
+            $location.path("/county");
             $scope.submitting = false;
           },
           function (err) {
@@ -38,9 +39,9 @@ angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Areas.delete({_id: area._id},
+      Counties.delete({_id: county._id},
         function (response) {
-          $location.path("/area");
+          $location.path("/county");
           $scope.submitting = false;
         },
         function (err) {

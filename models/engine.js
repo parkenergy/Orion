@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var autopopulate = require('mongoose-autopopulate');
 
 /* Declaration
 ----------------------------------------------------------------------------- */
@@ -9,13 +10,13 @@ var EngineSchema = new mongoose.Schema({
 
   serial:   { type: String, required: true, index: { unique: true } },
   model:    { type: String },
-  
+
   engineHoursStartDate: { type: Date },
 
-  unit: {type: 'ObjectId', ref: "Unit", index: true }
+  unit: {type: 'ObjectId', ref: "Unit", index: true, autopopulate: true }
 
 });
-
+EngineSchema.plugin(autopopulate);
 /* Virtual Fields
 ----------------------------------------------------------------------------- */
 EngineSchema.virtual('engineHours')

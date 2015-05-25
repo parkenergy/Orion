@@ -19,7 +19,7 @@ angular.module('CustomerApp').config(['$routeProvider',
     resolve: {
       customer: function($route, $q, Customers) {
         //determine if we're creating or editing a customer.
-        var id = $route.current.params._id || 0;
+        var id = $route.current.params.id || 0;
         if (id) {
           var deffered = $q.defer();
           Customers.get({id: id},

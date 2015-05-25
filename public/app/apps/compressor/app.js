@@ -19,7 +19,7 @@ angular.module('CompressorApp').config(['$routeProvider',
     resolve: {
       compressor: function($route, $q, Compressors) {
         //determine if we're creating or editing a compressor.
-        var id = $route.current.params._id || 0;
+        var id = $route.current.params.id || 0;
         if (id) {
           var deffered = $q.defer();
           Compressors.get({id: id},

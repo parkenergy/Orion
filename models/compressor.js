@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var autopopulate = require('mongoose-autopopulate');
 var DateHelper = require('../helpers/dateHelper');
 var dateHelper = new DateHelper();
 
@@ -14,9 +15,10 @@ var CompressorSchema = new mongoose.Schema({
 
   compressorHoursStartDate: { type: Date },
 
-  unit: {type: ObjectId, ref: 'Unit', index: true }
+  unit: {type: ObjectId, ref: 'Unit', index: true, autopopulate: true }
 
 });
+CompressorSchema.plugin(autopopulate);
 
 /* Virtual Fields
 ----------------------------------------------------------------------------- */

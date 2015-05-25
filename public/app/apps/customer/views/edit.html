@@ -14,35 +14,40 @@
     <div class="panel-heading">Customer Details</div>
     <div class="panel-body">
 
-      <div class="form-group">
-        <label for="customer.dbaCustomerName">DBA Customer Name</label>
-        <input type="text" class="form-control" ng-model="customer.dbaCustomerName"
-          name="customer.dbaCustomerName" placeholder="DBA Customer Name">
-      </div>
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="DBA Customer Name"
+    		placeholder-text="DBA Customer Name"
+        data="customer.dbaCustomerName">
+    	</text-field>
 
-      <div class="form-group">
-        <label for="customer.customerFamily">Customer Family</label>
-        <input type="text" class="form-control" ng-model="customer.customerFamily"
-          name="customer.customerFamily" placeholder="Customer Family">
-      </div>
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Customer Family"
+    		placeholder-text="Customer Family"
+        data="customer.customerFamily">
+    	</text-field>
 
-      <div class="form-group">
-        <label for="customer.address">Address</label>
-        <input type="text" class="form-control" ng-model="customer.address"
-          name="customer.address" placeholder="Address">
-      </div>
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Customer Address"
+    		placeholder-text="Customer Address"
+        data="customer.address">
+    	</text-field>
 
-      <div class="form-group">
-        <label for="customer.phone">Phone</label>
-        <input type="text" class="form-control" ng-model="customer.phone"
-          name="customer.phone" placeholder="Phone">
-      </div>
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Customer Phone"
+    		placeholder-text="Customer Phone"
+        data="customer.phone">
+    	</text-field>
 
-      <div class="form-group">
-        <label for="customer.email">Email</label>
-        <input type="text" class="form-control" ng-model="customer.email"
-          name="customer.email" placeholder="Email">
-      </div>
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Customer Email"
+    		placeholder-text="Customer Email"
+        data="customer.email">
+    	</text-field>
 
       <div>
         <button class="btn btn-large btn-primary pull-right" ng-click="save()">
@@ -57,10 +62,7 @@
   </div>
 
   <div class="panel panel-default" ng-hide="!customer._id">
-    <div class="panel-heading">Customer Locations</div>
-    <div class="panel-body">
-      <location-list></location-list>
-    </div>
+    <!-- TODO: create customer locations edit table -->
   </div>
 
 </div>

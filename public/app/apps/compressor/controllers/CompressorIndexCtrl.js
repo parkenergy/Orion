@@ -27,7 +27,17 @@ angular.module('CompressorApp.Controllers').controller('CompressorIndexCtrl',
     };
 
   	function getObjectList () {
-  		return compressors;
+      var oList = [];
+      compressors.forEach(function (ele, arr, ind) {
+        oList.push({
+          _id: ele._id,
+          serial: ele.serial,
+          model: ele.model,
+          compressorHours: ele.compressorHours,
+          unit: ele.unit.number
+        });
+      });
+  		return oList;
   	}
 
     function getTableDisplayColumns () {
@@ -35,7 +45,7 @@ angular.module('CompressorApp.Controllers').controller('CompressorIndexCtrl',
         { title: "Serial #", objKey: "serial" },
         { title: "Model", objKey: "model" },
         { title: "Hours", objKey: "compressorHours" },
-        { title: "Unit", objKey: "unit.number"}
+        { title: "Unit", objKey: "unit"}
       ];
     }
 

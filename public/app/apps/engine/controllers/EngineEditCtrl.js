@@ -1,19 +1,18 @@
-angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Areas', 'area',
-  function ($scope, $route, $location, AlertService, LoaderService, Areas, area) {
+angular.module('EngineApp.Controllers').controller('EngineEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Engines', 'engine',
+  function ($scope, $route, $location, AlertService, LoaderService, Engines, engine) {
 
-    $scope.title = area ? "Edit " + area.name : "Create a new area";
+    $scope.title = engine ? "Edit " + engine.name : "Create a new engine";
 
-    $scope.area = area;
-    $scope.locations = area ? area.locations : null;
+    $scope.engine = engine;
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.area._id) {
-        // Edit an existing area.
-        Areas.save({_id: $scope.area._id}, $scope.area,
+      if ($scope.engine._id) {
+        // Edit an existing engine.
+        Engines.save({_id: $scope.engine._id}, $scope.engine,
           function (response) {
-            $location.path("/area");
+            $location.path("/engine");
             $scope.submitting = false;
           },
           function (err) {
@@ -22,10 +21,10 @@ angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
           }
         );
       } else {
-        // Create a new area.
-        Areas.save({name: $scope.area.name}, $scope.area,
+        // Create a new engine.
+        Engines.save({name: $scope.engine.name}, $scope.engine,
           function (response) {
-            $location.path("/area");
+            $location.path("/engine");
             $scope.submitting = false;
           },
           function (err) {
@@ -38,9 +37,9 @@ angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Areas.delete({_id: area._id},
+      Engines.delete({_id: engine._id},
         function (response) {
-          $location.path("/area");
+          $location.path("/engine");
           $scope.submitting = false;
         },
         function (err) {

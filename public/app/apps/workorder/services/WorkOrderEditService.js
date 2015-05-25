@@ -182,7 +182,7 @@ function emptyWorkOrder() {
     jwTemperature:          0,
     rpm:                    0,
     manifoldVac:            0,
-    // Compressor
+    // Engine
     compressorHours:        0,
     compressorOilPressure:  0,
     // Call Out
@@ -193,7 +193,7 @@ function emptyWorkOrder() {
     // Engine Swap
     engineSerial:           "",
     engineModel:            "",
-    // Compressor Swap
+    // Engine Swap
     compressorSerial:       "",
     compressorModel:        "",
 

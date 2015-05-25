@@ -19,7 +19,7 @@ angular.module('AreaApp').config(['$routeProvider',
     resolve: {
       area: function($route, $q, Areas) {
         //determine if we're creating or editing a area.
-        var id = $route.current.params._id || 0;
+        var id = $route.current.params.id || 0;
         if (id) {
           var deffered = $q.defer();
           Areas.get({id: id},

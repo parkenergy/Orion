@@ -5,7 +5,7 @@ angular.module('Orion.Services')
 
   RedirectService.getEditRedirectFn = function (model) {
     return function (obj) {
-      var id = obj ? obj.id : undefined;
+      var id = obj ? obj._id : undefined;
       $location.path("/" + model + "/edit/" + (id || ""));
     };
   };
