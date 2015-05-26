@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var autopopulate = require('mongoose-autopopulate');
 
 /* Declaration
 ----------------------------------------------------------------------------- */
@@ -13,13 +14,14 @@ var LocationSchema = new mongoose.Schema({
   apiNumber:    { type: String },
 
   locationType: { type: String, enum: ["Lease", "Truck", "Yard"] },
-  customer:     { type: ObjectId, ref: 'Customer', index: true },
 
-  area:         { type: ObjectId, ref: 'Area', index: true },
-  state:        { type: ObjectId, ref: 'State', index: true },
-  county:       { type: ObjectId, ref: 'County', index: true },
+  customer:     { type: ObjectId, ref: 'Customer', index: true, autopopulate: true },
+  area:         { type: ObjectId, ref: 'Area', index: true, autopopulate: true },
+  state:        { type: ObjectId, ref: 'State', index: true, autopopulate: true },
+  county:       { type: ObjectId, ref: 'County', index: true, autopopulate: true },
 
 });
+LocationSchema.plugin(autopopulate);
 
 /* Exports
 ----------------------------------------------------------------------------- */

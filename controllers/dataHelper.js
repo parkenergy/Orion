@@ -30,23 +30,20 @@ var DataHelper = function (collection) {
       }
 
       // optimization of find operation
-      var select = req.select || null;
-      var skip = req.skip || 0;
-      var limit = req.limit || 1000;
-      var sort = req.sort || '-createdOn';
+      var select = query.select || null; query.select = null;
+      var skip = query.skip || 0; query.skip = null;
+      var limit = query.limit || 1000; query.limit = null;
+      var sort = query.sort || '-id'; query.sort = null;
 
       collection.find(query)
         .select(select)
         .skip(skip)
         .limit(limit)
-        .sort( '-_id' )
+        .sort(sort)
         .exec(callback); // callback takes params (err, data);
     },
 
     create: function (req, callback) {
-
-      console.log(req.query);
-      console.log(req.body);
 
       if (!req.query) {
         console.warn("req.query should be defined for create operations.");

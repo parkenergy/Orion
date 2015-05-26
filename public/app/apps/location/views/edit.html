@@ -10,86 +10,103 @@
     <h1 class="page-title">{{title}}</h1>
   </div>
 
-  <div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">Area Details</div>
+    <div class="panel-body">
 
-    <div class="form-group">
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Location Name"
+    		placeholder-text="Location Name"
+        data="location.name">
+    	</text-field>
 
-      <label for="location.name">Location Name</label>
-      <input type="text" class="form-control" ng-model="location.name"
-        name="location.name" placeholder="Location Name">
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Location Number"
+    		placeholder-text="Location Number"
+        data="location.number">
+    	</text-field>
 
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Location API Number"
+    		placeholder-text="Location API Number"
+        data="location.apiNumber">
+    	</text-field>
+
+    	<select-list
+    		label-text="Location Type"
+        data="location.type"
+    		select-field="name"
+    		display-field="name"
+    		obj-list="locationTypes">
+    	</select-list>
+
+    	<select-list
+    		label-text="Customer"
+        data="location.customer"
+    		select-field="_id"
+    		display-field="dbaCustomerName"
+    		obj-list="customers">
+    	</select-list>
+
+    	<select-list
+    		label-text="Area"
+        data="location.area"
+    		select-field="_id"
+    		display-field="name"
+    		obj-list="areas">
+    	</select-list>
+
+    	<select-list
+    		label-text="State"
+        data="location.state"
+    		select-field="_id"
+    		display-field="name"
+    		obj-list="states">
+    	</select-list>
+
+    	<select-list
+    		label-text="County"
+        data="location.county"
+    		select-field="_id"
+    		display-field="name"
+    		obj-list="counties">
+    	</select-list>
+
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Location Model"
+    		placeholder-text="Location Model"
+        data="location.model">
+    	</text-field>
+
+      <!-- standard date field element (app-wide) -->
+    	<date-field
+    		label-text="Eng. Hours Start Date"
+        data="location.locationHoursStartDate">
+    	</date-field>
+
+    	<select-list
+        ng-disabled="true"
+    		label-text="Location Attached to Unit"
+        data="location.unit"
+    		select-field="_id"
+    		display-field="number"
+    		obj-list="units">
+    	</select-list>
+
+      <div>
+        <button class="btn btn-large btn-primary pull-right" ng-click="save()">
+          Save
+        </button>
+        <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
+          ng-click="destroy()" ng-show="area._id">
+          Delete
+        </button>
+      </div>
     </div>
-
-    <div class="form-group">
-
-      <label for="location.number">Location Number</label>
-      <input type="text" class="form-control" ng-model="location.number"
-        name="location.number" placeholder="Location Number">
-
-    </div>
-
-    <div class="form-group">
-
-      <label for="location.state">Location State</label>
-      <select ng-model="location.state" class="form-control"
-      name="location.state"
-      ng-options="state for state in states">
-      </select>
-
-    </div>
-
-    <div class="form-group">
-
-      <label for="location.county">Location County</label>
-      <select ng-model="location.county" class="form-control"
-      name="location.county"
-      ng-options="county for county in counties">
-      </select>
-
-    </div>
-
-    <div class="form-group">
-
-      <label for="location.CustomerId">Customer</label>
-      <select ng-model="location.CustomerId" class="form-control"
-      name="location.CustomerId"
-      ng-options="customer._id as customer.dbaCustomerName for customer in customers">
-      </select>
-
-    </div>
-
-    <div class="form-group">
-
-      <label for="location.ServicePartnerId">Service Partner</label>
-      <select ng-model="location.ServicePartnerId" class="form-control"
-      name="location.ServicePartnerId"
-      ng-options="sp._id as sp.name for sp in servicePartners">
-      </select>
-
-    </div>
-
-    <div class="form-group">
-
-      <label for="location.locationType">What type of location is this?</label>
-      <select ng-model="location.locationType" class="form-control"
-      name="location.locationType"
-      ng-options="t as t for t in ['Lease', 'Truck', 'Yard']">
-    </select>
-
-    </div>
-
-    <div>
-      <button class="btn btn-large btn-primary pull-right" ng-click="save()"
-              ng-disabled="submitting">
-        Save
-      </button>
-      <button class="btn btn-large btn-danger pull-right" style="margin-right: 10px;"
-        ng-click="destroy()" ng-show="location._id" ng-disabled="submitting">
-        Delete
-      </button>
-    </div>
-
   </div>
-
 
 </div>

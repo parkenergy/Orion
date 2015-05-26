@@ -19,7 +19,7 @@ angular.module('LocationApp').config(['$routeProvider',
     resolve: {
       location: function($route, $q, Locations) {
         //determine if we're creating or editing a location.
-        var id = $route.current.params._id || 0;
+        var id = $route.current.params.id || 0;
         if (id) {
           var deffered = $q.defer();
           Locations.get({id: id},
@@ -39,9 +39,25 @@ angular.module('LocationApp').config(['$routeProvider',
         );
         return deffered.promise;
       },
-      servicePartners: function($route, $q, ServicePartners) {
+      areas: function($route, $q, Areas) {
         var deffered = $q.defer();
-        ServicePartners.query({},
+        Areas.query({},
+          function (response) { return deffered.resolve(response); },
+          function (err) { return deffered.reject(err); }
+        );
+        return deffered.promise;
+      },
+      states: function($route, $q, States) {
+        var deffered = $q.defer();
+        States.query({sort: "name"},
+          function (response) { return deffered.resolve(response); },
+          function (err) { return deffered.reject(err); }
+        );
+        return deffered.promise;
+      },
+      counties: function($route, $q, Counties) {
+        var deffered = $q.defer();
+        Counties.query({},
           function (response) { return deffered.resolve(response); },
           function (err) { return deffered.reject(err); }
         );

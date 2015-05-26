@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var autopopulate = require('mongoose-autopopulate');
 var PartEnumerationHelper = require('../helpers/enumeration.js');
 
 /* Declaration
@@ -18,7 +19,7 @@ var UnitSchema = new mongoose.Schema({
 
   pressureRating: { type: String, enum: ["Low", "High"] },
   pressureLimit:  { type: Number },
-  
+
   isUpgraded:     { type: Boolean },
   dateUpgraded:   { type: Date },
 
@@ -37,6 +38,7 @@ var UnitSchema = new mongoose.Schema({
   assignedTo:     { type: ObjectId, ref: 'User', index: true },
 
 });
+UnitSchema.plugin(autopopulate);
 
 /* Exports
 ----------------------------------------------------------------------------- */

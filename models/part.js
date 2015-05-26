@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var autopopulate = require('mongoose-autopopulate');
 var PartEnumerationHelper = require('../helpers/enumeration.js');
 
 /* Declaration
@@ -25,6 +26,7 @@ var PartSchema = new mongoose.Schema({
   }]
 
 });
+PartSchema.plugin(autopopulate);
 
 /* Virtual Fields
 ----------------------------------------------------------------------------- */

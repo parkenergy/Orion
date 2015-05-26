@@ -1,19 +1,38 @@
 angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Locations', 'location', 'customers', 'servicePartners', 'GeographyService',
-  function ($scope, $route, $location, AlertService, LoaderService, Locations, location, customers, servicePartners, GeographyService) {
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Locations', 'location', 'customers', 'areas', 'states', 'counties',
+  function ($scope, $route, $location, AlertService, LoaderService, Locations, location, customers, areas, states, counties) {
 
     $scope.title = location ? "Edit " + location.name : "Create a new location";
 
     $scope.location = location;
     $scope.customers = customers;
-    $scope.servicePartners = servicePartners;
-    $scope.states = GeographyService.states;
+    $scope.states = states;
+    $scope.counties = counties;
+    $scope.locationTypes = [{name:"Lease"},{name:"Truck"}, {name:"Yard"}];
+
+    $scope.$watch('location.state', function (newVal, oldVal) {
+      if (newVal != oldVal) {
+        if (newVal === null) { $scope.counties = counties; }
+        $scope.counties = getCountiesForState(counties, newVal);
+      }
+    }, true);
+
+    $scope.$watch('location.county', function (newVal, oldVal) {
+      if (newVal != oldVal) {
+        if (newVal === null) { $scope.states = states; }
+        counties.forEach(function (ele, ind, arr) {
+          if (ele._id == newVal) {
+            $scope.location.state = ele.state._id;
+          }
+        });
+      }
+    }, true);
 
     $scope.save = function () {
       $scope.submitting = true;
       if ($scope.location._id) {
         // Edit an existing location.
-        Locations.save({id: location._id}, $scope.location,
+        Locations.save({_id: $scope.location._id}, $scope.location,
           function (response) {
             $location.path("/location");
             $scope.submitting = false;
@@ -25,7 +44,7 @@ angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
         );
       } else {
         // Create a new location.
-        Locations.save({}, $scope.location,
+        Locations.save({name: $scope.location.name}, $scope.location,
           function (response) {
             $location.path("/location");
             $scope.submitting = false;
@@ -40,7 +59,7 @@ angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Locations.delete({id: location._id},
+      Locations.delete({_id: location._id},
         function (response) {
           $location.path("/location");
           $scope.submitting = false;
@@ -52,23 +71,20 @@ angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
       );
     };
 
-    $scope.$watch('location.state', function (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        $scope.location.county = null;
-        $scope.counties = GeographyService.counties(newVal);
-      }
-    }, true);
-
-    (function () {
-      if (!$scope.location || !$scope.location.state) {
-        return;
+    function getCountiesForState(counties, state) {
+      var countyArr = [];
+      if (state) {
+        counties.forEach(function (ele) {
+          if (ele.state._id == state) { countyArr.push(ele); }
+        });
       } else {
-        $scope.counties = GeographyService.counties($scope.location.state);
-        if ($scope.counties.indexOf($scope.location.county) == -1) {
-          var message = "Please enter a valid county for this location.";
-          AlertService.add("warning", message);
-        }
+        countyArr = counties;
       }
-    })();
-
+      countyArr.sort(function (a, b) {
+        if (a.name > b.name) { return 1; }
+        if (a.name < b.name) { return -1; }
+        else { return 0; }
+      });
+      return countyArr;
+    }
 }]);

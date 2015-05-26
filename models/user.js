@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var autopopulate = require('mongoose-autopopulate');
 var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
@@ -29,6 +30,7 @@ var UserSchema = new mongoose.Schema({
     areas: [{ type: ObjectId, ref: 'Areas', index: true }]
 
 });
+UserSchema.plugin(autopopulate);
 
 UserSchema.pre('save', function(next) {
   var user = this;
