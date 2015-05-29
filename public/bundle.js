@@ -117,6 +117,9 @@ angular.module('Orion.Controllers').controller('ExampleCtrl',
 	$scope.model = {}; // standard model wrapper
 
 	$scope.list = [{id: 1, text: 'a'}, {id: 2, text: 'b'}, {id: 3, text: 'c'}];
+	$scope.hours = [0,1,2,3,4,5,6,7,8,9,10,11,12];
+	$scope.minutes = [0,15,30,45];
+	$scope.model.timeField = { hours: 0, minutes: 0 };
 
 	/* Watch an element for change event
 	--------------------------------------------------------------------------- */
@@ -990,6 +993,61 @@ angular.module('Orion.Services')
 
 }]);
 
+angular.module('Orion.Controllers').controller('SuperTableCtrl',
+['$scope', 'AlertService', 'LoaderService',
+  function ($scope, AlertService, LoaderService) {
+
+    $scope.changeSorting = function (column) {
+      var sort = $scope.sort;
+      if (sort.column == column) {
+        sort.descending = !sort.descending;
+      } else {
+        sort.column = column;
+        sort.descending = false;
+      }
+    };
+
+    /* -------------------------------------------------------------------------
+    CONFIGURATION / ON LOAD
+    ------------------------------------------------------------------------- */
+    $scope.getDefaultSort = function () {
+      var column = [];
+      for (var key in $scope.displayColumns) { column.push(key.toString()); }
+      $scope.defaultSort = { column: column, descending: [false] };
+    };
+
+    $scope.onLoad = function () {
+      var m = $scope.model;
+
+      // if the required fields are not present, bail out
+      if (!m.objectList || !m.displayColumns) {
+        console.log("WARNING!");
+        console.log("You failed to provide required data for the directive.");
+        console.log("See super-table documentation for more info.");
+        var errMessage =  "SuperTabelCtrl: " +
+                          "Required attributes were not assigned to model.";
+        throw new Error(errMessage);
+      } else {
+        $scope.tableName = m.tableName || "My Table Name";
+
+        // required variables
+        $scope.objectList = m.objectList;
+        $scope.displayColumns = m.displayColumns;
+
+        // optional variables
+        $scope.rowClickAction = m.rowClickAction;
+        $scope.headerButtons = m.headerButtons;
+        $scope.rowButtons = m.rowButtons;
+        $scope.sort = m.sort || $scope.getDefaultSort();
+
+      }
+    };
+
+    // call on load
+    (function () { $scope.onLoad(); })();
+
+}]);
+
 angular.module('AreaApp.Controllers', []);
 angular.module('AreaApp.Directives', []);
 angular.module('AreaApp.Services', ['ngResource', 'ngCookies']);
@@ -1162,6 +1220,66 @@ angular.module('CountyApp').config(['$routeProvider',
   });
 }]);
 
+angular.module('EngineApp.Controllers', []);
+angular.module('EngineApp.Directives', []);
+angular.module('EngineApp.Services', ['ngResource', 'ngCookies']);
+
+angular.module('EngineApp', [
+  'EngineApp.Controllers',
+  'EngineApp.Directives',
+  'EngineApp.Services',
+]);
+
+
+angular.module('EngineApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
+
+  .when('/engine/edit/:id?', {
+    controller: 'EngineEditCtrl',
+    templateUrl: '/app/apps/engine/views/edit.html',
+    resolve: {
+      engine: function($route, $q, Engines) {
+        //determine if we're creating or editing a engine.
+        var id = $route.current.params.id || 0;
+        if (id) {
+          var deffered = $q.defer();
+          Engines.get({id: id},
+            function (response) { return deffered.resolve(response); },
+            function (err) { return deffered.reject(err); }
+          );
+          return deffered.promise;
+        } else {
+          return null;
+        }
+      },
+      units: function($route, $q, Units) {
+        var deffered = $q.defer();
+        Units.query({},
+          function (response) { return deffered.resolve(response); },
+          function (err) { return deffered.reject(err); }
+        );
+        return deffered.promise;
+      }
+    }
+  })
+
+  .when('/engine', {
+    controller: 'EngineIndexCtrl',
+    templateUrl: '/app/apps/engine/views/index.html',
+    resolve: {
+      engines: function($route, $q, Engines) {
+        var deffered = $q.defer();
+        Engines.query({},
+          function (response) { return deffered.resolve(response); },
+          function (err) { return deffered.reject(err); }
+        );
+        return deffered.promise;
+      }
+    }
+  });
+}]);
+
 angular.module('CustomerApp.Controllers', []);
 angular.module('CustomerApp.Directives', []);
 angular.module('CustomerApp.Services', ['ngResource', 'ngCookies']);
@@ -1220,66 +1338,6 @@ angular.module('CustomerApp').config(['$routeProvider',
       customers: function($route, $q, Customers) {
         var deffered = $q.defer();
         Customers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
-        );
-        return deffered.promise;
-      }
-    }
-  });
-}]);
-
-angular.module('EngineApp.Controllers', []);
-angular.module('EngineApp.Directives', []);
-angular.module('EngineApp.Services', ['ngResource', 'ngCookies']);
-
-angular.module('EngineApp', [
-  'EngineApp.Controllers',
-  'EngineApp.Directives',
-  'EngineApp.Services',
-]);
-
-
-angular.module('EngineApp').config(['$routeProvider',
-  function ($routeProvider) {
-  $routeProvider
-
-  .when('/engine/edit/:id?', {
-    controller: 'EngineEditCtrl',
-    templateUrl: '/app/apps/engine/views/edit.html',
-    resolve: {
-      engine: function($route, $q, Engines) {
-        //determine if we're creating or editing a engine.
-        var id = $route.current.params.id || 0;
-        if (id) {
-          var deffered = $q.defer();
-          Engines.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
-          );
-          return deffered.promise;
-        } else {
-          return null;
-        }
-      },
-      units: function($route, $q, Units) {
-        var deffered = $q.defer();
-        Units.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
-        );
-        return deffered.promise;
-      }
-    }
-  })
-
-  .when('/engine', {
-    controller: 'EngineIndexCtrl',
-    templateUrl: '/app/apps/engine/views/index.html',
-    resolve: {
-      engines: function($route, $q, Engines) {
-        var deffered = $q.defer();
-        Engines.query({},
           function (response) { return deffered.resolve(response); },
           function (err) { return deffered.reject(err); }
         );
@@ -1732,69 +1790,6 @@ angular.module('UserApp').config(['$routeProvider',
   });
 }]);
 
-angular.module('VendorApp.Controllers', []);
-angular.module('VendorApp.Directives', []);
-angular.module('VendorApp.Services', ['ngResource', 'ngCookies']);
-
-angular.module('VendorApp', [
-  'VendorApp.Controllers',
-  'VendorApp.Directives',
-  'VendorApp.Services',
-]);
-
-
-angular.module('VendorApp').config(['$routeProvider',
-  function ($routeProvider) {
-  $routeProvider
-
-  .when('/vendor/edit/:id?', {
-    controller: 'VendorEditCtrl',
-    templateUrl: '/app/apps/vendor/views/edit.html',
-    resolve: {
-      vendor: function($route, $q, Vendors) {
-        //determine if we're creating or editing a vendor.
-        var id = $route.current.params._id || 0;
-        if (id) {
-          var deffered = $q.defer();
-          Vendors.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
-          );
-          return deffered.promise;
-        } else {
-          return null;
-        }
-      },
-      vendorFamilies: function($route, $q, VendorFamilies) {
-        var deffered = $q.defer();
-        VendorFamilies.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
-        );
-        return deffered.promise;
-      },
-      role: function ($route, $q, role) {
-        return role.get();
-      }
-    }
-  })
-
-  .when('/vendor', {
-    controller: 'VendorIndexCtrl',
-    templateUrl: '/app/apps/vendor/views/index.html',
-    resolve: {
-      vendors: function($route, $q, Vendors) {
-        var deffered = $q.defer();
-        Vendors.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
-        );
-        return deffered.promise;
-      }
-    }
-  });
-}]);
-
 angular.module('VendorPartApp.Controllers', []);
 angular.module('VendorPartApp.Directives', []);
 angular.module('VendorPartApp.Services', ['ngResource', 'ngCookies']);
@@ -1866,6 +1861,69 @@ angular.module('VendorPartApp').config(['$routeProvider',
   });
 }]);
 
+angular.module('VendorApp.Controllers', []);
+angular.module('VendorApp.Directives', []);
+angular.module('VendorApp.Services', ['ngResource', 'ngCookies']);
+
+angular.module('VendorApp', [
+  'VendorApp.Controllers',
+  'VendorApp.Directives',
+  'VendorApp.Services',
+]);
+
+
+angular.module('VendorApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
+
+  .when('/vendor/edit/:id?', {
+    controller: 'VendorEditCtrl',
+    templateUrl: '/app/apps/vendor/views/edit.html',
+    resolve: {
+      vendor: function($route, $q, Vendors) {
+        //determine if we're creating or editing a vendor.
+        var id = $route.current.params._id || 0;
+        if (id) {
+          var deffered = $q.defer();
+          Vendors.get({id: id},
+            function (response) { return deffered.resolve(response); },
+            function (err) { return deffered.reject(err); }
+          );
+          return deffered.promise;
+        } else {
+          return null;
+        }
+      },
+      vendorFamilies: function($route, $q, VendorFamilies) {
+        var deffered = $q.defer();
+        VendorFamilies.query({},
+          function (response) { return deffered.resolve(response); },
+          function (err) { return deffered.reject(err); }
+        );
+        return deffered.promise;
+      },
+      role: function ($route, $q, role) {
+        return role.get();
+      }
+    }
+  })
+
+  .when('/vendor', {
+    controller: 'VendorIndexCtrl',
+    templateUrl: '/app/apps/vendor/views/index.html',
+    resolve: {
+      vendors: function($route, $q, Vendors) {
+        var deffered = $q.defer();
+        Vendors.query({},
+          function (response) { return deffered.resolve(response); },
+          function (err) { return deffered.reject(err); }
+        );
+        return deffered.promise;
+      }
+    }
+  });
+}]);
+
 angular.module('WorkOrderApp.Controllers', []);
 angular.module('WorkOrderApp.Directives', []);
 angular.module('WorkOrderApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
@@ -1882,7 +1940,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   $routeProvider
 
   .when('/workorder/edit/:id?', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'WorkOrderEditCtrl',
     templateUrl: '/app/apps/workorder/views/edit.html',
     resolve: {
@@ -1938,15 +1996,12 @@ angular.module('WorkOrderApp').config(['$routeProvider',
           function (err) { return deffered.reject(err); }
         );
         return deffered.promise;
-      },
-      role: function ($route, $q, role) {
-        return role.get();
       }
     }
   })
 
   .when('/workorder', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'WorkOrderIndexCtrl',
     templateUrl: '/app/apps/workorder/views/index.html',
     resolve: {
@@ -1960,61 +2015,6 @@ angular.module('WorkOrderApp').config(['$routeProvider',
       }
     }
   });
-}]);
-
-angular.module('Orion.Controllers').controller('SuperTableCtrl',
-['$scope', 'AlertService', 'LoaderService',
-  function ($scope, AlertService, LoaderService) {
-
-    $scope.changeSorting = function (column) {
-      var sort = $scope.sort;
-      if (sort.column == column) {
-        sort.descending = !sort.descending;
-      } else {
-        sort.column = column;
-        sort.descending = false;
-      }
-    };
-
-    /* -------------------------------------------------------------------------
-    CONFIGURATION / ON LOAD
-    ------------------------------------------------------------------------- */
-    $scope.getDefaultSort = function () {
-      var column = [];
-      for (var key in $scope.displayColumns) { column.push(key.toString()); }
-      $scope.defaultSort = { column: column, descending: [false] };
-    };
-
-    $scope.onLoad = function () {
-      var m = $scope.model;
-
-      // if the required fields are not present, bail out
-      if (!m.objectList || !m.displayColumns) {
-        console.log("WARNING!");
-        console.log("You failed to provide required data for the directive.");
-        console.log("See super-table documentation for more info.");
-        var errMessage =  "SuperTabelCtrl: " +
-                          "Required attributes were not assigned to model.";
-        throw new Error(errMessage);
-      } else {
-        $scope.tableName = m.tableName || "My Table Name";
-
-        // required variables
-        $scope.objectList = m.objectList;
-        $scope.displayColumns = m.displayColumns;
-
-        // optional variables
-        $scope.rowClickAction = m.rowClickAction;
-        $scope.headerButtons = m.headerButtons;
-        $scope.rowButtons = m.rowButtons;
-        $scope.sort = m.sort || $scope.getDefaultSort();
-
-      }
-    };
-
-    // call on load
-    (function () { $scope.onLoad(); })();
-
 }]);
 
 angular.module('Orion.Directives')
@@ -2208,6 +2208,20 @@ angular.module('Orion.Directives')
 */
 
 angular.module('Orion.Directives')
+.directive('textAreaField', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/views/customElements/textareafield.html',
+    scope: {
+      labelText: '@',
+      data: '=',
+      placeholderText: '@',
+      rows: '@'
+    }
+  };
+}]);
+
+angular.module('Orion.Directives')
 .directive('textField', [function() {
   return {
     restrict: 'E',
@@ -2216,6 +2230,36 @@ angular.module('Orion.Directives')
       labelText: '@',
       data: '=',
       placeholderText: '@'
+    }
+  };
+}]);
+
+angular.module('Orion.Directives')
+.directive('timeField', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/views/customElements/timefield.html',
+    scope: {
+      labelText: '@',
+      data: '=',
+      hours: '=',
+      minutes: '=',
+    }
+  };
+}]);
+
+angular.module('Orion.Directives')
+.directive('typeAhead', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/views/customElements/typeahead.html',
+    scope: {
+      labelText: '@',
+      data: '=',
+      selectField: '@',
+      displayField: '@',
+      objList: '=',
+      limit: '@'
     }
   };
 }]);
@@ -2621,136 +2665,6 @@ angular.module('CountyApp.Controllers').controller('CountyIndexCtrl',
 
 }]);
 
-angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Customers', 'customer', 'locations',
-  function ($scope, $route, $location, AlertService, LoaderService, Customers, customer, locations) {
-
-    $scope.title = customer ? "Edit " + customer.dbaCustomerName :
-                              "Create a new customer";
-
-    $scope.customer = customer;
-    $scope.locations = locations;
-
-    $scope.save = function () {
-      $scope.submitting = true;
-      if ($scope.customer._id) {
-        // Edit an existing customer.
-        Customers.save({_id: customer._id}, $scope.customer,
-          function (response) {
-            $location.path("/customer");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      } else {
-        // Create a new customer.
-        Customers.save({}, $scope.customer,
-          function (response) {
-            $location.path("/customer");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      }
-    };
-
-    $scope.destroy = function () {
-      $scope.submitting = true;
-      Customers.delete({_id: customer._id},
-        function (response) {
-          $location.path("/customer");
-          $scope.submitting = false;
-        },
-        function (err) {
-          AlertService.add("error", err);
-          $scope.submitting = false;
-        }
-      );
-    };
-
-}]);
-
-angular.module('CustomerApp.Controllers').controller('CustomerIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'customers',
-  function ($scope, $route, $location, AlertService, LoaderService, customers) {
-
-    $scope.title = "Customers";
-
-    $scope.customers = customers;
-
-    $scope.editCustomer = function (id) {
-      $location.path("/customer/edit/" + (id || ""));
-    };
-
-    $scope.createCustomer = function () {
-      $scope.editCustomer();
-    };
-
-  	/* Table
-  	--------------------------------------------------------------------------- */
-    $scope.superTableModel = {
-      tableName: "Customers", // displayed at top of page
-      objectList: getObjectList(), // objects to be shown in list
-      displayColumns: getTableDisplayColumns(),
-  		rowClickAction: null, // takes a function that accepts an obj param
-      rowButtons: getTableRowButtons(), // an array of button object (format below)
-      headerButtons: getTableHeaderButtons(), // an array of button object (format below)
-  		sort: getTableSort()
-    };
-
-  	function getObjectList () {
-  		return customers;
-  	}
-
-    function getTableDisplayColumns () {
-      return [ // which columns need to be displayed in the table
-        { title: "DBA", objKey: "dbaCustomerName" },
-        { title: "Family", objKey: "customerFamily"},
-        { title: "Phone", objKey: "phone"}
-      ];
-    }
-
-    function rowClickAction (obj) { // takes the row object
-      $scope.editCustomer(obj._id);
-    }
-
-    function getTableRowButtons () {
-      var arr = [];
-      var button = {};
-      button.title = "edit";
-      button.action = rowClickAction;
-      arr.push(button);
-      return arr;
-    }
-
-    function tableHeaderAction () { // takes no parameters
-  		$scope.createCustomer();
-    }
-
-    function getTableHeaderButtons() {
-      var arr = [];
-      var button = {};
-      button.title = "new customer";
-      button.action = tableHeaderAction;
-      arr.push(button);
-      return arr;
-    }
-
-    function getTableSort () {
-      return {
-        column: ["dbaCustomerName"],
-        descending: [false],
-      };
-    }
-
-}]);
-
 angular.module('EngineApp.Controllers').controller('EngineEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Engines', 'engine', 'units',
   function ($scope, $route, $location, AlertService, LoaderService, Engines, engine, units) {
@@ -2885,6 +2799,136 @@ angular.module('EngineApp.Controllers').controller('EngineIndexCtrl',
     function getTableSort () {
       return {
         column: ["serial"],
+        descending: [false],
+      };
+    }
+
+}]);
+
+angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Customers', 'customer', 'locations',
+  function ($scope, $route, $location, AlertService, LoaderService, Customers, customer, locations) {
+
+    $scope.title = customer ? "Edit " + customer.dbaCustomerName :
+                              "Create a new customer";
+
+    $scope.customer = customer;
+    $scope.locations = locations;
+
+    $scope.save = function () {
+      $scope.submitting = true;
+      if ($scope.customer._id) {
+        // Edit an existing customer.
+        Customers.save({_id: customer._id}, $scope.customer,
+          function (response) {
+            $location.path("/customer");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      } else {
+        // Create a new customer.
+        Customers.save({}, $scope.customer,
+          function (response) {
+            $location.path("/customer");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      }
+    };
+
+    $scope.destroy = function () {
+      $scope.submitting = true;
+      Customers.delete({_id: customer._id},
+        function (response) {
+          $location.path("/customer");
+          $scope.submitting = false;
+        },
+        function (err) {
+          AlertService.add("error", err);
+          $scope.submitting = false;
+        }
+      );
+    };
+
+}]);
+
+angular.module('CustomerApp.Controllers').controller('CustomerIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'customers',
+  function ($scope, $route, $location, AlertService, LoaderService, customers) {
+
+    $scope.title = "Customers";
+
+    $scope.customers = customers;
+
+    $scope.editCustomer = function (id) {
+      $location.path("/customer/edit/" + (id || ""));
+    };
+
+    $scope.createCustomer = function () {
+      $scope.editCustomer();
+    };
+
+  	/* Table
+  	--------------------------------------------------------------------------- */
+    $scope.superTableModel = {
+      tableName: "Customers", // displayed at top of page
+      objectList: getObjectList(), // objects to be shown in list
+      displayColumns: getTableDisplayColumns(),
+  		rowClickAction: null, // takes a function that accepts an obj param
+      rowButtons: getTableRowButtons(), // an array of button object (format below)
+      headerButtons: getTableHeaderButtons(), // an array of button object (format below)
+  		sort: getTableSort()
+    };
+
+  	function getObjectList () {
+  		return customers;
+  	}
+
+    function getTableDisplayColumns () {
+      return [ // which columns need to be displayed in the table
+        { title: "DBA", objKey: "dbaCustomerName" },
+        { title: "Family", objKey: "customerFamily"},
+        { title: "Phone", objKey: "phone"}
+      ];
+    }
+
+    function rowClickAction (obj) { // takes the row object
+      $scope.editCustomer(obj._id);
+    }
+
+    function getTableRowButtons () {
+      var arr = [];
+      var button = {};
+      button.title = "edit";
+      button.action = rowClickAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function tableHeaderAction () { // takes no parameters
+  		$scope.createCustomer();
+    }
+
+    function getTableHeaderButtons() {
+      var arr = [];
+      var button = {};
+      button.title = "new customer";
+      button.action = tableHeaderAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function getTableSort () {
+      return {
+        column: ["dbaCustomerName"],
         descending: [false],
       };
     }
@@ -4207,98 +4251,6 @@ angular.module('UserApp.Controllers').controller('UserIndexCtrl',
 
 }]);
 
-angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Vendors', 'vendor', 'vendorFamilies', 'role',
-  function ($scope, $route, $location, AlertService, LoaderService, Vendors, vendor, vendorFamilies, role) {
-
-    $scope.title = vendor ? "Edit " + vendor.name : "Create a new vendor";
-
-    if (vendor) {
-      $scope.vendor = vendor;
-    }
-
-    $scope.vendorFamilies = vendorFamilies;
-
-    $scope.vendorFamilies.push({name: "Other", id: 0});
-
-    $scope.save = function () {
-      $scope.submitting = true;
-      if ($scope.vendor._id) {
-        // Edit an existing vendor.
-        Vendors.save({id: vendor._id}, $scope.vendor,
-          function (response) {
-            $location.path("/vendor");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      } else {
-        // Create a new vendor.
-        Vendors.save({}, $scope.vendor,
-          function (response) {
-            $location.path("/vendor");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      }
-    };
-
-    $scope.destroy = function () {
-      $scope.submitting = true;
-      Vendors.delete({id: vendor._id},
-        function (response) {
-          $location.path("/vendor");
-          $scope.submitting = false;
-        },
-        function (err) {
-          AlertService.add("error", err);
-          $scope.submitting = false;
-        }
-      );
-    };
-
-}]);
-
-angular.module('VendorApp.Controllers').controller('VendorIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'vendors',
-  function ($scope, $route, $location, AlertService, LoaderService, vendors) {
-
-    $scope.title = "Vendors";
-
-    $scope.vendors = vendors;
-
-    $scope.editVendor = function (id) {
-      $location.path("/vendor/edit/" + (id || ""));
-    };
-
-    $scope.createVendor = function () {
-      $scope.editVendor();
-    };
-
-    $scope.sort = {
-      column: "name",
-      descending: false,
-    };
-
-    $scope.changeSorting = function (column) {
-      var sort = $scope.sort;
-      if (sort.column == column) {
-        sort.descending = !sort.descending;
-      } else {
-        sort.column = column;
-        sort.descending = false;
-      }
-    };
-
-}]);
-
 angular.module('VendorPartApp.Controllers').controller('VendorPartEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'VendorParts', 'vendorpart','vendors', 'parts', 'role',
   function ($scope, $route, $location, AlertService, LoaderService, VendorParts, vendorpart, vendors, parts, role) {
@@ -4415,11 +4367,115 @@ angular.module('VendorPartApp.Controllers').controller('VendorPartIndexCtrl',
 
 }]);
 
+angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Vendors', 'vendor', 'vendorFamilies', 'role',
+  function ($scope, $route, $location, AlertService, LoaderService, Vendors, vendor, vendorFamilies, role) {
+
+    $scope.title = vendor ? "Edit " + vendor.name : "Create a new vendor";
+
+    if (vendor) {
+      $scope.vendor = vendor;
+    }
+
+    $scope.vendorFamilies = vendorFamilies;
+
+    $scope.vendorFamilies.push({name: "Other", id: 0});
+
+    $scope.save = function () {
+      $scope.submitting = true;
+      if ($scope.vendor._id) {
+        // Edit an existing vendor.
+        Vendors.save({id: vendor._id}, $scope.vendor,
+          function (response) {
+            $location.path("/vendor");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      } else {
+        // Create a new vendor.
+        Vendors.save({}, $scope.vendor,
+          function (response) {
+            $location.path("/vendor");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      }
+    };
+
+    $scope.destroy = function () {
+      $scope.submitting = true;
+      Vendors.delete({id: vendor._id},
+        function (response) {
+          $location.path("/vendor");
+          $scope.submitting = false;
+        },
+        function (err) {
+          AlertService.add("error", err);
+          $scope.submitting = false;
+        }
+      );
+    };
+
+}]);
+
+angular.module('VendorApp.Controllers').controller('VendorIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'vendors',
+  function ($scope, $route, $location, AlertService, LoaderService, vendors) {
+
+    $scope.title = "Vendors";
+
+    $scope.vendors = vendors;
+
+    $scope.editVendor = function (id) {
+      $location.path("/vendor/edit/" + (id || ""));
+    };
+
+    $scope.createVendor = function () {
+      $scope.editVendor();
+    };
+
+    $scope.sort = {
+      column: "name",
+      descending: false,
+    };
+
+    $scope.changeSorting = function (column) {
+      var sort = $scope.sort;
+      if (sort.column == column) {
+        sort.descending = !sort.descending;
+      } else {
+        sort.column = column;
+        sort.descending = false;
+      }
+    };
+
+}]);
+
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$scope', '$location', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'role',
-  function ($window, $scope, $location, AlertService, WorkOrders, workorder, units, customers, users, parts, role) {
+['$window', '$scope', '$location', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts',
+  function ($window, $scope, $location, AlertService, WorkOrders, workorder, units, customers, users, parts) {
 
     $scope.title = (workorder !== null ? "Edit " : "Create ") + "Work Order";
+
+    $scope.workorder = workorder || newWorkOrder();
+    $scope.units = units;
+    $scope.customers = customers;
+    $scope.users = users;
+    $scope.parts = parts;
+    $scope.hours = getHours();
+    $scope.minutes = getMinutes();
+
+    $scope.$watch('workorder.types.pm', function (newVal) {
+      console.log(newVal);
+    });
 
     $scope.toggleHistory = function () {
       $scope.showHistory = !$scope.showHistory || true;
@@ -4460,11 +4516,223 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       });
     };
 
+    function getHours() {
+      var hours = [];
+      var i = 0;
+      while (i <= 24) {
+        hours.push(i);
+        i++;
+      }
+      return hours;
+    }
+
+    function getMinutes() {
+      var minutes = [];
+      var i = 0;
+      while (i < 60) {
+        minutes.push(i);
+        i+=5;
+      }
+      return minutes;
+    }
+
+    function newWorkOrder() {
+      var newWO =
+      {
+        types: {
+          pm: false,
+          corrective: false,
+          trouble:    false,
+          newset:     false,
+          release:    false,
+          indirect:   false
+        },
+
+        header: {
+          unitNumber:       "",
+          customerName:     "",
+          contactName:      "",
+          county:           "",
+          state:            "",
+          leaseName:        "",
+          rideAlong:        "",
+          mileage:          "",
+          applicationType:  ""
+        },
+
+        unitOwnership: {
+          isRental: false,
+          isCustomerUnit: false
+        },
+
+        billingInfo: {
+          billableToCustomer: false,
+          warrantyWork:       false,
+          AFE:                false
+        },
+
+        misc: {
+          leaseNotes: "",
+          unitNotes:  "",
+          JSA:        "",
+
+          typeOfAsset:              "",
+          isUnitRunningOnDeparture: false
+        },
+
+        unitReadings: {
+          suctionPressure:        "",
+          dischargePressure:      "",
+          flowMCF:                "",
+          rpm:                    "",
+          dischargeTemp1:         "",
+          dischargeTemp2:         "",
+          hourReading:            "",
+          compressorSerial:       "",
+          engineSerial:           "",
+          engineOilPressure:      "",
+          alternatorOutput:       "",
+          compressorOilPressure:  "",
+          engineJWTemp:           "",
+          engineManifoldVac:      ""
+        },
+
+        emissionsReadings: {
+          afrmvTarget:      "",
+          catalystTempPre:  "",
+          catalystTempPost: "",
+          permitNumber:     ""
+        },
+
+        pmChecklist: {
+
+          killSettings: {
+            highSuctionKill:        "",
+            highDischargeKill:      "",
+            lowSuctionKill:         "",
+            lowDischargeKill:       "",
+            highDischargeTempKill:  ""
+          },
+
+          engineChecks: {
+            battery:            false,
+            capAndRotor:        false,
+            airFilter:          false,
+            oilAndFilters:      false,
+            magPickup:          false,
+            belts:              false,
+            guardsAndBrackets:  false,
+            sparkPlugs:         false,
+            plugWires:          false,
+            driveLine:          false
+          },
+
+          generalChecks: {
+            kills:                false,
+            airHoses:             false,
+            coolerForCracks:      false,
+            coolerLouverMovement: false,
+            coolerLouverCleaned:  false,
+            scrubberDump:         false,
+            plugInSkid:           false,
+            filledDayTank:        false,
+            fanForCracking:       false,
+            panelWires:           false,
+            oilPumpBelt:          false
+          },
+
+          fuelPressureFirstCut:   "",
+          fuelPressureSecondCut:  "",
+          visibleLeaksNotes:      "",
+          engineCompression: {
+            cylinder1: "",
+            cylinder2: "",
+            cylinder3: "",
+            cylinder4: "",
+            cylinder5: "",
+            cylinder6: "",
+            cylinder7: "",
+            cylinder8: "",
+          }
+        },
+
+        comments: {
+          repairsDescription:  "",
+          repairsReason:       "",
+          calloutReason:       "",
+          newsetNotes:         "",
+          releaseNotes:        "",
+          indirectNotes:       "",
+          timeAdjustmentNotes: ""
+        },
+
+        laborCodes: {
+          basic: {
+            safety:         { hours: 0, minutes: 0 },
+            lunch:          { hours: 0, minutes: 0 },
+            custRelations:  { hours: 0, minutes: 0 },
+            telemetry:      { hours: 0, minutes: 0 },
+            environmental:  { hours: 0, minutes: 0 },
+            diagnostic:     { hours: 0, minutes: 0 },
+            serviceTravel:  { hours: 0, minutes: 0 },
+            optimizeUnit:   { hours: 0, minutes: 0 },
+            pm:             { hours: 0, minutes: 0 },
+            washUnit:       { hours: 0, minutes: 0 },
+            training:       { hours: 0, minutes: 0 },
+          },
+
+          engine: {
+            oilAndFilter:     { hours: 0, minutes: 0 },
+            addOil:           { hours: 0, minutes: 0 },
+            compression:      { hours: 0, minutes: 0 },
+            replaceEngine:    { hours: 0, minutes: 0 },
+            replaceCylHead:   { hours: 0, minutes: 0 },
+            replaceRadiator:  { hours: 0, minutes: 0 },
+            fuelSystem:       { hours: 0, minutes: 0 },
+            ignition:         { hours: 0, minutes: 0 },
+            starter:          { hours: 0, minutes: 0 },
+            lubrication:      { hours: 0, minutes: 0 },
+            exhaust:          { hours: 0, minutes: 0 },
+            alternator:       { hours: 0, minutes: 0 },
+            driveOrCoupling:  { hours: 0, minutes: 0 },
+            sealsAndGaskets:  { hours: 0, minutes: 0 },
+          },
+          emissions: {
+            install: { hours: 0, minutes: 0 },
+            test:    { hours: 0, minutes: 0 },
+            repair:  { hours: 0, minutes: 0 }
+          },
+          panel: {
+            panel:         { hours: 0, minutes: 0 },
+            electrical:    { hours: 0, minutes: 0 }
+          },
+          compressor: {
+            inspect:  { hours: 0, minutes: 0 },
+            replace:  { hours: 0, minutes: 0 }
+          },
+          cooler: {
+            cooling:  { hours: 0, minutes: 0 }
+          },
+          vessel: {
+            dumpControl:  { hours: 0, minutes: 0 },
+            reliefValve:  { hours: 0, minutes: 0 },
+            suctionValve: { hours: 0, minutes: 0 }
+          },
+        },
+
+        unit:     {},
+        customer: {},
+        worker:   {},
+        county:   {},
+        lease:    {},
+      };
+      return newWO;
+    }
 }]);
 
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders', 'ArrayFilterService',
-function ($scope, $route, $location, AlertService, LoaderService, workorders, ArrayFilterService) {
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders',
+function ($scope, $route, $location, AlertService, LoaderService, workorders) {
 
   $scope.title = "Work Orders";
 
@@ -4522,7 +4790,7 @@ function ($scope, $route, $location, AlertService, LoaderService, workorders, Ar
   function getTableHeaderButtons() {
     var arr = [];
     var button = {};
-    button.title = "new part";
+    button.title = "new workorder";
     button.action = tableHeaderAction;
     arr.push(button);
     return arr;
@@ -4531,296 +4799,11 @@ function ($scope, $route, $location, AlertService, LoaderService, workorders, Ar
   function getTableSort () {
     return {
       column: ["status", "date", "number"],
-      descending: [true],
+      descending: true,
     };
   }
 
 }]);
-
-angular.module('WorkOrderApp.Services')
-.factory('WorkOrderAccordionService', [function () {
-
-  var WorkOrderAccordionService = {};
-
-  WorkOrderAccordionService.instantiate = function (workorder) {
-    var isCreate = !workorder._id;
-    return {
-      genInfo:      { open: true,      disabled: false, valid: false },
-      hardware:     { open: !isCreate, disabled: true,  valid: false },
-      logs:         { open: !isCreate, disabled: true,  valid: false },
-      callOut:      { open: !isCreate, disabled: true,  valid: false },
-      highPressure: { open: !isCreate, disabled: true,  valid: false },
-      parts:        { open: !isCreate, disabled: true,  valid: false }
-    };
-  };
-
-  WorkOrderAccordionService.sectionIsValid = function (section, accordion, workorder) {
-    var isValid = false;
-    var wo = workorder;
-
-    switch (section) {
-
-      case "genInfo":
-        isValid = wo.date &&
-                  wo.unit.number;
-                  break;
-
-      case "hardware":
-        isValid = accordion.genInfo.valid &&
-                  wo.suction.length !== 0 &&
-                  wo.discharge.length !== 0 &&
-                  wo.flowrate.length !== 0 &&
-                  wo.engineHours.length !== 0 &&
-                  wo.engineOilPressure.length !== 0 &&
-                  wo.jwTemperature.length !== 0 &&
-                  wo.rpm.length !== 0 &&
-                  wo.manifoldVac.length !== 0 &&
-                  wo.compressorHours.length !== 0 &&
-                  wo.compressorOilPressure.length !== 0;
-                  break;
-
-      case "logs":
-        isValid = accordion.hardware.valid &&
-                  wo.workOrderLogs;
-                  break;
-
-      case "callOut":
-        isValid = accordion.logs.valid &&
-                  (wo.isCallOut !== true || (
-                   wo.calledOutBy &&
-                   wo.timeCalled &&
-                   wo.timeDeparted &&
-                   wo.timeArrived &&
-                   wo.callOutReason
-                  ));
-                  break;
-
-      case "highPressure":
-        isValid = accordion.logs.valid &&
-                  ((wo.isHighPressure !== true) || (!!wo.pressureRating));
-                  break;
-
-      case "parts":
-        isValid = accordion.logs.valid &&
-                  wo.workOrderParts;
-                  break;
-
-    }
-    return isValid;
-  };
-
-  return WorkOrderAccordionService;
-
-}]);
-
-angular.module('WorkOrderApp.Services')
-.factory('WorkOrderEditService', ['WorkOrders', 'Users', 'role', '$cookies', function (WorkOrders, Users, role, $cookies) {
-
-  var WorkOrderEditService = {
-    workorder: {},
-    technician: []
-  };
-
-  WorkOrderEditService.load = function (workorder, callback) {
-    var self = this;
-    if (workorder) {
-      self.workorder = workorder;
-      self.workorder.timeCalled = workorder.timeCalled.split(".")[0];
-      self.workorder.timeDeparted = workorder.timeDeparted.split(".")[0];
-      self.workorder.timeArrived = workorder.timeArrived.split(".")[0];
-      self.loadTechnicians(callback);
-    } else {
-      self.workorder = emptyWorkOrder();
-      return callback(null);
-    }
-    return self.workorder;
-  };
-
-  WorkOrderEditService.loadTechnicians = function (callback) {
-    var self = this;
-    var id = null;
-    if (self.workorder.unit) {
-      id = self.workorder.unit.ServicePartnerId;
-    }
-    if (id) {
-      var obj = { ServicePartnerId: id, role: "TECHNICIAN" };
-      Users.query({ where: obj },
-        function (response) {
-          self.technicians = response;
-          obj = { ServicePartnerId: id, role: "REVIEWER" };
-          Users.query({ where: obj },
-            function (response) {
-              self.technicians = self.technicians.concat(response);
-              return callback(null);
-            },
-            function (err) {
-              return callback(err);
-            }
-          );
-        },
-        function (err) {
-          return callback(err);
-        }
-      );
-    } else {
-      return callback(null);
-    }
-  };
-
-  WorkOrderEditService.save = function (workorder, role, callback) {
-
-    var logsWithoutTimes = workorder.workOrderLogs.filter(function (woLog) {
-      return (woLog.hours === 0 && woLog.minutes === 0);
-    });
-    var isConfirmRequired = logsWithoutTimes.length > 0;
-    var conditions;
-     
-    if (isConfirmRequired) {
-      var text = 'This workorder contains some' +
-      ' Types of Work Performed Line Items that do not have hours or minutes.' +
-      ' Are you sure you wish to save?';
-
-      if (confirm(text)) {
-        setWorkOrderStatus(workorder, role, true);
-        workorder.UnitId = workorder.unit._id;
-        conditions = workorder._id ? { id: workorder._id } : {};
-        WorkOrders.save(conditions, workorder,
-          function (response) { return callback(null, response); },
-          function (err) { return callback(err, null); }
-        );
-      } else {
-        return callback("Please edit the line items and then save again.");
-      }
-    } else {
-      setWorkOrderStatus(workorder, role, true);
-      workorder.UnitId = workorder.unit._id;
-      conditions = workorder._id ? { id: workorder._id } : {};
-      WorkOrders.save(conditions, workorder,
-        function (response) { return callback(null, response); },
-        function (err) { return callback(err, null); }
-      );
-    }
-
-
-  };
-
-  WorkOrderEditService.destroy = function (workorder, role, callback) {
-    console.log(workorder.status);
-    setWorkOrderStatus(workorder, role, false);
-    console.log(workorder.status);
-    if (!workorder.status) {
-      WorkOrders.delete({ id: workorder._id },
-        function (response) { return callback(null, response); },
-        function (err) { return callback(err, null); }
-      );
-    } else {
-      workorder.UnitId = workorder.unit._id;
-      WorkOrders.save({ id: workorder._id }, workorder,
-        function (response) { return callback(null, response); },
-        function (err) { return callback(err, null); }
-      );
-    }
-  };
-
-  WorkOrderEditService.submitButtonText =  function (workorder) {
-    var status = workorder.status;
-    if (!status || role === "TECHNIAN") {
-      return "Create";
-    } else if (status === "PENDING" || role === "REVIEWER") {
-      return "Submit";
-    } else if (status === "SUBMITTED" || role === "CORPORATE") {
-      return "Approve";
-    } else if (status === "SUBMITTED" || role === "ADMIN") {
-      return "Approve";
-    } else {
-      return "Edit";
-    }
-  };
-
-  WorkOrderEditService.rejectButtonText = function (workorder) {
-    var status = workorder.status;
-    if (!status) {
-      return "Cancel";
-    } else if (status === "PENDING") {
-      return "Delete";
-    } else if (status === "SUBMITTED") {
-      return "Reject";
-    } else {
-      return "Delete";
-    }
-  };
-
-  function setWorkOrderStatus (workorder, role, isProgressing) {
-    if (isProgressing) {
-      switch (role) {
-        case "TECHNICIAN": workorder.status = "SUBMITTED"; break;
-        case "REVIEWER": workorder.status = "APPROVED"; break;
-        case "CORPORATE": workorder.status = "APPROVED"; break;
-        case "ADMIN": workorder.status = "APPROVED"; break;
-      }
-    } else {
-      var userId = $cookies.userId || 0;
-      if (userId === workorder.CreatedById) {
-        workorder.status = null;
-        return;
-      } else {
-        switch (role) {
-          case "TECHNICIAN": workorder.status = null; break;
-          case "REVIEWER": workorder.status = "SUBMITTED"; break;
-          case "CORPORATE": workorder.status = "SUBMITTED"; break;
-          case "ADMIN": workorder.status = "SUBMITTED"; break;
-        }
-      }
-    }
-  }
-
-
-  return WorkOrderEditService;
-
-}]);
-
-function emptyWorkOrder() {
-  return {
-    date:                   new Date(),
-    reason:                 "",
-    details:                "",
-    isTransfer:             false,
-    calledOutBy:            "",
-
-    // Application
-    suction:                0,
-    discharge:              0,
-    flowrate:               0,
-    // Engine
-    engineHours:            0,
-    engineOilPressure:      0,
-    jwTemperature:          0,
-    rpm:                    0,
-    manifoldVac:            0,
-    // Engine
-    compressorHours:        0,
-    compressorOilPressure:  0,
-    // Call Out
-    timeCalled:             new Date(),
-    timeDeparted:           new Date(),
-    timeArrived:            new Date(),
-    callOutReason:          new Date(),
-    // Engine Swap
-    engineSerial:           "",
-    engineModel:            "",
-    // Engine Swap
-    compressorSerial:       "",
-    compressorModel:        "",
-
-    createdBy:              {}, // user
-    workOrderParts:         [], // parts
-    workOrderLogs:          [], // labor logs
-    unit:                   {}, // user
-    technician:             {}, // technician
-
-    statuses:               ["PENDING", "SUBMITTED", "APPROVED"]
-  };
-}
 
 angular.module('PartApp.Controllers').controller('PartsVendorPartsCtrl',
 ['$scope', '$location', 'AlertService', 'VendorParts',
@@ -5239,69 +5222,241 @@ angular.module('TransferApp.Controllers').controller('TransferInformationCtrl',
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('customerCallOut', [function() {
+.directive('workorderComments', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/app/apps/workorder/views/customerCallOut.html',
-    controller: 'WorkOrderCalloutCtrl',
+    templateUrl: '/app/apps/workorder/views/edit/woComments.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('generalInformation', [function() {
+.directive('workorderEmissionsReadings', [function() {
   return {
     restrict: 'E',
-    scope: true,
-    templateUrl: '/app/apps/workorder/views/generalInformation.html',
-    controller: 'WorkOrderInformationCtrl'
+    templateUrl: '/app/apps/workorder/views/edit/woEmissionsReadings.html',
+    scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('hardware', [function() {
+.directive('workorderHistory', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/app/apps/workorder/views/hardware.html',
-    link: function (scope, elem, attrs, ctrl, $location) {
-
-    }
+    templateUrl: '/app/apps/workorder/views/edit/woHistory.html',
+    scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('logs', [function() {
+.directive('workorderUnitReadings', [function() {
   return {
     restrict: 'E',
-    scope: true,
-    templateUrl: '/app/apps/workorder/views/logs.html',
-    controller: 'WorkOrderLogsCtrl'
+    templateUrl: '/app/apps/workorder/views/edit/woUnitReadings.html',
+    scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('parts', [function() {
+.directive('workorderBilling', [function() {
   return {
     restrict: 'E',
-    scope: true,
-    templateUrl: '/app/apps/workorder/views/parts.html',
-    controller: 'WorkOrderPartsCtrl'
+    templateUrl: '/app/apps/workorder/views/edit/header/woBilling.html',
+    scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('pressure', [function() {
+.directive('workorderHeading', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/app/apps/workorder/views/pressure.html',
-    link: function (scope, elem, attrs, ctrl, $location) {
+    templateUrl: '/app/apps/workorder/views/edit/header/woHeading.html',
+    scope: true
+  };
+}]);
 
-    }
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderMisc', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/header/woMisc.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderOwnership', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/header/woOwnership.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderType', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/header/woType.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderHeader', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/header/workorderheader.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderBasicLc', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/lc/woBasicLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderCompressorLc', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/lc/woCompressorLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderCoolerLc', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/lc/woCoolerLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEmissionsLc', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/lc/woEmissionsLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEngineLc', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/lc/woEngineLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPanelLc', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/lc/woPanelLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderVesselLc', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/lc/woVesselLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderLaborCodes', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/lc/workorderLaborCodes.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEngineChecks', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/pm/woEngineChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEngineCompression', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/pm/woEngineCompression.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderGeneralChecks', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/pm/woGeneralChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderKillSettings', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/pm/woKillSettings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPmMisc', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/pm/woPMMisc.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPm', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/apps/workorder/views/edit/pm/woPM.html',
+    scope: true
   };
 }]);
 

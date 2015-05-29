@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var Mixed = mongoose.Schema.Types.Mixed;
 var autopopulate = require('mongoose-autopopulate');
 
 /* Declaration
@@ -13,7 +14,8 @@ var WorkOrderSchema = new mongoose.Schema({
     corrective: { type: Boolean },
     trouble:    { type: Boolean },
     newset:     { type: Boolean },
-    release:    { type: Boolean }
+    release:    { type: Boolean },
+    indirect:   { type: Boolean }
   },
 
   header: {
@@ -29,7 +31,8 @@ var WorkOrderSchema = new mongoose.Schema({
   },
 
   unitOwnership: {
-    isRental: { type: Boolean }
+    isRental: { type: Boolean },
+    isCustomerUnit: { type: Boolean }
   },
 
   billingInfo: {
@@ -38,12 +41,16 @@ var WorkOrderSchema = new mongoose.Schema({
     AFE:                { type: Boolean }
   },
 
-  leaseNotes: { type: String },
-  unitNotes:  { type: String },
-  JSA:        { type: String },
+  misc: {
+    leaseNotes: { type: String },
+    unitNotes:  { type: String },
+    JSA:        { type: String },
 
-  typeOfAsset:              { type: String },
-  isUnitRunningOnDeparture: { type: Boolean },
+    typeOfAsset:              { type: String },
+    isUnitRunningOnDeparture: { type: Boolean }
+  },
+
+
 
   // TODO: double check data types
   unitReadings: {
@@ -86,7 +93,7 @@ var WorkOrderSchema = new mongoose.Schema({
       magPickup:          { type: Boolean },
       belts:              { type: Boolean },
       guardsAndBrackets:  { type: Boolean },
-      sparkPlugskey:      { type: Boolean },
+      sparkPlugs:         { type: Boolean },
       plugWires:          { type: Boolean },
       driveLine:          { type: Boolean }
     },
@@ -101,7 +108,7 @@ var WorkOrderSchema = new mongoose.Schema({
       filledDayTank:        { type: Boolean },
       fanForCracking:       { type: Boolean },
       panelWires:           { type: Boolean },
-      oilDump:              { type: Boolean }
+      oilPumpBelt:          { type: Boolean }
     },
     fuelPressureFirstCut:   { type: String },
     fuelPressureSecondCut:  { type: String },
@@ -117,6 +124,80 @@ var WorkOrderSchema = new mongoose.Schema({
       cylinder8: { type: String },
     }
   },
+
+  comments: {
+    repairsDescription:  { type: String },
+    repairsReason:       { type: String },
+    calloutReason:       { type: String },
+    newsetNotes:         { type: String },
+    releaseNotes:        { type: String },
+    indirectNotes:       { type: String },
+    timeAdjustmentNotes: { type: String },
+  },
+
+  laborCodes: {
+    basic: {
+      safety:         { hours: { type: Number }, minutes: { type: Number } },
+      lunch:          { hours: { type: Number }, minutes: { type: Number } },
+      custRelations:  { hours: { type: Number }, minutes: { type: Number } },
+      telemetry:      { hours: { type: Number }, minutes: { type: Number } },
+      environmental:  { hours: { type: Number }, minutes: { type: Number } },
+      diagnostic:     { hours: { type: Number }, minutes: { type: Number } },
+      serviceTravel:  { hours: { type: Number }, minutes: { type: Number } },
+      optimizeUnit:   { hours: { type: Number }, minutes: { type: Number } },
+      pm:             { hours: { type: Number }, minutes: { type: Number } },
+      washUnit:       { hours: { type: Number }, minutes: { type: Number } },
+      training:       { hours: { type: Number }, minutes: { type: Number } },
+    },
+
+    engine: {
+      oilAndFilter:     { hours: { type: Number }, minutes: { type: Number } },
+      addOil:           { hours: { type: Number }, minutes: { type: Number } },
+      compression:      { hours: { type: Number }, minutes: { type: Number } },
+      replaceEngine:    { hours: { type: Number }, minutes: { type: Number } },
+      replaceCylHead:   { hours: { type: Number }, minutes: { type: Number } },
+      replaceRadiator:  { hours: { type: Number }, minutes: { type: Number } },
+      fuelSystem:       { hours: { type: Number }, minutes: { type: Number } },
+      ignition:         { hours: { type: Number }, minutes: { type: Number } },
+      starter:          { hours: { type: Number }, minutes: { type: Number } },
+      lubrication:      { hours: { type: Number }, minutes: { type: Number } },
+      exhaust:          { hours: { type: Number }, minutes: { type: Number } },
+      alternator:       { hours: { type: Number }, minutes: { type: Number } },
+      driveOrCoupling:  { hours: { type: Number }, minutes: { type: Number } },
+      sealsAndGaskets:  { hours: { type: Number }, minutes: { type: Number } },
+    },
+    emissions: {
+      install: { hours: { type: Number }, minutes: { type: Number } },
+      test:    { hours: { type: Number }, minutes: { type: Number } },
+      repair:  { hours: { type: Number }, minutes: { type: Number } }
+    },
+    panel: {
+      panel:         { hours: { type: Number }, minutes: { type: Number } },
+      electrical:    { hours: { type: Number }, minutes: { type: Number } }
+    },
+    compressor: {
+      inspect:  { hours: { type: Number }, minutes: { type: Number } },
+      replace:  { hours: { type: Number }, minutes: { type: Number } }
+    },
+    cooler: {
+      cooling:  { hours: { type: Number }, minutes: { type: Number } }
+    },
+    vessel: {
+      dumpControl:  { hours: { type: Number }, minutes: { type: Number } },
+      reliefValve:  { hours: { type: Number }, minutes: { type: Number } },
+      suctionValve: { hours: { type: Number }, minutes: { type: Number } }
+    },
+  },
+
+  parts: [{
+    number:       { type: String },
+    description:  { type: String },
+    cost:         { type: Number },
+    laborCode:    { type: String },
+    quantity:     { type: String },
+    isBillable:   { type: Boolean },
+    isWarranty:   { type: Boolean },
+  }],
 
   unit: { type: ObjectId, ref: 'Units', index: true },
   customer: { type: ObjectId, ref: 'Customers', index: true },

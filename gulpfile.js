@@ -91,7 +91,11 @@ gulp.task('mocha', ['scripts'] , function () {
 
 // launches the server with nodemon
 gulp.task('launchserver', ['mocha'], function () {
-  nodemon({ script: 'app.js', ext: 'html js', tasks: ['back-end-lint'] })
+  nodemon({
+    script: 'app.js',
+    ext: 'html js',
+    tasks: ['back-end-lint'],
+    ignore: ['./public/*', './_dev_util/browserify/*']})
     .on('restart', function () {
       console.log('\n\nChange detected, nodemon restarted the server.\n\n');
     })
@@ -100,8 +104,10 @@ gulp.task('launchserver', ['mocha'], function () {
 // Watch Files For Changes
 gulp.task('watch', ['launchserver'], function() {
 
-  gulp.watch( ['./public/app/**/*.js', './public/scripts/**/*.js'],
-              [ 'lint', 'scripts' ]);
+  gulp.watch([
+    './public/app/**/*.js',
+    './public/scripts/**/*.js'],
+    [ 'front-end-lint', 'scripts' ]);
 
   gulp.watch('public/**/*.less', ['less']);
 

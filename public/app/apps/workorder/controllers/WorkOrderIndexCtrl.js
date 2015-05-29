@@ -1,6 +1,6 @@
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders', 'ArrayFilterService',
-function ($scope, $route, $location, AlertService, LoaderService, workorders, ArrayFilterService) {
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders',
+function ($scope, $route, $location, AlertService, LoaderService, workorders) {
 
   $scope.title = "Work Orders";
 
@@ -58,7 +58,7 @@ function ($scope, $route, $location, AlertService, LoaderService, workorders, Ar
   function getTableHeaderButtons() {
     var arr = [];
     var button = {};
-    button.title = "new part";
+    button.title = "new workorder";
     button.action = tableHeaderAction;
     arr.push(button);
     return arr;
@@ -67,7 +67,7 @@ function ($scope, $route, $location, AlertService, LoaderService, workorders, Ar
   function getTableSort () {
     return {
       column: ["status", "date", "number"],
-      descending: [true],
+      descending: true,
     };
   }
 

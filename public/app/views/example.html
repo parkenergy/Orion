@@ -15,8 +15,15 @@
 	<text-field
 		label-text="Example Text Field Label"
 		placeholder-text="I'm the placeholder"
-    data="model.textField">
+    data="model.textAreaField">
 	</text-field>
+
+	<text-area-field
+		label-text="Example Text Area Field Label"
+		placeholder-text="I'm the placeholder"
+    data="model.textAreaField"
+		rows="17"> <!-- defaults to 5 rows -->
+	</text-area-field>
 
   <!-- standard number input element (app-wide) -->
 	<number-field
@@ -33,6 +40,13 @@
     non-negative="true"
     integer-only="false">
 	</price-field>
+
+	<time-field
+		label-text="Example Time Field Label"
+		data="model.timeField"
+		hours="hours"
+		minutes="minutes">
+	</time-field>
 
 	<check-box
 		label-text="Example Checkbox Label"

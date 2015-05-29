@@ -25,6 +25,9 @@ switch (env) {
   case "production":
     throw new Error("No production database configured");
     break;
+  case "staging":
+    mongoose.connect('mongodb://orion_staging:orionstaging@ds035270.mongolab.com:35270/heroku_app37313086');
+    break;
   case "development":
     mongoose.connect('mongodb://localhost/orion-dev');
     break;

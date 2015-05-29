@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <!-- <div class="panel-heading">
+    <h3 class="panel-title">Miscelaneous </h3>
+  </div> -->
+  <div class="panel-body">
+    <button
+      class="btn btn-large btn-primary col-md-4"
+      ng-click="showLeaseNotes()">
+      Lease Notes
+    </button>
+    <button
+      class="btn btn-large btn-primary col-md-4"
+      ng-click="showJSA()">
+      JSA
+    </button>
+    <button
+      class="btn btn-large btn-primary col-md-4"
+      ng-click="showUnitNotes()">
+      Unit Notes
+    </button>
+  	<text-field
+  		label-text="Type of Asset"
+      data="workorder.misc.typeOfAsset"
+      placeholder-text="Type of Asset">
+  	</text-field>
+  	<check-box
+  		label-text="Unit Running on Departure"
+      data="workorder.misc.isUnitRunningOnDeparture">
+  	</check-box>
+  </div>
+</div>

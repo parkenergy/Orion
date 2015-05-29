@@ -42,7 +42,7 @@ Log.prototype.initialize = function () {
       error('dev_error: ', data);
     } else {
       self.errors.push(data);
-      var e = new self.db.Error({ data: data});
+      var e = new self.db.Error({ data: data });
       e.save(function (err, data) {
         if (err) return console.error(err); // seriously? This is bad!
       });

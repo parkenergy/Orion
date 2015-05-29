@@ -9,11 +9,10 @@ var autopopulate = require('mongoose-autopopulate');
 var LocationSchema = new mongoose.Schema({
 
   name:         { type: String, required: true, index: { unique: true } },
-  number:       { type: String },
 
   apiNumber:    { type: String },
 
-  locationType: { type: String, enum: ["Lease", "Truck", "Yard"] },
+  locationType: { type: String, enum: ["Lease", "Truck", "Yard"] }, //TODO: make warehouses
 
   customer:     { type: ObjectId, ref: 'Customer', index: true, autopopulate: true },
   area:         { type: ObjectId, ref: 'Area', index: true, autopopulate: true },

@@ -14,7 +14,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   $routeProvider
 
   .when('/workorder/edit/:id?', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'WorkOrderEditCtrl',
     templateUrl: '/app/apps/workorder/views/edit.html',
     resolve: {
@@ -70,15 +70,12 @@ angular.module('WorkOrderApp').config(['$routeProvider',
           function (err) { return deffered.reject(err); }
         );
         return deffered.promise;
-      },
-      role: function ($route, $q, role) {
-        return role.get();
       }
     }
   })
 
   .when('/workorder', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'WorkOrderIndexCtrl',
     templateUrl: '/app/apps/workorder/views/index.html',
     resolve: {
