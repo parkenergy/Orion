@@ -46,7 +46,7 @@ db.once('open', function (callback) {
 
   /* Start an Orion server instance
   --------------------------------------------------------------------------- */
-  var server = app.listen(3000, function () {
+  var server = app.listen(process.env.PORT || 3000, function () {
     var port = server.address().port;
     var host = server.address().address === "::" ?
                 "localhost" :
