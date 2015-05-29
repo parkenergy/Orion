@@ -67,6 +67,8 @@ passport.getRealm = function () {
   switch (env) {
     case "production":
       return 'http://orion.parkenergyservices.com/';
+    case "staging":
+      return 'http://orion.parkenergyservices.com/';
     case "development":
       return 'http://localhost:3000/';
     case "test":
