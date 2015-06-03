@@ -8,7 +8,7 @@
   <div class="jumbotron">
     <h1 class="page-title">{{title}}</h1>
     <p>{{message}}</p>
-    <button class="btn btn-large btn-info pull-right"
+    <button class="btn  btn-info pull-right"
     ng-click="toggleHistory()"
     ng-show="role === 'ADMIN' && workorder.workOrderHistories.length > 0">
       {{ (!showHistory) ? "Show History" : "Hide History" }}
@@ -31,9 +31,15 @@
 
   <workorder-parts></workorder-parts>
 
-  <button class="btn btn-lg btn-primary pull-right"
-          ng-click="save()">
-    save
-  </button>
+  <div>
+      <button class="btn btn-lg btn-primary pull-right"
+              style="width:100%;"
+              ng-click="save()">
+        save
+      </button>
+      <div class="clearfix" style="height: 65px;"></div>
+  </div>
+
+
 
 </div>

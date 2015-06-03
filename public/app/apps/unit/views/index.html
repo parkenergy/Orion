@@ -12,7 +12,7 @@
   </div>
 
   <div ng-show="role === 'ADMIN'">
-    <button class="btn btn-large btn-success pull-right list-create-button"
+    <button class="btn  btn-success pull-right list-create-button"
             ng-click="createUnit()">
       New Unit
     </button>
@@ -85,7 +85,7 @@
         <td>{{unit.location.name}}</td>
         <td>
           <button ng-show="allowEdit"
-                  class="btn btn-primary btn-large" ng-click="editUnit(unit._id)">
+                  class="btn btn-primary " ng-click="editUnit(unit._id)">
             edit
           </button>
         </td>

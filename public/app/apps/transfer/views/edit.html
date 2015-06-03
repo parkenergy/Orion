@@ -37,17 +37,17 @@
 
   <div class="col-md-12 overview ">
 
-    <button class="btn btn-primary btn-large pull-right" ng-click="save()"
+    <button class="btn btn-primary  pull-right" ng-click="save()"
     ng-disabled="!accordion.transfer.valid || submitting">
       Submit
     </button>
 
-    <button class="btn btn-danger btn-large pull-right" ng-click="destroy()"
+    <button class="btn btn-danger  pull-right" ng-click="destroy()"
     ng-show="transfer._id" ng-disabled="submitting">
       Delete
     </button>
 
-    <button class="btn btn-info btn-large pull-left" ng-click="toggleAll()"
+    <button class="btn btn-info  pull-left" ng-click="toggleAll()"
     ng-hide="!accordion.parts.valid || !accordion.transfer.valid ">
        {{ (oneAtATime ? "View" : "Collapse") }} All
     </button>

@@ -23,7 +23,9 @@ var mongoose = require('mongoose');
 var env = process.env.NODE_ENV || 'development';
 switch (env) {
   case "production":
-    throw new Error("No production database configured");
+      console.log("Connecting to production database");
+      mongoose.connect('mongodb://admin:password@ds043082.mongolab.com:43082/heroku_app37485205');
+      break;
     break;
   case "staging":
     console.log("Connecting to staging database");

@@ -63,7 +63,7 @@
 
       <div  ng-repeat="b in headerButtons track by $index"
             class="{{columnSizes[displayColumns.length + $index]}}">
-        <button class="btn btn-large btn-success pull-right"
+        <button class="btn  btn-success pull-right"
             ng-click="b.action()">
             {{ b.title }}
         </button>
@@ -96,13 +96,13 @@
 
         <div class="{{columnSizes[displayColumns.length]}}">
           <button style="color:#fff;"
-                  class="btn btn-large"
+                  class="btn "
                   ng-show="obj._nestedObjects"
                   ng-click="toggleExpandObject(obj)">
               {{ obj.isRowExpanded ? "collapse" : "expand" }}
           </button>
           <button ng-repeat="b in rowButtons"
-                  class="btn btn-large btn-primary pull-right"
+                  class="btn  btn-primary pull-right"
                   ng-click="b.action(obj)">
               {{ b.title }}
           </button>
