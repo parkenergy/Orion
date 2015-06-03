@@ -259,6 +259,8 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
           },
         },
 
+        parts: [],
+
         unit:     {},
         customer: {},
         worker:   {},
@@ -267,4 +269,53 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       };
       return newWO;
     }
+
+    function addPart(obj) {
+      $scope.workorder.parts.push({
+        number:       obj.number,
+        description:  obj.description,
+        cost:         0,
+        laborCode:    "",
+        quantity:     0,
+        isBillable:   false,
+        isWarranty:   false
+      });
+    }
+
+    $scope.manualPart = {};
+    $scope.addPartManually = function () {
+      $scope.workorder.parts.push({
+        number:       $scope.manualPart.number,
+        description:  $scope.manualPart.description,
+        cost:         0,
+        laborCode:    "",
+        quantity:     0,
+        isBillable:   false,
+        isWarranty:   false
+      });
+      $scope.manualPart = {};
+    };
+
+  	/* Model for the add part table
+  	--------------------------------------------------------------------------- */
+    $scope.partsTableModel = {
+      tableName: "Parts", // displayed at top of page
+      objectList: parts, // objects to be shown in list
+      displayColumns: [ // which columns need to be displayed in the table
+        { title: "Part #", objKey: "number" },
+        { title: "Description", objKey: "description" }
+      ],
+  		rowClickAction: null,
+      rowButtons: [{title: "add", action: addPart}],
+      headerButtons: null, // an array of button object (format below)
+  		sort: { column: ["number"], descending: false }
+    };
+
+    $scope.removePart = function (obj) {
+      var ind = _.findWhere($scope.workorder.parts, obj);
+      var arr =  _.without($scope.workorder.parts, ind);
+      $scope.workorder.parts = arr;
+    }
+
+
 }]);

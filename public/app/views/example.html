@@ -18,6 +18,16 @@
     data="model.textAreaField">
 	</text-field>
 
+	<type-ahead
+    class="col-md-4"
+		label-text="Example Type Ahead Label"
+    data="model.typeAhead"
+		select-field="valueOf()"
+		display-field="valueOf()"
+		obj-list="{{['Adam', 'Bob', 'Charlie', 'Dave', 'Evan', 'Frank']}}"
+    limit="12">
+	</type-ahead>
+
 	<text-area-field
 		label-text="Example Text Area Field Label"
 		placeholder-text="I'm the placeholder"
