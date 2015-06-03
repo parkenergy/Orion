@@ -18,6 +18,8 @@
 
 ### Useful Links
 
+[git submodules](http://stackoverflow.com/a/14259250)
+
 [node api](http://nodejs.org/api/)
 
 [express api](http://expressjs.com/4x/api.html)
