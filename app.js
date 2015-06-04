@@ -1,16 +1,19 @@
 
 /* Initialize an Express.js application
 ----------------------------------------------------------------------------- */
+var globals = require('./Common/GLOBALS');
 var express = require('express');
 var app = express();
     app.set('port', process.env.PORT || 3000);
     app.set('view engine', 'ejs');
+    app.set('views', __dirname + '/Common/views/');
 
 /* Configure middleware for the  application
 ----------------------------------------------------------------------------- */
-    app.use(require('serve-favicon')(__dirname + '/public/images/favicon.ico'));
+    app.use(require('serve-favicon')(__dirname + '/Common/public/images/favicon.ico'));
     app.use(require('body-parser')());
-    app.use(express.static(require('path').join(__dirname, '/public'))); //Expose public files
+    app.use((express.static(require('path').join(__dirname, '/public'))));
+    app.use('/Common/public', (express.static(require('path').join(__dirname, '/Common/public'))));
     app.use(require('compression')()); // gzip response data
 
 /* Include the express routes
@@ -24,18 +27,21 @@ var env = process.env.NODE_ENV || 'development';
 switch (env) {
   case "production":
       console.log("Connecting to production database");
-      mongoose.connect('mongodb://admin:password@ds043082.mongolab.com:43082/heroku_app37485205');
+      mongoose.connect(globals.dbConnectionUrls.production);
       break;
     break;
   case "staging":
     console.log("Connecting to staging database");
-    mongoose.connect('mongodb://admin:password@ds035270.mongolab.com:35270/heroku_app37313086');
+    mongoose.connect(globals.dbConnectionUrls.staging);
+    break;
+  case "client":
+    mongoose.connect(globals.dbConnectionUrls.client);
     break;
   case "development":
-    mongoose.connect('mongodb://localhost/orion-dev');
+    mongoose.connect(globals.dbConnectionUrls.development);
     break;
   case "test":
-    mongoose.connect('mongodb://localhost/orion-test');
+    mongoose.connect(globals.dbConnectionUrls.test);
     break;
   default:
     throw new Error('Orion is not configured for "' + env + '" environment');
@@ -54,7 +60,7 @@ db.once('open', function (callback) {
                 "localhost" :
                 server.address().address;
 
-    var Log = require('./helpers/log.js');
+    var Log = require('./Common/helpers/log.js');
     var log = new Log(db);
     log.initialize();
 
@@ -62,7 +68,7 @@ db.once('open', function (callback) {
     console.log('Orion server running in ' + env + ' environment');
 
     if(env === 'development' && false) { // change to true to load data
-      var DataLoader = require('./_dev_util/dataload');
+      var DataLoader = require('./Common/_dev_util/dataload');
       var dataload = new DataLoader();
     };
 

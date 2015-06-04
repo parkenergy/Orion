@@ -18,17 +18,12 @@ var path = require('path');
 var browserify = require('browserify');
 var vss = require('vinyl-source-stream');
 
-// used by gulp to load the server
-var child = require('child_process');
-var fs = require('fs');
-
 
 /* TASKS
 ----------------------------------------------------------------------------- */
-
 // bundle server side code needed by client
 gulp.task('browserify', function () {
-  return browserify('./_dev_util/browserify/includes.js')
+  return browserify('./Common/_dev_util/browserify/includes.js')
     .bundle()
     .pipe(vss('browserify.js')) //pass output filename to vinyl-source-stream
     .pipe(gulp.dest('public')); // pipe stream to tasks, triggers 'scripts' task
@@ -37,11 +32,14 @@ gulp.task('browserify', function () {
 // ensure back-end code conforms to LINT standards
 gulp.task('back-end-lint', function () {
     return gulp.src([
-        './controllers/**/*.js',
-        './helpers/**/*.js',
-        './models/**/*.js',
+        './Common/controllers/**/*.js',
+        './Common/helpers/**/*.js',
+        './Common/models/**/*.js',
+        './Common/routes/**/*.js',
+        './Common/tests/**/*.js',
         './routes/**/*.js',
-        './tests/**/*.js'
+        './app.js',
+        './gulpfile.js'
       ])
       .pipe(jshint())
       .pipe(jshint.reporter('default'));
@@ -50,11 +48,8 @@ gulp.task('back-end-lint', function () {
 // ensure front-end code conforms to LINT standards
 gulp.task('front-end-lint', ['browserify'], function() {
   return gulp.src([
-    // TODO: fix regex
-      './public/app/**/*.js',
-      './public/app/apps/**/*.js',
-      './public/app/apps/**/**/*.js',
-      './public/app/apps/**/**/**/*.js',
+    './Common/public/angular/**/*.js',
+    './public/app/**/*.js'
     ])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
@@ -64,18 +59,19 @@ gulp.task('lint', ['back-end-lint', 'front-end-lint']);
 
 // compile LESS to CSS
 gulp.task('less', ['lint'], function() {
-  return gulp.src('./public/stylesheets/site.less')
+  return gulp.src('./Common/public/stylesheets/site.less')
     .pipe(less())
-    .pipe(gulp.dest('public/stylesheets'));
+    .pipe(gulp.dest('./Common/public/stylesheets'));
 });
 
 // concat & minify js files
 gulp.task('scripts', ['less'], function() {
   return gulp.src([
+      './Common/public/angular/**/*.js',
+      './Common/public/scripts/**/*.js',
+      './Common/public/bootstrap/bootstrap.min.js',
+      './Common/public/browserify.js',
       './public/app/**/*.js',
-      './public/scripts/**/*.js',
-      './public/bootstrap/bootstrap.min.js',
-      './public/browserify.js'
     ])
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('public'))
@@ -85,7 +81,7 @@ gulp.task('scripts', ['less'], function() {
 });
 
 gulp.task('mocha', ['scripts'] , function () {
-    return gulp.src('./tests/mocha/**/*.js', {read: false})
+    return gulp.src('./Common/tests/mocha/**/*.js', {read: false})
         .pipe(mocha({reporter: 'nyan'}));
 });
 
@@ -95,7 +91,10 @@ gulp.task('launchserver', ['mocha'], function () {
     script: 'app.js',
     ext: 'html js',
     tasks: ['back-end-lint'],
-    ignore: ['./public/*', './_dev_util/browserify/*']})
+    ignore: [
+      './public/*',
+      './Common/public/*',
+      './Common/_dev_util/browserify/*']})
     .on('restart', function () {
       console.log('\n\nChange detected, nodemon restarted the server.\n\n');
     })
@@ -105,15 +104,19 @@ gulp.task('launchserver', ['mocha'], function () {
 gulp.task('watch', ['launchserver'], function() {
 
   gulp.watch([
+    './Common/public/angular/**/*.js',
     './public/app/**/*.js',
     './public/scripts/**/*.js'],
     [ 'front-end-lint', 'scripts' ]);
 
-  gulp.watch('public/**/*.less', ['less']);
+  gulp.watch('./Common/public/**/*.less', ['less']);
 
-  gulp.watch('./helpers/**/*.js', ['browserify']);
+  gulp.watch([
+    './Common/helpers/**/*.js',
+    './Common/_dev_util/browserify/includes.js'],
+    ['browserify']);
 
-  gulp.watch('./public/browserify.js', ['scripts']);
+  gulp.watch('./Common/public/browserify.js', ['scripts']);
 
 });
 
