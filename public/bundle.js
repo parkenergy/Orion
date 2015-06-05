@@ -1981,7 +1981,6 @@ angular.module('CommonDirectives')
   };
 }]);
 
-
 angular.module('CommonDirectives')
 .directive('numberField', [function() {
   return {
