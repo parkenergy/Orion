@@ -6,11 +6,11 @@ var express = require('express');
 var app = express();
     app.set('port', process.env.PORT || 3000);
     app.set('view engine', 'ejs');
-    app.set('views', __dirname + '/Common/views/');
+    app.set('views', __dirname + '/_common_packaged/views/');
 
 /* Configure middleware for the  application
 ----------------------------------------------------------------------------- */
-    app.use(require('serve-favicon')(__dirname + '/Common/public/images/favicon.ico'));
+    app.use(require('serve-favicon')(__dirname + '/_common_packaged/public/images/favicon.ico'));
     app.use(require('body-parser')());
 
 /* Include the express routes
@@ -20,7 +20,7 @@ var app = express();
 /* Finish Configuring middleware for the  application
 ----------------------------------------------------------------------------- */
     app.use((express.static(require('path').join(__dirname, '/public'))));
-    app.use('/Common/public', (express.static(require('path').join(__dirname, '/Common/public'))));
+    app.use('/Common/public', (express.static(require('path').join(__dirname, '/_common_packaged/public'))));
     app.use(require('compression')()); // gzip response data
     app.use(require('method-override'));
     app.use(require('errorhandler'));
