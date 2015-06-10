@@ -1,7 +1,7 @@
 
 /* Initialize an Express.js application
 ----------------------------------------------------------------------------- */
-var globals = require('./Common/GLOBALS');
+var globals = require('./Common/GLOBALS.js');
 var express = require('express');
 var app = express();
     app.set('port', process.env.PORT || 3000);
