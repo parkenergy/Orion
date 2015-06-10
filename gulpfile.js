@@ -97,8 +97,8 @@ gulp.task('launchserver', ['mocha'], function () {
       './Common/_dev_util/browserify/*']})
     .on('restart', function () {
       console.log('\n\nChange detected, nodemon restarted the server.\n\n');
-    })
-})
+    });
+});
 
 // Watch Files For Changes
 gulp.task('watch', ['launchserver'], function() {

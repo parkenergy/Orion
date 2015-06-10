@@ -26,9 +26,8 @@ var mongoose = require('mongoose');
 var env = process.env.NODE_ENV || 'development';
 switch (env) {
   case "production":
-      console.log("Connecting to production database");
-      mongoose.connect(globals.dbConnectionUrls.production);
-      break;
+    console.log("Connecting to production database");
+    mongoose.connect(globals.dbConnectionUrls.production);
     break;
   case "staging":
     console.log("Connecting to staging database");
@@ -45,7 +44,6 @@ switch (env) {
     break;
   default:
     throw new Error('Orion is not configured for "' + env + '" environment');
-    break;
 }
 
 var db = mongoose.connection;
@@ -70,7 +68,7 @@ db.once('open', function (callback) {
     if(env === 'development' && false) { // change to true to load data
       var DataLoader = require('./Common/_dev_util/dataload');
       var dataload = new DataLoader();
-    };
+    }
 
   });
 
