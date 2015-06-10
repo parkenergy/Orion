@@ -7,7 +7,7 @@ angular.module('CommonDirectives')
       model: '='
     },
     controller: 'SuperTableCtrl',
-    templateUrl: '/Common/public/angular/views/customElements/supertable.html'
+    templateUrl: '/_common_packaged/public/angular/views/customElements/supertable.html'
   };
 }]);
 

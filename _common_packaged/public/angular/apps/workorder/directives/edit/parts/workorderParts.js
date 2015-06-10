@@ -3,7 +3,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderParts', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/Common/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
     scope: true
   };
 }]);

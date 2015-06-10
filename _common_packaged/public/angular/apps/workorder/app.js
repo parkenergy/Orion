@@ -16,7 +16,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   .when('/workorder/edit/:id?', {
     needsLogin: false,
     controller: 'WorkOrderEditCtrl',
-    templateUrl: '/Common/public/angular/apps/workorder/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit.html',
     resolve: {
       workorder: function($route, $q, WorkOrders) {
         //determine if we're creating or editing a workorder.
@@ -70,7 +70,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   .when('/workorder', {
     needsLogin: false,
     controller: 'WorkOrderIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/workorder/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
     resolve: {
       workorders: function($route, $q, WorkOrders) {
         var deffered = $q.defer();

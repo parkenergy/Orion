@@ -2,7 +2,7 @@ angular.module('CommonDirectives')
 .directive('timeField', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/Common/public/angular/views/customElements/timefield.html',
+    templateUrl: '/_common_packaged/public/angular/views/customElements/timefield.html',
     scope: {
       labelText: '@',
       data: '=',

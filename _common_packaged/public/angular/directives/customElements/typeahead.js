@@ -2,7 +2,7 @@ angular.module('CommonDirectives')
 .directive('typeAhead', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/Common/public/angular/views/customElements/typeahead.html',
+    templateUrl: '/_common_packaged/public/angular/views/customElements/typeahead.html',
     scope: {
       labelText: '@',
       data: '=',

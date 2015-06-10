@@ -2,7 +2,7 @@ angular.module('CommonDirectives')
 .directive('textField', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/Common/public/angular/views/customElements/textfield.html',
+    templateUrl: '/_common_packaged/public/angular/views/customElements/textfield.html',
     scope: {
       labelText: '@',
       data: '=',

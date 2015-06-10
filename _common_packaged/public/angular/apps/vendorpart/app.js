@@ -15,7 +15,7 @@ angular.module('VendorPartApp').config(['$routeProvider',
 
   .when('/vendorpart/edit/:id?', {
     controller: 'VendorPartEditCtrl',
-    templateUrl: '/Common/public/angular/apps/vendorpart/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/vendorpart/views/edit.html',
     resolve: {
       vendorpart: function($route, $q, VendorParts) {
         //determine if we're creating or editing a vendorpart.
@@ -55,7 +55,7 @@ angular.module('VendorPartApp').config(['$routeProvider',
 
   .when('/vendorpart', {
     controller: 'VendorPartIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/vendorpart/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/vendorpart/views/index.html',
     resolve: {
       vendorparts: function($route, $q, VendorParts) {
         var deffered = $q.defer();

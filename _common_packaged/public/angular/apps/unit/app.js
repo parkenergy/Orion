@@ -15,7 +15,7 @@ angular.module('UnitApp').config(['$routeProvider',
 
   .when('/unit/edit/:id?', {
     controller: 'UnitEditCtrl',
-    templateUrl: '/Common/public/angular/apps/unit/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/unit/views/edit.html',
     resolve: {
       unit: function($route, $q, Units) {
         //determine if we're creating or editing a unit.
@@ -44,7 +44,7 @@ angular.module('UnitApp').config(['$routeProvider',
 
   .when('/unit', {
     controller: 'UnitIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/unit/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/unit/views/index.html',
     resolve: {
       units: function($route, $q, Units) {
         var deffered = $q.defer();

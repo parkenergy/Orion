@@ -15,7 +15,7 @@ angular.module('LocationApp').config(['$routeProvider',
 
   .when('/location/edit/:id?', {
     controller: 'LocationEditCtrl',
-    templateUrl: '/Common/public/angular/apps/location/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/location/views/edit.html',
     resolve: {
       location: function($route, $q, Locations) {
         //determine if we're creating or editing a location.
@@ -68,7 +68,7 @@ angular.module('LocationApp').config(['$routeProvider',
 
   .when('/location', {
     controller: 'LocationIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/location/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/location/views/index.html',
     resolve: {
       locations: function($route, $q, Locations) {
         var deffered = $q.defer();

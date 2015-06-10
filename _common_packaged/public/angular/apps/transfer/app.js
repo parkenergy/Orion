@@ -16,7 +16,7 @@ angular.module('TransferApp').config(['$routeProvider',
   .when('/transfer/edit/:id?', {
     needsLogin: true,
     controller: 'TransferEditCtrl',
-    templateUrl: '/Common/public/angular/apps/transfer/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit.html',
     resolve: {
       transfer: function($route, $q, Transfers) {
         //determine if we're creating or editing a transfer.
@@ -81,7 +81,7 @@ angular.module('TransferApp').config(['$routeProvider',
   .when('/transfer', {
     needsLogin: true,
     controller: 'TransferIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/transfer/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/index.html',
     resolve: {
       transfers: function($route, $q, Transfers) {
         var deffered = $q.defer();

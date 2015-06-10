@@ -15,7 +15,7 @@ angular.module('UserApp').config(['$routeProvider',
 
   .when('/user/edit/:id?', {
     controller: 'UserEditCtrl',
-    templateUrl: '/Common/public/angular/apps/user/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/user/views/edit.html',
     resolve: {
       user: function($route, $q, Users) {
         //determine if we're creating or editing a user.
@@ -47,7 +47,7 @@ angular.module('UserApp').config(['$routeProvider',
 
   .when('/user', {
     controller: 'SuperIndexCtrl',
-    templateUrl: '/Common/public/angular/views/superIndex.html',
+    templateUrl: '/_common_packaged/public/angular/views/superIndex.html',
     resolve: {
       // Required Attributes for SuperIndex
       title: function () { return "Users"; },

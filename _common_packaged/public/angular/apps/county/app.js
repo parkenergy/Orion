@@ -15,7 +15,7 @@ angular.module('CountyApp').config(['$routeProvider',
 
   .when('/county/edit/:id?', {
     controller: 'CountyEditCtrl',
-    templateUrl: '/Common/public/angular/apps/county/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/county/views/edit.html',
     resolve: {
       county: function($route, $q, Counties) {
         //determine if we're creating or editing a county.
@@ -44,7 +44,7 @@ angular.module('CountyApp').config(['$routeProvider',
 
   .when('/county', {
     controller: 'CountyIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/county/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/county/views/index.html',
     resolve: {
       counties: function($route, $q, Counties) {
         var deffered = $q.defer();

@@ -20,7 +20,7 @@ var app = express();
 /* Finish Configuring middleware for the  application
 ----------------------------------------------------------------------------- */
     app.use((express.static(require('path').join(__dirname, '/public'))));
-    app.use('/Common/public', (express.static(require('path').join(__dirname, '/_common_packaged/public'))));
+    app.use('/_common_packaged/public', (express.static(require('path').join(__dirname, '/_common_packaged/public'))));
     app.use(require('compression')()); // gzip response data
     app.use(require('method-override'));
     app.use(require('errorhandler'));

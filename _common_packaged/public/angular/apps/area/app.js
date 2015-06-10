@@ -15,7 +15,7 @@ angular.module('AreaApp').config(['$routeProvider',
 
   .when('/area/edit/:id?', {
     controller: 'AreaEditCtrl',
-    templateUrl: '/Common/public/angular/apps/area/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/area/views/edit.html',
     resolve: {
       area: function($route, $q, Areas) {
         //determine if we're creating or editing a area.
@@ -36,7 +36,7 @@ angular.module('AreaApp').config(['$routeProvider',
 
   .when('/area', {
     controller: 'AreaIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/area/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/area/views/index.html',
     resolve: {
       areas: function($route, $q, Areas) {
         var deffered = $q.defer();

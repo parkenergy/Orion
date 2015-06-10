@@ -1,5 +1,5 @@
 /* Exports
 ----------------------------------------------------------------------------- */
 module.exports = function (app) {
-  return require('../Common/routes')(app);
+  return require('../_common_packaged/routes')(app);
 };

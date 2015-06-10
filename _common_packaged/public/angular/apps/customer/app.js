@@ -15,7 +15,7 @@ angular.module('CustomerApp').config(['$routeProvider',
 
   .when('/customer/edit/:id?', {
     controller: 'CustomerEditCtrl',
-    templateUrl: '/Common/public/angular/apps/customer/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/customer/views/edit.html',
     resolve: {
       customer: function($route, $q, Customers) {
         //determine if we're creating or editing a customer.
@@ -51,7 +51,7 @@ angular.module('CustomerApp').config(['$routeProvider',
 
   .when('/customer', {
     controller: 'CustomerIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/customer/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/customer/views/index.html',
     resolve: {
       customers: function($route, $q, Customers) {
         var deffered = $q.defer();

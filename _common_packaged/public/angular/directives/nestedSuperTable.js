@@ -7,7 +7,7 @@ angular.module('CommonDirectives')
       model: '='
     },
     controller: 'NSTCtrl',
-    templateUrl: '/Common/public/angular/views/nestedSuperTable.html'
+    templateUrl: '/_common_packaged/public/angular/views/nestedSuperTable.html'
   };
 }]);
 

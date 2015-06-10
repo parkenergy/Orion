@@ -15,7 +15,7 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
 
   .when('/servicepartner/edit/:id?', {
     controller: 'ServicePartnerEditCtrl',
-    templateUrl: '/Common/public/angular/apps/servicepartner/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/servicepartner/views/edit.html',
     resolve: {
       servicePartner: function($route, $q, ServicePartners) {
         //determine if we're creating or editing a servicePartner.
@@ -36,7 +36,7 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
 
   .when('/servicepartner', {
     controller: 'ServicePartnerIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/servicepartner/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/servicepartner/views/index.html',
     resolve: {
       servicePartners: function($route, $q, ServicePartners) {
         var deffered = $q.defer();

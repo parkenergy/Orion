@@ -30,12 +30,12 @@ angular.module('Orion', [
     $routeProvider
     .when('/login', {
       controller: 'SessionCtrl',
-      templateUrl: '/Common/public/angular/views/redirecting.html',
+      templateUrl: '/_common_packaged/public/angular/views/redirecting.html',
     })
     .when('/myaccount', {
       needsLogin: false,
       controller: 'MyAccountCtrl',
-      templateUrl: '/Common/public/angular/views/myaccount.html',
+      templateUrl: '/_common_packaged/public/angular/views/myaccount.html',
       resolve: {
         workorders: function($route, $q, WorkOrders) {
           var deffered = $q.defer();
@@ -49,11 +49,11 @@ angular.module('Orion', [
     })
     .when('/example', {
       controller: 'ExampleCtrl',
-      templateUrl: '/Common/public/angular/views/example.html'
+      templateUrl: '/_common_packaged/public/angular/views/example.html'
     })
     .when('/', {
       controller: 'HomepageCtrl',
-      templateUrl: '/Common/public/angular/views/homepage.html'
+      templateUrl: '/_common_packaged/public/angular/views/homepage.html'
     });
   }]);
 
