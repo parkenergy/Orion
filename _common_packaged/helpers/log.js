@@ -32,33 +32,28 @@ Log.prototype.initialize = function () {
   console.hook('warn', function(data, warn) {
     if (self.env === 'development' || self.env === 'test') {
       warn('dev_warn: ', data);
-
-    if (self.enb === 'staging') {
-
+    } else if (self.env === 'staging') {
       warn('staging_warn: ', data);
       self.warns.push(data);
-
     } else {
       self.warns.push(data);
     }
   });
 
   console.hook('error', function(data, error) {
+    var e;
     if (self.env === 'development' || self.env === 'test') {
       error('dev_error: ', data);
-
-    if (self.enb === 'staging') {
-
+    } else if (self.env === 'staging') {
       error('staging_error: ', data);
       self.errors.push(data);
-      var e = new self.db.Error({ data: data });
+      e = new self.db.Error({ data: data });
       e.save(function (err, data) {
         if (err) return console.error(err); // seriously? This is bad!
       });
-
     } else {
       self.errors.push(data);
-      var e = new self.db.Error({ data: data });
+      e = new self.db.Error({ data: data });
       e.save(function (err, data) {
         if (err) return console.error(err); // seriously? This is bad!
       });

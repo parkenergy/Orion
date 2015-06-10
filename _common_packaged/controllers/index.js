@@ -42,12 +42,12 @@ function handler (fn, req, res, next) {
     else {
       return res.send(data);
       // the toJSON call de-mongoosifies the data in order to expose virtuals.
-      if (!(data instanceof Array)) { return res.send(data); }
-      else {
-        var arr = [];
-        data.forEach(function (ele) { arr.push(ele.toJSON()); });
-        return res.send(arr);
-      }
+      // if (!(data instanceof Array)) { return res.send(data); }
+      // else {
+      //   var arr = [];
+      //   data.forEach(function (ele) { arr.push(ele.toJSON()); });
+      //   return res.send(arr);
+      // }
     }
   });
 }

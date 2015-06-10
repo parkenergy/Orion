@@ -23,14 +23,14 @@ var vss = require('vinyl-source-stream');
 ----------------------------------------------------------------------------- */
 
 gulp.task('common-packager', function() {
-   gulp.src('./_common/**/*')
-   .pipe(gulp.dest('./_common'));
+   return gulp.src('./Common/**/*')
+   .pipe(gulp.dest('./_common_packaged'));
 });
 
 
 // bundle server side code needed by client
-gulp.task('browserify', function () {
-  return browserify('./_common/_dev_util/browserify/includes.js')
+gulp.task('browserify', ['common-packager'], function () {
+  return browserify('./_common_packaged/_dev_util/browserify/includes.js')
     .bundle()
     .pipe(vss('browserify.js')) //pass output filename to vinyl-source-stream
     .pipe(gulp.dest('public')); // pipe stream to tasks, triggers 'scripts' task
@@ -39,11 +39,11 @@ gulp.task('browserify', function () {
 // ensure back-end code conforms to LINT standards
 gulp.task('back-end-lint', function () {
     return gulp.src([
-        './_common/controllers/**/*.js',
-        './_common/helpers/**/*.js',
-        './_common/models/**/*.js',
-        './_common/routes/**/*.js',
-        './_common/tests/**/*.js',
+        './_common_packaged/controllers/**/*.js',
+        './_common_packaged/helpers/**/*.js',
+        './_common_packaged/models/**/*.js',
+        './_common_packaged/routes/**/*.js',
+        './_common_packaged/tests/**/*.js',
         './routes/**/*.js',
         './app.js',
         './gulpfile.js'
@@ -55,7 +55,7 @@ gulp.task('back-end-lint', function () {
 // ensure front-end code conforms to LINT standards
 gulp.task('front-end-lint', ['browserify'], function() {
   return gulp.src([
-    './_common/public/angular/**/*.js',
+    './_common_packaged/public/angular/**/*.js',
     './public/app/**/*.js'
     ])
     .pipe(jshint())
@@ -66,18 +66,18 @@ gulp.task('lint', ['back-end-lint', 'front-end-lint']);
 
 // compile LESS to CSS
 gulp.task('less', ['lint'], function() {
-  return gulp.src('./_common/public/stylesheets/site.less')
+  return gulp.src('./_common_packaged/public/stylesheets/site.less')
     .pipe(less())
-    .pipe(gulp.dest('./_common/public/stylesheets'));
+    .pipe(gulp.dest('./_common_packaged/public/stylesheets'));
 });
 
 // concat & minify js files
 gulp.task('scripts', ['less'], function() {
   return gulp.src([
-      './_common/public/angular/**/*.js',
-      './_common/public/scripts/**/*.js',
-      './_common/public/bootstrap/bootstrap.min.js',
-      './_common/public/browserify.js',
+      './_common_packaged/public/angular/**/*.js',
+      './_common_packaged/public/scripts/**/*.js',
+      './_common_packaged/public/bootstrap/bootstrap.min.js',
+      './_common_packaged/public/browserify.js',
       './public/app/**/*.js',
     ])
     .pipe(concat('bundle.js'))
@@ -88,7 +88,7 @@ gulp.task('scripts', ['less'], function() {
 });
 
 gulp.task('mocha', ['scripts'] , function () {
-    return gulp.src('./_common/tests/mocha/**/*.js', {read: false})
+    return gulp.src('./_common_packaged/tests/mocha/**/*.js', {read: false})
         .pipe(mocha({reporter: 'nyan'}));
 });
 
@@ -100,8 +100,8 @@ gulp.task('launchserver', ['mocha'], function () {
     tasks: ['back-end-lint'],
     ignore: [
       './public/*',
-      './_common/public/*',
-      './_common/_dev_util/browserify/*']})
+      './_common_packaged/public/*',
+      './_common_packaged/_dev_util/browserify/*']})
     .on('restart', function () {
       console.log('\n\nChange detected, nodemon restarted the server.\n\n');
     });
@@ -110,20 +110,22 @@ gulp.task('launchserver', ['mocha'], function () {
 // Watch Files For Changes
 gulp.task('watch', ['launchserver'], function() {
 
+  gulp.watch(['./Common/**/*'], ['common-packager']);
+
   gulp.watch([
-    './_common/public/angular/**/*.js',
+    './_common_packaged/public/angular/**/*.js',
     './public/app/**/*.js',
     './public/scripts/**/*.js'],
     [ 'front-end-lint', 'scripts' ]);
 
-  gulp.watch('./_common/public/**/*.less', ['less']);
+  gulp.watch('./_common_packaged/public/**/*.less', ['less']);
 
   gulp.watch([
-    './_common/helpers/**/*.js',
-    './_common/_dev_util/browserify/includes.js'],
+    './_common_packaged/helpers/**/*.js',
+    './_common_packaged/_dev_util/browserify/includes.js'],
     ['browserify']);
 
-  gulp.watch('./_common/public/browserify.js', ['scripts']);
+  gulp.watch('./_common_packaged/public/browserify.js', ['scripts']);
 
 });
 
@@ -132,6 +134,7 @@ gulp.task('watch', ['launchserver'], function() {
 ----------------------------------------------------------------------------- */
 
 gulp.task('default', [
+  'common-packager',
   'browserify',
   'lint',
   'mocha',
