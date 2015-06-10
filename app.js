@@ -12,13 +12,18 @@ var app = express();
 ----------------------------------------------------------------------------- */
     app.use(require('serve-favicon')(__dirname + '/Common/public/images/favicon.ico'));
     app.use(require('body-parser')());
-    app.use((express.static(require('path').join(__dirname, '/public'))));
-    app.use('/Common/public', (express.static(require('path').join(__dirname, '/Common/public'))));
-    app.use(require('compression')()); // gzip response data
 
 /* Include the express routes
 ----------------------------------------------------------------------------- */
     require('./routes')(app); // Include the express routes
+
+/* Finish Configuring middleware for the  application
+----------------------------------------------------------------------------- */
+    app.use((express.static(require('path').join(__dirname, '/public'))));
+    app.use('/Common/public', (express.static(require('path').join(__dirname, '/Common/public'))));
+    app.use(require('compression')()); // gzip response data
+    app.use(require('method-override'));
+    app.use(require('errorhandler'));
 
 /* Configure the MongoDB database
 ----------------------------------------------------------------------------- */
