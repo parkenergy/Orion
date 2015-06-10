@@ -1,7 +1,7 @@
 
 /* Initialize an Express.js application
 ----------------------------------------------------------------------------- */
-var globals = require('./Common/GLOBALS.js');
+var globals = require('./_common_packaged/GLOBALS.js');
 var express = require('express');
 var app = express();
     app.set('port', process.env.PORT || 3000);
@@ -63,7 +63,7 @@ db.once('open', function (callback) {
                 "localhost" :
                 server.address().address;
 
-    var Log = require('./Common/helpers/log.js');
+    var Log = require('./_common_packaged/helpers/log.js');
     var log = new Log(db);
     log.initialize();
 
@@ -71,7 +71,7 @@ db.once('open', function (callback) {
     console.log('Orion server running in ' + env + ' environment');
 
     if(env === 'development' && false) { // change to true to load data
-      var DataLoader = require('./Common/_dev_util/dataload');
+      var DataLoader = require('./_common_packaged/_dev_util/dataload');
       var dataload = new DataLoader();
     }
 
