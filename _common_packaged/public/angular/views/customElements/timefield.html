@@ -2,17 +2,21 @@
   <div class="pull-left col-md-12">
     <label for="{{data}}">{{labelText}}</label>
   </div>
-  <div class="pull-left col-md-12">
-    <select
-      ng-model="data.hours"
-      name="{{data}}.hours"
-      ng-options="h for h in hours">
-    </select>
-    :
-    <select
-      ng-model="data.minutes"
-      name="{{data}}.minutes"
-      ng-options="m for m in minutes">
-    </select>
+  <div class="col-md-12">
+
+    <div class="col-md-6">
+      <select class="form-control"
+        ng-model="data.hours"
+        name="{{data}}.hours"
+        ng-options="h for h in hours">
+      </select>
+    </div>
+    <div class="col-md-6">
+      <select class="form-control"
+        ng-model="data.minutes"
+        name="{{data}}.minutes"
+        ng-options="m for m in minutes">
+      </select>
+    </div>
   </div>
 </div>
