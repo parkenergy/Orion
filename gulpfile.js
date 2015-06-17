@@ -16,7 +16,7 @@ var rimraf = require('gulp-rimraf');
 var gulpif = require('gulp-if');
 var path = require('path');
 
-var buildForDeployment = false;
+var buildForDeployment = true;
 
 // used to bundle server side code needed by the client
 var browserify = require('browserify');
