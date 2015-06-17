@@ -14,9 +14,8 @@ var nodemon = require('gulp-nodemon');
 var mocha = require('gulp-mocha');
 var rimraf = require('gulp-rimraf');
 var gulpif = require('gulp-if');
+var exit = require('gulp-exit');
 var path = require('path');
-
-var buildForDeployment = true;
 
 // used to bundle server side code needed by the client
 var browserify = require('browserify');
@@ -109,12 +108,14 @@ gulp.task('launchserver', ['mocha'], function () {
       './_common_packaged/tests/**/*.js'
     ]})
     .on('restart', 'mocha')
-    .on('exit', 'common-unpackager');
 });
 
 gulp.task('common-unpackager', function() {
-  return gulp.src('./_common_packaged/', { read: false })
-    .pipe(gulpif(!buildForDeployment, rimraf({ force: true })));
+  console.log("buildForDeployment variable set to " + buildForDeployment);
+  console.log(((buildForDeployment)?"Keeping":"Deleting") + " common package");
+  gulp.src('./_common_packaged/', { read: false })
+    .pipe(gulpif(!buildForDeployment, rimraf({ force: true })))
+    .pipe(exit());
 });
 
 // Watch Files For Changes
