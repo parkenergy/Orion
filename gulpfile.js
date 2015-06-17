@@ -12,12 +12,15 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var nodemon = require('gulp-nodemon');
 var mocha = require('gulp-mocha');
+var rimraf = require('gulp-rimraf');
+var gulpif = require('gulp-if');
 var path = require('path');
+
+var buildForDeployment = false;
 
 // used to bundle server side code needed by the client
 var browserify = require('browserify');
 var vss = require('vinyl-source-stream');
-
 
 /* TASKS
 ----------------------------------------------------------------------------- */
@@ -96,15 +99,22 @@ gulp.task('mocha', ['scripts'] , function () {
 gulp.task('launchserver', ['mocha'], function () {
   nodemon({
     script: 'app.js',
-    ext: 'html js',
-    tasks: ['back-end-lint'],
-    ignore: [
-      './public/*',
-      './_common_packaged/public/*',
-      './_common_packaged/_dev_util/browserify/*']})
-    .on('restart', function () {
-      console.log('\n\nChange detected, nodemon restarted the server.\n\n');
-    });
+    ext: 'js',
+    tasks: ['mocha'],
+    watch: [
+      './_common_packaged/controllers/**/*.js',
+      './_common_packaged/helpers/**/*.js',
+      './_common_packaged/models/**/*.js',
+      './_common_packaged/routes/**/*.js',
+      './_common_packaged/tests/**/*.js'
+    ]})
+    .on('restart', 'mocha')
+    .on('exit', 'common-unpackager');
+});
+
+gulp.task('common-unpackager', function() {
+  return gulp.src('./_common_packaged/', { read: false })
+    .pipe(gulpif(!buildForDeployment, rimraf({ force: true })));
 });
 
 // Watch Files For Changes
@@ -113,15 +123,13 @@ gulp.task('watch', ['launchserver'], function() {
   gulp.watch(['./Common/**/*'], ['common-packager']);
 
   gulp.watch([
+    './_common_packaged/public/**/*.less',
     './_common_packaged/public/angular/**/*.js',
     './public/app/**/*.js',
     './public/scripts/**/*.js'],
-    [ 'front-end-lint', 'scripts' ]);
-
-  gulp.watch('./_common_packaged/public/**/*.less', ['less']);
+    ['scripts']);
 
   gulp.watch([
-    './_common_packaged/helpers/**/*.js',
     './_common_packaged/_dev_util/browserify/includes.js'],
     ['browserify']);
 
