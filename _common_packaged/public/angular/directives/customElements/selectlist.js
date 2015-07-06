@@ -2,7 +2,7 @@ angular.module('CommonDirectives')
 .directive('selectList', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/Common/public/angular/views/customElements/selectlist.html',
+    templateUrl: '/_common_packaged/public/angular/views/customElements/selectlist.html',
     scope: {
       labelText: '@',
       data: '=',

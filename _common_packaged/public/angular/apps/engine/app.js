@@ -15,7 +15,7 @@ angular.module('EngineApp').config(['$routeProvider',
 
   .when('/engine/edit/:id?', {
     controller: 'EngineEditCtrl',
-    templateUrl: '/Common/public/angular/apps/engine/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/engine/views/edit.html',
     resolve: {
       engine: function($route, $q, Engines) {
         //determine if we're creating or editing a engine.
@@ -44,7 +44,7 @@ angular.module('EngineApp').config(['$routeProvider',
 
   .when('/engine', {
     controller: 'EngineIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/engine/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/engine/views/index.html',
     resolve: {
       engines: function($route, $q, Engines) {
         var deffered = $q.defer();

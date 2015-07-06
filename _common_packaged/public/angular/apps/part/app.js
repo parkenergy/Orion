@@ -15,7 +15,7 @@ angular.module('PartApp').config(['$routeProvider',
 
   .when('/part/edit/:id?', {
     controller: 'PartEditCtrl',
-    templateUrl: '/Common/public/angular/apps/part/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/part/views/edit.html',
     resolve: {
       part: function($route, $q, Parts) {
         //determine if we're creating or editing a part.
@@ -47,7 +47,7 @@ angular.module('PartApp').config(['$routeProvider',
 
   .when('/part', {
     controller: 'PartIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/part/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/part/views/index.html',
     resolve: {
       parts: function($route, $q, Parts) {
         var deffered = $q.defer();

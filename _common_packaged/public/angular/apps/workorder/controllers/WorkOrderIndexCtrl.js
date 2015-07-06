@@ -32,9 +32,9 @@ function ($scope, $route, $location, AlertService, LoaderService, workorders) {
         number: ele.number,
         unit: ele.header.unitNumber,
         customer: ele.header.customerName,
-        createdBy: (ele.worker == null) ? undefined : ele.worker.fullName,
+        createdBy: (ele.worker === undefined) ? undefined : ele.worker.fullName,
         date: ele.createdOn
-      }
+      };
       oList.push(obj);
     });
     return oList;

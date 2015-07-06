@@ -3,19 +3,19 @@ Then find and replace Orion with "MyAppName"
 
 /* Initialize an Express.js application
 ----------------------------------------------------------------------------- */
-var globals = require('./Common/GLOBALS');
+var globals = require('./_common_packaged/GLOBALS');
 var express = require('express');
 var app = express();
     app.set('port', process.env.PORT || 3000);
     app.set('view engine', 'ejs');
-    app.set('views', __dirname + '/Common/views/');
+    app.set('views', __dirname + '/_common_packaged/views/');
 
 /* Configure middleware for the  application
 ----------------------------------------------------------------------------- */
-    app.use(require('serve-favicon')(__dirname + '/Common/public/images/favicon.ico'));
+    app.use(require('serve-favicon')(__dirname + '/_common_packaged/public/images/favicon.ico'));
     app.use(require('body-parser')());
     app.use((express.static(require('path').join(__dirname, '/public'))));
-    app.use('/Common/public', (express.static(require('path').join(__dirname, '/Common/public'))));
+    app.use('/_common_packaged/public', (express.static(require('path').join(__dirname, '/_common_packaged/public'))));
     app.use(require('compression')()); // gzip response data
 
 /* Include the express routes
@@ -62,7 +62,7 @@ db.once('open', function (callback) {
                 "localhost" :
                 server.address().address;
 
-    var Log = require('./Common/helpers/log.js');
+    var Log = require('./_common_packaged/helpers/log.js');
     var log = new Log(db);
     log.initialize();
 
@@ -70,7 +70,7 @@ db.once('open', function (callback) {
     console.log('Orion server running in ' + env + ' environment');
 
     if(env === 'development' && false) { // change to true to load data
-      var DataLoader = require('./Common/_dev_util/dataload');
+      var DataLoader = require('./_common_packaged/_dev_util/dataload');
       var dataload = new DataLoader();
     };
 

@@ -1,10 +1,8 @@
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$scope', '$location', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts',
-  function ($window, $scope, $location, AlertService, WorkOrders, workorder, units, customers, users, parts) {
+['$window', '$scope', '$location', '$timeout', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts',
+  function ($window, $scope, $location, $timeout, AlertService, WorkOrders, workorder, units, customers, users, parts) {
 
-    $scope.title = (workorder !== null ? "Edit " : "Create ") + "Work Order";
-
-    console.log(workorder);
+    $scope.message = (workorder !== null ? "Edit " : "Create ") + "Work Order";
 
     $scope.workorder = workorder || newWorkOrder();
     $scope.units = units;
@@ -14,13 +12,28 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
     $scope.hours = getHours();
     $scope.minutes = getMinutes();
 
-    $scope.$watch('workorder.types.pm', function (newVal) {
-      console.log(newVal);
-    });
-
     $scope.toggleHistory = function () {
       $scope.showHistory = !$scope.showHistory || true;
     };
+
+    $scope.$watch('workorder', function (newVal, oldVal) {
+      if (newVal !== oldVal && !$scope.workorder.timeSubmitted) {
+        $scope.submitting = true;
+        WorkOrders.save({_id: $scope.workorder._id}, $scope.workorder,
+          function (response) {
+            console.log(response);
+            $scope.workorder._id = $scope.workorder._id || response._id;
+            $location.path("/workorder/edit/" + $scope.workorder._id, false);
+            $scope.submitting = false;
+          },
+          function (err) {
+            console.log(err);
+            console.log("An error occurred while attempting to save.");
+            $scope.submitting = false;
+          }
+        );
+      }
+    }, true);
 
 
     $scope.save = function () {
@@ -56,6 +69,18 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       );
     };
 
+    $scope.getTimeElapsed = function () {
+      var start = new Date($scope.workorder.timeStarted);
+      var now = $scope.workorder.timeSubmitted ?
+                  new Date($scope.workorder.timeSubmitted) :
+                  new Date();
+      var h = String("0"+Math.floor(Math.abs(now-start)/36e5)).slice(-2);
+      var m = String("0"+Math.floor((Math.abs(now-start)/6e4)%60)).slice(-2);
+      var s = String("0"+Math.floor((Math.abs(now-start)/1e3)%60)).slice(-2);
+      $scope.timeElapsed = h+":"+m+":"+s;
+      $timeout(function () { $scope.getTimeElapsed(); }, 1000);
+    };
+
     function getHours() {
       var hours = [];
       var i = 0;
@@ -79,6 +104,11 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
     function newWorkOrder() {
       var newWO =
       {
+
+        timeStarted: new Date(),
+        timeSubmitted: null,
+        timeApproved: null,
+
         types: {
           pm: false,
           corrective: false,
@@ -312,5 +342,5 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       $scope.workorder.parts = arr;
     };
 
-
+    $scope.getTimeElapsed();
 }]);

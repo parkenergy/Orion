@@ -9,6 +9,10 @@ var autopopulate = require('mongoose-autopopulate');
 ----------------------------------------------------------------------------- */
 var WorkOrderSchema = new mongoose.Schema({
 
+  timeStarted: { type: Date },
+  timeSubmitted: { type: Date },
+  timeApproved: { type: Date },
+
   types: {
     pm:         { type: Boolean },
     corrective: { type: Boolean },

@@ -1,7 +1,7 @@
 /* OVERRIDES */
 
 body {
-  font-family: "Open Sans";
+  font-weight: 600;
 }
 
 .navbar-logo {
@@ -117,7 +117,20 @@ alerts {
 }
 
 .custom-background {
-    background-image: url('/Common/public/images/background.jpg');
+    background-image: url('/_common_packaged/public/images/background.jpg');
     background-position: bottom right;
     repeat: none;
+}
+
+@font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+@font-size-base:          18px;
+
+input[type="checkbox"] {
+  -webkit-transform: scale(1.4,1.4);
+  -moz-transform: scale(1.4,1.4);
+  -o-transform: scale(1.4,1.4);
+  margin-right: 10px;
 }

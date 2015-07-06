@@ -15,7 +15,7 @@ angular.module('CompressorApp').config(['$routeProvider',
 
   .when('/compressor/edit/:id?', {
     controller: 'CompressorEditCtrl',
-    templateUrl: '/Common/public/angular/apps/compressor/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/compressor/views/edit.html',
     resolve: {
       compressor: function($route, $q, Compressors) {
         //determine if we're creating or editing a compressor.
@@ -44,7 +44,7 @@ angular.module('CompressorApp').config(['$routeProvider',
 
   .when('/compressor', {
     controller: 'CompressorIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/compressor/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/compressor/views/index.html',
     resolve: {
       compressors: function($route, $q, Compressors) {
         var deffered = $q.defer();

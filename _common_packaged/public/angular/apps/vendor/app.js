@@ -15,7 +15,7 @@ angular.module('VendorApp').config(['$routeProvider',
 
   .when('/vendor/edit/:id?', {
     controller: 'VendorEditCtrl',
-    templateUrl: '/Common/public/angular/apps/vendor/views/edit.html',
+    templateUrl: '/_common_packaged/public/angular/apps/vendor/views/edit.html',
     resolve: {
       vendor: function($route, $q, Vendors) {
         //determine if we're creating or editing a vendor.
@@ -47,7 +47,7 @@ angular.module('VendorApp').config(['$routeProvider',
 
   .when('/vendor', {
     controller: 'VendorIndexCtrl',
-    templateUrl: '/Common/public/angular/apps/vendor/views/index.html',
+    templateUrl: '/_common_packaged/public/angular/apps/vendor/views/index.html',
     resolve: {
       vendors: function($route, $q, Vendors) {
         var deffered = $q.defer();

@@ -1,18 +1,14 @@
 <loader></loader>
 <alerts></alerts>
-
-<div class="container">
-
-  <header></header>
+<header></header>
 
   <div class="jumbotron">
-    <h1 class="page-title">{{title}}</h1>
-    <p>{{message}}</p>
-    <button class="btn  btn-info pull-right"
+    {{message}} // Workorder Time Elapsed: {{timeElapsed}}
+    <!-- <button class="btn  btn-info pull-right"
     ng-click="toggleHistory()"
     ng-show="role === 'ADMIN' && workorder.workOrderHistories.length > 0">
       {{ (!showHistory) ? "Show History" : "Hide History" }}
-    </button>
+    </button> -->
   </div>
 
   <workorder-history></workorder-history>
@@ -39,7 +35,3 @@
       </button>
       <div class="clearfix" style="height: 65px;"></div>
   </div>
-
-
-
-</div>

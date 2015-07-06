@@ -29,8 +29,9 @@ var vss = require('vinyl-source-stream');
 /* GIT
 ----------------------------------------------------------------------------- */
 gulp.task('pull', function(){
-  return git.pull('origin', 'master', {args: '--rebase'}, function (err) {
+  git.pull('origin', 'master', {args: '--rebase'}, function (err) {
     if (err) throw err;
+    return;
   });
 });
 

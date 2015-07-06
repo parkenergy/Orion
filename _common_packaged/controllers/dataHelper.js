@@ -86,14 +86,14 @@ var DataHelper = function (collection) {
         msg = 'req.body._id cannot be undefined for update operations.';
         return callback(new Error(msg), null);
       }
-
       // findOrCreate from query parameter (http://stackoverflow.com/a/16362833)
-      collection.findOneAndUpdate({
-        query: { id: req.body._id },
-        update: req.body,
-        new: true,   // return new doc if one is upserted
-        upsert: true // insert the document if it does not exist
-      }).exec(callback);
+      collection.findOne({ _id: req.body._id }, function (err, model) {
+        if (err) { return callback (err); }
+        model.update(req.body, function (err, data) {
+          if (err) { return callback (err); }
+          return collection.findOne({ _id: req.body._id }).exec(callback);
+        });
+      });
     },
 
     destroy: function (req, callback) {

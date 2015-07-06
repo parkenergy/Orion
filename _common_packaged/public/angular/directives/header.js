@@ -3,7 +3,7 @@ angular.module('CommonDirectives')
 .directive('header', ['$window', '$location', function ($window, $location) {
   return {
     restrict: 'E',
-    templateUrl: '/Common/public/angular/views/header.html',
+    templateUrl: '/_common_packaged/public/angular/views/header.html',
     link: function (scope, elem, attrs, ctrl) {
 
       function getnavItems() {
