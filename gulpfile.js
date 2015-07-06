@@ -25,6 +25,9 @@ var vss = require('vinyl-source-stream');
 /* TASKS
 ----------------------------------------------------------------------------- */
 
+
+/* GIT
+----------------------------------------------------------------------------- */
 gulp.task('pull', function(){
   return git.pull('origin', 'master', {args: '--rebase'}, function (err) {
     if (err) throw err;
@@ -35,57 +38,31 @@ gulp.task('updateSubmodules', ['pull'], function (){
   return git.updateSubmodule({ args: '--init' });
 });
 
-gulp.task('common-packager', ['updateSubmodules'], function() {
+
+/* Packaging
+----------------------------------------------------------------------------- */
+gulp.task('common-packager', ['git'], function() {
    return gulp.src('./Common/**/*')
    .pipe(gulp.dest('./_common_packaged'));
 });
 
 
-// bundle server side code needed by client
-gulp.task('browserify', ['common-packager'], function () {
+/* Bundling
+----------------------------------------------------------------------------- */
+gulp.task('browserify', function () {
   return browserify('./_common_packaged/_dev_util/browserify/includes.js')
     .bundle()
-    .pipe(vss('browserify.js')) //pass output filename to vinyl-source-stream
+    .pipe(vss('browserify.js')) // pass output filename to vinyl-source-stream
     .pipe(gulp.dest('public')); // pipe stream to tasks, triggers 'scripts' task
 });
 
-// ensure back-end code conforms to LINT standards
-gulp.task('back-end-lint', function () {
-    return gulp.src([
-        './_common_packaged/controllers/**/*.js',
-        './_common_packaged/helpers/**/*.js',
-        './_common_packaged/models/**/*.js',
-        './_common_packaged/routes/**/*.js',
-        './_common_packaged/tests/**/*.js',
-        './routes/**/*.js',
-        './app.js',
-        './gulpfile.js'
-      ])
-      .pipe(jshint())
-      .pipe(jshint.reporter('default'));
-});
-
-// ensure front-end code conforms to LINT standards
-gulp.task('front-end-lint', ['browserify'], function() {
-  return gulp.src([
-    './_common_packaged/public/angular/**/*.js',
-    './public/app/**/*.js'
-    ])
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'));
-});
-
-gulp.task('lint', ['back-end-lint', 'front-end-lint']);
-
-// compile LESS to CSS
-gulp.task('less', ['lint'], function() {
+gulp.task('less', ['browserify'], function () { // compile LESS to CSS
   return gulp.src('./_common_packaged/public/stylesheets/site.less')
     .pipe(less())
     .pipe(gulp.dest('./_common_packaged/public/stylesheets'));
 });
 
-// concat & minify js files
-gulp.task('scripts', ['less'], function() {
+gulp.task('scripts', ['less'], function() { // concat & minify js files
   return gulp.src([
       './_common_packaged/public/angular/**/*.js',
       './_common_packaged/public/scripts/**/*.js',
@@ -100,13 +77,46 @@ gulp.task('scripts', ['less'], function() {
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('mocha', ['scripts'] , function () {
-    return gulp.src('./_common_packaged/tests/mocha/**/*.js', {read: false})
-        .pipe(mocha({reporter: 'nyan'}));
+
+/* LINT
+----------------------------------------------------------------------------- */
+gulp.task('back-end-lint', ['bundle'], function () {
+  return gulp.src([
+      './_common_packaged/controllers/**/*.js',
+      './_common_packaged/helpers/**/*.js',
+      './_common_packaged/models/**/*.js',
+      './_common_packaged/routes/**/*.js',
+      './_common_packaged/tests/**/*.js',
+      './routes/**/*.js',
+      './app.js',
+      './gulpfile.js'
+    ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
+gulp.task('front-end-lint', ['back-end-lint'], function() {
+  return gulp.src([
+    './_common_packaged/public/angular/**/*.js',
+    './public/app/**/*.js'
+    ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
+
+
+/* Testing
+----------------------------------------------------------------------------- */
+gulp.task('mocha', ['lint'] , function () {
+  return gulp.src('./_common_packaged/tests/mocha/**/*.js', {read: false})
+      .pipe(mocha({reporter: 'nyan'}));
+});
+
+
+/* Start
+----------------------------------------------------------------------------- */
 // launches the server with nodemon
-gulp.task('launchserver', ['mocha'], function () {
+gulp.task('launchserver', ['test'], function () {
   nodemon({
     script: 'app.js',
     ext: 'js',
@@ -130,7 +140,7 @@ gulp.task('common-unpackager', function() {
 });
 
 // Watch Files For Changes
-gulp.task('watch', ['launchserver'], function() {
+gulp.task('watch', function() {
 
   gulp.watch(['./Common/**/*'], ['common-packager']);
 
@@ -153,12 +163,19 @@ gulp.task('watch', ['launchserver'], function() {
 /* DEFAULT TASK
 ----------------------------------------------------------------------------- */
 
+gulp.task('git', ['pull', 'updateSubmodules']);
+
+gulp.task('package', ['git', 'common-packager']);
+
+gulp.task('bundle', ['package', 'browserify', 'less', 'scripts']);
+
+gulp.task('lint', ['bundle', 'back-end-lint', 'front-end-lint']);
+
+gulp.task('test', ['bundle', 'mocha']);
+
+gulp.task('start', ['test', 'launchserver']);
+
 gulp.task('default', [
-  'common-packager',
-  'browserify',
-  'lint',
-  'mocha',
-  'less',
-  'watch',
-  'launchserver'
+  'start',
+  'watch'
 ]);

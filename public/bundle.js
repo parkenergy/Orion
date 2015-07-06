@@ -411,7 +411,7 @@ angular.module('CommonDirectives')
 .directive('alerts', ['AlertService', function (AlertService) {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/alerts.html',
+    templateUrl: '/Common/public/angular/views/alerts.html',
     link: function (scope, elem, attrs, ctrl) {
       scope.closeAlert = function (obj) {
       	return AlertService.closeAlert(obj);
@@ -494,7 +494,7 @@ angular.module('CommonDirectives')
 .directive('dashboard', ['$window', '$location', 'WorkOrders', function ($window, $location, WorkOrders) {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/dashboard.html',
+    templateUrl: '/Common/public/angular/views/dashboard.html',
     controller: "DashboardCtrl",
     scope: true
   };
@@ -505,7 +505,7 @@ angular.module('CommonDirectives')
 .directive('header', ['$window', '$location', function ($window, $location) {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/header.html',
+    templateUrl: '/Common/public/angular/views/header.html',
     link: function (scope, elem, attrs, ctrl) {
 
       function getnavItems() {
@@ -546,7 +546,7 @@ angular.module('CommonDirectives')
       model: '='
     },
     controller: 'NSTCtrl',
-    templateUrl: '/_common_packaged/public/angular/views/nestedSuperTable.html'
+    templateUrl: '/Common/public/angular/views/nestedSuperTable.html'
   };
 }]);
 
@@ -950,7 +950,7 @@ angular.module('AreaApp').config(['$routeProvider',
 
   .when('/area/edit/:id?', {
     controller: 'AreaEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/area/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/area/views/edit.html',
     resolve: {
       area: function($route, $q, Areas) {
         //determine if we're creating or editing a area.
@@ -971,7 +971,7 @@ angular.module('AreaApp').config(['$routeProvider',
 
   .when('/area', {
     controller: 'AreaIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/area/views/index.html',
+    templateUrl: '/Common/public/angular/apps/area/views/index.html',
     resolve: {
       areas: function($route, $q, Areas) {
         var deffered = $q.defer();
@@ -1002,7 +1002,7 @@ angular.module('CompressorApp').config(['$routeProvider',
 
   .when('/compressor/edit/:id?', {
     controller: 'CompressorEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/compressor/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/compressor/views/edit.html',
     resolve: {
       compressor: function($route, $q, Compressors) {
         //determine if we're creating or editing a compressor.
@@ -1031,7 +1031,7 @@ angular.module('CompressorApp').config(['$routeProvider',
 
   .when('/compressor', {
     controller: 'CompressorIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/compressor/views/index.html',
+    templateUrl: '/Common/public/angular/apps/compressor/views/index.html',
     resolve: {
       compressors: function($route, $q, Compressors) {
         var deffered = $q.defer();
@@ -1062,7 +1062,7 @@ angular.module('CountyApp').config(['$routeProvider',
 
   .when('/county/edit/:id?', {
     controller: 'CountyEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/county/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/county/views/edit.html',
     resolve: {
       county: function($route, $q, Counties) {
         //determine if we're creating or editing a county.
@@ -1091,7 +1091,7 @@ angular.module('CountyApp').config(['$routeProvider',
 
   .when('/county', {
     controller: 'CountyIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/county/views/index.html',
+    templateUrl: '/Common/public/angular/apps/county/views/index.html',
     resolve: {
       counties: function($route, $q, Counties) {
         var deffered = $q.defer();
@@ -1122,7 +1122,7 @@ angular.module('CustomerApp').config(['$routeProvider',
 
   .when('/customer/edit/:id?', {
     controller: 'CustomerEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/customer/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/customer/views/edit.html',
     resolve: {
       customer: function($route, $q, Customers) {
         //determine if we're creating or editing a customer.
@@ -1158,7 +1158,7 @@ angular.module('CustomerApp').config(['$routeProvider',
 
   .when('/customer', {
     controller: 'CustomerIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/customer/views/index.html',
+    templateUrl: '/Common/public/angular/apps/customer/views/index.html',
     resolve: {
       customers: function($route, $q, Customers) {
         var deffered = $q.defer();
@@ -1189,7 +1189,7 @@ angular.module('EngineApp').config(['$routeProvider',
 
   .when('/engine/edit/:id?', {
     controller: 'EngineEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/engine/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/engine/views/edit.html',
     resolve: {
       engine: function($route, $q, Engines) {
         //determine if we're creating or editing a engine.
@@ -1218,7 +1218,7 @@ angular.module('EngineApp').config(['$routeProvider',
 
   .when('/engine', {
     controller: 'EngineIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/engine/views/index.html',
+    templateUrl: '/Common/public/angular/apps/engine/views/index.html',
     resolve: {
       engines: function($route, $q, Engines) {
         var deffered = $q.defer();
@@ -1249,7 +1249,7 @@ angular.module('LocationApp').config(['$routeProvider',
 
   .when('/location/edit/:id?', {
     controller: 'LocationEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/location/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/location/views/edit.html',
     resolve: {
       location: function($route, $q, Locations) {
         //determine if we're creating or editing a location.
@@ -1302,7 +1302,7 @@ angular.module('LocationApp').config(['$routeProvider',
 
   .when('/location', {
     controller: 'LocationIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/location/views/index.html',
+    templateUrl: '/Common/public/angular/apps/location/views/index.html',
     resolve: {
       locations: function($route, $q, Locations) {
         var deffered = $q.defer();
@@ -1333,7 +1333,7 @@ angular.module('PartApp').config(['$routeProvider',
 
   .when('/part/edit/:id?', {
     controller: 'PartEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/part/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/part/views/edit.html',
     resolve: {
       part: function($route, $q, Parts) {
         //determine if we're creating or editing a part.
@@ -1365,7 +1365,7 @@ angular.module('PartApp').config(['$routeProvider',
 
   .when('/part', {
     controller: 'PartIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/part/views/index.html',
+    templateUrl: '/Common/public/angular/apps/part/views/index.html',
     resolve: {
       parts: function($route, $q, Parts) {
         var deffered = $q.defer();
@@ -1399,7 +1399,7 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
 
   .when('/servicepartner/edit/:id?', {
     controller: 'ServicePartnerEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/servicepartner/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/servicepartner/views/edit.html',
     resolve: {
       servicePartner: function($route, $q, ServicePartners) {
         //determine if we're creating or editing a servicePartner.
@@ -1420,7 +1420,7 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
 
   .when('/servicepartner', {
     controller: 'ServicePartnerIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/servicepartner/views/index.html',
+    templateUrl: '/Common/public/angular/apps/servicepartner/views/index.html',
     resolve: {
       servicePartners: function($route, $q, ServicePartners) {
         var deffered = $q.defer();
@@ -1452,7 +1452,7 @@ angular.module('TransferApp').config(['$routeProvider',
   .when('/transfer/edit/:id?', {
     needsLogin: true,
     controller: 'TransferEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/edit.html',
     resolve: {
       transfer: function($route, $q, Transfers) {
         //determine if we're creating or editing a transfer.
@@ -1517,7 +1517,7 @@ angular.module('TransferApp').config(['$routeProvider',
   .when('/transfer', {
     needsLogin: true,
     controller: 'TransferIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/index.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/index.html',
     resolve: {
       transfers: function($route, $q, Transfers) {
         var deffered = $q.defer();
@@ -1548,7 +1548,7 @@ angular.module('UnitApp').config(['$routeProvider',
 
   .when('/unit/edit/:id?', {
     controller: 'UnitEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/unit/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/unit/views/edit.html',
     resolve: {
       unit: function($route, $q, Units) {
         //determine if we're creating or editing a unit.
@@ -1577,7 +1577,7 @@ angular.module('UnitApp').config(['$routeProvider',
 
   .when('/unit', {
     controller: 'UnitIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/unit/views/index.html',
+    templateUrl: '/Common/public/angular/apps/unit/views/index.html',
     resolve: {
       units: function($route, $q, Units) {
         var deffered = $q.defer();
@@ -1611,7 +1611,7 @@ angular.module('UserApp').config(['$routeProvider',
 
   .when('/user/edit/:id?', {
     controller: 'UserEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/user/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/user/views/edit.html',
     resolve: {
       user: function($route, $q, Users) {
         //determine if we're creating or editing a user.
@@ -1643,7 +1643,7 @@ angular.module('UserApp').config(['$routeProvider',
 
   .when('/user', {
     controller: 'SuperIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/views/superIndex.html',
+    templateUrl: '/Common/public/angular/views/superIndex.html',
     resolve: {
       // Required Attributes for SuperIndex
       title: function () { return "Users"; },
@@ -1692,7 +1692,7 @@ angular.module('VendorApp').config(['$routeProvider',
 
   .when('/vendor/edit/:id?', {
     controller: 'VendorEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/vendor/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/vendor/views/edit.html',
     resolve: {
       vendor: function($route, $q, Vendors) {
         //determine if we're creating or editing a vendor.
@@ -1724,7 +1724,7 @@ angular.module('VendorApp').config(['$routeProvider',
 
   .when('/vendor', {
     controller: 'VendorIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/vendor/views/index.html',
+    templateUrl: '/Common/public/angular/apps/vendor/views/index.html',
     resolve: {
       vendors: function($route, $q, Vendors) {
         var deffered = $q.defer();
@@ -1755,7 +1755,7 @@ angular.module('VendorPartApp').config(['$routeProvider',
 
   .when('/vendorpart/edit/:id?', {
     controller: 'VendorPartEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/vendorpart/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/vendorpart/views/edit.html',
     resolve: {
       vendorpart: function($route, $q, VendorParts) {
         //determine if we're creating or editing a vendorpart.
@@ -1795,7 +1795,7 @@ angular.module('VendorPartApp').config(['$routeProvider',
 
   .when('/vendorpart', {
     controller: 'VendorPartIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/vendorpart/views/index.html',
+    templateUrl: '/Common/public/angular/apps/vendorpart/views/index.html',
     resolve: {
       vendorparts: function($route, $q, VendorParts) {
         var deffered = $q.defer();
@@ -1827,7 +1827,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   .when('/workorder/edit/:id?', {
     needsLogin: false,
     controller: 'WorkOrderEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit.html',
     resolve: {
       workorder: function($route, $q, WorkOrders) {
         //determine if we're creating or editing a workorder.
@@ -1881,7 +1881,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   .when('/workorder', {
     needsLogin: false,
     controller: 'WorkOrderIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/index.html',
     resolve: {
       workorders: function($route, $q, WorkOrders) {
         var deffered = $q.defer();
@@ -1893,22 +1893,6 @@ angular.module('WorkOrderApp').config(['$routeProvider',
       }
     }
   });
-}]);
-
-angular.module('WorkOrderApp')
-.run(['$route', '$rootScope', '$location',
-function ($route, $rootScope, $location) {
-    var original = $location.path;
-    $location.path = function (path, reload) {
-        if (reload === false) {
-            var lastRoute = $route.current;
-            var un = $rootScope.$on('$locationChangeSuccess', function () {
-                $route.current = lastRoute;
-                un();
-            });
-        }
-        return original.apply($location, [path]);
-    };
 }]);
 
 angular.module('CommonControllers').controller('SuperTableCtrl',
@@ -1970,7 +1954,7 @@ angular.module('CommonDirectives')
 .directive('checkBox', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/checkbox.html',
+    templateUrl: '/Common/public/angular/views/customElements/checkbox.html',
     scope: {
       labelText: '@',
       data: '='
@@ -1982,7 +1966,7 @@ angular.module('CommonDirectives')
 .directive('dateField', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/datefield.html',
+    templateUrl: '/Common/public/angular/views/customElements/datefield.html',
     scope: {
       labelText: '@',
       data: '='
@@ -1994,7 +1978,7 @@ angular.module('CommonDirectives')
 .directive('numberField', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/numberfield.html',
+    templateUrl: '/Common/public/angular/views/customElements/numberfield.html',
     scope: {
       labelText: '@',
       data: '=',
@@ -2007,7 +1991,7 @@ angular.module('CommonDirectives')
 .directive('priceField', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/pricefield.html',
+    templateUrl: '/Common/public/angular/views/customElements/pricefield.html',
     scope: {
       labelText: '@',
       placeholderText: '@',
@@ -2022,7 +2006,7 @@ angular.module('CommonDirectives')
 .directive('selectList', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/selectlist.html',
+    templateUrl: '/Common/public/angular/views/customElements/selectlist.html',
     scope: {
       labelText: '@',
       data: '=',
@@ -2042,7 +2026,7 @@ angular.module('CommonDirectives')
       model: '='
     },
     controller: 'SuperTableCtrl',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/supertable.html'
+    templateUrl: '/Common/public/angular/views/customElements/supertable.html'
   };
 }]);
 
@@ -2159,7 +2143,7 @@ angular.module('CommonDirectives')
 .directive('textAreaField', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/textareafield.html',
+    templateUrl: '/Common/public/angular/views/customElements/textareafield.html',
     scope: {
       labelText: '@',
       data: '=',
@@ -2173,7 +2157,7 @@ angular.module('CommonDirectives')
 .directive('textField', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/textfield.html',
+    templateUrl: '/Common/public/angular/views/customElements/textfield.html',
     scope: {
       labelText: '@',
       data: '=',
@@ -2186,7 +2170,7 @@ angular.module('CommonDirectives')
 .directive('timeField', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/timefield.html',
+    templateUrl: '/Common/public/angular/views/customElements/timefield.html',
     scope: {
       labelText: '@',
       data: '=',
@@ -2200,7 +2184,7 @@ angular.module('CommonDirectives')
 .directive('typeAhead', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/views/customElements/typeahead.html',
+    templateUrl: '/Common/public/angular/views/customElements/typeahead.html',
     scope: {
       labelText: '@',
       data: '=',
@@ -3330,7 +3314,7 @@ angular.module('PartApp.Directives')
 .directive('vendorParts', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/part/views/vendorparts.html',
+    templateUrl: '/Common/public/angular/apps/part/views/vendorparts.html',
     scope: true,
     controller: 'PartsVendorPartsCtrl'
   };
@@ -3562,7 +3546,7 @@ angular.module('TransferApp.Directives')
 .directive('transferCustomer', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferCustomer.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/transferCustomer.html',
     scope: true,
   };
 }]);
@@ -3572,7 +3556,7 @@ angular.module('TransferApp.Directives')
 .directive('transferDetails', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferDetails.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/transferDetails.html',
     scope: true,
     controller: 'TransferDetailsCtrl'
   };
@@ -3583,7 +3567,7 @@ angular.module('TransferApp.Directives')
 .directive('transferInformation', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferInformation.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/transferInformation.html',
     scope: true,
     controller: 'TransferInformationCtrl'
   };
@@ -3594,7 +3578,7 @@ angular.module('TransferApp.Directives')
 .directive('transferLocationCreate', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferLocationCreate.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/transferLocationCreate.html',
     scope: true,
   };
 }]);
@@ -3604,7 +3588,7 @@ angular.module('TransferApp.Directives')
 .directive('transferNewset', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferNewset.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/transferNewset.html',
     scope: true,
   };
 }]);
@@ -3614,7 +3598,7 @@ angular.module('TransferApp.Directives')
 .directive('transferReassignment', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferReassignment.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/transferReassignment.html',
     scope: true,
   };
 }]);
@@ -3624,7 +3608,7 @@ angular.module('TransferApp.Directives')
 .directive('transferSimple', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferSimple.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/transferSimple.html',
     scope: true,
   };
 }]);
@@ -3634,7 +3618,7 @@ angular.module('TransferApp.Directives')
 .directive('transferSwap', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferSwap.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/transferSwap.html',
     scope: true,
   };
 }]);
@@ -3644,7 +3628,7 @@ angular.module('TransferApp.Directives')
 .directive('transferYard', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferYard.html',
+    templateUrl: '/Common/public/angular/apps/transfer/views/transferYard.html',
     scope: true,
   };
 }]);
@@ -4408,10 +4392,12 @@ angular.module('VendorPartApp.Controllers').controller('VendorPartIndexCtrl',
 }]);
 
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$scope', '$location', '$timeout', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts',
-  function ($window, $scope, $location, $timeout, AlertService, WorkOrders, workorder, units, customers, users, parts) {
+['$window', '$scope', '$location', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts',
+  function ($window, $scope, $location, AlertService, WorkOrders, workorder, units, customers, users, parts) {
 
-    $scope.message = (workorder !== null ? "Edit " : "Create ") + "Work Order";
+    $scope.title = (workorder !== null ? "Edit " : "Create ") + "Work Order";
+
+    console.log(workorder);
 
     $scope.workorder = workorder || newWorkOrder();
     $scope.units = units;
@@ -4421,28 +4407,13 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
     $scope.hours = getHours();
     $scope.minutes = getMinutes();
 
+    $scope.$watch('workorder.types.pm', function (newVal) {
+      console.log(newVal);
+    });
+
     $scope.toggleHistory = function () {
       $scope.showHistory = !$scope.showHistory || true;
     };
-
-    $scope.$watch('workorder', function (newVal, oldVal) {
-      if (newVal !== oldVal && !$scope.workorder.timeSubmitted) {
-        $scope.submitting = true;
-        WorkOrders.save({_id: $scope.workorder._id}, $scope.workorder,
-          function (response) {
-            console.log(response);
-            $scope.workorder._id = $scope.workorder._id || response._id;
-            $location.path("/workorder/edit/" + $scope.workorder._id, false);
-            $scope.submitting = false;
-          },
-          function (err) {
-            console.log(err);
-            console.log("An error occurred while attempting to save.");
-            $scope.submitting = false;
-          }
-        );
-      }
-    }, true);
 
 
     $scope.save = function () {
@@ -4478,18 +4449,6 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       );
     };
 
-    $scope.getTimeElapsed = function () {
-      var start = new Date($scope.workorder.timeStarted);
-      var now = $scope.workorder.timeSubmitted ?
-                  new Date($scope.workorder.timeSubmitted) :
-                  new Date();
-      var h = String("0"+Math.floor(Math.abs(now-start)/36e5)).slice(-2);
-      var m = String("0"+Math.floor((Math.abs(now-start)/6e4)%60)).slice(-2);
-      var s = String("0"+Math.floor((Math.abs(now-start)/1e3)%60)).slice(-2);
-      $scope.timeElapsed = h+":"+m+":"+s;
-      $timeout(function () { $scope.getTimeElapsed(); }, 1000);
-    };
-
     function getHours() {
       var hours = [];
       var i = 0;
@@ -4513,11 +4472,6 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
     function newWorkOrder() {
       var newWO =
       {
-
-        timeStarted: new Date(),
-        timeSubmitted: null,
-        timeApproved: null,
-
         types: {
           pm: false,
           corrective: false,
@@ -4751,7 +4705,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       $scope.workorder.parts = arr;
     };
 
-    $scope.getTimeElapsed();
+
 }]);
 
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderIndexCtrl',
@@ -4788,9 +4742,9 @@ function ($scope, $route, $location, AlertService, LoaderService, workorders) {
         number: ele.number,
         unit: ele.header.unitNumber,
         customer: ele.header.customerName,
-        createdBy: (ele.worker === undefined) ? undefined : ele.worker.fullName,
+        createdBy: (ele.worker == null) ? undefined : ele.worker.fullName,
         date: ele.createdOn
-      };
+      }
       oList.push(obj);
     });
     return oList;
@@ -5261,7 +5215,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderComments', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/woComments.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/woComments.html',
     scope: true
   };
 }]);
@@ -5271,7 +5225,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderEmissionsReadings', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/woEmissionsReadings.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/woEmissionsReadings.html',
     scope: true
   };
 }]);
@@ -5281,7 +5235,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderHistory', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/woHistory.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/woHistory.html',
     scope: true
   };
 }]);
@@ -5291,7 +5245,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderUnitReadings', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/woUnitReadings.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/woUnitReadings.html',
     scope: true
   };
 }]);
@@ -5301,7 +5255,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderBilling', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woBilling.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/header/woBilling.html',
     scope: true
   };
 }]);
@@ -5311,7 +5265,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderHeading', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woHeading.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/header/woHeading.html',
     scope: true
   };
 }]);
@@ -5321,7 +5275,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderMisc', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woMisc.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/header/woMisc.html',
     scope: true
   };
 }]);
@@ -5331,7 +5285,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderOwnership', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woOwnership.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/header/woOwnership.html',
     scope: true
   };
 }]);
@@ -5341,7 +5295,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderType', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woType.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/header/woType.html',
     scope: true
   };
 }]);
@@ -5351,7 +5305,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderHeader', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/workorderheader.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/header/workorderheader.html',
     scope: true
   };
 }]);
@@ -5361,7 +5315,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderBasicLc', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/lc/woBasicLC.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/lc/woBasicLC.html',
     scope: true
   };
 }]);
@@ -5371,7 +5325,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderCompressorLc', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/lc/woCompressorLC.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/lc/woCompressorLC.html',
     scope: true
   };
 }]);
@@ -5381,7 +5335,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderCoolerLc', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/lc/woCoolerLC.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/lc/woCoolerLC.html',
     scope: true
   };
 }]);
@@ -5391,7 +5345,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderEmissionsLc', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/lc/woEmissionsLC.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/lc/woEmissionsLC.html',
     scope: true
   };
 }]);
@@ -5401,7 +5355,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderEngineLc', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/lc/woEngineLC.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/lc/woEngineLC.html',
     scope: true
   };
 }]);
@@ -5411,7 +5365,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderPanelLc', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/lc/woPanelLC.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/lc/woPanelLC.html',
     scope: true
   };
 }]);
@@ -5421,7 +5375,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderVesselLc', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/lc/woVesselLC.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/lc/woVesselLC.html',
     scope: true
   };
 }]);
@@ -5431,7 +5385,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderLaborCodes', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/lc/workorderLaborCodes.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/lc/workorderLaborCodes.html',
     scope: true
   };
 }]);
@@ -5441,7 +5395,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderPartsAdd', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
     scope: true
   };
 }]);
@@ -5451,7 +5405,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderPartsList', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
     scope: true
   };
 }]);
@@ -5461,7 +5415,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderParts', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
     scope: true
   };
 }]);
@@ -5471,7 +5425,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderEngineChecks', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
     scope: true
   };
 }]);
@@ -5481,7 +5435,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderEngineCompression', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
     scope: true
   };
 }]);
@@ -5491,7 +5445,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderGeneralChecks', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
     scope: true
   };
 }]);
@@ -5501,7 +5455,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderKillSettings', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
     scope: true
   };
 }]);
@@ -5511,7 +5465,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderPmMisc', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
     scope: true
   };
 }]);
@@ -5521,7 +5475,7 @@ angular.module('WorkOrderApp.Directives')
 .directive('workorderPm', [function() {
   return {
     restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/pm/woPM.html',
+    templateUrl: '/Common/public/angular/apps/workorder/views/edit/pm/woPM.html',
     scope: true
   };
 }]);

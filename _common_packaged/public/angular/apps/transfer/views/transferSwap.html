@@ -1,0 +1,117 @@
+<div class="col-md-6">
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      Old Unit: {{transfer.unit.number}}
+    </div>
+
+    <div class="panel-body">
+
+      <div class="form-group">
+        <label for="transfer.oldLocation.customer.dbaCustomerName">
+          Old Customer
+        </label>
+        <input type="text" class="form-control"
+        ng-model="transfer.oldLocation.customer.dbaCustomerName" disabled
+        name="transfer.oldLocation.customer.dbaCustomerName"
+        placeholder="Customer Name">
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="transfer.oldLocation.name">Old Location</label>
+        <input type="text" class="form-control"
+        ng-model="transfer.oldLocation.name" disabled
+        name="transfer.oldLocation.name" placeholder="Location Name">
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="transfer.oldLocation.county">Old County</label>
+        <input type="text" class="form-control"
+        ng-model="transfer.oldLocation.county" disabled
+        name="transfer.oldLocation.county"
+        placeholder="Location County">
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="transfer.oldLocation.servicePartner.name">
+          Old Service Partner
+        </label>
+        <input type="text" class="form-control"
+        ng-model="transfer.oldLocation.servicePartner.name" disabled
+        name="transfer.oldLocation.servicePartner.name"
+        placeholder="Service Partner">
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="col-md-6">
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      New Unit: {{transfer.swapUnit.number || "Not Selected"}}
+    </div>
+
+    <div class="panel-body">
+
+      <div class="form-group">
+
+        <label for="transfer.NewLocationId">New Location</label>
+
+        <select class="form-control" ng-model="transfer.NewLocationId"
+        ng-options="location._id as location.name for location in locations"
+        name="transfer.NewLocationId"
+        ng-disabled="locationsLoading"></select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="transfer.SwapUnitId">New Unit</label>
+
+        <select class="form-control" ng-model="transfer.SwapUnitId"
+        ng-options="unit._id as unit.number for unit in swapUnits"
+        name="transfer.SwapUnitId"
+        ng-disabled="unitsLoading"></select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="transfer.oldLocation.county">Old County</label>
+        <input type="text" class="form-control"
+        ng-model="transfer.oldLocation.county" disabled
+        name="transfer.oldLocation.county"
+        placeholder="Location County">
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="transfer.oldLocation.servicePartner.name">
+          Old Service Partner
+        </label>
+        <input type="text" class="form-control"
+        ng-model="transfer.oldLocation.servicePartner.name" disabled
+        name="transfer.oldLocation.servicePartner.name"
+        placeholder="Service Partner">
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

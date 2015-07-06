@@ -1,0 +1,18 @@
+<div class="form-group row">
+  <div class="pull-left col-md-12">
+    <label for="{{data}}">{{labelText}}</label>
+  </div>
+  <div class="pull-left col-md-12">
+    <select
+      ng-model="data.hours"
+      name="{{data}}.hours"
+      ng-options="h for h in hours">
+    </select>
+    :
+    <select
+      ng-model="data.minutes"
+      name="{{data}}.minutes"
+      ng-options="m for m in minutes">
+    </select>
+  </div>
+</div>

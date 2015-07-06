@@ -1,0 +1,12 @@
+<div class="form-group">
+
+  <label for="{{data}}">{{labelText}}</label>
+  <div>
+    <select
+      ng-model="data"
+      name="{{data}}"
+      ng-options="o.{{selectField}} as o.{{displayField}} for o in objList">
+    </select>
+  </div>
+
+</div>

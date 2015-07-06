@@ -1,0 +1,68 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Customer Details</div>
+    <div class="panel-body">
+
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="DBA Customer Name"
+    		placeholder-text="DBA Customer Name"
+        data="customer.dbaCustomerName">
+    	</text-field>
+
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Customer Family"
+    		placeholder-text="Customer Family"
+        data="customer.customerFamily">
+    	</text-field>
+
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Customer Address"
+    		placeholder-text="Customer Address"
+        data="customer.address">
+    	</text-field>
+
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Customer Phone"
+    		placeholder-text="Customer Phone"
+        data="customer.phone">
+    	</text-field>
+
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Customer Email"
+    		placeholder-text="Customer Email"
+        data="customer.email">
+    	</text-field>
+
+      <div>
+        <button class="btn  btn-primary pull-right" ng-click="save()">
+          Save
+        </button>
+        <button class="btn  btn-danger pull-right" style="margin-right: 10px;"
+          ng-click="destroy()" ng-show="customer._id">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default" ng-hide="!customer._id">
+    <!-- TODO: create customer locations edit table -->
+  </div>
+
+</div>
