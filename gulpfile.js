@@ -49,7 +49,7 @@ gulp.task('common-packager', ['git'], function() {
 
 /* Bundling
 ----------------------------------------------------------------------------- */
-gulp.task('browserify', function () {
+gulp.task('browserify', ['package'], function () {
   return browserify('./_common_packaged/_dev_util/browserify/includes.js')
     .bundle()
     .pipe(vss('browserify.js')) // pass output filename to vinyl-source-stream
@@ -171,7 +171,7 @@ gulp.task('bundle', ['package', 'browserify', 'less', 'scripts']);
 
 gulp.task('lint', ['bundle', 'back-end-lint', 'front-end-lint']);
 
-gulp.task('test', ['bundle', 'mocha']);
+gulp.task('test', ['lint', 'mocha']);
 
 gulp.task('start', ['test', 'launchserver']);
 
