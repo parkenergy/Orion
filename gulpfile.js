@@ -140,7 +140,7 @@ gulp.task('common-unpackager', function() {
 });
 
 // Watch Files For Changes
-gulp.task('watch', function() {
+gulp.task('watch', ['start'], function() {
 
   gulp.watch(['./Common/**/*'], ['common-packager']);
 
