@@ -14,6 +14,7 @@ var nodemon = require('gulp-nodemon');
 var mocha = require('gulp-mocha');
 var rimraf = require('gulp-rimraf');
 var gulpif = require('gulp-if');
+var git = require('gulp-git');
 var exit = require('gulp-exit');
 var path = require('path');
 
@@ -24,7 +25,17 @@ var vss = require('vinyl-source-stream');
 /* TASKS
 ----------------------------------------------------------------------------- */
 
-gulp.task('common-packager', function() {
+gulp.task('pull', function(){
+  return git.pull('origin', 'master', {args: '--rebase'}, function (err) {
+    if (err) throw err;
+  });
+});
+
+gulp.task('updateSubmodules', ['pull'], function (){
+  return git.updateSubmodule({ args: '--init' });
+});
+
+gulp.task('common-packager', ['updateSubmodules'], function() {
    return gulp.src('./Common/**/*')
    .pipe(gulp.dest('./_common_packaged'));
 });
