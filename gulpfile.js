@@ -35,14 +35,14 @@ gulp.task('purge', function () {
     .pipe(exit());
 });
 
-gulp.task('pull', function(){
-  git.pull('origin', 'master', {args: '--rebase'}, function (err) {
+gulp.task('pull', function() {
+  git.pull('origin', 'master', {args: '--rebase -f'}, function (err) {
     if (err) throw err;
   });
 });
 
-gulp.task('updateSubmodules', function (){
-  return git.updateSubmodule({ args: '--init' });
+gulp.task('updateSubmodules', function () {
+  git.updateSubmodule({ args: '--init' });
 });
 
 
@@ -123,30 +123,24 @@ gulp.task('mocha', function () {
 /* Start
 ----------------------------------------------------------------------------- */
 // launches the server with nodemon
-gulp.task('launch-server', function () {
+gulp.task('start', ['test'], function () {
   nodemon({
     script: 'app.js',
     ext: 'js',
     watch: [
-      './_common_packaged/controllers/**/*.js',
-      './_common_packaged/helpers/**/*.js',
-      './_common_packaged/models/**/*.js',
-      './_common_packaged/routes/**/*.js',
-      './_common_packaged/tests/**/*.js'
+      './Common/**/*',
+      './routes/**/*.js',
+      './app.js'
     ]})
     .on('restart', 'test')
+    .on('exit', ['stop']);
 });
 
-gulp.task('common-unpackager', function() {
-  console.log("buildForDeployment variable set to " + buildForDeployment);
-  console.log(((buildForDeployment)?"Keeping":"Deleting") + " common package");
-  gulp.src('./_common_packaged/', { read: false })
-    .pipe(gulpif(!buildForDeployment, rimraf({ force: true })))
-    .pipe(exit());
-});
+/* Watching
+----------------------------------------------------------------------------- */
 
-// Watch Files For Changes
-gulp.task('watch', ['start'], function() {
+// Watch Local Files For Changes
+gulp.task('watch', function() {
 
   gulp.watch(['./Common/**/*'], ['common-packager']);
 
@@ -166,9 +160,25 @@ gulp.task('watch', ['start'], function() {
 });
 
 
+/* Shutdown MongoDB
+----------------------------------------------------------------------------- */
+var exec = require('child_process').exec;
+
+gulp.task('shutdown-mongodb', function (callback) {
+  var cmd = "mongo admin --eval 'db.shutdownServer()' > /dev/null";
+  exec(cmd, function (err) { callback(err); });
+});
+
+
 /* DEFAULT TASK
 ----------------------------------------------------------------------------- */
-gulp.task('package', ['common-packager']);
+gulp.task('sync', function (callback) {
+  runSequence('updateSubmodules', callback);
+});
+
+gulp.task('package', ['sync'], function (callback) {
+  runSequence('common-packager', callback);
+});
 
 gulp.task('bundle', ['package'], function (callback) {
   runSequence('browserify', 'less', 'scripts', callback);
@@ -182,17 +192,10 @@ gulp.task('test', ['lint'], function (callback) {
   runSequence('mocha', callback);
 });
 
-gulp.task('start', ['test', 'launch-server']);
-
-gulp.task('default', [
-  'start',
-  'watch'
-]);
-
-/* CLIENT TASK
------------------------------------------------------------------------------ */
-gulp.task('sync', function () {
-  runSequence('purge', 'pull', 'updateSubmodules', callback);
+gulp.task('default', function (callback) {
+  runSequence('start', ['watch'], callback);
 });
 
-gulp.task('client', ['sync', 'start']);
+gulp.task('stop', function (callback) {
+  runSequence('shutdown-mongodb', callback);
+});
