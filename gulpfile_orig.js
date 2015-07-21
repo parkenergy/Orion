@@ -16,7 +16,6 @@ var rimraf = require('gulp-rimraf');
 var gulpif = require('gulp-if');
 var git = require('gulp-git');
 var exit = require('gulp-exit');
-var gitWatch = require('gulp-git-watch');
 var path = require('path');
 
 // used to bundle server side code needed by the client
@@ -129,7 +128,6 @@ gulp.task('start', ['test'], function () {
     script: 'app.js',
     ext: 'js',
     watch: [
-      './git/ORIG_HEAD',
       './Common/**/*',
       './routes/**/*.js',
       './app.js'
@@ -161,23 +159,6 @@ gulp.task('watch', function() {
 
 });
 
-// Watch Remote Git Hash for Changes
-gulp.task('git-watch', function() {
-  gitWatch({
-    gitPull: ['git', 'pull', 'origin', 'master'],
-    poll: 5*1000,
-    forceHead: true
-  })
-    .on('check', function () {
-      console.log('check git for updates', new Date().toLocaleTimeString());
-    })
-    .on('nochange', function (hash) {
-      console.log('No change:', hash, '\n');
-    })
-    .on('change', function(newHash, oldHash) {
-      console.log('Changed:', oldHash, '->', newHash, '\n');
-    });
-});
 
 /* Shutdown MongoDB
 ----------------------------------------------------------------------------- */
@@ -185,8 +166,9 @@ var exec = require('child_process').exec;
 
 gulp.task('shutdown-mongodb', function (callback) {
   var cmd = "mongo admin --eval 'db.shutdownServer()' > /dev/null";
-  exec(cmd, function (err) { callback(err) });
+  exec(cmd, function (err) { callback(err); });
 });
+
 
 /* DEFAULT TASK
 ----------------------------------------------------------------------------- */
@@ -211,9 +193,9 @@ gulp.task('test', ['lint'], function (callback) {
 });
 
 gulp.task('default', function (callback) {
-  runSequence('start', ['watch', 'git-watch'], callback);
+  runSequence('start', ['watch'], callback);
 });
 
 gulp.task('stop', function (callback) {
-  runSequence('shutdown-mongodb', 'purge', callback);
+  runSequence('shutdown-mongodb', callback);
 });

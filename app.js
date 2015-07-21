@@ -28,20 +28,29 @@ var app = express();
 /* Configure the MongoDB database
 ----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
+var uriUtil = require('mongodb-uri');
+var options = {
+  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } }
+};
+var uri = "";
 var env = process.env.NODE_ENV || 'development';
 switch (env) {
   case "production":
     console.log("Connecting to production database");
-    mongoose.connect(globals.dbConnectionUrls.production);
+    uri = uriUtil.formatMongoose(globals.dbConnectionUrls.production);
+    mongoose.connect(uri, options);
     break;
   case "staging":
     console.log("Connecting to staging database");
-    mongoose.connect(globals.dbConnectionUrls.staging);
+    uri = uriUtil.formatMongoose(globals.dbConnectionUrls.staging);
+    mongoose.connect(uri, options);
     break;
   case "client":
     mongoose.connect(globals.dbConnectionUrls.client);
     break;
   case "development":
+    console.log("Connecting to development database");
     mongoose.connect(globals.dbConnectionUrls.development);
     break;
   case "test":
