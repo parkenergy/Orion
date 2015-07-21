@@ -1,0 +1,84 @@
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+	<header></header>
+
+  <!-- jumbotron typically at the top of each page, below the header -->
+	<div class="jumbotron custom-background">
+	  <h1 class="page-title">{{title}}</h1>
+	  <p>{{message}}</p>
+	</div>
+
+  <!-- standard text box element (app-wide) -->
+	<text-field
+		label-text="Example Text Field Label"
+		placeholder-text="I'm the placeholder"
+    data="model.textAreaField">
+	</text-field>
+
+	<type-ahead
+    class="col-md-4"
+		label-text="Example Type Ahead Label"
+    data="model.typeAhead"
+		select-field="valueOf()"
+		display-field="valueOf()"
+		obj-list="{{['Adam', 'Bob', 'Charlie', 'Dave', 'Evan', 'Frank']}}"
+    limit="12">
+	</type-ahead>
+
+	<text-area-field
+		label-text="Example Text Area Field Label"
+		placeholder-text="I'm the placeholder"
+    data="model.textAreaField"
+		rows="17"> <!-- defaults to 5 rows -->
+	</text-area-field>
+
+  <!-- standard number input element (app-wide) -->
+	<number-field
+		label-text="Example Number Field Label"
+		placeholder-text="1,000,000"
+    data="model.numberField">
+	</number-field>
+
+  <!-- standard number input element (app-wide) -->
+	<price-field
+		label-text="Example Price Field Label"
+		placeholder-text="0 - 1,000,000"
+    data="model.priceField"
+    non-negative="true"
+    integer-only="false">
+	</price-field>
+
+	<time-field
+		label-text="Example Time Field Label"
+		data="model.timeField"
+		hours="hours"
+		minutes="minutes">
+	</time-field>
+
+	<check-box
+		label-text="Example Checkbox Label"
+    data="model.isChecked">
+	</check-box>
+
+	<date-field
+		label-text="Example Date Label"
+    data="model.date">
+	</date-field>
+	{{model.date}}
+
+	<select-list
+		label-text="Example Select Label"
+    data="model.selected"
+		select-field="id"
+		display-field="text"
+		obj-list="list">
+	</select-list>
+	{{model.selected}}
+
+	<super-table model="superTableModel"><super-table>
+
+
+</div>

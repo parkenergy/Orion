@@ -1,0 +1,15 @@
+angular.module('CommonDirectives')
+.directive('typeAhead', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/views/customElements/typeahead.html',
+    scope: {
+      labelText: '@',
+      data: '=',
+      selectField: '@',
+      displayField: '@',
+      objList: '=',
+      limit: '@'
+    }
+  };
+}]);

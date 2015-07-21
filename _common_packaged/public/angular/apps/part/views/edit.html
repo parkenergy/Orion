@@ -1,0 +1,136 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+  </div>
+
+  <div class="col-md-6">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Vendors</h3>
+      </div>
+      <div class="panel-body">
+
+    <div class="form-group">
+
+      <label for="part.vendorPartNumber">Vendor Part Number</label>
+      <input type="text" class="form-control" ng-model="part.vendorPartNumber"
+             name="part.vendorPartNumber" placeholder="Item Code">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="part.description">Description</label>
+      <textarea class="form-control" ng-model="part.description"
+        name="part.description" placeholder="Description "></textarea>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="part.cost">Cost</label>
+      <div class="input-group">
+        <span class="input-group-addon">$</span>
+        <input type="text" number min="0" custom-validation class="form-control" ng-model="part.cost"
+          name="part.cost" placeholder="Cost">
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="part.system">System</label>
+      <select ng-model="part.system" class="form-control"
+      name="part.system"
+      ng-options="(systems.indexOf(system) + 1) as system for system in systems">
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="part.subsystem">Sub System</label>
+      <select ng-model="part.subsystem" class="form-control"
+      name="part.subsystem"
+      ng-options="(subsystems.indexOf(subsystem) + 1) as subsystem for subsystem in subsystems">
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="part.engine">Engine</label>
+      <select ng-model="part.engine" class="form-control" ng-class="{ error: true }"
+      name="part.engine"
+      ng-options="(engines.indexOf(engine)) as engine for engine in engines">
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="part.compressor">Engine</label>
+      <select ng-model="part.compressor" class="form-control"
+      name="part.compressor"
+      ng-options="(compressors.indexOf(compressor)) as compressor for compressor in compressors">
+      </select>
+
+    </div>
+
+    <div class="form-group" ng-hide="!part._id">
+
+      <label for="part.component">Component</label>
+      <input type="text" number min="0" custom-validation class="form-control"
+        ng-model="part.component"
+        name="part.component" placeholder="Component Number" ng-disabled="true">
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="part.revision">New Revision Number</label>
+      <input type="text" class="form-control" ng-model="part.revision"
+             name="part.revision" placeholder="Revision" disabled>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="part.smartPartNumber">Smart Part Number</label>
+      <input type="text" class="form-control" ng-model="part.smartPartNumber"
+             name="part.smartPartNumber" placeholder="Item Code" disabled>
+
+    </div>
+
+    <div>
+      <button class="btn  btn-primary pull-right" ng-click="save()"
+              ng-disabled="submitting || disallowSave">
+        Save
+      </button>
+      <button class="btn  btn-danger pull-right" style="margin-right: 10px;"
+        ng-click="destroy()" ng-show="part._id" ng-disabled="submitting"
+        ng-show="role='ADMIN' || role='CORPORATE'">
+        Delete
+      </button>
+    </div>
+
+  </div></div>
+
+  </div>
+
+  <div class="col-md-12">
+
+  <vendor-parts></vendor-parts>
+
+  </div>
+
+
+</div>

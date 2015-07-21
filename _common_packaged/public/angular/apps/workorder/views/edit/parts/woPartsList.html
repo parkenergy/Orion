@@ -1,0 +1,116 @@
+
+<div  class="panel panel-default">
+
+  <div class="panel-heading">
+
+    <h1 class="panel-title">Parts Listed on Workorder</h1>
+
+    <p> {{ "currently displaying " + oList.length + " " }} Workorder Parts </p>
+
+    <div class="form-group clearfix">
+      <input  type="text"
+              class="form-control pull-right"
+              name="searchPhrase"
+              ng-model="searchPhrase"
+              placeholder="Search here">
+    </div>
+    <!-- end search field -->
+
+  </div>
+
+
+  <div class="panel-body">
+
+    <table class="table table-hover">
+
+      <thead>
+
+        <tr>
+
+          <th>Part Info</th>
+
+          <th>Related Labor Code</th>
+
+          <th>Quantity</th>
+
+          <th>Billable</th>
+
+          <th>Cost</th>
+
+          <th>Remove</th>
+          <!-- end column headers -->
+
+        </tr>
+        <!-- end header row -->
+
+      </thead>
+      <!-- end table header -->
+
+      <tbody>
+        <tr ng-repeat="obj in oList = (workorder.parts
+                                        | filter:searchPhrase
+                                        | orderBy:quantity:true)">
+
+          <td>
+            <div class="clearfix">{{obj.number}}</div>
+            <div>{{obj.description}}</div>
+          </td>
+
+          <td>
+          	<text-field
+          		placeholder-text="Related Labor Code"
+              data="obj.laborCode">
+          	</text-field>
+          </td>
+
+          <td>
+          	<number-field
+          		placeholder-text="Quantity Used"
+              data="obj.quantity"
+              non-negative="true"
+              integer-only="true">
+          	</number-field>
+          </td>
+
+          <td>
+          		<check-box
+            		label-text="Is Part Billable?"
+                data="obj.isBillable">
+            	</check-box>
+            	<check-box
+            		label-text="Is Part Warranty?"
+                data="obj.isWarranty">
+            	</check-box>
+          </td>
+
+          <td>
+          	<price-field
+          		placeholder-text="0 - 1,000,000"
+              data="obj.cost"
+              non-negative="true"
+              integer-only="false">
+          	</price-field>
+          </td>
+
+          <!-- end row display fields -->
+
+          <td>
+            <button class="btn  btn-danger pull-right" ng-click="removePart(obj)">
+              remove
+            </button>
+          </td>
+          <!-- end row buttons -->
+
+        </tr>
+        <!-- end table row -->
+
+      </tbody>
+      <!-- end tss-table-body -->
+
+    </table>
+
+  </div>
+  <!-- end panel body -->
+
+</div>
+<!-- end panel -->

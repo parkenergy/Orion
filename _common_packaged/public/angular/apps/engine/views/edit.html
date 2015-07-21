@@ -1,0 +1,58 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Area Details</div>
+    <div class="panel-body">
+
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Engine Serial"
+    		placeholder-text="Serial #"
+        data="engine.serial">
+    	</text-field>
+
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Engine Model"
+    		placeholder-text="Engine Model"
+        data="engine.model">
+    	</text-field>
+
+      <!-- standard date field element (app-wide) -->
+    	<date-field
+    		label-text="Eng. Hours Start Date"
+        data="engine.engineHoursStartDate">
+    	</date-field>
+
+    	<select-list
+        ng-disabled="true"
+    		label-text="Engine Attached to Unit"
+        data="engine.unit"
+    		select-field="_id"
+    		display-field="number"
+    		obj-list="units">
+    	</select-list>
+
+      <div>
+        <button class="btn  btn-primary pull-right" ng-click="save()">
+          Save
+        </button>
+        <button class="btn  btn-danger pull-right" style="margin-right: 10px;"
+          ng-click="destroy()" ng-show="area._id">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
