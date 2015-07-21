@@ -185,7 +185,7 @@ var exec = require('child_process').exec;
 
 gulp.task('shutdown-mongodb', function (callback) {
   var cmd = "mongo admin --eval 'db.shutdownServer()' > /dev/null";
-  exec(cmd, function (err) { callback(err) });
+  exec(cmd, function (err) { callback(err); });
 });
 
 /* DEFAULT TASK
