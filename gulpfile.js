@@ -211,9 +211,9 @@ gulp.task('test', ['lint'], function (callback) {
 });
 
 gulp.task('default', function (callback) {
-  runSequence('start', ['watch', 'git-watch'], callback);
+  runSequence('start', 'watch', callback);
 });
 
 gulp.task('stop', function (callback) {
-  runSequence('shutdown-mongodb', 'purge', callback);
+  runSequence('shutdown-mongodb', callback);
 });
