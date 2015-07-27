@@ -1,0 +1,146 @@
+<div class="col-md-6">
+
+  <div class="form-group">
+    <label for="transfer.oldLocation.customer.dbaCustomerName">Old Customer</label>
+    <input type="text" class="form-control"
+    ng-model="transfer.oldLocation.customer.dbaCustomerName" disabled
+    name="transfer.oldLocation.customer.dbaCustomerName"
+    placeholder="Customer Name">
+
+  </div>
+
+  <div class="form-group">
+
+    <label for="transfer.oldLocation.name">Old Location</label>
+    <input type="text" class="form-control"
+    ng-model="transfer.oldLocation.name" disabled
+    name="transfer.oldLocation.name" placeholder="Location Name">
+
+  </div>
+
+  <div class="form-group">
+
+    <label for="transfer.oldLocation.county">Old County</label>
+    <input type="text" class="form-control"
+    ng-model="transfer.oldLocation.county" disabled
+    name="transfer.oldLocation.county"
+    placeholder="Location County">
+
+  </div>
+
+  <div class="form-group">
+
+    <label for="transfer.oldLocation.servicePartner.name">Old Service Partner</label>
+    <input type="text" class="form-control"
+    ng-model="transfer.oldLocation.servicePartner.name" disabled
+    name="transfer.oldLocation.servicePartner.name"
+    placeholder="Service Partner">
+
+  </div>
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+  <div class="form-group">
+    <label for="transfer.newLocation.customer.dbaCustomerName">New Customer</label>
+    <input type="text" class="form-control"
+    typeahead="customer.dbaCustomerName for customer in customers | filter:$viewValue | limitTo:8"
+    ng-model="transfer.newLocation.customer.dbaCustomerName"
+    name="transfer.newLocation.customer.dbaCustomerName"
+    placeholder="Customer Name">
+
+  </div>
+
+  <div class="form-group">
+
+    <label for="transfer.isNewLocation">Does Location Already Exist?</label>
+
+    <div>
+      <div style="display:inline;" ng-repeat="value in [true, false]">
+        <input type="radio" ng-model="transfer.isNewLocation" value="{{value}}">
+        {{value === true ? "no" : "yes"}}
+      </div>
+    </div>
+
+  </div>
+
+  <div ng-hide="transfer.isNewLocation">
+
+    <div class="form-group">
+
+      <label for="transfer.NewLocationId">New Location</label>
+
+      <select class="form-control" ng-model="transfer.NewLocationId"
+      ng-options="location._id as location.name for location in locations"
+      name="transfer.NewLocationId"
+      ng-disabled="locationsLoading"></select>
+
+    </div>
+
+    <div class="form-group" ng-hide="allowFreehandLocation">
+
+      <label for="transfer.newLocation.county">New County</label>
+      <input type="text" class="form-control"
+      ng-model="transfer.newLocation.county"
+      name="transfer.newLocation.county"
+      placeholder="Location County"
+      disabled>
+
+    </div>
+
+    <div class="form-group" ng-show="transfer.NewLocationId">
+
+      <label for="transfer.NewServicePartnerId">New Service Partner</label>
+
+      <select class="form-control" ng-model="transfer.NewServicePartnerId"
+      ng-options="servicePartner._id as servicePartner.name for servicePartner in servicePartners"
+      name="transfer.NewServicePartnerId"
+      ng-disabled="locationsLoading"></select>
+
+    </div>
+
+    <div class="form-group" ng-show="transfer.NewLocationId &&
+                                     transfer.transferType !== 'RELEASE'">
+
+      <label for="transfer.NewTechnicianId">New Technician</label>
+
+      <select class="form-control" ng-model="transfer.NewTechnicianId"
+      ng-options="t._id as (t.firstName + ' ' + t.lastName) for t in newTechnicians"
+      name="transfer.NewTechnicianId"
+      ng-disabled="newTechniciansLoading"></select>
+
+    </div>
+
+    <div class="form-group" ng-show="allowFreehandLocation">
+
+      <label for="transfer.freehandLocationName">Other Location Name</label>
+
+      <input type="text" class="form-control"
+      ng-model="transfer.freehandLocationName"
+      name="transfer.freehandLocationName"/>
+
+    </div>
+
+    <div class="form-group" ng-show="allowFreehandLocation">
+
+      <label for="transfer.freehandLocationCounty">Other Location County</label>
+
+      <input type="text" class="form-control"
+      ng-model="transfer.freehandLocationCounty"
+      name="transfer.freehandLocationCounty"/>
+
+    </div>
+
+  </div>
+
+  <div ng-show="transfer.isNewLocation">
+
+    <transfer-location-create></transfer-location-create>
+
+  </div>
+
+</div>

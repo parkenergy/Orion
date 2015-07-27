@@ -1,0 +1,99 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Vendors</h3>
+  </div>
+  <div class="panel-body">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            Vendor
+          </th>
+          <th>
+            Vendor Item Code
+          </th>
+          <th>
+            Vendor Part Description
+          </th>
+          <th>
+            Vendor Part Cost
+          </th>
+          <th>
+            Add/Edit
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat="vp in part.vendorParts">
+          <td>
+            <input type="text" disabled class="form-control"
+            ng-model="vp.vendor.name">
+          </td>
+          <td>
+            <input type="text" disabled class="form-control"
+            ng-model="vp.vendorPartNumber">
+          </td>
+          <td>
+            <input type="text" disabled class="form-control"
+            ng-model="vp.vendorPartDescription">
+          </td>
+          <td>
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input type="text" number min="0" disabled class="form-control"
+              value="{{vp.vendorPartCost | number:2}}">
+            </div>
+          </td>
+          <td ng-click="editVendorPart($index)">
+            <button class="btn btn-danger  pull-right">
+              edit
+            </button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <select class="form-control" ng-model="newVendorPart.VendorId"
+            ng-options="v._id as v.name for v in vendors"
+            name="newVendorPart.VendorId">
+          </select>
+        </td>
+
+        <td>
+          <input type="text" class="form-control"
+          ng-model="newVendorPart.vendorPartNumber"
+          name="newVendorPart.vendorPartNumber" placeholder="Vendor Part Number">
+        </td>
+
+        <td>
+          <input type="text" class="form-control"
+          ng-model="newVendorPart.vendorPartDescription"
+          name="newVendorPart.vendorPartDescription"
+          placeholder="Vendor Part Description">
+        </div>
+
+        <td>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input type="text" class="form-control"
+            number min="0" custom-validation
+            ng-model="newVendorPart.vendorPartCost"
+            name="newVendorPart.vendorPartCost">
+          </div>
+        </td>
+
+        <td ng-click="addNewVendorPart()">
+          <button class="btn btn-success  pull-right">
+            add
+          </button>
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>

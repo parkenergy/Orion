@@ -1,0 +1,40 @@
+
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Area Details</div>
+    <div class="panel-body">
+
+      <!-- standard text box element (app-wide) -->
+    	<text-field
+    		label-text="Area Name"
+    		placeholder-text="Area Name"
+        data="area.name">
+    	</text-field>
+
+      <div>
+        <button class="btn  btn-primary pull-right" ng-click="save()">
+          Save
+        </button>
+        <button class="btn  btn-danger pull-right" style="margin-right: 10px;"
+          ng-click="destroy()" ng-show="area._id">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default" ng-hide="!area._id">
+    <!-- TODO: create edit-table for area's locations -->
+  </div>
+
+</div>

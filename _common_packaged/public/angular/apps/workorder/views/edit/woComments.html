@@ -1,0 +1,59 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Comments</h3>
+  </div>
+  <div class="panel-body">
+
+  	<text-area-field
+      ng-show="workorder.types.pm ||
+               workorder.types.corrective ||
+               workorder.types.trouble"
+  		label-text="Description of Repairs Made"
+  		placeholder-text="Please describe the repairs in detail"
+      data="workorder.comments.repairsDescription">
+  	</text-area-field>
+
+  	<text-area-field
+      ng-show="workorder.types.corrective"
+  		label-text="Reason for Repairs Made"
+  		placeholder-text="Please describe the reason for the repairs in detail"
+      data="workorder.comments.repairsReason">
+  	</text-area-field>
+
+  	<text-area-field
+      ng-show="workorder.types.trouble"
+  		label-text="Reason for Call Out"
+  		placeholder-text="Please describe the reason for the callout"
+      data="workorder.comments.calloutReason">
+  	</text-area-field>
+
+  	<text-area-field
+      ng-show="workorder.types.newset"
+  		label-text="New Set Notes"
+  		placeholder-text="Please provide unit newset notes"
+      data="workorder.comments.newsetNotes">
+  	</text-area-field>
+
+  	<text-area-field
+      ng-show="workorder.types.release"
+  		label-text="Unit Release Notes"
+  		placeholder-text="Please provide unit release notes"
+      data="workorder.comments.releaseNotes">
+  	</text-area-field>
+
+  	<text-area-field
+      ng-show="workorder.types.indirect"
+  		label-text="Unit Release Notes"
+  		placeholder-text="Please provide desciption of indirect work performed"
+      data="workorder.comments.indirectNotes">
+  	</text-area-field>
+
+  	<text-area-field
+      ng-show="workorder.types.timeAdjustment"
+  		label-text="Time Adjustment Notes"
+  		placeholder-text="Please provide reason for time adjustment"
+      data="workorder.comments.timeAdjustmentNotes">
+  	</text-area-field>
+
+  </div>
+</div>

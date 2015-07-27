@@ -1,0 +1,37 @@
+<loader></loader>
+<alerts></alerts>
+<header></header>
+
+  <div class="jumbotron">
+    {{message}} // Workorder Time Elapsed: {{timeElapsed}}
+    <!-- <button class="btn  btn-info pull-right"
+    ng-click="toggleHistory()"
+    ng-show="role === 'ADMIN' && workorder.workOrderHistories.length > 0">
+      {{ (!showHistory) ? "Show History" : "Hide History" }}
+    </button> -->
+  </div>
+
+  <workorder-history></workorder-history>
+
+  <workorder-header></workorder-header>
+
+  <workorder-pm></workorder-pm>
+
+  <workorder-unit-readings></workorder-unit-readings>
+
+  <workorder-emissions-readings></workorder-emissions-readings>
+
+  <workorder-comments></workorder-comments>
+
+  <workorder-labor-codes></workorder-labor-codes>
+
+  <workorder-parts></workorder-parts>
+
+  <div>
+      <button class="btn btn-lg btn-primary pull-right"
+              style="width:100%;"
+              ng-click="save()">
+        save
+      </button>
+      <div class="clearfix" style="height: 65px;"></div>
+  </div>
