@@ -55,15 +55,13 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      WorkOrders.destroy($scope.workorder,
+      WorkOrders.delete({id: workorder._id},
         function (response) {
-          AlertService.add("success", "Save was successful!");
+          $location.path("/myaccount");
           $scope.submitting = false;
-          $location.path("/workorder");
         },
         function (err) {
-          console.log(err);
-          AlertService.add("danger", "An error occurred while attempting to save.");
+          AlertService.add("error", err);
           $scope.submitting = false;
         }
       );

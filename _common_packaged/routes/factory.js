@@ -21,7 +21,7 @@ var RouteFactory = function (app, collection) {
   app.post('/api/' + collection + '/:id', controller.update);
 
   // DESTROYS A SPECIFIC ELEMENT IN THE COLLECTION
-  app.delete('/api/' + collection + '/:id', controller.destroy);
+  app.delete('/api/' + collection + '/:id', controller.remove);
 
 };
 

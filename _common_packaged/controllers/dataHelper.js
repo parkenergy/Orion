@@ -90,27 +90,19 @@ var DataHelper = function (collection) {
       collection.findOne({ _id: req.body._id }, function (err, model) {
         if (err) { return callback (err); }
         model.update(req.body, function (err, data) {
-          if (err) { return callback (err); }
+          if (err) { return callback(err); }
           return collection.findOne({ _id: req.body._id }).exec(callback);
         });
       });
     },
 
-    destroy: function (req, callback) {
-      if (!req.body || _.isEmpty(req.query)) {
-        msg = 'req.body cannot be undefined or empty for destroy operations.';
+    remove: function (req, callback) {
+      if (_.isEmpty(req.params) || !req.params.id) {
+        var msg = 'req.params.id cannot be undefined for read operations.';
         return callback(new Error(msg), null);
       }
-      if (!req.body._id) {
-        msg = 'req.body._id cannot be undefined for destroy operations.';
-        return callback(new Error(msg), null);
-      }
-      // findOrCreate from query parameter (http://stackoverflow.com/a/16362833)
-      collection.findOne(req.body._id)
-        .remove(select)
-        .exec(callback);
+      collection.findOneAndRemove({_id: req.params.id}).exec(callback);
     }
-
   };
 };
 

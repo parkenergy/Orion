@@ -38,7 +38,7 @@ angular.module('EngineApp.Controllers').controller('EngineEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Engines.delete({_id: engine._id},
+      Engines.delete({id: engine._id},
         function (response) {
           $location.path("/engine");
           $scope.submitting = false;

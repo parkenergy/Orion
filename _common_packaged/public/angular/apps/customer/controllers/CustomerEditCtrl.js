@@ -39,7 +39,7 @@ angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Customers.delete({_id: customer._id},
+      Customers.delete({id: customer._id},
         function (response) {
           $location.path("/customer");
           $scope.submitting = false;

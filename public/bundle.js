@@ -2264,7 +2264,7 @@ angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Areas.delete({_id: area._id},
+      Areas.delete({id: area._id},
         function (response) {
           $location.path("/area");
           $scope.submitting = false;
@@ -2392,7 +2392,7 @@ angular.module('CompressorApp.Controllers').controller('CompressorEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Compressors.delete({_id: compressor._id},
+      Compressors.delete({id: compressor._id},
         function (response) {
           $location.path("/compressor");
           $scope.submitting = false;
@@ -2533,7 +2533,7 @@ angular.module('CountyApp.Controllers').controller('CountyEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Counties.delete({_id: county._id},
+      Counties.delete({id: county._id},
         function (response) {
           $location.path("/county");
           $scope.submitting = false;
@@ -2666,7 +2666,7 @@ angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Customers.delete({_id: customer._id},
+      Customers.delete({id: customer._id},
         function (response) {
           $location.path("/customer");
           $scope.submitting = false;
@@ -2795,7 +2795,7 @@ angular.module('EngineApp.Controllers').controller('EngineEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Engines.delete({_id: engine._id},
+      Engines.delete({id: engine._id},
         function (response) {
           $location.path("/engine");
           $scope.submitting = false;
@@ -2956,7 +2956,7 @@ angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Locations.delete({_id: location._id},
+      Locations.delete({id: location._id},
         function (response) {
           $location.path("/location");
           $scope.submitting = false;
@@ -3071,6 +3071,17 @@ angular.module('LocationApp.Controllers').controller('LocationIndexCtrl',
       };
     }
 
+}]);
+
+angular.module('PartApp.Directives')
+
+.directive('vendorParts', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/part/views/vendorparts.html',
+    scope: true,
+    controller: 'PartsVendorPartsCtrl'
+  };
 }]);
 
 angular.module('PartApp.Controllers').controller('PartEditCtrl',
@@ -3335,17 +3346,6 @@ angular.module('PartApp.Controllers').controller('PartIndexCtrl',
 
     };
 
-}]);
-
-angular.module('PartApp.Directives')
-
-.directive('vendorParts', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/part/views/vendorparts.html',
-    scope: true,
-    controller: 'PartsVendorPartsCtrl'
-  };
 }]);
 
 angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerEditCtrl',
@@ -4120,15 +4120,13 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      WorkOrders.destroy($scope.workorder,
+      WorkOrders.delete({id: workorder._id},
         function (response) {
-          AlertService.add("success", "Save was successful!");
+          $location.path("/myaccount");
           $scope.submitting = false;
-          $location.path("/workorder");
         },
         function (err) {
-          console.log(err);
-          AlertService.add("danger", "An error occurred while attempting to save.");
+          AlertService.add("error", err);
           $scope.submitting = false;
         }
       );

@@ -2,13 +2,10 @@
 <alerts></alerts>
 <header></header>
 
-  <div class="jumbotron">
-    {{message}} // Workorder Time Elapsed: {{timeElapsed}}
-    <!-- <button class="btn  btn-info pull-right"
-    ng-click="toggleHistory()"
-    ng-show="role === 'ADMIN' && workorder.workOrderHistories.length > 0">
-      {{ (!showHistory) ? "Show History" : "Hide History" }}
-    </button> -->
+  <div class="highlight">
+    <p class="text-center">
+      Time Elapsed: {{timeElapsed}}
+    </p>
   </div>
 
   <workorder-history></workorder-history>
@@ -29,9 +26,18 @@
 
   <div>
       <button class="btn btn-lg btn-primary pull-right"
-              style="width:100%;"
+              style="width: 50%; height: 100px; margin: 0px 25% 15px 25%;"
               ng-click="save()">
         save
+      </button>
+      <div class="clearfix" style="height: 65px;"></div>
+  </div>
+
+  <div>
+      <button class="btn btn-lg btn-default pull-right"
+              style="width: 50%; margin: 0px 25% 15px 25%;"
+              ng-click="destroy()">
+        cancel
       </button>
       <div class="clearfix" style="height: 65px;"></div>
   </div>

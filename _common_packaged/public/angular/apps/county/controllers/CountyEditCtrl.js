@@ -39,7 +39,7 @@ angular.module('CountyApp.Controllers').controller('CountyEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Counties.delete({_id: county._id},
+      Counties.delete({id: county._id},
         function (response) {
           $location.path("/county");
           $scope.submitting = false;

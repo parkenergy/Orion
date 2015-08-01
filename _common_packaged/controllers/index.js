@@ -27,8 +27,8 @@ var Controller = function (collection) {
     update: function (req, res, next) {
       return handler(dataHelper.update, req, res, next);
     },
-    destroy: function (req, res, next) {
-      return handler(dataHelper.destroy, req, res, next);
+    remove: function (req, res, next) {
+      return handler(dataHelper.remove, req, res, next);
     }
   };
 };

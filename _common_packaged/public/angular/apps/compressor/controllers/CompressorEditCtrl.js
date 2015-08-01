@@ -38,7 +38,7 @@ angular.module('CompressorApp.Controllers').controller('CompressorEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Compressors.delete({_id: compressor._id},
+      Compressors.delete({id: compressor._id},
         function (response) {
           $location.path("/compressor");
           $scope.submitting = false;

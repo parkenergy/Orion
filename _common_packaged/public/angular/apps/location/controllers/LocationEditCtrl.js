@@ -59,7 +59,7 @@ angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Locations.delete({_id: location._id},
+      Locations.delete({id: location._id},
         function (response) {
           $location.path("/location");
           $scope.submitting = false;

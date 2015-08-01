@@ -38,7 +38,7 @@ angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Areas.delete({_id: area._id},
+      Areas.delete({id: area._id},
         function (response) {
           $location.path("/area");
           $scope.submitting = false;
