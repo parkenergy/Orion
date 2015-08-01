@@ -21,31 +21,31 @@ angular.module('VendorPartApp').config(['$routeProvider',
         //determine if we're creating or editing a vendorpart.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           VendorParts.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       parts: function($route, $q, Parts) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Parts.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       vendors: function($route, $q, Vendors) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Vendors.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       role: function ($route, $q, role) {
         return role.get();
@@ -58,12 +58,12 @@ angular.module('VendorPartApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/vendorpart/views/index.html',
     resolve: {
       vendorparts: function($route, $q, VendorParts) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         VendorParts.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });

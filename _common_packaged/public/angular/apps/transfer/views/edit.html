@@ -1,56 +1,20 @@
-<style>
-  .dashboard {
-    background: url("images/dashboard.png") no-repeat left top;
-    width: 72%;
-    height: 1100px;
-  }
-</style>
-
 <loader></loader>
 <alerts></alerts>
+<header></header>
 
-<div class="container">
+  <transfer-details></transfer-details>
 
-  <header></header>
+  <transfer-origin></trasnfer-origin>
 
-  <div class="jumbotron">
-    <h1 class="page-title">{{title}}</h1>
-    <p>{{message}}</p>
+  <transfer-destination></transfer-destination>
+
+  <transfer-comments></transfer-comments>
+
+  <div>
+      <button class="btn btn-lg btn-primary pull-right"
+              style="width:100%;"
+              ng-click="save()">
+        save
+      </button>
+      <div class="clearfix" style="height: 65px;"></div>
   </div>
-
-  <accordion close-others="oneAtATime">
-
-    <accordion-group heading="Transfer Information"
-      is-open="accordion.genInfo.open"
-      is-disabled="false">
-      <transfer-information></transfer-information>
-    </accordion-group>
-
-    <accordion-group
-      heading="{{filterTitleCase(transfer.transferType)}} Details"
-      is-open="accordion.transfer.open"
-      is-disabled="!accordion.genInfo.valid">
-      <transfer-details></transfer-details>
-    </accordion-group>
-
-  </accordion>
-
-  <div class="col-md-12 overview ">
-
-    <button class="btn btn-primary  pull-right" ng-click="save()"
-    ng-disabled="!accordion.transfer.valid || submitting">
-      Submit
-    </button>
-
-    <button class="btn btn-danger  pull-right" ng-click="destroy()"
-    ng-show="transfer._id" ng-disabled="submitting">
-      Delete
-    </button>
-
-    <button class="btn btn-info  pull-left" ng-click="toggleAll()"
-    ng-hide="!accordion.parts.valid || !accordion.transfer.valid ">
-       {{ (oneAtATime ? "View" : "Collapse") }} All
-    </button>
-  </div>
-
-</div>

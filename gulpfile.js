@@ -194,7 +194,7 @@ gulp.task('sync', function (callback) {
   runSequence('updateSubmodules', callback);
 });
 
-gulp.task('package', ['sync'], function (callback) {
+gulp.task('package', function (callback) {
   runSequence('common-packager', callback);
 });
 

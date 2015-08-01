@@ -21,12 +21,12 @@ angular.module('CustomerApp').config(['$routeProvider',
         //determine if we're creating or editing a customer.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Customers.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
@@ -36,12 +36,12 @@ angular.module('CustomerApp').config(['$routeProvider',
         //if editing show the locations; otherwise, nothing.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Locations.query({where: {CustomerId: id}},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
@@ -54,12 +54,12 @@ angular.module('CustomerApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/customer/views/index.html',
     resolve: {
       customers: function($route, $q, Customers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Customers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });

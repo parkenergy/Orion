@@ -508,28 +508,19 @@ angular.module('CommonDirectives')
     templateUrl: '/_common_packaged/public/angular/views/header.html',
     link: function (scope, elem, attrs, ctrl) {
 
+      var num = 0;
+
       function getnavItems() {
-      	var navItems = [];
-      	if ($location.path() === "/") {
-      		navItems = [
-      			{
-      				text: "Login",
-      				action: function () { $location.path('/myaccount'); }
-      			}
-      		];
-      	} else {
-      		navItems = [
-      			{
-      				text: "My Account",
-      				action: function () { $location.path('/myaccount'); }
-      			},
-      			{
-      				text: "Logout",
-      				action: function () { $window.location = 'logout'; }
-      			}
-      		];
-      	}
-      	return navItems;
+        return [
+    			{
+    				text: "Support",
+    				action: function () { $location.path('/support'); }
+    			},
+          {
+            text: "Sync (" + num + ")",
+            action: function () { $location.path('/support'); }
+          }
+        ];
       }
 
       scope.navItems = getnavItems();
@@ -956,12 +947,12 @@ angular.module('AreaApp').config(['$routeProvider',
         //determine if we're creating or editing a area.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Areas.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
@@ -974,12 +965,12 @@ angular.module('AreaApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/area/views/index.html',
     resolve: {
       areas: function($route, $q, Areas) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Areas.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1008,23 +999,23 @@ angular.module('CompressorApp').config(['$routeProvider',
         //determine if we're creating or editing a compressor.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Compressors.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       units: function($route, $q, Units) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Units.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -1034,12 +1025,12 @@ angular.module('CompressorApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/compressor/views/index.html',
     resolve: {
       compressors: function($route, $q, Compressors) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Compressors.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1068,23 +1059,23 @@ angular.module('CountyApp').config(['$routeProvider',
         //determine if we're creating or editing a county.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Counties.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       states: function($route, $q, States) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         States.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -1094,12 +1085,12 @@ angular.module('CountyApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/county/views/index.html',
     resolve: {
       counties: function($route, $q, Counties) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Counties.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1128,12 +1119,12 @@ angular.module('CustomerApp').config(['$routeProvider',
         //determine if we're creating or editing a customer.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Customers.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
@@ -1143,12 +1134,12 @@ angular.module('CustomerApp').config(['$routeProvider',
         //if editing show the locations; otherwise, nothing.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Locations.query({where: {CustomerId: id}},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
@@ -1161,12 +1152,12 @@ angular.module('CustomerApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/customer/views/index.html',
     resolve: {
       customers: function($route, $q, Customers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Customers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1195,23 +1186,23 @@ angular.module('EngineApp').config(['$routeProvider',
         //determine if we're creating or editing a engine.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Engines.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       units: function($route, $q, Units) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Units.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -1221,12 +1212,12 @@ angular.module('EngineApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/engine/views/index.html',
     resolve: {
       engines: function($route, $q, Engines) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Engines.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1255,47 +1246,47 @@ angular.module('LocationApp').config(['$routeProvider',
         //determine if we're creating or editing a location.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Locations.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       customers: function($route, $q, Customers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Customers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       areas: function($route, $q, Areas) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Areas.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       states: function($route, $q, States) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         States.query({sort: "name"},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       counties: function($route, $q, Counties) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Counties.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -1305,12 +1296,12 @@ angular.module('LocationApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/location/views/index.html',
     resolve: {
       locations: function($route, $q, Locations) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Locations.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1339,23 +1330,23 @@ angular.module('PartApp').config(['$routeProvider',
         //determine if we're creating or editing a part.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Parts.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       vendors: function ($route, $q, Vendors) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Vendors.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       role: function($route, $q, role) {
         return role.get();
@@ -1368,12 +1359,12 @@ angular.module('PartApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/part/views/index.html',
     resolve: {
       parts: function($route, $q, Parts) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Parts.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       role: function($route, $q, role) {
         return role.get();
@@ -1405,12 +1396,12 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
         //determine if we're creating or editing a servicePartner.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           ServicePartners.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
@@ -1423,12 +1414,12 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/servicepartner/views/index.html',
     resolve: {
       servicePartners: function($route, $q, ServicePartners) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         ServicePartners.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1450,7 +1441,7 @@ angular.module('TransferApp').config(['$routeProvider',
   $routeProvider
 
   .when('/transfer/edit/:id?', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'TransferEditCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit.html',
     resolve: {
@@ -1458,74 +1449,79 @@ angular.module('TransferApp').config(['$routeProvider',
         //determine if we're creating or editing a transfer.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Transfers.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       units: function($route, $q, Units) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Units.query({},
-          function (response) {return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) {return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       customers: function($route, $q, Customers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Customers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       users: function($route, $q, Users) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Users.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
-      parts: function($route, $q, Parts) {
-        var deffered = $q.defer();
-        Parts.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+      locations: function($route, $q, Locations) {
+        var deferred = $q.defer();
+        Locations.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
-      servicePartners: function($route, $q, ServicePartners) {
-        var deffered = $q.defer();
-        ServicePartners.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+      counties: function($route, $q, Counties) {
+        var deferred = $q.defer();
+        Counties.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
-      role: function($route, $q, role) {
-        return role.get();
+      states: function($route, $q, States) {
+        var deferred = $q.defer();
+        States.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
       }
     }
   })
 
   .when('/transfer', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'TransferIndexCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/index.html',
     resolve: {
       transfers: function($route, $q, Transfers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Transfers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1554,23 +1550,23 @@ angular.module('UnitApp').config(['$routeProvider',
         //determine if we're creating or editing a unit.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Units.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       servicePartners: function($route, $q, ServicePartners) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         ServicePartners.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -1580,12 +1576,12 @@ angular.module('UnitApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/unit/views/index.html',
     resolve: {
       units: function($route, $q, Units) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Units.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       role: function($route, $q, role) {
         return role.get();
@@ -1617,23 +1613,23 @@ angular.module('UserApp').config(['$routeProvider',
         //determine if we're creating or editing a user.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Users.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       servicePartners: function ($route, $q, ServicePartners) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         ServicePartners.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       role: function ($route, $q, role) {
         return role.get();
@@ -1649,13 +1645,13 @@ angular.module('UserApp').config(['$routeProvider',
       title: function () { return "Users"; },
       model: function () { return "user"; },
       objectList: function ($route, $q, Users) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         var select = ['id', 'firstName', 'lastName', 'email'];
         Users.query({attributes: select},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       displayColumns: function () {
         return [
@@ -1698,23 +1694,23 @@ angular.module('VendorApp').config(['$routeProvider',
         //determine if we're creating or editing a vendor.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Vendors.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       vendorFamilies: function($route, $q, VendorFamilies) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         VendorFamilies.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       role: function ($route, $q, role) {
         return role.get();
@@ -1727,12 +1723,12 @@ angular.module('VendorApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/vendor/views/index.html',
     resolve: {
       vendors: function($route, $q, Vendors) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Vendors.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1761,31 +1757,31 @@ angular.module('VendorPartApp').config(['$routeProvider',
         //determine if we're creating or editing a vendorpart.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           VendorParts.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       parts: function($route, $q, Parts) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Parts.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       vendors: function($route, $q, Vendors) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Vendors.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       role: function ($route, $q, role) {
         return role.get();
@@ -1798,12 +1794,12 @@ angular.module('VendorPartApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/vendorpart/views/index.html',
     resolve: {
       vendorparts: function($route, $q, VendorParts) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         VendorParts.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -1824,6 +1820,21 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   function ($routeProvider) {
   $routeProvider
 
+  .when('/workorder/resumeorcreate', {
+    needsLogin: false,
+    controller: 'WorkOrderResumeOrCreateCtrl',
+    resolve: {
+      workorders: function($route, $q, WorkOrders) {
+        var deferred = $q.defer();
+        WorkOrders.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      }
+    }
+  })
+
   .when('/workorder/edit/:id?', {
     needsLogin: false,
     controller: 'WorkOrderEditCtrl',
@@ -1833,47 +1844,47 @@ angular.module('WorkOrderApp').config(['$routeProvider',
         //determine if we're creating or editing a workorder.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           WorkOrders.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       units: function($route, $q, Units) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Units.query({},
-          function (response) {return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) {return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       customers: function($route, $q, Customers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Customers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       users: function($route, $q, Users) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Users.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       parts: function($route, $q, Parts) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Parts.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -1884,12 +1895,12 @@ angular.module('WorkOrderApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
     resolve: {
       workorders: function($route, $q, WorkOrders) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         WorkOrders.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });
@@ -3424,94 +3435,86 @@ angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerIndexC
 }]);
 
 angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
-['$scope', '$window', '$location', '$timeout', 'AlertService', 'transfer', 'units', 'customers', 'users', 'parts', 'role', 'servicePartners', 'TransferEditService', 'TransferAccordionService', 'GeographyService',
-  function ($scope, $window, $location, $timeout, AlertService, transfer, units, customers, users, parts, role, servicePartners, TransferEditService, TransferAccordionService, GeographyService) {
+['$scope', '$window', '$location', '$timeout', 'AlertService', 'transfer', 'units', 'customers', 'users','locations','states', 'counties',
+  function ($scope, $window, $location, $timeout, AlertService, transfer, units, customers, users, parts, locations, states, counties) {
 
     $scope.title = (transfer !== null ? "Edit " : "Create ") + "Transfer";
+
+    $scope.transfer = transfer || newTransfer();
+
     $scope.loadingData = true;
     $scope.states = GeographyService.states;
-
-    TransferEditService.load(transfer, function (err) {
-      if (err) {
-        AlertService.add("danger", err);
-      } else {
-
-        $scope.transfer = TransferEditService.transfer;
-        $scope.locations = TransferEditService.locations;
-        $scope.technicians = TransferEditService.technicians;
-
-        // Setup the button text.
-        $scope.submitButtonText =
-          TransferEditService.submitButtonText($scope.transfer);
-        $scope.rejectButtonText =
-          TransferEditService.rejectButtonText($scope.transfer);
-
-        // Set up the accordion.
-        $scope.accordion = TransferAccordionService.instantiate($scope.transfer);
-        $scope.oneAtATime = !$scope.transfer._id;
-        $timeout(function () { $scope.loadingData = false; }, 1000);
-      }
-    });
 
     $scope.units = units;
     $scope.customers = customers;
     $scope.users = users;
-    $scope.parts = parts;
-    $scope.role = role;
-    $scope.servicePartners = servicePartners;
+    $scope.locations = locations;
+    $scope.states = states;
+    $scope.counties = counties;
     $window.scope = $scope;
-
-    $scope.toggleAll = function () {
-      $scope.oneAtATime = !$scope.oneAtATime;
-      if ($scope.oneAtATime) {
-        $scope.accordion.genInfo.open = false;
-        $scope.accordion.transfer.open = false;
-      } else {
-        $scope.accordion.genInfo.open = true;
-        $scope.accordion.transfer.open = true;
-      }
-    };
-
 
     $scope.save = function () {
       $scope.submitting = true;
-      TransferEditService.save($scope.transfer, $scope.role, function (err, data) {
-        if (err) {
-          AlertService.add("danger", err);
-          $scope.submitting = false;
-        } else {
-          AlertService.add("success",  $scope.submitButtonText + " was successful!");
+      console.log($scope.transfer);
+      Transfers.save({_id: $scope.transfer._id}, $scope.transfer,
+        function (response) {
+          AlertService.add("success", "Save was successful!");
           $scope.submitting = false;
           $location.path("/transfer");
+        },
+        function (err) {
+          console.log(err);
+          AlertService.add("danger", "An error occurred while attempting to save.");
+          $scope.submitting = false;
         }
-      });
+      );
     };
-
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      TransferEditService.destroy($scope.transfer, $scope.role, function (err, data) {
-        if (err) {
-          AlertService.add("danger", err);
-          $scope.submitting = false;
-        } else {
-          AlertService.add("success", $scope.rejectButtonText + " was successful!");
+      Transfers.destroy($scope.transfer,
+        function (response) {
+          AlertService.add("success", "Save was successful!");
           $scope.submitting = false;
           $location.path("/transfer");
+        },
+        function (err) {
+          console.log(err);
+          AlertService.add("danger", "An error occurred while attempting to save.");
+          $scope.submitting = false;
         }
-      });
+      );
     };
 
-    $scope.filterTitleCase = function (input) {
-      if (!input) { return; }
-      var words = input.split(' ');
-      for (var i = 0; i < words.length; i++) {
-        words[i] = words[i].toLowerCase(); // lowercase everything to get rid of weird casing issues
-        words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    function newTransfer() {
+      var newTrans =
+      {
+        transferDate : new Date(),
+
+        unit : {},
+
+        origin : {
+          customer : {},
+          location : {},
+          county : {},
+          state : {},
+          legal : {}
+        },
+
+        destination : {
+          customer : {},
+          location : {},
+          county : {},
+          state : {},
+          legal : {},
+        },
+
+        transferedBy : {},
+
+        trasnferNote : ""
+
       }
-      return words.join(' ');
-    };
-
+    }
 }]);
 
 angular.module('TransferApp.Controllers').controller('TransferIndexCtrl',
@@ -3556,354 +3559,6 @@ angular.module('TransferApp.Controllers').controller('TransferIndexCtrl',
     };
 
 }]);
-
-angular.module('TransferApp.Directives')
-
-.directive('transferCustomer', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferCustomer.html',
-    scope: true,
-  };
-}]);
-
-angular.module('TransferApp.Directives')
-
-.directive('transferDetails', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferDetails.html',
-    scope: true,
-    controller: 'TransferDetailsCtrl'
-  };
-}]);
-
-angular.module('TransferApp.Directives')
-
-.directive('transferInformation', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferInformation.html',
-    scope: true,
-    controller: 'TransferInformationCtrl'
-  };
-}]);
-
-angular.module('TransferApp.Directives')
-
-.directive('transferLocationCreate', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferLocationCreate.html',
-    scope: true,
-  };
-}]);
-
-angular.module('TransferApp.Directives')
-
-.directive('transferNewset', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferNewset.html',
-    scope: true,
-  };
-}]);
-
-angular.module('TransferApp.Directives')
-
-.directive('transferReassignment', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferReassignment.html',
-    scope: true,
-  };
-}]);
-
-angular.module('TransferApp.Directives')
-
-.directive('transferSimple', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferSimple.html',
-    scope: true,
-  };
-}]);
-
-angular.module('TransferApp.Directives')
-
-.directive('transferSwap', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferSwap.html',
-    scope: true,
-  };
-}]);
-
-angular.module('TransferApp.Directives')
-
-.directive('transferYard', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/transferYard.html',
-    scope: true,
-  };
-}]);
-
-angular.module('TransferApp.Services')
-.factory('TransferAccordionService', ['Transfers', function (Transfers) {
-
-  var TransferAccordionService = {};
-
-  TransferAccordionService.instantiate = function (transfer) {
-    var isCreate = !transfer._id;
-    return {
-      genInfo:    { open: true,      disabled: false, valid: false },
-      transfer:   { open: !isCreate, disabled: true,  valid: false },
-      parts:      { open: !isCreate, disabled: true,  valid: false }
-    };
-  };
-
-  TransferAccordionService.sectionIsValid = function (section, accordion, transfer) {
-
-    var tran = transfer;
-    var isValid = false;
-
-    switch (section) {
-
-      case "genInfo":
-        if ((tran.transferType === "REASSIGNMENT") ||
-            (tran.date && tran.unit.number && tran.transferType)) {
-          isValid = true;
-        }
-        break;
-
-
-      case "transfer":
-
-        isValid = accordion.genInfo.valid &&
-                  (tran.NewLocationId || tran.freehandLocationName ||
-                    ( tran.isNewLocation &&
-                      tran.newLocation.name &&
-                      tran.newLocation.state &&
-                      tran.newLocation.county &&
-                      tran.newLocation.ServicePartnerId &&
-                      tran.newLocation.CustomerId
-                    ) ||
-                    ( tran.transferType === "REASSIGNMENT" &&
-                      tran.OldServicePartnerId &&
-                      tran.NewServicePartnerId
-                    )
-                  );
-                  break;
-    }
-
-    return isValid;
-  };
-
-  return TransferAccordionService;
-
-}]);
-
-angular.module('TransferApp.Services')
-.factory('TransferEditService', ['Transfers', 'Users', 'Locations', 'Customers', 'role',
-  function (Transfers, Users, Locations, Customers, role) {
-
-    var TransferEditService = {
-      transfer: {},
-      technicians: [],
-      locations: []
-    };
-
-    TransferEditService.getTechnicians = function (callback) {
-      console.log("transfer edit service");
-      var self = this;
-      if (self.transfer.unit) {
-        var id = self.transfer.unit._id;
-        var obj = { ServicePartnerId: id, role: "TECHNICIAN" };
-        Users.query({ where: obj },
-          function (response) {
-            self.technicians = response;
-            obj = { ServicePartnerId: id, role: "REVIEWER" };
-            Users.query({ where: obj },
-              function (response) {
-                self.technicians = self.technicians.concat(response);
-                return callback(null);
-              },
-              function (err) {
-                return callback(err);
-              }
-            );
-          },
-          function (err) {
-            return callback(err);
-          }
-        );
-      } else {
-        return callback(null);
-      }
-    };
-
-    TransferEditService.getLocations = function (callback) {
-      var self = this;
-      if (self.transfer.newLocation && self.transfer.newLocation._id) {
-        Locations.query({ where: { CustomerId: self.transfer.newLocation.CustomerId }},
-          function (response) {
-            response.push({id: null, name: "Other"});
-            self.locations = response;
-            return callback(null);
-          },
-          function (err) {
-            return callback(err);
-          }
-        );
-      } else if (self.transfer.freehandLocationName) {
-        Customers.query({ where: { id: self.transfer.freehandLocationCustomerId }},
-          function (response) {
-            self.transfer.newLocation = {};
-            self.transfer.newLocation.customer = response[0];
-            Locations.query(
-              { where: { CustomerId: self.transfer.freehandLocationCustomerId }},
-              function (response) {
-                self.locations = response;
-                return callback(null);
-              },
-              function (err) {
-                return callback(err);
-              }
-            );
-          },
-          function (err) {
-            return callback(err);
-          }
-        );
-      } else {
-        return callback(null);
-      }
-    };
-
-    TransferEditService.load = function (transfer, callback) {
-      var self = this;
-      if (transfer) {
-        var reassign = transfer.reassignMultipleUnits;
-        if (reassign !== undefined && reassign !== null) {
-          transfer.reassignMultipleUnits = transfer.reassignMultipleUnits.toString();
-        }
-        self.transfer = transfer;
-        self.getTechnicians(function (err) {
-          if (err) { return callback(err); }
-          self.getLocations(function (err) {
-            return callback(err);
-          });
-        });
-      } else {
-        self.transfer = emptyTransfer();
-        return callback(null);
-      }
-    };
-
-    TransferEditService.save = function (transfer, role, callback) {
-      if (role === "ADMIN" && transfer.freehandLocationName) {
-        var err = "You cannot approve a transfer with a freehand location. " +
-                  "You'll need to use or create a permanent location.";
-        return callback(err);
-      }
-      var type = transfer.transferType;
-      setTransferStatus(transfer, role, true);
-      transfer.UnitId = transfer.unit._id;
-      if (type === "TEST" || type === "CONTRACT") {
-        transfer.NewCustomerId = transfer.newLocation.customer._id;
-      } else if (type === "TRANSFER" && transfer.isYardTransfer === "false") {
-        transfer.NewCustomerId = transfer.newLocation.customer._id;
-      }
-      var conditions = transfer._id ? { id: transfer._id } : {};
-      Transfers.save(conditions, transfer,
-        function (response) { return callback(null, response); },
-        function (err) { return callback(err, null); }
-      );
-    };
-
-
-    TransferEditService.destroy = function (transfer, role, callback) {
-      setTransferStatus(transfer, role, false);
-      if (!transfer.status) {
-        Transfers.delete({ id: transfer._id },
-          function (response) { return callback(null, response); },
-          function (err) { return callback(err, null); }
-        );
-      } else {
-        transfer.UnitId = transfer.unit._id;
-        Transfers.save({ id: transfer._id }, transfer,
-          function (response) { return callback(null, response); },
-          function (err) { return callback(err, null); }
-        );
-      }
-    };
-
-    TransferEditService.submitButtonText =  function (transfer) {
-      var status = transfer.status;
-      if (!status) {
-        return "Create";
-      } else if (status === "PENDING") {
-        return "Submit";
-      } else if (status === "SUBMITTED") {
-        return "Approve";
-      } else {
-        return "Edit";
-      }
-    };
-
-    TransferEditService.rejectButtonText = function (transfer) {
-      var status = transfer.status;
-      if (!status) {
-        return "Cancel";
-      } else if (status === "PENDING") {
-        return "Delete";
-      } else if (status === "SUBMITTED") {
-        return "Reject";
-      } else {
-        return "Delete";
-      }
-    };
-
-    return TransferEditService;
-
-}]);
-
-function emptyTransfer() {
-  return {
-    date:           new Date(),
-
-    isTransfer:     true,
-    transferType:   null,
-    transferTypes: ["SWAP", "TRANSFER", "RELEASE", "CONTRACT", "TEST", "REASSIGNMENT"],
-    isYardTransfer: "false",
-
-    createdBy:      {}, // user
-    transferOrderParts: [],
-    unit:           {},
-    newLocation:    { customer: {} },
-    statuses:       ["PENDING", "SUBMITTED", "APPROVED"]
-  };
-}
-
-function setTransferStatus (transfer, role, isProgressing) {
-
-  if (isProgressing) {
-    switch (role) {
-    case "TECHNICIAN": transfer.status = "PENDING"; break;
-    case "REVIEWER": transfer.status = "SUBMITTED"; break;
-    case "CORPORATE": transfer.status = "APPROVED"; break;
-    case "ADMIN": transfer.status = "APPROVED"; break;
-    }
-  } else {
-    switch (role) {
-      case "TECHNICIAN": transfer.status = null; break;
-      case "REVIEWER": transfer.status = null; break;
-      case "CORPORATE": transfer.status = "PENDING"; break;
-      case "ADMIN": transfer.status = "PENDING"; break;
-    }
-  }
-}
 
 angular.module('UnitApp.Controllers').controller('UnitEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Units', 'unit', 'servicePartners', 'Locations',
@@ -4841,6 +4496,19 @@ function ($scope, $route, $location, AlertService, LoaderService, workorders) {
 
 }]);
 
+angular.module('WorkOrderApp.Controllers').controller('WorkOrderResumeOrCreateCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders',
+function ($scope, $route, $location, AlertService, LoaderService, workorders) {
+
+  console.log("here");
+  var resumeWorkOrderId = null;
+  workorders.forEach(function (ele) {
+    if (ele.timeSubmitted === null) { resumeWorkOrderId = ele._id; }
+  });
+  $location.path("/workorder/edit/" + (resumeWorkOrderId || ""));
+
+}]);
+
 angular.module('PartApp.Controllers').controller('PartsVendorPartsCtrl',
 ['$scope', '$location', 'AlertService', 'VendorParts',
 function ($scope, $location, AlertService, VendorParts) {
@@ -4927,333 +4595,44 @@ function ($scope, $location, AlertService, VendorParts) {
 
 }]);
 
-angular.module('TransferApp.Controllers').controller('TransferDetailsCtrl',
-['$scope', 'AlertService', 'LoaderService', 'Locations', 'Users', 'Units', 'GeographyService',
-  function ($scope, AlertService, LoaderService, Locations, Users, Units, GeographyService) {
+angular.module('TransferApp.Directives')
 
-    $scope.$watch('transfer.transferType', function (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        resetStateData();
-        switch (newVal) {
-          case "SWAP":
-              // Do everything necessary to show 2 units from same service partner.
-              $scope.transfer.newLocation.customer.dbaCustomerName =
-                $scope.transfer.unit.customer.dbaCustomerName;
-              $scope.transfer.newLocation.servicePartner =
-                $scope.transfer.unit.servicePartner;
-            break;
-          case "TRANSFER":
-              // Show other leases, same service partner, potentially differnt customer.
-              //TODO: no changes
-            break;
-          case "RELEASE":
-              // Just show the yards
-              $scope.transfer.newLocation.customer.dbaCustomerName =
-                null;
-              $scope.transfer.newLocation.servicePartner =
-                $scope.transfer.unit.servicePartner;
-            break;
-          case "CONTRACT":
-              // Allow the user to select all info.
-            break;
-          case "TEST":
-              // Allow the user to select all info.
-            break;
-          case "REASSIGNMENT":
-            $scope.transfer.OldServicePartnerId = $scope.transfer.unit.ServicePartnerId;
-            $scope.transfer.reassignMultipleUnits = "false";
-            break;
-        }
-      }
-    }, true);
-
-    $scope.$watch('transfer.newLocation.customer.dbaCustomerName',
-    function (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        var type = $scope.transfer.transferType;
-
-        if (type === "TRANSFER" || type === "CONTRACT" || type === "TEST") {
-          // allow the user to select the customer
-
-          var customerId;
-          for (var i = 0, len = $scope.customers.length; i < len; i++) {
-            if ($scope.customers[i].dbaCustomerName === newVal) {
-              $scope.transfer.newLocation.customer = angular.copy($scope.customers[i]);
-              customerId = $scope.transfer.newLocation.customer._id;
-              $scope.transfer.newLocation.CustomerId = $scope.transfer.newLocation.customer._id;
-            }
-          }
-
-          if (customerId) {
-            $scope.locations = [];
-            $scope.locationsLoading = true;
-            Locations.query({ where: { CustomerId: customerId } },
-              function (response) {
-                $scope.locationsLoading = false;
-                $scope.locations = filterLocationsByTransferType(response);
-                $scope.locations.push({id: null, name: "Other"});
-              },
-              function (err) {
-                $scope.locationsLoading = false;
-                AlertService.add("error", err);
-              }
-            );
-          }
-
-        } else if (type === "RELEASE" || type === "SWAP") {
-          // customer is preselcted, just load the yards for the service partner
-          var servicePartnerId = $scope.transfer.newLocation.servicePartner._id;
-          Locations.query({ where: { ServicePartnerId: servicePartnerId } },
-            function (response) {
-              $scope.locationsLoading = false;
-              $scope.locations = filterLocationsByTransferType(response);
-              if (type === "RELEASE") {
-                $scope.locations.push({id: null, name: "Other"});
-              }
-            },
-            function (err) {
-              $scope.locationsLoading = false;
-              AlertService.add("error", err);
-            }
-          );
-        }
-      }
-    }, true);
-
-    $scope.$watch('transfer.NewLocationId',
-    function (newVal, oldVal) {
-      if (newVal !== oldVal && newVal !== null) {
-        for (var i = 0, len = $scope.locations.length; i < len; i++) {
-          if ($scope.locations[i]._id === newVal) {
-            $scope.allowFreehandLocation = false;
-            $scope.transfer.freehandLocationCustomerId = null;
-            $scope.transfer.freehandLocationName = null;
-            $scope.transfer.freehandLocationCounty = null;
-            $scope.transfer.newLocation = angular.copy($scope.locations[i]);
-            break;
-          }
-        }
-        if ($scope.transfer.transferType === "SWAP") {
-          Units.query({ where: { LocationId: newVal } },
-            function (response) {
-              $scope.unitsLoading = false;
-              $scope.swapUnits = response;
-            },
-            function (err) {
-              $scope.unitsLoading = false;
-              AlertService.add("error", err);
-            }
-          );
-        }
-      } else if (newVal !== oldVal && newVal === null) {
-        $scope.allowFreehandLocation = true;
-        if ($scope.transfer.newLocation) {
-          $scope.transfer.freehandLocationCustomerId =
-            $scope.transfer.newLocation.customer._id;
-        }
-      }
-    }, true);
-
-    $scope.$watch('transfer.NewServicePartnerId', function (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        var id = newVal;
-        if ( ($scope.transfer.transferType === "TRANSFER" ||
-              $scope.transfer.transferType === "RELEASE") &&
-              $scope.transfer.isYardTransfer === "true") {
-
-          $scope.locations = [];
-          $scope.locationsLoading = true;
-          Locations.query({ where: { ServicePartnerId: id, locationType: "Yard" } },
-            function (response) {
-              $scope.locationsLoading = false;
-              $scope.locations = filterLocationsByTransferType(response);
-            },
-            function (err) {
-              $scope.locationsLoading = false;
-              AlertService.add("error", err);
-            }
-          );
-
-        } else {
-
-          $scope.newTechniciansLoading = true;
-          if ($scope.transfer.isNewLocation) {
-            $scope.transfer.newLocation.ServicePartnerId = id;
-          }
-          var obj = { ServicePartnerId: id, role: "TECHNICIAN" };
-          Users.query({ where: obj },
-            function (response) {
-              $scope.technicians = response;
-              obj = { ServicePartnerId: id, role: "REVIEWER" };
-              Users.query({ where: obj },
-                function (response) {
-                  $scope.technicians = $scope.technicians.concat(response);
-                  $scope.techniciansLoading = false;
-                },
-                function (err) {
-                  AlertService.add("danger", err);
-                });
-            },
-            function (err) {
-              AlertService.add("danger", err);
-            });
-
-        }
-      }
-    }, true);
-
-    $scope.$watch('transfer.NewTechnicianId', function (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        if ($scope.transfer.isNewLocation) {
-          $scope.technicians = $scope.newTechnicians;
-          $scope.transfer.TechnicianId = newVal;
-          $scope.transfer.technician = $scope.technicians.filter(function (m) {
-            return m._id === newVal;
-          })[0];
-        }
-      }
-    }, true);
-
-    $scope.$watch('transfer.SwapUnitId', function (newVal, oldVal) {
-      if (newVal !== oldVal && $scope.swapUnits) {
-        for (var i = 0, len = $scope.swapUnits.length; i < len; i++) {
-          if ($scope.swapUnits[i]._id === newVal) {
-            $scope.transfer.swapUnit = angular.copy($scope.swapUnits[i]);
-          }
-        }
-      }
-    });
-
-    $scope.$watch('transfer.isNewLocation', function (newVal, oldVal) {
-      if (newVal !== oldVal && $scope.transfer.newLocation) {
-        var state = $scope.transfer.newLocation.state;
-        $scope.counties = GeographyService.counties(state);
-      }
-    });
-
-    $scope.$watch('transfer.newLocation.state', function (newVal, oldVal) {
-      if (newVal !== oldVal && $scope.transfer.isNewLocation) {
-        $scope.transfer.newLocation.county = null;
-        $scope.counties = GeographyService.counties(newVal);
-      }
-    });
-
-
-    function filterLocationsByTransferType (locations) {
-      var type = $scope.transfer.transferType;
-      var newLocations = locations.filter(function (location) {
-
-        var shouldBeIncluded = true;
-
-        if (type === "SWAP" || type === "RELEASE") {
-          if (location.locationType === "Lease" || location.locationType === "Truck") {
-            shouldBeIncluded = false;
-          }
-        }
-
-        if (type === "CONTRACT" || type === "TEST") {
-          if (location.locationType === "Yard" || location.locationType === "Truck") {
-            shouldBeIncluded = false;
-          }
-        }
-
-        return shouldBeIncluded;
-      });
-      return newLocations;
-    }
-
-    function resetStateData() {
-      if ($scope.transfer.newLocation) {
-        $scope.transfer.newLocation.customer.dbaCustomerName = null;
-        $scope.transfer.newLocation.servicePartner = null;
-      }
-      $scope.transfer.OldServicePartnerId = null;
-      $scope.transfer.reassignMultipleUnits = null;
-    }
-
+.directive('transferComments', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit/transferComments.html',
+    scope: true
+  };
 }]);
 
-angular.module('TransferApp.Controllers').controller('TransferInformationCtrl',
-['$scope', 'AlertService', 'LoaderService', 'TransferAccordionService', 'Users', 'role',
-  function ($scope, AlertService, LoaderService, TransferAccordionService, Users, role) {
+angular.module('TransferApp.Directives')
 
-  // Watches the transfer to control form navigation and validation.
-  $scope.$watch('transfer', function (newVal, oldVal) {
-    var validate = TransferAccordionService.sectionIsValid;
-    for (var key in $scope.accordion) {
-      var isValid = validate(key, $scope.accordion, $scope.transfer);
-      $scope.accordion[key].valid = isValid;
-    }
-  }, true);
-
-  // Watches the unit number to prefil the form data
-
-  $scope.$watch('transfer.unit.number', function (newVal, oldVal) {
-    if (newVal !== oldVal && $scope.loadingData !== true) {
-      for (var i = 0, len = $scope.units.length; i < len; i++) {
-        if ($scope.units[i].number === newVal) {
-          // deep copy the unit from the collection to prevent the data
-          // from being overwritten by the ng-model bindings on the form.
-          $scope.transfer.unit = angular.copy($scope.units[i]);
-          if ($scope.transfer.unit.location) {
-            $scope.transfer.oldLocation = $scope.transfer.unit.location;
-            $scope.transfer.OldLocationId = $scope.transfer.unit.location._id;
-          }
-          if ($scope.transfer.transferType === "REASSIGNMENT") {
-            $scope.transfer.OldServicePartnerId = $scope.transfer.unit.ServicePartnerId;
-          }
-        }
-      }
-    }
-  }, true);
-
-  $scope.$watch('transfer.unit', function (newVal, oldVal) {
-    if (newVal !== oldVal) {
-      var id = $scope.transfer.unit.ServicePartnerId;
-      $scope.techniciansLoading = true;
-      var obj = { ServicePartnerId: id, role: "TECHNICIAN" };
-      Users.query({ where: obj },
-        function (response) {
-          $scope.technicians = response;
-          obj = { ServicePartnerId: id, role: "REVIEWER" };
-          Users.query({ where: obj },
-            function (response) {
-              $scope.technicians = $scope.technicians.concat(response);
-              $scope.techniciansLoading = false;
-            },
-            function (err) {
-              AlertService.add("danger", err);
-            });
-        },
-        function (err) {
-          AlertService.add("danger", err);
-        });
-    }
-  }, true);
-
-  $scope.$watch('transfer.TechnicianId', function (newVal, oldVal) {
-    if (newVal !== oldVal) {
-      $scope.technicians.forEach(function (element, index, array) {
-        if (element._id === $scope.transfer.TechnicianId) {
-          $scope.transfer.technician = element;
-        }
-      });
-    }
-  }, true);
-
-  $scope.filterNewSet = function (transfer) {
-    return (transfer === "CONTRACT" || transfer === "TEST");
+.directive('transferDestination', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit/transferDestination.html',
+    scope: true
   };
+}]);
 
-  $scope.filterUnitMove = function (transfer) {
-    return (transfer !== "CONTRACT" && transfer !== "TEST" &&
-            transfer !== "REASSIGNMENT");
+angular.module('TransferApp.Directives')
+
+.directive('transferOrigin', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit/transferOrigin.html',
+    scope: true
   };
+}]);
 
-  $scope.filterReassignment = function (transfer) {
-    return (transfer === "REASSIGNMENT");
+angular.module('TransferApp.Directives')
+
+.directive('transferDetail', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit/transferDetails.html',
+    scope: true
   };
-
 }]);
 
 angular.module('WorkOrderApp.Directives')
@@ -10100,12 +9479,12 @@ angular.module('Orion', [
       templateUrl: '/_common_packaged/public/angular/views/myaccount.html',
       resolve: {
         workorders: function($route, $q, WorkOrders) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           WorkOrders.query({skip: 0, limit: 50},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         }
       }
     })

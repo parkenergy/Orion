@@ -14,7 +14,7 @@ angular.module('TransferApp').config(['$routeProvider',
   $routeProvider
 
   .when('/transfer/edit/:id?', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'TransferEditCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit.html',
     resolve: {
@@ -22,74 +22,79 @@ angular.module('TransferApp').config(['$routeProvider',
         //determine if we're creating or editing a transfer.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Transfers.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       units: function($route, $q, Units) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Units.query({},
-          function (response) {return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) {return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       customers: function($route, $q, Customers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Customers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       users: function($route, $q, Users) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Users.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
-      parts: function($route, $q, Parts) {
-        var deffered = $q.defer();
-        Parts.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+      locations: function($route, $q, Locations) {
+        var deferred = $q.defer();
+        Locations.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
-      servicePartners: function($route, $q, ServicePartners) {
-        var deffered = $q.defer();
-        ServicePartners.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+      counties: function($route, $q, Counties) {
+        var deferred = $q.defer();
+        Counties.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
-      role: function($route, $q, role) {
-        return role.get();
+      states: function($route, $q, States) {
+        var deferred = $q.defer();
+        States.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
       }
     }
   })
 
   .when('/transfer', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'TransferIndexCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/index.html',
     resolve: {
       transfers: function($route, $q, Transfers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Transfers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });

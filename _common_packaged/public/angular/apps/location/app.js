@@ -21,47 +21,47 @@ angular.module('LocationApp').config(['$routeProvider',
         //determine if we're creating or editing a location.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Locations.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       customers: function($route, $q, Customers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Customers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       areas: function($route, $q, Areas) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Areas.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       states: function($route, $q, States) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         States.query({sort: "name"},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       counties: function($route, $q, Counties) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Counties.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -71,12 +71,12 @@ angular.module('LocationApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/location/views/index.html',
     resolve: {
       locations: function($route, $q, Locations) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Locations.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });

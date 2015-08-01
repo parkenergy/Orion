@@ -13,6 +13,21 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   function ($routeProvider) {
   $routeProvider
 
+  .when('/workorder/resumeorcreate', {
+    needsLogin: false,
+    controller: 'WorkOrderResumeOrCreateCtrl',
+    resolve: {
+      workorders: function($route, $q, WorkOrders) {
+        var deferred = $q.defer();
+        WorkOrders.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      }
+    }
+  })
+
   .when('/workorder/edit/:id?', {
     needsLogin: false,
     controller: 'WorkOrderEditCtrl',
@@ -22,47 +37,47 @@ angular.module('WorkOrderApp').config(['$routeProvider',
         //determine if we're creating or editing a workorder.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           WorkOrders.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       units: function($route, $q, Units) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Units.query({},
-          function (response) {return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) {return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       customers: function($route, $q, Customers) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Customers.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       users: function($route, $q, Users) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Users.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       parts: function($route, $q, Parts) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Parts.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -73,12 +88,12 @@ angular.module('WorkOrderApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
     resolve: {
       workorders: function($route, $q, WorkOrders) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         WorkOrders.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });

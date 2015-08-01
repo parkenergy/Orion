@@ -21,23 +21,23 @@ angular.module('CountyApp').config(['$routeProvider',
         //determine if we're creating or editing a county.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Counties.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       states: function($route, $q, States) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         States.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -47,12 +47,12 @@ angular.module('CountyApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/county/views/index.html',
     resolve: {
       counties: function($route, $q, Counties) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Counties.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });

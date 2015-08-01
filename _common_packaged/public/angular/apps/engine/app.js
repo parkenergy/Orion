@@ -21,23 +21,23 @@ angular.module('EngineApp').config(['$routeProvider',
         //determine if we're creating or editing a engine.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Engines.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       units: function($route, $q, Units) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Units.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   })
@@ -47,12 +47,12 @@ angular.module('EngineApp').config(['$routeProvider',
     templateUrl: '/_common_packaged/public/angular/apps/engine/views/index.html',
     resolve: {
       engines: function($route, $q, Engines) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         Engines.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       }
     }
   });

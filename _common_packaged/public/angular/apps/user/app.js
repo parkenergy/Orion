@@ -21,23 +21,23 @@ angular.module('UserApp').config(['$routeProvider',
         //determine if we're creating or editing a user.
         var id = $route.current.params.id || 0;
         if (id) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           Users.get({id: id},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         } else {
           return null;
         }
       },
       servicePartners: function ($route, $q, ServicePartners) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         ServicePartners.query({},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       role: function ($route, $q, role) {
         return role.get();
@@ -53,13 +53,13 @@ angular.module('UserApp').config(['$routeProvider',
       title: function () { return "Users"; },
       model: function () { return "user"; },
       objectList: function ($route, $q, Users) {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         var select = ['id', 'firstName', 'lastName', 'email'];
         Users.query({attributes: select},
-          function (response) { return deffered.resolve(response); },
-          function (err) { return deffered.reject(err); }
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
         );
-        return deffered.promise;
+        return deferred.promise;
       },
       displayColumns: function () {
         return [

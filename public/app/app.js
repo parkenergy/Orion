@@ -38,12 +38,12 @@ angular.module('Orion', [
       templateUrl: '/_common_packaged/public/angular/views/myaccount.html',
       resolve: {
         workorders: function($route, $q, WorkOrders) {
-          var deffered = $q.defer();
+          var deferred = $q.defer();
           WorkOrders.query({skip: 0, limit: 50},
-            function (response) { return deffered.resolve(response); },
-            function (err) { return deffered.reject(err); }
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
           );
-          return deffered.promise;
+          return deferred.promise;
         }
       }
     })

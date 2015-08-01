@@ -15,6 +15,7 @@ module.exports = function (app) {
   require('./factory') (app, "engines");
   require('./factory') (app, "locations");
   require('./factory') (app, "parts");
+  require('./factory') (app, "transfers");
   require('./factory') (app, "states");
   require('./factory') (app, "units");
   require('./factory') (app, "users");

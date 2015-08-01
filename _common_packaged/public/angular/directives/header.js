@@ -6,28 +6,19 @@ angular.module('CommonDirectives')
     templateUrl: '/_common_packaged/public/angular/views/header.html',
     link: function (scope, elem, attrs, ctrl) {
 
+      var num = 0;
+
       function getnavItems() {
-      	var navItems = [];
-      	if ($location.path() === "/") {
-      		navItems = [
-      			{
-      				text: "Login",
-      				action: function () { $location.path('/myaccount'); }
-      			}
-      		];
-      	} else {
-      		navItems = [
-      			{
-      				text: "My Account",
-      				action: function () { $location.path('/myaccount'); }
-      			},
-      			{
-      				text: "Logout",
-      				action: function () { $window.location = 'logout'; }
-      			}
-      		];
-      	}
-      	return navItems;
+        return [
+    			{
+    				text: "Support",
+    				action: function () { $location.path('/support'); }
+    			},
+          {
+            text: "Sync (" + num + ")",
+            action: function () { $location.path('/support'); }
+          }
+        ];
       }
 
       scope.navItems = getnavItems();

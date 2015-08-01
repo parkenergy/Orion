@@ -1,0 +1,46 @@
+/* Includes
+----------------------------------------------------------------------------- */
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.ObjectId;
+var autopopulate = require('mongoose-autopopulate');
+
+/* Declaration
+----------------------------------------------------------------------------- */
+var TransferSchema = new mongoose.Schema({
+
+  transferDate :  { type: Date},
+
+  unit:           { type: ObjectId, ref: 'Unit', index: true, autopopulate: true},
+
+  origin: {
+    customer:     { type: ObjectId, ref: 'Customer', index: true, autopopulate: true},
+    location:     { type: ObjectId, ref: 'Location', index: true, autopopulate: true},
+    county:       { type: ObjectId, ref: 'County', index: true, autopopulate: true},
+    state:        { type: ObjectId, ref: 'State', index: true, autopopulate: true},
+    legal:        { type: String },
+  },
+
+  destination:  {
+    customer:     { type: ObjectId, ref: 'Customer', index: true, autopopulate: true},
+    location:     { type: ObjectId, ref: 'Location', index: true, autopopulate: true},
+    county:       { type: ObjectId, ref: 'County', index: true, autopopulate: true},
+    state:        { type: ObjectId, ref: 'State', index: true, autopopulate: true},
+    legal:        { type: String },
+  },
+
+  transferedBy:   { type: ObjectId, ref: 'User', index: true, autopopulate: true},
+
+  transferNote:   { type: String },
+});
+TransferSchema.plugin(autopopulate);
+
+/* Virtual Fields
+----------------------------------------------------------------------------- */
+TransferSchema.virtual('createdOn')
+.get(function () {
+  return new Date(this._id.getTimestamp());
+});
+
+/* Exports
+----------------------------------------------------------------------------- */
+module.exports = mongoose.model("Transfers", TransferSchema);
