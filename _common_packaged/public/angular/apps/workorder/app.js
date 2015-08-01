@@ -16,6 +16,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   .when('/workorder/resumeorcreate', {
     needsLogin: false,
     controller: 'WorkOrderResumeOrCreateCtrl',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
     resolve: {
       workorders: function($route, $q, WorkOrders) {
         var deferred = $q.defer();

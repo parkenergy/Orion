@@ -1823,6 +1823,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   .when('/workorder/resumeorcreate', {
     needsLogin: false,
     controller: 'WorkOrderResumeOrCreateCtrl',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
     resolve: {
       workorders: function($route, $q, WorkOrders) {
         var deferred = $q.defer();
@@ -4209,8 +4210,6 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
           leaseNotes: "",
           unitNotes:  "",
           JSA:        "",
-
-          typeOfAsset:              "",
           isUnitRunningOnDeparture: false
         },
 
@@ -4500,13 +4499,14 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderResumeOrCreateCt
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders',
 function ($scope, $route, $location, AlertService, LoaderService, workorders) {
 
-  console.log("here");
+  console.log("resumeorcreate");
+
   var resumeWorkOrderId = null;
   workorders.forEach(function (ele) {
     if (ele.timeSubmitted === null) { resumeWorkOrderId = ele._id; }
   });
   $location.path("/workorder/edit/" + (resumeWorkOrderId || ""));
-
+  
 }]);
 
 angular.module('PartApp.Controllers').controller('PartsVendorPartsCtrl',

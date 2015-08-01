@@ -145,8 +145,6 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
           leaseNotes: "",
           unitNotes:  "",
           JSA:        "",
-
-          typeOfAsset:              "",
           isUnitRunningOnDeparture: false
         },
 

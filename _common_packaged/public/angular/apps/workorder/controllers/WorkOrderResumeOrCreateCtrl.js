@@ -2,11 +2,12 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderResumeOrCreateCt
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'workorders',
 function ($scope, $route, $location, AlertService, LoaderService, workorders) {
 
-  console.log("here");
+  console.log("resumeorcreate");
+
   var resumeWorkOrderId = null;
   workorders.forEach(function (ele) {
     if (ele.timeSubmitted === null) { resumeWorkOrderId = ele._id; }
   });
   $location.path("/workorder/edit/" + (resumeWorkOrderId || ""));
-
+  
 }]);
