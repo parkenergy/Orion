@@ -33,7 +33,7 @@ angular.module('Orion', [
       templateUrl: '/_common_packaged/public/angular/views/redirecting.html',
     })
     .when('/myaccount', {
-      needsLogin: false,
+      needsLogin: true,
       controller: 'MyAccountCtrl',
       templateUrl: '/_common_packaged/public/angular/views/myaccount.html',
       resolve: {

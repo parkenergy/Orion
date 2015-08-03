@@ -310,7 +310,7 @@ angular.module('CommonControllers').controller('SessionCtrl',
 ['$scope', '$http', '$location', '$routeParams', '$window', 'AlertService',
 function ($scope, $http, $location, $routeParams, $window, AlertService) {
 
-  $window.location.href = '/auth/parkenergyidentity';
+  //$window.location.href = '/auth/parkenergyidentity';
 
   $scope.hideLocalLogin = false;
   $scope.title = "Login";
@@ -334,7 +334,7 @@ function ($scope, $http, $location, $routeParams, $window, AlertService) {
   };
 
 	$scope.localLogin = function () {
-    $http.post("/auth/local", {email: $scope.email, password: $scope.password})
+    $http.post("/auth/local", {username: $scope.username, password: $scope.password})
     .success(function(data, status, headers, config) {
       AlertService.add("info", "Login Successful!", 1000);
       $location.path($scope.fragment || "myaccount");
@@ -1441,7 +1441,7 @@ angular.module('TransferApp').config(['$routeProvider',
   $routeProvider
 
   .when('/transfer/edit/:id?', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'TransferEditCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit.html',
     resolve: {
@@ -1511,7 +1511,7 @@ angular.module('TransferApp').config(['$routeProvider',
   })
 
   .when('/transfer', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'TransferIndexCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/index.html',
     resolve: {
@@ -1646,7 +1646,7 @@ angular.module('UserApp').config(['$routeProvider',
       model: function () { return "user"; },
       objectList: function ($route, $q, Users) {
         var deferred = $q.defer();
-        var select = ['id', 'firstName', 'lastName', 'email'];
+        var select = ['id', 'firstName', 'lastName', 'username'];
         Users.query({attributes: select},
           function (response) { return deferred.resolve(response); },
           function (err) { return deferred.reject(err); }
@@ -1657,7 +1657,7 @@ angular.module('UserApp').config(['$routeProvider',
         return [
           { title: "First Name", objKey: 'firstName' },
           { title: "Last Name", objKey: 'lastName' },
-          { title: "Email", objKey: 'email' }
+          { title: "Username", objKey: 'username' }
         ];
       },
       //not required
@@ -1821,7 +1821,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   $routeProvider
 
   .when('/workorder/resumeorcreate', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'WorkOrderResumeOrCreateCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
     resolve: {
@@ -1837,7 +1837,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   })
 
   .when('/workorder/edit/:id?', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'WorkOrderEditCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit.html',
     resolve: {
@@ -1891,7 +1891,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   })
 
   .when('/workorder', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'WorkOrderIndexCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
     resolve: {
@@ -3073,17 +3073,6 @@ angular.module('LocationApp.Controllers').controller('LocationIndexCtrl',
 
 }]);
 
-angular.module('PartApp.Directives')
-
-.directive('vendorParts', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/part/views/vendorparts.html',
-    scope: true,
-    controller: 'PartsVendorPartsCtrl'
-  };
-}]);
-
 angular.module('PartApp.Controllers').controller('PartEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Parts', 'part', 'vendors', 'enumeration', '$window', 'VendorParts',
   function ($scope, $route, $location, AlertService, LoaderService, Parts, part, vendors, enumeration, $window, VendorParts) {
@@ -3346,6 +3335,17 @@ angular.module('PartApp.Controllers').controller('PartIndexCtrl',
 
     };
 
+}]);
+
+angular.module('PartApp.Directives')
+
+.directive('vendorParts', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/part/views/vendorparts.html',
+    scope: true,
+    controller: 'PartsVendorPartsCtrl'
+  };
 }]);
 
 angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerEditCtrl',
@@ -3800,7 +3800,7 @@ angular.module('UserApp.Controllers').controller('UserIndexCtrl',
       return [ // which columns need to be displayed in the table
         { title: "First Name",  objKey: "firstName" },
         { title: "Last Name",   objKey: "lastName" },
-        { title: "Email",       objKey: "email" },
+        { title: "Username",    objKey: "username" },
       ];
     }
 
@@ -9472,7 +9472,7 @@ angular.module('Orion', [
       templateUrl: '/_common_packaged/public/angular/views/redirecting.html',
     })
     .when('/myaccount', {
-      needsLogin: false,
+      needsLogin: true,
       controller: 'MyAccountCtrl',
       templateUrl: '/_common_packaged/public/angular/views/myaccount.html',
       resolve: {

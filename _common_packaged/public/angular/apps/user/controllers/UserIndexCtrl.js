@@ -21,7 +21,7 @@ angular.module('UserApp.Controllers').controller('UserIndexCtrl',
       return [ // which columns need to be displayed in the table
         { title: "First Name",  objKey: "firstName" },
         { title: "Last Name",   objKey: "lastName" },
-        { title: "Email",       objKey: "email" },
+        { title: "Username",    objKey: "username" },
       ];
     }
 

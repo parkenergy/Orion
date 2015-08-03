@@ -14,7 +14,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   $routeProvider
 
   .when('/workorder/resumeorcreate', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'WorkOrderResumeOrCreateCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
     resolve: {
@@ -30,7 +30,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   })
 
   .when('/workorder/edit/:id?', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'WorkOrderEditCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit.html',
     resolve: {
@@ -84,7 +84,7 @@ angular.module('WorkOrderApp').config(['$routeProvider',
   })
 
   .when('/workorder', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'WorkOrderIndexCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/index.html',
     resolve: {

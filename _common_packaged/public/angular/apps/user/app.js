@@ -54,7 +54,7 @@ angular.module('UserApp').config(['$routeProvider',
       model: function () { return "user"; },
       objectList: function ($route, $q, Users) {
         var deferred = $q.defer();
-        var select = ['id', 'firstName', 'lastName', 'email'];
+        var select = ['id', 'firstName', 'lastName', 'username'];
         Users.query({attributes: select},
           function (response) { return deferred.resolve(response); },
           function (err) { return deferred.reject(err); }
@@ -65,7 +65,7 @@ angular.module('UserApp').config(['$routeProvider',
         return [
           { title: "First Name", objKey: 'firstName' },
           { title: "Last Name", objKey: 'lastName' },
-          { title: "Email", objKey: 'email' }
+          { title: "Username", objKey: 'username' }
         ];
       },
       //not required

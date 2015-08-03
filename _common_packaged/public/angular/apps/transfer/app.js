@@ -14,7 +14,7 @@ angular.module('TransferApp').config(['$routeProvider',
   $routeProvider
 
   .when('/transfer/edit/:id?', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'TransferEditCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit.html',
     resolve: {
@@ -84,7 +84,7 @@ angular.module('TransferApp').config(['$routeProvider',
   })
 
   .when('/transfer', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'TransferIndexCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/index.html',
     resolve: {

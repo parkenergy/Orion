@@ -3,6 +3,7 @@
 var passport = require('passport');
 var OAuthStrategy = require('passport-oauth-profile').OAuthStrategy;
 var GoogleStrategy = require('passport-google').Strategy;
+var LocalStrategy = require('passport-local')
 var db = require('../models');
 var https = require('https');
 var successUrl = "/#/myaccount";
@@ -11,6 +12,11 @@ var failureUrl = "/#/login?failure=true";
 /* Exports
 ----------------------------------------------------------------------------- */
 module.exports = function(app) {
+
+  // expose url's required to use passport-google oauth strategy
+	app.post('/auth/local', passport.authenticate('local', {
+      successRedirect: successUrl,
+      failureRedirect: failureUrl }));
 
   // expose url's required by in-house identity server
 	app.get('/auth/parkenergy', passport.authenticate('parkenergy'));
@@ -89,6 +95,16 @@ passport.getReturnUrl = function (providerName) {
   var realm = passport.getRealm();
   return realm += '/auth/' + providerName + '/return/';
 };
+
+passport.use('local', new LocalStrategy(
+  function(username, password, done) {
+    db.User.findOne({username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
 
 // Also "local", but using OAuth protocol for multi-app support
 passport.use('parkenergyidentity', new OAuthStrategy({

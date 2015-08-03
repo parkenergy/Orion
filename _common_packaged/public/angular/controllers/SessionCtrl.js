@@ -2,7 +2,7 @@ angular.module('CommonControllers').controller('SessionCtrl',
 ['$scope', '$http', '$location', '$routeParams', '$window', 'AlertService',
 function ($scope, $http, $location, $routeParams, $window, AlertService) {
 
-  $window.location.href = '/auth/parkenergyidentity';
+  //$window.location.href = '/auth/parkenergyidentity';
 
   $scope.hideLocalLogin = false;
   $scope.title = "Login";
@@ -26,7 +26,7 @@ function ($scope, $http, $location, $routeParams, $window, AlertService) {
   };
 
 	$scope.localLogin = function () {
-    $http.post("/auth/local", {email: $scope.email, password: $scope.password})
+    $http.post("/auth/local", {username: $scope.username, password: $scope.password})
     .success(function(data, status, headers, config) {
       AlertService.add("info", "Login Successful!", 1000);
       $location.path($scope.fragment || "myaccount");
