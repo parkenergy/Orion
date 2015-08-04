@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Transfer Destination</h3>
+  </div>
+  <div class="panel-body">
+    <select-list
+      label-text="Company"
+      data="transfer.destination.customer"
+      select-field="_id"
+      display-field="dbaCustomerName"
+      obj-list="customers">
+    </select-list>
+    <select-list
+      label-text="Lease Name"
+      data="transfer.destination.location"
+      select-field="_id"
+      display-field="name"
+      obj-list="locations">
+    </select-list>
+    <select-list
+      label-text="Legal"
+      data="transfer.destination.legal"
+      select-field="_id"
+      display-field="legal">
+    </select-list>
+    <select-list
+      label-text="County"
+      data="trasnfer.destination.county"
+      select-field="_id"
+      display-field="name"
+      obj-list="counties">
+    </select-list>
+    <select-list
+      label-text="State"
+      data="trasnfer.destination.state"
+      select-field="_id"
+      display-field="name"
+      obj-list="states">
+    </select-list>
+  </div>
+</div>

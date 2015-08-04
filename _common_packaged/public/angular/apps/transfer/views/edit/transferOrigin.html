@@ -10,5 +10,32 @@
       display-field="dbaCustomerName"
       obj-list="customers">
     </select-list>
+    <select-list
+      label-text="Lease Name"
+      data="transfer.origin.location"
+      select-field="_id"
+      display-field="name"
+      obj-list="locations">
+    </select-list>
+    <select-list
+      label-text="Legal"
+      data="transfer.origin.legal"
+      select-field="_id"
+      display-field="legal">
+    </select-list>
+    <select-list
+      label-text="County"
+      data="trasnfer.origin.county"
+      select-field="_id"
+      display-field="name"
+      obj-list="counties">
+    </select-list>
+    <select-list
+      label-text="State"
+      data="trasnfer.origin.state"
+      select-field="_id"
+      display-field="name"
+      obj-list="states">
+    </select-list>
   </div>
 </div>

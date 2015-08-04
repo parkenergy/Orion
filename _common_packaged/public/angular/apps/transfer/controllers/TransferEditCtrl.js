@@ -1,6 +1,6 @@
 angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
 ['$scope', '$window', '$location', '$timeout', 'AlertService', 'transfer', 'units', 'customers', 'users','locations','states', 'counties',
-  function ($scope, $window, $location, $timeout, AlertService, transfer, units, customers, users, parts, locations, states, counties) {
+  function ($scope, $window, $location, $timeout, AlertService, transfer, units, customers, users, locations, states, counties) {
 
     $scope.title = (transfer !== null ? "Edit " : "Create ") + "Transfer";
 
@@ -78,5 +78,6 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
         trasnferNote : ""
 
       }
+      return newTrans;
     }
 }]);
