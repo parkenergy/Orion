@@ -12,8 +12,14 @@ var VendorSchema = new mongoose.Schema({
   vendorFamily: { type: String },
   address:      { type: String },
   phone:        { type: String },
-  email:        { type: String }
+  email:        { type: String },
 
+  updated_at:   { type: Date }
+});
+
+VendorSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
 });
 
 /* Virtual Fields

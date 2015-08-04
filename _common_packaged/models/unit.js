@@ -9,11 +9,11 @@ var PartEnumerationHelper = require('../helpers/enumeration.js');
 ----------------------------------------------------------------------------- */
 var UnitSchema = new mongoose.Schema({
 
-  netSuitId: { type: String },
+  netsuiteId: { type: String },
 
   number:         { type: String, required: true, index: { unique: true } },
 
-  productSeries:  { type: Number },
+  productSeries:  { type: String },
 
   setDate:        { type: Date },
   releaseDate:    { type: Date },
@@ -21,12 +21,20 @@ var UnitSchema = new mongoose.Schema({
   engineSerial:         { type: String },
   compressorSerial:     { type: String },
   locationName:         { type: String },
+  legalDescription:                { type: String },
+  state:          { type: ObjectId, ref: 'States', index: true},
+  county:         { type: ObjectId, ref: 'Counties,', index: true},
 
-  customer:       { type: ObjectId, ref: 'Customer', index: true, autopopulate: true },
-  assignedTo:     { type: ObjectId, ref: 'User', index: true },
+  Customer:       { type: ObjectId, ref: 'Customers', index: true, autopopulate: true },
+  assignedTo:     { type: ObjectId, ref: 'Users', index: true },
+  updated_at:     { type: Date }
 
 });
 UnitSchema.plugin(autopopulate);
+UnitSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
 
 /* Virtual Fields
 ----------------------------------------------------------------------------- */

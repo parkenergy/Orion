@@ -9,10 +9,15 @@ var autopopulate = require('mongoose-autopopulate');
 var AreaSchema = new mongoose.Schema({
 
   name: { type: String, required: true, index: { unique: true } },
-  locations: [{ type: ObjectId, index: true, autopopulate: true }]
+  locations: [{ type: ObjectId, index: true, autopopulate: true }],
+  updated_at: { type: Date }
 
 });
 AreaSchema.plugin(autopopulate);
+AreaSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
 
 /* Virtual Fields
 ----------------------------------------------------------------------------- */
@@ -20,6 +25,7 @@ AreaSchema.virtual('createdOn')
 .get(function () {
   return new Date(this._id.getTimestamp());
 });
+
 
 /* Exports
 ----------------------------------------------------------------------------- */

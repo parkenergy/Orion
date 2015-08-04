@@ -7,15 +7,13 @@ var Mixed = mongoose.Schema.Types.Mixed;
 ----------------------------------------------------------------------------- */
 var ErrorSchema = new mongoose.Schema({
 
-  data: { type: Mixed }
+  data: { type: Mixed },
+  updated_at: { type: Date }
 
 });
-
-/* Virtual Fields
------------------------------------------------------------------------------ */
-ErrorSchema.virtual('createdOn')
-.get(function () {
-  return new Date(this._id.getTimestamp());
+ErrorSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
 });
 
 /* Exports

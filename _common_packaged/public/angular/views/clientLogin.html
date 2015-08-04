@@ -1,0 +1,35 @@
+<loader></loader>
+<alerts></alerts>
+
+<div class="container">
+
+  <header></header>
+  <div class="jumbotron">
+    <h1 class="page-title">{{title}}</h1>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <form role="form" name="loginForm" ng-submit="localLogin()" ng-controller="SessionCtrl">
+
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" ng-model="username" name="username"
+          placeholder="user@example.com" required>
+        </div>
+
+        <input
+          type="submit"
+          class="btn btn-primary btn-lg btn-long"
+          style="width: 50%; height: 100px; margin: 0px 25% 15px 25%;"
+          id="login">
+        </input>
+
+      </form>
+    </div>
+
+  </div>
+
+</div>

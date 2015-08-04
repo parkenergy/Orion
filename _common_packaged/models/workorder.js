@@ -212,6 +212,10 @@ var WorkOrderSchema = new mongoose.Schema({
 });
 WorkOrderSchema.plugin(autopopulate);
 WorkOrderSchema.set('toJSON', {getters: true, virtuals: true });
+WorkOrderSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
 
 /* Virtual Fields
 ----------------------------------------------------------------------------- */
