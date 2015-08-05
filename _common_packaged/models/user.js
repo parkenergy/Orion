@@ -10,15 +10,11 @@ var SALT_WORK_FACTOR = 10;
 ----------------------------------------------------------------------------- */
 var UserSchema = new mongoose.Schema({
 
-    firstName: { type: String, required: true },
-
-    lastName:  { type: String, required: true },
-
-    username:  { type: String, required: true, index: { unique: true }},
-
-    password:  { type: String, required: true},
-
-    cell:      { type: String },
+    firstName:  { type: String, required: true },
+    lastName:   { type: String, required: true },
+    username:   { type: String, required: true, index: { unique: true }},
+    email:      { type: String, required: true },
+    netsuiteId: { type: String, required: true },
 
     role:      {
       type: String,
@@ -27,39 +23,17 @@ var UserSchema = new mongoose.Schema({
     },
 
     units: [{ type: ObjectId, ref: 'Units', index: true }],
-    areas: [{ type: ObjectId, ref: 'Areas', index: true }]
+    areas: [{ type: ObjectId, ref: 'Areas', index: true }],
+
+    updated_at: { type: Date }
 
 });
 UserSchema.plugin(autopopulate);
-
-UserSchema.pre('save', function(next) {
-  var user = this;
-  return next();
-  // // only hash the password if it has been modified (or is new)
-  // if (!user.isModified('password')) return next();
-  //
-  // // generate a salt
-  // bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-  //     if (err) return next(err);
-  //
-  //     // hash the password along with our new salt
-  //     bcrypt.hash(user.password, salt, function(err, hash) {
-  //         if (err) return next(err);
-  //
-  //         // override the cleartext password with the hashed one
-  //         user.password = hash;
-  //         next();
-  //     });
-  // });
+UserSchema.pre('save', function(done) {
+  this.updatedAt = new Date();
+  done();
 });
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-  return cb(null, null);
-  // bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-  //     if (err) return cb(err);
-  //     cb(null, isMatch);
-  // });
-};
 
 /* Virtual Fields
 ----------------------------------------------------------------------------- */

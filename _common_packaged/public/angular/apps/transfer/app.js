@@ -82,7 +82,6 @@ angular.module('TransferApp').config(['$routeProvider',
       }
     }
   })
-
   .when('/transfer', {
     needsLogin: true,
     controller: 'TransferIndexCtrl',

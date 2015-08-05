@@ -3,6 +3,9 @@
 ----------------------------------------------------------------------------- */
 var globals = require('./_common_packaged/GLOBALS.js');
 var express = require('express');
+var Agenda = require('agenda');
+var importHelper = require('./_common_packaged/helpers/netsuiteSyncHelper');
+var importer = new importHelper();
 var app = express();
     app.set('port', process.env.PORT || 3000);
     app.set('view engine', 'ejs');
@@ -61,6 +64,7 @@ switch (env) {
 }
 
 var db = mongoose.connection;
+console.log(uri);
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
 
@@ -71,6 +75,17 @@ db.once('open', function (callback) {
     var host = server.address().address === "::" ?
                 "localhost" :
                 server.address().address;
+                
+    var sync = new Agenda({db: {address: uri}});
+
+    sync.define('sync', function(job, done) {
+      console.log('Starting Sync');
+      importer.execute(done);
+    });
+
+    sync.every('5 minutes', 'sync');
+
+    sync.start();
 
     var Log = require('./_common_packaged/helpers/log.js');
     var log = new Log(db);
@@ -83,6 +98,8 @@ db.once('open', function (callback) {
       var DataLoader = require('./_common_packaged/_dev_util/dataload');
       var dataload = new DataLoader();
     }
+
+
 
   });
 

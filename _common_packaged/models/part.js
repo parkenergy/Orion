@@ -23,10 +23,15 @@ var PartSchema = new mongoose.Schema({
     vendorPartNumber:       { type: String },
     vendorPartCost:         { type: Number},
     vendorPartDescription:  { type: String }
-  }]
+  }],
+  updated_at: { type: Date }
 
 });
 PartSchema.plugin(autopopulate);
+PartSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
 
 /* Virtual Fields
 ----------------------------------------------------------------------------- */

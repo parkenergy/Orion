@@ -7,9 +7,14 @@ var autopopulate = require('mongoose-autopopulate');
 /* Declaration
 ----------------------------------------------------------------------------- */
 var StateSchema = new mongoose.Schema({
-  name: { type: String, required: true, index: true }
+  name: { type: String, required: true, index: true },
+  updated_at: { type: Date }
 });
 StateSchema.plugin(autopopulate);
+StateSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
 
 /* Virtual Fields
 ----------------------------------------------------------------------------- */

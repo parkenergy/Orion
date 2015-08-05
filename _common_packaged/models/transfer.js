@@ -31,8 +31,13 @@ var TransferSchema = new mongoose.Schema({
   transferedBy:   { type: ObjectId, ref: 'User', index: true, autopopulate: true},
 
   transferNote:   { type: String },
+  updated_at:     { type: Date}
 });
 TransferSchema.plugin(autopopulate);
+TransferSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
 
 /* Virtual Fields
 ----------------------------------------------------------------------------- */

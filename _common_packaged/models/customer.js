@@ -8,17 +8,20 @@ var autopopulate = require('mongoose-autopopulate');
 ----------------------------------------------------------------------------- */
 var CustomerSchema = new mongoose.Schema({
 
-  dbaCustomerName:  { type: String, required: true, index: { unique: true } },
-  customerFamily:   { type: String },
-  address:          { type: String },
+
+  name:             { type: String, required: true, index: { unique: true } },
+  shortname:        { type: String, required: true, index: { unique: true } },
+  netsuiteId:       { type: String, required: true, index: { unique: true } },
   phone:            { type: String },
   email:            { type: String },
-
-  locations: 	      [{type: ObjectId, ref: 'Locations', index: true, autopopulate: { select: 'name' }}],
-  units:            [{type: ObjectId, ref: 'Units', index: true, autopopulate: { select: 'number' }}]
+  updated_at:       { type: Date },
 
 });
 CustomerSchema.plugin(autopopulate);
+CustomerSchema.pre('save', function(done) {
+  this.updatedAt = new Date();
+  done();
+});
 
 CustomerSchema.virtual('createdOn')
 .get(function () {
