@@ -64,6 +64,7 @@ switch (env) {
 }
 
 var db = mongoose.connection;
+console.log(uri);
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
 
@@ -76,7 +77,7 @@ db.once('open', function (callback) {
                 server.address().address;
     var dbString = db.host + ':' + db.port + '/' + db.name;
     console.log(dbString);
-    var sync = new Agenda({db: {address: dbString}});
+    var sync = new Agenda({db: {address: uri}});
 
     sync.define('sync', function(job, done) {
         console.log('Starting Sync');
@@ -85,7 +86,7 @@ db.once('open', function (callback) {
       });
 
 
-      sync.every('30 seconds', 'sync');
+      sync.every('5 minutes', 'sync');
 
       sync.start();
 
