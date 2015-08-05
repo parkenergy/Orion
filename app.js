@@ -75,20 +75,17 @@ db.once('open', function (callback) {
     var host = server.address().address === "::" ?
                 "localhost" :
                 server.address().address;
-    var dbString = db.host + ':' + db.port + '/' + db.name;
-    console.log(dbString);
+                
     var sync = new Agenda({db: {address: uri}});
 
     sync.define('sync', function(job, done) {
-        console.log('Starting Sync');
-        importer.execute(done);
-        res.send(200, "OK");
-      });
+      console.log('Starting Sync');
+      importer.execute(done);
+    });
 
+    sync.every('5 minutes', 'sync');
 
-      sync.every('5 minutes', 'sync');
-
-      sync.start();
+    sync.start();
 
     var Log = require('./_common_packaged/helpers/log.js');
     var log = new Log(db);
