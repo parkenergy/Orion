@@ -23,7 +23,6 @@ var UnitSchema = new mongoose.Schema({
   locationName:         { type: String },
   legalDescription:                { type: String },
   state:          { type: ObjectId, ref: 'States', index: true},
-  county:         { type: ObjectId, ref: 'Counties,', index: true},
 
   Customer:       { type: ObjectId, ref: 'Customers', index: true, autopopulate: true },
   assignedTo:     { type: ObjectId, ref: 'Users', index: true },
