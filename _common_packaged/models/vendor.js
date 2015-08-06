@@ -14,10 +14,13 @@ var VendorSchema = new mongoose.Schema({
   phone:        { type: String },
   email:        { type: String },
 
-  updated_at:   { type: Date }
+  updated_at: { type: Date, required: true }
 });
-
 VendorSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
+VendorSchema.pre('update', function(done) {
   this.updated_at = new Date();
   done();
 });

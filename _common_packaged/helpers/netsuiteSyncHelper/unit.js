@@ -3,7 +3,7 @@ var needle = require('needle');
 var async = require('async');
 var Unit = require('../../models/unit.js');
 var Customer = require('../../models/customer.js');
-var User = require('../../models/user.js')
+var User = require('../../models/user.js');
 var exec = require('child_process').exec,
     child;
 
@@ -17,11 +17,8 @@ var options = {
 };
 
 function getUnits(callback) {
-  console.log('Get Units');
   needle.get(unitSearchUrl, options, function(err,data){
-    console.log('Needle Worked');
     if (err){ return err; }
-    console.log('Format NetSuite');
     var unitArray = Object.keys(data.body).map(function(id) { // turn json into array
       return data.body[id];
     });
@@ -35,7 +32,6 @@ function getUnits(callback) {
 }
 
 function unitFormat (ele, callback) {
-  console.log(ele.id);
   var unit = {
     number: ele.columns.name,
     productSeries: ele.columns.custrecord_comptype.name,
@@ -44,28 +40,38 @@ function unitFormat (ele, callback) {
     netsuiteId: ele.id,
     updatedAt: Date.now()
   };
-  var customerNetsuiteId = (!ele.columns.custrecord_asset_customer
-    || !ele.columns.custrecord_asset_customer.internalid)
-    ? 0 : ele.columns.custrecord_asset_customer.internalid;
+
+  // Short versions of the json elements from netsuitenpm
+  var nsCust;
+  var nsCustId;
+  var nsUser;
+  var nsUserId;
+
+  if (ele.columns.custrecord_asset_customer){
+    nsCust = ele.columns.custrecord_asset_customer;
+    nsCustId = ele.columns.custrecord_asset_customer.internalid;
+  }
+  if(ele.columns.custrecord_assignedtech){
+    nsUser = ele.columns.custrecord_assignedtech;
+    nsUserId = ele.columns.custrecord_assignedtech.internalid;
+  }
+
+  var customerNetsuiteId = (!nsCust || !nsCustId) ? 0 : nsCustId;
   Customer.findOne({ netsuiteId: customerNetsuiteId }, function( err, customer ) {
     if (err) { return callback(err);}
     unit.Customer = (!customer || !customer._id) ? null : customer._id;
 
-    var userNetsuiteId = (!ele.columns.custrecord_assignedtech
-      || ele.columns.custrecord_assignedtech.internalid)
-      ? 0 : ele.columns.custrecord_assignedtech.internalid;
+    var userNetsuiteId = (!nsUser || !nsUserId) ? 0 :nsUserId;
     User.findOne({ netsuiteId: userNetsuiteId }, function (err, user) {
       if (err) { return callback(err); }
       unit.assignedTo = (!user || !user._id ) ? null : user._id;
-
       console.log(unit);
-
       Unit.findOneAndUpdate(
         { netsuiteId : unit.netsuiteId },
         unit,
         { upsert: true, new: true } // insert the document if it does not exist
       ).exec(callback);
-    })
+    });
   });
 }
 

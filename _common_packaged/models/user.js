@@ -25,12 +25,16 @@ var UserSchema = new mongoose.Schema({
     units: [{ type: ObjectId, ref: 'Units', index: true }],
     areas: [{ type: ObjectId, ref: 'Areas', index: true }],
 
-    updated_at: { type: Date }
+    updated_at: { type: Date, required: true }
 
 });
 UserSchema.plugin(autopopulate);
 UserSchema.pre('save', function(done) {
-  this.updatedAt = new Date();
+  this.updated_at = new Date();
+  done();
+});
+UserSchema.pre('update', function(done) {
+  this.updated_at = new Date();
   done();
 });
 

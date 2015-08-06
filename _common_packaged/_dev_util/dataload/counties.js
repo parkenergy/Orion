@@ -149,8 +149,9 @@ var CountyLoader = function (callback) {
       var state;
       var stateName = obj.state;
       var counties = obj.counties;
-      States.read({query: {name: stateName}}, function (err, dbState) {
+      States.list({query: {name: stateName}}, function (err, dbStates) {
         if (err) { throw err; }
+        var dbState = dbStates[0];
         if (!dbState) { throw new Error("Problem occured loading dbState."); }
         console.log(dbState.name+':');
         state = dbState;
@@ -158,7 +159,7 @@ var CountyLoader = function (callback) {
         async.eachSeries(counties,
           function (countyName, cb2) {
             var county = { name: countyName, state: state };
-            Counties.create({obj: county, query: {name: countyName}},
+            Counties.create({body: county, query: {name: countyName}},
             function (err, dbCounty) {
               console.log('\t'+dbCounty.name+' created');
               return cb2(err);

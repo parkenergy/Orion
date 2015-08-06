@@ -1,6 +1,6 @@
 angular.module('TransferApp.Directives')
 
-.directive('transferDetail', [function() {
+.directive('transferDetails', [function() {
   return {
     restrict: 'E',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit/transferDetails.html',

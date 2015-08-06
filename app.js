@@ -75,11 +75,11 @@ db.once('open', function (callback) {
     var host = server.address().address === "::" ?
                 "localhost" :
                 server.address().address;
-                
+
+
     var sync = new Agenda({db: {address: uri}});
 
     sync.define('sync', function(job, done) {
-      console.log('Starting Sync');
       importer.execute(done);
     });
 

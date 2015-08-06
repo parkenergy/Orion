@@ -2,8 +2,6 @@ angular.module('CommonControllers').controller('SessionCtrl',
 ['$scope', '$http', '$location', '$routeParams', '$window', 'AlertService',
 function ($scope, $http, $location, $routeParams, $window, AlertService) {
 
-  //$window.location.href = '/auth/parkenergyidentity';
-
   $scope.hideLocalLogin = false;
   $scope.title = "Login";
   $scope.message = "Use your local login to access the system.";
@@ -16,18 +14,12 @@ function ($scope, $http, $location, $routeParams, $window, AlertService) {
     AlertService.add("info", "We were unable to log you in. Please try again.");
   }
 
-  $scope.thirdPartyAuth = function (authService) {
-    var url = '/auth?authService=' + authService +
-    ($scope.returnUrl ? "&returnUrl=" + $scope.returnUrl +
-    ($scope.fragment ? "&fragment=" + $scope.fragment : "")
-    : "&returnUrl=/#/");
-
-    $window.location.href = url;
-  };
-
 	$scope.localLogin = function () {
-    $http.post("/auth/local", {username: $scope.username, password: $scope.password})
+    console.log("localLogin");
+    $http.post("/auth/local", {username: $scope.username, password: "whatever" })
     .success(function(data, status, headers, config) {
+      console.log(data)
+      console.log(status)
       AlertService.add("info", "Login Successful!", 1000);
       $location.path($scope.fragment || "myaccount");
     }).error(function(data, status, headers, config) {

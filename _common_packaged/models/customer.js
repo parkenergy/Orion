@@ -14,11 +14,15 @@ var CustomerSchema = new mongoose.Schema({
   netsuiteId:       { type: String, required: true, index: { unique: true } },
   phone:            { type: String },
   email:            { type: String },
-  updated_at:       { type: Date },
+  updated_at: { type: Date, required: true }
 
 });
 CustomerSchema.plugin(autopopulate);
 CustomerSchema.pre('save', function(done) {
+  this.updatedAt = new Date();
+  done();
+});
+CustomerSchema.pre('update', function(done) {
   this.updatedAt = new Date();
   done();
 });

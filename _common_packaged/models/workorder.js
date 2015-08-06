@@ -209,10 +209,16 @@ var WorkOrderSchema = new mongoose.Schema({
   county: { type: ObjectId, ref: 'Counties', index: true },
   lease: { type: ObjectId, ref: 'Lease', index: true },
 
+  updated_at: { type: Date, required: true }
+
 });
 WorkOrderSchema.plugin(autopopulate);
 WorkOrderSchema.set('toJSON', {getters: true, virtuals: true });
 WorkOrderSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
+WorkOrderSchema.pre('update', function(done) {
   this.updated_at = new Date();
   done();
 });
