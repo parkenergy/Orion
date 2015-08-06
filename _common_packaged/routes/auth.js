@@ -14,9 +14,12 @@ var failureUrl = "/#/login?failure=true";
 module.exports = function(app) {
 
   // expose url's required to use passport-google oauth strategy
-	app.post('/auth/local', passport.authenticate('local', {
-      successRedirect: successUrl,
-      failureRedirect: failureUrl }));
+	app.post('/auth/local',
+	passport.authenticate('local', {failureRedirect: failureUrl }),
+    function (req, res) {
+      return res.send(req.user);
+    }
+	);
 
   // expose url's required by in-house identity server
 	app.get('/auth/parkenergy', passport.authenticate('parkenergy'));
@@ -60,12 +63,7 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (id, done) {
   //TODO: find user with id
-  db.User.find({where: {_id: id}})
-  .success(function (user) {
-    return done(null, user);
-  }).error(function (err) {
-    return done(err);
-  });
+  db.Users.findOne({_id: id}, done);
 });
 
 passport.getRealm = function () {
