@@ -6,8 +6,6 @@ var express = require('express');
 var Agenda = require('agenda');
 var importHelper = require('./_common_packaged/helpers/netsuiteSyncHelper');
 var importer = new importHelper();
-var dataloader = require('./_common_packaged/_dev_util/dataload');
-var loader = new dataloader();
 var app = express();
     app.set('port', process.env.PORT || 3000);
     app.set('view engine', 'ejs');
@@ -78,8 +76,6 @@ db.once('open', function (callback) {
                 "localhost" :
                 server.address().address;
 
-    dataloader();
-    console.log('Loaded Data');
 
     var sync = new Agenda({db: {address: uri}});
 
