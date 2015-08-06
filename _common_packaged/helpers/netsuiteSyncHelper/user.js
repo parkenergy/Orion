@@ -15,11 +15,8 @@ var options = {
 };
 
 function getUsers(callback) {
-  console.log('Get Users');
   needle.get(userSearchUrl, options, function(err,data){
-    console.log('Needle Worked');
     if (err){ return err; }
-    console.log('Format NetSuite');
     var userArray = Object.keys(data.body).map(function(id) { // turn json into array
       return data.body[id];
     });
@@ -41,7 +38,6 @@ function userFormat (ele, callback) {
     netsuiteId: ele.id,
     updatedAt: Date.now()
   };
-  //console.log(customer);
   User.findOneAndUpdate(
     { netsuiteId : user.netsuiteId },
     user,

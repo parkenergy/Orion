@@ -9,6 +9,7 @@ var PartEnumerationHelper = require('../helpers/enumeration.js');
 ----------------------------------------------------------------------------- */
 var PartSchema = new mongoose.Schema({
 
+  netsuiteId:     { type: Number },
   description:    { type: String },
   componentName:  { type: String },
   system:         { type: Number },
@@ -24,11 +25,15 @@ var PartSchema = new mongoose.Schema({
     vendorPartCost:         { type: Number},
     vendorPartDescription:  { type: String }
   }],
-  updated_at: { type: Date }
+  updated_at: { type: Date, required: true }
 
 });
 PartSchema.plugin(autopopulate);
 PartSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
+PartSchema.pre('update', function(done) {
   this.updated_at = new Date();
   done();
 });

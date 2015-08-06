@@ -14,27 +14,31 @@ var TransferSchema = new mongoose.Schema({
 
   origin: {
     customer:     { type: ObjectId, ref: 'Customer', index: true, autopopulate: true},
-    location:     { type: ObjectId, ref: 'Location', index: true, autopopulate: true},
     county:       { type: ObjectId, ref: 'County', index: true, autopopulate: true},
     state:        { type: ObjectId, ref: 'State', index: true, autopopulate: true},
+    location:     { type: String},
     legal:        { type: String },
   },
 
   destination:  {
     customer:     { type: ObjectId, ref: 'Customer', index: true, autopopulate: true},
-    location:     { type: ObjectId, ref: 'Location', index: true, autopopulate: true},
     county:       { type: ObjectId, ref: 'County', index: true, autopopulate: true},
     state:        { type: ObjectId, ref: 'State', index: true, autopopulate: true},
+    location:     { type: String},
     legal:        { type: String },
   },
 
   transferedBy:   { type: ObjectId, ref: 'User', index: true, autopopulate: true},
 
   transferNote:   { type: String },
-  updated_at:     { type: Date}
+  updated_at: { type: Date, required: true }
 });
 TransferSchema.plugin(autopopulate);
 TransferSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
+TransferSchema.pre('update', function(done) {
   this.updated_at = new Date();
   done();
 });

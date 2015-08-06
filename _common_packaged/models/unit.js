@@ -26,11 +26,15 @@ var UnitSchema = new mongoose.Schema({
 
   Customer:       { type: ObjectId, ref: 'Customers', index: true, autopopulate: true },
   assignedTo:     { type: ObjectId, ref: 'Users', index: true },
-  updated_at:     { type: Date }
+  updated_at: { type: Date, required: true }
 
 });
 UnitSchema.plugin(autopopulate);
 UnitSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
+UnitSchema.pre('update', function(done) {
   this.updated_at = new Date();
   done();
 });

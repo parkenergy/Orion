@@ -4,8 +4,6 @@ angular.module('TransferApp.Controllers').controller('TransferIndexCtrl',
 
     $scope.title = "Transfers";
 
-    //$scope.transfers = transfers;
-
     $scope.editTransfer = function (id) {
       $location.path("/transfer/edit/" + (id || ""));
     };

@@ -10,13 +10,19 @@ var CountySchema = new mongoose.Schema({
 
   name: { type: String, required: true, index: true },
   state: { type: ObjectId, ref: 'States', required: true, index: true, autopopulate: true },
-  updated_at: { type: Date }
+  updated_at: { type: Date, required: true }
 
 });
 CountySchema.plugin(autopopulate);
-CountySchema.pre('save', function(done) {
-  this.updated_at = new Date();
-  done();
+CountySchema.pre('save', function(next) {
+    now = new Date();
+    this.updated_at = now;
+    next();
+});
+CountySchema.pre('update', function(next) {
+    now = new Date();
+    this.updated_at = now;
+    next();
 });
 
 /* Virtual Fields

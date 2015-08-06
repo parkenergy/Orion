@@ -10,11 +10,15 @@ var AreaSchema = new mongoose.Schema({
 
   name: { type: String, required: true, index: { unique: true } },
   locations: [{ type: ObjectId, index: true, autopopulate: true }],
-  updated_at: { type: Date }
+  updated_at: { type: Date, required: true }
 
 });
 AreaSchema.plugin(autopopulate);
 AreaSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
+AreaSchema.pre('update', function(done) {
   this.updated_at = new Date();
   done();
 });

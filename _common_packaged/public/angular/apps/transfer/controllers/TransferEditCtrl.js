@@ -1,21 +1,18 @@
 angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
-['$scope', '$window', '$location', '$timeout', 'AlertService', 'transfer', 'units', 'customers', 'users','locations','states', 'counties',
-  function ($scope, $window, $location, $timeout, AlertService, transfer, units, customers, users, locations, states, counties) {
+['$scope', '$window', '$location', '$timeout', 'AlertService', 'Transfers', 'transfer', 'units', 'customers', 'users','states', 'counties',
+  function ($scope, $window, $location, $timeout, AlertService, Transfers, transfer, units, customers, users, states, counties) {
 
-    $scope.title = (transfer !== null ? "Edit " : "Create ") + "Transfer";
-
+    $scope.message = (transfer !== null ? "Edit " : "Create ") + "Transfer";
     $scope.transfer = transfer || newTransfer();
-
-    $scope.loadingData = true;
-    $scope.states = GeographyService.states;
 
     $scope.units = units;
     $scope.customers = customers;
+    users.forEach(function(u){
+      u.fullname = u.firstName + ' ' + u.lastName;
+    });
     $scope.users = users;
-    $scope.locations = locations;
     $scope.states = states;
     $scope.counties = counties;
-    $window.scope = $scope;
 
     $scope.save = function () {
       $scope.submitting = true;
@@ -59,18 +56,18 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
 
         origin : {
           customer : {},
-          location : {},
           county : {},
           state : {},
-          legal : {}
+          location: '',
+          legal : '',
         },
 
         destination : {
           customer : {},
-          location : {},
           county : {},
           state : {},
-          legal : {},
+          location: '',
+          legal : '',
         },
 
         transferedBy : {},

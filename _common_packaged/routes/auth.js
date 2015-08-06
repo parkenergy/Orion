@@ -5,6 +5,7 @@ var OAuthStrategy = require('passport-oauth-profile').OAuthStrategy;
 var GoogleStrategy = require('passport-google').Strategy;
 var LocalStrategy = require('passport-local');
 var db = require('../models');
+var Users = db["users"];
 var https = require('https');
 var successUrl = "/#/myaccount";
 var failureUrl = "/#/login?failure=true";
@@ -14,9 +15,13 @@ var failureUrl = "/#/login?failure=true";
 module.exports = function(app) {
 
   // expose url's required to use passport-google oauth strategy
-	app.post('/auth/local', passport.authenticate('local', {
-      successRedirect: successUrl,
-      failureRedirect: failureUrl }));
+	app.post('/auth/local',
+	passport.authenticate('local', {failureRedirect: failureUrl }),
+    function (req, res) {
+			console.log(req.user);
+      return res.send(req.user);
+    }
+	);
 
   // expose url's required by in-house identity server
 	app.get('/auth/parkenergy', passport.authenticate('parkenergy'));
@@ -60,12 +65,7 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (id, done) {
   //TODO: find user with id
-  db.User.find({where: {_id: id}})
-  .success(function (user) {
-    return done(null, user);
-  }).error(function (err) {
-    return done(err);
-  });
+  Users.findOne({_id: id}, done);
 });
 
 passport.getRealm = function () {
@@ -98,9 +98,11 @@ passport.getReturnUrl = function (providerName) {
 
 passport.use('local', new LocalStrategy(
   function(username, password, done) {
-    db.User.findOne({username: username }, function (err, user) {
+    Users.findOne({username: username}, function (err, user) {
+			console.log("user ");
+			console.log(user);
       if (err) { return done(err); }
-      if (!user) { return done(null, false); }
+      if (!user) { return done("User not found"); }
       return done(null, user);
     });
   }

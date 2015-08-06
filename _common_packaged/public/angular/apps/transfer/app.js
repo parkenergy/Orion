@@ -1,6 +1,6 @@
 angular.module('TransferApp.Controllers', []);
 angular.module('TransferApp.Directives', []);
-angular.module('TransferApp.Services', ['ngResource', 'ngCookies']);
+angular.module('TransferApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
 
 angular.module('TransferApp', [
   'TransferApp.Controllers',
@@ -14,7 +14,7 @@ angular.module('TransferApp').config(['$routeProvider',
   $routeProvider
 
   .when('/transfer/edit/:id?', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'TransferEditCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit.html',
     resolve: {
@@ -56,14 +56,6 @@ angular.module('TransferApp').config(['$routeProvider',
         );
         return deferred.promise;
       },
-      locations: function($route, $q, Locations) {
-        var deferred = $q.defer();
-        Locations.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      },
       counties: function($route, $q, Counties) {
         var deferred = $q.defer();
         Counties.query({},
@@ -83,7 +75,7 @@ angular.module('TransferApp').config(['$routeProvider',
     }
   })
   .when('/transfer', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'TransferIndexCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/index.html',
     resolve: {
@@ -97,4 +89,20 @@ angular.module('TransferApp').config(['$routeProvider',
       }
     }
   });
+}]);
+
+angular.module('TransferApp')
+.run(['$route', '$rootScope', '$location',
+function ($route, $rootScope, $location) {
+    var original = $location.path;
+    $location.path = function (path, reload) {
+        if (reload === false) {
+            var lastRoute = $route.current;
+            var un = $rootScope.$on('$locationChangeSuccess', function () {
+                $route.current = lastRoute;
+                un();
+            });
+        }
+        return original.apply($location, [path]);
+    };
 }]);

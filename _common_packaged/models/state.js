@@ -8,10 +8,14 @@ var autopopulate = require('mongoose-autopopulate');
 ----------------------------------------------------------------------------- */
 var StateSchema = new mongoose.Schema({
   name: { type: String, required: true, index: true },
-  updated_at: { type: Date }
+  updated_at: { type: Date, required: true }
 });
 StateSchema.plugin(autopopulate);
 StateSchema.pre('save', function(done) {
+  this.updated_at = new Date();
+  done();
+});
+StateSchema.pre('update', function(done) {
   this.updated_at = new Date();
   done();
 });

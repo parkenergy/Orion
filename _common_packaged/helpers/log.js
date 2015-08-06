@@ -6,7 +6,7 @@ var hookInstaller = new HookInstaller();
 /* Declaration -- This class wraps console events
 ----------------------------------------------------------------------------- */
 var Log = function (db) {
-  this.db = require('../models');
+  this.db = db;
   this.env = process.env.NODE_ENV;
   this.logs = [];
   this.tables = [];

@@ -42,6 +42,10 @@ angular.module('CommonServices')
   return $resource('/api/states/:id', {id: '@id'});
 }])
 
+.factory('Transfers', ['$resource', function ($resource) {
+  return $resource('/api/transfers/:id', {id: '@id'});
+}])
+
 .factory('Units', ['$resource', function ($resource) {
   return $resource('/api/units/:id', {id: '@id'});
 }])

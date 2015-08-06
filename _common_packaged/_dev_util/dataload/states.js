@@ -8,7 +8,7 @@ var StateLoader = function (callback) {
   async.eachSeries(states,
     function (stateName, cb1) {
       var state = { name: stateName };
-      States.create({obj: state, query: state}, function (err, dbState) {
+      States.create({body: state, query: state}, function (err, dbState) {
         console.log('\t'+state.name+' created');
         return cb1(err);
       });

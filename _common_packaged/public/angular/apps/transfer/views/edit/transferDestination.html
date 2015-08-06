@@ -7,35 +7,34 @@
       label-text="Company"
       data="transfer.destination.customer"
       select-field="_id"
-      display-field="dbaCustomerName"
+      display-field="name"
       obj-list="customers">
     </select-list>
-    <select-list
+    <text-field
       label-text="Lease Name"
-      data="transfer.destination.location"
-      select-field="_id"
-      display-field="name"
-      obj-list="locations">
-    </select-list>
-    <select-list
+      placeholder-text="Destination Lease"
+      data="transfer.destination.location">
+    </text-field>
+    <text-field
       label-text="Legal"
-      data="transfer.destination.legal"
-      select-field="_id"
-      display-field="legal">
-    </select-list>
-    <select-list
+      placeholder-text="Destination Legal"
+      data="transfer.destination.legal">
+    </text-field>
+    <type-ahead
       label-text="County"
       data="trasnfer.destination.county"
-      select-field="_id"
-      display-field="name"
-      obj-list="counties">
-    </select-list>
-    <select-list
+      select-field="valueOf(counties)"
+      display-field="valueOf(counties)"
+      obj-list="counties"
+      limit="12">
+    </type-ahead>
+    <type-ahead
       label-text="State"
       data="trasnfer.destination.state"
       select-field="_id"
       display-field="name"
-      obj-list="states">
-    </select-list>
+      obj-list="states"
+      limit="12">
+    </type-ahead>
   </div>
 </div>

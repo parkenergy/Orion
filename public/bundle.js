@@ -310,8 +310,6 @@ angular.module('CommonControllers').controller('SessionCtrl',
 ['$scope', '$http', '$location', '$routeParams', '$window', 'AlertService',
 function ($scope, $http, $location, $routeParams, $window, AlertService) {
 
-  //$window.location.href = '/auth/parkenergyidentity';
-
   $scope.hideLocalLogin = false;
   $scope.title = "Login";
   $scope.message = "Use your local login to access the system.";
@@ -324,18 +322,12 @@ function ($scope, $http, $location, $routeParams, $window, AlertService) {
     AlertService.add("info", "We were unable to log you in. Please try again.");
   }
 
-  $scope.thirdPartyAuth = function (authService) {
-    var url = '/auth?authService=' + authService +
-    ($scope.returnUrl ? "&returnUrl=" + $scope.returnUrl +
-    ($scope.fragment ? "&fragment=" + $scope.fragment : "")
-    : "&returnUrl=/#/");
-
-    $window.location.href = url;
-  };
-
 	$scope.localLogin = function () {
-    $http.post("/auth/local", {username: $scope.username, password: $scope.password})
+    console.log("localLogin");
+    $http.post("/auth/local", {username: $scope.username, password: "whatever" })
     .success(function(data, status, headers, config) {
+      console.log(data)
+      console.log(status)
       AlertService.add("info", "Login Successful!", 1000);
       $location.path($scope.fragment || "myaccount");
     }).error(function(data, status, headers, config) {
@@ -883,6 +875,10 @@ angular.module('CommonServices')
   return $resource('/api/states/:id', {id: '@id'});
 }])
 
+.factory('Transfers', ['$resource', function ($resource) {
+  return $resource('/api/transfers/:id', {id: '@id'});
+}])
+
 .factory('Units', ['$resource', function ($resource) {
   return $resource('/api/units/:id', {id: '@id'});
 }])
@@ -1427,7 +1423,7 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
 
 angular.module('TransferApp.Controllers', []);
 angular.module('TransferApp.Directives', []);
-angular.module('TransferApp.Services', ['ngResource', 'ngCookies']);
+angular.module('TransferApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
 
 angular.module('TransferApp', [
   'TransferApp.Controllers',
@@ -1441,7 +1437,7 @@ angular.module('TransferApp').config(['$routeProvider',
   $routeProvider
 
   .when('/transfer/edit/:id?', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'TransferEditCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit.html',
     resolve: {
@@ -1483,14 +1479,6 @@ angular.module('TransferApp').config(['$routeProvider',
         );
         return deferred.promise;
       },
-      locations: function($route, $q, Locations) {
-        var deferred = $q.defer();
-        Locations.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      },
       counties: function($route, $q, Counties) {
         var deferred = $q.defer();
         Counties.query({},
@@ -1510,7 +1498,7 @@ angular.module('TransferApp').config(['$routeProvider',
     }
   })
   .when('/transfer', {
-    needsLogin: true,
+    needsLogin: false,
     controller: 'TransferIndexCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/index.html',
     resolve: {
@@ -1524,6 +1512,22 @@ angular.module('TransferApp').config(['$routeProvider',
       }
     }
   });
+}]);
+
+angular.module('TransferApp')
+.run(['$route', '$rootScope', '$location',
+function ($route, $rootScope, $location) {
+    var original = $location.path;
+    $location.path = function (path, reload) {
+        if (reload === false) {
+            var lastRoute = $route.current;
+            var un = $rootScope.$on('$locationChangeSuccess', function () {
+                $route.current = lastRoute;
+                un();
+            });
+        }
+        return original.apply($location, [path]);
+    };
 }]);
 
 angular.module('UnitApp.Controllers', []);
@@ -3435,23 +3439,20 @@ angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerIndexC
 }]);
 
 angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
-['$scope', '$window', '$location', '$timeout', 'AlertService', 'transfer', 'units', 'customers', 'users','locations','states', 'counties',
-  function ($scope, $window, $location, $timeout, AlertService, transfer, units, customers, users, locations, states, counties) {
+['$scope', '$window', '$location', '$timeout', 'AlertService', 'Transfers', 'transfer', 'units', 'customers', 'users','states', 'counties',
+  function ($scope, $window, $location, $timeout, AlertService, Transfers, transfer, units, customers, users, states, counties) {
 
-    $scope.title = (transfer !== null ? "Edit " : "Create ") + "Transfer";
-
+    $scope.message = (transfer !== null ? "Edit " : "Create ") + "Transfer";
     $scope.transfer = transfer || newTransfer();
-
-    $scope.loadingData = true;
-    $scope.states = GeographyService.states;
 
     $scope.units = units;
     $scope.customers = customers;
+    users.forEach(function(u){
+      u.fullname = u.firstName + ' ' + u.lastName;
+    });
     $scope.users = users;
-    $scope.locations = locations;
     $scope.states = states;
     $scope.counties = counties;
-    $window.scope = $scope;
 
     $scope.save = function () {
       $scope.submitting = true;
@@ -3495,18 +3496,18 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
 
         origin : {
           customer : {},
-          location : {},
           county : {},
           state : {},
-          legal : {}
+          location: '',
+          legal : '',
         },
 
         destination : {
           customer : {},
-          location : {},
           county : {},
           state : {},
-          legal : {},
+          location: '',
+          legal : '',
         },
 
         transferedBy : {},
@@ -3523,8 +3524,6 @@ angular.module('TransferApp.Controllers').controller('TransferIndexCtrl',
   function ($scope, $route, $location, AlertService, LoaderService, transfers) {
 
     $scope.title = "Transfers";
-
-    //$scope.transfers = transfers;
 
     $scope.editTransfer = function (id) {
       $location.path("/transfer/edit/" + (id || ""));
@@ -4600,7 +4599,7 @@ angular.module('TransferApp.Directives')
 
 angular.module('TransferApp.Directives')
 
-.directive('transferDetail', [function() {
+.directive('transferDetails', [function() {
   return {
     restrict: 'E',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit/transferDetails.html',
@@ -9431,6 +9430,7 @@ angular.module('Orion', [
   'LocationApp',
   'PartApp',
   //'StateApp',
+  'TransferApp',
   'UnitApp',
   'UserApp',
   'VendorApp',
