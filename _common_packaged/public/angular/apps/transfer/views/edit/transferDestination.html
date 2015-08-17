@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Transfer Destination</h3>
   </div>
-  <div class="panel-body">
+  <div class="panel-body" >
     <select-list
       label-text="Company"
       data="transfer.destination.customer"
@@ -22,19 +22,34 @@
     </text-field>
     <type-ahead
       label-text="County"
-      data="trasnfer.destination.county"
-      select-field="valueOf(counties)"
-      display-field="valueOf(counties)"
+      placeholder-text="Destination County"
+      data="transfer.destination.county"
+      select-field="county"
+      display-field="name"
       obj-list="counties"
       limit="12">
     </type-ahead>
     <type-ahead
       label-text="State"
-      data="trasnfer.destination.state"
-      select-field="_id"
+      placeholder-text="Destination State"
+      data="transfer.destination.state"
+      select-field="state"
       display-field="name"
       obj-list="states"
       limit="12">
     </type-ahead>
+    <!-- <input
+      type="text"
+      ng-model="transfer.destination.county"
+      placeholder="Destination County"
+      typeahead="county._id as county.name for county in counties | filter:{name:$viewValue}"
+      class="form-control"> -->
+    <!-- <type-ahead
+      label-text="State"
+      data="trasnfer.destination.state"
+      select-field="_id"
+      display-field="name"
+      obj-list="states">
+    </type-ahead> -->
   </div>
 </div>

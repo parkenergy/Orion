@@ -1,9 +1,10 @@
   <div class="form-group">
     <label for="{{data}}">{{labelText}}</label>
-    <input type="text"
-      ng-model="data"
-      typeahead="o.{{select}} as o.{{display}} for o in objList | filter:$viewValue | limitTo:{{limit}}"
-      class="form-control"
+    <input
+      type="text"
       placeholder="{{placeholderText}}"
-      name="{{data}}">
+      ng-model="data"
+      typeahead="{{selectField}} as {{selectField}}.{{displayField}} for {{selectField}} in objList | filter:{ {{displayField}}:$viewValue }| limitTo:{{limit}}"
+      class="form-control"
+      name="{{data}}"
   </div>

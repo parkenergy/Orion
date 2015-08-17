@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Transfer Origin</h3>
   </div>
-  <div class="panel-body">
+  <div class="panel-body" >
     <select-list
       label-text="Company"
       data="transfer.origin.customer"
@@ -20,19 +20,12 @@
       placeholder-text="Origin Legal"
       data="transfer.origin.legal">
     </text-field>
-    <select-list
+    <text-field
       label-text="County"
-      data="trasnfer.origin.county"
-      select-field="_id"
-      display-field="name"
-      obj-list="counties">
-    </select-list>
-    <select-list
+      data="transfer.origin.county.name">
+    </text-field>
+    <text-field
       label-text="State"
-      data="trasnfer.origin.state"
-      select-field="_id"
-      display-field="name"
-      obj-list="states">
-    </select-list>
+      data="transfer.origin.state.name">
   </div>
 </div>

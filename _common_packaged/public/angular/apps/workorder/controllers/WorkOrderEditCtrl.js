@@ -1,6 +1,6 @@
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$scope', '$location', '$timeout', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts',
-  function ($window, $scope, $location, $timeout, AlertService, WorkOrders, workorder, units, customers, users, parts) {
+['$window', '$scope', '$location', '$timeout', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties',
+  function ($window, $scope, $location, $timeout, AlertService, WorkOrders, workorder, units, customers, users, parts, counties) {
 
     $scope.message = (workorder !== null ? "Edit " : "Create ") + "Work Order";
 
@@ -9,6 +9,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
     $scope.customers = customers;
     $scope.users = users;
     $scope.parts = parts;
+    $scope.counties = counties;
     $scope.hours = getHours();
     $scope.minutes = getMinutes();
 

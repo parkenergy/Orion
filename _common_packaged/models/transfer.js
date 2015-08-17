@@ -14,21 +14,21 @@ var TransferSchema = new mongoose.Schema({
 
   origin: {
     customer:     { type: ObjectId, ref: 'Customer', index: true, autopopulate: true},
-    county:       { type: ObjectId, ref: 'County', index: true, autopopulate: true},
-    state:        { type: ObjectId, ref: 'State', index: true, autopopulate: true},
+    county:       { type: ObjectId, ref: 'County', index: true},
+    state:        { type: ObjectId, ref: 'State', index: true},
     location:     { type: String},
     legal:        { type: String },
   },
 
   destination:  {
-    customer:     { type: ObjectId, ref: 'Customer', index: true, autopopulate: true},
-    county:       { type: ObjectId, ref: 'County', index: true, autopopulate: true},
-    state:        { type: ObjectId, ref: 'State', index: true, autopopulate: true},
+    customer:     { type: ObjectId, ref: 'Customer', index: true},
+    county:       { type: ObjectId, ref: 'County', index: true},
+    state:        { type: ObjectId, ref: 'State', index: true},
     location:     { type: String},
     legal:        { type: String },
   },
 
-  transferedBy:   { type: ObjectId, ref: 'User', index: true, autopopulate: true},
+  transferedBy:   { type: ObjectId, ref: 'User', index: true},
 
   transferNote:   { type: String },
   updated_at: { type: Date, required: true }

@@ -14,7 +14,7 @@ angular.module('TransferApp').config(['$routeProvider',
   $routeProvider
 
   .when('/transfer/edit/:id?', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'TransferEditCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/edit.html',
     resolve: {
@@ -28,9 +28,8 @@ angular.module('TransferApp').config(['$routeProvider',
             function (err) { return deferred.reject(err); }
           );
           return deferred.promise;
-        } else {
-          return null;
         }
+        else { return null; }
       },
       units: function($route, $q, Units) {
         var deferred = $q.defer();
@@ -75,7 +74,7 @@ angular.module('TransferApp').config(['$routeProvider',
     }
   })
   .when('/transfer', {
-    needsLogin: false,
+    needsLogin: true,
     controller: 'TransferIndexCtrl',
     templateUrl: '/_common_packaged/public/angular/apps/transfer/views/index.html',
     resolve: {
@@ -94,15 +93,15 @@ angular.module('TransferApp').config(['$routeProvider',
 angular.module('TransferApp')
 .run(['$route', '$rootScope', '$location',
 function ($route, $rootScope, $location) {
-    var original = $location.path;
-    $location.path = function (path, reload) {
-        if (reload === false) {
-            var lastRoute = $route.current;
-            var un = $rootScope.$on('$locationChangeSuccess', function () {
-                $route.current = lastRoute;
-                un();
-            });
-        }
-        return original.apply($location, [path]);
-    };
+  var original = $location.path;
+  $location.path = function (path, reload) {
+    if (reload === false) {
+      var lastRoute = $route.current;
+      var un = $rootScope.$on('$locationChangeSuccess', function () {
+          $route.current = lastRoute;
+          un();
+      });
+    }
+    return original.apply($location, [path]);
+  };
 }]);

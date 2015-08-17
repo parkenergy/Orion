@@ -14,7 +14,19 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
     $scope.states = states;
     $scope.counties = counties;
 
+    $scope.today =  Date.now();
+
+    $scope.status = {
+      opened: false
+    };
+
+    $scope.open = function($event) {
+      $scope.status.opened = true;
+    };
+
+
     $scope.save = function () {
+      console.log('Saving');
       $scope.submitting = true;
       console.log($scope.transfer);
       Transfers.save({_id: $scope.transfer._id}, $scope.transfer,
@@ -47,10 +59,11 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
       );
     };
 
+
     function newTransfer() {
       var newTrans =
       {
-        transferDate : new Date(),
+        transferDate :  new Date(),
 
         unit : {},
 
@@ -74,7 +87,7 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
 
         trasnferNote : ""
 
-      }
+      };
       return newTrans;
     }
 }]);

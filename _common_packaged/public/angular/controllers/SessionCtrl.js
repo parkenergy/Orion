@@ -18,8 +18,8 @@ function ($scope, $http, $location, $routeParams, $window, AlertService) {
     console.log("localLogin");
     $http.post("/auth/local", {username: $scope.username, password: "whatever" })
     .success(function(data, status, headers, config) {
-      console.log(data)
-      console.log(status)
+      console.log(data);
+      console.log(status);
       AlertService.add("info", "Login Successful!", 1000);
       $location.path($scope.fragment || "myaccount");
     }).error(function(data, status, headers, config) {

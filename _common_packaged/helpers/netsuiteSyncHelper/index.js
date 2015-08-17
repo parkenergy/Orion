@@ -2,7 +2,7 @@
 var loadUnits = require('./unit.js');
 var loadCustomers = require('./customer.js');
 var loadUsers = require('./user.js');
-var loadParts = require('./part.js')
+var loadParts = require('./part.js');
 var async = require('async');
 
 var importHelper = function () {

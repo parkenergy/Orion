@@ -4,19 +4,29 @@
   </div>
   <div class="panel-body">
     <select-list
+      class="col-md-4"
       label-text="Unit Number"
       data="transfer.unit"
       select-field="_id"
       display-field="number"
       obj-list="units">
     </select-list>
-    <date-field
-  		label-text="Transfer Date"
-      data="transfer.date">
-  	</date-field>
+    <div class="col-md-4">
+      <label for="">Transfer Date</label>
+      <p class="input-group">
+        <input type="date" class="form-control" datepicker-popup
+        ng-model="transfer.transferDate" is-open="status.opened"
+        close-text="Close" init-date="today" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open($event)">
+            <i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </div>
     <select-list
+      class="col-md-4"
       label-text="Transfered By"
-      data="transfer.user"
+      data="transfer.transferedBy"
       select-field="_id"
       display-field="fullname"
       obj-list="users">

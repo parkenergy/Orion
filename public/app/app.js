@@ -14,6 +14,7 @@ angular.module('Orion', [
   'CountyApp',
   'CustomerApp',
   'EngineApp',
+  'InventoryTransferApp',
   'LocationApp',
   'PartApp',
   //'StateApp',
