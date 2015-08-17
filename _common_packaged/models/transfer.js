@@ -14,10 +14,10 @@ var TransferSchema = new mongoose.Schema({
 
   origin: {
     customer:     { type: ObjectId, ref: 'Customer', index: true, autopopulate: true},
-    county:       { type: ObjectId, ref: 'County', index: true},
-    state:        { type: ObjectId, ref: 'State', index: true},
-    location:     { type: String},
-    legal:        { type: String },
+    county:       { type: ObjectId, ref: 'County', index: true, autopopulate: true},
+    state:        { type: ObjectId, ref: 'State', index: true, autopopulate: true},
+    location:     { type: String, autopopulate: true },
+    legal:        { type: String, autopopulate: true, autopopulate: true },
   },
 
   destination:  {

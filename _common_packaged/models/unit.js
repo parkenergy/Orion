@@ -22,8 +22,8 @@ var UnitSchema = new mongoose.Schema({
   compressorSerial:     { type: String },
   locationName:         { type: String },
   legalDescription:     { type: String },
-  county:         { type: ObjectId, ref: 'Counties', index: true},
-  state:          { type: ObjectId, ref: 'States', index: true},
+  county:         { type: ObjectId, ref: 'Counties', index: true, autopopulate: true },
+  state:          { type: ObjectId, ref: 'States', index: true, autopopulate: true},
 
   Customer:       { type: ObjectId, ref: 'Customers', index: true, autopopulate: true },
   assignedTo:     { type: ObjectId, ref: 'Users', index: true },

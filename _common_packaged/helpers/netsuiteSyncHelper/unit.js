@@ -3,6 +3,8 @@ var needle = require('needle');
 var async = require('async');
 var Unit = require('../../models/unit.js');
 var Customer = require('../../models/customer.js');
+var County = require('../../models/county.js');
+var State = require('../../models/state.js');
 var User = require('../../models/user.js');
 var exec = require('child_process').exec,
     child;
@@ -69,7 +71,7 @@ function unitFormat (ele, callback) {
   }
 
   if (ele.columns.custrecord_state){
-    nsState = ele.columns.custrecord_state;
+    nsState = ele.columns.custrecord_state.name;
   }
 
   // If the objects are found, add them to the unit

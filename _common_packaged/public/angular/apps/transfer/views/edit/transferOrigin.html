@@ -3,21 +3,19 @@
     <h3 class="panel-title">Transfer Origin</h3>
   </div>
   <div class="panel-body" >
-    <select-list
+    <text-field
       label-text="Company"
-      data="transfer.origin.customer"
-      select-field="_id"
-      display-field="name"
-      obj-list="customers">
-    </select-list>
+      placeholder-text=""
+      data="transfer.origin.customer.name">
+    </text-field>
     <text-field
       label-text="Lease Name"
-      placeholder-text="Origin Lease"
+      placeholder-text=""
       data="transfer.origin.location">
     </text-field>
     <text-field
       label-text="Legal"
-      placeholder-text="Origin Legal"
+      placeholder-text=""
       data="transfer.origin.legal">
     </text-field>
     <text-field

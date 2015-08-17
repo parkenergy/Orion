@@ -30,7 +30,6 @@ function getParts(callback) {
 }
 
 function partFormat (ele, callback) {
-  console.log(ele);
   var part = {
       netsuiteId: ele.id,
       description: ele.columns.salesdescription,

@@ -55,7 +55,7 @@ var DataHelper = function (collection) {
         var msg = 'req.body cannot be undefined for create operations.';
         return callback(new Error(msg), null);
       }
-
+      req.body.updated_at = new Date();
       collection.findOneAndUpdate(
         req.query,
         req.body,
@@ -87,6 +87,7 @@ var DataHelper = function (collection) {
         return callback(new Error(msg), null);
       }
       // findOrCreate from query parameter (http://stackoverflow.com/a/16362833)
+      req.body.updated_at = new Date();
       collection.findOne({ _id: req.body._id }, function (err, model) {
         if (err) { return callback (err); }
         model.update(req.body, function (err, data) {

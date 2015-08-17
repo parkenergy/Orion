@@ -36,6 +36,16 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       }
     }, true);
 
+    $scope.$watch(
+      function () { return $scope.workorder.header.unitNumber; },
+      function ( newValue, oldValue ) {
+        $scope.workorder.header.customerName = $scope.workorder.header.unitNumber.Customer;
+        $scope.workorder.header.state = $scope.workorder.header.unitNumber.state;
+        $scope.workorder.header.county = $scope.workorder.header.unitNumber.county;
+        $scope.workorder.header.leaseName = $scope.workorder.header.unitNumber.locationName;
+      }
+    );
+
 
     $scope.save = function () {
       $scope.submitting = true;

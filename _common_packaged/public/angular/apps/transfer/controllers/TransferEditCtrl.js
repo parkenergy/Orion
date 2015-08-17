@@ -24,6 +24,16 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
       $scope.status.opened = true;
     };
 
+    $scope.$watch(
+      function () { return $scope.transfer.unit; },
+      function ( newValue, oldValue) {
+        $scope.transfer.origin.customer = $scope.transfer.unit.Customer;
+        $scope.transfer.origin.county = $scope.transfer.unit.county;
+        $scope.transfer.origin.state = $scope.transfer.unit.state;
+        $scope.transfer.origin.location = $scope.transfer.unit.locationName;
+        $scope.transfer.origin.legal = $scope.trasnfer.unit.legalDescription;
+      }, true );
+
 
     $scope.save = function () {
       console.log('Saving');
@@ -65,7 +75,7 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
       {
         transferDate :  new Date(),
 
-        unit : {},
+        unit: {number: ''},
 
         origin : {
           customer : {},
@@ -77,15 +87,13 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
 
         destination : {
           customer : {},
-          county : {},
-          state : {},
           location: '',
           legal : '',
         },
 
         transferedBy : {},
 
-        trasnferNote : ""
+        transferNote : ""
 
       };
       return newTrans;

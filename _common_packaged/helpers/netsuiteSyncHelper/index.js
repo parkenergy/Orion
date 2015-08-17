@@ -51,7 +51,6 @@ importHelper.prototype.execute = function (callback) {
     },
 
     function (cb) {
-      console.log('Load Parts');
       loadParts(function (err, data) {
         self.parts = data;
         return cb(err, data);
