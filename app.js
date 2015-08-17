@@ -87,6 +87,8 @@ db.once('open', function (callback) {
 
     sync.start();
 
+
+
     var Log = require('./_common_packaged/helpers/log.js');
     var log = new Log(db);
     log.initialize();
@@ -94,7 +96,7 @@ db.once('open', function (callback) {
     console.log('Orion server listening at http://' + host + ':' + port);
     console.log('Orion server running in ' + env + ' environment');
 
-    if(env === 'development' && false) { // change to true to load data
+    if(true) { // change to true to load data
       var DataLoader = require('./_common_packaged/_dev_util/dataload');
       var dataload = new DataLoader();
     }
