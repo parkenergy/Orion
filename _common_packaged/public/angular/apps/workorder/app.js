@@ -86,6 +86,15 @@ angular.module('WorkOrderApp').config(['$routeProvider',
           function (response) { return deferred.resolve(response); },
           function (err) { return deferred.reject(err); }
         );
+        return deferred.promise;
+      },
+      applicationtypes: function($route, $q, ApplicationTypes) {
+        var deferred = $q.defer();
+        ApplicationTypes.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
       }
     }
   })

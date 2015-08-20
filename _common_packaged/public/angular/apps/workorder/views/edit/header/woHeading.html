@@ -6,8 +6,9 @@
   	<type-ahead
       class="col-md-4"
   		label-text="Unit #"
+      place-text=""
       data="workorder.header.unitNumber"
-  		select-field="number"
+  		select-field="unitNumber"
   		display-field="number"
   		obj-list="units"
       limit="12">
@@ -70,10 +71,10 @@
     <select-list
       class="col-md-4"
   		label-text="Application Type"
-      data="workorder.header.applicationType"
-  		select-field="text"
-  		display-field="text"
-  		obj-list="applicationTypes">
+      data="workorder.header.applicationtype"
+  		select-field="_id"
+  		display-field="type"
+  		obj-list="applicationtypes">
   	</select-list>
   </div>
 </div>

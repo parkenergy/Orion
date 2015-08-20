@@ -13,7 +13,8 @@
               class="form-control pull-right"
               name="searchPhrase"
               ng-model="searchPhrase"
-              placeholder="Search here">
+              placeholder="Search here"
+              ng-minlength="3">
     </div>
     <!-- end search field -->
 
@@ -54,10 +55,11 @@
       </thead>
       <!-- end table header -->
 
-      <tbody>
+      <tbody ng-hide="hideParts">
         <tr ng-click="rowClickAction(obj)"
             ng-repeat="obj in oList = (objectList
-                                        | filter:searchPhrase
+                                        | filter: { description: searchPhrase }
+                                        | limitTo: 50
                                         | orderBy:sort.column:sort.descending)">
 
           <td ng-repeat="c in displayColumns">

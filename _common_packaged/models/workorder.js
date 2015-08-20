@@ -23,7 +23,7 @@ var WorkOrderSchema = new mongoose.Schema({
   },
 
   header: {
-    unitNumber:       { type: String },
+    unitNumber: { type: ObjectId, ref: 'Units', index: true, autopopulate: true },
     customerName:     { type: String },
     contactName:      { type: String },
     county:           { type: String },
@@ -31,7 +31,7 @@ var WorkOrderSchema = new mongoose.Schema({
     leaseName:        { type: String },
     rideAlong:        { type: String },
     mileage:          { type: String },
-    applicationType:  { type: String }
+    applicationtype:  { type: String }
   },
 
   unitOwnership: {
@@ -203,11 +203,6 @@ var WorkOrderSchema = new mongoose.Schema({
     isWarranty:   { type: Boolean },
   }],
 
-  unit: { type: ObjectId, ref: 'Units', index: true },
-  customer: { type: ObjectId, ref: 'Customers', index: true },
-  worker: { type: ObjectId, ref: 'Users', index: true },
-  county: { type: ObjectId, ref: 'Counties', index: true },
-  lease: { type: ObjectId, ref: 'Lease', index: true },
 
   updated_at: { type: Date, required: true }
 

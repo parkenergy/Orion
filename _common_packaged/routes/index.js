@@ -9,6 +9,7 @@ module.exports = function (app) {
 
   /* Generalized CRUD REST API routes constructed via factory.js
   --------------------------------------------------------------------------- */
+  require('./factory') (app, "applicationtypes");
   require('./factory') (app, "areas");
   //require('./factory') (app, "compressors");
   require('./factory') (app, "counties");

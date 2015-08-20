@@ -3,6 +3,7 @@ var loadUnits = require('./unit.js');
 var loadCustomers = require('./customer.js');
 var loadUsers = require('./user.js');
 var loadParts = require('./part.js');
+var loadApplicationTypes = require('./applicationtype.js');
 var async = require('async');
 
 var importHelper = function () {
@@ -19,6 +20,7 @@ var importHelper = function () {
   this.parts = null;
   this.units = null;
   this.users = null;
+  this.applicationtypes = null;
 
 
 };
@@ -53,6 +55,13 @@ importHelper.prototype.execute = function (callback) {
     function (cb) {
       loadParts(function (err, data) {
         self.parts = data;
+        return cb(err, data);
+      });
+    },
+
+    function (cb) {
+      loadApplicationTypes(function (err, data) {
+        self.applicationtypes = data;
         return cb(err, data);
       });
     },

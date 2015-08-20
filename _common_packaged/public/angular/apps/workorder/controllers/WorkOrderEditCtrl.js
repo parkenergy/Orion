@@ -1,15 +1,17 @@
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$scope', '$location', '$timeout', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties',
-  function ($window, $scope, $location, $timeout, AlertService, WorkOrders, workorder, units, customers, users, parts, counties) {
+['$window', '$scope', '$location', '$timeout', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes',
+  function ($window, $scope, $location, $timeout, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes) {
 
     $scope.message = (workorder !== null ? "Edit " : "Create ") + "Work Order";
 
     $scope.workorder = workorder || newWorkOrder();
+    
     $scope.units = units;
     $scope.customers = customers;
     $scope.users = users;
     $scope.parts = parts;
     $scope.counties = counties;
+    $scope.applicationtypes = applicationtypes;
     $scope.hours = getHours();
     $scope.minutes = getMinutes();
 
@@ -136,7 +138,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
           leaseName:        "",
           rideAlong:        "",
           mileage:          "",
-          applicationType:  ""
+          applicationtype:  ""
         },
 
         unitOwnership: {

@@ -96,7 +96,6 @@ function unitFormat (ele, callback) {
           unit.state = !state ? null : state._id;
 
           // Finally upsert the unit
-          console.log(unit);
           Unit.findOneAndUpdate(
             { netsuiteId : unit.netsuiteId },
             unit,
