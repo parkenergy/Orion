@@ -1,6 +1,6 @@
 angular.module('Orion.Controllers', []);
 angular.module('Orion.Directives', []);
-angular.module('Orion.Services', ['ngRoute', 'ngResource', 'ngCookies', ]);
+angular.module('Orion.Services', ['ngRoute', 'ngResource', 'ngCookies' ]);
 
 angular.module('Orion', [
   'CommonControllers',

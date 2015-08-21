@@ -5,20 +5,24 @@
   <div class="panel-body">
     <button
       class="btn  btn-primary col-md-4"
-      ng-click="showLeaseNotes()">
+      ng-click="openLeaseNotes()">
       Lease Notes
     </button>
     <button
       class="btn  btn-primary col-md-4"
-      ng-click="showJSA()">
+      ng-click="openJSA()">
       JSA
     </button>
     <button
       class="btn  btn-primary col-md-4"
-      ng-click="showUnitNotes()">
+      ng-click="openUnitNotes()">
       Unit Notes
     </button>
+    <div class="col-md-8">
+      Asset Type: {{workorder.header.unitNumber.productSeries}}
+    </div>
   	<check-box
+      class="col-md-8"
   		label-text="Unit Running on Departure"
       data="workorder.misc.isUnitRunningOnDeparture">
   	</check-box>

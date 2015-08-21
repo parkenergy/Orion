@@ -1,11 +1,11 @@
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$scope', '$location', '$timeout', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes',
-  function ($window, $scope, $location, $timeout, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes) {
+['$window', '$scope', '$location', '$timeout', '$modal', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes',
+  function ($window, $scope, $location, $timeout, $modal, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes) {
 
     $scope.message = (workorder !== null ? "Edit " : "Create ") + "Work Order";
 
     $scope.workorder = workorder || newWorkOrder();
-    
+
     $scope.units = units;
     $scope.customers = customers;
     $scope.users = users;
@@ -248,6 +248,8 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
         laborCodes: {
           basic: {
             safety:         { hours: 0, minutes: 0 },
+            positiveAdj:    { hours: 0, minutes: 0 },
+            negativeAdj:    { hours: 0, minutes: 0 },
             lunch:          { hours: 0, minutes: 0 },
             custRelations:  { hours: 0, minutes: 0 },
             telemetry:      { hours: 0, minutes: 0 },
@@ -351,5 +353,61 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       $scope.workorder.parts = arr;
     };
 
+    $scope.openLeaseNotes = function(){
+      var modalInstance= $modal.open({
+        templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woLeaseNotesModal.html',
+        controller: 'NotesModalCtrl',
+        resolve: {
+          notes: function(){
+            return $scope.workorder.misc.leaseNotes;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (notes){
+        $scope.workorder.misc.leaseNotes = notes;
+      });
+    };
+
+    $scope.openUnitNotes = function(){
+      var modalInstance = $modal.open({
+        templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woUnitNotesModal.html',
+        controller: 'NotesModalCtrl',
+        resolve: {
+          notes: function(){
+            return $scope.workorder.misc.unitNotes;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (notes){
+        $scope.workorder.misc.unitNotes = notes;
+      });
+    };
+
     $scope.getTimeElapsed();
 }]);
+
+angular.module('WorkOrderApp.Controllers').controller('NotesModalCtrl',
+function($scope, $modalInstance, notes){
+  $scope.notes = notes;
+
+  $scope.ok = function(){
+    $modalInstance.close($scope.notes);
+  };
+  $scope.cancel = function(){
+    $modalInstance.dismiss('cancel');
+  };
+});
+
+// angular.module('WorkOrderApp.Controllers').controller('UnitNotesModalCtrl',
+// function($scope, $unitInstance, unitNotes){
+//   $scope.unitNotes = unitNotes;
+//
+//   $scope.ok = function(){
+//     $unitInstance.close($scope.unitNotes);
+//   };
+//   $scope.cancel = function(){
+//     $unitInstance.dismiss('cancel');
+//   };
+// });

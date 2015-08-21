@@ -30,7 +30,8 @@ var WorkOrderSchema = new mongoose.Schema({
     state:            { type: String },
     leaseName:        { type: String },
     rideAlong:        { type: String },
-    mileage:          { type: String },
+    startMileage:     { type: String },
+    endMileage:       { type: String },
     applicationtype:  { type: String }
   },
 
