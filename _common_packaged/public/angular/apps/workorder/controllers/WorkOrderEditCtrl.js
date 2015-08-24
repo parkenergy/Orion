@@ -1,6 +1,6 @@
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$scope', '$location', '$timeout', '$modal', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes',
-  function ($window, $scope, $location, $timeout, $modal, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes) {
+['$window', '$scope', '$location', '$timeout', '$modal', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes', 'jsas',
+  function ($window, $scope, $location, $timeout, $modal, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes, jsas) {
 
     $scope.message = (workorder !== null ? "Edit " : "Create ") + "Work Order";
 
@@ -12,6 +12,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
     $scope.parts = parts;
     $scope.counties = counties;
     $scope.applicationtypes = applicationtypes;
+    $scope.jsas = jsas;
     $scope.hours = getHours();
     $scope.minutes = getMinutes();
 
@@ -301,7 +302,10 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
           },
         },
 
-        parts: []
+        parts: [],
+
+        jsa: {}
+
       };
       return newWO;
     }
@@ -385,6 +389,23 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       });
     };
 
+    $scope.openJSA = function(){
+      var modalInstance = $modal.open({
+        templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woJsaModal.html',
+        controller: 'JsaModalCtrl',
+        size: 'lg',
+        resolve: {
+          jsa: function(){
+            return $scope.workorder.jsa;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (jsa){
+        $scope.workorder.jsa = jsa;
+      });
+    };
+
     $scope.getTimeElapsed();
 }]);
 
@@ -400,14 +421,14 @@ function($scope, $modalInstance, notes){
   };
 });
 
-// angular.module('WorkOrderApp.Controllers').controller('UnitNotesModalCtrl',
-// function($scope, $unitInstance, unitNotes){
-//   $scope.unitNotes = unitNotes;
-//
-//   $scope.ok = function(){
-//     $unitInstance.close($scope.unitNotes);
-//   };
-//   $scope.cancel = function(){
-//     $unitInstance.dismiss('cancel');
-//   };
-// });
+angular.module('WorkOrderApp.Controllers').controller('JsaModalCtrl',
+function($scope, $modalInstance, jsa ){
+  $scope.jsa= jsa;
+
+  $scope.ok = function(){
+    $modalInstance.close($scope.jsa);
+  };
+  $scope.cancel = function(){
+    $modalInstance.dismiss('cancel');
+  };
+});

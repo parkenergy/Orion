@@ -49,7 +49,6 @@ var WorkOrderSchema = new mongoose.Schema({
   misc: {
     leaseNotes: { type: String },
     unitNotes:  { type: String },
-    JSA:        { type: String },
 
     typeOfAsset:              { type: String },
     isUnitRunningOnDeparture: { type: Boolean }
@@ -204,6 +203,7 @@ var WorkOrderSchema = new mongoose.Schema({
     isWarranty:   { type: Boolean },
   }],
 
+  jsa: { type: ObjectId, ref: 'Jsas', index: true, autopopulate: true },
 
   updated_at: { type: Date, required: true }
 

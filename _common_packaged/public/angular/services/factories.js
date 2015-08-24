@@ -38,6 +38,10 @@ angular.module('CommonServices')
   return $resource('/api/inventorytransfers/:id', {id: '@id'});
 }])
 
+.factory('Jsas', ['$resource', function ($resource) {
+  return $resource('/api/jsas/:id', {id: '@id'});
+}])
+
 .factory('Locations', ['$resource', function ($resource) {
   return $resource('/api/locations/:id', {id: '@id'});
 }])

@@ -17,6 +17,7 @@ module.exports = function (app) {
   //require('./factory') (app, "engines");
   //require('./factory') (app, "locations");
   require('./factory') (app, "inventorytransfers");
+  require('./factory') (app, "jsas");
   require('./factory') (app, "parts");
   require('./factory') (app, "transfers");
   require('./factory') (app, "states");
