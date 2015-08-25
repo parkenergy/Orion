@@ -4195,6 +4195,8 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
     $scope.hours = getHours();
     $scope.minutes = getMinutes();
 
+    //$scope.searchPhraseLength = 0;
+
     $scope.toggleHistory = function () {
       $scope.showHistory = !$scope.showHistory || true;
     };
@@ -4227,6 +4229,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
         $scope.workorder.header.leaseName = $scope.workorder.header.unitNumber.locationName;
       }
     );
+
 
 
     $scope.save = function () {
@@ -4524,8 +4527,8 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
         { title: "Part #", objKey: "number" },
         { title: "Description", objKey: "description" }
       ],
-  		rowClickAction: null,
-      rowButtons: [{title: "add", action: addPart}],
+  		rowClickAction: addPart,
+      rowButtons: null,
       headerButtons: null, // an array of button object (format below)
   		sort: { column: ["number"], descending: false }
     };
@@ -4585,11 +4588,32 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       });
     };
 
+    $scope.openManualPartModal = function(){
+      var modalInstance = $modal.open({
+        templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woManualAddModal.html',
+        controller: 'AddPartModalCtrl'
+      });
+
+      modalInstance.result.then(function (part){
+        $scope.workorder.parts.push({
+          number: part.number,
+          description: part.description,
+          cost: 0,
+          laborCode: "",
+          quantity: 0,
+          isBillable: false,
+          isWarranty: false
+        });
+      });
+    };
+
     $scope.getTimeElapsed();
 }]);
 
+
+
 angular.module('WorkOrderApp.Controllers').controller('NotesModalCtrl',
-function($scope, $modalInstance, notes){
+function( $scope, $modalInstance, notes){
   $scope.notes = notes;
 
   $scope.ok = function(){
@@ -4601,11 +4625,23 @@ function($scope, $modalInstance, notes){
 });
 
 angular.module('WorkOrderApp.Controllers').controller('JsaModalCtrl',
-function($scope, $modalInstance, jsa ){
+function( $scope, $modalInstance, jsa ){
   $scope.jsa= jsa;
 
   $scope.ok = function(){
     $modalInstance.close($scope.jsa);
+  };
+  $scope.cancel = function(){
+    $modalInstance.dismiss('cancel');
+  };
+});
+
+angular.module('WorkOrderApp.Controllers').controller('AddPartModalCtrl',
+function( $scope, $modalInstance){
+  $scope.part = {};
+
+  $scope.addPart = function(){
+    $modalInstance.close($scope.part);
   };
   $scope.cancel = function(){
     $modalInstance.dismiss('cancel');
@@ -5066,36 +5102,6 @@ angular.module('WorkOrderApp.Directives')
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderPartsAdd', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPartsList', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderParts', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
 .directive('workorderEngineChecks', [function() {
   return {
     restrict: 'E',
@@ -5150,6 +5156,36 @@ angular.module('WorkOrderApp.Directives')
   return {
     restrict: 'E',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/pm/woPM.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPartsAdd', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPartsList', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderParts', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
     scope: true
   };
 }]);

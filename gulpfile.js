@@ -134,8 +134,7 @@ gulp.task('start', ['test'], function () {
       './routes/**/*.js',
       './app.js'
     ]})
-    .on('restart', 'test')
-    .on('exit', ['stop']);
+    .on('restart', 'test');
 });
 
 /* Watching

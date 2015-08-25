@@ -1,12 +1,12 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Parts</h3>
-  </div>
-  <div class="panel-body">
 
-    <workorder-parts-add></workorder-parts-add>
+<super-table  model="partsTableModel"></super-table>
 
-    <workorder-parts-list></workorder-parts-list>
+<button
+  class="btn btn-lg btn-primary"
+  type="button"
+  style="margin: 0px 5% 25px 10px"
+  ng-Click="openManualPartModal()">
+  Add Part Manually
+</button>
 
-  </div>
-</div>
+<workorder-parts-list></workorder-parts-list>

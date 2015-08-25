@@ -43,7 +43,8 @@ var WorkOrderSchema = new mongoose.Schema({
   billingInfo: {
     billableToCustomer: { type: Boolean },
     warrantyWork:       { type: Boolean },
-    AFE:                { type: Boolean }
+    AFE:                { type: Boolean },
+    AFENumber:          { type: String}
   },
 
   misc: {

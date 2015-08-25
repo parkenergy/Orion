@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h3 class="modal-title">Manual Add Part</h3>
+</div>
+<div class="modal-body">
+  <div class="panel-body">
+    <text-field
+      label-text="Number"
+      placeholder-text="Part Number"
+      data="part.number">
+    </text-field>
+    <text-area-field
+      label-text="Description"
+      placeholder-text="Part Description"
+      data="part.description"
+      rows="5">
+    </text-area-field>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    class="btn btn-primary"
+    ng-click="addPart()">
+    Add Part
+  </button>
+  <button
+    class="btn btn-warnning"
+    ng-click="cancel()">
+    Cancel
+  </button>
+</div>
