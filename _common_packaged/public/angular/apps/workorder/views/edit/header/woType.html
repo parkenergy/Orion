@@ -3,13 +3,20 @@
     <h3 class="panel-title">Work Order Type</h3>
   </div>
   <div class="panel-body">
-  	<check-box
+    <div data-ng-repeat="woType in workorderTypes" style="font-weight: normal; margin-bottom: 10px">
+      <input type="checkbox" ng-model="workorder.type" ng-true-value="{{ woType }}" ng-false-value="">
+      {{ woType }}
+    </div>
+    {{ workorder.type }}
+  	<!-- <check-box
   		label-text="PM"
-      data="workorder.types.pm">
+      data="workorder.types.pm"
+      checkData="!workorder.types.corrective">
   	</check-box>
     <check-box
   		label-text="Corrective"
-      data="workorder.types.corrective">
+      data="workorder.types.corrective"
+      checkData="!workorder.types.pm">
   	</check-box>
     <check-box
   		label-text="Trouble Call"
@@ -26,6 +33,6 @@
     <check-box
   		label-text="Indirect"
       data="workorder.types.indirect">
-  	</check-box>
+  	</check-box> -->
   </div>
 </div>

@@ -13,14 +13,7 @@ var WorkOrderSchema = new mongoose.Schema({
   timeSubmitted: { type: Date },
   timeApproved: { type: Date },
 
-  types: {
-    pm:         { type: Boolean },
-    corrective: { type: Boolean },
-    trouble:    { type: Boolean },
-    newset:     { type: Boolean },
-    release:    { type: Boolean },
-    indirect:   { type: Boolean }
-  },
+  types: { type: String},
 
   header: {
     unitNumber: { type: ObjectId, ref: 'Units', index: true, autopopulate: true },
@@ -143,6 +136,8 @@ var WorkOrderSchema = new mongoose.Schema({
   laborCodes: {
     basic: {
       safety:         { hours: { type: Number }, minutes: { type: Number } },
+      positiveAdj:    { hours: { type: Number }, minutes: { type: Number } },
+      negativeAdj:    { hours: { type: Number }, minutes: { type: Number } },
       lunch:          { hours: { type: Number }, minutes: { type: Number } },
       custRelations:  { hours: { type: Number }, minutes: { type: Number } },
       telemetry:      { hours: { type: Number }, minutes: { type: Number } },
@@ -204,7 +199,56 @@ var WorkOrderSchema = new mongoose.Schema({
     isWarranty:   { type: Boolean },
   }],
 
-  jsa: { type: ObjectId, ref: 'Jsas', index: true, autopopulate: true },
+  jsa: {
+    location: { type: String },
+    customer: { type: String },
+    descriptionOfWork: { type: String },
+    emergencyEvac:  { type: String },
+    potentialHazards: {
+      bodyPosition: { type: Boolean },
+      pinch: { type: Boolean },
+      crushOrStriking: { type: Boolean },
+      sharpEdges: { type: Boolean },
+      materialHandling: { type: Boolean },
+      environmental: { type: Boolean },
+      lifting: { type: Boolean },
+      elevatedBodyTemp: { type: Boolean },
+      h2s: { type: Boolean },
+      hotColdSurfaces: { type: Boolean },
+      laceration: { type: Boolean },
+      chemExposure: { type: Boolean },
+      fallFromElevation: { type: Boolean },
+      slickSurfaces: { type: Boolean },
+      excavation: { type: Boolean },
+      slips: { type: Boolean },
+      trips: { type: Boolean },
+      falls: { type: Boolean },
+      equipment: { type: Boolean },
+      fireExplosionPotential: { type: Boolean },
+      eletricShock: { type: Boolean },
+      confinedSpace: { type: Boolean },
+    },
+    controlsAndPractices:{
+      confinedSpaceEntry: { type: Boolean },
+      spillKit: { type: Boolean },
+      restrictAccess: { type: Boolean },
+      cutResistantGloves: { type: Boolean },
+      ppe: { type: Boolean },
+      reviewEmergencyActionPlan: { type: Boolean },
+      drinkWater: { type: Boolean },
+      electrician: { type: Boolean },
+      heatResistantGloves: { type: Boolean },
+      lockoutTagout: { type: Boolean },
+      depressurize: { type: Boolean },
+      chemGloves: { type: Boolean },
+      siteJobOrientation: { type: Boolean },
+      samplingMonitoring: { type: Boolean },
+      equipmentCooldown: { type: Boolean },
+      fireExtinguisher: { type: Boolean },
+    },
+    hazardPlanning: { type: String },
+    agree: { type: Boolean }
+  },
 
   updated_at: { type: Date, required: true }
 

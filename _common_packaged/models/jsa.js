@@ -2,12 +2,13 @@
 ----------------------------------------------------------------------------- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var autopopulate = require('mongoose-autopopulate');
 
 /* Declaration
 ----------------------------------------------------------------------------- */
 var JsaSchema = new mongoose.Schema({
 
-  workorder: { type: ObjectId, ref: 'Units', index: true },
+  workorder: { type: ObjectId, ref: 'Units', index: true, autopopulate: true },
 
   location: { type: String },
   customer: { type: String },

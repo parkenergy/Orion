@@ -1,6 +1,7 @@
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$scope', '$location', '$timeout', '$modal', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes', 'jsas',
-  function ($window, $scope, $location, $timeout, $modal, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes, jsas) {
+['$window', '$scope', '$location', '$timeout', '$modal', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes',
+  function ($window, $scope, $location, $timeout, $modal, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes) {
+
 
     $scope.message = (workorder !== null ? "Edit " : "Create ") + "Work Order";
 
@@ -12,11 +13,8 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
     $scope.parts = parts;
     $scope.counties = counties;
     $scope.applicationtypes = applicationtypes;
-    $scope.jsas = jsas;
     $scope.hours = getHours();
     $scope.minutes = getMinutes();
-
-    //$scope.searchPhraseLength = 0;
 
     $scope.toggleHistory = function () {
       $scope.showHistory = !$scope.showHistory || true;
@@ -51,7 +49,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       }
     );
 
-
+    $scope.workorderTypes = ['PM', 'Corrective', 'Trouble Call', 'New Set', 'Release', 'Indirect'];
 
     $scope.save = function () {
       $scope.submitting = true;
@@ -124,14 +122,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
         timeSubmitted: null,
         timeApproved: null,
 
-        types: {
-          pm: false,
-          corrective: false,
-          trouble:    false,
-          newset:     false,
-          release:    false,
-          indirect:   false
-        },
+        types: "",
 
         header: {
           unitNumber:       "",
@@ -313,39 +304,13 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       return newWO;
     }
 
-    function addPart(obj) {
-      $scope.workorder.parts.push({
-        number:       obj.number,
-        description:  obj.description,
-        cost:         0,
-        laborCode:    "",
-        quantity:     0,
-        isBillable:   false,
-        isWarranty:   false
-      });
-    }
-
-    $scope.manualPart = {};
-    $scope.addPartManually = function () {
-      $scope.workorder.parts.push({
-        number:       $scope.manualPart.number,
-        description:  $scope.manualPart.description,
-        cost:         0,
-        laborCode:    "",
-        quantity:     0,
-        isBillable:   false,
-        isWarranty:   false
-      });
-      $scope.manualPart = {};
-    };
-
   	/* Model for the add part table
   	--------------------------------------------------------------------------- */
     $scope.partsTableModel = {
-      tableName: "Parts", // displayed at top of page
+      tableName: "Search For Parts", // displayed at top of page
       objectList: parts, // objects to be shown in list
       displayColumns: [ // which columns need to be displayed in the table
-        { title: "Part #", objKey: "number" },
+        { title: "Part #", objKey: "componentName" },
         { title: "Description", objKey: "description" }
       ],
   		rowClickAction: addPart,
@@ -354,10 +319,21 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
   		sort: { column: ["number"], descending: false }
     };
 
-    $scope.removePart = function (obj) {
-      var ind = _.findWhere($scope.workorder.parts, obj);
-      var arr =  _.without($scope.workorder.parts, ind);
-      $scope.workorder.parts = arr;
+    function addPart(part) {
+      $scope.workorder.parts.push({
+        number:       part.number,
+        description:  part.description,
+        cost:         0,
+        laborCode:    "",
+        quantity:     0,
+        isBillable:   false,
+        isWarranty:   false
+      });
+    }
+
+    $scope.removePart = function (part) {
+      var index = $scope.workorder.parts.indexOf(part);
+      $scope.workorder.parts.splice(index, 1);
     };
 
     $scope.openLeaseNotes = function(){
@@ -396,7 +372,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       var modalInstance = $modal.open({
         templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woJsaModal.html',
         controller: 'JsaModalCtrl',
-        size: 'lg',
+        windowClass: 'jsa-modal',
         resolve: {
           jsa: function(){
             return $scope.workorder.jsa;
