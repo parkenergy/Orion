@@ -98,9 +98,5 @@ db.once('open', function (callback) {
       var DataLoader = require('./_common_packaged/_dev_util/dataload');
       var dataload = new DataLoader();
     }
-
-
-
   });
-
 });
