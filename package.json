@@ -17,6 +17,7 @@
     "git-rev": "^0.2.1",
     "gulp-git": "^1.2.4",
     "gulp-run-sequence": "^0.3.2",
+    "kareem": "^1.0.1",
     "method-override": "^2.3.3",
     "mongodb-uri": "^0.9.7",
     "mongoose": "^4.0.3",

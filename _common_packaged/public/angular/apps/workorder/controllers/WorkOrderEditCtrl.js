@@ -178,7 +178,9 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
         type: "",
 
         header: {
-          unitNumber:       {},
+          unitNumber:       {
+            number: ""
+          },
           customerName:     "",
           contactName:      "",
           county:           "",
