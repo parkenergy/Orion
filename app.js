@@ -3,6 +3,7 @@
 ----------------------------------------------------------------------------- */
 var globals = require('./_common_packaged/GLOBALS.js');
 var express = require('express');
+var passport = require('passport');
 var Agenda = require('agenda');
 var importHelper = require('./_common_packaged/helpers/netsuiteSyncHelper');
 var importer = new importHelper();
@@ -15,6 +16,14 @@ var app = express();
 ----------------------------------------------------------------------------- */
     app.use(require('serve-favicon')(__dirname + '/_common_packaged/public/images/favicon.ico'));
     app.use(require('body-parser')());
+    app.use(require('cookie-parser')());
+
+    // Session has to be included prior to Passport and after cookies.
+    app.use(require('express-session')({secret: 'oneTimeAtBandCamp'}));
+
+    // Passport has to be included prior to the routes
+    app.use(passport.initialize());
+    app.use(passport.session());
 
 /* Include the express routes
 ----------------------------------------------------------------------------- */

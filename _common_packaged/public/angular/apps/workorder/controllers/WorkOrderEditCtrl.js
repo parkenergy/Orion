@@ -2,7 +2,6 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
 ['$window', '$scope', '$location', '$timeout', '$modal', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes',
   function ($window, $scope, $location, $timeout, $modal, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes) {
 
-
     $scope.message = (workorder !== null ? "Edit " : "Create ") + "Work Order";
 
     $scope.workorder = workorder || newWorkOrder();
@@ -49,23 +48,43 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       }
     );
 
-    $scope.workorderTypes = ['PM', 'Corrective', 'Trouble Call', 'New Set', 'Release', 'Indirect'];
+    // First array should only be checkable when PM is selected.
+    // Secord array should not allow this.
+    $scope.workorderTypes1 = ['Corrective', 'Trouble Call'];
+    $scope.workorderTypes2 = ['New Set', 'Release', 'Indirect'];
+
+    $scope.highMileageConfirm = false;
 
     $scope.save = function () {
       $scope.submitting = true;
       console.log($scope.workorder);
-      WorkOrders.save({_id: $scope.workorder._id}, $scope.workorder,
-        function (response) {
-          AlertService.add("success", "Save was successful!");
-          $scope.submitting = false;
-          $location.path("/workorder");
-        },
-        function (err) {
-          console.log(err);
-          AlertService.add("danger", "An error occurred while attempting to save.");
-          $scope.submitting = false;
-        }
-      );
+      $scope.allowSubmit = true;
+      if($scope.workorder.header.startMileage >  $scope.workorder.header.endMileage){
+        $scope.openErrorModal('woMileageError.html');
+        $scope.allowSubmit = false;
+      }
+      if($scope.unaccoutedHours > 0 || $scope.unaccountedMinutes > 15){
+        $scope.openErrorModal('woUnaccoutedTimeError.html');
+        $scope.allowSubmit = false;
+      }
+      if(($scope.workorder.header.endMileage - $scope.workorder.header.startMileage) > 75 && !$scope.highMileageConfirm){
+        $scope.openConfirmationModal('woHighMileageConfirmation.html');
+        $scope.allowSubmit = false;
+      }
+      if($scope.allowSubmit){
+        WorkOrders.save({_id: $scope.workorder._id}, $scope.workorder,
+          function (response) {
+            AlertService.add("success", "Save was successful!");
+            $scope.submitting = false;
+            $location.path("/");
+          },
+          function (err) {
+            console.log(err);
+            AlertService.add("danger", "An error occurred while attempting to save.");
+            $scope.submitting = false;
+          }
+        );
+      }
     };
 
     $scope.destroy = function () {
@@ -91,7 +110,40 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       var m = String("0"+Math.floor((Math.abs(now-start)/6e4)%60)).slice(-2);
       var s = String("0"+Math.floor((Math.abs(now-start)/1e3)%60)).slice(-2);
       $scope.timeElapsed = h+":"+m+":"+s;
-      $timeout(function () { $scope.getTimeElapsed(); }, 1000);
+      $timeout(function () { $scope.getTimeElapsed(); }, 300);
+    };
+
+    $scope.getTotalLaborTime = function(){
+      $scope.totalHours = 0;
+      $scope.totalMinutes = 0;
+      angular.forEach($scope.workorder.laborCodes.basic, function(code){
+        //alert(value.hours);
+        $scope.totalHours += code.hours;
+        $scope.totalMinutes += code.minutes;
+      });
+      $scope.totalHours -= $scope.workorder.laborCodes.basic.negativeAdj.hours;
+      $scope.totalMinutes -= $scope.workorder.laborCodes.basic.negativeAdj.minutes;
+      if($scope.totalMinutes > 60)
+      {
+        $scope.totalHours += ($scope.totalMinutes / 60);
+        $scope.totalHours = Math.floor($scope.totalHours);
+        $scope.totalMinutes = $scope.totalMinutes % 60;
+      }
+      $timeout(function () { $scope.getTotalLaborTime(); }, 300);
+    };
+
+    $scope.getUnaccountedTime = function(){
+      var start = new Date($scope.workorder.timeStarted);
+      var now = $scope.workorder.timeSubmitted ?
+                  new Date($scope.workorder.timeSubmitted) :
+                  new Date();
+      var h = String("0"+Math.floor(Math.abs(now-start)/36e5) - $scope.totalHours - $scope.workorder.laborCodes.basic.negativeAdj.hours).slice(-2);
+      var m = String("0"+Math.floor((Math.abs(now-start)/6e4)%60) - $scope.totalMinutes - $scope.workorder.laborCodes.basic.negativeAdj.minutes).slice(-2);
+      //var s = String("0"+Math.floor((Math.abs(now-start)/1e3)%60)).slice(-2);
+      $scope.unaccountedTime = h+":"+m+":00";
+      $scope.unaccoutedHours = Math.floor(Math.abs(now-start)/36e5) - $scope.totalHours - $scope.workorder.laborCodes.basic.negativeAdj.hours;
+      $scope.unaccountedMinutes = Math.floor((Math.abs(now-start)/6e4)%60) - $scope.totalMinutes - $scope.workorder.laborCodes.basic.negativeAdj.minutes;
+      $timeout(function () { $scope.getUnaccountedTime(); }, 300);
     };
 
     function getHours() {
@@ -109,7 +161,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       var i = 0;
       while (i < 60) {
         minutes.push(i);
-        i+=5;
+        i+=15;
       }
       return minutes;
     }
@@ -122,7 +174,8 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
         timeSubmitted: null,
         timeApproved: null,
 
-        types: "",
+        pm: false,
+        type: "",
 
         header: {
           unitNumber:       "",
@@ -336,8 +389,28 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       $scope.workorder.parts.splice(index, 1);
     };
 
+    $scope.openErrorModal = function(modalUrl){
+      var modalInstance = $modal.open({
+        templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/' + modalUrl,
+        controller: 'ErrorCtrl'
+      });
+    };
+
+    $scope.openConfirmationModal = function(modalUrl){
+      var modalInstance = $modal.open({
+        templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/' + modalUrl,
+        controller: 'ConfirmationCtrl'
+      });
+
+      modalInstance.result.then(function (){
+        //$scope.allowSubmit = true;
+        $scope.highMileageConfirm = true;
+        $scope.save();
+      });
+    };
+
     $scope.openLeaseNotes = function(){
-      var modalInstance= $modal.open({
+      var modalInstance = $modal.open({
         templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/header/woLeaseNotesModal.html',
         controller: 'NotesModalCtrl',
         resolve: {
@@ -405,9 +478,11 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
     };
 
     $scope.getTimeElapsed();
+
+    $scope.getTotalLaborTime();
+
+    $scope.getUnaccountedTime();
 }]);
-
-
 
 angular.module('WorkOrderApp.Controllers').controller('NotesModalCtrl',
 function( $scope, $modalInstance, notes){
@@ -439,6 +514,23 @@ function( $scope, $modalInstance){
 
   $scope.addPart = function(){
     $modalInstance.close($scope.part);
+  };
+  $scope.cancel = function(){
+    $modalInstance.dismiss('cancel');
+  };
+});
+
+angular.module('WorkOrderApp.Controllers').controller('ErrorCtrl',
+function($scope, $modalInstance){
+  $scope.ok = function(){
+    $modalInstance.close();
+  };
+});
+
+angular.module('WorkOrderApp.Controllers').controller('ConfirmationCtrl',
+function($scope, $modalInstance){
+  $scope.confirm = function(){
+    $modalInstance.close(true);
   };
   $scope.cancel = function(){
     $modalInstance.dismiss('cancel');

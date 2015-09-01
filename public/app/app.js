@@ -54,9 +54,13 @@ angular.module('Orion', [
       templateUrl: '/_common_packaged/public/angular/views/example.html'
     })
     .when('/', {
-      controller: 'HomepageCtrl',
-      templateUrl: '/_common_packaged/public/angular/views/homepage.html'
+      controller: 'SessionCtrl',
+      templateUrl: '/_common_packaged/public/angular/views/clientLogin.html'
     });
+    // .when('/', {
+    //   controller: 'HomepageCtrl',
+    //   templateUrl: '/_common_packaged/public/angular/views/homepage.html'
+    // });
   }]);
 
 

@@ -5,49 +5,50 @@
   <div class="panel-body">
 
   	<text-area-field
-      ng-show="workorder.types.pm ||
-               workorder.types.corrective ||
-               workorder.types.trouble"
+      ng-show="workorder.pm ||
+               workorder.type == 'Corrective' ||
+               workorder.type == 'Trouble Call'"
   		label-text="Description of Repairs Made"
   		placeholder-text="Please describe the repairs in detail"
       data="workorder.comments.repairsDescription">
   	</text-area-field>
 
   	<text-area-field
-      ng-show="workorder.types.corrective"
+      ng-show="workorder.type == 'Corrective'"
   		label-text="Reason for Repairs Made"
   		placeholder-text="Please describe the reason for the repairs in detail"
       data="workorder.comments.repairsReason">
   	</text-area-field>
 
   	<text-area-field
-      ng-show="workorder.types.trouble"
+      ng-show="workorder.type == 'Trouble Call'"
   		label-text="Reason for Call Out"
   		placeholder-text="Please describe the reason for the callout"
       data="workorder.comments.calloutReason">
   	</text-area-field>
 
   	<text-area-field
-      ng-show="workorder.types.newset"
+      ng-show="workorder.type == 'New Set'"
   		label-text="New Set Notes"
   		placeholder-text="Please provide unit newset notes"
       data="workorder.comments.newsetNotes">
   	</text-area-field>
 
   	<text-area-field
-      ng-show="workorder.types.release"
+      ng-show="workorder.type == 'Release'"
   		label-text="Unit Release Notes"
   		placeholder-text="Please provide unit release notes"
       data="workorder.comments.releaseNotes">
   	</text-area-field>
 
   	<text-area-field
-      ng-show="workorder.types.indirect"
+      ng-show="workorder.type == 'Indirect'"
   		label-text="Unit Release Notes"
   		placeholder-text="Please provide desciption of indirect work performed"
       data="workorder.comments.indirectNotes">
   	</text-area-field>
 
+    <!-- TODO: Enable when there is positive or negative time adjustments -->
   	<text-area-field
       ng-show="workorder.types.timeAdjustment"
   		label-text="Time Adjustment Notes"

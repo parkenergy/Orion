@@ -13,7 +13,8 @@ var WorkOrderSchema = new mongoose.Schema({
   timeSubmitted: { type: Date },
   timeApproved: { type: Date },
 
-  types: { type: String},
+  pm:    { type: Boolean },
+  type: { type: String },
 
   header: {
     unitNumber: { type: ObjectId, ref: 'Units', index: true, autopopulate: true },
@@ -249,6 +250,9 @@ var WorkOrderSchema = new mongoose.Schema({
     hazardPlanning: { type: String },
     agree: { type: Boolean }
   },
+
+  unit: { type: ObjectId, ref: 'Units', index: true },
+  technician: { type: ObjectId, ref: 'Users', index: true },
 
   updated_at: { type: Date, required: true }
 
