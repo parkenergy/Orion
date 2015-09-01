@@ -52,6 +52,7 @@ Log.prototype.initialize = function () {
         if (err) return console.error(err); // seriously? This is bad!
       });
     } else {
+      error('prod_error: ', data);
       self.errors.push(data);
       e = new self.db.Error({ data: data });
       e.save(function (err, data) {
