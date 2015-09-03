@@ -4436,15 +4436,15 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       return minutes;
     }
 
-    function getTechnician(){
-      var techId = $cookies.get('userId');
-      return techId;
-    }
+    // function getTechnician(){
+    //   var techId = $cookies.get('userId');
+    //   return techId;
+    // }
 
     function newWorkOrder() {
       var newWO =
       {
-        technician: getTechnician(),
+        // technician: getTechnician(),
 
         timeStarted: new Date(),
         timeSubmitted: null,

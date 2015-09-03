@@ -16,6 +16,7 @@ var SyncHelperPull = function (collection) {
     },
 
     updateNow: function (callback) {
+      console.log('Inner Update Now');
       var self = this;
       this.getMostRecentlyUpdated(function (err, data) {
         if (err || !data) { return callback((err || new Error("no data"))); }
