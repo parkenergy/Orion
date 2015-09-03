@@ -34,7 +34,7 @@ function ($q, $cookies, $window, $injector, $location) {
       httpService.get('/authorized').success(function (user) {
         if (user !== '0' && user !== undefined && user !== null && user !== "undefined") {
           $cookies.userId = user._id;
-          $cookies.userName = user.firstName + " " + user.lastName;
+          $cookies.userName = user.userName;
           deferred.resolve($cookies.userId);
         } else {
           delete $cookies.userId;

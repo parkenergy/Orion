@@ -32,10 +32,9 @@
             <div>{{obj.description}}</div>
           </td>
           <td>
-          	<text-field
-          		placeholder-text="Related Labor Code"
-              data="obj.laborCode">
-          	</text-field>
+            <select ng-model="obj.laborCode">
+              <option ng-repeat="code in usedLaborCodes" value="{{code}}">{{code}}</option>
+            </select>
           </td>
           <td>
           	<number-field

@@ -12,17 +12,17 @@
   	  <workorder-basic-lc></workorder-basic-lc>
     </div>
     <div class="col-md-3"
-      ng-show="workorder.type == 'Trouble Call' || workorder.type == 'Corrective'">
+      ng-show="workorder.type == 'Trouble Call' || workorder.type == 'Corrective' || workorder.pm">
    	  <workorder-engine-lc></workorder-engine-lc>
     </div>
     <div class="col-md-3"
-      ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective'">
+      ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective' || workorder.pm">
    	  <workorder-emissions-lc></workorder-emissions-lc>
       <workorder-panel-lc></workorder-panel-lc>
       <workorder-compressor-lc></workorder-compressor-lc>
     </div>
     <div class="col-md-3"
-      ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective'">
+      ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective' || workorder.pm">
    	  <workorder-cooler-lc></workorder-cooler-lc>
       <workorder-vessel-lc></workorder-vessel-lc>
     </div>

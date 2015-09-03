@@ -701,7 +701,7 @@ function ($q, $cookies, $window, $injector, $location) {
       httpService.get('/authorized').success(function (user) {
         if (user !== '0' && user !== undefined && user !== null && user !== "undefined") {
           $cookies.userId = user._id;
-          $cookies.userName = user.firstName + " " + user.lastName;
+          $cookies.userName = user.userName;
           deferred.resolve($cookies.userId);
         } else {
           delete $cookies.userId;
@@ -4178,8 +4178,8 @@ angular.module('VendorPartApp.Controllers').controller('VendorPartIndexCtrl',
 }]);
 
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$scope', '$location', '$timeout', '$modal', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes',
-  function ($window, $scope, $location, $timeout, $modal, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes) {
+['$window', '$scope', '$location', '$timeout', '$modal', '$cookies', 'AlertService', 'WorkOrders', 'workorder', 'units', 'customers', 'users', 'parts', 'counties', 'applicationtypes',
+  function ($window, $scope, $location, $timeout, $modal, $cookies, AlertService, WorkOrders, workorder, units, customers, users, parts, counties, applicationtypes) {
 
     $scope.message = (workorder !== null ? "Edit " : "Create ") + "Work Order";
 
@@ -4226,6 +4226,18 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
         $scope.workorder.header.leaseName = $scope.workorder.header.unitNumber.locationName;
       }
     );
+
+    $scope.pmChecked = function(){
+      if($scope.workorder.type == 'New Set' || $scope.workorder.type == 'Release' || $scope.workorder.type == 'Indirect'){
+        $scope.workorder.type = '';
+      }
+    };
+
+    $scope.nonPmType = function(){
+      if($scope.workorder.pm){
+        $scope.workorder.pm = false;
+      }
+    }
 
     // First array should only be checkable when PM is selected.
     // Secord array should not allow this.
@@ -4280,6 +4292,62 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       );
     };
 
+    $scope.usedLaborCodes = [];
+
+    $scope.getUsedLaborCodes = function(){
+
+      angular.forEach($scope.workorder.laborCodes.basic, function(code){
+        if(code.hours > 0 || code.minutes > 0){
+          if($scope.usedLaborCodes.indexOf(code.text) == -1){
+            $scope.usedLaborCodes.push(code.text);
+          }
+        }
+      });
+      angular.forEach($scope.workorder.laborCodes.engine, function(code){
+        if(code.hours > 0 || code.minutes > 0){
+          if($scope.usedLaborCodes.indexOf(code.text) == -1){
+            $scope.usedLaborCodes.push(code.text);
+          }
+        }
+      });
+      angular.forEach($scope.workorder.laborCodes.emissions, function(code){
+        if(code.hours > 0 || code.minutes > 0){
+          if($scope.usedLaborCodes.indexOf(code.text) == -1){
+            $scope.usedLaborCodes.push(code.text);
+          }
+        }
+      });
+      angular.forEach($scope.workorder.laborCodes.panel, function(code){
+        if(code.hours > 0 || code.minutes > 0){
+          if($scope.usedLaborCodes.indexOf(code.text) == -1){
+            $scope.usedLaborCodes.push(code.text);
+          }
+        }
+      });
+      angular.forEach($scope.workorder.laborCodes.compressor, function(code){
+        if(code.hours > 0 || code.minutes > 0){
+          if($scope.usedLaborCodes.indexOf(code.text) == -1){
+            $scope.usedLaborCodes.push(code.text);
+          }
+        }
+      });
+      angular.forEach($scope.workorder.laborCodes.cooler, function(code){
+        if(code.hours > 0 || code.minutes > 0){
+          if($scope.usedLaborCodes.indexOf(code.text) == -1){
+            $scope.usedLaborCodes.push(code.text);
+          }
+        }
+      });
+      angular.forEach($scope.workorder.laborCodes.vessel, function(code){
+        if(code.hours > 0 || code.minutes > 0){
+          if($scope.usedLaborCodes.indexOf(code.text) == -1){
+            $scope.usedLaborCodes.push(code.text);
+          }
+        }
+      });
+      $timeout(function () { $scope.getUsedLaborCodes(); }, 300);
+    };
+
     $scope.getTimeElapsed = function () {
       var start = new Date($scope.workorder.timeStarted);
       var now = $scope.workorder.timeSubmitted ?
@@ -4296,7 +4364,30 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       $scope.totalHours = 0;
       $scope.totalMinutes = 0;
       angular.forEach($scope.workorder.laborCodes.basic, function(code){
-        //alert(value.hours);
+        $scope.totalHours += code.hours;
+        $scope.totalMinutes += code.minutes;
+      });
+      angular.forEach($scope.workorder.laborCodes.engine, function(code){
+        $scope.totalHours += code.hours;
+        $scope.totalMinutes += code.minutes;
+      });
+      angular.forEach($scope.workorder.laborCodes.emissions, function(code){
+        $scope.totalHours += code.hours;
+        $scope.totalMinutes += code.minutes;
+      });
+      angular.forEach($scope.workorder.laborCodes.panel, function(code){
+        $scope.totalHours += code.hours;
+        $scope.totalMinutes += code.minutes;
+      });
+      angular.forEach($scope.workorder.laborCodes.compressor, function(code){
+        $scope.totalHours += code.hours;
+        $scope.totalMinutes += code.minutes;
+      });
+      angular.forEach($scope.workorder.laborCodes.cooler, function(code){
+        $scope.totalHours += code.hours;
+        $scope.totalMinutes += code.minutes;
+      });
+      angular.forEach($scope.workorder.laborCodes.vessel, function(code){
         $scope.totalHours += code.hours;
         $scope.totalMinutes += code.minutes;
       });
@@ -4345,9 +4436,15 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       return minutes;
     }
 
+    function getTechnician(){
+      var techId = $cookies.get('userId');
+      return techId;
+    }
+
     function newWorkOrder() {
       var newWO =
       {
+        technician: getTechnician(),
 
         timeStarted: new Date(),
         timeSubmitted: null,
@@ -4476,13 +4573,13 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
 
         laborCodes: {
           basic: {
-            safety:         { hours: 0, minutes: 0 },
-            positiveAdj:    { hours: 0, minutes: 0 },
-            negativeAdj:    { hours: 0, minutes: 0 },
-            lunch:          { hours: 0, minutes: 0 },
-            custRelations:  { hours: 0, minutes: 0 },
-            telemetry:      { hours: 0, minutes: 0 },
-            environmental:  { hours: 0, minutes: 0 },
+            safety:         { hours: 0, minutes: 0 , text: 'Safety'},
+            positiveAdj:    { hours: 0, minutes: 0 , text: 'Positive Adjustment'},
+            negativeAdj:    { hours: 0, minutes: 0 , text: 'Negative Adjustment'},
+            lunch:          { hours: 0, minutes: 0 , text: 'Lunch'},
+            custRelations:  { hours: 0, minutes: 0 , text: 'Customer Relations'},
+            telemetry:      { hours: 0, minutes: 0 , text: 'Telemetry'},
+            environmental:  { hours: 0, minutes: 0 , text: 'Environmental'},
             diagnostic:     { hours: 0, minutes: 0 },
             serviceTravel:  { hours: 0, minutes: 0 },
             optimizeUnit:   { hours: 0, minutes: 0 },
@@ -4657,6 +4754,8 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
         });
       });
     };
+
+    $scope.getUsedLaborCodes();
 
     $scope.getTimeElapsed();
 
@@ -5172,6 +5271,36 @@ angular.module('WorkOrderApp.Directives')
 
 angular.module('WorkOrderApp.Directives')
 
+.directive('workorderPartsAdd', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPartsList', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderParts', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
 .directive('workorderEngineChecks', [function() {
   return {
     restrict: 'E',
@@ -5226,36 +5355,6 @@ angular.module('WorkOrderApp.Directives')
   return {
     restrict: 'E',
     templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/pm/woPM.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPartsAdd', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPartsList', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderParts', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/_common_packaged/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
     scope: true
   };
 }]);
