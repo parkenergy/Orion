@@ -58,7 +58,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
       if($scope.workorder.pm){
         $scope.workorder.pm = false;
       }
-    }
+    };
 
     // First array should only be checkable when PM is selected.
     // Secord array should not allow this.
@@ -447,6 +447,8 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
             suctionValve: { hours: 0, minutes: 0 }
           },
         },
+
+        isSynced: false,
 
         parts: [],
 

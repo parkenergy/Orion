@@ -47,7 +47,7 @@ function unitFormat (ele, callback) {
     updatedAt: Date.now()
   };
 
-  // Short versions of the json elements from netsuitenpm
+  // Short versions of the json elements from netsuite
   var nsCust;
   var nsCustId;
   var nsUser;

@@ -4,6 +4,7 @@ var loadCustomers = require('./customer.js');
 var loadUsers = require('./user.js');
 var loadParts = require('./part.js');
 var loadApplicationTypes = require('./applicationtype.js');
+var loadLocations = require('./location.js');
 var async = require('async');
 
 var importHelper = function () {
@@ -21,8 +22,7 @@ var importHelper = function () {
   this.units = null;
   this.users = null;
   this.applicationtypes = null;
-
-
+  this.locations = null;
 };
 
 importHelper.prototype.execute = function (callback) {
@@ -66,6 +66,13 @@ importHelper.prototype.execute = function (callback) {
       });
     },
 
+    function (cb){
+      loadLocations(function(err,data){
+        self.locations = data;
+        return cb(err,data);
+      });
+    },
+    
   ], function (err) {
     return callback(err);
   });

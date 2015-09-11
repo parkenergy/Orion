@@ -1,6 +1,6 @@
-angular.module('InventoryTransferApp.Controller', []);
+angular.module('InventoryTransferApp.Controllers', []);
 angular.module('InventoryTransferApp.Directives', []);
-angular.module('InventoryTransferApp.Services', ['ngResource', 'ngCookies']);
+angular.module('InventoryTransferApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
 
 angular.module('InventoryTransferApp', [
   'InventoryTransferApp.Controllers',
@@ -14,10 +14,10 @@ angular.module('InventoryTransferApp').config(['$routeProvider',
 
   .when('/inventorytransfer/edit/:id?', {
     needsLogin: true,
-    controller: 'InventoryTrasnferEditCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/inventorytrasnfer/views/edit.html',
+    controller: 'InventoryTransferEditCtrl',
+    templateUrl: '/_common_packaged/public/angular/apps/inventorytransfer/views/edit.html',
     resolve: {
-      inventorytrasnfer: function($route, $q, InventoryTransfers) {
+      inventorytransfer: function($route, $q, InventoryTransfers) {
         var id = $route.current.params.id || 0;
         if (id) {
           var deferred = $q.defer();
@@ -44,15 +44,23 @@ angular.module('InventoryTransferApp').config(['$routeProvider',
           function (err) { return deferred.reject(err); }
         );
         return deferred.promise;
+      },
+      locations: function($route, $q, Locations){
+        var deferred = $q.defer();
+        Locations.query({},
+          function (response){ return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
       }
     }
   })
-  .when('/inventorytrasnfer', {
+  .when('/inventorytransfer', {
     needsLogin: true,
-    controller: 'InventoryTrasnferIndexCtrl',
-    templateUrl: '/_common_packaged/public/angular/apps/inventorytrasnfer/views/index.html',
+    controller: 'InventoryTransferIndexCtrl',
+    templateUrl: '/_common_packaged/public/angular/apps/inventorytransfer/views/index.html',
     resolve: {
-      inventorytrasnfers: function($route, $q, InventoryTransfers) {
+      inventorytransfers: function($route, $q, InventoryTransfers) {
         var deferred = $q.defer();
         InventoryTransfers.query({},
           function (response) { return deferred.resolve(response); },

@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="palen-title">Parts Listed on Inventory Transfer</h3>
+  </div>
+  <div class="panel-body">
+    <button
+      class="btn btn-lg btn-primary pull-left"
+      type="button"
+      style="margin-bottom: 10px"
+      ng-Click="openManualPartModal()">
+      Add Part Manually
+    </button>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Part Info</th>
+          <th>Related Labor Code</th>
+          <th>Quantity</th>
+          <th>Billable</th>
+          <th>Cost</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="obj in oList = (inventorytransfer.parts
+          | filter:searchPhrase
+          | orderBy:quantity:true)">
+          <td>
+            <div class="clearfix">{{obj.number}}</div>
+            <div>{{obj.description}}</div>
+          </td>
+          <td>
+            <number-field
+              placeholder-text="Quantity"
+              data="obj.quantity"
+              non-negative="true"
+              integer-only="true">
+            </number-field>
+          </td>
+          <td>
+            <button class="btn btn-danger pull-right"
+              ng-click="removePart(obj)">
+              remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

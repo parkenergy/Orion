@@ -5776,13 +5776,16 @@ button.close {
 body {
   font-weight: 600;
 }
+
 .jsa-modal .modal-dialog {
   width: 90%;
 }
+
 .navbar-logo {
   height: 40px;
   margin-top: -10px;
 }
+
 .btn-long {
   width: 100%;
 }

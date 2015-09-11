@@ -30,7 +30,7 @@ function applicationtypeFormat (ele, callback){
   var applicationtype = {
     type: list[0],
     netsuiteId: list[1]
-  }
+  };
   ApplicationType.findOneAndUpdate(
     { netsuiteId: applicationtype.netsuiteId },
     applicationtype,

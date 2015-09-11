@@ -254,6 +254,8 @@ var WorkOrderSchema = new mongoose.Schema({
   unit: { type: ObjectId, ref: 'Units', index: true },
   technician: { type: ObjectId, ref: 'Users', index: true },
 
+  isSynced: { type: Boolean },
+
   updated_at: { type: Date, required: true }
 
 });

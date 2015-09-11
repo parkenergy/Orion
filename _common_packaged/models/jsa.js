@@ -69,7 +69,7 @@ JsaSchema.pre('save', function(done){
 JsaSchema.pre('update', function(done){
   this.updated_at = new Date();
   done();
-})
+});
 /* Virtual Fields
 ----------------------------------------------------------------------------- */
 JsaSchema.virtual('createdOn')

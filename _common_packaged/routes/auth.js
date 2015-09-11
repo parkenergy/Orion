@@ -5,7 +5,7 @@ var OAuthStrategy = require('passport-oauth-profile').OAuthStrategy;
 var GoogleStrategy = require('passport-google').Strategy;
 var LocalStrategy = require('passport-local');
 var db = require('../models');
-var Users = db["users"];
+var Users = db.users;
 var https = require('https');
 var successUrl = "/#/myaccount";
 var failureUrl = "/#/login?failure=true";

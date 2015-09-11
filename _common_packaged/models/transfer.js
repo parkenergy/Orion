@@ -17,7 +17,7 @@ var TransferSchema = new mongoose.Schema({
     county:       { type: ObjectId, ref: 'County', index: true, autopopulate: true},
     state:        { type: ObjectId, ref: 'State', index: true, autopopulate: true},
     location:     { type: String, autopopulate: true },
-    legal:        { type: String, autopopulate: true, autopopulate: true },
+    legal:        { type: String, autopopulate: true },
   },
 
   destination:  {
