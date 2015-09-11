@@ -18,6 +18,7 @@ angular.module('Orion', [
   // 'LocationApp',
   'PartApp',
   //'StateApp',
+  'SupportApp',
   'TransferApp',
   'UnitApp',
   'UserApp',

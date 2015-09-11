@@ -88,7 +88,7 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
           function (response) {
             AlertService.add("success", "Save was successful!");
             $scope.submitting = false;
-            $location.path("/");
+            $location.path("/myaccount");
           },
           function (err) {
             console.log(err);

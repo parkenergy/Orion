@@ -10,12 +10,12 @@ var InventoryTransferSchema = new mongoose.Schema({
 
   inventorytransferDate: { type: Date },
 
-  originLocation:{ type: ObjectId, ref: 'Locations', index: true },
-  destinationLocation{ type: ObjectId, ref: 'Locations', index: true },
+  originLocation: { type: ObjectId, ref: 'Locations', index: true },
+  destinationLocation: { type: ObjectId, ref: 'Locations', index: true },
 
   parts: [],
 
-  transferedBy: { type: ObjectId, ref: 'User', index: true},
+  transferedBy: { type: ObjectId, ref: 'User', index: true },
   updated_at: { type: Date, required: true}
 });
 

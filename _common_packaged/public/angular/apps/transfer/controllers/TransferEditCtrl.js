@@ -59,7 +59,7 @@ angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
         function (response) {
           AlertService.add("success", "Save was successful!");
           $scope.submitting = false;
-          $location.path("/transfer");
+          $location.path("/myaccount");
         },
         function (err) {
           console.log(err);
