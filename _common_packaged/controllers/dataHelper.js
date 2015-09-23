@@ -56,7 +56,7 @@ var DataHelper = function (collection) {
         return callback(new Error(msg), null);
       }
       req.body.updated_at = new Date();
-      collection.findOneAndUpdate(
+      collection.findByIdAndUpdate(
         req.query,
         req.body,
         { upsert: true, new: true } // insert the document if it does not exist
