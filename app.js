@@ -88,11 +88,12 @@ db.once('open', function (callback) {
 
     var sync = new Agenda({db: {address: uri}});
 
-    sync.define('sync', function(job, done) {
+    sync.define('netsuiteSync', function(job, done) {
+      console.log('Syncing with Netsuite');
       importer.execute(done);
     });
 
-    sync.every('5 minutes', 'sync');
+    sync.every('5 minutes', 'netsuiteSync');
 
     sync.start();
 
@@ -103,9 +104,5 @@ db.once('open', function (callback) {
     console.log('Orion server listening at http://' + host + ':' + port);
     console.log('Orion server running in ' + env + ' environment');
 
-    // if(env != 'development') { // change to true to load data
-    //   var DataLoader = require('./_common_packaged/_dev_util/dataload');
-    //   var dataload = new DataLoader();
-    // }
   });
 });

@@ -17,9 +17,14 @@ var options = {
 function getParts(callback) {
   needle.get(partSearchUrl, options, function(err,data){
     if (err){ return err; }
-    var partsArray = Object.keys(data.body).map(function(id) { // turn json into array
-      return data.body[id];
-    });
+    if(data.body){
+      var partsArray = Object.keys(data.body).map(function(id) { // turn json into array
+        return data.body[id];
+      });
+    }
+    else{
+      return callback(err);
+    }
     async.eachSeries(partsArray, partFormat, function (err) {
       if (err) { return callback(err); }
       Part.find({}, function (err, data) {
