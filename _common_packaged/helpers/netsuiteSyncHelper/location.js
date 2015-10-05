@@ -7,7 +7,7 @@ var exec = require('child_process').exec,
 var locationSearchUrl = 'https://rest.na1.netsuite.com/app/site/hosting/restlet.nl?script=91&deploy=1&recordtype=location&id=100';
 
 var options = {
-        headers: {  'Authorization': 'NLAuth nlauth_account=4086435,nlauth_email=WebServices@parkenergyservices.com,nlauth_signature=Netsuite01',
+        headers: {  'Authorization': 'NLAuth nlauth_account=4086435,nlauth_email=WebServices@parkenergyservices.com,nlauth_signature=Park2015!!',
                     'User-Agent' : 'SuiteScript-Call',
                     'Content-Type' : 'application/json'
         }

@@ -25,7 +25,8 @@ var UnitSchema = new mongoose.Schema({
   county:         { type: ObjectId, ref: 'Counties', index: true, autopopulate: true },
   state:          { type: ObjectId, ref: 'States', index: true, autopopulate: true},
 
-  Customer:       { type: ObjectId, ref: 'Customers', index: true, autopopulate: true },
+  customerName:   { type: String },
+  
   assignedTo:     { type: ObjectId, ref: 'Users', index: true },
   updated_at: { type: Date, required: true }
 
