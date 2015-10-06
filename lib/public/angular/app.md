@@ -1,6 +1,9 @@
+Simply duplicate this file and change the extension to .js
+Then find and replace Orion with "MyAppName"
+
 angular.module('Orion.Controllers', []);
 angular.module('Orion.Directives', []);
-angular.module('Orion.Services', ['ngRoute', 'ngResource', 'ngCookies' ]);
+angular.module('Orion.Services', ['ngRoute', 'ngResource', 'ngCookies', ]);
 
 angular.module('Orion', [
   'CommonControllers',
@@ -14,12 +17,9 @@ angular.module('Orion', [
   'CountyApp',
   'CustomerApp',
   'EngineApp',
-  'InventoryTransferApp',
-  // 'LocationApp',
+  'LocationApp',
   'PartApp',
   //'StateApp',
-  'SupportApp',
-  'TransferApp',
   'UnitApp',
   'UserApp',
   'VendorApp',
@@ -55,13 +55,9 @@ angular.module('Orion', [
       templateUrl: '/lib/public/angular/views/example.html'
     })
     .when('/', {
-      controller: 'SessionCtrl',
-      templateUrl: '/lib/public/angular/views/clientLogin.html'
+      controller: 'HomepageCtrl',
+      templateUrl: '/lib/public/angular/views/homepage.html'
     });
-    // .when('/', {
-    //   controller: 'HomepageCtrl',
-    //   templateUrl: '/lib/public/angular/views/homepage.html'
-    // });
   }]);
 
 

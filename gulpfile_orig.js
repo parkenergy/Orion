@@ -30,7 +30,7 @@ var vss = require('vinyl-source-stream');
 /* Sync (git)
 ----------------------------------------------------------------------------- */
 gulp.task('purge', function () {
-  gulp.src('./_common_packaged/', { read: false })
+  gulp.src('./lib/', { read: false })
     .pipe(rimraf({ force: true }))
     .pipe(exit());
 });
@@ -50,31 +50,31 @@ gulp.task('updateSubmodules', function () {
 ----------------------------------------------------------------------------- */
 gulp.task('common-packager', function() {
    return gulp.src('./Common/**/*')
-   .pipe(gulp.dest('./_common_packaged'));
+   .pipe(gulp.dest('./lib'));
 });
 
 
 /* Bundling
 ----------------------------------------------------------------------------- */
 gulp.task('browserify', function () {
-  return browserify('./_common_packaged/_dev_util/browserify/includes.js')
+  return browserify('./lib/_dev_util/browserify/includes.js')
     .bundle()
     .pipe(vss('browserify.js')) // pass output filename to vinyl-source-stream
     .pipe(gulp.dest('public')); // pipe stream to tasks, triggers 'scripts' task
 });
 
 gulp.task('less', function () { // compile LESS to CSS
-  return gulp.src('./_common_packaged/public/stylesheets/site.less')
+  return gulp.src('./lib/public/stylesheets/site.less')
     .pipe(less())
-    .pipe(gulp.dest('./_common_packaged/public/stylesheets'));
+    .pipe(gulp.dest('./lib/public/stylesheets'));
 });
 
 gulp.task('scripts', function() { // concat & minify js files
   return gulp.src([
-      './_common_packaged/public/angular/**/*.js',
-      './_common_packaged/public/scripts/**/*.js',
-      './_common_packaged/public/bootstrap/bootstrap.min.js',
-      './_common_packaged/public/browserify.js',
+      './lib/public/angular/**/*.js',
+      './lib/public/scripts/**/*.js',
+      './lib/public/bootstrap/bootstrap.min.js',
+      './lib/public/browserify.js',
       './public/app/**/*.js',
     ])
     .pipe(concat('bundle.js'))
@@ -89,11 +89,11 @@ gulp.task('scripts', function() { // concat & minify js files
 ----------------------------------------------------------------------------- */
 gulp.task('back-end-lint', function () {
   return gulp.src([
-      './_common_packaged/controllers/**/*.js',
-      './_common_packaged/helpers/**/*.js',
-      './_common_packaged/models/**/*.js',
-      './_common_packaged/routes/**/*.js',
-      './_common_packaged/tests/**/*.js',
+      './lib/controllers/**/*.js',
+      './lib/helpers/**/*.js',
+      './lib/models/**/*.js',
+      './lib/routes/**/*.js',
+      './lib/tests/**/*.js',
       './routes/**/*.js',
       './app.js',
       './gulpfile.js'
@@ -104,7 +104,7 @@ gulp.task('back-end-lint', function () {
 
 gulp.task('front-end-lint', function() {
   return gulp.src([
-    './_common_packaged/public/angular/**/*.js',
+    './lib/public/angular/**/*.js',
     './public/app/**/*.js'
     ])
     .pipe(jshint())
@@ -115,7 +115,7 @@ gulp.task('front-end-lint', function() {
 /* Testing
 ----------------------------------------------------------------------------- */
 gulp.task('mocha', function () {
-  return gulp.src('./_common_packaged/tests/mocha/**/*.js', {read: false})
+  return gulp.src('./lib/tests/mocha/**/*.js', {read: false})
       .pipe(mocha({reporter: 'nyan'}));
 });
 
@@ -145,17 +145,17 @@ gulp.task('watch', function() {
   gulp.watch(['./Common/**/*'], ['common-packager']);
 
   gulp.watch([
-    './_common_packaged/public/**/*.less',
-    './_common_packaged/public/angular/**/*.js',
+    './lib/public/**/*.less',
+    './lib/public/angular/**/*.js',
     './public/app/**/*.js',
     './public/scripts/**/*.js'],
     ['scripts']);
 
   gulp.watch([
-    './_common_packaged/_dev_util/browserify/includes.js'],
+    './lib/_dev_util/browserify/includes.js'],
     ['browserify']);
 
-  gulp.watch('./_common_packaged/public/browserify.js', ['scripts']);
+  gulp.watch('./lib/public/browserify.js', ['scripts']);
 
 });
 
