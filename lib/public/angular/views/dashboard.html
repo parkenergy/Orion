@@ -1,0 +1,28 @@
+<table class="table">
+
+  <thead>
+    <tr>
+      <th ng-click="changeSorting('unitNumber')">Unit #</th>
+      <th ng-click="changeSorting('customerName')">Customer</th>
+      <th ng-click="changeSorting('timeStarted')">Date</th>
+      <th ng-click="changeSorting('techId')">Technician Id</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr ng-repeat="workorder in workorders | orderBy:sort.column:sort.descending"
+      style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}">
+      <td>{{ workorder.unitNumber }}</td>
+      <td>{{ workorder.customerName }}</td>
+      <td>{{ workorder.timeStarted | date:'MM/dd/yyyy'}}</td>
+      <td>{{ workorder.techId}}</td>
+      <td>
+        <a href="/#/workorder/edit/{{workorder.id}}"
+        class="btn btn-sm btn-primary pull-right">
+          {{ role === "TECHNICIAN" ? 'Edit' : 'Review' }}
+        </a>
+      </td>
+    </tr>
+  </tbody>
+
+</table>

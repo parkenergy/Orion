@@ -14,56 +14,17 @@
   <header></header>
 
   <div class="row">
-
-
-    <!-- This is the old version
-    ----------------------------------------------------------------------------
     <div class="col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-
       <div class="list-group">
-        <a class="list-group-item" href="#/area">Areas</a>
-        <a class="list-group-item" href="#/compressor">Compressors</a>
-        <a class="list-group-item" href="#/county">Counties</a>
-        <a class="list-group-item" href="#/customer">Customers</a>
-        <a class="list-group-item" href="#/engine">Engines</a>
-        <a class="list-group-item" href="#/location">Locations</a>
-        <a class="list-group-item" href="#/parts">Parts</a>
-        <a class="list-group-item" href="#/state">States</a>
-        <a class="list-group-item" href="#/transfer">Transfers</a>
-        <a class="list-group-item" href="#/unit">Units</a>
-        <a class="list-group-item" href="#/user">Users</a>
-        <a class="list-group-item" href="#/vendor">Vendors</a>
-        <a class="list-group-item" href="#/workorder">Work Orders</a>
-        <a class="list-group-item" href="#/part">Parts</a>
-      </div>
-
-    </div>
-    ------------------------------------------------------------------------ -->
-
-    <div class="col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-
-      <div class="list-group">
-
-        <a class="list-group-item" href="#/workorder/resumeorcreate">
-          Work Order
+        <a class="list-group-item" href="#/workorder/">
+          Work Orders
         </a>
-
-        <a class="list-group-item" href="#/inventorytransfer/edit">
-          Inventory Transfer
+        <a class="list-group-item" href="#/inventorytransfer/">
+          Inventory Transfers
         </a>
-
-        <a class="list-group-item" href="#/transfer/edit">
-          Unit Transfer
+        <a class="list-group-item" href="#/transfer/">
+          Unit Transfers
         </a>
-
-        <a class="list-group-item" href="#/research">
-          Research
-        </a>
-
-        <a class="list-group-item" href="#/newsetlead">
-          New Set Lead
-        </a>
-
       </div>
 
     </div>
@@ -75,19 +36,12 @@
         <div class="panel-heading">
           <h3 class="panel-title">
             <span calss="pull-left">My Dashboard</span>
-            <i class="glyphicon glyphicon-question-sign pull-right"
-              popover-placement="left"
-              Popover-animation="true"
-              popover-trigger="click"
-              popover-title="Where are the rest of the work orders?"
-              popover-template="unitNumberPopover.html"
-            />
+            <i Popover-animation="true" class="glyphicon glyphicon-question-sign pull-right" popover-placement="left" popover-template="unitNumberPopover.html" popover-title="Where are the rest of the work orders?" popover-trigger="click"/>
           </h3>
         </div>
 
         <div class="panel-body">
-          <dashboard workorders="workorders" ng-show="workorders.length > 0">
-          </dashboard>
+          <dashboard ng-show="workorders.length > 0" workorders="workorders"></dashboard>
           <div ng-show="workorders.length <= 0">
             There are currently no workorders in your queue.
           </div>
@@ -103,11 +57,12 @@
 
 <script id="unitNumberPopover.html" type="text/ng-template">
   <div>
-    <span>In order to improve page load times, we are limiting the number of
-    workorders and transfers shown on the dashboard.</span>
+    <span>In order to improve page load times, we are limiting the number of workorders and transfers shown on the dashboard.</span>
     <br/></br>
-    Complete lists:
-    </br><a href='#/workorder'>workorders</a>
-    </br><a href='#/transfer'>transfers</a>
-  </div>
+  Complete lists:
+</br>
+<a href='#/workorder'>workorders</a>
+</br>
+<a href='#/transfer'>transfers</a>
+</div>
 </script>
