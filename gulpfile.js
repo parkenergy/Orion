@@ -49,10 +49,10 @@ gulp.task('updateSubmodules', function () {
 
 /* Packaging
 ----------------------------------------------------------------------------- */
-gulp.task('common-packager', function() {
-   return gulp.src('./Common/**/*')
-   .pipe(gulp.dest('./lib'));
-});
+// gulp.task('model-packager', function() {
+//    return gulp.src('./lib/models/**/*')
+//    .pipe(gulp.dest('./../../../../models'));
+// });
 
 
 /* Bundling
@@ -189,15 +189,15 @@ gulp.task('shutdown-mongodb', function (callback) {
 
 /* DEFAULT TASK
 ----------------------------------------------------------------------------- */
-gulp.task('sync', function (callback) {
-  runSequence('updateSubmodules', callback);
-});
+// gulp.task('sync', function (callback) {
+//   runSequence('updateSubmodules', callback);
+// });
+//
+// gulp.task('package', function (callback) {
+//   runSequence('model-packager', callback);
+// });
 
-gulp.task('package', function (callback) {
-  runSequence('common-packager', callback);
-});
-
-gulp.task('bundle', ['package'], function (callback) {
+gulp.task('bundle', function (callback) {
   runSequence('browserify', 'less', 'scripts', callback);
 });
 
