@@ -49,10 +49,10 @@ gulp.task('updateSubmodules', function () {
 
 /* Packaging
 ----------------------------------------------------------------------------- */
-// gulp.task('model-packager', function() {
-//    return gulp.src('./lib/models/**/*')
-//    .pipe(gulp.dest('./../../../../models'));
-// });
+gulp.task('model-packager', function() {
+   return gulp.src('./models/**/*')
+   .pipe(gulp.dest('./lib/models'));
+});
 
 
 /* Bundling
@@ -116,8 +116,8 @@ gulp.task('front-end-lint', function() {
 /* Testing
 ----------------------------------------------------------------------------- */
 gulp.task('mocha', function () {
-  return gulp.src('./lib/tests/mocha/**/*.js', {read: false})
-      .pipe(mocha({reporter: 'nyan'}));
+  // return gulp.src('./lib/tests/mocha/**/*.js', {read: false})
+  //     .pipe(mocha({reporter: 'nyan'}));
 });
 
 
@@ -193,11 +193,11 @@ gulp.task('shutdown-mongodb', function (callback) {
 //   runSequence('updateSubmodules', callback);
 // });
 //
-// gulp.task('package', function (callback) {
-//   runSequence('model-packager', callback);
-// });
+gulp.task('package', function (callback) {
+  runSequence('model-packager', callback);
+});
 
-gulp.task('bundle', function (callback) {
+gulp.task('bundle', ['package'], function (callback) {
   runSequence('browserify', 'less', 'scripts', callback);
 });
 
