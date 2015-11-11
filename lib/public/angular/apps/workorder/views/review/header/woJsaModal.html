@@ -1,0 +1,232 @@
+<div class="modal-header">
+  <h3 class="modal-title">Job Safety Analysis Form</h3>
+</div>
+<div class="modal-body">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">JSA Info</h3>
+    </div>
+    <div class="panel-body">
+      <text-field
+        class="col-md-6"
+        label-text="Location of Work"
+        data="jsa.location">
+      </text-field>
+      <text-field
+        class="col-md-6"
+        label-text="Customer"
+        data="jsa.customer">
+      </text-field>
+      <text-area-field
+        class="col-md-6"
+        label-text="Description of Work"
+        data="jsa.descriptionOfWork">
+      </text-area-field>
+      <text-area-field
+        class="col-md-6"
+        label-text="Emergency Evacuation Instructions"
+        data="jsa.emergencyEvac">
+      </text-area-field>
+    </div>
+  </div>
+  <div class="panel panel-default col-md-4">
+    <div class="panel-heading">
+      <h3 class="panel-title">Identify Potential Hazards</h3>
+    </div>
+    <div class="panel-body">
+      <check-box
+        label-text="Body Position"
+        data="jsa.potentialHazards.bodyPosition">
+      </check-box>
+      <check-box
+        label-text="Pinch"
+        data="jsa.potentialHazards.pinch">
+      </check-box>
+      <check-box
+        label-text="Crush or Striking Hazard"
+        data="jsa.potentialHazards.crushOrStriking">
+      </check-box>
+      <check-box
+        label-text="Sharp Edges"
+        data="jsa.potentialHazards.sharpEdges">
+      </check-box>
+      <check-box
+        label-text="Material Handling"
+        data="jsa.potentialHazards.materialHandling">
+      </check-box>
+      <check-box
+        label-text="Enviromental Extremes"
+        data="jsa.potentialHazards.environmental">
+      </check-box>
+      <check-box
+        label-text="Lifting/Hazard"
+        data="jsa.potentialHazards.lifting">
+      </check-box>
+      <check-box
+        label-text="Elevated Body Temperature"
+        data="jsa.potentialHazards.elevatedBodyTemp">
+      </check-box>
+      <check-box
+        label-text="H2S"
+        data="jsa.potentialHazards.h2s">
+      </check-box>
+      <check-box
+        label-text="Hot/Cold Surfaces"
+        data="jsa.potentialHazards.hotColdSurfaces">
+      </check-box>
+      <check-box
+        label-text="Laceration Potential"
+        data="jsa.potentialHazards.laceration">
+      </check-box><check-box
+        label-text="Hazardous Chemical Exposure"
+        data="jsa.potentialHazards.chemExposure">
+      </check-box><check-box
+        label-text="Fall from Elevation"
+        data="jsa.potentialHazards.fallFromElevation">
+      </check-box><check-box
+        label-text="Slick/Slippery Surfaces"
+        data="jsa.potentialHazards.slickSurfaces">
+      </check-box><check-box
+        label-text="Excavation Hazard"
+        data="jsa.potentialHazards.excavation">
+      </check-box><check-box
+        label-text="Slips"
+        data="jsa.potentialHazards.slips">
+      </check-box>
+      <check-box
+        label-text="Trips"
+        data="jsa.potentialHazards.trips">
+      </check-box><check-box
+        label-text="Falls"
+        data="jsa.potentialHazards.falls">
+      </check-box><check-box
+        label-text="Equipment Hazards"
+        data="jsa.potentialHazards.equipment">
+      </check-box><check-box
+        label-text="Fire or Explosion Potential"
+        data="jsa.potentialHazards.fireExplosionPotential">
+      </check-box>
+      <check-box
+        label-text="Electrical Shock"
+        data="jsa.potentialHazards.eletricShock">
+      </check-box>
+      <check-box
+        label-text="Confined Spaces"
+        data="jsa.potentialHazards.confinedSpace">
+      </check-box>
+    </div>
+  </div>
+  <div class="panel panel-default col-md-4">
+    <div class="panel-heading">
+      <h3 class="panel-title">Controls and Practices</h3>
+    </div>
+    <div class="panel-body">
+      <check-box
+        label-text="Confined Space Entry Procedure"
+        data="jsa.controlsAndPractices.confinedSpaceEntry">
+      </check-box>
+      <check-box
+        label-text="Spill Kit/Containment"
+        data="jsa.controlsAndPractices.spillKit">
+      </check-box>
+      <check-box
+        label-text="Restrict Access"
+        data="jsa.controlsAndPractices.restrictAccess">
+      </check-box>
+      <check-box
+        label-text="Cut Resistant Gloves"
+        data="jsa.controlsAndPractices.cutResistantGloves">
+      </check-box>
+      <check-box
+        label-text="Use of PPE"
+        data="jsa.controlsAndPractices.ppe">
+      </check-box>
+      <check-box
+        label-text="Review Emergency Action Plan"
+        data="jsa.controlsAndPractices.reviewEmergencyActionPlan">
+      </check-box>
+      <check-box
+        label-text="Drinking Water/Fluids"
+        data="jsa.controlsAndPractices.drinkWater">
+      </check-box>
+      <check-box
+        label-text="Eletrician Needed"
+        data="jsa.controlsAndPractices.electrician">
+      </check-box>
+      <check-box
+        label-text="Heat Resistant Gloves/Sleeves"
+        data="jsa.controlsAndPractices.heatResistantGloves">
+      </check-box>
+      <check-box
+        label-text="Lockout/Tagout"
+        data="jsa.controlsAndPractices.lockoutTagout">
+      </check-box>
+      <check-box
+        label-text="De-Pressurize"
+        data="jsa.controlsAndPractices.depressurize">
+      </check-box>
+      <check-box
+        label-text="Chemical Gloves"
+        data="jsa.controlsAndPractices.chemGloves">
+      </check-box>
+      <check-box
+        label-text="Site/Job Orientation"
+        data="jsa.controlsAndPractices.siteJobOrientation">
+      </check-box>
+      <check-box
+        label-text="Sampling/Monitoring"
+        data="jsa.controlsAndPractices.samplingMonitoring">
+      </check-box>
+      <check-box
+        label-text="Equipment Cool-down"
+        data="jsa.controlsAndPractices.equipmentCooldown">
+      </check-box>
+      <check-box
+        label-text="Fire Extinguisher"
+        data="jsa.controlsAndPractices.fireExtinguisher">
+      </check-box>
+    </div>
+  </div>
+  <div class="panel panel-default col-md-4">
+    <div class="panel-heading">
+      <h3 class="panel-title">Hazard Planning</h3>
+    </div>
+    <div class="panel-body">
+      <text-area-field
+        data="jsa.hazardPlanning">
+      </text-area-field>
+    </div>
+  </div>
+  <div class="panel panel-default col-md-4">
+    <div class="panel-heading">
+      <h3 class="panel-title">JSA Disclosure</h3>
+    </div>
+    <div class="panel-body">
+      Verbage for JSA disclosure.
+      <text-field
+        label-text="JSA Members:"
+        data="jsa.jsaMembers">
+      </text-field>
+      <check-box
+        label-text="Agree"
+        data="jsa.agreement">
+      </check-box>
+    </div>
+  </div>
+
+</div>
+<!-- end modal body -->
+<div class="modal-footer">
+  <button
+    class="btn btn-primary"
+    type="button"
+    ng-click="ok()">
+    Submit JSA
+  </button>
+  <button
+    class="btn btn-warning"
+    type="button"
+    ng-click="cancel()">
+    Cancel
+  </button>
+</div>

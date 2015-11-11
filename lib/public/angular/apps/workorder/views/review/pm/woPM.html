@@ -1,0 +1,23 @@
+<div class="panel panel-default" ng-hide="!workorder.pm">
+  <div class="panel-heading">
+    <h3 class="panel-title">Preventative Maintenance (PM) Checklist</h3>
+  </div>
+  <div class="panel-body">
+
+    <workorder-kill-settings></workorder-kill-settings>
+
+    <div class="row">
+
+      <div class="col-md-4">
+        <workorder-engine-checks></workorder-engine-checks>
+      </div>
+      <div class="col-md-4">
+        <workorder-general-checks></workorder-general-checks>
+      </div>
+      <div class="col-md-4">
+        <workorder-pm-misc></workorder-pm-misc>
+      </div>
+    </div>
+
+  </div>
+</div>

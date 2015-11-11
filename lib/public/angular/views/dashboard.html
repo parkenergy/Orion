@@ -13,11 +13,11 @@
     <tr ng-repeat="workorder in workorders | orderBy:sort.column:sort.descending"
       style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}">
       <td>{{ workorder.unitNumber }}</td>
-      <td>{{ workorder.customerName }}</td>
-      <td>{{ workorder.timeStarted | date:'MM/dd/yyyy'}}</td>
+      <td>{{ workorder.header.customerName }}</td>
+      <td>{{ workorder.updated_at | date:'MM/dd/yyyy'}}</td>
       <td>{{ workorder.techId}}</td>
       <td>
-        <a href="/#/workorder/edit/{{workorder.id}}"
+        <a href="/#/workorder/review/{{workorder.id}}"
         class="btn btn-sm btn-primary pull-right">
           {{ role === "TECHNICIAN" ? 'Edit' : 'Review' }}
         </a>
