@@ -4,7 +4,7 @@
   "description": "A workorder tracking software system for Park Energy",
   "main": "app.js",
   "dependencies": {
-    "agenda": "^0.6.28",
+    "agenda": "^0.7.2",
     "angular-modal-service": "^0.6.7",
     "async": "^0.9.2",
     "body-parser": "^1.12.4",
