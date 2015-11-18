@@ -86,16 +86,24 @@ db.once('open', function (callback) {
                 server.address().address;
 
 
-    var sync = new Agenda({db: {address: uri}});
+    var agenda = new Agenda({db: {address: uri}});
 
-    sync.define('netsuiteSync', function(job, done) {
-      console.log('Syncing with Netsuite');
+    agenda.define('netsuiteSync', function(job, done){
       importer.execute(done);
     });
 
-    sync.every('5 minutes', 'netsuiteSync');
+    agenda.on('ready', function(){
+      agenda.every('5 minutes', 'netsuiteSync');
+      agenda.start();
+    });
 
-    sync.start();
+    // sync.define('netsuiteSync', function(job, done) {
+    //   console.log('Syncing with Netsuite');
+    //   importer.execute(done);
+    // });
+    // sync.every('5 minutes', 'netsuiteSync');
+    //
+    // sync.start();
 
     var Log = require('./lib/helpers/log.js');
     var log = new Log(db);
