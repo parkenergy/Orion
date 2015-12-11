@@ -1,0 +1,9 @@
+---
+
+- hosts: nodejs
+  gather_facts: yes
+  roles:
+    - common
+    - mongodb
+    - nodesource.node
+    - npm

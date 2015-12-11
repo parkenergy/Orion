@@ -1,0 +1,11 @@
+---
+
+# Setup common dependencies
+
+- name: Install common tools
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - git
+    - curl
+    - wget
+    - vim

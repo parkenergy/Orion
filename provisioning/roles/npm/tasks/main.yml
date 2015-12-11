@@ -1,0 +1,14 @@
+---
+
+# Install global npm modules
+
+- name: Install global modules
+  npm: name={{ item }} global=yes state=latest
+  with_items:
+    - gulp
+    - mocha
+    - chai
+    - nodemon
+    - protractor
+    - jshint
+    - browserify

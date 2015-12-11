@@ -1,0 +1,15 @@
+---
+
+# Setup mongodb
+
+- name: Register mongodb APT KEY
+  apt_key: keyserver=keyserver.ubuntu.com id=7F0CEB10
+
+- name: Register mongodb APT REPO
+  apt_repository: repo="deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" state=present
+
+- name: Install Mongodb
+  apt: name=mongodb-org update_cache=yes state=latest
+
+- name: Ensure mongod service is enabled
+  service: name=mongod enabled=yes
