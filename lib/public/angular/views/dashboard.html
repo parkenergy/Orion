@@ -1,28 +1,47 @@
-<table class="table">
+<input class="form-control pull-right" name="unitNumber" ng-model="searchWorkorders.unitNumber" placeholder="Unit Number" type="text">
+<input class="form-control pull-right" name="customer" ng-model="searchWorkorders.customerName" placeholder="Customer" type="text">
+<input class="form-control pull-right" name="timeStarted" ng-model="searchWorkorders.timeStarted" type="date">
+<table class="table table-hover">
 
   <thead>
-    <tr>
-      <th ng-click="changeSorting('unitNumber')">Unit #</th>
-      <th ng-click="changeSorting('customerName')">Customer</th>
-      <th ng-click="changeSorting('timeStarted')">Date</th>
-      <th ng-click="changeSorting('techId')">Technician Id</th>
-    </tr>
+  <tr style="cursor: pointer">
+    <th ng-click="resort('unitSort');">
+      Unit #
+      <span ng-show="orderByField == 'unitSort' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+      <span ng-show="orderByField == 'unitSort' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+    </th>
+    <th ng-click="resort('orderType');">
+      Type
+      <span ng-show="orderByField == 'orderType' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+      <span ng-show="orderByField == 'orderType' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+    </th>
+    <th ng-click="resort('unit.locationName');">
+      Location
+      <span ng-show="orderByField == 'unit.locationName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+      <span ng-show="orderByField == 'unit.locationName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+    </th>
+    <th ng-click="resort('unit.customerName');">
+      Customer
+      <span ng-show="orderByField == 'unit.customerName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+      <span ng-show="orderByField == 'unit.customerName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+    </th>
+    <th ng-click="resort('epoch');">
+      Date
+      <span ng-show="orderByField == 'epoch' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+      <span ng-show="orderByField == 'epoch' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+    </th>
+  </tr>
   </thead>
 
   <tbody>
-    <tr ng-repeat="workorder in workorders | orderBy:sort.column:sort.descending"
-      style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}">
-      <td>{{ workorder.unitNumber }}</td>
-      <td>{{ workorder.header.customerName }}</td>
-      <td>{{ workorder.updated_at | date:'MM/dd/yyyy'}}</td>
-      <td>{{ workorder.techId}}</td>
-      <td>
-        <a href="/#/workorder/review/{{workorder.id}}"
-        class="btn btn-sm btn-primary pull-right">
-          {{ role === "TECHNICIAN" ? 'Edit' : 'Review' }}
-        </a>
-      </td>
-    </tr>
+  <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort | filter:searchWorkorders" ng-click="clickWorkOrder();"
+      style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}; cursor: pointer">
+    <td>{{ workorder.unitNumber }}</td>
+    <td>{{ workorder.orderType }}</td>
+    <td>{{ workorder.unit.locationName}}</td>
+    <td>{{ workorder.unit.customerName }}</td>
+    <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+  </tr>
   </tbody>
 
 </table>
