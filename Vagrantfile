@@ -8,14 +8,14 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "nodejs"
+    vb.name = "backoffice"
     vb.memory = "1024"
     vb.cpus = 1
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
-  config.vm.hostname = "nodejs"
+  config.vm.hostname = "backoffice"
   config.vm.network :private_network, ip: "192.168.33.27"
   config.vm.define :nodejs do |nodejs|
   end
