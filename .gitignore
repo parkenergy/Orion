@@ -1,6 +1,8 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+.idea
+.vagrant
 
 .Spotlight-V100
 .Trasheslib-cov
@@ -11,6 +13,7 @@
 *.pid
 *.gz
 *.idea
+*.vagrant
 *.swp
 *.swo
 
