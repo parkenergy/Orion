@@ -17,13 +17,13 @@
     </th>
     <th ng-click="resort('unit.locationName');">
       Location
-      <span ng-show="orderByField == 'unit.locationName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-      <span ng-show="orderByField == 'unit.locationName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+      <span ng-show="orderByField == 'locationName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+      <span ng-show="orderByField == 'locationName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
     </th>
     <th ng-click="resort('unit.customerName');">
       Customer
-      <span ng-show="orderByField == 'unit.customerName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-      <span ng-show="orderByField == 'unit.customerName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+      <span ng-show="orderByField == 'customerName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+      <span ng-show="orderByField == 'customerName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
     </th>
     <th ng-click="resort('epoch');">
       Date
@@ -38,9 +38,9 @@
       style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}; cursor: pointer">
     <td>{{ workorder.unitNumber }}</td>
     <td>{{ workorder.orderType }}</td>
-    <td>{{ workorder.unit.locationName}}</td>
-    <td>{{ workorder.unit.customerName }}</td>
-    <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+    <td>{{ workorder.locationName}}</td>
+    <td>{{ workorder.customerName }}</td>
+    <td>{{ workorder.updated_at | date:'MM/dd/yyyy HH:mm:ss'}}</td>
   </tr>
   </tbody>
 
