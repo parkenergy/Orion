@@ -3,6 +3,8 @@
 .LSOverride
 .idea
 .vagrant
+.models
+models
 
 .Spotlight-V100
 .Trasheslib-cov
@@ -12,6 +14,7 @@
 *.out
 *.pid
 *.gz
+*.models
 *.idea
 *.vagrant
 *.swp
