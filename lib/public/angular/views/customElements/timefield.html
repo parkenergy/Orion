@@ -6,16 +6,18 @@
 
     <div class="col-md-6">
       <select class="form-control"
-        ng-model="data.hours"
-        name="{{data}}.hours"
-        ng-options="h for h in hours">
+              ng-class="{highlighted: data.highlight}"
+              ng-model="data.hours"
+              name="{{data}}.hours"
+              ng-options="h for h in hours">
       </select>
     </div>
     <div class="col-md-6">
       <select class="form-control"
-        ng-model="data.minutes"
-        name="{{data}}.minutes"
-        ng-options="m for m in minutes">
+              ng-class="{highlighted: data.highlight}"
+              ng-model="data.minutes"
+              name="{{data}}.minutes"
+              ng-options="m for m in minutes">
       </select>
     </div>
   </div>

@@ -5888,3 +5888,6 @@ input[type="checkbox"] {
   -o-transform: scale(1.4, 1.4);
   margin-right: 10px;
 }
+.highlighted {
+  background-color: #a4cf80;
+}
