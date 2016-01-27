@@ -5037,6 +5037,8 @@ function( $scope, $modalInstance, jsa ){
   };
 });
 
+
+
 angular.module('WorkOrderApp.Controllers').controller('AddPartModalCtrl',
 function( $scope, $modalInstance){
   $scope.part = {};
