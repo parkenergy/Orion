@@ -19,7 +19,7 @@ var app = express();
     app.use(require('cookie-parser')());
 
     // Session has to be included prior to Passport and after cookies.
-    app.use(require('express-session')({secret: 'oneTimeAtBandCamp'}));
+    app.use(require('express-session')({secret: 'eiquaephe2cieteishoo6nughe0Oot'}));
 
     // Passport has to be included prior to the routes
     app.use(passport.initialize());
