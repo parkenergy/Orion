@@ -210,7 +210,7 @@ gulp.task('test', ['lint'], function (callback) {
 });
 
 gulp.task('default', function (callback) {
-  runSequence('start', 'watch', callback);
+  runSequence('bundle', 'start', 'watch', callback);
 });
 
 gulp.task('stop', function (callback) {
