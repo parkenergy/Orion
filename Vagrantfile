@@ -18,7 +18,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.hostname = "backoffice"
   config.vm.network :private_network, ip: "192.168.33.27"
-  config.vm.define :nodejs do |nodejs|
+  config.vm.define :orionBackoffice do |orionBackoffice|
   end
 
   config.vm.provision "ansible" do |ansible|
