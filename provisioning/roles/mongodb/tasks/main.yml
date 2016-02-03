@@ -11,5 +11,14 @@
 - name: Install Mongodb
   apt: name=mongodb-org update_cache=yes state=latest
 
+- name: Ensure data directory exists
+  file: path=/data state=directory owner=mongodb
+
+- name: Configure Mongodb
+  template: src=mongod.conf dest=/etc/mongod.conf
+
 - name: Ensure mongod service is enabled
-  service: name=mongod enabled=yes
+  service: name=mongod enabled=yes state=started
+
+- name: Restart mongod
+  service: name=mongod state=restarted
