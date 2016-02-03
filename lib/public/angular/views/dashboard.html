@@ -10,10 +10,10 @@
       <span ng-show="orderByField == 'unitSort' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
       <span ng-show="orderByField == 'unitSort' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
     </th>
-    <th ng-click="resort('techName');">
+    <th ng-click="resort('techId');">
       Tech
-      <span ng-show="orderByField == 'techName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-      <span ng-show="orderByField == 'techName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+      <span ng-show="orderByField == 'techId' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+      <span ng-show="orderByField == 'techId' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
     </th>
     <th ng-click="resort('orderType');">
       Type
@@ -42,7 +42,7 @@
   <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort | filter:searchWorkorders" ng-click="clickWorkOrder();"
       style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}; cursor: pointer">
     <td>{{ workorder.unitNumber }}</td>
-    <td>{{ workorder.technician }}</td>
+    <td>{{ workorder.techId }}</td>
     <td>{{ workorder.orderType }}</td>
     <td>{{ workorder.locationName}}</td>
     <td>{{ workorder.customerName }}</td>
