@@ -1,10 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Heading Information</h3>
+    <h3 class="panel-title">Heading Information test</h3>
   </div>
   <div class="panel-body">
   	<type-ahead
-      class="col-md-4"
+      class="col-md-3"
   		label-text="Unit #"
       place-text=""
       data="workorder.header.unitNumber"
@@ -13,8 +13,18 @@
   		obj-list="units"
       limit="12">
   	</type-ahead>
+    <type-ahead
+      class="col-md-3"
+      label-text="TechID"
+      place-text=""
+      data="workorder.techId"
+      select-field="techId"
+      display-field="techId"
+      obj-list="techs"
+      limit="12">
+    </type-ahead>
   	<type-ahead
-      class="col-md-4"
+      class="col-md-3"
   		label-text="Customer"
       data="workorder.header.customerName"
   		select-field="customerName"
@@ -23,7 +33,7 @@
       limit="12">
   	</type-ahead>
   	<text-field
-      class="col-md-4"
+      class="col-md-3"
   		label-text="Contact / Pumper Name"
       data="workorder.header.contactName">
   	</text-field>
