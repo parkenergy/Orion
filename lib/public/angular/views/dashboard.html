@@ -1,6 +1,6 @@
 <input class="form-control pull-right" name="unitNumber" ng-model="searchWorkorders.unitNumber" placeholder="Unit Number" type="text">
 <input class="form-control pull-right" name="customer" ng-model="searchWorkorders.customerName" placeholder="Customer" type="text">
-<input class="form-control pull-right" name="timeStarted" ng-model="searchWorkorders.timeStarted" type="date">
+<input class="form-control pull-right" name="datefilter" ng-model="searchWorkorders.updated_at" type="text" value="" />
 <input type="text" class="form-control pull-right col-md-4" name="searchWorkorders" ng-model="searchWorkorders.techId" placeholder="Technician Id">
 <table class="table table-hover">
 
@@ -52,3 +52,23 @@
   </tbody>
 
 </table>
+<script type="text/javascript">
+  $(function() {
+
+    $('input[name="datefilter"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+        cancelLabel: 'Clear'
+      }
+    });
+
+    $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    });
+
+    $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+    });
+
+  });
+</script>
