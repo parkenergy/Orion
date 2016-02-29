@@ -4,7 +4,6 @@
 .idea
 .vagrant
 .models
-models
 
 .Spotlight-V100
 .Trasheslib-cov
