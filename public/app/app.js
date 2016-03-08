@@ -38,17 +38,7 @@ angular.module('Orion', [
     .when('/myaccount', {
       needsLogin: true,
       controller: 'MyAccountCtrl',
-      templateUrl: '/lib/public/angular/views/myaccount.html',
-      resolve: {
-        workorders: function($route, $q, WorkOrders) {
-          var deferred = $q.defer();
-          WorkOrders.query({skip: 0, limit: 50},
-            function (response) { return deferred.resolve(response); },
-            function (err) { return deferred.reject(err); }
-          );
-          return deferred.promise;
-        }
-      }
+      templateUrl: '/lib/public/angular/views/myaccount.html'
     })
     .when('/example', {
       controller: 'ExampleCtrl',
