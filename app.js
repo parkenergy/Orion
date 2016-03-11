@@ -105,10 +105,6 @@ db.once('open', function (callback) {
     //
     // sync.start();
 
-    var Log = require('./lib/helpers/log.js');
-    var log = new Log(db);
-    log.initialize();
-
     console.log('Orion server listening at http://' + host + ':' + port);
     console.log('Orion server running in ' + env + ' environment');
 
