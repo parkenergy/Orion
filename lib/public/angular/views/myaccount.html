@@ -44,10 +44,7 @@
         </div>
 
         <div class="panel-body">
-          <dashboard ng-show="workorders.length > 0" workorders="workorders" ng-click="clickWorkOrder();"></dashboard>
-          <div ng-show="workorders.length <= 0">
-            There are currently no workorders in your queue.
-          </div>
+          <dashboard ng-show="loaded" workorders="workorders" ng-click="clickWorkOrder();"></dashboard>
         </div>
 
       </div>
