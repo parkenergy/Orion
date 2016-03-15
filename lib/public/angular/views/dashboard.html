@@ -65,7 +65,7 @@
     </tr>
   </thead>
 
-  <tbody infinite-scroll="loadOnScroll()" infinite-scroll-disabled="!loaded">
+  <tbody infinite-scroll="loadOnScroll()" infinite-scroll-immediate-check="false" infinite-scroll-disabled="!loaded">
     <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort | filter:searchWorkorders" ng-click="clickWorkOrder();"
         style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}; cursor: pointer">
       <td>{{ workorder.unitNumber }}</td>
