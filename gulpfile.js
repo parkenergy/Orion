@@ -197,7 +197,7 @@ gulp.task('package', function (callback) {
   runSequence('model-packager', callback);
 });
 
-gulp.task('bundle', ['package'], function (callback) {
+gulp.task('bundle', function (callback) {
   runSequence('browserify', 'less', 'scripts', callback);
 });
 

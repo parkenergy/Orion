@@ -1,6 +1,6 @@
 <input class="form-control pull-right" name="unitNumber" ng-model="searchWorkorders.unitNumber" placeholder="Unit Number" type="text">
 <input class="form-control pull-right" name="customer" ng-model="searchWorkorders.customerName" placeholder="Customer" type="text">
-<input type="text" class="form-control pull-right col-md-4" name="searchWorkorders" ng-model="searchWorkorders.techId" placeholder="Technician Id">
+<input type="text" class="form-control pull-right col-md-4" name="searchWorkorders" ng-model="searchWorkorders.techName" placeholder="Technician">
 
 <form class="form-inline">
   <div class="form-group">
@@ -37,10 +37,10 @@
         <span ng-show="orderByField == 'unitSort' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
         <span ng-show="orderByField == 'unitSort' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
       </th>
-      <th ng-click="resort('techId');">
+      <th ng-click="resort('techName');">
         Tech
-        <span ng-show="orderByField == 'techId' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-        <span ng-show="orderByField == 'techId' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+        <span ng-show="orderByField == 'techName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+        <span ng-show="orderByField == 'techName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
       </th>
       <th ng-click="resort('orderType');">
         Type
@@ -69,11 +69,11 @@
     <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort | filter:searchWorkorders" ng-click="clickWorkOrder();"
         style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}; cursor: pointer">
       <td>{{ workorder.unitNumber }}</td>
-      <td>{{ workorder.techId }}</td>
+      <td>{{ workorder.techName }}</td>
       <td>{{ workorder.orderType }}</td>
       <td>{{ workorder.locationName}}</td>
       <td>{{ workorder.customerName }}</td>
-      <td>{{ workorder.updated_at | date:'MM/dd/yyyy HH:mm'}} CST</td>
+      <td>{{ workorder.updated_at | date:'MM/dd/yyyy HH:mm'}}</td>
     </tr>
   </tbody>
 
