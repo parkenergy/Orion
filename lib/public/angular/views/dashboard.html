@@ -1,4 +1,4 @@
-<input class="form-control pull-right" name="unitNumber" ng-model="searchWorkorders.unitNumber" placeholder="Unit Number" type="text">
+<!--<input class="form-control pull-right" name="unitNumber" ng-model="searchWorkorders.unitNumber" placeholder="Unit Number" type="text">
 <input class="form-control pull-right" name="customer" ng-model="searchWorkorders.customerName" placeholder="Customer" type="text">
 <input type="text" class="form-control pull-right col-md-4" name="searchWorkorders" ng-model="searchWorkorders.techName" placeholder="Technician">
 
@@ -26,7 +26,101 @@
       Search
     </button>
   </div>
-</form>
+</form>-->
+
+<!--<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group" id="adv-search">
+        <div class="input-group-btn">
+          <div class="btn-group" role="group">
+            <div class="dropdown dropdown-lg">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+              <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label for="contain">Unit Number</label>
+                    <input class="form-control" name="unitNumber" ng-model="searchWorkorders.unitNumber" type="text" />
+                  </div>
+                  <div class="form-group">
+                    <label for="contain">Customer</label>
+                    <input class="form-control" name="customer" ng-model="searchWorkorders.customerName" type="text" />
+                  </div>
+                  <div class="form-group">
+                    <label for="contain">Technician</label>
+                    <input class="form-control" name="searchWorkorders" ng-model="searchWorkorders.techName" type="text" />
+                  </div>
+                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </form>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+<div class="col-md-8">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Filter By:</h3>
+      <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
+    </div>
+    <div class="panel-body workordersearch" style="display: none;">
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label for="contain">Unit Number</label>
+          <input class="form-control" name="unitNumber" ng-model="searchWorkorders.unitNumber" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="contain">Customer</label>
+          <input class="form-control" name="customer" ng-model="searchWorkorders.customerName" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="contain">Technician</label>
+          <input class="form-control" name="searchWorkorders" ng-model="searchWorkorders.techName" type="text" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Date Search:</h3>
+      <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
+    </div>
+    <div class="panel-body workordersearch" style="display: none;">
+      <form class="form-inline">
+        <div class="form-group">
+          <label>From: </label>
+          <input class="form-control"
+                 ng-model="dates.from"
+                 ng-change="startOfDay()"
+                 name="fromDate" type="date"
+                 placeholder="yyyy-MM-dd">
+
+          <label>To: </label>
+          <input class="form-control"
+                 ng-model="dates.to"
+                 ng-change="endOfDay()"
+                 name="toDate"
+                 type="date"
+                 placeholder="yyyy-MM-dd">
+
+          <button
+            class="btn btn-primary form-inline"
+            type="button"
+            ng-click="submitDates()">
+            Search
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <table class="table table-hover">
 
@@ -78,3 +172,21 @@
   </tbody>
 
 </table>
+<script type="text/javascript">
+  jQuery(function ($) {
+    $('.panel-heading span.clickable').on("click", function (e) {
+      if ($(this).hasClass('panel-collapsed')) {
+        // expand the panel
+        $(this).parents('.panel').children('.workordersearch').slideDown();
+        $(this).removeClass('panel-collapsed');
+        $(this).find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+      }
+      else {
+        // collapse the panel
+        $(this).parents('.panel').children('.workordersearch').slideUp();
+        $(this).addClass('panel-collapsed');
+        $(this).find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+      }
+    });
+  });
+</script>
