@@ -110,6 +110,6 @@ db.once('open', function (callback) {
     console.log('Orion server running in ' + env + ' environment');
 
     console.log("Initial netsuite import(startup)");
-    importer.execute(done);
+    importer.execute(function(){});
   });
 });
