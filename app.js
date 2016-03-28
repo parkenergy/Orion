@@ -89,6 +89,7 @@ db.once('open', function (callback) {
     var agenda = new Agenda({db: {address: uri}});
 
     agenda.define('netsuiteSync', function(job, done){
+      console.log("Netsuite import...");
       importer.execute(done);
     });
 
@@ -108,5 +109,7 @@ db.once('open', function (callback) {
     console.log('Orion server listening at http://' + host + ':' + port);
     console.log('Orion server running in ' + env + ' environment');
 
+    console.log("Initial netsuite import(startup)");
+    importer.execute(done);
   });
 });
