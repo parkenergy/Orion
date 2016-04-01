@@ -43,14 +43,13 @@
 
   	<text-area-field
       ng-show="workorder.type == 'Indirect'"
-  		label-text="Unit Release Notes"
+  		label-text="Indirect Notes"
   		placeholder-text="Please provide desciption of indirect work performed"
       data="workorder.comments.indirectNotes">
   	</text-area-field>
-
-    <!-- TODO: Enable when there is positive or negative time adjustments -->
+    
   	<text-area-field
-      ng-show="workorder.types.timeAdjustment"
+      ng-show="workorder.comments.timeAdjustmentNotes"
   		label-text="Time Adjustment Notes"
   		placeholder-text="Please provide reason for time adjustment"
       data="workorder.comments.timeAdjustmentNotes">
