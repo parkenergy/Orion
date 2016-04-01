@@ -1,28 +1,28 @@
-<div class="col-md-8">
+<div class="col-md-9">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Filter By:</h3>
       <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
     </div>
     <div class="panel-body workordersearch" style="display: none;">
-      <form class="form-horizontal" role="form">
+      <form class="form-inline" role="form">
         <div class="form-group">
           <label for="contain">Unit Number</label>
           <input class="form-control" name="unitNumber" ng-model="searchWorkorders.unitNumber" type="text" />
         </div>
         <div class="form-group">
-          <label for="contain">Customer</label>
-          <input class="form-control" name="customer" ng-model="searchWorkorders.customerName" type="text" />
-        </div>
-        <div class="form-group">
           <label for="contain">Technician</label>
           <input class="form-control" name="searchWorkorders" ng-model="searchWorkorders.techName" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="contain">Customer</label>
+          <input class="form-control" name="customer" ng-model="searchWorkorders.customerName" type="text" />
         </div>
       </form>
     </div>
   </div>
 </div>
-<div class="col-md-4">
+<div class="col-md-3">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Date Search:</h3>
