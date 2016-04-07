@@ -20,7 +20,6 @@ var path = require('path');
 
 // used to bundle server side code needed by the client
 var runSequence = require('run-sequence');
-var browserify = require('browserify');
 var vss = require('vinyl-source-stream');
 
 /* TASKS
@@ -56,12 +55,7 @@ gulp.task('model-packager', function() {
 
 /* Bundling
  ----------------------------------------------------------------------------- */
-gulp.task('browserify', function () {
-  return browserify('./lib/_dev_util/browserify/includes.js')
-    .bundle()
-    .pipe(vss('browserify.js')) // pass output filename to vinyl-source-stream
-    .pipe(gulp.dest('public')); // pipe stream to tasks, triggers 'scripts' task
-});
+
 
 gulp.task('less', function () { // compile LESS to CSS
   return gulp.src('./lib/public/stylesheets/site.less')
@@ -74,7 +68,6 @@ gulp.task('scripts', function() { // concat & minify js files
     './lib/public/angular/**/*.js',
     './lib/public/scripts/**/*.js',
     './lib/public/bootstrap/bootstrap.min.js',
-    './lib/public/browserify.js',
     './public/app/**/*.js'
   ])
     .pipe(concat('bundle.js'))
@@ -151,12 +144,6 @@ gulp.task('watch', function() {
       './public/scripts/**/*.js'],
     ['scripts']);
 
-  gulp.watch([
-      './lib/_dev_util/browserify/includes.js'],
-    ['browserify']);
-
-  gulp.watch('./lib/public/browserify.js', ['scripts']);
-
 });
 
 // Watch Remote Git Hash for Changes
@@ -197,7 +184,7 @@ gulp.task('package', function (callback) {
 });
 
 gulp.task('bundle', function (callback) {
-  runSequence('browserify', 'less', 'scripts', callback);
+  runSequence('less', 'scripts', callback);
 });
 
 gulp.task('lint', ['bundle'], function (callback) {
