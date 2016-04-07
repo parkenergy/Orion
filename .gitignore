@@ -7,18 +7,8 @@
 
 .Spotlight-V100
 .Trasheslib-cov
-*.seed
-*.log
-*.dat
-*.out
-*.pid
-*.gz
-*.models
-*.swp
-*.swo
 
 bower_components
 npm-debug.log
-data
 
 *.orig
