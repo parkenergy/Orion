@@ -33,11 +33,16 @@ mongoose.connect(config.mongodb);
 var app = express();
 
 log.info({path: path.resolve(config.viewsPath)}, 'Setup views path');
-app.set('views', path.resolve(config.viewsPath));
 app.set('view engine', 'ejs');
+app.set('views', path.resolve(config.viewsPath));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/lib/public', express.static(path.join(__dirname, '/lib/public')));
 
+//Serve SAP(index.ejs)
+app.get('/', function(req, res) {
+  var model = { appName: "Orion", title: "Orion" };
+  res.render('index', model);
+});
 
 //Standard middleware
 log.info("Load standard middleware");
@@ -62,13 +67,14 @@ log.info({path: path.join(__dirname, '/lib/routes')}, 'Load routes from path');
 loader(path.join(__dirname, '/lib/routes'));
 
 //Scheduled tasks
-var netsuiteSync = new require('./lib/tasks/netsuiteSync');
+var netsuiteSync = require('./lib/tasks/netsuiteSync');
+var syncTask = new netsuiteSync();
 
 var agenda = new Agenda({db: {address: config.mongodb}});
 
 agenda.define('netsuiteSync', function(job, done){
   log.info("Netsuite import...");
-  netsuiteSync.execute(done);
+  syncTask.execute(done);
 });
 
 agenda.on('ready', function(){
@@ -77,7 +83,7 @@ agenda.on('ready', function(){
 });
 
 log.info("Initial Netsuite import...");
-netsuiteSync.execute(function() {
+syncTask.execute(function() {
   log.info("...Netsuite import finished");
 });
 
