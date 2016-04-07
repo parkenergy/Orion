@@ -90,8 +90,8 @@ syncTask.execute(function() {
 //Listen
 log.info("Starting app...");
 
-app.listen(config.port, function() {
-  log.info({port: config.port},"App started");
+app.listen(process.env.PORT || config.port, function() {
+  log.info({port: process.env.PORT || config.port},"App started");
 });
 
 //Loader helper
