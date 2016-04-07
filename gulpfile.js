@@ -1,5 +1,5 @@
 /* INCLUDES
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 // Include gulp
 var gulp = require('gulp');
@@ -13,7 +13,6 @@ var rename = require('gulp-rename');
 var nodemon = require('gulp-nodemon');
 var mocha = require('gulp-mocha');
 var rimraf = require('gulp-rimraf');
-var gulpif = require('gulp-if');
 var git = require('gulp-git');
 var exit = require('gulp-exit');
 var gitWatch = require('gulp-git-watch');
@@ -25,11 +24,11 @@ var browserify = require('browserify');
 var vss = require('vinyl-source-stream');
 
 /* TASKS
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 
 /* Sync (git)
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 gulp.task('purge', function () {
   gulp.src('./lib/', { read: false })
     .pipe(rimraf({ force: true }))
@@ -48,15 +47,15 @@ gulp.task('updateSubmodules', function () {
 
 
 /* Packaging
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 gulp.task('model-packager', function() {
-   return gulp.src('./models/**/*')
-   .pipe(gulp.dest('./lib/models'));
+  return gulp.src('./models/**/*')
+    .pipe(gulp.dest('./lib/models'));
 });
 
 
 /* Bundling
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 gulp.task('browserify', function () {
   return browserify('./lib/_dev_util/browserify/includes.js')
     .bundle()
@@ -72,12 +71,12 @@ gulp.task('less', function () { // compile LESS to CSS
 
 gulp.task('scripts', function() { // concat & minify js files
   return gulp.src([
-      './lib/public/angular/**/*.js',
-      './lib/public/scripts/**/*.js',
-      './lib/public/bootstrap/bootstrap.min.js',
-      './lib/public/browserify.js',
-      './public/app/**/*.js',
-    ])
+    './lib/public/angular/**/*.js',
+    './lib/public/scripts/**/*.js',
+    './lib/public/bootstrap/bootstrap.min.js',
+    './lib/public/browserify.js',
+    './public/app/**/*.js'
+  ])
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('public'))
     .pipe(rename('bundle.min.js'))
@@ -87,18 +86,18 @@ gulp.task('scripts', function() { // concat & minify js files
 
 
 /* LINT
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 gulp.task('back-end-lint', function () {
   return gulp.src([
-      './lib/controllers/**/*.js',
-      './lib/helpers/**/*.js',
-      './lib/models/**/*.js',
-      './lib/routes/**/*.js',
-      './lib/tests/**/*.js',
-      './routes/**/*.js',
-      './app.js',
-      './gulpfile.js'
-    ])
+    './lib/controllers/**/*.js',
+    './lib/helpers/**/*.js',
+    './lib/models/**/*.js',
+    './lib/routes/**/*.js',
+    './lib/tests/**/*.js',
+    './routes/**/*.js',
+    './app.js',
+    './gulpfile.js'
+  ])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
@@ -107,14 +106,14 @@ gulp.task('front-end-lint', function() {
   return gulp.src([
     './lib/public/angular/**/*.js',
     './public/app/**/*.js'
-    ])
+  ])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
 
 
 /* Testing
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 gulp.task('mocha', function () {
   // return gulp.src('./lib/tests/mocha/**/*.js', {read: false})
   //     .pipe(mocha({reporter: 'nyan'}));
@@ -122,7 +121,7 @@ gulp.task('mocha', function () {
 
 
 /* Start
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 // launches the server with nodemon
 gulp.task('start', ['test'], function () {
   nodemon({
@@ -138,7 +137,7 @@ gulp.task('start', ['test'], function () {
 });
 
 /* Watching
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 // Watch Local Files For Changes
 gulp.task('watch', function() {
@@ -146,14 +145,14 @@ gulp.task('watch', function() {
   gulp.watch(['./Common/**/*'], ['common-packager']);
 
   gulp.watch([
-    './lib/public/**/*.less',
-    './lib/public/angular/**/*.js',
-    './public/app/**/*.js',
-    './public/scripts/**/*.js'],
+      './lib/public/**/*.less',
+      './lib/public/angular/**/*.js',
+      './public/app/**/*.js',
+      './public/scripts/**/*.js'],
     ['scripts']);
 
   gulp.watch([
-    './lib/_dev_util/browserify/includes.js'],
+      './lib/_dev_util/browserify/includes.js'],
     ['browserify']);
 
   gulp.watch('./lib/public/browserify.js', ['scripts']);
@@ -179,7 +178,7 @@ gulp.task('git-watch', function() {
 });
 
 /* Shutdown MongoDB
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 var exec = require('child_process').exec;
 
 gulp.task('shutdown-mongodb', function (callback) {
@@ -188,7 +187,7 @@ gulp.task('shutdown-mongodb', function (callback) {
 });
 
 /* DEFAULT TASK
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 // gulp.task('sync', function (callback) {
 //   runSequence('updateSubmodules', callback);
 // });
@@ -211,8 +210,4 @@ gulp.task('test', ['lint'], function (callback) {
 
 gulp.task('default', function (callback) {
   runSequence('bundle', 'start', 'watch', callback);
-});
-
-gulp.task('stop', function (callback) {
-  runSequence('shutdown-mongodb', callback);
 });
