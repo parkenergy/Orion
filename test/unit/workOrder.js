@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var should = require('should');
+var fixture = require('../fixture/workOrder.json');
+var _ = require('_');
 var WorkOrder = require();
 
 before(function(done) {
@@ -18,7 +20,7 @@ describe("WorkOrder", function() {
   var id;
   describe("#createDoc()", function() {
     it('should create and return new document via promise', function(done) {
-      WorkOrder.createDoc({})
+      WorkOrder.createDoc(fixture)
         .then(function(doc) {
           doc.should.have.property("_id");
           doc.should.have.property('updated_date').as.a.Date();
@@ -35,8 +37,21 @@ describe("WorkOrder", function() {
   describe("#updateDoc()", function() {
 
     it('should update document', function(done) {
-      WorkOrder.updateDoc(id, {})
-        .then()
+      var updated = _.clone(fixture);
+      updated.header.unitNumber = 'TEST2';
+
+      WorkOrder.updateDoc(id, updated)
+        .then(function(doc) {
+          doc.should.have.property('header');
+          doc.header.should.have.property('unitNumber').as.a.String();
+          doc.header.unitNumber.should.equal('TEST2');
+
+          done();
+        })
+        .catch(function(err){
+          should.not.exist(err);
+          done();
+        });
     });
   });
 
@@ -46,6 +61,10 @@ describe("WorkOrder", function() {
         .then(function(doc) {
           doc.should.have.property("_id");
           doc.should.have.property('updated_date').as.a.Date();
+
+          doc.should.have.property('header');
+          doc.header.should.have.property('unitNumber').as.a.String();
+          doc.header.unitNumber.should.equal('TEST2');
         })
         .catch(function(err) {
           should.not.exist(err);

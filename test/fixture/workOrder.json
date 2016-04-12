@@ -1,0 +1,316 @@
+{
+  "billingInfo" : {
+    "billableToCustomer" : false,
+    "warrantyWork" : false,
+    "AFE" : false
+  },
+  "comments" : {
+    "repairsDescription" : "",
+    "repairsReason" : "",
+    "calloutReason" : "",
+    "newsetNotes" : "",
+    "releaseNotes" : "",
+    "indirectNotes" : "Testing",
+    "timeAdjustmentNotes" : ""
+  },
+  "emissionsReadings" : {
+    "afrmvTarget" : "",
+    "catalystTempPre" : "",
+    "catalystTempPost" : "",
+    "permitNumber" : ""
+  },
+  "header" : {
+    "unitNumber" : "TEST1",
+    "customerName" : "",
+    "contactName" : "",
+    "county" : "",
+    "state" : "",
+    "leaseName" : "",
+    "rideAlong" : "",
+    "applicationtype" : ""
+  },
+  "isSynced" : false,
+  "laborCodes" : {
+    "basic" : {
+      "safety" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Safety"
+      },
+      "positiveAdj" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Positive Adjustment"
+      },
+      "negativeAdj" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Negative Adjustment"
+      },
+      "lunch" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Lunch"
+      },
+      "custRelations" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Customer Relations"
+      },
+      "telemetry" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Telemetry"
+      },
+      "environmental" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Environmental"
+      },
+      "diagnostic" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Diagnostic"
+      },
+      "serviceTravel" : {
+        "hours" : 0,
+        "minutes" : 30,
+        "text" : "Service Travel"
+      },
+      "optimizeUnit" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Optimize Unit"
+      },
+      "pm" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Preventive Maitenance"
+      },
+      "washUnit" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Wash Unit"
+      },
+      "training" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Training"
+      }
+    },
+    "engine" : {
+      "oilAndFilter" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Oil And Filter"
+      },
+      "addOil" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Add Oil"
+      },
+      "compression" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Compression"
+      },
+      "replaceEngine" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Replace Engine"
+      },
+      "replaceCylHead" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Replace Cylinder Head"
+      },
+      "replaceRadiator" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Replace Radiator"
+      },
+      "fuelSystem" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Fuel System"
+      },
+      "ignition" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Ignition"
+      },
+      "starter" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Starter"
+      },
+      "lubrication" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Lubrication"
+      },
+      "exhaust" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Exhaust"
+      },
+      "alternator" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Alternator"
+      },
+      "driveOrCoupling" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Drive or Coupling"
+      },
+      "sealsAndGaskets" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Seals and Gaskets"
+      }
+    },
+    "emissions" : {
+      "install" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Install"
+      },
+      "test" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Test"
+      },
+      "repair" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Repair"
+      }
+    },
+    "panel" : {
+      "panel" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Panel"
+      },
+      "electrical" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Eletrical"
+      }
+    },
+    "compressor" : {
+      "inspect" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Inspect"
+      },
+      "replace" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Replace"
+      }
+    },
+    "cooler" : {
+      "cooling" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Cooler"
+      }
+    },
+    "vessel" : {
+      "dumpControl" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Dump Control"
+      },
+      "reliefValve" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Relief Valve"
+      },
+      "suctionValve" : {
+        "hours" : 0,
+        "minutes" : 0,
+        "text" : "Suction Valve"
+      }
+    }
+  },
+  "misc" : {
+    "leaseNotes" : "",
+    "unitNotes" : "",
+    "isUnitRunningOnDeparture" : false
+  },
+  "pm" : false,
+  "pmChecklist" : {
+    "killSettings" : {
+      "highSuctionKill" : "",
+      "highDischargeKill" : "",
+      "lowSuctionKill" : "",
+      "lowDischargeKill" : "",
+      "highDischargeTempKill" : ""
+    },
+    "engineChecks" : {
+      "battery" : false,
+      "capAndRotor" : false,
+      "airFilter" : false,
+      "oilAndFilters" : false,
+      "magPickup" : false,
+      "belts" : false,
+      "guardsAndBrackets" : false,
+      "sparkPlugs" : false,
+      "plugWires" : false,
+      "driveLine" : false
+    },
+    "generalChecks" : {
+      "kills" : false,
+      "airHoses" : false,
+      "coolerForCracks" : false,
+      "coolerLouverMovement" : false,
+      "coolerLouverCleaned" : false,
+      "scrubberDump" : false,
+      "plugInSkid" : false,
+      "filledDayTank" : false,
+      "fanForCracking" : false,
+      "panelWires" : false,
+      "oilPumpBelt" : false
+    },
+    "engineCompression" : {
+      "cylinder1" : "",
+      "cylinder2" : "",
+      "cylinder3" : "",
+      "cylinder4" : "",
+      "cylinder5" : "",
+      "cylinder6" : "",
+      "cylinder7" : "",
+      "cylinder8" : ""
+    },
+    "fuelPressureFirstCut" : "",
+    "fuelPressureSecondCut" : "",
+    "visibleLeaksNotes" : ""
+  },
+  "techId" : "TEST001",
+  "timeApproved" : null,
+  "type" : "Indirect",
+  "unitNumber" : "",
+  "unitOwnership" : {
+    "isRental" : false,
+    "isCustomerUnit" : false
+  },
+  "unitReadings" : {
+    "suctionPressure" : "",
+    "dischargePressure" : "",
+    "flowMCF" : "",
+    "rpm" : "",
+    "dischargeTemp1" : "",
+    "dischargeTemp2" : "",
+    "hourReading" : "",
+    "compressorSerial" : "",
+    "engineSerial" : "",
+    "engineOilPressure" : "",
+    "alternatorOutput" : "",
+    "compressorOilPressure" : "",
+    "engineJWTemp" : "",
+    "engineManifoldVac" : ""
+  }
+}

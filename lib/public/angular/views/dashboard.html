@@ -8,19 +8,19 @@
       <form class="form-inline" role="form">
         <div class="form-group">
           <label for="contain">Unit Number</label>
-          <input class="form-control" name="unitNumber" ng-model="searchWorkorders.unitNumber" type="text" />
+          <input class="form-control" name="unitNumber" ng-model="unitNumber" type="text" />
         </div>
         <div class="form-group">
           <label for="contain">Technician</label>
-          <input class="form-control" name="searchWorkorders" ng-model="searchWorkorders.techName" type="text" />
+          <input class="form-control" name="searchWorkorders" ng-model="techName" type="text" />
         </div>
         <div class="form-group">
           <label for="contain">Location</label>
-          <input class="form-control" name="location" ng-model="searchWorkorders.header.leaseName" type="text" />
+          <input class="form-control" name="location" ng-model="leaseName" type="text" />
         </div>
         <div class="form-group">
           <label for="contain">Customer</label>
-          <input class="form-control" name="customer" ng-model="searchWorkorders.customerName" type="text" />
+          <input class="form-control" name="customer" ng-model="customerName" type="text" />
         </div>
       </form>
     </div>
@@ -53,7 +53,7 @@
           <button
             class="btn btn-primary form-inline"
             type="button"
-            ng-click="submitDates()">
+            ng-click="submit()">
             Search
           </button>
         </div>
@@ -100,7 +100,7 @@
   </thead>
 
   <tbody infinite-scroll="loadOnScroll()" infinite-scroll-immediate-check="false" infinite-scroll-disabled="!loaded">
-    <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort | filter:searchWorkorders" ng-click="clickWorkOrder();"
+    <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort" ng-click="clickWorkOrder();"
         style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}; cursor: pointer">
       <td>{{ workorder.unitNumber }}</td>
       <td>{{ workorder.techName }}</td>
