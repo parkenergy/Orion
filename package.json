@@ -4,7 +4,7 @@
   "description": "A workorder tracking software system for Park Energy",
   "main": "",
   "scripts": {
-    "test": "mocha test/unit",
+    "test": "export NODE_ENV=test; mocha test/unit",
     "start": "node app.js"
   },
   "repository": {
@@ -23,6 +23,7 @@
   "homepage": "",
   "dependencies": {
     "agenda": "^0.7.2",
+    "async": "^2.0.0-rc.3",
     "bluebird": "^3.3.4",
     "body-parser": "^1.15.0",
     "bunyan": "^1.8.0",
