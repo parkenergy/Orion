@@ -215,7 +215,7 @@ describe("WorkOrder", function() {
         tech:  null,
         loc:   "TESTLOC",
         cust:  null,
-        limit: 25,
+        limit: 100,
         skip:  0
       };
 
@@ -236,7 +236,7 @@ describe("WorkOrder", function() {
         tech:  null,
         loc:   null,
         cust:  "TESTCUST",
-        limit: 50,
+        limit: 100,
         skip:  0
       };
 

@@ -1,39 +1,11 @@
 <div class="col-md-9">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Filter By:</h3>
-      <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
+      <h3 class="panel-title">Search:</h3>
+      <span class="pull-right "></span>
     </div>
-    <div class="panel-body workordersearch" style="display: none;">
+    <div class="panel-body">
       <form class="form-inline" role="form">
-        <div class="form-group">
-          <label for="contain">Unit Number</label>
-          <input class="form-control" name="unitNumber" ng-model="unitNumber" type="text" />
-        </div>
-        <div class="form-group">
-          <label for="contain">Technician</label>
-          <input class="form-control" name="searchWorkorders" ng-model="techName" type="text" />
-        </div>
-        <div class="form-group">
-          <label for="contain">Location</label>
-          <input class="form-control" name="location" ng-model="leaseName" type="text" />
-        </div>
-        <div class="form-group">
-          <label for="contain">Customer</label>
-          <input class="form-control" name="customer" ng-model="customerName" type="text" />
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Date Search:</h3>
-      <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
-    </div>
-    <div class="panel-body workordersearch" style="display: none;">
-      <form class="form-inline">
         <div class="form-group">
           <label>From: </label>
           <input class="form-control"
@@ -43,20 +15,35 @@
                  placeholder="yyyy-MM-dd">
 
           <label>To: </label>
+        </div>
+        <div class="form-group">
           <input class="form-control"
                  ng-model="dates.to"
                  ng-change="endOfDay()"
                  name="toDate"
                  type="date"
                  placeholder="yyyy-MM-dd">
-
-          <button
-            class="btn btn-primary form-inline"
-            type="button"
-            ng-click="submit()">
-            Search
-          </button>
+          <label for="unit">Unit Number</label>
+          <input id="unit" class="form-control" name="unitNumber" ng-model="unitNumber" type="text" />
         </div>
+        <div class="form-group">
+          <label for="tech">Technician</label>
+          <input id="tech" class="form-control" name="searchWorkorders" ng-model="techName" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input id="location" class="form-control" name="location" ng-model="leaseName" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="customer">Customer</label>
+          <input id="customer" class="form-control" name="customer" ng-model="customerName" type="text" />
+        </div>
+        <button
+          class="btn btn-primary form-inline"
+          type="button"
+          ng-click="submit()">
+          Search
+        </button>
       </form>
     </div>
   </div>
@@ -112,21 +99,3 @@
   </tbody>
 
 </table>
-<script type="text/javascript">
-  jQuery(function ($) {
-    $('.panel-heading span.clickable').on("click", function (e) {
-      if ($(this).hasClass('panel-collapsed')) {
-        // expand the panel
-        $(this).parents('.panel').children('.workordersearch').slideDown();
-        $(this).removeClass('panel-collapsed');
-        $(this).find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-      }
-      else {
-        // collapse the panel
-        $(this).parents('.panel').children('.workordersearch').slideUp();
-        $(this).addClass('panel-collapsed');
-        $(this).find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-      }
-    });
-  });
-</script>
