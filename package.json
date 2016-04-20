@@ -33,6 +33,7 @@
     "ejs": "^2.3.1",
     "express": "^4.13.4",
     "express-bunyan-logger": "^1.2.0",
+    "lodash": "^4.11.1",
     "mongoose": "^4.4.10",
     "mongoose-autopopulate": "^0.4.0",
     "needle": "^0.10.0",

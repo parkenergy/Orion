@@ -27,7 +27,7 @@
     "contactName" : "",
     "county" : "",
     "state" : "",
-    "leaseName" : "",
+    "leaseName" : "somewhere",
     "rideAlong" : "",
     "applicationtype" : ""
   },
