@@ -14,21 +14,24 @@
                  name="fromDate" type="date"
                  placeholder="yyyy-MM-dd">
 
-          <label>To</label>
+
         </div>
         <div class="form-group">
+          <label>To</label>
           <input class="form-control"
                  ng-model="dates.to"
                  ng-change="endOfDay()"
                  name="toDate"
                  type="date"
                  placeholder="yyyy-MM-dd">
+        </div>
+        <div class="form-group">
           <label for="unit">Unit Number</label>
           <input id="unit" class="form-control" name="unitNumber" ng-model="unitNumber" type="text" />
         </div>
         <div class="form-group">
           <label for="tech">Technician</label>
-          <input id="tech" class="form-control" name="searchWorkorders" ng-model="techName" type="text" />
+          <input id="tech" class="form-control" name="techName" ng-model="techName" type="text" />
         </div>
         <div class="form-group">
           <label for="location">Location</label>
