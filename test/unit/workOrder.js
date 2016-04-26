@@ -3,8 +3,14 @@ var config = require('../../config');
 var should = require('should');
 var _ = require('lodash');
 var fixture = require('../fixture/workOrder.json');
+var unitFixture = require('../fixture/unit.json');
+var userFixture = require('../fixture/user.json');
 var WorkOrder = require('../../lib/models/workOrder');
+var User = require('../../lib/models/user');
 var Unit = require('../../lib/models/unit');
+var County = require('../../lib/models/county');
+var State = require('../../lib/models/state');
+var Area = require('../../lib/models/area')
 
 before(function(done) {
   mongoose.connect(config.mongodb);
@@ -18,9 +24,41 @@ after(function(done) {
 });
 
 describe("WorkOrder", function() {
+  var unitId, userId, unitDoc, userDoc;
+
+  before(function() {
+    return User.remove({})
+      .then(function() {
+        return Unit.remove({})
+      })
+      .then(function() {
+        return new User(userFixture).save()
+      })
+      .then(function(user) {
+        userId = user._id;
+        userDoc = user;
+
+        return new Unit(unitFixture).save();
+      })
+      .then(function(unit) {
+        unitId = unit._id;
+        unitDoc = unit;
+      });
+  });
+
+  after(function () {
+    return User.remove({})
+      .then(function () {
+        return Unit.remove({});
+      });
+  });
 
   describe("#createDoc()", function() {
     it('should create and return new document via promise', function() {
+      var doc = _.cloneDeep(fixture);
+      doc.technician = userDoc;
+      doc.unit = unitDoc;
+
       return WorkOrder.createDoc(fixture)
         .then(function(doc) {
           should.exist(doc);
@@ -31,6 +69,10 @@ describe("WorkOrder", function() {
           doc[0].header.should.have.property('unitNumber');
           doc[0].header.unitNumber.should.be.a.String();
           doc[0].header.unitNumber.should.equal('TEST1');
+          should.exist(doc[0].unit);
+          should.exist(doc[0].technician);
+          doc[0].unit.toString().should.equal(unitId.toString());
+          doc[0].technician.toString().should.equal(userId.toString());
         });
     });
   });
@@ -271,5 +313,4 @@ describe("WorkOrder", function() {
       return WorkOrder.delete(id);
     });
   });
-
 });

@@ -292,8 +292,8 @@
     "visibleLeaksNotes" : ""
   },
   "techId" : "TEST001",
-  "technician": {"_id":"55c244845a2d568a084dcd1f","netsuiteId":"1326","email":"JRYAN@PARKENERGYSERVICES.COM","username":"JRY001","lastName":"RYAN","firstName":"JAMI","__v":0,"areas":[],"units":[],"role":"Technician"},
-  "unit": {"_id":"5612b333aadab39908fa24e0","netsuiteId":"267"},
+  "technician": {"netsuiteId":"T456"},
+  "unit": {"netsuiteId":"T123"},
   "timeApproved" : null,
   "type" : "Indirect",
   "unitNumber" : "",
