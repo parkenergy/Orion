@@ -5,26 +5,24 @@
   <div class="panel-body">
     <div class="highlight">
       <p>Total Workorder Time: {{workorder.totalTimes.total.human}} </p>
-      <!--<p>Total Labor Time Selected: {{workorder.totalTimes.selected.human}} </p>-->
-      <!--<p>Unaccounted Time: {{workorder.totalTimes.unaccounted.human}} </p>-->
     </div>
     <div class="col-md-3">
-  	  <workorder-basic-lc></workorder-basic-lc>
+  	  <review-basic-lc></review-basic-lc>
     </div>
     <div class="col-md-3"
       ng-show="workorder.type == 'Trouble Call' || workorder.type == 'Corrective' || workorder.pm">
-   	  <workorder-engine-lc></workorder-engine-lc>
+   	  <review-engine-lc></review-engine-lc>
     </div>
     <div class="col-md-3"
       ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective' || workorder.pm">
-   	  <workorder-emissions-lc></workorder-emissions-lc>
-      <workorder-panel-lc></workorder-panel-lc>
-      <workorder-compressor-lc></workorder-compressor-lc>
+   	  <review-emissions-lc></review-emissions-lc>
+      <review-panel-lc></review-panel-lc>
+      <review-compressor-lc></review-compressor-lc>
     </div>
     <div class="col-md-3"
       ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective' || workorder.pm">
-   	  <workorder-cooler-lc></workorder-cooler-lc>
-      <workorder-vessel-lc></workorder-vessel-lc>
+   	  <review-cooler-lc></review-cooler-lc>
+      <review-vessel-lc></review-vessel-lc>
     </div>
   </div>
 </div>
