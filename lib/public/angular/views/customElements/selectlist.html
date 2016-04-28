@@ -4,7 +4,8 @@
   <select class="form-control"
     ng-model="data"
     name="{{data}}"
-    ng-options="o.{{selectField}} as o.{{displayField}} for o in objList">
+    ng-options="o.{{selectField}} as o.{{displayField}} for o in objList"
+    ng-disabled="disabled">
   </select>
 
 </div>

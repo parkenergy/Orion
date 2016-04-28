@@ -1,16 +1,8 @@
 <div  class="panel panel-default">
   <div class="panel-heading">
     <h1 class="panel-title">Parts Listed on Workorder</h1>
-
   </div>
   <div class="panel-body">
-    <button
-      class="btn btn-lg btn-primary pull-left"
-      type="button"
-      style="margin-bottom: 10px"
-      ng-Click="openManualPartModal()">
-      Add Part Manually
-    </button>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -19,10 +11,8 @@
           <th>Quantity</th>
           <th>Billable</th>
           <th>Cost</th>
-          <th>Remove</th>
-          <!-- end column headers -->
-        </tr><!-- end header row -->
-      </thead><!-- end table header -->
+        </tr>
+      </thead>
       <tbody>
         <tr ng-repeat="obj in oList = (workorder.parts
                                         | filter:searchPhrase
@@ -32,7 +22,7 @@
             <div>{{obj.description}}</div>
           </td>
           <td>
-            <select ng-model="obj.laborCode">
+            <select ng-model="obj.laborCode" ng-disabled="true">
               <option ng-repeat="code in usedLaborCodes" value="{{code}}">{{code}}</option>
             </select>
           </td>
@@ -41,17 +31,20 @@
           		placeholder-text="Quantity Used"
               data="obj.quantity"
               non-negative="true"
-              integer-only="true">
+              integer-only="true"
+              disabled="true">
           	</number-field>
           </td>
           <td>
           		<check-box
             		label-text="Is Part Billable?"
-                data="obj.isBillable">
+                data="obj.isBillable"
+                disabled="true">
             	</check-box>
             	<check-box
             		label-text="Is Part Warranty?"
-                data="obj.isWarranty">
+                data="obj.isWarranty"
+                disabled="true">
             	</check-box>
           </td>
           <td>
@@ -59,17 +52,12 @@
           		placeholder-text="0 - 1,000,000"
               data="obj.cost"
               non-negative="true"
-              integer-only="false">
+              integer-only="false"
+              disabled="true">
           	</price-field>
           </td>
-          <!-- end row display fields -->
-          <td>
-            <button class="btn  btn-danger pull-right" ng-click="removePart(obj)">
-              remove
-            </button>
-          </td><!-- end row buttons -->
-        </tr><!-- end table row -->
-      </tbody><!-- end tss-table-body -->
+        </tr>
+      </tbody>
     </table>
-  </div><!-- end panel body -->
-</div><!-- end panel -->
+  </div>
+</div>

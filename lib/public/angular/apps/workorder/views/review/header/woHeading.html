@@ -11,7 +11,8 @@
   		select-field="unitNumber"
   		display-field="number"
   		obj-list="units"
-      limit="12">
+      limit="12"
+      disabled="true">
   	</type-ahead>
     <type-ahead
       class="col-md-3"
@@ -21,7 +22,8 @@
       select-field="techId"
       display-field="techId"
       obj-list="techs"
-      limit="12">
+      limit="12"
+      disabled="true">
     </type-ahead>
   	<type-ahead
       class="col-md-3"
@@ -30,12 +32,14 @@
   		select-field="customerName"
   		display-field="name"
   		obj-list="customers"
-      limit="12">
+      limit="12"
+      disabled="true">
   	</type-ahead>
   	<text-field
       class="col-md-3"
   		label-text="Contact / Pumper Name"
-      data="workorder.header.contactName">
+      data="workorder.header.contactName"
+      disabled="true">
   	</text-field>
   	<type-ahead
       class="col-md-4"
@@ -44,7 +48,8 @@
   		select-field="county"
   		display-field="name"
   		obj-list="counties"
-      limit="12">
+      limit="12"
+      disabled="true">
   	</type-ahead>
   	<type-ahead
       class="col-md-4"
@@ -53,7 +58,8 @@
   		select-field="state"
   		display-field="name"
   		obj-list="states"
-      limit="12">
+      limit="12"
+      disabled="true">
   	</type-ahead>
   	<type-ahead
       class="col-md-4"
@@ -62,7 +68,8 @@
   		select-field="name"
   		display-field="name"
   		obj-list="leases"
-      limit="12">
+      limit="12"
+      disabled="true">
   	</type-ahead>
   	<type-ahead
       class="col-md-4"
@@ -71,17 +78,20 @@
   		select-field="fullName"
   		display-field="fullName"
   		obj-list="users"
-      limit="12">
+      limit="12"
+      disabled="true">
   	</type-ahead>
   	<text-field
       class="col-md-2"
   		label-text=" Start Mileage"
-      data="workorder.header.startMileage">
+      data="workorder.header.startMileage"
+      disabled="true">
   	</text-field>
     <text-field
       class="col-md-2"
       label-text="End Mileage"
-      data="workorder.header.endMileage">
+      data="workorder.header.endMileage"
+      disabled="true">
     </text-field>
     <select-list
       class="col-md-4"
@@ -89,7 +99,8 @@
       data="workorder.header.applicationtype"
   		select-field="_id"
   		display-field="type"
-  		obj-list="applicationtypes">
+  		obj-list="applicationtypes"
+      disabled="true">
   	</select-list>
   </div>
 </div>
