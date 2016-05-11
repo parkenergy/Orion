@@ -10,7 +10,7 @@
               ng-model="data.hours"
               name="{{data}}.hours"
               ng-options="h for h in hours"
-              ng-disabled="true">
+              ng-disabled="{{disabled}}">
       </select>
     </div>
     <div class="col-md-6">
@@ -19,7 +19,7 @@
               ng-model="data.minutes"
               name="{{data}}.minutes"
               ng-options="m for m in minutes"
-              ng-disabled="true">
+              ng-disabled="{{disabled}}">
       </select>
     </div>
   </div>
