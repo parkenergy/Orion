@@ -5889,7 +5889,7 @@ input[type="checkbox"] {
   margin-right: 10px;
 }
 .highlighted {
-  background-color: #a4cf80;
+  background-color: #a4cf80 !important;
 }
 .panel-heading span {
   margin-top: -20px;
