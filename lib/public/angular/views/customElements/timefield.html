@@ -9,7 +9,8 @@
               ng-class="{highlighted: data.highlight}"
               ng-model="data.hours"
               name="{{data}}.hours"
-              ng-options="h for h in hours">
+              ng-options="h for h in hours"
+              ng-disabled="{{disabled}}">
       </select>
     </div>
     <div class="col-md-6">
@@ -17,7 +18,8 @@
               ng-class="{highlighted: data.highlight}"
               ng-model="data.minutes"
               name="{{data}}.minutes"
-              ng-options="m for m in minutes">
+              ng-options="m for m in minutes"
+              ng-disabled="{{disabled}}">
       </select>
     </div>
   </div>

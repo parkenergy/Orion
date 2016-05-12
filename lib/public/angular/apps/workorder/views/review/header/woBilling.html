@@ -5,20 +5,24 @@
   <div class="panel-body">
   	<check-box
   		label-text="Billable to Customer"
-      data="workorder.billingInfo.billableToCustomer">
+      data="workorder.billingInfo.billableToCustomer"
+      disabled="true">
   	</check-box>
   	<check-box
   		label-text="Warranty Work"
-      data="workorder.billingInfo.warrantyWork">
+      data="workorder.billingInfo.warrantyWork"
+      disabled="true">
   	</check-box>
   	<check-box
   		label-text="AFE"
-      data="workorder.billingInfo.AFE">
+      data="workorder.billingInfo.AFE"
+      disabled="true">
   	</check-box>
     <text-field
       ng-show="workorder.billingInfo.AFE"
       label-text="AFE #:"
-      data="workorder.billingInfo.AFENumber">
+      data="workorder.billingInfo.AFENumber"
+      disabled="true">
     </text-field>
   </div>
 </div>

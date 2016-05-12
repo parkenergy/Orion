@@ -1,11 +1,8 @@
 <div class="panel panel-default">
-  <!-- <div class="panel-heading">
-    <h3 class="panel-title">Miscelaneous </h3>
-  </div> -->
   <div class="panel-body">
     <button
       class="btn  btn-primary col-md-4"
-      ng-click="openLeaseNotes()">
+      ng-click="openLeaseNotes()" >
       Lease Notes
     </button>
     <button
@@ -24,7 +21,8 @@
   	<check-box
       class="col-md-8"
   		label-text="Unit Running on Departure"
-      data="workorder.misc.isUnitRunningOnDeparture">
+      data="workorder.misc.isUnitRunningOnDeparture"
+      disabled="true">
   	</check-box>
   </div>
 </div>
