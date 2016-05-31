@@ -8,7 +8,7 @@
       <form role="form">
         <div class="form-group">
           <label>From</label>
-          <input class="form-control"
+          <input class="form-control search"
                  ng-model="dates.from"
                  ng-change="startOfDay()"
                  name="fromDate" type="date"
@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
           <label>To</label>
-          <input class="form-control"
+          <input class="form-control search"
                  ng-model="dates.to"
                  ng-change="endOfDay()"
                  name="toDate"
@@ -27,19 +27,19 @@
         </div>
         <div class="form-group">
           <label for="unit">Unit Number</label>
-          <input id="unit" class="form-control" name="unitNumber" ng-model="unitNumber" type="text" />
+          <input id="unit" class="form-control search" name="unitNumber" ng-model="unitNumber" type="text" />
         </div>
         <div class="form-group">
           <label for="tech">Technician</label>
-          <input id="tech" class="form-control" name="techName" ng-model="techName" type="text" />
+          <input id="tech" class="form-control search" name="techName" ng-model="techName" type="text" />
         </div>
         <div class="form-group">
           <label for="location">Location</label>
-          <input id="location" class="form-control" name="location" ng-model="leaseName" type="text" />
+          <input id="location" class="form-control search" name="location" ng-model="leaseName" type="text" />
         </div>
         <div class="form-group">
           <label for="customer">Customer</label>
-          <input id="customer" class="form-control" name="customer" ng-model="customerName" type="text" />
+          <input id="customer" class="form-control search" name="customer" ng-model="customerName" type="text" />
         </div>
         <button
           class="btn btn-primary form-inline"
