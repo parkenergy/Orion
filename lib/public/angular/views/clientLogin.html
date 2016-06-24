@@ -4,11 +4,13 @@
 <div class="container">
 
   <header></header>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="233510197098-bomu26qvuqe5ampa30oq3g3bql6evu0i.apps.googleusercontent.com">
   <div class="jumbotron">
     <h1 class="page-title">{{title}}</h1>
   </div>
 
-  <div class="row">
+  <!--<div class="row">
 
     <div class="col-md-12">
 
@@ -36,6 +38,17 @@
       </form>
     </div>
 
+  </div>-->
+
+  <!--<div id="authorize-div" style="display: none">
+    <span>Authorize access to Gmail API</span>
+    &lt;!&ndash;Button for the user to click to initiate auth sequence &ndash;&gt;
+    <button id="authorize-button" onclick="handleAuthClick(event)">
+      Authorize
+    </button>
   </div>
+  <pre id="output"></pre>-->
+
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
 </div>
