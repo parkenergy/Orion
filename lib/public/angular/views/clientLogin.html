@@ -1,7 +1,7 @@
 <loader></loader>
 <alerts></alerts>
 
-<div class="container">
+<div class="container" ng-controller="LoginCtrl">
 
   <header></header>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -49,6 +49,26 @@
   </div>
   <pre id="output"></pre>-->
 
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
+  <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+  <button ng-click="authenticate('google')">Sign in with Google</button>
 </div>
+<!--<script type="application/javascript">
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    /*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());*/
+    var email = profile.getEmail().toUpperCase();
+    /*var id = googleUser.getAuthResponse();
+     console.log('access_token: ' + id.access_token);
+     console.log('id_token: ' + id.id_token);
+     console.log('login_hint: ' + id.login_hint);
+     console.log('scope: ' + id.scope);
+     console.log('expires_in: ' + id.expires_in);
+     console.log('first_issued_at: ' + id.first_issued_at);
+     console.log('expires_at: ' + id.expires_at);*/
+    console.log(email);
+    return email;
+  }
+</script>-->

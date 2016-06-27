@@ -25,4 +25,9 @@ var config = {
   }
 };
 
-module.exports = config[process.env.NODE_ENV || 'development'];
+module.exports = config[process.env.NODE_ENV || 'development'],
+{
+  MONGO_URI: process.env.MONGO_URI || 'localhost',
+  TOKEN_SECRET: process.env.TOKEN_SECRET || 'Orion',
+  GOOGLE_SECRET: process.env.GOOGLE_SECRET || 'rzeekiTASt49t8IsF3rjdhPw'
+};
