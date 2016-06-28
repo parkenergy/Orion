@@ -25,11 +25,12 @@ angular.module('Orion', [
   'VendorApp',
   'WorkOrderApp',
   'ui.bootstrap',
-  'ui.utils'
+  'ui.utils',
+  'satellizer'
   ]);
 
-  angular.module('Orion', ['satellizer']).config(['$routeProvider', '$authProvider',
-    function ($routeProvider) {
+  angular.module('Orion').config(['$routeProvider', '$authProvider',
+    function ($routeProvider, $authProvider) {
       $routeProvider
       .when('/login', {
         controller: 'SessionCtrl',
@@ -52,8 +53,6 @@ angular.module('Orion', [
       //   controller: 'HomepageCtrl',
       //   templateUrl: '/lib/public/angular/views/homepage.html'
       // });
-    },
-    function($authProvider) {
       $authProvider.google({
         url: '/auth/google',
         authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
