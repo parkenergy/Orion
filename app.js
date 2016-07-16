@@ -54,9 +54,8 @@ app.use(sessions({
   duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
   activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
 }));
-log.middleware(app);
+//log.middleware(app);
 
-if(config.requestLogger) app.use(require('morgan')(config.requestLogger));
 
 //Load custom middleware
 log.info({path: path.join(__dirname, '/lib/middleware')}, 'Load middleware from path');
