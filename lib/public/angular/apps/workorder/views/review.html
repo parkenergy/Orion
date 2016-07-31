@@ -21,3 +21,15 @@
 <review-labor-codes></review-labor-codes>
 
 <review-parts></review-parts>
+
+<div>
+  <div ng-show="workorder.netsuiteSyned">
+    Workorder Submitted to Netsuite: {{dateStr}}
+  </div>
+  <button ng-disabled="workorder.netsuiteSyned || workorder.type == 'Indirect'" class="btn btn-lg btn-primary pull-right"
+          style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
+          ng-click="submit()">
+    Submit
+  </button>
+  <div class="clearfix" style="height: 65px;"></div>
+</div>

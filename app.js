@@ -49,15 +49,15 @@ app.get('/', function(req, res) {
 log.info("Load standard middleware");
 app.use(require('cookie-parser')());
 app.use(require('body-parser').json());
+//app.use(require('express-query-boolean')());
 app.use(sessions({
   cookieName: 'Orion', // cookie name dictates the key name added to the request object
   secret: '?wG!6C5/gn@6&W{U+]Rn>B#9/p.ku&*{x~XCjfw+E)q56Hxr', // should be a large unguessable string
   duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
   activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
 }));
-log.middleware(app);
+//log.middleware(app);
 
-if(config.requestLogger) app.use(require('morgan')(config.requestLogger));
 
 //Load custom middleware
 log.info({path: path.join(__dirname, '/lib/middleware')}, 'Load middleware from path');

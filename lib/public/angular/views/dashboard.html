@@ -41,6 +41,18 @@
           <label for="customer">Customer</label>
           <input id="customer" class="form-control search" name="customer" ng-model="customerName" type="text" />
         </div>
+        <div class="form-group">
+          <label for="billable">Billable To Customer(Workorder): </label>
+          <input id="billable" name="billable" ng-model="billable" type="checkbox" />
+        </div>
+        <div class="form-group">
+          <label for="billParts">Billable To Customer(Parts): </label>
+          <input id="billParts" name="billParts" ng-model="billParts" type="checkbox" />
+        </div>
+        <div class="form-group">
+          <label for="hideSynced">Hide Submitted Workorders? </label>
+          <input id="hideSynced" name="hideSynced" ng-model="hideSynced" type="checkbox" />
+        </div>
         <button
           class="btn btn-primary form-inline"
           type="button"
@@ -86,6 +98,11 @@
         <span ng-show="orderByField == 'epoch' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
         <span ng-show="orderByField == 'epoch' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
       </th>
+      <th ng-click="resort('totalMinutes');">
+        Total WO Time
+        <span ng-show="orderByField == 'totalWoTime' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+        <span ng-show="orderByField == 'totalWoTime' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+      </th>
     </tr>
   </thead>
 
@@ -98,6 +115,7 @@
       <td>{{ workorder.locationName}}</td>
       <td>{{ workorder.customerName }}</td>
       <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm'}}</td>
+      <td>{{ pad(workorder.totalWoTime.hours, 2) }}:{{ pad(workorder.totalWoTime.minutes, 2) }}</td>
     </tr>
   </tbody>
 
