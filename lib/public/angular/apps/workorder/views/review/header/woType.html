@@ -1,22 +1,32 @@
 <div class="panel panel-default">
+  <!--<div class="panel-heading">
+    <h3 class="panel-title">Work Order Info</h3>
+  </div>-->
+  <div class="panel-body">
+    <div style="font-size: 15px;">
+      <span>Tech Name: {{ firstname }} {{ lastname }}</span></br>
+      <span>Started: {{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm' }}</span></br>
+      <span>Submitted: {{ workorder.timeSubmitted | date:'MM/dd/yyyy HH:mm'}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Work Order Type</h3>
   </div>
   <div class="panel-body">
     <div style="font-weight: 400">
-      <input type="checkbox" style="margin-bottom: 14px"
-        ng-model="workorder.pm"
-        ng-change="pmChecked()"
-        ng-disabled="true" >
-        PM
+      <input type="checkbox" style="margin-bottom: 14px" ng-model="workorder.pm" ng-change="pmChecked()" ng-disabled="true">      
+      PM
     </div>
 
     <div data-ng-repeat="woType in workorderTypes1" style="font-weight: normal; margin-bottom: 10px">
-      <input type="checkbox" ng-model="workorder.type" ng-checked="workorder.type==='{{ woType }}'" ng-disabled="true" >
+      <input type="checkbox" ng-model="workorder.type" ng-checked="workorder.type ==='{{ woType }}'" ng-disabled="true">      
       {{ woType }}
     </div>
     <div data-ng-repeat="woType in workorderTypes2" style="font-weight: normal; margin-bottom: 10px">
-      <input type="checkbox" ng-model="workorder.type" ng-checked="workorder.type==='{{ woType }}'" ng-change="nonPmType()" ng-disabled="true" >
+      <input type="checkbox" ng-model="workorder.type" ng-checked="workorder.type ==='{{ woType }}'" ng-change="nonPmType()" ng-disabled="true">      
       {{ woType }}
     </div>
   </div>
