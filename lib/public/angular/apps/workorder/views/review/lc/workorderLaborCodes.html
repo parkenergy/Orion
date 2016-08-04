@@ -4,23 +4,24 @@
   </div>
   <div class="panel-body">
     <div class="highlight">
-      <p>Total Workorder Time: {{workorder.totalTimes.total.human}} </p>
+      <!--<p>Total Workorder Time: {{workorder.totalTimes.total.human}} </p>-->
+      <p>Total Workorder Time: {{ pad(workorder.totalWoTime.hours, 2) }}:{{ pad(workorder.totalWoTime.minutes, 2) }}</p>
     </div>
     <div class="col-md-3">
   	  <review-basic-lc></review-basic-lc>
     </div>
     <div class="col-md-3"
-      ng-show="workorder.type == 'Trouble Call' || workorder.type == 'Corrective' || workorder.pm">
+      ng-show="workorder.type == 'Trouble Call' || workorder.type == 'Corrective' || workorder.type === 'New Set' || workorder.type === 'Release' || workorder.pm">
    	  <review-engine-lc></review-engine-lc>
     </div>
     <div class="col-md-3"
-      ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective' || workorder.pm">
+      ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective' || workorder.type === 'New Set' || workorder.type === 'Release' || workorder.pm">
    	  <review-emissions-lc></review-emissions-lc>
       <review-panel-lc></review-panel-lc>
       <review-compressor-lc></review-compressor-lc>
     </div>
     <div class="col-md-3"
-      ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective' || workorder.pm">
+      ng-show="workorder.type === 'Trouble Call' || workorder.type === 'Corrective' || workorder.type === 'New Set' || workorder.type === 'Release' || workorder.pm">
    	  <review-cooler-lc></review-cooler-lc>
       <review-vessel-lc></review-vessel-lc>
     </div>
