@@ -65,7 +65,7 @@ angular.module('Orion', [
         display: 'popup',
         type: '2.0',
         popupOptions: { width: 452, height: 633 },
-        clientId: '233510197098-bomu26qvuqe5ampa30oq3g3bql6evu0i.apps.googleusercontent.com',
+        clientId: '402483966217-5crk767d69pcn25dhds4htv3o67kdpuc.apps.googleusercontent.com',
         responseType: 'token'
       });
       $authProvider.httpInterceptor = function() { return true; },

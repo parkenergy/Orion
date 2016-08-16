@@ -10,7 +10,7 @@ var User = require('../../lib/models/user');
 var Unit = require('../../lib/models/unit');
 var County = require('../../lib/models/county');
 var State = require('../../lib/models/state');
-var Area = require('../../lib/models/area')
+var Area = require('../../lib/models/area');
 
 before(function(done) {
   mongoose.connect(config.mongodb);
