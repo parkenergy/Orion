@@ -3,6 +3,17 @@
 // --------------------------------------------------
 // Source: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
 
+
+@media print {
+  div{
+    font-size: 12px;
+  }
+  .panel,
+  .panel-body {
+    page-break-inside: avoid;
+  }
+
+}
 /*@media print {
 
   * {

@@ -178,6 +178,14 @@ td,
 th {
   padding: 0;
 }
+@media print {
+  div {
+    font-size: 12px;
+  }
+  .panel-body {
+    page-break-inside: avoid;
+  }
+}
 /*@media print {
 
   * {
