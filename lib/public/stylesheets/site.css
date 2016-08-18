@@ -182,7 +182,8 @@ th {
   div {
     font-size: 12px;
   }
-  .panel-body {
+  .row,
+  .col-xs-4 {
     page-break-inside: avoid;
   }
 }
