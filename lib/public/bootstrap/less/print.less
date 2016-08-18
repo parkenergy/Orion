@@ -5,20 +5,98 @@
 
 
 @media print {
+  // all other text
   div{
-    font-size: 12px;
+    font-size: 8px;
   }
-  .row,
-  .col-xs-4,
-  .col-xs-3{
-    page-break-inside: avoid;
+  // PRINT FORMATTING
+  // have these columns closer instead of bunching up
+  // mainly for labor codes to look better.
+  div.col-xs-12,
+  div.col-xs-9,
+  div.col-xs-6,
+  div.col-xs-4,
+  div.col-xs-3{
+    padding-left: 2px;
+    padding-right: 2px;
   }
-  // EDIT HEADING TEXT AND PANEL SIZE
-  div.panel-heading,
-  h3.panel-title {
-    font-size: 12px;
+  div.row{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  div.panel{
+    margin-bottom: 5px;
+  }
+  div.panel-heading{
+    padding: 2px;
+  }
+  // labor codes
+  div.panel-body,
+  type-ahead.col-xs-3,
+  type-ahead.col-xs-4,
+  text-field.col-xs-3,
+  text-field.col-xs-2,
+  label.ng-binding,
+  input.form-control{
+    padding: 2px;
+  }
+  // check boxes types
+  div.panel-body,
+  input[type=checkbox]{
+    margin: 2px;
+  }
+  //--------------------------------------------------
+  // other check box groups---------------------------
+  div.panel-body,
+  div.checkbox,
+  input[type=checkbox]{
+    margin: 2px;
+  }
+  div.panel-body,
+  div.checkbox{
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+  div.panel-body,
+  div.checkbox,
+  label.ng-binding{
+    margin: 0px;
+    padding-left: 2px;
+  }
+  //--------------------------------------------------
+  div.form-group{
+    margin-bottom: 4px;
   }
 
+
+
+
+
+
+
+  // FONT SIZE FORMATTING
+  // Headings
+  div.panel-heading,
+  h3.panel-title {
+    font-size: 10px;
+  }
+  // comments and input fields
+  div.form-group,
+  input.form-control,
+  textarea.form-control{
+    font-size: 8px;
+  }
+  //open text in spans + labor code times
+  div.panel-body,
+  span.ng-binding,
+  select.form-control{
+    font-size: 8px;
+  }
+  button.btn{
+    font-size: 10px;
+  }
 }
 /*@media print {
 
