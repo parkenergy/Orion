@@ -212,6 +212,10 @@ th {
     padding-left: 2px;
     padding-right: 2px;
   }
+  div.panel-body > text-field.col-xs-3.ng-isolate-scope {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
   div.panel-body > type-ahead.col-xs-4.ng-isolate-scope {
     padding-left: 2px;
     padding-right: 2px;
@@ -219,6 +223,35 @@ th {
   div.panel-body > text-field.col-xs-2.ng-isolate-scope {
     padding-left: 2px;
     padding-right: 2px;
+  }
+  div.panel-body > select-list.col-xs-4.ng-isolate-scope {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  div.panel-body > type-ahead.col-xs-3.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > text-field.col-xs-3.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > type-ahead.col-xs-4.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > text-field.col-xs-2.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > select-list.col-xs-4.ng-isolate-scope > div.form-group > select.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
   }
   div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid {
     margin-left: 0px;
