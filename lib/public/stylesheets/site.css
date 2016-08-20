@@ -193,20 +193,20 @@ th {
   div.col-xs-6,
   div.col-xs-4,
   div.col-xs-3 {
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
   }
   div.panel {
-    margin-bottom: 5px;
+    margin-bottom: 5px !important;
   }
   div.panel-heading {
-    padding: 2px;
+    padding: 2px !important;
   }
   div.panel-body {
-    padding: 2px;
+    padding: 2px !important;
   }
   div.form-group {
-    margin-bottom: 4px;
+    margin-bottom: 4px !important;
   }
   div.panel-body > type-ahead.col-xs-3.ng-isolate-scope {
     padding-left: 2px;
@@ -253,6 +253,28 @@ th {
     margin: 0px;
     height: 15px;
   }
+  div.panel-body > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > div.col-xs-6 > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  #pm > input.ng-pristine.ng-untouched.ng-valid {
+    margin-top: 2px;
+    margin-bottom: 4px !important;
+    margin-left: 10px;
+  }
+  div.panel-body > div.ng-binding.ng-scope {
+    margin-bottom: 4px !important;
+    margin-left: 10px;
+  }
+  div.panel-body > div.ng-binding.ng-scope > input.ng-pristine.ng-untouched.ng-valid {
+    margin-top: 0px;
+  }
   div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid {
     margin-left: 0px;
     margin-top: 0px;
@@ -271,16 +293,15 @@ th {
     padding-left: 2px;
     padding-right: 2px;
   }
-  /*  div.panel-body,
-  type-ahead.col-xs-3,
-  type-ahead.col-xs-4,
-  text-field.col-xs-3,
-  text-field.col-xs-2,
-  label.ng-binding,
-  input.form-control{
+  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope > div.col-xs-12 > div.col-xs-6 > select.form-control.ng-pristine.ng-untouched.ng-valid.highlighted {
     padding: 2px;
-  }*/
+    margin: 0px;
+    height: 15px;
+  }
   div.panel-heading > h3.panel-title {
+    font-size: 10px;
+  }
+  div.panel-heading > h1.panel-title {
     font-size: 10px;
   }
   div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {

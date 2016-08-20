@@ -5,7 +5,7 @@
 
 
 @media print {
-  //              GENERAL PRINT SETTINGS
+  //             PRINT SETTINGS FOR WORKORDER PREVIEW PAGE ORION
   // all other text
   div{
     font-size: 8px;
@@ -23,24 +23,24 @@
   div.col-xs-6,
   div.col-xs-4,
   div.col-xs-3{
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
   }
   // decrease padding on the bottom of each panel
   div.panel{
-    margin-bottom: 5px;
+    margin-bottom: 5px !important;
   }
   // decrease padding between heading text and walls
   div.panel-heading{
-    padding: 2px;
+    padding: 2px !important;
   }
   // decrease padding in panel bodies and everything inside.
   div.panel-body{
-    padding: 2px;
+    padding: 2px !important;
   }
   // spacing under all input fields decreases.
   div.form-group{
-    margin-bottom: 4px;
+    margin-bottom: 4px !important;
   }
   //-------------- heading info [start]--------------------------------------------------
   // PADDING
@@ -69,7 +69,8 @@
     padding-left: 2px;
     padding-right: 2px;
   }
-  // TEXT FIELD PADDING
+
+  // TEXT FIELD PADDING > [headingInfo, killSettings,unitReadings, emissionReadings]
   // unit #, techid, customer
   div.panel-body > type-ahead.col-xs-3.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid{
     padding: 2px;
@@ -101,16 +102,47 @@
     height: 15px;
   }
   //-------------- heading info [end] ---------------------------------------------------
-  //-------------- kill settings [start] ------------------------------------------------
 
-  //-------------- kill settings [end] --------------------------------------------------
+  //-------------- PM text box settings [start] -----------------------------------------
+  // fields before engine compression
+  div.panel-body > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid{
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  // engine compression numbers
+  div.panel-body > div.col-xs-6 > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid{
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  //-------------- PM text box settings [end] -------------------------------------------
+
   //-------------- check boxes [start] --------------------------------------------------
+  // fist PM checkbox is seperate from the rest
+  #pm > input.ng-pristine.ng-untouched.ng-valid{
+    margin-top: 2px;
+    margin-bottom: 4px !important;
+    margin-left: 10px;
+  }
+  // edit spacing between checkboxes rows
+  div.panel-body > div.ng-binding.ng-scope{
+    margin-bottom: 4px !important;
+    margin-left: 10px;
+  }
+  // edit the padding above each checkbox in work order type
+  div.panel-body > div.ng-binding.ng-scope > input.ng-pristine.ng-untouched.ng-valid{
+    margin-top: 0px;
+  }
+  // ALL OTHER CHECK BOX GROUPS
+  // fix margins
   div.panel-body > check-box.ng-isolate-scope> div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid{
     margin-left: 0px;
     margin-top: 0px;
     margin-right: 4px;
   }
   //-------------- check boxes [end] ----------------------------------------------------
+
   // -------------- labor codes [Start]--------------------------------------------------
   // why margin has - idk, reformat to keep labor codes inside panel
   div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope{
@@ -128,18 +160,13 @@
     padding-left: 2px;
     padding-right: 2px;
   }
-  //-------------- Labor codes [End]--------------------------------------------------
-/*  div.panel-body,
-  type-ahead.col-xs-3,
-  type-ahead.col-xs-4,
-  text-field.col-xs-3,
-  text-field.col-xs-2,
-  label.ng-binding,
-  input.form-control{
+  // text padding for labor codes.
+  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope > div.col-xs-12 > div.col-xs-6 > select.form-control.ng-pristine.ng-untouched.ng-valid.highlighted{
     padding: 2px;
-  }*/
-  // PM CHeck box
-
+    margin: 0px;
+    height: 15px;
+  }
+  //-------------- Labor codes [End]--------------------------------------------------
 
 
 
@@ -148,7 +175,10 @@
 
   // FONT SIZE FORMATTING
   // Headings
-  div.panel-heading > h3.panel-title {
+  div.panel-heading > h3.panel-title{
+    font-size: 10px;
+  }
+  div.panel-heading > h1.panel-title{
     font-size: 10px;
   }
   //input fields
