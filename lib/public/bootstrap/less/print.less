@@ -6,6 +6,22 @@
 
 @media print {
   //             PRINT SETTINGS FOR WORKORDER PREVIEW PAGE ORION
+  // dont show navbar its wasting space on print.
+  nav.navbar{
+    display: none;
+  }
+  // dont display buttons [leaseNotes, JSA, unitNotes]
+  review-misc.ng-scope > div.panel > div.panel-body > button.btn{
+    display: none;
+  }
+  // dont need to see bottom submit button if it is submitted
+  div.ng-scope > button.btn.btn-lg.btn-primary.pull-right{
+    display: none;
+  }
+  // dont need to see bottom submit button when the wo has not been submitted either.
+  div.ng-scope > div.ng-binding.ng-hide > button.btn.btn-lg.btn-primary.pull-right{
+    display: none;
+  }
   // all other text
   div{
     font-size: 8px;
@@ -119,6 +135,7 @@
   //-------------- PM text box settings [end] -------------------------------------------
 
   //-------------- check boxes [start] --------------------------------------------------
+  // work order info
   // fist PM checkbox is seperate from the rest
   #pm > input.ng-pristine.ng-untouched.ng-valid{
     margin-top: 2px;
@@ -138,8 +155,18 @@
   // fix margins
   div.panel-body > check-box.ng-isolate-scope> div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid{
     margin-left: 0px;
-    margin-top: 0px;
+    margin-top: 2px !important;
+    margin-bottom: 0px !important;
     margin-right: 4px;
+  }
+  // decrease bottome margin
+  div.panel-body > check-box.ng-isolate-scope > div.checkbox{
+    min-height: 15px !important;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+  }
+  div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding{
+    margin-bottom: 0px !important;
   }
   //-------------- check boxes [end] ----------------------------------------------------
 
@@ -168,7 +195,74 @@
   }
   //-------------- Labor codes [End]--------------------------------------------------
 
+  //-------------- Parts [start] -----------------------------------------------------
+  // fix bottom margin of entire table at the end
+  div.panel-body > table.table.table-hover{
+    margin-bottom: 0px !important;
+  }
+  // decrease padding on column titles
+  div.panel-body > table.table.table-hover > thead > tr > th{
+    margin-bottom: 0px;
+    padding: 2px;
+    padding-left: 5px;
+  }
+  // decrease padding on items in columns
+  div.panel-body > table.table.table-hover > tbody > tr > td{
+    padding: 2px;
+    padding-left: 5px;
+  }
+  // decrease margin on quantity number field
+  div.panel-body > table.table.table-hover > tbody > tr > td > number-field.ng-isolate-scope > div.form-group{
+    margin-bottom: 2px;
+  }
+  // decrease padding inside quantity number field and the height of the input field
+  div.panel-body > table.table.table-hover > tbody > tr > td > number-field.ng-isolate-scope > div.form-group > input{
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
 
+  // decrease distance between checkboxes
+  div.panel-body > table.table.table-hover > tbody > tr > td > check-box.ng-isolate-scope > div.checkbox{
+    min-height: 15px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-left: 8px !important;
+  }
+  // another margin?
+  div.panel-body > table.table.table-hover > tbody > tr > td > check-box.ng-isolate-scope > div.checkbox > label.ng-binding{
+    margin: 0px !important;
+  }
+  // fix check box margins -20? why
+  div.panel-body > table.table.table-hover > tbody > tr > td > check-box.ng-isolate-scope > div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid{
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    margin-right: 4px !important;
+  }
+
+  // decrease margin on price
+  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group{
+    margin-bottom: 0px;
+  }
+  // another margin behind the price?
+  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group > label.ng-binding.ng-hide{
+    margin-bottom: 0px;
+  }
+  // fix $ sign
+  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group > div.input-group > span.input-group-addon{
+    padding: 2px;
+    font-size: 8px;
+    height: 15px;
+  }
+  // fix $ amount
+  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group > div.input-group > input.form-control.ng-pristine.ng-untouched.ng-valid.ng-scope{
+    padding: 2px;
+    font-size: 8px;
+    height: 15px;
+  }
+
+  //-------------- Parts [end] -------------------------------------------------------
 
 
 
@@ -191,7 +285,7 @@
   }
   //open text in spans + labor code times
   div.panel-body,
-  span.ng-binding,
+  p.ng-binding,
   select.form-control{
     font-size: 8px;
   }
