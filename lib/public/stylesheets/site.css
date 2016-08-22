@@ -371,24 +371,28 @@ th {
     height: 15px;
   }
   div.panel-heading > h3.panel-title {
-    font-size: 10px;
+    font-size: 10px !important;
   }
   div.panel-heading > h1.panel-title {
-    font-size: 10px;
+    font-size: 10px !important;
   }
   div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
-    font-size: 8px;
+    font-size: 8px !important;
   }
   div.form-group > textarea.form-control.ng-pristine.ng-untouched.ng-valid {
-    font-size: 8px;
+    font-size: 8px !important;
   }
   div.panel-body,
   p.ng-binding,
   select.form-control {
-    font-size: 8px;
+    font-size: 8px !important;
+  }
+  div.panel-body > div > p {
+    font-weight: normal !important;
+    font-size: 8px !important;
   }
   button.btn {
-    font-size: 10px;
+    font-size: 10px !important;
   }
 }
 /*@media print {
