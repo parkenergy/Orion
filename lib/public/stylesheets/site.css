@@ -179,76 +179,318 @@ th {
   padding: 0;
 }
 @media print {
+  nav.navbar {
+    display: none;
+  }
+  review-misc.ng-scope > div.panel > div.panel-body > button.btn {
+    display: none;
+  }
+  div.ng-scope > button.btn.btn-lg.btn-primary.pull-right {
+    display: none;
+  }
+  div.ng-scope > div.ng-binding.ng-hide > button.btn.btn-lg.btn-primary.pull-right {
+    display: none;
+  }
+  div {
+    font-size: 8px;
+  }
+  div.row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  div.col-xs-12,
+  div.col-xs-9,
+  div.col-xs-6,
+  div.col-xs-4,
+  div.col-xs-3 {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+  }
+  div.panel {
+    margin-bottom: 5px !important;
+  }
+  div.panel-heading {
+    padding: 2px !important;
+  }
+  div.panel-body {
+    padding: 2px !important;
+  }
+  div.form-group {
+    margin-bottom: 4px !important;
+  }
+  div.panel-body > type-ahead.col-xs-3.ng-isolate-scope {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  div.panel-body > text-field.col-xs-3.ng-isolate-scope {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  div.panel-body > type-ahead.col-xs-4.ng-isolate-scope {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  div.panel-body > text-field.col-xs-2.ng-isolate-scope {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  div.panel-body > select-list.col-xs-4.ng-isolate-scope {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  div.panel-body > type-ahead.col-xs-3.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > text-field.col-xs-3.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > type-ahead.col-xs-4.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > text-field.col-xs-2.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > select-list.col-xs-4.ng-isolate-scope > div.form-group > select.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > div.col-xs-6 > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  #pm > input.ng-pristine.ng-untouched.ng-valid {
+    margin-top: 2px;
+    margin-bottom: 4px !important;
+    margin-left: 10px;
+  }
+  div.panel-body > div.ng-binding.ng-scope {
+    margin-bottom: 4px !important;
+    margin-left: 10px;
+  }
+  div.panel-body > div.ng-binding.ng-scope > input.ng-pristine.ng-untouched.ng-valid {
+    margin-top: 0px;
+  }
+  div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid {
+    margin-left: 0px;
+    margin-top: 2px !important;
+    margin-bottom: 0px !important;
+    margin-right: 4px;
+  }
+  div.panel-body > check-box.ng-isolate-scope > div.checkbox {
+    min-height: 15px !important;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+  }
+  div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding {
+    margin-bottom: 0px !important;
+  }
+  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope {
+    margin: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope > div.col-xs-12 {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope > div.col-xs-12 > div.col-xs-6 {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope > div.col-xs-12 > div.col-xs-6 > select.form-control.ng-pristine.ng-untouched.ng-valid.highlighted {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > table.table.table-hover {
+    margin-bottom: 0px !important;
+  }
+  div.panel-body > table.table.table-hover > thead > tr > th {
+    margin-bottom: 0px;
+    padding: 2px;
+    padding-left: 5px;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td {
+    padding: 2px;
+    padding-left: 5px;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td > number-field.ng-isolate-scope > div.form-group {
+    margin-bottom: 2px;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td > number-field.ng-isolate-scope > div.form-group > input {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td > check-box.ng-isolate-scope > div.checkbox {
+    min-height: 15px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-left: 8px !important;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td > check-box.ng-isolate-scope > div.checkbox > label.ng-binding {
+    margin: 0px !important;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td > check-box.ng-isolate-scope > div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid {
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    margin-right: 4px !important;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group {
+    margin-bottom: 0px;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group > label.ng-binding.ng-hide {
+    margin-bottom: 0px;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group > div.input-group > span.input-group-addon {
+    padding: 2px;
+    font-size: 8px;
+    height: 15px;
+  }
+  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group > div.input-group > input.form-control.ng-pristine.ng-untouched.ng-valid.ng-scope {
+    padding: 2px;
+    font-size: 8px;
+    height: 15px;
+  }
+  div.panel-heading > h3.panel-title {
+    font-size: 10px !important;
+  }
+  div.panel-heading > h1.panel-title {
+    font-size: 10px !important;
+  }
+  div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    font-size: 8px !important;
+  }
+  div.form-group > textarea.form-control.ng-pristine.ng-untouched.ng-valid {
+    font-size: 8px !important;
+  }
+  div.panel-body,
+  p.ng-binding,
+  select.form-control {
+    font-size: 8px !important;
+  }
+  div.panel-body > div > p {
+    font-weight: normal !important;
+    font-size: 8px !important;
+  }
+  button.btn {
+    font-size: 10px !important;
+  }
+}
+/*@media print {
+
   * {
     text-shadow: none !important;
-    color: #000 !important;
+    color: #000 !important; // Black prints faster: h5bp.com/s
     background: transparent !important;
     box-shadow: none !important;
   }
+
   a,
   a:visited {
     text-decoration: underline;
   }
+
   a[href]:after {
     content: " (" attr(href) ")";
   }
+
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
+
+  // Don't show links for images, or javascript/internal links
   a[href^="javascript:"]:after,
   a[href^="#"]:after {
     content: "";
   }
+
   pre,
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
+
   thead {
-    display: table-header-group;
+    display: table-header-group; // h5bp.com/t
   }
+
   tr,
   img {
     page-break-inside: avoid;
   }
+
   img {
     max-width: 100% !important;
   }
+
   p,
   h2,
   h3 {
     orphans: 3;
     widows: 3;
   }
+
   h2,
   h3 {
     page-break-after: avoid;
   }
+
+  // Chrome (OSX) fix for https://github.com/twbs/bootstrap/issues/11245
+  // Once fixed, we can just straight up remove this.
   select {
     background: #fff !important;
   }
+
+  // Bootstrap components
   .navbar {
     display: none;
   }
-  .table td,
-  .table th {
-    background-color: #fff !important;
+  .table {
+    td,
+    th {
+      background-color: #fff !important;
+    }
   }
-  .btn > .caret,
-  .dropup > .btn > .caret {
-    border-top-color: #000 !important;
+  .btn,
+  .dropup > .btn {
+    > .caret {
+      border-top-color: #000 !important;
+    }
   }
   .label {
     border: 1px solid #000;
   }
+
   .table {
     border-collapse: collapse !important;
   }
-  .table-bordered th,
-  .table-bordered td {
-    border: 1px solid #ddd !important;
+  .table-bordered {
+    th,
+    td {
+      border: 1px solid #ddd !important;
+    }
   }
-}
+
+}*/
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
