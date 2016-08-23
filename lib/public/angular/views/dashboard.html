@@ -115,7 +115,7 @@
       <td>{{ workorder.locationName}}</td>
       <td>{{ workorder.customerName }}</td>
       <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm'}}</td>
-      <td>{{ pad(workorder.totalWoTime.hours, 2) }}:{{ pad(workorder.totalWoTime.minutes, 2) }}</td>
+      <td>{{ pad(workorder.totalWoTime.hours) }}:{{ pad(workorder.totalWoTime.minutes) }}</td>
     </tr>
   </tbody>
 
