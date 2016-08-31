@@ -5,7 +5,7 @@
   <div class="panel-body">
     <div style="font-size: 15px;">
       <p style="margin-bottom: 1px;">Tech Name: {{ workorder.technician.firstName }} {{ workorder.technician.lastName }}</p>
-      <p style="margin-bottom: 1px;">Truck ID: {{ workorder.truckId }}</p>
+      <p style="margin-bottom: 1px;">Truck ID: {{ workorder.truckId }} <span style="margin-left: 8px;"> Truck NSID: {{ workorder.truckNSID }}</span></p>
       <p style="margin-bottom: 1px;">Started: {{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm' }}</p>
       <p style="margin-bottom: 1px;">Ended: {{ workorder.timeSubmitted | date:'MM/dd/yyyy HH:mm'}}</p>
     </div>
