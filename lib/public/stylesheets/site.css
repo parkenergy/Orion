@@ -4996,6 +4996,15 @@ a.list-group-item-danger.active:focus {
 .panel-body {
   padding: 15px;
 }
+/*::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}*/
 .panel-heading {
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
