@@ -3,54 +3,39 @@
     <h3 class="panel-title">Notes</h3>
   </div>
   <div class="panel-body" style="overflow-y: scroll; width: auto; height: 117px;">
-    <!--the notes box will be an ng-repeat of every message sent.-->
+    <!-- NG REPEAT START-->
+    <div ng-repeat="note in newNotes.notes">
       <div class="row" style="margin-top: 5px;">
         <div class="col-lg-12">
           <div class="media">
             <div class="media-body">
-              <h6 class="media-heading">Jane Smith
-                <span class="small pull-right">12:23 PM</span>
+              <h6 class="media-heading">
+                {{ note.techId }}
+                <span class="small pull-right">
+                  {{ note.sentTime | date:'MM/dd/yyyy HH:mm' }}
+                </span>
               </h6>
-              <p class="text-muted" style="font-size: 15px; margin-bottom: 5px;">Hi, I wanted to make sure you got the latest product report. Did Roddy get it to you?</p>
+              <p class="text-muted" style="font-size: 15px; margin-bottom: 5px;">
+                {{ note.comment }}
+              </p>
             </div>
           </div>
         </div>
       </div>
       <hr style="margin-top: 6px; margin-bottom: 12px;">
-      <div class="row" style="margin-top: 5px;">
-        <div class="col-lg-12">
-          <div class="media">
-            <div class="media-body">
-              <h6 class="media-heading">John Smith
-                <span class="small pull-right">12:28 PM</span>
-              </h6>
-              <p class="text-muted" style="font-size: 15px;  margin-bottom: 5px;">Yeah I did. Everything looks good.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr style="margin-top: 6px; margin-bottom: 12px;">
-      <div class="row" style="margin-top: 5px;">
-        <div class="col-lg-12">
-          <div class="media">
-            <div class="media-body">
-              <h6 class="media-heading">Jane Smith
-                <span class="small pull-right">12:39 PM</span>
-              </h6>
-              <p class="text-muted" style="font-size: 15px; margin-bottom: 5px;">No not yet, the transaction hasn't cleared yet. I will let you know as soon as everything goes through. Any
-                idea where you want to get lunch today?</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr style="margin-top: 6px; margin-bottom: 12px;">
+    </div>
+    <!-- NG REPEAT END -->
   </div>
   <div class="panel-footer">
-    <div class="input-group">
-      <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
-      <span class="input-group-btn">
-        <button class="btn btn-primary btn-sm" id="btn-chat">Submit</button>
-      </span>
-    </div>
+    <form name="SubmitNote">
+      <div class="input-group">
+        <div class="form-group">
+          <input type="text" ng-model="note.comment" class="form-control input-sm" placeholder="Note...">
+        </div>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-primary btn-sm" id="btn-chat" ng-click="newNote()">Submit</button>
+        </span>
+      </div>
+    </form>
   </div>
 </div>
