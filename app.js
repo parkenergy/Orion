@@ -10,7 +10,6 @@ var express = require('express'),
   Promise = require('bluebird'),
   mongoose = require('mongoose');
 
-
 //Catch uncaught exceptions to log in bunyan
 process.on('uncaughtException', function(err) {
   log.fatal({
@@ -74,7 +73,14 @@ var agenda = new Agenda({db: {address: config.mongodb}});
 
 agenda.define('netsuiteSync', function(job, done){
   log.info("Netsuite import...");
-  syncTask.execute(done);
+  syncTask.execute(function(err) {
+    if(err){
+      log.error({error: err}, "Error occured during Netsuite Sync");
+    }
+    else {
+      log.info("...Netsuite import finished");
+    }
+  });
 });
 
 agenda.on('ready', function(){
@@ -83,8 +89,13 @@ agenda.on('ready', function(){
 });
 
 log.info("Initial Netsuite import...");
-syncTask.execute(function() {
-  log.info("...Netsuite import finished");
+syncTask.execute(function(err) {
+  if(err){
+    log.error({error: err}, "Error occured during Netsuite Sync");
+  }
+  else {
+    log.info("...Netsuite import finished");
+  }
 });
 
 //Listen

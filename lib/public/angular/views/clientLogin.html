@@ -4,11 +4,13 @@
 <div class="container">
 
   <header></header>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="233510197098-bomu26qvuqe5ampa30oq3g3bql6evu0i.apps.googleusercontent.com">
   <div class="jumbotron">
     <h1 class="page-title">{{title}}</h1>
   </div>
 
-  <div class="row">
+  <!--<div class="row">
 
     <div class="col-md-12">
 
@@ -36,6 +38,37 @@
       </form>
     </div>
 
-  </div>
+  </div>-->
 
+  <!--<div id="authorize-div" style="display: none">
+    <span>Authorize access to Gmail API</span>
+    &lt;!&ndash;Button for the user to click to initiate auth sequence &ndash;&gt;
+    <button id="authorize-button" onclick="handleAuthClick(event)">
+      Authorize
+    </button>
+  </div>
+  <pre id="output"></pre>-->
+
+  <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+  <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="authenticate('google')">Sign in with Google</button>
 </div>
+<!--<script type="application/javascript">
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    /*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());*/
+    var email = profile.getEmail().toUpperCase();
+    /*var id = googleUser.getAuthResponse();
+     console.log('access_token: ' + id.access_token);
+     console.log('id_token: ' + id.id_token);
+     console.log('login_hint: ' + id.login_hint);
+     console.log('scope: ' + id.scope);
+     console.log('expires_in: ' + id.expires_in);
+     console.log('first_issued_at: ' + id.first_issued_at);
+     console.log('expires_at: ' + id.expires_at);*/
+    console.log(email);
+    return email;
+  }
+</script>-->
