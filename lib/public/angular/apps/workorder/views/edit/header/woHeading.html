@@ -20,11 +20,14 @@
   		array-list="customersArray"
       limit="12">
   	</type-ahead>
-  	<text-field
+  	<type-ahead
       class="col-xs-4"
-  		label-text="Contact / Pumper Name"
-      data="workorder.header.contactName">
-  	</text-field>
+  		label-text="Lease"
+      data="workorder.header.leaseName"
+  		select-field="name"
+  		array-list="unitLocationArray"
+      limit="12">
+  	</type-ahead>
   	<type-ahead
       class="col-xs-4"
   		label-text="County"
@@ -41,14 +44,11 @@
   		array-list="statesArray"
       limit="12">
   	</type-ahead>
-  	<type-ahead
+    <text-field
       class="col-xs-4"
-  		label-text="Lease"
-      data="workorder.header.leaseName"
-  		select-field="name"
-  		array-list="unitLocationArray"
-      limit="12">
-  	</type-ahead>
+  		label-text="Contact / Pumper Name"
+      data="workorder.header.contactName">
+  	</text-field>
   	<type-ahead
       class="col-xs-4"
   		label-text="Ride Along"
