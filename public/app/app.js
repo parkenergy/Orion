@@ -89,7 +89,7 @@ angular.module('Orion', [
       $authProvider.tokenPrefix = 'satellizer';
       $authProvider.authHeader = 'Authorization';
       $authProvider.authToken = 'Bearer';
-      $authProvider.storageType = 'sessionStorage';
+      $authProvider.storageType = 'localStorage';
     }
   ]);
 
