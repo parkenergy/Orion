@@ -39,7 +39,17 @@ angular.module('Orion', [
       .when('/myaccount', {
         needsLogin: true,
         controller: 'MyAccountCtrl',
-        templateUrl: '/lib/public/angular/views/myaccount.html'
+        templateUrl: '/lib/public/angular/views/myaccount.html',
+        resolve:{
+          me: function ($route, $q, Users) {
+            var deferred = $q.defer();
+            Users.get({id: 'me'},
+              function (response) { return deferred.resolve(response); },
+              function (err) { return deferred.reject(err); }
+            );
+            return deferred.promise;
+          }
+        }
       })
       .when('/example', {
         controller: 'ExampleCtrl',
@@ -68,8 +78,8 @@ angular.module('Orion', [
         clientId: '402483966217-5crk767d69pcn25dhds4htv3o67kdpuc.apps.googleusercontent.com',
         responseType: 'token'
       });
-      $authProvider.httpInterceptor = function() { return true; },
-        $authProvider.withCredentials = true;
+      $authProvider.httpInterceptor = function() { return true; };
+      $authProvider.withCredentials = true;
       $authProvider.tokenRoot = null;
       $authProvider.baseUrl = '/';
       $authProvider.loginUrl = '/auth/login';
@@ -79,7 +89,7 @@ angular.module('Orion', [
       $authProvider.tokenPrefix = 'satellizer';
       $authProvider.authHeader = 'Authorization';
       $authProvider.authToken = 'Bearer';
-      $authProvider.storageType = 'localStorage';
+      $authProvider.storageType = 'sessionStorage';
     }
   ]);
 
