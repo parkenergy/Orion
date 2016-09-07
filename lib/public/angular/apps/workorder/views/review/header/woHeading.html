@@ -35,12 +35,16 @@
       limit="12"
       disabled="true">
   	</type-ahead>
-  	<text-field
+    <type-ahead
       class="col-xs-3"
-  		label-text="Contact / Pumper Name"
-      data="workorder.header.contactName"
+  		label-text="Lease"
+      data="workorder.header.leaseName"
+  		select-field="name"
+  		display-field="name"
+  		obj-list="leases"
+      limit="12"
       disabled="true">
-  	</text-field>
+  	</type-ahead>
   	<type-ahead
       class="col-xs-4"
   		label-text="County"
@@ -61,16 +65,12 @@
       limit="12"
       disabled="true">
   	</type-ahead>
-  	<type-ahead
+    <text-field
       class="col-xs-4"
-  		label-text="Lease"
-      data="workorder.header.leaseName"
-  		select-field="name"
-  		display-field="name"
-  		obj-list="leases"
-      limit="12"
+  		label-text="Contact / Pumper Name"
+      data="workorder.header.contactName"
       disabled="true">
-  	</type-ahead>
+  	</text-field>
   	<type-ahead
       class="col-xs-4"
   		label-text="Ride Along"
