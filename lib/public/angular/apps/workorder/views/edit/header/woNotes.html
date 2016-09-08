@@ -4,19 +4,19 @@
   </div>
   <div class="panel-body" style="overflow-y: scroll; width: auto; height: 117px;">
     <!-- NG REPEAT START-->
-    <div ng-repeat="note in databaseNotes.notes">
+    <div ng-repeat="displayNote in displayNotes.notes">
       <div class="row" style="margin-top: 5px;">
         <div class="col-lg-12">
           <div class="media">
             <div class="media-body">
               <h6 class="media-heading">
-                {{ note.techId }}
+                {{ displayNote.firstname }} {{ displayNote.lastname }}
                 <span class="small pull-right">
-                  {{ note.sentTime | date:'MM/dd/yyyy HH:mm' }}
+                  {{ displayNote.sentTime | date:'MM/dd/yyyy HH:mm' }}
                 </span>
               </h6>
               <p class="text-muted" style="font-size: 15px; margin-bottom: 5px;">
-                {{ note.comment }}
+                {{ displayNote.comment }}
               </p>
             </div>
           </div>
@@ -30,10 +30,18 @@
     <form name="SubmitNote">
       <div class="input-group">
         <div class="form-group">
-          <input type="text" ng-model="note.comment" class="form-control input-sm" placeholder="Note...">
+          <input type="text"
+            ng-model="note.comment"
+            class="form-control input-sm"
+            placeholder="Note...">
         </div>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-primary btn-sm" id="btn-chat" ng-click="newNote()">Submit</button>
+          <button type="button"
+            class="btn btn-primary btn-sm"
+            id="btn-chat"
+            ng-click="newNote()">
+            Submit
+          </button>
         </span>
       </div>
     </form>
