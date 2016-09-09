@@ -30,6 +30,7 @@
     "bunyan-slack": "0.0.10",
     "client-sessions": "^0.7.0",
     "cookie-parser": "^1.4.1",
+    "deep-diff": "^0.3.4",
     "ejs": "^2.3.1",
     "express": "^4.13.4",
     "express-bunyan-logger": "^1.2.0",
