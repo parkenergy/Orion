@@ -23,7 +23,7 @@
   <workorder-parts></workorder-parts>
 
   <div>
-      <button class="btn btn-lg btn-primary pull-right"
+      <button ng-disabled="workorder.netsuiteSyned" class="btn btn-lg btn-primary pull-right"
               style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
               ng-click="save()">
         Complete
