@@ -25,7 +25,8 @@
       <div class="col-lg-12">
         <div class="media">
           <div class="media-body" style="font-size: 14px;">
-            <div class="media-heading" style=" text-align: center;">Changes</div>
+            <div class="media-heading" style="text-align: center;">Changes: {{ editCount }}</div>
+            <p class="text-muted" style="text-align: center;">By: {{ editor.firstName }} {{ editor.lastName }}</p>
           </div>
         </div>
       </div>
@@ -33,153 +34,31 @@
     <hr style="margin-top: 6px; margin-bottom: 12px;">
     <!--then an ng-repeate of all changes-->
     <!--master font size div-->
-    <div style="font-size: 12px;">
+    <div ng-repeat="change in displayChanges" style="font-size: 12px;">
       <div class="row" style="margin-top: 5px;">
         <div class="col-lg-12">
           <div class="media">
             <div class="media-body">
               <p style="margin-bottom: 5px;">PanelName:
-                <span class="pull-right">Unit Readings</span>
+                <span class="pull-right">{{ change.panelName }}</span>
               </p>
               <p style="margin-bottom: 5px;">ItemName:
-                <span class="pull-right">Suction Pressure</span>
+                <span class="pull-right">{{ change.itemName }}</span>
+              </p>
+              <p style="margin-bottom: 5px;">Type:
+                <span class="pull-right">{{ change.type}}</span>
               </p>
               <p style="margin-bottom: 5px;">Before:
-                <span class="pull-right">5</span>
+                <span class="pull-right">{{ change.before}}</span>
               </p>
               <p style="margin-bottom: 5px;">After:
-                <span class="pull-right">9</span>
+                <span class="pull-right">{{ change.after }}</span>
               </p>
             </div>
           </div>
         </div>
       </div>
       <hr style="margin-top: 6px; margin-bottom: 12px;">
-      <div class="row" style="margin-top: 5px;">
-        <div class="col-lg-12">
-          <div class="media">
-            <div class="media-body">
-              <p style="margin-bottom: 5px;">PanelName:
-                <span class="pull-right">Emissions Readings</span>
-              </p>
-              <p style="margin-bottom: 5px;">ItemName:
-                <span class="pull-right">Catalyst Temp Pre-Cat (f)</span>
-              </p>
-              <p style="margin-bottom: 5px;">Before:
-                <span class="pull-right">34</span>
-              </p>
-              <p style="margin-bottom: 5px;">After:
-                <span class="pull-right">43</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr style="margin-top: 6px; margin-bottom: 12px;">
-      <div class="row" style="margin-top: 5px;">
-        <div class="col-lg-12">
-          <div class="media">
-            <div class="media-body">
-              <p style="margin-bottom: 5px;">PanelName:
-                <span class="pull-right">Basic Labor Codes</span>
-              </p>
-              <p style="margin-bottom: 5px;">ItemName:
-                <span class="pull-right">Diagnostic</span>
-              </p>
-              <p style="margin-bottom: 5px;">Before:
-                <span class="pull-right">1:30</span>
-              </p>
-              <p style="margin-bottom: 5px;">After:
-                <span class="pull-right">1:00</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr style="margin-top: 6px; margin-bottom: 12px;">
-      <div class="row" style="margin-top: 5px;">
-        <div class="col-lg-12">
-          <div class="media">
-            <div class="media-body">
-              <p style="margin-bottom: 5px;">PanelName:
-                <span class="pull-right">Unit Readings</span>
-              </p>
-              <p style="margin-bottom: 5px;">ItemName:
-                <span class="pull-right">Name</span>
-              </p>
-              <p style="margin-bottom: 5px;">Before:
-                <span class="pull-right">a; lasjdf</span>
-              </p>
-              <p style="margin-bottom: 5px;">After:
-                <span class="pull-right">a;sdlkjfa;s</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr style="margin-top: 6px; margin-bottom: 12px;">
-      <div class="row" style="margin-top: 5px;">
-        <div class="col-lg-12">
-          <div class="media">
-            <div class="media-body">
-              <p style="margin-bottom: 5px;">PanelName:
-                <span class="pull-right">Unit Readings</span>
-              </p>
-              <p style="margin-bottom: 5px;">ItemName:
-                <span class="pull-right">Name</span>
-              </p>
-              <p style="margin-bottom: 5px;">Before:
-                <span class="pull-right">a; lasjdf</span>
-              </p>
-              <p style="margin-bottom: 5px;">After:
-                <span class="pull-right">a;sdlkjfa;s</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr style="margin-top: 6px; margin-bottom: 12px;">
-      <div class="row" style="margin-top: 5px;">
-        <div class="col-lg-12">
-          <div class="media">
-            <div class="media-body">
-              <p style="margin-bottom: 5px;">PanelName:
-                <span class="pull-right">Unit Readings</span>
-              </p>
-              <p style="margin-bottom: 5px;">ItemName:
-                <span class="pull-right">Name</span>
-              </p>
-              <p style="margin-bottom: 5px;">Before:
-                <span class="pull-right">a; lasjdf</span>
-              </p>
-              <p style="margin-bottom: 5px;">After:
-                <span class="pull-right">a;sdlkjfa;s</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr style="margin-top: 6px; margin-bottom: 12px;">
-      <div class="row" style="margin-top: 5px;">
-        <div class="col-lg-12">
-          <div class="media">
-            <div class="media-body">
-              <p style="margin-bottom: 5px;">PanelName:
-                <span class="pull-right">Unit Readings</span>
-              </p>
-              <p style="margin-bottom: 5px;">ItemName:
-                <span class="pull-right">Name</span>
-              </p>
-              <p style="margin-bottom: 5px;">Before:
-                <span class="pull-right">a; lasjdf</span>
-              </p>
-              <p style="margin-bottom: 5px;">After:
-                <span class="pull-right">a;sdlkjfa;s</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
