@@ -39,17 +39,7 @@ angular.module('Orion', [
       .when('/myaccount', {
         needsLogin: true,
         controller: 'MyAccountCtrl',
-        templateUrl: '/lib/public/angular/views/myaccount.html',
-        resolve:{
-          me: function ($route, $q, Users) {
-            var deferred = $q.defer();
-            Users.get({id: 'me'},
-              function (response) { return deferred.resolve(response); },
-              function (err) { return deferred.reject(err); }
-            );
-            return deferred.promise;
-          }
-        }
+        templateUrl: '/lib/public/angular/views/myaccount.html'
       })
       .when('/example', {
         controller: 'ExampleCtrl',
