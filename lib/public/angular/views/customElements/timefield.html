@@ -1,5 +1,5 @@
 <div class="form-group row"
-  ng-if="data.hours > 0 || data.minutes > 0 || show === true">
+  ng-if="data.hours > 0 || data.minutes > 0 || show">
   <div class="pull-left col-xs-12">
     <label for="{{data}}">{{labelText}}</label>
   </div>
@@ -7,7 +7,6 @@
 
     <div class="col-xs-6">
       <select class="form-control"
-              ng-class="{highlighted: data.highlight}"
               ng-model="data.hours"
               name="{{data}}.hours"
               ng-options="h for h in hours"
@@ -16,7 +15,6 @@
     </div>
     <div class="col-xs-6">
       <select class="form-control"
-              ng-class="{highlighted: data.highlight}"
               ng-model="data.minutes"
               name="{{data}}.minutes"
               ng-options="m for m in minutes"
