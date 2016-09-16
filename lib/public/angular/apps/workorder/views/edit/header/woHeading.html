@@ -4,82 +4,76 @@
   </div>
   <div class="panel-body">
   	<type-ahead
-      class="col-md-4"
+      class="col-xs-4"
   		label-text="Unit #"
       place-text=""
       data="workorder.header.unitNumber"
   		select-field="unitNumber"
-  		display-field="number"
-  		obj-list="units"
+  		array-list="unitNumberArray"
       limit="12">
   	</type-ahead>
   	<type-ahead
-      class="col-md-4"
+      class="col-xs-4"
   		label-text="Customer"
       data="workorder.header.customerName"
   		select-field="customerName"
-  		display-field="name"
-  		obj-list="customers"
+  		array-list="customersArray"
       limit="12">
   	</type-ahead>
   	<type-ahead
-      class="col-md-4"
+      class="col-xs-4"
   		label-text="Lease"
       data="workorder.header.leaseName"
   		select-field="name"
-  		display-field="name"
-  		obj-list="leases"
+  		array-list="unitLocationArray"
       limit="12">
   	</type-ahead>
   	<type-ahead
-      class="col-md-4"
+      class="col-xs-4"
   		label-text="County"
       data="workorder.header.county"
   		select-field="county"
-  		display-field="name"
-  		obj-list="counties"
+  		array-list="countiesArray"
       limit="12">
   	</type-ahead>
   	<type-ahead
-      class="col-md-4"
+      class="col-xs-4"
   		label-text="State"
       data="workorder.header.state"
   		select-field="state"
-  		display-field="name"
-  		obj-list="states"
+  		array-list="statesArray"
       limit="12">
   	</type-ahead>
     <text-field
-      class="col-md-4"
+      class="col-xs-4"
   		label-text="Contact / Pumper Name"
       data="workorder.header.contactName">
   	</text-field>
   	<type-ahead
-      class="col-md-4"
+      class="col-xs-4"
   		label-text="Ride Along"
       data="workorder.header.rideAlong"
   		select-field="fullName"
-  		display-field="fullName"
-  		obj-list="users"
+  		array-list="userRideAlongArray"
       limit="12">
   	</type-ahead>
   	<text-field
-      class="col-md-2"
+      class="col-xs-2"
   		label-text=" Start Mileage"
       data="workorder.header.startMileage">
   	</text-field>
     <text-field
-      class="col-md-2"
+      class="col-xs-2"
       label-text="End Mileage"
       data="workorder.header.endMileage">
     </text-field>
     <select-list
-      class="col-md-4"
+      class="col-xs-4"
   		label-text="Application Type"
       data="workorder.header.applicationtype"
-  		select-field="_id"
-  		display-field="type"
-  		obj-list="applicationtypes">
+  		select-field="type"
+      display-field="type"
+  		array-list="applicationArray">
   	</select-list>
   </div>
 </div>

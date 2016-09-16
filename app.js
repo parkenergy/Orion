@@ -37,7 +37,7 @@ app.set('views', path.resolve(config.viewsPath));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/lib/public', express.static(path.join(__dirname, '/lib/public')));
 
-//Serve SAP(index.ejs)
+//Serve SPA(index.ejs)
 app.get('/', function(req, res) {
   var model = { appName: "Orion", title: "Orion" };
   res.render('index', model);
