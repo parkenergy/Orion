@@ -182,6 +182,15 @@ th {
   nav.navbar {
     display: none;
   }
+  review-header > div.row > div.col-xs-4 > review-notes {
+    display: none;
+  }
+  review-header > div.row > div.col-xs-4 > review-data-history {
+    display: none;
+  }
+  review-header > div.row > div.col-xs-3 > button {
+    display: none;
+  }
   review-misc.ng-scope > div.panel > div.panel-body > button.btn {
     display: none;
   }
@@ -265,6 +274,11 @@ th {
     margin: 0px;
     height: 15px;
   }
+  review-pm-misc > div > div > number-field.ng-isolate-scope > div.form-group > input {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
   div.panel-body > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
     padding: 2px;
     margin: 0px;
@@ -314,7 +328,7 @@ th {
     padding-left: 2px;
     padding-right: 2px;
   }
-  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope > div.col-xs-12 > div.col-xs-6 > select.form-control.ng-pristine.ng-untouched.ng-valid.highlighted {
+  div.panel-body > time-field.ng-isolate-scope > div > div > div > select {
     padding: 2px;
     margin: 0px;
     height: 15px;
@@ -4996,6 +5010,15 @@ a.list-group-item-danger.active:focus {
 .panel-body {
   padding: 15px;
 }
+/*::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}*/
 .panel-heading {
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
@@ -6138,7 +6161,7 @@ input[type="checkbox"] {
   font-size: 15px;
 }
 .row {
-  margin-top: 40px;
+  margin-top: 20px;
   padding: 0 10px;
 }
 .clickable {
