@@ -10,6 +10,19 @@
   nav.navbar{
     display: none;
   }
+  // dont display the Notes panel
+  review-header > div.row > div.col-xs-4 > review-notes{
+    display: none;
+  }
+  // dont display the History panel
+  review-header > div.row > div.col-xs-4 > review-data-history{
+    display: none;
+  }
+  // dont display the edit button
+  review-header > div.row > div.col-xs-3 > button{
+    display: none;
+  }
+
   // dont display buttons [leaseNotes, JSA, unitNotes]
   review-misc.ng-scope > div.panel > div.panel-body > button.btn{
     display: none;
@@ -85,7 +98,6 @@
     padding-left: 2px;
     padding-right: 2px;
   }
-
   // TEXT FIELD PADDING > [headingInfo, killSettings,unitReadings, emissionReadings]
   // unit #, techid, customer
   div.panel-body > type-ahead.col-xs-3.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid{
@@ -120,6 +132,12 @@
   //-------------- heading info [end] ---------------------------------------------------
 
   //-------------- PM text box settings [start] -----------------------------------------
+  // pdding and margins for [Fuel Pressure fist cut, second cut]
+  review-pm-misc > div > div > number-field.ng-isolate-scope > div.form-group > input{
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+  }
   // fields before engine compression
   div.panel-body > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid{
     padding: 2px;
@@ -188,11 +206,12 @@
     padding-right: 2px;
   }
   // text padding for labor codes.
-  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope > div.col-xs-12 > div.col-xs-6 > select.form-control.ng-pristine.ng-untouched.ng-valid.highlighted{
+  review-basic-lc > div > div.panel-body > time-field.ng-isolate-scope > div > div > div > select{
     padding: 2px;
     margin: 0px;
     height: 15px;
   }
+
   //-------------- Labor codes [End]--------------------------------------------------
 
   //-------------- Parts [start] -----------------------------------------------------
