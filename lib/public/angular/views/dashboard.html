@@ -59,6 +59,13 @@
           ng-click="submit()">
           Search
         </button>
+        <button
+          class="btn btn-primary form-inline"
+          ng-class="{reportDisabled: disabled}"
+          type="button"
+          ng-click="report()">
+          {{reportText}}
+        </button>
       </form>
     </div>
   </div>
