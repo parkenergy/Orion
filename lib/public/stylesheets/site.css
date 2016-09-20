@@ -328,7 +328,7 @@ th {
     padding-left: 2px;
     padding-right: 2px;
   }
-  review-basic-lc > div > div.panel-body > time-field.ng-isolate-scope > div > div > div > select {
+  div.panel-body > time-field.ng-isolate-scope > div > div > div > select {
     padding: 2px;
     margin: 0px;
     height: 15px;
