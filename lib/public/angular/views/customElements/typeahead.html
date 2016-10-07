@@ -4,7 +4,7 @@
       type="text"
       placeholder="{{placeholderText}}"
       ng-model="data"
-      typeahead="{{selectField}} for {{selectField}} in arrayList | filter:$viewValue | limitTo:{{limit}}"
+      typeahead="selectField for selectField in arrayList | filter:$viewValue | limitTo:limit"
       class="form-control"
       name="{{data}}"
       ng-disabled="disabled">
