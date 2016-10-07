@@ -31,9 +31,10 @@
       <div class="input-group">
         <div class="form-group">
           <input type="text"
-            ng-model="comment.note"
-            class="form-control input-sm"
-            placeholder="Note...">
+                 ng-disabled="sendingNote"
+                 ng-model="comment.note"
+                 class="form-control input-sm"
+                 placeholder="Note...">
         </div>
         <span class="input-group-btn">
           <button type="button"

@@ -30,10 +30,19 @@
     <form name="SubmitNote">
       <div class="input-group">
         <div class="form-group">
-          <input type="text" ng-model="comment.note" class="form-control input-sm" placeholder="Note...">
+          <input type="text"
+                 ng-disabled="sendingNote"
+                 ng-model="comment.note"
+                 class="form-control input-sm"
+                 placeholder="Note...">
         </div>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-primary btn-sm" id="btn-chat" ng-click="newNote()">Submit</button>
+          <button type="button"
+                  class="btn btn-primary btn-sm"
+                  id="btn-chat"
+                  ng-click="newNote()">
+            Submit
+          </button>
         </span>
       </div>
     </form>
