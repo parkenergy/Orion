@@ -1,6 +1,6 @@
 var config = {
   production: {
-    mongodb: "mongodb://admin:password@ds043082.mongolab.com:43082/heroku_app37485205",
+    mongodb: "mongodb://172.31.8.0:27017/orion",
     viewsPath: "./lib/views",
     logLevel: "info",
     port: 3000
