@@ -24,6 +24,9 @@ process.on('uncaughtException', function(err) {
 //plugin bluebird as promise provider
 mongoose.Promise = Promise;
 
+//log environment
+log.info({env: process.env.NODE_ENV}, 'Starting for environment');
+
 //start mongoose
 log.info({uri: config.mongodb}, 'Connecting to MongoDB[Mongoose]');
 mongoose.connect(config.mongodb);
