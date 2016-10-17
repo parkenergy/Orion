@@ -64,6 +64,7 @@
         <button
           class="btn btn-primary form-inline"
           type="button"
+          data-toggle="collapse" data-target="#showSearch"
           ng-click="submit()">
           Search
         </button>
@@ -71,6 +72,7 @@
           class="btn btn-primary form-inline"
           ng-class="{reportDisabled: disabled}"
           type="button"
+          data-toggle="collapse" data-target="#showSearch"
           ng-click="report()">
           {{reportText}}
         </button>
