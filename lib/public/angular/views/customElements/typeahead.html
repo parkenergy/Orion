@@ -1,11 +1,11 @@
-
   <div class="form-group">
-    <label>{{labelText}}</label>
+    <label for="{{data}}">{{labelText}}</label>
     <input
       type="text"
       placeholder="{{placeholderText}}"
       ng-model="data"
       typeahead="selectField for selectField in arrayList | filter:$viewValue | limitTo:limit"
       class="form-control"
+      name="{{data}}"
       ng-disabled="disabled">
   </div>
