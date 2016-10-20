@@ -1,5 +1,6 @@
-  <div class="form-group">
-    <label for="{{data}}">{{labelText}}</label>
+<!--<form id="{{formId}}" name="{{formName}}">-->
+  <div class="form-group" name="{{formName}}">
+    <label>{{labelText}}</label>
     <input
       type="text"
       placeholder="{{placeholderText}}"
@@ -7,5 +8,7 @@
       typeahead="selectField for selectField in arrayList | filter:$viewValue | limitTo:limit"
       class="form-control"
       name="{{data}}"
+      pes-collection-match="{{arrayList}}"
       ng-disabled="disabled">
   </div>
+<!--</form>-->
