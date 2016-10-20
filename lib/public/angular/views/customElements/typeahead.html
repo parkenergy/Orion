@@ -5,9 +5,7 @@
       type="text"
       placeholder="{{placeholderText}}"
       ng-model="data"
-      name="{{itemName}}"
       typeahead="selectField for selectField in arrayList | filter:$viewValue | limitTo:limit"
       class="form-control"
-      pes-collection-match="{{arrayList}}"
       ng-disabled="disabled">
   </div>
