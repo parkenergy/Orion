@@ -1,54 +1,67 @@
-<!-- Unit Number -->
-<div class="form-group col-xs-4">
-  <label>Unit #</label>
-  <input
-    type="text"
-    ng-model="data"
-    typeahead="selectField for selectField in arrayList | filter:$viewValue | limitTo:limit"
-    class="form-control"
-    ng-disabled="disabled">
-</div>
+<form name="header">
+  <!-- Unit Number -->
+  <div class="form-group col-xs-4">
+    <label>Unit #</label>
+    <input
+      type="text"
+      name="number"
+      ng-model="workorder.header.unitNumber"
+      typeahead="unitNumber for unitNumber in unitNumberArray | filter:$viewValue | limitTo:12"
+      class="form-control"
+      pes-collection-match="unitNumberArray"
+      ng-disabled="disabled">
+  </div>
 
-<!-- Customer Name -->
-<div class="form-group col-xs-4">
-  <label>Customer</label>
-  <input
-    type="text"
-    ng-model="data"
-    typeahead="selectField for selectField in arrayList | filter:$viewValue | limitTo:limit"
-    class="form-control"
-    ng-disabled="disabled">
-</div>
+  <!-- Customer Name -->
+  <div class="form-group col-xs-4">
+    <label>Customer</label>
+    <input
+      type="text"
+      name="customer"
+      ng-model="workorder.header.customerName"
+      typeahead="customerName for customerName in customersArray | filter:$viewValue | limitTo:12"
+      class="form-control"
+      pes-collection-match="customersArray"
+      ng-disabled="disabled">
+  </div>
 
-<!-- Lease Name -->
-<div class="form-group col-xs-4">
-  <label>Lease</label>
-  <input
-    type="text"
-    ng-model="data"
-    typeahead="selectField for selectField in arrayList | filter:$viewValue | limitTo:limit"
-    class="form-control"
-    ng-disabled="disabled">
-</div>
+  <!-- Lease Name -->
+  <div class="form-group col-xs-4">
+    <label>Lease</label>
+    <input
+      type="text"
+      name="lease"
+      ng-model="workorder.header.leaseName"
+      typeahead="name for name in unitLocationArray | filter:$viewValue | limitTo:12"
+      class="form-control"
+      pes-collection-match="unitLocationArray"
+      ng-disabled="disabled">
+  </div>
 
-<!-- County -->
-<div class="form-group col-xs-4">
-  <label>County</label>
-  <input
-    type="text"
-    ng-model="data"
-    typeahead="selectField for selectField in arrayList | filter:$viewValue | limitTo:limit"
-    class="form-control"
-    ng-disabled="disabled">
-</div>
+  <!-- County -->
+  <div class="form-group col-xs-4">
+    <label>County</label>
+    <input
+      type="text"
+      name="county"
+      ng-model="workorder.header.county"
+      typeahead="county for county in countiesArray | filter:$viewValue | limitTo:12"
+      class="form-control"
+      pes-collection-match="countiesArray"
+      ng-disabled="disabled">
+  </div>
 
-<!-- State -->
-<div class="form-group col-xs-4">
-  <label>State</label>
-  <input
-    type="text"
-    ng-model="data"
-    typeahead="selectField for selectField in arrayList | filter:$viewValue | limitTo:limit"
-    class="form-control"
-    ng-disabled="disabled">
-</div>
+  <!-- State -->
+  <div class="form-group col-xs-4">
+    <label>State</label>
+    <input
+      type="text"
+      name="state"
+      ng-model="workorder.header.state"
+      typeahead="state for state in statesArray | filter:$viewValue | limitTo:12"
+      class="form-control"
+      pes-collection-match="statesArray"
+      ng-disabled="disabled">
+  </div>
+
+</form>
