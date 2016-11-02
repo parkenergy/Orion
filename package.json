@@ -4,8 +4,15 @@
   "description": "A workorder tracking software system for Park Energy",
   "main": "",
   "scripts": {
-    "test": "export NODE_ENV=test; mocha test/tests.js",
+    "test": "export NODE_ENV=test; mocha --check-leaks --reporter=nyan --use_strict test/tests.js",
     "start": "node app.js"
+  },
+  "nyc": {
+    "include": [
+      "lib/managers/workOrder.js",
+      "lib/managers/user.js",
+      "lib/managers/editHistory.js"
+    ]
   },
   "repository": {
     "type": "git",
