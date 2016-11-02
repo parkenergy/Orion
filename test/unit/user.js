@@ -13,7 +13,7 @@ after(function(done) {
   User.remove({}, done);
 });
 
-describe("User", function () {
+describe("User Units", function () {
 
   describe("#createDoc()", function () {
     var uid, user;

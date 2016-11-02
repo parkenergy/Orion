@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-var config = require('../../config');
 var should = require('should');
 var _ = require('lodash');
 var fixture = require('../fixture/workOrder.json');
@@ -22,7 +21,7 @@ after(function(done) {
   WorkOrder.remove({}, done);
 });
 
-describe("WorkOrder", function() {
+describe("WorkOrder Units", function() {
   var unitId, userId, unitDoc, userDoc;
 
   before(function() {
@@ -73,7 +72,7 @@ describe("WorkOrder", function() {
           doc[0].unit.toString().should.equal(unitId.toString());
           doc[0].technician.toString().should.equal(userId.toString());
         });
-    });
+    }).slow(50);
   });
 
   describe("#updateDoc()", function() {
@@ -101,7 +100,7 @@ describe("WorkOrder", function() {
           doc.header.unitNumber.should.be.a.String();
           doc.header.unitNumber.should.equal('TEST2');
         });
-    });
+    }).slow(100);
   });
 
   describe("#fetch()", function() {
@@ -126,7 +125,7 @@ describe("WorkOrder", function() {
           doc.header.unitNumber.should.be.a.String();
           doc.header.unitNumber.should.equal('TEST1');
         });
-    });
+    }).slow(30);
   });
 
   describe("#list()", function() {
@@ -211,7 +210,7 @@ describe("WorkOrder", function() {
 
           return null;
         });
-    });
+    }).slow(500);
 
     it("Should list workorders with specific unitNumber", function() {
       var options = {
@@ -234,7 +233,8 @@ describe("WorkOrder", function() {
             doc.unitNumber.should.equal("123TEST");
           });
         });
-    });
+    }).slow(200);
+
     it("Should list workorders with specific technician name", function() {
       var options = {
         sort:  '-updated_at',
@@ -256,7 +256,8 @@ describe("WorkOrder", function() {
             doc.techId.should.equal("TEST003");
           });
         });
-    });
+    }).slow(200);
+
     it("Should list workorders with specific leaseName", function() {
       var options = {
         sort:  '-updated_at',
@@ -278,7 +279,8 @@ describe("WorkOrder", function() {
             doc.header.leaseName.should.equal("TESTLOC");
           });
         });
-    });
+    }).slow(200);
+
     it("Should list workorders with specific customerName", function() {
       var options = {
         sort:  '-updated_at',
@@ -300,7 +302,7 @@ describe("WorkOrder", function() {
             doc.header.customerName.should.equal("TESTCUST");
           });
         });
-    });
+    }).slow(200);
   });
 
   describe("#delete()", function() {

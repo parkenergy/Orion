@@ -24,7 +24,7 @@ after(function () {
     });
 });
 
-describe("Edit History", function () {
+describe("EditHistory Integrations", function () {
   var workOrderId, wo;
   it("Should create WorkOrder but no EditHistory", function () {
     return WorkOrder.createDoc(workOrderFixture)
