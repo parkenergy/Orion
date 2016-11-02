@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var config = require('../../config');
+var config = require('../config');
 var Promise = require('bluebird');
 
 before(function (done) {
@@ -7,3 +7,6 @@ before(function (done) {
   mongoose.connect(config.mongodb);
   mongoose.connection.on('connected', done);
 });
+
+require('./unit');
+require('./integration');
