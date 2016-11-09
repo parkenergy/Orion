@@ -36,7 +36,7 @@ var config = {
     port: 3000
   },
   development: {
-    mongodb: "mongodb://localhost/orion-test",
+    mongodb: "mongodb://localhost/orion-dev",
     viewsPath: "./lib/views",
     logging: {
       name: "Orion",
