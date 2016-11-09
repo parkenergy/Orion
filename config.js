@@ -36,7 +36,7 @@ var config = {
     port: 3000
   },
   development: {
-    mongodb: "mongodb://admin:password@ds043082.mongolab.com:43082/heroku_app37485205",
+    mongodb: "mongodb://localhost/orion-dev",
     viewsPath: "./lib/views",
     logging: {
       name: "Orion",

@@ -20,7 +20,6 @@ var path = require('path');
 
 // used to bundle server side code needed by the client
 var runSequence = require('run-sequence');
-var vss = require('vinyl-source-stream');
 
 /* TASKS
  ----------------------------------------------------------------------------- */

@@ -4,7 +4,7 @@
 .idea
 .vagrant
 .models
-
+.nyc_output
 .Spotlight-V100
 .Trasheslib-cov
 

@@ -2,6 +2,9 @@
   "firstName": "Testing",
   "lastName": "Tester",
   "username": "TEST001",
+  "supervisor": "TEST002",
+  "truckId": "T1234",
   "email": "test@test.com",
-  "netsuiteId": "T456"
+  "netsuiteId": "5678",
+  "role": "admin"
 }

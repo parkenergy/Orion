@@ -23,6 +23,7 @@
   },
   "header" : {
     "unitNumber" : "TEST1",
+    "unitNumberNSID": "T456",
     "customerName" : "",
     "contactName" : "",
     "county" : "",
@@ -292,6 +293,7 @@
     "visibleLeaksNotes" : ""
   },
   "techId" : "TEST001",
+  "truckId": "truck001",
   "technician": {"netsuiteId":"T456"},
   "unit": {"netsuiteId":"T123"},
   "timeApproved" : null,
