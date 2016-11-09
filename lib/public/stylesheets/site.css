@@ -3890,11 +3890,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   min-height: 50px;
   margin-bottom: 25px;
   border: 1px solid transparent;
-}
-@media (min-width: 768px) {
-  .navbar {
-    border-radius: 4px;
-  }
+  /*@media (min-width: @grid-float-breakpoint) {
+    border-radius: @navbar-border-radius;
+  }*/
 }
 @media (min-width: 768px) {
   .navbar-header {
@@ -4009,7 +4007,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
-  border-radius: 4px;
 }
 .navbar-toggle:focus {
   outline: none;
