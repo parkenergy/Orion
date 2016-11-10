@@ -10,21 +10,13 @@
     </button>
   </div>
 
-  <div ng-if="panelType === 'incomplete'">
+  <div>
     <pes-po-overview-table
       partorders="partorders"
       panel-type="panelType"
-      content-switch="changePanelType(type)"
+      content-switch="PartOrderLookup(query)"
       ng-show="partorders.length > 0">
     </pes-po-overview-table>
   </div>
 
-  <div ng-if="panelType === 'completed'">
-    <pes-po-overview-table
-      partorders="partorders"
-      panel-type="panelType"
-      content-switch="changePanelType(type)"
-      ng-show="partorders.length > 0">
-    </pes-po-overview-table>
-  </div>
 </div>
