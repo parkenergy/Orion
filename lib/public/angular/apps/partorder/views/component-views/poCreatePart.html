@@ -20,33 +20,33 @@
         </tr>
         </thead>
         <tbody ng-show="$ctrl.isEmpty()">
-        <tr>
-          <td>
-            <div class="clearfix">{{ $ctrl.part.MPN }}</div>
-            <div ng-show="$ctrl.part.description !== null">
-              {{ $ctrl.part.description }}
-            </div>
-            <div ng-show="$ctrl.part.description === null">
-              {{ $ctrl.part.smartPart }}
-            </div>
-          </td>
-          <td>
-            <number-field
-              placeholder-text="Quantity Used"
-              data="$ctrl.part.quantity"
-              non-negative="true"
-              name="quantity"
-              min="1"
-              integer-only="true">
-            </number-field>
-          </td>
-          <td>
-            <button class="btn btn-danger pull-right"
-                    ng-click="$ctrl.onDelete()">
-              remove
-            </button>
-          </td>
-        </tr>
+          <tr>
+            <td>
+              <div class="clearfix">{{ $ctrl.part.MPN }}</div>
+              <div ng-show="$ctrl.part.description !== null">
+                {{ $ctrl.part.description }}
+              </div>
+              <div ng-show="$ctrl.part.description === null">
+                {{ $ctrl.part.smartPart }}
+              </div>
+            </td>
+            <td>
+              <number-field
+                placeholder-text="Quantity Used"
+                data="$ctrl.part.quantity"
+                non-negative="true"
+                name="quantity"
+                min="1"
+                integer-only="true">
+              </number-field>
+            </td>
+            <td>
+              <button class="btn btn-danger pull-right"
+                      ng-click="$ctrl.onDelete()">
+                remove
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
