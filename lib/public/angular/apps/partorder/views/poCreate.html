@@ -1,0 +1,43 @@
+<alerts></alerts>
+<header></header>
+
+<div id="PartOrderCreate">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-xs-6">
+        <select-tech-warehouse-id
+          cc-locations="locations"
+          cc-truck-id="truckId"
+          cc-class=""
+          cc-on-data-change="updateDestination(item,type)"
+          cc-panel-title="Part Order"
+          cc-type="netsuiteId"
+          cc-label="Part Order Destination"
+          cc-data="partorder.destinationNSID">
+        </select-tech-warehouse-id>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <super-table
+          model="partsTableModel">
+        </super-table>
+      </div>
+      <div class="col-md-6" >
+        <pes-po-create-part
+          part="partorder.part"
+          on-manual-add="addManualPart(part)"
+          on-delete="deletePart()">
+        </pes-po-create-part>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-lrg btn-primary pull right"
+            style="width:90%; height: 100px; margin: 0px 5% 15px 5%"
+            ng-disabled="!valid"
+            ng-click="save()">
+      Submit Part Order
+    </button>
+  </div>
+</div>

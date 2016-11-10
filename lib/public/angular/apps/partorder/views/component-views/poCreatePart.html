@@ -1,0 +1,54 @@
+<div id="PoCreatePart">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Add Part to Part Order</h3>
+    </div>
+    <div class="panel-body">
+      <button
+        class="btn btn-lg btn-primary pull-left"
+        type="button"
+        style="margin-bottom: 10px"
+        ng-click="$ctrl.openManualPartModal()">
+        Add Part Manually
+      </button>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Part Info</th>
+          <th>Quantity</th>
+          <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody ng-show="$ctrl.isEmpty()">
+        <tr>
+          <td>
+            <div class="clearfix">{{ $ctrl.part.MPN }}</div>
+            <div ng-show="$ctrl.part.description !== null">
+              {{ $ctrl.part.description }}
+            </div>
+            <div ng-show="$ctrl.part.description === null">
+              {{ $ctrl.part.smartPart }}
+            </div>
+          </td>
+          <td>
+            <number-field
+              placeholder-text="Quantity Used"
+              data="$ctrl.part.quantity"
+              non-negative="true"
+              name="quantity"
+              min="1"
+              integer-only="true">
+            </number-field>
+          </td>
+          <td>
+            <button class="btn btn-danger pull-right"
+                    ng-click="$ctrl.onDelete()">
+              remove
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

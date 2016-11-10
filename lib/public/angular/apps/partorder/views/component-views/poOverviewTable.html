@@ -1,0 +1,94 @@
+<div id="PoOverviewTable"
+     class="panel panel-default"
+     style="margin-left: 25px; margin-right: 25px;">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Part Orders</h3>
+    <div class="pull-right">
+      <div class="pull-right" style="float: right">
+        <button class="btn btn-sm btn-primary" ng-if="$ctrl.panelType === 'incomplete'" ng-click="$ctrl.changeTable()">
+          Completed
+        </button>
+        <button class="btn btn-sm btn-primary" ng-if="$ctrl.panelType === 'completed'" ng-click="$ctrl.changeTable()">
+          Incomplete
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body" style="padding: 0px;">
+    <!--Start Search Table-->
+    <table class="table table-bordered table-striped table-hover" style="margin-bottom: 0px;">
+      <!--Search settings-->
+      <thead>
+      <tr style="cursor: pointer">
+
+        <!-- Sort by Part #-->
+        <th ng-click="$ctrl.resort('part.componentName')">
+          Part #
+          <span
+            ng-show="$ctrl.sortType == 'part.componentName' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType == 'part.componentName' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
+        <!-- Sort by MPN -->
+        <th ng-click="$ctrl.resort('part.mpn')">
+          MPN
+          <span
+            ng-show="$ctrl.sortType == 'part.mpn' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType == 'part.mpn' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
+        <!-- Sort by Status-->
+        <th ng-click="$ctrl.resort('status')">
+          Status
+          <span
+            ng-show="$ctrl.sortType == 'status' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType == 'status' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
+        <!-- Sort by quantity -->
+        <th ng-click="$ctrl.resort('quantity')">
+          Quantity
+          <span
+            ng-show="$ctrl.sortType == 'quantity' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType == 'quantity' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
+        <!-- Sort by Time Created -->
+        <th ng-click="$ctrl.resort('epoch')">
+          Time Created
+          <span
+            ng-show="$ctrl.sortType == 'epoch' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType == 'epoch' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+      </tr>
+      </thead>
+      <!-- Sorted Table -->
+      <tbody>
+      <tr ng-repeat="order in $ctrl.displayOrders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToPartOrder(order);" style="cursor: pointer;">
+        <td>{{ order.part.componentName }}</td>
+        <td>{{ order.part.MPN }}</td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>{{ order.timeCreated | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+      </tr>
+      </tbody>
+
+    </table>
+    <!--End Serch Table-->
+  </div>
+</div>

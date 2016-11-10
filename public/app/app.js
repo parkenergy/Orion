@@ -1,9 +1,11 @@
 angular.module('Orion.Controllers', []);
+angular.module('Orion.Components', []);
 angular.module('Orion.Directives', []);
 angular.module('Orion.Services', ['ngRoute', 'ngResource', 'ngCookies' ]);
 
 angular.module('Orion', [
   'CommonControllers',
+  'CommonComponents',
   'CommonDirectives',
   'CommonServices',
   'Orion.Controllers',
@@ -16,6 +18,7 @@ angular.module('Orion', [
   'EngineApp',
   'InventoryTransferApp',
   'PartApp',
+  'PartOrderApp',
   'SupportApp',
   'TransferApp',
   'UnitApp',

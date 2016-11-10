@@ -1,0 +1,67 @@
+<div id="PoReviewHeading">
+  <div class="row" style="margin-bottom: 25px;">
+    <div class="col-md-2 col-xs-2" style="margin-left: 25px">
+      <div>Tech ID</div>
+      <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.techId }}</div>
+    </div>
+    <div class="col-md-2 col-xs-2" style="margin-left: 25px">
+      <div>Destination ID</div>
+      <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.destinationNSID }}</div>
+    </div>
+    <div class="col-md-3 col-xs-3" style="margin-left: 25px">
+      <div>Request Made</div>
+      <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.timeCreated | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
+    </div>
+    <!--Show Time Submitted if it exists-->
+    <div ng-if="$ctrl.partorder.timeSubmitted">
+      <div class="col-md-3 col-xs-3" style="margin-left: 25px">
+        <div>Request Inspected</div>
+        <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
+      </div>
+    </div>
+    <div ng-show="!$ctrl.partorder.timeSubmitted" class="col-md-3 col-xs-3" style="margin-left: 25px">
+      Order Not Uploaded Yet
+    </div>
+  </div>
+
+  <!-- Fromatting for 2nd row for item alignment -->
+  <div class="row" style="margin-bottom: 25px;">
+    <!--Show manager ID if it exists-->
+    <div ng-if="$ctrl.partorder.managerId">
+      <div class="col-md-2 col-xs-2" style="margin-left: 25px">
+        <div>Manager ID</div>
+        <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.managerId}}</div>
+      </div>
+    </div>
+    <div ng-show="!$ctrl.partorder.managerId" class="col-md-2 col-xs-2" style="margin-left: 25px"></div>
+
+    <!--Show origin Id if it exists-->
+    <div ng-if="$ctrl.partorder.originNSID">
+      <div class="col-md-2 col-xs-2" style="margin-left: 25px">
+        <div>Origin Location</div>
+        <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.originNSID }}</div>
+      </div>
+    </div>
+    <div ng-show="!$ctrl.partorder.originNSID" class="col-md-2 col-xs-2" style="margin-left: 25px"></div>
+
+    <!--Show Tracking number if it exists-->
+    <div ng-if="$ctrl.partorder.trackingNumber">
+      <div class="col-md-3 col-xs-3" style="margin-left: 25px">
+        <div>Tracking Number</div>
+        <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.trackingNumber}}</div>
+      </div>
+    </div>
+    <div ng-show="!$ctrl.partorder.trackingNumber" class="col-md-3 col-xs-3" style="margin-left: 25px"></div>
+
+    <!--Show Time Shipped if it exists-->
+    <div ng-if="$ctrl.partorder.timeShipped">
+      <div class="col-md-3 col-xs-3" style="margin-left: 25px">
+        <div>Request Shipped</div>
+        <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.timeShipped | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
+      </div>
+    </div>
+    <div ng-show="!$ctrl.partorder.timeShipped" class="col-md-3 col-xs-3" style="margin-left: 25px">
+      Parts Not Shipped Yet
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<alerts></alerts>
+<header></header>
+
+<div id="PartOrderOverview">
+  <div class="text-center" style="margin-bottom: 25px;">
+    <button class="btn btn-lg btn-primary"
+            style="width: 80%; height: 50px;"
+            ng-click="createPartOrder();">
+      Create Part Order
+    </button>
+  </div>
+
+  <div ng-if="panelType === 'incomplete'">
+    <pes-po-overview-table
+      partorders="partorders"
+      panel-type="panelType"
+      content-switch="changePanelType(type)"
+      ng-show="partorders.length > 0">
+    </pes-po-overview-table>
+  </div>
+
+  <div ng-if="panelType === 'completed'">
+    <pes-po-overview-table
+      partorders="partorders"
+      panel-type="panelType"
+      content-switch="changePanelType(type)"
+      ng-show="partorders.length > 0">
+    </pes-po-overview-table>
+  </div>
+</div>

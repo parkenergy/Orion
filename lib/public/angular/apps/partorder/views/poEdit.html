@@ -1,0 +1,24 @@
+<alerts></alerts>
+<header></header>
+
+<div id="PartOrderReview" class="container-fluid">
+  <pes-po-review-heading
+    partorder="partorder">
+  </pes-po-review-heading>
+  <div>
+    <pes-po-review-table
+      partorder="partorder">
+    </pes-po-review-table>
+  </div>
+  <div>
+    <div class="panel panel-default" style="margin-left: 25px; margin-right: 25px;">
+      <div class="panel-body">
+        <text-area-field
+          data="partorder.comment"
+          disabled="true"
+          label-text="Manager Comments">
+        </text-area-field>
+      </div>
+    </div>
+  </div>
+</div>
