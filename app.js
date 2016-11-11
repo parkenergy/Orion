@@ -1,6 +1,6 @@
 'use strict';
 
-var express = require('express'),
+const express = require('express'),
   config = require('./config.js'),
   path = require('path'),
   fs = require('fs'),
@@ -11,7 +11,7 @@ var express = require('express'),
   mongoose = require('mongoose');
 
 //Catch uncaught exceptions to log in bunyan
-process.on('uncaughtException', function(err) {
+process.on('uncaughtException', (err) => {
   log.fatal({
     stack: err.stack || null,
     code: err.code ||null
@@ -32,7 +32,7 @@ log.info({uri: config.mongodb}, 'Connecting to MongoDB[Mongoose]');
 mongoose.connect(config.mongodb);
 
 //Init Express
-var app = express();
+const app = express();
 
 log.info({path: path.resolve(config.viewsPath)}, 'Setup views path');
 app.set('view engine', 'ejs');
@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use('/lib/public', express.static(path.join(__dirname, '/lib/public')));
 
 //Serve SPA(index.ejs)
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   var model = { appName: "Orion", title: "Orion" };
   res.render('index', model);
 });
@@ -69,14 +69,13 @@ log.info({path: path.join(__dirname, '/lib/routes')}, 'Load routes from path');
 loader(path.join(__dirname, '/lib/routes'));
 
 //Scheduled tasks
-var netsuiteSync = require('./lib/tasks/netsuiteSync');
-var syncTask = new netsuiteSync();
+const netsuiteSync = require('./lib/tasks/netsuiteSync'),
+  syncTask         = new netsuiteSync(),
+  agenda           = new Agenda({db: {address: config.mongodb}});
 
-var agenda = new Agenda({db: {address: config.mongodb}});
-
-agenda.define('netsuiteSync', function(job, done){
+agenda.define('netsuiteSync', (job, done) => {
   log.info("Netsuite import...");
-  syncTask.execute(function(err) {
+  syncTask.execute((err) => {
     if(err){
       log.error({error: err}, "Error occured during Netsuite Sync");
     }
@@ -86,13 +85,13 @@ agenda.define('netsuiteSync', function(job, done){
   });
 });
 
-agenda.on('ready', function(){
+agenda.on('ready', () => {
   agenda.every('5 minutes', 'netsuiteSync');
   agenda.start();
 });
 
 log.info("Initial Netsuite import...");
-syncTask.execute(function(err) {
+syncTask.execute((err) => {
   if(err){
     log.error({error: err}, "Error occured during Netsuite Sync");
   }
@@ -104,16 +103,16 @@ syncTask.execute(function(err) {
 //Listen
 log.info("Starting app...");
 
-app.listen(process.env.PORT || config.port, function() {
+app.listen(process.env.PORT || config.port, () => {
   log.info({port: process.env.PORT || config.port},"App started");
 });
 
 //Loader helper
-function loader(dir) {
+const loader = dir => {
   dir = path.resolve(dir);
 
   fs.readdirSync(dir)
-    .forEach(function(fileName) {
+    .forEach((fileName) => {
       var modulePath = path.join(dir, fileName);
       log.info({path: modulePath, file: __filename, fn: "#loader()"}, "Load module");
       require(modulePath)(app);
