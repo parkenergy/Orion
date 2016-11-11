@@ -1,7 +1,7 @@
 angular.module('Orion.Controllers', []);
 angular.module('Orion.Components', []);
 angular.module('Orion.Directives', []);
-angular.module('Orion.Services', ['ngRoute', 'ngResource', 'ngCookies' ]);
+angular.module('Orion.Services', ['ngRoute', 'ngResource', 'ngCookies','ui.utils' ]);
 
 angular.module('Orion', [
   'CommonControllers',
@@ -9,6 +9,7 @@ angular.module('Orion', [
   'CommonDirectives',
   'CommonServices',
   'Orion.Controllers',
+  'Orion.Components',
   'Orion.Directives',
   'Orion.Services',
   'AreaApp',
@@ -18,12 +19,12 @@ angular.module('Orion', [
   'EngineApp',
   'InventoryTransferApp',
   'PartApp',
-  'PartOrderApp',
   'SupportApp',
   'TransferApp',
   'UnitApp',
   'UserApp',
   'VendorApp',
+  'PartOrderApp',
   'WorkOrderApp',
   'ui.bootstrap',
   'ui.utils',
@@ -35,7 +36,7 @@ angular.module('Orion', [
       $routeProvider
       .when('/login', {
         controller: 'SessionCtrl',
-        templateUrl: '/lib/public/angular/views/redirecting.html',
+        templateUrl: '/lib/public/angular/views/redirecting.html'
       })
       .when('/myaccount', {
         needsLogin: true,
