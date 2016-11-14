@@ -1,4 +1,4 @@
-<div id="PoOverviewTable"
+<div id="PoEditTable"
      class="panel panel-default"
      style="margin-left: 25px; margin-right: 25px;">
   <div class="panel-heading">
@@ -25,11 +25,34 @@
         <td>{{ $ctrl.partorder.status }}</td>
         <td>{{ $ctrl.partorder.quantity }}</td>
         <td>
-          <div ng-show="($ctrl.partorder.timeSubmitted && $ctrl.partorder.status === 'shipped')" ng-click="$ctrl.completeForm();">
-            <button class="btn btn-md btn-primary">Received</button>
-          </div>
-          <div ng-show="($ctrl.partorder.timeSubmitted && $ctrl.partorder.status === 'canceled')" ng-click="$ctrl.completeForm();">
-            <button class="btn btn-md btn-primary">Confirm</button>
+          <div>
+            <ul style="padding-left: 0px;">
+              <li>
+                <check-box
+                  label-text="Order"
+                  box-styling
+                  model-name="order"
+                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                  data="$ctrl.partorder.status">
+                </check-box>
+              </li>
+              <li>
+                <check-box
+                  label-text="Back Order"
+                  model-name="backorder"
+                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                  data="$ctrl.partorder.status">
+                </check-box>
+              </li>
+              <li>
+                <check-box
+                  label-text="Cancel"
+                  model-name="cancel"
+                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                  data="$ctrl.partorder.status">
+                </check-box>
+              </li>
+            </ul>
           </div>
         </td>
       </tr>

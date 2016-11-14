@@ -1,10 +1,13 @@
 <!-- checkbox -->
-<div class="checkbox">
+<div class="checkbox"
+  style="{{$ctrl.boxStyling}}">
   <label>
     <input type="checkbox"
-      ng-model="data"
-      name="{{data}}"
-      ng-disabled="disabled">
-      {{labelText}}
+      ng-model="$ctrl.data"
+      ng-change="$ctrl.onUpdate($ctrl.data)"
+      name="{{$ctrl.data}}"
+      ng-disabled="$ctrl.disabled"
+      style="{{$ctrl.inputStyling}}">
+      {{$ctrl.labelText}}
   </label>
 </div>

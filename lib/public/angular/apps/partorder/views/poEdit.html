@@ -1,13 +1,14 @@
 <alerts></alerts>
 <header></header>
 
-<div id="PartOrderReview" class="container-fluid">
+<div id="PartOrderEdit" class="container-fluid">
   <pes-po-edit-heading
     partorder="partorder">
   </pes-po-edit-heading>
   <div>
     <pes-po-edit-table
-      partorder="partorder">
+      partorder="partorder"
+      on-selection="changeStatus(changedData, selected)">
     </pes-po-edit-table>
   </div>
   <div>
@@ -15,7 +16,6 @@
       <div class="panel-body">
         <text-area-field
           data="partorder.comment"
-          disabled="true"
           label-text="Manager Comments">
         </text-area-field>
       </div>
