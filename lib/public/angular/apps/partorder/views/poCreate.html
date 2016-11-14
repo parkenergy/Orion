@@ -4,17 +4,20 @@
 <div id="PartOrderCreate">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6 col-xs-6">
-        <select-tech-warehouse-id
+      <div class="col-md-12 col-xs-12">
+        <general-destination-selection
+          cc-panel-title="Part Order Location Information"
           cc-locations="locations"
-          cc-truck-id="truckId"
-          cc-class=""
-          cc-on-data-change="updateDestination(item,type)"
-          cc-panel-title="Part Order"
-          cc-type="netsuiteId"
-          cc-label="Part Order Destination"
-          cc-data="partorder.destinationNSID">
-        </select-tech-warehouse-id>
+          cc-return-type="netsuiteId"
+          cc-origin-type="warehouse"
+          cc-destination-type="warehouse-truck"
+          cc-origin-change="originChange(changedData)"
+          cc-destination-change="destinationChange(changedData)"
+          cc-label-origin="Origin"
+          cc-label-destination="Destination"
+          cc-data-origin="partorder.originNSID"
+          cc-data-destination="partorder.destinationNSID">
+        </general-destination-selection>
       </div>
     </div>
     <div class="row">

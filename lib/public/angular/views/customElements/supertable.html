@@ -20,8 +20,7 @@
               ng-click="changeSorting(c.objKey)">
             {{ c.title }}
             <i  ng-show="sort.column == c.objKey"
-                class="glyphicon {{ sort.descending ? 'glyphicon-chevron-up' :
-                                                      'glyphicon-chevron-down'}}">
+                class="glyphicon {{ sort.descending ? 'glyphicon-chevron-up' :'glyphicon-chevron-down'}}">
             </i>
           </th><!-- end column headers -->
           <th ng-repeat="b in headerButtons">
@@ -32,12 +31,13 @@
         </tr><!-- end header row -->
       </thead><!-- end table header -->
       <tbody>
-        <tr ng-click="rowClickAction(obj)"
+        <tr ng-click="rowClickAction(obj);
+            clearSearchPhrase(obj)"
             ng-repeat="obj in oList = (objectList
               | filter: { description: searchPhrase }
               | limitTo: 50
               | orderBy:sort.column:sort.descending)">
-          <td ng-repeat="c in displayColumns">
+          <td ng-repeat="c in displayColumns" style="word-wrap: break-word;min-width: 100px;max-width: 160px;white-space:normal;">
             {{obj[c.objKey]}}
           </td><!-- end row display fields -->
           <td  ng-repeat="b in rowButtons">

@@ -1,0 +1,51 @@
+<div id="GeneralDestinationSelection">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ $ctrl.ccPanelTitle }}</h3>
+    </div>
+    <div ng-show="(($ctrl.ccReturnType === '_id') || ($ctrl.ccReturnType === null))">
+      <div class="panel-body">
+        <select-list
+          class="col-md-6"
+          label-text="{{ $ctrl.ccLabelOrigin }}"
+          data="$ctrl.ccDataOrigin"
+          on-data-change="$ctrl.OriginChange(changedData)"
+          select-field="_id"
+          display-field="name"
+          array-list="$ctrl.originArray">
+        </select-list>
+        <select-list
+          class="col-md-6"
+          label-text="{{ $ctrl.ccLabelDestination }}"
+          data="$ctrl.ccDataDestination"
+          on-data-change="$ctrl.DestinationChange(changedData)"
+          select-field="_id"
+          display-field="name"
+          array-list="$ctrl.destinationArray">
+        </select-list>
+      </div>
+    </div>
+    <div ng-show="$ctrl.ccReturnType === 'netsuiteId'">
+      <div class="panel-body">
+        <select-list
+          class="col-md-6"
+          label-text="{{ $ctrl.ccLabelOrigin }}"
+          data="$ctrl.ccDataOrigin"
+          on-data-change="$ctrl.OriginChange(changedData)"
+          select-field="netsuiteId"
+          display-field="name"
+          array-list="$ctrl.originArray">
+        </select-list>
+        <select-list
+          class="col-md-6"
+          label-text="{{ $ctrl.ccLabelDestination }}"
+          data="$ctrl.ccDataDestination"
+          on-data-change="$ctrl.DestinationChange(changedData)"
+          select-field="netsuiteId"
+          display-field="name"
+          array-list="$ctrl.destinationArray">
+        </select-list>
+      </div>
+    </div>
+  </div>
+</div>
