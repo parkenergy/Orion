@@ -8,6 +8,8 @@ const express = require('express'),
   log = require('./lib/helpers/logger'),
   sessions = require('client-sessions'),
   Promise = require('bluebird'),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),
   mongoose = require('mongoose');
 
 //Catch uncaught exceptions to log in bunyan
@@ -48,8 +50,11 @@ app.get('/', (req, res) => {
 
 //Standard middleware
 log.info("Load standard middleware");
-app.use(require('cookie-parser')());
-app.use(require('body-parser').json());
+/*app.use(require('cookie-parser')());
+app.use(require('body-parser').json());*/
+app.use(bodyParser.json({ type: '*/*'}));
+
+app.use(cookieParser());
 //app.use(require('express-query-boolean')());
 app.use(sessions({
   cookieName: 'identity', // cookie name dictates the key name added to the request object

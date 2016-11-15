@@ -6,7 +6,7 @@
       type="text"
       name="number"
       ng-model="workorder.header.unitNumber"
-      typeahead="unitNumber for unitNumber in unitNumberArray | filter:$viewValue | limitTo:12"
+      uib-typeahead="unitNumber for unitNumber in unitNumberArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="unitNumberArray"
       ng-disabled="disabled">
@@ -19,7 +19,7 @@
       type="text"
       name="customer"
       ng-model="workorder.header.customerName"
-      typeahead="customerName for customerName in customersArray | filter:$viewValue | limitTo:12"
+      uib-typeahead="customerName for customerName in customersArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="customersArray"
       ng-disabled="disabled">
@@ -32,7 +32,7 @@
       type="text"
       name="lease"
       ng-model="workorder.header.leaseName"
-      typeahead="name for name in unitLocationArray | filter:$viewValue | limitTo:12"
+      uib-typeahead="name for name in unitLocationArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="unitLocationArray"
       ng-disabled="disabled">
@@ -45,7 +45,7 @@
       type="text"
       name="county"
       ng-model="workorder.header.county"
-      typeahead="county for county in countiesArray | filter:$viewValue | limitTo:12"
+      uib-typeahead="county for county in countiesArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="countiesArray"
       ng-disabled="disabled">
@@ -58,7 +58,7 @@
       type="text"
       name="state"
       ng-model="workorder.header.state"
-      typeahead="state for state in statesArray | filter:$viewValue | limitTo:12"
+      uib-typeahead="state for state in statesArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="statesArray"
       ng-disabled="disabled">
