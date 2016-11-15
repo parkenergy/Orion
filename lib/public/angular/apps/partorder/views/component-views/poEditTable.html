@@ -30,26 +30,41 @@
               <li>
                 <check-box
                   label-text="Order"
-                  box-styling
-                  model-name="order"
+                  box-styling="margin: 0px"
+                  input-styling=""
+                  model-name="shipped"
                   on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.partorder.status">
+                  data="$ctrl.status[0].value">
                 </check-box>
               </li>
               <li>
                 <check-box
                   label-text="Back Order"
+                  box-styling="margin: 0px"
+                  input-styling=""
                   model-name="backorder"
                   on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.partorder.status">
+                  data="$ctrl.status[1].value">
                 </check-box>
               </li>
               <li>
                 <check-box
                   label-text="Cancel"
-                  model-name="cancel"
+                  box-styling="margin: 0px"
+                  input-styling=""
+                  model-name="canceled"
                   on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.partorder.status">
+                  data="$ctrl.status[2].value">
+                </check-box>
+              </li>
+              <li>
+                <check-box
+                  label-text="Complete"
+                  box-styling="margin: 0px"
+                  input-styling=""
+                  model-name="completed"
+                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                  data="$ctrl.status[3].value">
                 </check-box>
               </li>
             </ul>

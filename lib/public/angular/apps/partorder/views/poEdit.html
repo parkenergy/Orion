@@ -2,23 +2,58 @@
 <header></header>
 
 <div id="PartOrderEdit" class="container-fluid">
-  <pes-po-edit-heading
-    partorder="partorder">
-  </pes-po-edit-heading>
+
+    <pes-po-edit-heading
+      partorder="partorder">
+    </pes-po-edit-heading>
+
+
   <div>
     <pes-po-edit-table
       partorder="partorder"
       on-selection="changeStatus(changedData, selected)">
     </pes-po-edit-table>
   </div>
-  <div>
-    <div class="panel panel-default" style="margin-left: 25px; margin-right: 25px;">
-      <div class="panel-body">
-        <text-area-field
-          data="partorder.comment"
-          label-text="Manager Comments">
-        </text-area-field>
+  <div class="row">
+    <div class="col-md-8">
+      <div ng-if="partorder.status === 'canceled'">
+        <div class="panel panel-default" style="margin-left: 25px; margin-right: 25px;">
+          <div class="panel-body">
+            <text-area-field
+              data="partorder.comment"
+              label-text="Manager Comments">
+            </text-area-field>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="col-md-4">
+      <div ng-if="partorder.status === 'canceled'">
+        <button class="btn btn-lg btn-danger pull-right"
+                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
+          Cancel Part Order
+        </button>
+      </div>
+      <div ng-if="partorder.status === 'completed'">
+        <button class="btn btn-lg btn-primary pull-right"
+                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
+          Order Arrived
+        </button>
+      </div>
+      <div ng-if="partorder.status === 'shipped'">
+        <button class="btn btn-lg btn-primary pull-right"
+                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
+          Confirm Shipment
+        </button>
+      </div>
+      <div ng-if="partorder.status === 'backorder'">
+        <button class="btn btn-lg btn-primary pull-right"
+                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
+          Place on Back Order
+        </button>
+      </div>
+
+    </div>
   </div>
+
 </div>
