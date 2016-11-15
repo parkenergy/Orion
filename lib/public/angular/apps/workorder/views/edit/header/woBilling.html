@@ -5,15 +5,21 @@
   <div class="panel-body">
   	<check-box
   		label-text="Billable to Customer"
-      data="workorder.billingInfo.billableToCustomer">
+      data="workorder.billingInfo.billableToCustomer"
+      model-name="billingInfo.billableToCustomer"
+      on-data-change="changeThisCheckbox(changedData, selected)">
   	</check-box>
   	<check-box
   		label-text="Warranty Work"
-      data="workorder.billingInfo.warrantyWork">
+      data="workorder.billingInfo.warrantyWork"
+      model-name="billingInfo.warrantyWork"
+      on-data-change="changeThisCheckbox(changedData, selected)">
   	</check-box>
   	<check-box
   		label-text="AFE"
-      data="workorder.billingInfo.AFE">
+      data="workorder.billingInfo.AFE"
+      model-name="billingInfo.AFE"
+      on-data-change="changeThisCheckbox(changedData, selected)">
   	</check-box>
     <text-field
       ng-show="workorder.billingInfo.AFE"

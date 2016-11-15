@@ -47,11 +47,15 @@
           <td>
           		<check-box
             		label-text="Is Part Billable?"
-                data="obj.isBillable">
+                data="obj.isBillable"
+                model-name=""
+                on-data-change="changeThisCheckbox(changedData, selected)">
             	</check-box>
             	<check-box
             		label-text="Is Part Warranty?"
-                data="obj.isWarranty">
+                data="obj.isWarranty"
+                model-name=""
+                on-data-change="changeThisCheckbox(changedData, selected)">
             	</check-box>
           </td>
           <td>
