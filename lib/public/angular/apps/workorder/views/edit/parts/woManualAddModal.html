@@ -4,6 +4,8 @@
 <div class="modal-body">
   <div class="panel-body">
     <text-field
+      model-name="number"
+      on-data-change="changePartTextField(changedData, selected)"
       label-text="Number"
       placeholder-text="Part Number"
       data="part.number">
