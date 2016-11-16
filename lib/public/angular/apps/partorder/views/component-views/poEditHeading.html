@@ -51,7 +51,6 @@
           ng-show="!$ctrl.partorder.timeShipped"
           label-text="Tracking Number"
           model-name="trackingNumber"
-          select-debounce="$ctrl.debounce"
           on-data-change="$ctrl.textFieldChange(changedData, selected)"
           data="$ctrl.partorder.trackingNumber">
         </text-field>
