@@ -1,0 +1,12 @@
+<!-- textbox -->
+<div class="form-group" style="{{$ctrl.fieldStyling}}">
+  <label ng-hide="!$ctrl.labelText">{{$ctrl.labelText}}</label>
+  <input type="text"
+    style="{{$ctrl.inputStyling}}"
+    class="form-control"
+    ng-change="$ctrl.onUpdate($ctrl.data)"
+    ng-model="$ctrl.data"
+    name="{{$ctrl.data}}"
+    placeholder="{{$ctrl.placeholderText}}"
+    ng-disabled="$ctrl.disabled">
+</div>

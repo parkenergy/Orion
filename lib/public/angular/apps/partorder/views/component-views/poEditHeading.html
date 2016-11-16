@@ -45,10 +45,20 @@
     <div ng-show="!$ctrl.partorder.originNSID" class="col-md-2 col-xs-2" style="margin-left: 25px"></div>
 
     <!--Show Tracking number if it exists-->
-    <div ng-if="$ctrl.partorder.trackingNumber">
+    <div>
       <div class="col-md-3 col-xs-3" style="margin-left: 25px">
-        <div>Tracking Number</div>
-        <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.trackingNumber}}</div>
+        <text-field
+          ng-show="!$ctrl.partorder.timeShipped"
+          label-text="Tracking Number"
+          model-name="trackingNumber"
+          select-debounce="$ctrl.debounce"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.partorder.trackingNumber">
+        </text-field>
+        <div ng-show="$ctrl.partorder.timeShipped">
+          <div>Tracking Number</div>
+          <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.trackingNumber}}</div>
+        </div>
       </div>
     </div>
     <div ng-show="!$ctrl.partorder.trackingNumber" class="col-md-3 col-xs-3" style="margin-left: 25px"></div>

@@ -2,12 +2,10 @@
 <header></header>
 
 <div id="PartOrderEdit" class="container-fluid">
-
     <pes-po-edit-heading
-      partorder="partorder">
+      partorder="partorder"
+      on-text-change="headerTextFieldChange(changedData, selected)">
     </pes-po-edit-heading>
-
-
   <div>
     <pes-po-edit-table
       partorder="partorder"
