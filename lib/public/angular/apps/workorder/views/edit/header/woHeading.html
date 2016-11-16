@@ -31,9 +31,11 @@
       class="col-xs-4"
   		label-text="Application Type"
       data="workorder.header.applicationtype"
+      on-data-change="changeThisSelectList(changedData, selected)"
   		select-field="netsuiteId"
       display-field="type"
-  		array-list="applicationtypes">
+  		array-list="applicationtypes"
+      model-name="header.applicationtype">
   	</select-list>
   </div>
 </div>
