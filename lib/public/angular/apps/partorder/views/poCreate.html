@@ -11,12 +11,14 @@
           cc-return-type="netsuiteId"
           cc-origin-type="warehouse"
           cc-destination-type="warehouse-truck"
-          cc-origin-change="originChange(changedData)"
-          cc-destination-change="destinationChange(changedData)"
+          cc-origin-change="originChange(changedData, selected)"
+          cc-destination-change="destinationChange(changedData, selected)"
           cc-label-origin="Origin"
           cc-label-destination="Destination"
           cc-data-origin="partorder.originNSID"
-          cc-data-destination="partorder.destinationNSID">
+          cc-origin-model-name="originNSID"
+          cc-data-destination="partorder.destinationNSID"
+          cc-destination-model-name="destinationNSID">
         </general-destination-selection>
       </div>
     </div>

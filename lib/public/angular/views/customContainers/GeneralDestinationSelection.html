@@ -9,7 +9,8 @@
           class="col-md-6"
           label-text="{{ $ctrl.ccLabelOrigin }}"
           data="$ctrl.ccDataOrigin"
-          on-data-change="$ctrl.OriginChange(changedData)"
+          model-name="$ctrl.ccOriginModelName"
+          on-data-change="$ctrl.OriginChange(changedData, selected)"
           select-field="_id"
           display-field="name"
           array-list="$ctrl.originArray">
@@ -18,7 +19,8 @@
           class="col-md-6"
           label-text="{{ $ctrl.ccLabelDestination }}"
           data="$ctrl.ccDataDestination"
-          on-data-change="$ctrl.DestinationChange(changedData)"
+          model-name="$ctrl.ccDestinationModelName"
+          on-data-change="$ctrl.DestinationChange(changedData, selected)"
           select-field="_id"
           display-field="name"
           array-list="$ctrl.destinationArray">
@@ -31,7 +33,8 @@
           class="col-md-6"
           label-text="{{ $ctrl.ccLabelOrigin }}"
           data="$ctrl.ccDataOrigin"
-          on-data-change="$ctrl.OriginChange(changedData)"
+          model-name="{{$ctrl.ccOriginModelName}}"
+          on-data-change="$ctrl.OriginChange(changedData, selected)"
           select-field="netsuiteId"
           display-field="name"
           array-list="$ctrl.originArray">
@@ -40,7 +43,8 @@
           class="col-md-6"
           label-text="{{ $ctrl.ccLabelDestination }}"
           data="$ctrl.ccDataDestination"
-          on-data-change="$ctrl.DestinationChange(changedData)"
+          model-name="{{$ctrl.ccDestinationModelName}}"
+          on-data-change="$ctrl.DestinationChange(changedData, selected)"
           select-field="netsuiteId"
           display-field="name"
           array-list="$ctrl.destinationArray">
