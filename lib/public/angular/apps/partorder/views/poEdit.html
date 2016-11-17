@@ -2,6 +2,7 @@
 <header></header>
 
 <div id="PartOrderEdit" class="container-fluid">
+
     <pes-po-edit-heading
       select-origin-type="warehouse"
       locations="locations"
@@ -9,12 +10,14 @@
       on-select-change="headerSelectFieldChange(changedData, selected)"
       on-text-change="headerTextFieldChange(changedData, selected)">
     </pes-po-edit-heading>
+
   <div>
     <pes-po-edit-table
       partorder="partorder"
       on-selection="changeStatus(changedData, selected)">
     </pes-po-edit-table>
   </div>
+
   <div class="row">
     <div class="col-md-8">
       <div ng-if="partorder.status === 'canceled'">
@@ -31,25 +34,28 @@
       </div>
     </div>
     <div class="col-md-4">
+
       <div ng-if="partorder.status === 'canceled'">
         <button class="btn btn-lg btn-danger pull-right"
-                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;"
-                ng-disabled="">
+                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
           Cancel Part Order
         </button>
       </div>
+
       <div ng-if="partorder.status === 'completed'">
         <button class="btn btn-lg btn-primary pull-right"
                 style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
           Order Arrived
         </button>
       </div>
+
       <div ng-if="partorder.status === 'shipped'">
         <button class="btn btn-lg btn-primary pull-right"
                 style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
           Confirm Shipment
         </button>
       </div>
+
       <div ng-if="partorder.status === 'backorder'">
         <button class="btn btn-lg btn-primary pull-right"
                 style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
