@@ -22,11 +22,15 @@
         data="jsa.customer">
       </text-field>
       <text-area-field
+        model-name="descriptionOfWork"
+        on-data-change="changeJsaTextAreaField(changedData, selected)"
         class="col-md-6"
         label-text="Description of Work"
         data="jsa.descriptionOfWork">
       </text-area-field>
       <text-area-field
+        model-name="emergencyEvac"
+        on-data-change="changeJsaTextAreaField(changedData, selected)"
         class="col-md-6"
         label-text="Emergency Evacuation Instructions"
         data="jsa.emergencyEvac">
@@ -273,6 +277,8 @@
     </div>
     <div class="panel-body">
       <text-area-field
+        model-name="hazardPlanning"
+        on-data-change="changeJsaTextAreaField(changedData, selected)"
         data="jsa.hazardPlanning">
       </text-area-field>
     </div>
