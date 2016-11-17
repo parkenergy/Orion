@@ -27,46 +27,50 @@
         <td>
           <div>
             <ul style="padding-left: 0px;">
-              <li>
+              <ol style="padding-left: 5px;">
                 <check-box
                   label-text="Order"
                   box-styling="margin: 0px"
                   input-styling=""
                   model-name="shipped"
                   on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.status[0].value">
+                  data="$ctrl.status[0].value"
+                  disabled="$ctrl.checkDisabled('order')">
                 </check-box>
-              </li>
-              <li>
+              </ol>
+              <ol style="padding-left: 5px;">
                 <check-box
                   label-text="Back Order"
                   box-styling="margin: 0px"
                   input-styling=""
                   model-name="backorder"
                   on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.status[1].value">
+                  data="$ctrl.status[1].value"
+                  disabled="$ctrl.checkDisabled('backorder')">
                 </check-box>
-              </li>
-              <li>
+              </ol>
+              <ol style="padding-left: 5px;">
                 <check-box
                   label-text="Cancel"
                   box-styling="margin: 0px"
                   input-styling=""
                   model-name="canceled"
                   on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.status[2].value">
+                  data="$ctrl.status[2].value"
+                  disabled="$ctrl.checkDisabled('canceled')">
                 </check-box>
-              </li>
-              <li ng-show="$ctrl.partorder.timeShipped">
+              </ol>
+              <ol style="padding-left: 5px;" ng-show="$ctrl.partorder.timeShipped">
                 <check-box
                   label-text="Complete"
                   box-styling="margin: 0px"
                   input-styling=""
                   model-name="completed"
                   on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.status[3].value">
+                  data="$ctrl.status[3].value"
+                  disabled="$ctrl.checkDisabled('complete')">
                 </check-box>
-              </li>
+              </ol>
             </ul>
           </div>
         </td>

@@ -27,13 +27,13 @@
   <!-- Fromatting for 2nd row for item alignment -->
   <div class="row" style="margin-bottom: 25px;">
     <!--Show manager ID if it exists-->
-    <div ng-if="$ctrl.partorder.managerId">
+    <div ng-if="$ctrl.partorder.approvedBy">
       <div class="col-md-2 col-xs-2" style="margin-left: 25px">
         <div>Manager ID</div>
-        <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.managerId}}</div>
+        <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.approvedBy}}</div>
       </div>
     </div>
-    <div ng-show="!$ctrl.partorder.managerId" class="col-md-2 col-xs-2" style="margin-left: 25px"></div>
+    <div ng-show="!$ctrl.partorder.approvedBy" class="col-md-2 col-xs-2" style="margin-left: 25px"></div>
 
     <!--Show origin Id if it exists-->
     <div>
@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div ng-show="!$ctrl.partorder.originNSID && $ctrl.partorder.timeSubmitted && ($ctrl.partorder.status !== 'canceled')" class="col-md-2 col-xs-2" style="margin-left: 25px"></div>
+    <!--<div ng-show="!$ctrl.partorder.originNSID && $ctrl.partorder.timeSubmitted && ($ctrl.partorder.status !== 'canceled')" class="col-md-2 col-xs-2" style="margin-left: 25px"></div>-->
 
     <!--Show Tracking number if it exists-->
     <div>
@@ -72,7 +72,7 @@
         </div>
       </div>
     </div>
-    <div ng-show="!$ctrl.partorder.trackingNumber" class="col-md-3 col-xs-3" style="margin-left: 25px"></div>
+   <!-- <div ng-show="!$ctrl.partorder.trackingNumber" class="col-md-3 col-xs-3" style="margin-left: 25px"></div>-->
 
     <!--Show Time Shipped if it exists-->
     <div ng-if="$ctrl.partorder.timeShipped">
