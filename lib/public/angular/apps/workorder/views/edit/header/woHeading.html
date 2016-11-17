@@ -5,6 +5,8 @@
   <div class="panel-body">
     <unit-input></unit-input>
     <text-field
+      model-name="header.contactName"
+      on-data-change="changeThisTextField(changedData, selected)"
       class="col-xs-4"
   		label-text="Contact / Pumper Name"
       data="workorder.header.contactName">
@@ -18,11 +20,15 @@
       limit="12">
   	</type-ahead>
   	<text-field
+      model-name="header.startMileage"
+      on-data-change="changeThisTextField(changedData, selected)"
       class="col-xs-2"
   		label-text=" Start Mileage"
       data="workorder.header.startMileage">
   	</text-field>
     <text-field
+      model-name="header.endMileage"
+      on-data-change="changeThisTextField(changedData, selected)"
       class="col-xs-2"
       label-text="End Mileage"
       data="workorder.header.endMileage">

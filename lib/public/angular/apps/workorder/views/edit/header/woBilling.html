@@ -22,6 +22,8 @@
       on-data-change="changeThisCheckbox(changedData, selected)">
   	</check-box>
     <text-field
+      model-name="billingInfo.AFENumber"
+      on-data-change="changeThisTextField(changedData, selected)"
       ng-show="workorder.billingInfo.AFE"
       label-text="AFE #:"
       data="workorder.billingInfo.AFENumber">

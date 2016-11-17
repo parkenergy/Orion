@@ -8,11 +8,15 @@
     </div>
     <div class="panel-body">
       <text-field
+        model-name="location"
+        on-data-change="changeJsaTextField(changedData, selected)"
         class="col-md-6"
         label-text="Location of Work"
         data="jsa.location">
       </text-field>
       <text-field
+        model-name="customer"
+        on-data-change="changeJsaTextField(changedData, selected)"
         class="col-md-6"
         label-text="Customer"
         data="jsa.customer">
