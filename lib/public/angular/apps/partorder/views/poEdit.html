@@ -21,6 +21,8 @@
         <div class="panel panel-default" style="margin-left: 25px; margin-right: 25px;">
           <div class="panel-body">
             <text-area-field
+              model-name="comment"
+              on-data-change="changeThisTextAreaField(changedData, selected)"
               data="partorder.comment"
               label-text="Manager Comments">
             </text-area-field>
