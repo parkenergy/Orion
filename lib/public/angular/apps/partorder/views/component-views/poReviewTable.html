@@ -1,0 +1,34 @@
+<div id="PoReviewTable"
+     class="panel panel-default"
+     style="margin-left: 25px; margin-right: 25px;">
+  <div class="panel-heading">
+    <h3 class="panel-title">Part Order</h3>
+  </div>
+  <div class="panel-body" style="padding: 0px;">
+    <!--Start Search Table-->
+    <table class="table table-bordered table-striped" style="margin-bottom: 0px;">
+      <!--Search settings-->
+      <thead>
+        <tr>
+          <th>Part #</th>
+          <th>MPN</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>{{ $ctrl.partorder.part.componentName }}</td>
+          <td>{{ $ctrl.partorder.part.MPN }}</td>
+          <td>{{ $ctrl.partorder.part.description }}</td>
+          <td>{{ $ctrl.partorder.status }}</td>
+          <td>{{ $ctrl.partorder.quantity }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+    <!--End Serch Table-->
+  </div>
+</div>

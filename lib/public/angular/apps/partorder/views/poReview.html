@@ -3,19 +3,15 @@
 
 <div id="PartOrderReview" class="container-fluid">
 
-  <pes-po-edit-heading
-    select-origin-type="warehouse"
+  <pes-po-review-heading
     locations="locations"
-    partorder="partorder"
-    on-select-change="headerSelectFieldChange(changedData, selected)"
-    on-text-change="headerTextFieldChange(changedData, selected)">
-  </pes-po-edit-heading>
+    partorder="partorder">
+  </pes-po-review-heading>
 
   <div>
-    <pes-po-edit-table
-      partorder="partorder"
-      on-selection="changeStatus(changedData, selected)">
-    </pes-po-edit-table>
+    <pes-po-review-table
+      partorder="partorder">
+    </pes-po-review-table>
   </div>
 
   <div class="row">
@@ -24,46 +20,15 @@
         <div class="panel panel-default" style="margin-left: 25px; margin-right: 25px;">
           <div class="panel-body">
             <text-area-field
-              model-name="comment"
-              on-data-change="changeThisTextAreaField(changedData, selected)"
               data="partorder.comment"
-              label-text="Manager Comments">
+              label-text="Manager Comments"
+              disabled="true">
             </text-area-field>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
 
-      <div ng-if="partorder.status === 'canceled'">
-        <button class="btn btn-lg btn-danger pull-right"
-                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
-          Cancel Part Order
-        </button>
-      </div>
-
-      <div ng-if="partorder.status === 'completed'">
-        <button class="btn btn-lg btn-primary pull-right"
-                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
-          Order Arrived
-        </button>
-      </div>
-
-      <div ng-if="partorder.status === 'shipped'">
-        <button class="btn btn-lg btn-primary pull-right"
-                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
-          Confirm Shipment
-        </button>
-      </div>
-
-      <div ng-if="partorder.status === 'backorder'">
-        <button class="btn btn-lg btn-primary pull-right"
-                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
-          Place on Back Order
-        </button>
-      </div>
-
-    </div>
   </div>
 
 </div>

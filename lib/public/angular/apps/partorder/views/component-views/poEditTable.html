@@ -9,72 +9,72 @@
     <table class="table table-bordered table-striped" style="margin-bottom: 0px;">
       <!--Search settings-->
       <thead>
-      <tr>
-        <th>Part #</th>
-        <th>MPN</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Quantity</th>
-      </tr>
+        <tr>
+          <th>Part #</th>
+          <th>MPN</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Quantity</th>
+        </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>{{ $ctrl.partorder.part.componentName }}</td>
-        <td>{{ $ctrl.partorder.part.MPN }}</td>
-        <td>{{ $ctrl.partorder.part.description }}</td>
-        <td>{{ $ctrl.partorder.status }}</td>
-        <td>{{ $ctrl.partorder.quantity }}</td>
-        <td>
-          <div>
-            <ul style="padding-left: 0px;">
-              <ol style="padding-left: 5px;">
-                <check-box
-                  label-text="Order"
-                  box-styling="margin: 0px"
-                  input-styling=""
-                  model-name="shipped"
-                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.status[0].value"
-                  disabled="$ctrl.checkDisabled('order')">
-                </check-box>
-              </ol>
-              <ol style="padding-left: 5px;">
-                <check-box
-                  label-text="Back Order"
-                  box-styling="margin: 0px"
-                  input-styling=""
-                  model-name="backorder"
-                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.status[1].value"
-                  disabled="$ctrl.checkDisabled('backorder')">
-                </check-box>
-              </ol>
-              <ol style="padding-left: 5px;">
-                <check-box
-                  label-text="Cancel"
-                  box-styling="margin: 0px"
-                  input-styling=""
-                  model-name="canceled"
-                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.status[2].value"
-                  disabled="$ctrl.checkDisabled('canceled')">
-                </check-box>
-              </ol>
-              <ol style="padding-left: 5px;" ng-show="$ctrl.partorder.timeShipped">
-                <check-box
-                  label-text="Complete"
-                  box-styling="margin: 0px"
-                  input-styling=""
-                  model-name="completed"
-                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
-                  data="$ctrl.status[3].value"
-                  disabled="$ctrl.checkDisabled('complete')">
-                </check-box>
-              </ol>
-            </ul>
-          </div>
-        </td>
-      </tr>
+        <tr>
+          <td>{{ $ctrl.partorder.part.componentName }}</td>
+          <td>{{ $ctrl.partorder.part.MPN }}</td>
+          <td>{{ $ctrl.partorder.part.description }}</td>
+          <td>{{ $ctrl.partorder.status }}</td>
+          <td>{{ $ctrl.partorder.quantity }}</td>
+          <td>
+            <div>
+              <ul style="padding-left: 0px;">
+                <ol style="padding-left: 5px;">
+                  <check-box
+                    label-text="Order"
+                    box-styling="margin: 0px"
+                    input-styling=""
+                    model-name="shipped"
+                    on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                    data="$ctrl.status[0].value"
+                    disabled="$ctrl.checkDisabled('order')">
+                  </check-box>
+                </ol>
+                <ol style="padding-left: 5px;">
+                  <check-box
+                    label-text="Back Order"
+                    box-styling="margin: 0px"
+                    input-styling=""
+                    model-name="backorder"
+                    on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                    data="$ctrl.status[1].value"
+                    disabled="$ctrl.checkDisabled('backorder')">
+                  </check-box>
+                </ol>
+                <ol style="padding-left: 5px;">
+                  <check-box
+                    label-text="Cancel"
+                    box-styling="margin: 0px"
+                    input-styling=""
+                    model-name="canceled"
+                    on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                    data="$ctrl.status[2].value"
+                    disabled="$ctrl.checkDisabled('canceled')">
+                  </check-box>
+                </ol>
+                <ol style="padding-left: 5px;" ng-show="$ctrl.partorder.timeShipped">
+                  <check-box
+                    label-text="Complete"
+                    box-styling="margin: 0px"
+                    input-styling=""
+                    model-name="completed"
+                    on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                    data="$ctrl.status[3].value"
+                    disabled="$ctrl.checkDisabled('complete')">
+                  </check-box>
+                </ol>
+              </ul>
+            </div>
+          </td>
+        </tr>
       </tbody>
 
     </table>

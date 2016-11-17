@@ -22,7 +22,8 @@
     </div>
     <!-- CANCELED ORDER -->
     <div ng-show="!$ctrl.partorder.timeSubmitted" class="col-md-3 col-xs-3" style="margin-left: 25px">
-      Order Canceled
+      <div>Time Shipped</div>
+      <div class="" style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">{{ $ctrl.partorder.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
     </div>
   </div>
 
@@ -49,7 +50,7 @@
         <div ng-show="!$ctrl.partorder.timeShipped">
           <div>Origin Location</div>
           <div style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">
-            Canceled Order
+            Order Canceled
           </div>
         </div>
 
@@ -84,7 +85,10 @@
     </div>
     <!-- CANCELED ORDER -->
     <div ng-show="!$ctrl.partorder.timeShipped" class="col-md-3 col-xs-3" style="margin-left: 25px">
-      Order Canceled
+      <div>Time Shipped</div>
+      <div style="background-color: #c2c8d1; text-align: center; vertical-align: middle;">
+        Order Canceled
+      </div>
     </div>
   </div>
 </div>
