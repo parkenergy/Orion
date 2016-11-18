@@ -21,7 +21,7 @@
   <div class="row">
     <div class="col-md-8">
       <div ng-if="partorder.status === 'canceled'">
-        <div class="panel panel-default" style="margin-left: 25px; margin-right: 25px;">
+        <div class="panel panel-default po-edit">
           <div class="panel-body">
             <text-area-field
               model-name="comment"
@@ -36,29 +36,25 @@
     <div class="col-md-4">
 
       <div ng-if="partorder.status === 'canceled'">
-        <button class="btn btn-lg btn-danger pull-right"
-                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
+        <button class="btn btn-lg btn-danger pull-right po-edit">
           Cancel Part Order
         </button>
       </div>
 
       <div ng-if="partorder.status === 'completed'">
-        <button class="btn btn-lg btn-primary pull-right"
-                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
+        <button class="btn btn-lg btn-primary pull-right po-edit">
           Order Arrived
         </button>
       </div>
 
       <div ng-if="partorder.status === 'shipped'">
-        <button class="btn btn-lg btn-primary pull-right"
-                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
+        <button class="btn btn-lg btn-primary pull-right po-edit">
           Order Shipment
         </button>
       </div>
 
       <div ng-if="partorder.status === 'backorder'">
-        <button class="btn btn-lg btn-primary pull-right"
-                style="width: 100%; height: 100px; margin: 0px 5% 15px 5%;">
+        <button class="btn btn-lg btn-primary pull-right po-edit">
           Place on Back Order
         </button>
       </div>

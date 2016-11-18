@@ -1,12 +1,11 @@
 <div id="PoEditTable"
-     class="panel panel-default"
-     style="margin-left: 25px; margin-right: 25px;">
+     class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Part Order</h3>
   </div>
-  <div class="panel-body" style="padding: 0px;">
+  <div class="panel-body po-edit-table">
     <!--Start Search Table-->
-    <table class="table table-bordered table-striped" style="margin-bottom: 0px;">
+    <table class="table table-bordered table-striped po-edit-table">
       <!--Search settings-->
       <thead>
         <tr>
@@ -26,8 +25,8 @@
           <td>{{ $ctrl.partorder.quantity }}</td>
           <td>
             <div>
-              <ul style="padding-left: 0px;">
-                <ol style="padding-left: 5px;">
+              <ul>
+                <ol>
                   <check-box
                     label-text="Order"
                     box-styling="margin: 0px"
@@ -38,7 +37,7 @@
                     disabled="$ctrl.checkDisabled('order')">
                   </check-box>
                 </ol>
-                <ol style="padding-left: 5px;">
+                <ol>
                   <check-box
                     label-text="Back Order"
                     box-styling="margin: 0px"
@@ -49,7 +48,7 @@
                     disabled="$ctrl.checkDisabled('backorder')">
                   </check-box>
                 </ol>
-                <ol style="padding-left: 5px;">
+                <ol>
                   <check-box
                     label-text="Cancel"
                     box-styling="margin: 0px"
@@ -60,7 +59,7 @@
                     disabled="$ctrl.checkDisabled('canceled')">
                   </check-box>
                 </ol>
-                <ol style="padding-left: 5px;" ng-show="$ctrl.partorder.timeShipped">
+                <ol ng-show="$ctrl.partorder.timeShipped">
                   <check-box
                     label-text="Complete"
                     box-styling="margin: 0px"

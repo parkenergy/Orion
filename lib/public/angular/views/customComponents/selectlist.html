@@ -1,5 +1,4 @@
-<div class="form-group">
-
+<div id="Cselectlist" class="form-group">
   <label>{{$ctrl.labelText}}</label>
   <select
     class="form-control"
@@ -9,5 +8,4 @@
     ng-options="item.{{ $ctrl.selectField }} as item.{{ $ctrl.displayField }} for item in $ctrl.arrayList | filter:$select"
     ng-disabled="$ctrl.disabled">
   </select>
-
 </div>

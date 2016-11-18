@@ -1,16 +1,8 @@
-<style>
-  .dashboard {
-    background: url("images/dashboard.png") no-repeat left top;
-    width: 72%;
-    height: 1100px;
-  }
-</style>
-
 <loader></loader>
 <alerts></alerts>
 <header></header>
 
-<div class="container-fluid">
+<div id="MyAccount" class="container-fluid">
 
   <div class="row">
      <div class="col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
@@ -42,7 +34,7 @@
           </h3>
         </div>
         <div align="center">
-          <i ng-show="spinner" class="fa fa-refresh fa-spin" style="font-size:80px"></i>
+          <i ng-show="spinner" class="fa fa-refresh fa-spin myaccount"></i>
         </div>
 
         <div class="panel-body">

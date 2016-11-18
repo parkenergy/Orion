@@ -1,15 +1,14 @@
 <div id="PoOverviewTable"
-     class="panel panel-default"
-     style="margin-left: 25px; margin-right: 25px;">
+     class="panel panel-default">
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">Part Orders</h3>
   </div>
-  <div class="panel-body" style="padding: 0px;">
+  <div class="panel-body">
     <!--Start Search Table-->
-    <table class="table table-bordered table-striped table-hover" style="margin-bottom: 0px;">
+    <table class="table table-bordered table-striped table-hover">
       <!--Search settings-->
       <thead>
-      <tr style="cursor: pointer">
+      <tr>
 
         <!-- Sort by Part #-->
         <th ng-click="$ctrl.resort('part.componentName')">
@@ -69,7 +68,7 @@
       </thead>
       <!-- Sorted Table -->
       <tbody>
-      <tr ng-repeat="order in $ctrl.displayOrders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToPartOrder(order);" style="cursor: pointer;">
+      <tr ng-repeat="order in $ctrl.displayOrders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToPartOrder(order);">
         <td>{{ order.part.componentName }}</td>
         <td>{{ order.part.MPN }}</td>
         <td>{{ order.status }}</td>
