@@ -6255,10 +6255,10 @@ input[type="checkbox"] {
   width: 80%;
   height: 50px;
 }
-#MyAccount i.fa.fa-refresh.fa-spin {
+#MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
 }
-#Dashboard thead tr.dashboard {
+#Dashboard thead tr.o-dashboard {
   cursor: pointer;
 }
 #GeneralPartsList div.panel-body button.general-parts-list {
