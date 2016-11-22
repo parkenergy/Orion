@@ -107,27 +107,32 @@
         data="jsa.potentialHazards.laceration"
         model-name="potentialHazards.laceration"
         on-data-change="changeJsaCheckbox(changedData, selected)">
-      </check-box><check-box
+      </check-box>
+      <check-box
         label-text="Hazardous Chemical Exposure"
         data="jsa.potentialHazards.chemExposure"
         model-name="potentialHazards.chemExposure"
         on-data-change="changeJsaCheckbox(changedData, selected)">
-      </check-box><check-box
+      </check-box>
+      <check-box
         label-text="Fall from Elevation"
         data="jsa.potentialHazards.fallFromElevation"
         model-name="potentialHazards.fallFromElevation"
         on-data-change="changeJsaCheckbox(changedData, selected)">
-      </check-box><check-box
+      </check-box>
+      <check-box
         label-text="Slick/Slippery Surfaces"
         data="jsa.potentialHazards.slickSurfaces"
         model-name="potentialHazards.slickSurfaces"
         on-data-change="changeJsaCheckbox(changedData, selected)">
-      </check-box><check-box
+      </check-box>
+      <check-box
         label-text="Excavation Hazard"
         data="jsa.potentialHazards.excavation"
         model-name="potentialHazards.excavation"
         on-data-change="changeJsaCheckbox(changedData, selected)">
-      </check-box><check-box
+      </check-box>
+      <check-box
         label-text="Slips"
         data="jsa.potentialHazards.slips"
         model-name="potentialHazards.slips"
@@ -138,17 +143,20 @@
         data="jsa.potentialHazards.trips"
         model-name="potentialHazards.trips"
         on-data-change="changeJsaCheckbox(changedData, selected)">
-      </check-box><check-box
+      </check-box>
+      <check-box
         label-text="Falls"
         data="jsa.potentialHazards.falls"
         model-name="potentialHazards.falls"
         on-data-change="changeJsaCheckbox(changedData, selected)">
-      </check-box><check-box
+      </check-box>
+      <check-box
         label-text="Equipment Hazards"
         data="jsa.potentialHazards.equipment"
         model-name="potentialHazards.equipment"
         on-data-change="changeJsaCheckbox(changedData, selected)">
-      </check-box><check-box
+      </check-box>
+      <check-box
         label-text="Fire or Explosion Potential"
         data="jsa.potentialHazards.fireExplosionPotential"
         model-name="potentialHazards.fireExplosionPotential"
@@ -289,10 +297,7 @@
     </div>
     <div class="panel-body">
       Verbage for JSA disclosure.
-      <!--<text-field
-        label-text="JSA Members:"
-        data="jsa.jsaMembers">
-      </text-field>-->
+
       <div ng-repeat="tech in jsa.techinicians">
         <label class="col-md-4 ">Tech {{$index+1}}:</label>
         <input class="form-control col-md-7" style="width: 50%" ng-model="tech.tech" type ="text">
