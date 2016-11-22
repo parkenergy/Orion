@@ -6,17 +6,18 @@
     </div>
     <div class="panel-body collapse" id="showSearch">
       <form role="form">
-        <div class="form-group">
+
+        <!-- row 1 -->
+        <div class="col-md-6 form-group">
           <label>From</label>
           <input class="form-control search"
                  ng-model="dates.from"
                  ng-change="startOfDay()"
                  name="fromDate" type="date"
                  placeholder="yyyy-MM-dd">
-
-
         </div>
-        <div class="form-group">
+
+        <div class="col-md-6 form-group">
           <label>To</label>
           <input class="form-control search"
                  ng-model="dates.to"
@@ -25,42 +26,65 @@
                  type="date"
                  placeholder="yyyy-MM-dd">
         </div>
-        <div class="form-group">
+
+        <!-- row 2 -->
+        <div class="col-md-6 form-group">
           <label for="unit">Unit Number</label>
           <input id="unit" class="form-control search" name="unitNumber" ng-model="unitNumber" type="text" />
         </div>
-        <div class="form-group">
+
+        <div class="col-md-6 form-group">
           <label for="tech">Technician</label>
           <input id="tech" class="form-control search" name="techName" ng-model="techName" type="text" />
         </div>
-        <div class="form-group">
+
+        <!-- row 3 -->
+        <div class="col-md-6 form-group">
           <label for="location">Location</label>
           <input id="location" class="form-control search" name="location" ng-model="leaseName" type="text" />
         </div>
-        <div class="form-group">
+
+        <div class="col-md-6 form-group">
           <label for="customer">Customer</label>
           <input id="customer" class="form-control search" name="customer" ng-model="customerName" type="text" />
         </div>
-        <div class="form-group">
-          <label for="billable">Billable To Customer(Workorder): </label>
-          <input id="billable" name="billable" ng-model="billable" type="checkbox" />
+
+        <!-- row 4 -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="billable">Billable To Customer(Workorder): </label>
+            <input id="billable" name="billable" ng-model="billable" type="checkbox" />
+          </div>
+
+          <div class="form-group">
+            <label for="billed">Billed To Customer(Workorder): </label>
+            <input id="billed" name="billed" ng-model="billed" type="checkbox" />
+          </div>
+
+          <div class="form-group">
+            <label for="billParts">Billable To Customer(Parts): </label>
+            <input id="billParts" name="billParts" ng-model="billParts" type="checkbox" />
+          </div>
+
         </div>
-        <div class="form-group">
-          <label for="billParts">Billable To Customer(Parts): </label>
-          <input id="billParts" name="billParts" ng-model="billParts" type="checkbox" />
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="unapproved">Unapproved by Manager</label>
+            <input id="unapproved" name="unapproved" ng-model="unapproved" type="checkbox" />
+          </div>
+
+          <div class="form-group">
+            <label for="approved">Approved by Manager</label>
+            <input id="approved" name="approved" ng-model="approved" type="checkbox" />
+          </div>
+
+          <div class="form-group">
+            <label for="synced">Submitted to Netsuite</label>
+            <input id="synced" name="synced" ng-model="synced" type="checkbox" />
+          </div>
         </div>
-        <div class="form-group">
-          <label for="unapproved">Unapproved by Manager</label>
-          <input id="unapproved" name="unapproved" ng-model="unapproved" type="checkbox" />
-        </div>
-        <div class="form-group">
-          <label for="approved">Approved by Manager</label>
-          <input id="approved" name="approved" ng-model="approved" type="checkbox" />
-        </div>
-        <div class="form-group">
-          <label for="synced">Submitted to Netsuite</label>
-          <input id="synced" name="synced" ng-model="synced" type="checkbox" />
-        </div>
+
         <button
           class="btn btn-primary form-inline"
           type="button"
