@@ -3,26 +3,35 @@
     <h3 class="panel-title">Billing Information</h3>
   </div>
   <div class="panel-body">
-  	<check-box
-  		label-text="Billable to Customer"
-      data="workorder.billingInfo.billableToCustomer"
-      disabled="true">
-  	</check-box>
-  	<check-box
-  		label-text="Warranty Work"
-      data="workorder.billingInfo.warrantyWork"
-      disabled="true">
-  	</check-box>
-  	<check-box
-  		label-text="AFE"
-      data="workorder.billingInfo.AFE"
-      disabled="true">
-  	</check-box>
-    <text-field
-      ng-show="workorder.billingInfo.AFE"
-      label-text="AFE #:"
-      data="workorder.billingInfo.AFENumber"
-      disabled="true">
-    </text-field>
+    <div class="col-xs-6">
+      <check-box
+        label-text="Billable to Customer"
+        data="workorder.billingInfo.billableToCustomer"
+        disabled="true">
+      </check-box>
+      <check-box
+        label-text="Warranty Work"
+        data="workorder.billingInfo.warrantyWork"
+        disabled="true">
+      </check-box>
+      <check-box
+        label-text="AFE"
+        data="workorder.billingInfo.AFE"
+        disabled="true">
+      </check-box>
+      <text-field
+        ng-show="workorder.billingInfo.AFE"
+        label-text="AFE #:"
+        data="workorder.billingInfo.AFENumber"
+        disabled="true">
+      </text-field>
+    </div>
+    <div class="col-xs-6">
+      <check-box
+        label-text="Billed"
+        data="workorder.billingInfo.billed"
+        disabled="true">
+      </check-box>
+    </div>
   </div>
 </div>
