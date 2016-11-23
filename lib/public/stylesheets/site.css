@@ -6258,7 +6258,7 @@ input[type="checkbox"] {
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
 }
-#Dashboard thead tr.o-dashboard {
+#Dashboard thead tr.wo-dashboard {
   cursor: pointer;
 }
 #GeneralPartsList div.panel-body button.general-parts-list {
