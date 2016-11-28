@@ -32,7 +32,7 @@
         </tr><!-- end header row -->
       </thead><!-- end table header -->
       <tbody>
-        <tr ng-click="rowClickAction(obj)"
+        <tr ng-click="rowClickAction(obj); clearSearchPhrase(obj)"
             ng-repeat="obj in oList = (objectList
               | filter: { description: searchPhrase }
               | limitTo: 50
