@@ -37,12 +37,20 @@
             </select>
           </td>
           <td>
-          	<number-field
+          	<!--<number-field
           		placeholder-text="Quantity Used"
               data="obj.quantity"
               non-negative="true"
               integer-only="true">
-          	</number-field>
+          	</number-field>-->
+            <number-field
+              placeholder-text="Quantity Used"
+              data="obj.quantity"
+              non-negative="true"
+              name="quantity"
+              min="1"
+              integer-only="true">
+            </number-field>
           </td>
           <td>
           		<check-box
