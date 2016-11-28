@@ -10,10 +10,16 @@
   </div>
 
   <div>
+    <!--<div align="center">
+      <i ng-show="spinner" class="fa fa-refresh fa-spin po-overview"></i>
+    </div>-->
     <pes-po-overview-table
+      <!--ng-show="loaded"-->
       partorders="partorders"
-      content-switch="PartOrderLookup(query)"
-      ng-show="partorders.length > 0">
+      loaded="loaded"
+      is-loaded="isContentLoaded(bool)"
+      map-pos="mapPartOrders(po)"
+      content-search="lookup(query)">
     </pes-po-overview-table>
   </div>
 

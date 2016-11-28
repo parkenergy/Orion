@@ -6218,13 +6218,16 @@ input[type="checkbox"] {
   margin-left: 25px;
   margin-right: 25px;
 }
-#PoOverviewTable div.panel-body {
+#PoOverviewTable div.panel-body.po-main-dash-body {
   padding: 0px;
 }
-#PoOverviewTable div.panel-body div.table.table-bordered.table-striped.table-hover {
+#PoOverviewTable div.panel-body.po-main-dash-body div.po-search-bar {
+  padding-top: 20px;
+}
+#PoOverviewTable div.panel-body.po-main-dash-body div.table.table-bordered.table-striped.table-hover {
   margin-bottom: 0px;
 }
-#PoOverviewTable div.panel-body div.table.table-bordered.table-striped.table-hover tr {
+#PoOverviewTable div.panel-body.po-main-dash-body div.table.table-bordered.table-striped.table-hover tr {
   cursor: pointer;
 }
 #PoCreatePart button.po-create-part {
@@ -6254,6 +6257,9 @@ input[type="checkbox"] {
 #PartOrderOverview div.text-center.po-overview button.po-overview {
   width: 80%;
   height: 50px;
+}
+#PartOrderOverview i.fa.fa-refresh.fa-spin.po-overview {
+  font-size: 80px;
 }
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
