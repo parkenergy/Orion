@@ -40,7 +40,7 @@
     </div>
 
     <!--Show origin Id if it exists-->
-    <div class="col-md-2 col-xs-2" ng-show="!$ctrl.partorder.timeShipped">
+    <div class="col-md-2 col-xs-2" ng-show="!$ctrl.partorder.timeShipped && !$ctrl.partorder.originNSID">
         <select-list
           label-text="Origin Location"
           on-data-change="$ctrl.selectFieldChange(changedData, selected)"
@@ -52,7 +52,7 @@
         </select-list>
     </div>
 
-    <div class="col-md-2 col-xs-2" ng-show="$ctrl.partorder.timeShipped">
+    <div class="col-md-2 col-xs-2" ng-show="!$ctrl.partorder.timeShipped">
       <div>Origin Location</div>
       <div class="poeh-content">{{ $ctrl.originLocation }}</div>
     </div>
