@@ -18,7 +18,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ $ctrl.partorder.part.componentName }}</td>
+          <td>{{ $ctrl.partorder.part.componentName || $ctrl.partorder.part.number }}</td>
           <td>{{ $ctrl.partorder.part.MPN }}</td>
           <td>{{ $ctrl.partorder.part.description }}</td>
           <td>{{ $ctrl.partorder.status }}</td>
