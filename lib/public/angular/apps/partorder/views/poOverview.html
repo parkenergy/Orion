@@ -10,12 +10,12 @@
   </div>
 
   <div>
-    <!--<div align="center">
+    <div align="center">
       <i ng-show="spinner" class="fa fa-refresh fa-spin po-overview"></i>
-    </div>-->
-         <!--ng-show="loaded"-->
-    <pes-po-overview-table
+    </div>
 
+    <pes-po-overview-table
+      ng-show="loaded"
       partorders="partorders"
       scroll-content-search="PartOrderScrollLookup(query)"
       content-search="lookup(query)">
