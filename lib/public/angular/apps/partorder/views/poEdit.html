@@ -36,25 +36,33 @@
     <div class="col-md-4">
 
       <div ng-if="partorder.status === 'canceled'">
-        <button class="btn btn-lg btn-danger pull-right po-edit">
+        <button
+          class="btn btn-lg btn-danger pull-right po-edit"
+          ng-click="submit(partorder.status)">
           Cancel Part Order
         </button>
       </div>
 
       <div ng-if="partorder.status === 'completed'">
-        <button class="btn btn-lg btn-primary pull-right po-edit">
+        <button
+          class="btn btn-lg btn-primary pull-right po-edit"
+          ng-click="submit(partorder.status)">
           Order Arrived
         </button>
       </div>
 
       <div ng-if="partorder.status === 'shipped'">
-        <button class="btn btn-lg btn-primary pull-right po-edit">
+        <button
+          class="btn btn-lg btn-primary pull-right po-edit"
+          ng-click="submit(partorder.status)">
           Order Shipment
         </button>
       </div>
 
       <div ng-if="partorder.status === 'backorder'">
-        <button class="btn btn-lg btn-primary pull-right po-edit">
+        <button
+          class="btn btn-lg btn-primary pull-right po-edit"
+          ng-click="submit(partorder.status)">
           Place on Back Order
         </button>
       </div>
