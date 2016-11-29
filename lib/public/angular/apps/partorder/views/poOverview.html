@@ -13,12 +13,12 @@
     <!--<div align="center">
       <i ng-show="spinner" class="fa fa-refresh fa-spin po-overview"></i>
     </div>-->
+
+    <!--ng-show="loaded"-->
     <pes-po-overview-table
-      <!--ng-show="loaded"-->
+
       partorders="partorders"
-      loaded="loaded"
-      is-loaded="isContentLoaded(bool)"
-      map-pos="mapPartOrders(po)"
+      scroll-content-search="PartOrderScrollLookup(query)"
       content-search="lookup(query)">
     </pes-po-overview-table>
   </div>
