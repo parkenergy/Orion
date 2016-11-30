@@ -125,8 +125,7 @@
     </thead>
 
     <tbody infinite-scroll="loadOnScroll()" infinite-scroll-immediate-check="false" infinite-scroll-disabled="!loaded">
-    <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort" ng-click="clickWorkOrder();"
-        style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}; cursor: pointer">
+    <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort" ng-click="clickWorkOrder();">
       <td>{{ workorder.unitNumber }}</td>
       <td>{{ workorder.techName }}</td>
       <td>{{ workorder.orderType }}</td>

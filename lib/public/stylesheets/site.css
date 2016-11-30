@@ -6224,10 +6224,10 @@ input[type="checkbox"] {
 #PoOverviewTable div.panel-body.po-main-dash-body div.po-search-bar {
   padding-top: 20px;
 }
-#PoOverviewTable div.panel-body.po-main-dash-body div.table.table-bordered.table-striped.table-hover {
+#PoOverviewTable div.panel-body.po-main-dash-body table.table-bordered.table-striped.table-hover {
   margin-bottom: 0px;
 }
-#PoOverviewTable div.panel-body.po-main-dash-body div.table.table-bordered.table-striped.table-hover tr {
+#PoOverviewTable div.panel-body.po-main-dash-body table.table-bordered.table-striped.table-hover tr {
   cursor: pointer;
 }
 #PoCreatePart button.po-create-part {

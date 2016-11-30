@@ -161,7 +161,7 @@
       <!-- Sorted Table -->
       <tbody>
         <tr ng-repeat="order in $ctrl.partorders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToPartOrder(order);">
-          <td>{{ order.part.componentName }}</td>
+          <td>{{ order.part.componentName || order.part.number }}</td>
           <td>{{ order.part.MPN }}</td>
           <td>{{ order.status }}</td>
           <td>{{ order.quantity }}</td>
