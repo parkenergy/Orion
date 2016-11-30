@@ -124,6 +124,28 @@
               class="glyphicon glyphicon-chevron-up"></span>
           </th>
 
+          <!-- Sort by TechID-->
+          <th ng-click="$ctrl.resort('techId')">
+            Status
+            <span
+              ng-show="$ctrl.sortType == 'techId' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'techId' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by Destination Locaiton -->
+          <th ng-click="$ctrl.resort('destination')">
+            Status
+            <span
+              ng-show="$ctrl.sortType == 'destination' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'destination' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
           <!-- Sort by Status-->
           <th ng-click="$ctrl.resort('status')">
             Status
@@ -163,6 +185,8 @@
         <tr ng-repeat="order in $ctrl.partorders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToPartOrder(order);">
           <td>{{ order.part.componentName || order.part.number }}</td>
           <td>{{ order.part.MPN }}</td>
+          <td>{{ order.techId }}</td>
+          <td>{{ order.destination }}</td>
           <td>{{ order.status }}</td>
           <td>{{ order.quantity }}</td>
           <td>{{ order.timeCreated | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
