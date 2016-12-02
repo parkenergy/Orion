@@ -1,0 +1,25 @@
+<alerts></alerts>
+<header></header>
+
+<div id="PartOrderOverview">
+  <div class="text-center po-overview">
+    <button class="btn btn-lg btn-primary po-overview"
+            ng-click="createPartOrder();">
+      Create Part Order
+    </button>
+  </div>
+
+  <div>
+    <div align="center">
+      <i ng-show="spinner" class="fa fa-refresh fa-spin po-overview"></i>
+    </div>
+
+    <po-overview-table
+      ng-show="loaded"
+      partorders="partorders"
+      scroll-content-search="PartOrderScrollLookup(query)"
+      content-search="lookup(query)">
+    </po-overview-table>
+  </div>
+
+</div>

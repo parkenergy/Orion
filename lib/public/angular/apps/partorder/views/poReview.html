@@ -1,0 +1,33 @@
+<alerts></alerts>
+<header></header>
+
+<div id="PartOrderReview" class="container-fluid">
+
+  <po-review-heading
+    locations="locations"
+    partorder="partorder">
+  </po-review-heading>
+
+  <div>
+    <po-review-table
+      partorder="partorder">
+    </po-review-table>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div ng-if="partorder.status === 'canceled'">
+        <div class="panel panel-default po-review">
+          <div class="panel-body">
+            <text-area-field
+              data="partorder.comment"
+              label-text="Manager Comments"
+              disabled="true">
+            </text-area-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -5,6 +5,8 @@
   <div class="panel-body">
 
   	<text-area-field
+      model-name="comments.repairsDescription"
+      on-data-change="changeThisTextAreaField(changedData, selected)"
       ng-show="workorder.pm ||
                workorder.type == 'Corrective' ||
                workorder.type == 'Trouble Call'"
@@ -14,6 +16,8 @@
   	</text-area-field>
 
   	<text-area-field
+      model-name="comments.repairReason"
+      on-data-change="changeThisTextAreaField(changedData, selected)"
       ng-show="workorder.type == 'Corrective'"
   		label-text="Reason for Repairs Made"
   		placeholder-text="Please describe the reason for the repairs in detail"
@@ -21,6 +25,8 @@
   	</text-area-field>
 
   	<text-area-field
+      model-name="comments.calloutReason"
+      on-data-change="changeThisTextAreaField(changedData, selected)"
       ng-show="workorder.type == 'Trouble Call'"
   		label-text="Reason for Call Out"
   		placeholder-text="Please describe the reason for the callout"
@@ -28,6 +34,8 @@
   	</text-area-field>
 
   	<text-area-field
+      model-name="comments.newsetNotes"
+      on-data-change="changeThisTextAreaField(changedData, selected)"
       ng-show="workorder.type == 'New Set'"
   		label-text="New Set Notes"
   		placeholder-text="Please provide unit newset notes"
@@ -35,6 +43,8 @@
   	</text-area-field>
 
   	<text-area-field
+      model-name="comments.releaseNotes"
+      on-data-change="changeThisTextAreaField(changedData, selected)"
       ng-show="workorder.type == 'Release'"
   		label-text="Unit Release Notes"
   		placeholder-text="Please provide unit release notes"
@@ -42,6 +52,8 @@
   	</text-area-field>
 
   	<text-area-field
+      model-name="comments.indirectNotes"
+      on-data-change="changeThisTextAreaField(changedData, selected)"
       ng-show="workorder.type == 'Indirect'"
   		label-text="Indirect Notes"
   		placeholder-text="Please provide desciption of indirect work performed"
@@ -49,6 +61,8 @@
   	</text-area-field>
 
   	<text-area-field
+      model-name="comments.timeAdjustmentNotes"
+      on-data-change="changeThisTextAreaField(changedData, selected)"
       ng-show="timeadjustment"
   		label-text="Time Adjustment Notes"
   		placeholder-text="Please provide reason for time adjustment"

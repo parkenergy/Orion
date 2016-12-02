@@ -1,0 +1,53 @@
+<div id="ManualAddPartModal">
+  <div class="modal-header">
+    <h3 class="modal-title">Manual Add Part</h3>
+  </div>
+  <form name="partsForm" ng-submit="partsForm.$valid && addPart()" novalidate>
+    <div class="modal-body">
+      <div class="form-group" ng-class="{ 'has-error' : partsForm.vendor.$invalid && !partsForm.vendor.$pristine }">
+        <label>Vendor</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="REQUIRED"
+          ng-model="part.vendor"
+          name="vendor"
+          required>
+        <p ng-show="partsForm.vendor.$invalid && !partsForm.vendor.$pristine" class="help-block">
+          Vendor is required.
+        </p>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : partsForm.partNumber.$invalid && !partsForm.partNumber.$pristine }">
+        <label>Part Number</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="REQUIRED"
+          ng-model="part.number"
+          name="partNumber"
+          required>
+        <p ng-show="partsForm.partNumber.$invalid && !partsForm.partNumber.$pristine" class="help-block">
+          Part Number is required.
+        </p>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : partsForm.description.$invalid && !partsForm.description.$pristine }">
+        <label>Description</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="REQUIRED"
+          ng-model="part.description"
+          name="description"
+          required>
+        <p ng-show="partsForm.description.$invalid && !partsForm.description.$pristine" class="help-block">
+          Description is required.
+        </p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" ng-disabled="partsForm.$invalid">Add Part</button>
+      <button class="btn btn-warnning" ng-click="cancel()">Cancel</button>
+    </div>
+  </form>
+
+</div>

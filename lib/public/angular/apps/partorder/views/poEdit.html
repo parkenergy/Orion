@@ -1,0 +1,73 @@
+<alerts></alerts>
+<header></header>
+
+<div id="PartOrderEdit" class="container-fluid">
+
+    <po-edit-heading
+      select-origin-type="warehouse"
+      locations="locations"
+      partorder="partorder"
+      on-select-change="headerSelectFieldChange(changedData, selected)"
+      on-text-change="headerTextFieldChange(changedData, selected)">
+    </po-edit-heading>
+
+  <div>
+    <po-edit-table
+      partorder="partorder"
+      on-selection="changeStatus(changedData, selected)">
+    </po-edit-table>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div ng-if="partorder.status === 'canceled'">
+        <div class="panel panel-default po-edit">
+          <div class="panel-body">
+            <text-area-field
+              model-name="comment"
+              on-data-change="changeThisTextAreaField(changedData, selected)"
+              data="partorder.comment"
+              label-text="Manager Comments">
+            </text-area-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+
+      <div ng-if="partorder.status === 'canceled'">
+        <button
+          class="btn btn-lg btn-danger pull-right po-edit"
+          ng-click="submit(partorder.status)">
+          Cancel Part Order
+        </button>
+      </div>
+
+      <div ng-if="partorder.status === 'completed'">
+        <button
+          class="btn btn-lg btn-primary pull-right po-edit"
+          ng-click="submit(partorder.status)">
+          Order Arrived
+        </button>
+      </div>
+
+      <div ng-if="partorder.status === 'shipped'">
+        <button
+          class="btn btn-lg btn-primary pull-right po-edit"
+          ng-click="submit(partorder.status)">
+          Order Shipment
+        </button>
+      </div>
+
+      <div ng-if="partorder.status === 'backorder'">
+        <button
+          class="btn btn-lg btn-primary pull-right po-edit"
+          ng-click="submit(partorder.status)">
+          Place on Back Order
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,51 @@
+<div id="GeneralPartsList">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ $ctrl.ccPanelTitle }}</h3>
+    </div>
+    <div class="panel-body">
+      <button
+        class="btn btn-lg btn-primary pull-left general-parts-list"
+        type="button"
+        ng-click="$ctrl.openManualPartModal()">
+        Add Part Manually
+      </button>
+      <table class="{{ $ctrl.ccTableClass }}">
+        <thead>
+        <tr>
+          <th>Part Info</th>
+          <th>Quantity</th>
+          <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="obj in oList = ($ctrl.ccData.parts
+            | filter:$ctrl.searchPhrase
+            | orderBy:quantity:true)">
+          <td>
+            <div class="clearfix">{{obj.MPN}}</div>
+            <div ng-show="obj.description !== null">{{obj.description}}</div>
+            <div ng-show="obj.description === null">{{obj.smartPart}}</div>
+          </td>
+          <td>
+            <number-field
+              placeholder-text="Quantity Used"
+              data="obj.quantity"
+              non-negative="true"
+              name="quantity"
+              min="1"
+              integer-only="true">
+            </number-field>
+          </td>
+          <td>
+            <button class="btn btn-danger pull-right general-parts-list"
+                    ng-click="$ctrl.ccOnDelete({ part: obj})">
+              remove
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
