@@ -3,19 +3,19 @@
 
 <div id="PartOrderEdit" class="container-fluid">
 
-    <pes-po-edit-heading
+    <po-edit-heading
       select-origin-type="warehouse"
       locations="locations"
       partorder="partorder"
       on-select-change="headerSelectFieldChange(changedData, selected)"
       on-text-change="headerTextFieldChange(changedData, selected)">
-    </pes-po-edit-heading>
+    </po-edit-heading>
 
   <div>
-    <pes-po-edit-table
+    <po-edit-table
       partorder="partorder"
       on-selection="changeStatus(changedData, selected)">
-    </pes-po-edit-table>
+    </po-edit-table>
   </div>
 
   <div class="row">
