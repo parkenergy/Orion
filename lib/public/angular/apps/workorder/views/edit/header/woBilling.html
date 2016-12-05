@@ -23,19 +23,19 @@
         on-data-change="changeThisCheckbox(changedData, selected)">
       </check-box>
       <text-field
-        model-name="billingInfo.AFENumber"
-        on-data-change="changeThisTextField(changedData, selected)"
         ng-show="workorder.billingInfo.AFE"
         label-text="AFE #:"
-        data="workorder.billingInfo.AFENumber">
+        data="workorder.billingInfo.AFENumber"
+        model-name="billingInfo.AFENumber"
+        on-data-change="changeThisTextField(changedData, selected)">
       </text-field>
     </div>
-  	<div class="col-xs-6">
+    <div class="col-xs-6">
       <check-box
         label-text="Billed"
         data="workorder.billingInfo.billed"
         model-name="billingInfo.billed"
-        on-data-change="changeThisCheckBox(changedData, selected)">
+        on-data-change="changeThisCheckbox(changedData, selected)">
       </check-box>
     </div>
   </div>
