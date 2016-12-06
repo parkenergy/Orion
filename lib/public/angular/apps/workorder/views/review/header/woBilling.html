@@ -23,7 +23,7 @@
         ng-show="workorder.billingInfo.AFE"
         label-text="AFE #:"
         data="workorder.billingInfo.AFENumber"
-        disabled="true">
+        on-data-change="changeThisTextField(changedData, selected)">
       </text-field>
     </div>
     <div class="col-xs-6">

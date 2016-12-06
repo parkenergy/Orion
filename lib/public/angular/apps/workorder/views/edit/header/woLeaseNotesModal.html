@@ -3,6 +3,8 @@
 </div>
 <div class="modal-body">
   <text-area-field
+    model-name="notes"
+    on-data-change="changeNoteTextAreaField(changedData, selected)"
     label-text="Lease Notes"
     placeholder-text="Lease Notes"
     data="notes">

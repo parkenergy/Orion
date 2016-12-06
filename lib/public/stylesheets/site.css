@@ -3890,11 +3890,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   min-height: 50px;
   margin-bottom: 25px;
   border: 1px solid transparent;
-}
-@media (min-width: 768px) {
-  .navbar {
-    border-radius: 4px;
-  }
+  /*@media (min-width: @grid-float-breakpoint) {
+    border-radius: @navbar-border-radius;
+  }*/
 }
 @media (min-width: 768px) {
   .navbar-header {
@@ -4009,7 +4007,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
-  border-radius: 4px;
 }
 .navbar-toggle:focus {
   outline: none;
@@ -6152,6 +6149,132 @@ input[type="checkbox"] {
   -moz-transform: scale(1.4, 1.4);
   -o-transform: scale(1.4, 1.4);
   margin-right: 10px;
+}
+#PoEditTable {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+#PoEditTable div.panel-body.po-edit-table {
+  padding: 0px;
+}
+#PoEditTable div.panel-body.po-edit-table table.table-bordered.table-striped.po-edit-table {
+  margin-bottom: 0px;
+}
+#PoEditTable div.panel-body.po-edit-table table.table-bordered.table-striped.po-edit-table ul {
+  padding-left: 0px;
+}
+#PoEditTable div.panel-body.po-edit-table table.table-bordered.table-striped.po-edit-table ul ol {
+  padding-left: 5px;
+}
+#PoEditHeading div.row {
+  margin-bottom: 25px;
+}
+#PoEditHeading div.row div.col-md-2.col-xs-2 {
+  margin-left: 25px;
+}
+#PoEditHeading div.row div.col-md-2.col-xs-2 div.poeh-content {
+  background-color: #c2c8d1;
+  text-align: center;
+  vertical-align: middle;
+}
+#PoEditHeading div.row div.col-md-3.col-xs-3 {
+  margin-left: 25px;
+}
+#PoEditHeading div.row div.col-md-3.col-xs-3 div.poeh-content {
+  background-color: #c2c8d1;
+  text-align: center;
+  vertical-align: middle;
+}
+#PoReviewHeading div.row {
+  margin-bottom: 25px;
+}
+#PoReviewHeading div.row div.col-md-2.col-xs-2 {
+  margin-left: 25px;
+}
+#PoReviewHeading div.row div.col-md-2.col-xs-2 div.porh-content {
+  background-color: #c2c8d1;
+  text-align: center;
+  vertical-align: middle;
+}
+#PoReviewHeading div.row div.col-md-3.col-xs-3 {
+  margin-left: 25px;
+}
+#PoReviewHeading div.row div.col-md-3.col-xs-3 div.porh-content {
+  background-color: #c2c8d1;
+  text-align: center;
+  vertical-align: middle;
+}
+#PoReviewTable {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+#PoReviewTable div.panel-body {
+  padding: 0px;
+}
+#PoReviewTable div.panel-body table.table.table-bordered.table-striped {
+  margin-bottom: 0px;
+}
+#PoOverviewTable {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+#PoOverviewTable div.panel-body.po-main-dash-body {
+  padding: 0px;
+}
+#PoOverviewTable div.panel-body.po-main-dash-body div.po-search-bar {
+  padding-top: 20px;
+}
+#PoOverviewTable div.panel-body.po-main-dash-body table.table-bordered.table-striped.table-hover {
+  margin-bottom: 0px;
+}
+#PoOverviewTable div.panel-body.po-main-dash-body table.table-bordered.table-striped.table-hover tr {
+  cursor: pointer;
+}
+#PoCreatePart button.po-create-part {
+  margin-bottom: 10px;
+}
+#PartOrderCreate button.po-create {
+  width: 90%;
+  height: 100px;
+  margin: 0px 5% 15px 5%;
+}
+#PartOrderEdit div.panel.panel-default.po-edit {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+#PartOrderEdit button.po-edit {
+  width: 100%;
+  height: 100px;
+  margin: 0px 5% 15px 5%;
+}
+#PartOrderReview div.panel.panel-default.po-review {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+#PartOrderOverview div.text-center.po-overview {
+  margin-bottom: 25px;
+}
+#PartOrderOverview div.text-center.po-overview button.po-overview {
+  width: 80%;
+  height: 50px;
+}
+#PartOrderOverview i.fa.fa-refresh.fa-spin.po-overview {
+  font-size: 80px;
+}
+#MyAccount i.fa.fa-refresh.fa-spin.myaccount {
+  font-size: 80px;
+}
+#Dashboard thead tr.wo-dashboard {
+  cursor: pointer;
+}
+#GeneralPartsList div.panel-body button.general-parts-list {
+  margin-bottom: 10px;
+}
+#SuperTable tbody tr td.super-table {
+  word-wrap: break-word;
+  min-width: 100px;
+  max-width: 160px;
+  white-space: normal;
 }
 .highlighted {
   background-color: #a4cf80 !important;

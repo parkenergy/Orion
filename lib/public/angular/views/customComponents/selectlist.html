@@ -1,0 +1,11 @@
+<div id="Cselectlist" class="form-group">
+  <label>{{$ctrl.labelText}}</label>
+  <select
+    class="form-control"
+    ng-model="$ctrl.data"
+    name="{{ $ctrl.data}}"
+    ng-change="$ctrl.onUpdate($ctrl.data)"
+    ng-options="item.{{ $ctrl.selectField }} as item.{{ $ctrl.displayField }} for item in $ctrl.arrayList | filter:$select"
+    ng-disabled="$ctrl.disabled">
+  </select>
+</div>
