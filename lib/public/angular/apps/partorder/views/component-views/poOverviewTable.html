@@ -19,29 +19,19 @@
 
           <form role="form">
 
-            <!-- row 1 -->
-            <div class="col-md-6 form-group">
-              <label>From</label>
-              <input
-                class="form-control search"
-                ng-model="$ctrl.dates.from"
-                ng-change="$ctrl.startofDaty()"
-                name="fromDate" type="date"
-                placeholder="yyyy-mm-dd">
-            </div>
-
-            <div class="col-md-6 form-group">
-              <label>To</label>
-              <input
-                class="form-control search"
-                ng-model="$ctrl.dates.to"
-                ng-change="$ctrl.endOfDay()"
-                name="toDate" type="date"
-                placeholder="yyyy-mm-dd">
-            </div>
-
             <!-- col 1 -->
             <div class="col-md-6">
+
+              <!-- row 1 -->
+              <div class="form-group">
+                <label>From</label>
+                <input
+                  class="form-control search"
+                  ng-model="$ctrl.dates.from"
+                  ng-change="$ctrl.startofDaty()"
+                  name="fromDate" type="date"
+                  placeholder="yyyy-mm-dd">
+              </div>
 
               <!-- row 2 -->
               <div class="form-group">
@@ -70,12 +60,24 @@
                 ng-click="$ctrl.submit()">
                 Search
               </button>
+
             </div>
 
-            <!-- col 2-->
+            <!-- col 2 -->
             <div class="col-md-6">
 
-              <!-- row 2-->
+              <!-- row 1-->
+              <div class="form-group">
+                <label>To</label>
+                <input
+                  class="form-control search"
+                  ng-model="$ctrl.dates.to"
+                  ng-change="$ctrl.endOfDay()"
+                  name="toDate" type="date"
+                  placeholder="yyyy-mm-dd">
+              </div>
+
+              <!-- row 2 -->
               <div class="form-group">
                 <label for="Completed">Completed</label>
                 <input type="checkbox" id="Completed" name="Completed" ng-model="$ctrl.completed"/>
