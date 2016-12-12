@@ -164,7 +164,8 @@
     </thead>
 
     <tbody infinite-scroll="loadOnScroll()" infinite-scroll-immediate-check="false" infinite-scroll-disabled="!loaded">
-      <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort" ng-click="clickWorkOrder();">
+      <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort"  ng-click="clickWorkOrder();"
+        style="background-color: {{setBillableBackgroundColor(workorder)}}">
         <td>{{ workorder.unitNumber }}</td>
         <td>{{ workorder.techName }}</td>
         <td>{{ workorder.orderType }}</td>
