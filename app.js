@@ -89,10 +89,11 @@ agenda.define('netsuiteSync', function(job, done){
       log.info("...Netsuite import finished");
     }
   });
+  done();
 });
 
 agenda.on('ready', function(){
-  agenda.every('5 minutes', 'netsuiteSync');
+  agenda.every('10 minutes', 'netsuiteSync');
   agenda.start();
 });
 
