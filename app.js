@@ -111,13 +111,21 @@ function loader(dir) {
     });
 }
 
-// Gracefully shutdown agenda
+// Gracefully shutdown
 function graceful() {
   // cancel all netsuiteSync jobs.
-  agenda.cancel({name: 'netsuiteSync'}, function () {});
-  agenda.stop(function () {
-    process.exit(0);
+  agenda.cancel({name: 'netsuiteSync'}, function (err,numberRemoved) {
+    if(err) log.trace({err: err}, 'Error Shutting down netsuiteSync agenda job')
+    log.trace({number: numberRemoved}, 'Number of netsuiteSync agenda jobs removed');
   });
+  agenda.stop();
+  // disconnect from database
+  mongoose.connection.close();
+
+  setTimeout(function () {
+    process.exit(0);
+  },300);
+
 }
 // Run Gracefull when ctrl+c or termination
 process.on('SIGTERM',graceful);
