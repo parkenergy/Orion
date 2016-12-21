@@ -20,6 +20,22 @@
 
   <div class="row">
     <div class="col-md-8">
+
+      <!-- Add carrier name to partorder -->
+      <div ng-if="((partorder.status === 'shipped') && !partorder.timeShipped)">
+        <div class="panel panel-default po-edit">
+          <div class="panel-body">
+            <text-field
+              model-name="carrier"
+              on-data-change="changeThisTextField(changedData, selected)"
+              data="partorder.carrier"
+              label-text="Add Carrier Name">
+            </text-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manager Comments for Canceled Orders-->
       <div ng-if="partorder.status === 'canceled'">
         <div class="panel panel-default po-edit">
           <div class="panel-body">
@@ -32,6 +48,7 @@
           </div>
         </div>
       </div>
+
     </div>
     <div class="col-md-4">
 
