@@ -29,7 +29,7 @@
                                         | orderBy:quantity:true)">
           <td>
             <div class="clearfix"><div ng-if="obj.number">{{obj.number}}</div></div>
-            <div ng-if="!obj.number">{{obj.description}}</div>
+            <div ng-if="obj.description">{{obj.description}}</div>
             <div ng-if="obj.componentName">{{obj.componentName}}</div>
           </td>
           <td>
