@@ -6261,6 +6261,16 @@ input[type="checkbox"] {
 #PartOrderOverview i.fa.fa-refresh.fa-spin.po-overview {
   font-size: 80px;
 }
+#CallReportOverview div.text-center.cr-overview {
+  margin-bottom: 25px;
+}
+#CallReportOverview div.text-center.cr-overview button.cr-overview {
+  width: 80%;
+  height: 50px;
+}
+#CallReportOverview i.fa.fa-refresh.fa-spin.cr-overview {
+  font-size: 80px;
+}
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
 }
