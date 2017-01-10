@@ -1,3 +1,102 @@
-<div id="CrCreateContactInfo">
-  {{$ctrl.WORKS}}
-</div>
+<div id="CrCreateContactInfo"
+     class="panel panel-default">
+
+  <div  class="panel-heading">
+    <h3 class="panel-title">Contact Info</h3>
+  </div>
+
+  <!-- Panel for contact info -->
+  <div class="panel cr-contact-info">
+
+    <!-- row 1 -->
+    <div class="row">
+      <!-- col 1 -->
+      <div class="col-md-3 col-xs-3">
+        <text-field
+          label-text="Contact Name"
+          model-name="contactName"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.contactName">
+        </text-field>
+      </div>
+
+      <!-- col 2 -->
+      <div class="col-md-3 col-xs-3">
+        <select-list
+          label-text="Job Title"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="type"
+          display-field="type"
+          model-name="title"
+          data="$ctrl.callreport.title"
+          array-list="$ctrl.titles">
+        </select-list>
+      </div>
+
+      <!-- col 3 -->
+      <div class="col-md-3 col-xs-3">
+        <select-list
+          label-text="Decision Maker?"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="type"
+          display-field="type"
+          model-name="decisionMaker"
+          data="$ctrl.callreport.decisionMaker"
+          array-list="$ctrl.decisionMakerObjArray">
+        </select-list>
+      </div>
+
+      <!-- col 4 -->
+      <div class="col-md-3 col-xs-3">
+        <text-field
+          label-text="Office Location"
+          model-name="officeLocation"
+          placeholder-text="Ex: Midland"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.officeLocation">
+        </text-field>
+      </div>
+
+    </div> <!-- end of row 1 -->
+
+    <!-- row 2 -->
+    <div class="row">
+
+      <!-- col 1 -->
+      <div class="col-md-3 col-xs-3">
+        <text-field
+          label-text="Phone Number"
+          model-name="phoneNumber"
+          placeholder-text="Ex: 888-888-8888"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.phoneNumber">
+        </text-field>
+      </div>
+
+      <!-- col 2 and col 3 -->
+      <div class="col-md-6 col-xs-6">
+        <text-field
+          label-text="Email"
+          model-name="email"
+          placeholder-text="Ex: emailName@provider.com"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.email">
+        </text-field>
+      </div>
+
+      <!-- col 4 -->
+      <div class="col-md-3 col-xs-3">
+        <text-field
+          label-text="Current Spend"
+          model-name="currentSpend"
+          placeholder-text="$ -"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.currentSpend">
+        </text-field>
+      </div>
+
+    </div> <!-- end of row 2-->
+
+  </div> <!-- end of panel -->
+
+</div> <!-- end of component -->

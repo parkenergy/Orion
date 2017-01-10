@@ -1,11 +1,14 @@
 <alerts></alerts>
 <header></header>
 
-<div id="CallReportCreate">
+<div id="CallReportCreate" class="container-fluid">
   <!-- Content -->
   <!-- First Panel -->
   <cr-create-contact-info
-    >
+    on-select-change="selectFieldChange(changedData, selected)"
+    on-text-change="textFieldChange(changedData, selected)"
+    titles="titles"
+    callreport="callreport">
   </cr-create-contact-info>
 
   <!-- Second Panel -->
