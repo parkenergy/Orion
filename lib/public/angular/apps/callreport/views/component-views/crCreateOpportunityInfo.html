@@ -1,3 +1,148 @@
-<div id="CrCreateOpportunityInfo">
-  {{$ctrl.WORKS}}
-</div>
+<div id="CrCreateOpportunityInfo"
+     class="panel panel-default">
+
+  <div class="panel-heading">
+    <h3 class="panel-title">Opportunity Info</h3>
+  </div>
+
+  <!-- Panel for opportunity info -->
+  <div class="panel cr-opportunity-info">
+
+    <!-- row 1 -->
+    <div class="row">
+
+      <!-- col 1 -->
+      <div class="col-md-1 col-xs-1">
+        <label>New</label>
+        <input
+          class="cr-checkbox"
+          type="checkbox"
+          ng-model="$ctrl.callreport.newCustomer"
+          ng-change="$ctrl.checkboxChange($ctrl.callreport.newCustomer, 'newCustomer')">
+      </div>
+
+      <!-- col 2 -->
+      <!-- Not a new Customer -->
+      <div class="col-md-3 col-xs-3"
+           ng-if="!$ctrl.callreport.newCustomer">
+        <select-list
+          label-text="Customer"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="name"
+          display-field="name"
+          model-name="customer"
+          data="$ctrl.callreport.customer"
+          array-list="$ctrl.customers">
+        </select-list>
+      </div>
+
+      <!-- A new Customer -->
+      <div class="col-md-3 col-xs-3"
+           ng-if="$ctrl.callreport.newCustomer">
+        <text-field
+          label-text="Customer"
+          model-name="customer"
+          placeholder-text="Ex: Texas Petroleum"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.customer">
+        </text-field>
+      </div>
+
+      <!-- col 3 -->
+      <div class="col-md-3 col-xs-3">
+        <select-list
+          label-text="Status"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="status"
+          display-field="status"
+          model-name="status"
+          data="$ctrl.callreport.status"
+          array-list="$ctrl.statustypes">
+        </select-list>
+      </div>
+
+      <!-- col 4 -->
+      <div class="col-md-3 col-xs-3">
+        <select-list
+          label-text="Opp Type"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="type"
+          display-field="type"
+          model-name="oppType"
+          data="$ctrl.callreport.oppType"
+          array-list="$ctrl.opptypes">
+        </select-list>
+      </div>
+
+      <!-- col 5 -->
+      <div class="col-md-2 col-xs-2">
+        <select-list
+          label-text="Unity Type"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="type"
+          display-field="type"
+          model-name="unitType"
+          data="$ctrl.callreport.unitType"
+          array-list="$ctrl.unittypes">
+        </select-list>
+      </div>
+
+    </div> <!-- end of row 1 -->
+
+    <!-- row 2 -->
+    <div class="row">
+
+      <!-- col 1 -->
+      <div class="col-md-3 col-xs-3">
+        <select-list
+          label-text="Activity Type"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="activity"
+          display-field="activity"
+          model-name="activityType"
+          data="$ctrl.callreport.activityType"
+          array-list="$ctrl.activitytypes">
+        </select-list>
+      </div>
+
+      <!-- col 2 -->
+      <div class="col-md-3 col-xs-3">
+        <select-list
+          label-text="Size of Opp"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="size"
+          display-field="size"
+          model-name="size"
+          data="$ctrl.callreport.size"
+          array-list="$ctrl.opportunitysizes">
+        </select-list>
+      </div>
+
+      <!-- col 3 -->
+      <div class="col-md-3 col-xs-3">
+        <select-list
+          label-text="Application Type"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="type"
+          display-field="type"
+          model-name="applicationType"
+          data="$ctrl.callreport.applicationType"
+          array-list="$ctrl.applicationtypes">
+        </select-list>
+      </div>
+
+      <!-- col 4 -->
+      <!--<div class="col-md-3 col-xs-3 form-group">
+        <label>Day</label>
+        <input
+          class="form-control search"
+          ng-model="$ctrl.callreport.callTime"
+          ng-change="$ctrl.midOfDay()"
+          name="callDate" type="date">
+      </div>-->
+
+    </div> <!-- end of row 2 -->
+
+  </div> <!-- end of panel -->
+
+</div> <!-- end of component -->
