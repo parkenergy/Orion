@@ -25,15 +25,15 @@
       <!-- Not a new Customer -->
       <div class="col-md-3 col-xs-3"
            ng-if="!$ctrl.callreport.newCustomer">
-        <select-list
+        <type-ahead
           label-text="Customer"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="name"
-          display-field="name"
+          on-data-change="$ctrl.typeaheadChange(changedData, selected)"
+          item-path="name"
           model-name="customer"
           data="$ctrl.callreport.customer"
-          array-list="$ctrl.customers">
-        </select-list>
+          array-list="$ctrl.customers"
+          limit="12">
+        </type-ahead>
       </div>
 
       <!-- A new Customer -->
