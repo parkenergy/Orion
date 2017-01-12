@@ -3,22 +3,40 @@
     <h3 class="panel-title">Billing Information</h3>
   </div>
   <div class="panel-body">
-  	<check-box
-  		label-text="Billable to Customer"
-      data="workorder.billingInfo.billableToCustomer">
-  	</check-box>
-  	<check-box
-  		label-text="Warranty Work"
-      data="workorder.billingInfo.warrantyWork">
-  	</check-box>
-  	<check-box
-  		label-text="AFE"
-      data="workorder.billingInfo.AFE">
-  	</check-box>
-    <text-field
-      ng-show="workorder.billingInfo.AFE"
-      label-text="AFE #:"
-      data="workorder.billingInfo.AFENumber">
-    </text-field>
+    <div class="col-xs-6">
+      <check-box
+        label-text="Billable to Customer"
+        data="workorder.billingInfo.billableToCustomer"
+        model-name="billingInfo.billableToCustomer"
+        on-data-change="changeThisCheckbox(changedData, selected)">
+      </check-box>
+      <check-box
+        label-text="Warranty Work"
+        data="workorder.billingInfo.warrantyWork"
+        model-name="billingInfo.warrantyWork"
+        on-data-change="changeThisCheckbox(changedData, selected)">
+      </check-box>
+      <check-box
+        label-text="AFE"
+        data="workorder.billingInfo.AFE"
+        model-name="billingInfo.AFE"
+        on-data-change="changeThisCheckbox(changedData, selected)">
+      </check-box>
+      <text-field
+        ng-show="workorder.billingInfo.AFE"
+        label-text="AFE #:"
+        data="workorder.billingInfo.AFENumber"
+        model-name="billingInfo.AFENumber"
+        on-data-change="changeThisTextField(changedData, selected)">
+      </text-field>
+    </div>
+    <div class="col-xs-6">
+      <check-box
+        label-text="Billed"
+        data="workorder.billingInfo.billed"
+        model-name="billingInfo.billed"
+        on-data-change="changeThisCheckbox(changedData, selected)">
+      </check-box>
+    </div>
   </div>
 </div>

@@ -28,8 +28,9 @@
                                         | filter:searchPhrase
                                         | orderBy:quantity:true)">
           <td>
-            <div class="clearfix">{{obj.number}}</div>
-            <div>{{obj.description}}</div>
+            <div class="clearfix"><div ng-if="obj.number">{{obj.number}}</div></div>
+            <div ng-if="obj.description">{{obj.description}}</div>
+            <div ng-if="obj.componentName">{{obj.componentName}}</div>
           </td>
           <td>
             <select ng-model="obj.laborCode">
@@ -37,22 +38,24 @@
             </select>
           </td>
           <td>
-          	<number-field
-          		placeholder-text="Quantity Used"
+            <number-field
+              placeholder-text="Quantity Used"
               data="obj.quantity"
               non-negative="true"
+              name="quantity"
+              min="1"
               integer-only="true">
-          	</number-field>
+            </number-field>
           </td>
           <td>
-          		<check-box
+          		<old-check-box
             		label-text="Is Part Billable?"
                 data="obj.isBillable">
-            	</check-box>
-            	<check-box
+            	</old-check-box>
+            	<old-check-box
             		label-text="Is Part Warranty?"
                 data="obj.isWarranty">
-            	</check-box>
+            	</old-check-box>
           </td>
           <td>
           	<price-field

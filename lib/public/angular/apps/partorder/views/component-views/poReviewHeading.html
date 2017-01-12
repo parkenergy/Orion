@@ -1,0 +1,93 @@
+<div id="PoReviewHeading">
+  <div class="row">
+
+    <div class="col-md-2 col-xs-2">
+      <div>Tech ID</div>
+      <div class="porh-content">{{ $ctrl.partorder.techId }}</div>
+    </div>
+
+    <div class="col-md-2 col-xs-2">
+      <div>Destination ID</div>
+      <div class="porh-content">{{ $ctrl.destinationLocation }}</div>
+    </div>
+
+    <div class="col-md-3 col-xs-3">
+      <div>Request Made</div>
+      <div class="porh-content">{{ $ctrl.partorder.timeCreated | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
+    </div>
+
+    <!--Show Time Submitted if it exists-->
+    <!-- COMPLETED ORDER -->
+    <div class="col-md-3 col-xs-3" ng-if="$ctrl.partorder.timeSubmitted">
+      <div>Request Inspected</div>
+      <div class="porh-content">{{ $ctrl.partorder.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
+    </div>
+
+    <!-- CANCELED ORDER -->
+    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeSubmitted">
+      <div>Time Shipped</div>
+      <div class="porh-content">{{ $ctrl.partorder.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
+    </div>
+
+  </div>   <!-- end of row 1 -->
+
+  <!-- Fromatting for 2nd row for item alignment -->
+  <div class="row">
+
+    <!--Show manager ID if it exists-->
+    <div class="col-md-2 col-xs-2" ng-if="$ctrl.partorder.approvedBy">
+      <div>Manager ID</div>
+      <div class="porh-content">{{ $ctrl.partorder.approvedBy}}</div>
+    </div>
+
+    <div class="col-md-2 col-xs-2" ng-show="!$ctrl.partorder.approvedBy">
+    </div>
+
+    <!--Show origin Id if it exists-->
+    <!-- COMPLETED ORDER -->
+    <div class="col-md-2 col-xs-2" ng-show="$ctrl.partorder.timeShipped">
+      <div>Origin Location</div>
+      <div class="porh-content">{{ $ctrl.originLocation }}</div>
+    </div>
+
+    <!-- CANCELED ORDER -->
+    <div class="col-md-2 col-xs-2" ng-show="!$ctrl.partorder.timeShipped">
+      <div>Origin Location</div>
+      <div class="porh-content">
+        Order Canceled
+      </div>
+    </div>
+
+
+    <!--Show Tracking number if it exists-->
+    <!-- COMPLETED ORDER -->
+    <div class="col-md-3 col-xs-3" ng-show="$ctrl.partorder.timeShipped">
+      <div>Tracking Number: {{$ctrl.partorder.carrier}}</div>
+      <div class="porh-content">{{ $ctrl.partorder.trackingNumber}}</div>
+    </div>
+
+    <!-- CANCELED ORDER -->
+    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeShipped">
+      <div>Tracking Number</div>
+      <div class="porh-content">
+        Order Canceled
+      </div>
+    </div>
+
+    <!--Show Time Shipped if it exists-->
+    <!-- COMPLETED ORDER -->
+    <div class="col-md-3 col-xs-3" ng-if="$ctrl.partorder.timeShipped">
+      <div>Request Shipped</div>
+      <div class="porh-content">{{ $ctrl.partorder.timeShipped | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
+    </div>
+
+    <!-- CANCELED ORDER -->
+    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeShipped">
+      <div>Time Shipped</div>
+      <div class="porh-content">
+        Order Canceled
+      </div>
+    </div>
+
+  </div>     <!-- end of row 2 -->
+</div>

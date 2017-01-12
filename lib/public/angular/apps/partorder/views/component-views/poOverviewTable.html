@@ -1,0 +1,211 @@
+<div id="PoOverviewTable"
+     class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Part Orders</h3>
+  </div>
+  <div class="panel-body po-main-dash-body">
+
+    <!-- Search Bar Panel -->
+    <div class="col-md-9 po-search-bar">
+      <div class="panel panel-default">
+
+        <!-- Title -->
+        <div class="panel-heading" data-toggle="collapse" data-target="#poSearch">
+          <h3 class="panel-title">Search</h3>
+        </div>
+
+        <!-- collapsible search settings -->
+        <div class="panel-body collapse" id="poSearch">
+
+          <form role="form">
+
+            <!-- col 1 -->
+            <div class="col-md-6">
+
+              <!-- row 1 -->
+              <div class="form-group">
+                <label>From</label>
+                <input
+                  class="form-control search"
+                  ng-model="$ctrl.dates.from"
+                  ng-change="$ctrl.startofDaty()"
+                  name="fromDate" type="date"
+                  placeholder="yyyy-mm-dd">
+              </div>
+
+              <!-- row 2 -->
+              <div class="form-group">
+                <label for="Pending">Pending</label>
+                <input type="checkbox" id="Pending" name="Completed" ng-model="$ctrl.pending"/>
+              </div>
+
+              <!-- row 3 -->
+              <div class="form-group">
+                <label for="BackOrder">Back Ordered</label>
+                <input type="checkbox" id="BackOrder" name="Completed" ng-model="$ctrl.backorder"/>
+              </div>
+
+              <!-- row 4 -->
+              <div class="form-group">
+                <label for="Shipped">Shipped</label>
+                <input type="checkbox" id="Shipped" name="Completed" ng-model="$ctrl.shipped"/>
+              </div>
+
+              <!-- row 5 -->
+              <button
+                class="btn btn-primary form-inline"
+                type="button"
+                data-toggle="collapse"
+                data-target="#poSearch"
+                ng-click="$ctrl.submit()">
+                Search
+              </button>
+              <button
+                class="btn btn-primary form-inline"
+                type="button"
+                data-toggle="collapse"
+                data-target="#poSearch"
+                ng-click="$ctrl.getReport()">
+                Print Orders
+              </button>
+
+            </div>
+
+            <!-- col 2 -->
+            <div class="col-md-6">
+
+              <!-- row 1-->
+              <div class="form-group">
+                <label>To</label>
+                <input
+                  class="form-control search"
+                  ng-model="$ctrl.dates.to"
+                  ng-change="$ctrl.endOfDay()"
+                  name="toDate" type="date"
+                  placeholder="yyyy-mm-dd">
+              </div>
+
+              <!-- row 2 -->
+              <div class="form-group">
+                <label for="Completed">Completed</label>
+                <input type="checkbox" id="Completed" name="Completed" ng-model="$ctrl.completed"/>
+              </div>
+
+              <!-- row 3 -->
+              <div class="form-group">
+                <label for="Canceled">Canceled</label>
+                <input type="checkbox" id="Canceled" name="Canceled" ng-model="$ctrl.canceled"/>
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!--Start Search Table-->
+    <table class="table table-bordered table-striped table-hover">
+      <!--Search settings-->
+      <thead>
+        <tr>
+
+          <!-- Sort by Part #-->
+          <th ng-click="$ctrl.resort('part.componentName')">
+            Part #
+            <span
+              ng-show="$ctrl.sortType == 'part.componentName' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'part.componentName' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by MPN -->
+          <th ng-click="$ctrl.resort('part.mpn')">
+            MPN
+            <span
+              ng-show="$ctrl.sortType == 'part.mpn' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'part.mpn' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by TechID-->
+          <th ng-click="$ctrl.resort('techId')">
+            User ID
+            <span
+              ng-show="$ctrl.sortType == 'techId' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'techId' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by Destination Locaiton -->
+          <th ng-click="$ctrl.resort('destination')">
+            Destination
+            <span
+              ng-show="$ctrl.sortType == 'destination' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'destination' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by Status-->
+          <th ng-click="$ctrl.resort('status')">
+            Status
+            <span
+              ng-show="$ctrl.sortType == 'status' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'status' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by quantity -->
+          <th ng-click="$ctrl.resort('quantity')">
+            Quantity
+            <span
+              ng-show="$ctrl.sortType == 'quantity' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'quantity' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by Time Created -->
+          <th ng-click="$ctrl.resort('epoch')">
+            Time Created
+            <span
+              ng-show="$ctrl.sortType == 'epoch' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'epoch' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+        </tr>
+      </thead>
+      <!-- Sorted Table -->
+      <tbody infinite-scroll="$ctrl.loadOnScroll()"
+        infinite-scroll-immediate-check="false"
+        infinite-scroll-disabled="$ctrl.loaded">
+        <tr ng-repeat="order in $ctrl.partorders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToPartOrder(order);">
+          <td>{{ order.part.componentName || order.part.number }}</td>
+          <td>{{ order.part.MPN }}</td>
+          <td>{{ order.techId }}</td>
+          <td>{{ order.destination }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.timeCreated | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+    <!--End Serch Table-->
+  </div>
+</div>

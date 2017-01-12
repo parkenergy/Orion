@@ -1,0 +1,31 @@
+<div id="SelectTechWarehouseId">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ $ctrl.ccPanelTitle }}</h3>
+    </div>
+    <div class="panel-body" ng-show="$ctrl.ccType === 'name'">
+      <select-list
+        class="{{ $ctrl.ccClass }}"
+        label-text="{{ $ctrl.ccLabel }}"
+        on-data-change="$ctrl.onChange(changedData, selected)"
+        data="$ctrl.ccData"
+        model-name="$ctrl.ccModelName"
+        select-field="name"
+        display-field="name"
+        array-list="$ctrl.locationWarehouseArray">
+      </select-list>
+    </div>
+    <div class="panel-body" ng-show="$ctrl.ccType === 'netsuiteId'">
+      <select-list
+        class="{{ $ctrl.ccClass }}"
+        label-text="{{ $ctrl.ccLabel }}"
+        on-data-change="$ctrl.onChange(changedData, selected)"
+        data="$ctrl.ccData"
+        model-name="$ctrl.ccModelName"
+        select-field="netsuiteId"
+        display-field="name"
+        array-list="$ctrl.locationTechWarehouseObjArray">
+      </select-list>
+    </div>
+  </div>
+</div>

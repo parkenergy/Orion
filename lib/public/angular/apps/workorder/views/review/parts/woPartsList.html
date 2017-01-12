@@ -18,8 +18,9 @@
                                         | filter:searchPhrase
                                         | orderBy:quantity:true)">
           <td>
-            <div class="clearfix">{{obj.number}}</div>
-            <div>{{obj.description}}</div>
+            <div class="clearfix"><div ng-if="obj.number">{{obj.number}}</div></div>
+            <div ng-if="obj.description">{{obj.description}}</div>
+            <div ng-if="obj.componentName">{{obj.componentName}}</div>
           </td>
           <td>
             <select ng-model="obj.laborCode" ng-disabled="true">

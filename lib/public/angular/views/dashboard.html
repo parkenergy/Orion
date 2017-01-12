@@ -1,139 +1,181 @@
-<div class="col-md-9">
-  <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" data-target="#showSearch">
-      <h3 class="panel-title">Search</h3>
-      <span class="pull-right "></span>
-    </div>
-    <div class="panel-body collapse" id="showSearch">
-      <form role="form">
-        <div class="form-group">
-          <label>From</label>
-          <input class="form-control search"
-                 ng-model="dates.from"
-                 ng-change="startOfDay()"
-                 name="fromDate" type="date"
-                 placeholder="yyyy-MM-dd">
+<div id="Dashboard">
+  <div class="col-md-11">
+    <div class="panel panel-default">
+      <div class="panel-heading" data-toggle="collapse" data-target="#showSearch">
+        <h3 class="panel-title">Search</h3>
+        <span class="pull-right "></span>
+      </div>
+      <div class="panel-body collapse" id="showSearch">
+        <form role="form">
 
+          <!-- col 1 -->
+          <div class="col-md-6">
 
-        </div>
-        <div class="form-group">
-          <label>To</label>
-          <input class="form-control search"
-                 ng-model="dates.to"
-                 ng-change="endOfDay()"
-                 name="toDate"
-                 type="date"
-                 placeholder="yyyy-MM-dd">
-        </div>
-        <div class="form-group">
-          <label for="unit">Unit Number</label>
-          <input id="unit" class="form-control search" name="unitNumber" ng-model="unitNumber" type="text" />
-        </div>
-        <div class="form-group">
-          <label for="tech">Technician</label>
-          <input id="tech" class="form-control search" name="techName" ng-model="techName" type="text" />
-        </div>
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input id="location" class="form-control search" name="location" ng-model="leaseName" type="text" />
-        </div>
-        <div class="form-group">
-          <label for="customer">Customer</label>
-          <input id="customer" class="form-control search" name="customer" ng-model="customerName" type="text" />
-        </div>
-        <div class="form-group">
-          <label for="billable">Billable To Customer(Workorder): </label>
-          <input id="billable" name="billable" ng-model="billable" type="checkbox" />
-        </div>
-        <div class="form-group">
-          <label for="billParts">Billable To Customer(Parts): </label>
-          <input id="billParts" name="billParts" ng-model="billParts" type="checkbox" />
-        </div>
-        <div class="form-group">
-          <label for="unapproved">Unapproved by Manager</label>
-          <input id="unapproved" name="unapproved" ng-model="unapproved" type="checkbox" />
-        </div>
-        <div class="form-group">
-          <label for="approved">Approved by Manager</label>
-          <input id="approved" name="approved" ng-model="approved" type="checkbox" />
-        </div>
-        <div class="form-group">
-          <label for="synced">Submitted to Netsuite</label>
-          <input id="synced" name="synced" ng-model="synced" type="checkbox" />
-        </div>
-        <button
-          class="btn btn-primary form-inline"
-          type="button"
-          data-toggle="collapse" data-target="#showSearch"
-          ng-click="submit()">
-          Search
-        </button>
-        <button
-          class="btn btn-primary form-inline"
-          ng-class="{reportDisabled: disabled}"
-          type="button"
-          data-toggle="collapse" data-target="#showSearch"
-          ng-click="report()">
-          {{reportText}}
-        </button>
-      </form>
+            <!-- row 1 -->
+            <div class="form-group">
+              <label>From</label>
+              <input class="form-control search"
+                     ng-model="dates.from"
+                     ng-change="startOfDay()"
+                     name="fromDate" type="date"
+                     placeholder="yyyy-MM-dd">
+            </div>
+
+            <!-- row 2 -->
+            <div class="form-group">
+              <label for="unit">Unit Number</label>
+              <input id="unit" class="form-control search" name="unitNumber" ng-model="unitNumber" type="text" />
+            </div>
+
+            <!-- row 3 -->
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input id="location" class="form-control search" name="location" ng-model="leaseName" type="text" />
+            </div>
+
+            <!-- row 4 -->
+            <div class="form-group">
+              <label for="billable">Billable To Customer(Workorder): </label>
+              <input id="billable" name="billable" ng-model="billable" type="checkbox" />
+            </div>
+
+            <!-- row 5 -->
+            <div class="form-group">
+              <label for="billParts">Billable To Customer(Parts): </label>
+              <input id="billParts" name="billParts" ng-model="billParts" type="checkbox" />
+            </div>
+
+            <!-- row 6 -->
+            <div class="form-group">
+              <label for="billed">Billed To Customer(Workorder): </label>
+              <input id="billed" name="billed" ng-model="billed" type="checkbox" />
+            </div>
+
+            <!-- row 7 -->
+            <button
+              class="btn btn-primary form-inline"
+              type="button"
+              data-toggle="collapse" data-target="#showSearch"
+              ng-click="submit()">
+              Search
+            </button>
+            <button
+              class="btn btn-primary form-inline"
+              ng-class="{reportDisabled: disabled}"
+              type="button"
+              data-toggle="collapse" data-target="#showSearch"
+              ng-click="report()">
+              {{reportText}}
+            </button>
+
+          </div>
+
+          <!-- col 2 -->
+          <div class="col-md-6">
+
+            <!-- row 1 -->
+            <div class="form-group">
+              <label>To</label>
+              <input class="form-control search"
+                     ng-model="dates.to"
+                     ng-change="endOfDay()"
+                     name="toDate"
+                     type="date"
+                     placeholder="yyyy-MM-dd">
+            </div>
+
+            <!-- row 2 -->
+            <div class="form-group">
+              <label for="tech">Technician</label>
+              <input id="tech" class="form-control search" name="techName" ng-model="techName" type="text" />
+            </div>
+
+            <!-- row 3 -->
+            <div class="form-group">
+              <label for="customer">Customer</label>
+              <input id="customer" class="form-control search" name="customer" ng-model="customerName" type="text" />
+            </div>
+
+            <!-- row 4 -->
+            <div class="form-group">
+              <label for="unapproved">Unapproved by Manager</label>
+              <input id="unapproved" name="unapproved" ng-model="unapproved" type="checkbox" />
+            </div>
+
+            <!-- row 5 -->
+            <div class="form-group">
+              <label for="approved">Approved by Manager</label>
+              <input id="approved" name="approved" ng-model="approved" type="checkbox" />
+            </div>
+
+            <!-- row 6 -->
+            <div class="form-group">
+              <label for="synced">Submitted to Netsuite</label>
+              <input id="synced" name="synced" ng-model="synced" type="checkbox" />
+            </div>
+
+          </div>
+
+        </form>
+      </div>
     </div>
   </div>
+
+  <table class="table table-hover">
+
+    <thead>
+      <tr class="wo-dashboard">
+        <th ng-click="resort('unitSort');">
+          Unit #
+          <span ng-show="orderByField == 'unitSort' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+          <span ng-show="orderByField == 'unitSort' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+        </th>
+        <th ng-click="resort('techName');">
+          Tech
+          <span ng-show="orderByField == 'techName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+          <span ng-show="orderByField == 'techName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+        </th>
+        <th ng-click="resort('orderType');">
+          Type
+          <span ng-show="orderByField == 'orderType' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+          <span ng-show="orderByField == 'orderType' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+        </th>
+        <th ng-click="resort('unit.locationName');">
+          Location
+          <span ng-show="orderByField == 'locationName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+          <span ng-show="orderByField == 'locationName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+        </th>
+        <th ng-click="resort('unit.customerName');">
+          Customer
+          <span ng-show="orderByField == 'customerName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+          <span ng-show="orderByField == 'customerName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+        </th>
+        <th ng-click="resort('epoch');">
+          Time Started
+          <span ng-show="orderByField == 'epoch' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+          <span ng-show="orderByField == 'epoch' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+        </th>
+        <th ng-click="resort('totalMinutes');">
+          Total WO Time
+          <span ng-show="orderByField == 'totalWoTime' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+          <span ng-show="orderByField == 'totalWoTime' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody infinite-scroll="loadOnScroll()" infinite-scroll-immediate-check="false" infinite-scroll-disabled="!loaded">
+      <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort"  ng-click="clickWorkOrder();"
+        style="background-color: {{setBillableBackgroundColor(workorder)}}">
+        <td>{{ workorder.unitNumber }}</td>
+        <td>{{ workorder.techName }}</td>
+        <td>{{ workorder.orderType }}</td>
+        <td>{{ workorder.locationName}}</td>
+        <td>{{ workorder.customerName }}</td>
+        <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm'}}</td>
+        <td>{{ pad(workorder.totalWoTime.hours) }}:{{ pad(workorder.totalWoTime.minutes) }}</td>
+      </tr>
+    </tbody>
+
+  </table>
+
 </div>
-
-<table class="table table-hover">
-
-  <thead>
-    <tr style="cursor: pointer">
-      <th ng-click="resort('unitSort');">
-        Unit #
-        <span ng-show="orderByField == 'unitSort' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-        <span ng-show="orderByField == 'unitSort' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
-      </th>
-      <th ng-click="resort('techName');">
-        Tech
-        <span ng-show="orderByField == 'techName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-        <span ng-show="orderByField == 'techName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
-      </th>
-      <th ng-click="resort('orderType');">
-        Type
-        <span ng-show="orderByField == 'orderType' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-        <span ng-show="orderByField == 'orderType' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
-      </th>
-      <th ng-click="resort('unit.locationName');">
-        Location
-        <span ng-show="orderByField == 'locationName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-        <span ng-show="orderByField == 'locationName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
-      </th>
-      <th ng-click="resort('unit.customerName');">
-        Customer
-        <span ng-show="orderByField == 'customerName' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-        <span ng-show="orderByField == 'customerName' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
-      </th>
-      <th ng-click="resort('epoch');">
-        Time Started
-        <span ng-show="orderByField == 'epoch' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-        <span ng-show="orderByField == 'epoch' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
-      </th>
-      <th ng-click="resort('totalMinutes');">
-        Total WO Time
-        <span ng-show="orderByField == 'totalWoTime' && !reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-        <span ng-show="orderByField == 'totalWoTime' && reverseSort" class="glyphicon glyphicon-chevron-down"></span>
-      </th>
-    </tr>
-  </thead>
-
-  <tbody infinite-scroll="loadOnScroll()" infinite-scroll-immediate-check="false" infinite-scroll-disabled="!loaded">
-    <tr ng-repeat="workorder in workorders | orderBy:orderByField:reverseSort" ng-click="clickWorkOrder();"
-        style="color: {{workorder.status === 'APPROVED' ? '#9E9E9E' : 'inherit'}}; cursor: pointer">
-      <td>{{ workorder.unitNumber }}</td>
-      <td>{{ workorder.techName }}</td>
-      <td>{{ workorder.orderType }}</td>
-      <td>{{ workorder.locationName}}</td>
-      <td>{{ workorder.customerName }}</td>
-      <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm'}}</td>
-      <td>{{ pad(workorder.totalWoTime.hours) }}:{{ pad(workorder.totalWoTime.minutes) }}</td>
-    </tr>
-  </tbody>
-
-</table>

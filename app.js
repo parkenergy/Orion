@@ -50,20 +50,15 @@ app.get('/', (req, res) => {
 
 //Standard middleware
 log.info("Load standard middleware");
-/*app.use(require('cookie-parser')());
-app.use(require('body-parser').json());*/
 app.use(bodyParser.json({ type: '*/*'}));
 
 app.use(cookieParser());
-//app.use(require('express-query-boolean')());
 app.use(sessions({
   cookieName: 'identity', // cookie name dictates the key name added to the request object
   secret: '?wG!6C5/gn@6&W{U+]Rn>B#9/p.ku&*{x~XCjfw+E)q56Hxr', // should be a large unguessable string
   duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
   activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
 }));
-//log.middleware(app);
-
 
 //Load custom middleware
 log.info({path: path.join(__dirname, '/lib/middleware')}, 'Load middleware from path');
@@ -88,21 +83,12 @@ agenda.define('netsuiteSync', (job, done) => {
       log.info("...Netsuite import finished");
     }
   });
+  done();
 });
 
 agenda.on('ready', () => {
   agenda.every('5 minutes', 'netsuiteSync');
   agenda.start();
-});
-
-log.info("Initial Netsuite import...");
-syncTask.execute((err) => {
-  if(err){
-    log.error({error: err}, "Error occured during Netsuite Sync");
-  }
-  else {
-    log.info("...Netsuite import finished");
-  }
 });
 
 //Listen
@@ -123,3 +109,23 @@ const loader = dir => {
       require(modulePath)(app);
     });
 }
+
+// Gracefully shutdown
+function graceful() {
+  // cancel all netsuiteSync jobs.
+  agenda.cancel({name: 'netsuiteSync'}, function (err,numberRemoved) {
+    if(err) log.trace({err: err}, 'Error Shutting down netsuiteSync agenda job');
+    log.trace({number: numberRemoved}, 'Number of netsuiteSync agenda jobs removed');
+  });
+  agenda.stop();
+  // disconnect from database
+  mongoose.connection.close();
+
+  setTimeout(function () {
+    process.exit(0);
+  },300);
+
+}
+// Run Gracefull when ctrl+c or termination
+process.on('SIGTERM',graceful);
+process.on('SIGINT', graceful); // ctrl+c
