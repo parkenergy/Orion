@@ -159,7 +159,7 @@ describe("WorkOrder Units", function() {
 
         var docs = _.flatten([unitDocs, techDocs, locDocs, custDocs]);
 
-        return WorkOrder.createDoc(docs)
+        return WorkOrder.insertMany(docs)
           .then(function () {
             var newUser = _.clone(userFixture);
 
