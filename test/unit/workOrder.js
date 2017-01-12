@@ -130,36 +130,38 @@ describe("WorkOrder Units", function() {
 
   describe("#list()", function() {
     before(function() {
-      return WorkOrder.remove({}, function (err) {
-        if (err) throw err;
+      return new Promise(function (resolve, reject) {
+        WorkOrder.remove({})
+          .then(function () {
+            var unitDocs = _.range(25).map(function () {
+              var f = _.cloneDeep(fixture);
+              f.unitNumber = "123TEST";
+              return f;
+            });
+            var techDocs = _.range(25).map(function () {
+              var f = _.cloneDeep(fixture);
+              f.techId = "TEST003";
 
-        var unitDocs = _.range(25).map(function () {
-          var f = _.cloneDeep(fixture);
-          f.unitNumber = "123TEST";
-          return f;
-        });
-        var techDocs = _.range(25).map(function () {
-          var f = _.cloneDeep(fixture);
-          f.techId = "TEST003";
+              return f;
+            });
+            var locDocs = _.range(25).map(function () {
+              var f = _.cloneDeep(fixture);
+              f.header.leaseName = "TESTLOC";
 
-          return f;
-        });
-        var locDocs = _.range(25).map(function () {
-          var f = _.cloneDeep(fixture);
-          f.header.leaseName = "TESTLOC";
+              return f;
+            });
+            var custDocs = _.range(25).map(function () {
+              var f = _.cloneDeep(fixture);
+              f.header.customerName = "TESTCUST";
 
-          return f;
-        });
-        var custDocs = _.range(25).map(function () {
-          var f = _.cloneDeep(fixture);
-          f.header.customerName = "TESTCUST";
+              return f;
+            });
 
-          return f;
-        });
-
-        var docs = _.flatten([unitDocs, techDocs, locDocs, custDocs]);
-
-        return WorkOrder.insertMany(docs)
+            return _.flatten([unitDocs, techDocs, locDocs, custDocs]);
+          })
+          .then(function (docs) {
+            return WorkOrder.insertMany(docs);
+          })
           .then(function () {
             var newUser = _.clone(userFixture);
 
@@ -168,7 +170,9 @@ describe("WorkOrder Units", function() {
             newUser.username = "TEST003";
 
             return new User(newUser).save();
-          });
+          })
+          .then(resolve)
+          .catch(reject);
       });
     });
 
