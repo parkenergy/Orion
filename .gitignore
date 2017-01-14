@@ -7,6 +7,7 @@
 .nyc_output
 .Spotlight-V100
 .Trasheslib-cov
+profiling
 
 bower_components
 npm-debug.log
