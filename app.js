@@ -108,7 +108,7 @@ const loader = dir => {
       log.info({path: modulePath, file: __filename, fn: "#loader()"}, "Load module");
       require(modulePath)(app);
     });
-}
+};
 
 // Gracefully shutdown
 function graceful() {
