@@ -99,7 +99,7 @@ app.listen(process.env.PORT || config.port, () => {
 });
 
 //Loader helper
-const loader = dir => {
+function loader(dir) {
   dir = path.resolve(dir);
 
   fs.readdirSync(dir)
@@ -108,7 +108,7 @@ const loader = dir => {
       log.info({path: modulePath, file: __filename, fn: "#loader()"}, "Load module");
       require(modulePath)(app);
     });
-};
+}
 
 // Gracefully shutdown
 function graceful() {
