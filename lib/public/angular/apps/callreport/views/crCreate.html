@@ -3,38 +3,44 @@
 
 <div id="CallReportCreate" class="container-fluid">
   <!-- Content -->
-  <!-- First Panel -->
-  <cr-create-contact-info
-    on-select-change="selectFieldChange(changedData, selected)"
-    on-text-change="textFieldChange(changedData, selected)"
-    activitytypes="activitytypes"
-    titles="titles"
-    callreport="callreport">
-  </cr-create-contact-info>
+  <form name="crForm" ng-submit="save()">
 
-  <!-- Second Panel -->
-  <cr-create-opportunity-info
-    on-select-change="selectFieldChange(changedData, selected)"
-    on-text-change="textFieldChange(changedData, selected)"
-    on-checkbox-change="checkboxChange(changedData, selected)"
-    on-typeahead-change="typeaheadChange(changedData, selected)"
-    customers="customers"
-    statustypes="statustypes"
-    opptypes="opptypes"
-    applicationtypes="applicationtypes"
-    opportunitysizes="opportunitysizes"
-    unittypes="unittypes"
-    callreport="callreport">
-  </cr-create-opportunity-info>
+    <!-- First Panel -->
+    <cr-create-contact-info
+      on-select-change="selectFieldChange(changedData, selected)"
+      on-text-change="textFieldChange(changedData, selected)"
+      activitytypes="activitytypes"
+      titles="titles"
+      callreport="callreport"
+      cr-contact-info="crForm">
+    </cr-create-contact-info>
 
-  <!-- submit button -->
-  <div class="row">
-    <div class="col-md-6 col-md-offset-6">
-      <button class="btn btn-lrg btn-primary pull-right cr-create"
-              ng-click="save()">
+    <!-- Second Panel -->
+    <cr-create-opportunity-info
+      on-select-change="selectFieldChange(changedData, selected)"
+      on-text-change="textFieldChange(changedData, selected)"
+      on-checkbox-change="checkboxChange(changedData, selected)"
+      on-typeahead-change="typeaheadChange(changedData, selected)"
+      customers="customers"
+      statustypes="statustypes"
+      opptypes="opptypes"
+      applicationtypes="applicationtypes"
+      opportunitysizes="opportunitysizes"
+      unittypes="unittypes"
+      callreport="callreport"
+      cr-opp-info="crForm">
+    </cr-create-opportunity-info>
+
+    <!-- submit button -->
+    <div class="row">
+      <div class="col-md-6 col-md-offset-6">
+        <button class="btn btn-lrg btn-primary pull-right cr-create"
+                type="submit">
         Save
-      </button>
+        </button>
+      </div>
     </div>
-  </div>
+
+  </form>
 
 </div>

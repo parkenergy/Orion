@@ -2,11 +2,14 @@
      class="panel panel-default">
 
   <div class="panel-heading">
-    <h3 class="panel-title">Extra Information</h3>
+    <h3 class="panel-title">Company/Application</h3>
   </div>
 
   <!-- Panel for opportunity info -->
   <div class="panel-body cr-opportunity-info">
+
+    <!-- validation check for crOppInfo --->
+    <!--<form name="crOppInfo">-->
 
     <!-- row 1 -->
     <div class="row">
@@ -25,53 +28,65 @@
       <!-- Not a new Customer -->
       <div class="col-md-3"
            ng-if="!$ctrl.callreport.newCustomer">
-        <type-ahead
-          label-text="Customer"
-          on-data-change="$ctrl.typeaheadChange(changedData, selected)"
-          item-path="name"
-          model-name="customer"
-          data="$ctrl.callreport.customer"
-          array-list="$ctrl.customers"
-          limit="12">
-        </type-ahead>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.customer1.$invalid && !$ctrl.crOppInfo.customer1.$pristine }">
+          <label>Customer</label>
+          <input type="text"
+                 ng-model="$ctrl.callreport.customer"
+                 name="customer1"
+                 class="form-control"
+                 ng-change="$ctrl.typeaheadChange($ctrl.callreport.customer,'customer')"
+                 uib-typeahead="item for item in $ctrl.objItemArray | filter:$viewValue | limitTo:12"
+                 typeahead-select-on-exact="true"
+                 typeahead-on-select="$ctrl.typeaheadChange($ctrl.callreport.customer,'customer')"
+                 required>
+        </div>
+
       </div>
 
       <!-- A new Customer -->
       <div class="col-md-3"
            ng-if="$ctrl.callreport.newCustomer">
-        <text-field
-          label-text="Customer"
-          model-name="customer"
-          placeholder-text="Ex: Texas Petroleum"
-          on-data-change="$ctrl.textFieldChange(changedData, selected)"
-          data="$ctrl.callreport.customer">
-        </text-field>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.customer2.$invalid && !$ctrl.crOppInfo.customer2.$pristine }">
+          <label>Customer</label>
+          <input
+            type="text"
+            class="form-control"
+            name="customer2"
+            ng-model="$ctrl.callreport.customer"
+            placeholder="Ex: Texas Petroleum"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.customer,'customer')"
+            required>
+        </div>
       </div>
 
       <!-- col 3 -->
       <div class="col-md-3">
-        <select-list
-          label-text="Status"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="status"
-          display-field="status"
-          model-name="status"
-          data="$ctrl.callreport.status"
-          array-list="$ctrl.statustypes">
-        </select-list>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.status.$invalid}">
+          <label>Status</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.status"
+            name="status"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.status,'status')"
+            ng-options="item.status as item.status for item in $ctrl.statustypes | filter:$select"
+            required>
+          </select>
+        </div>
       </div>
 
       <!-- col 4 -->
       <div class="col-md-3">
-        <select-list
-          label-text="Application Type"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="type"
-          display-field="type"
-          model-name="applicationType"
-          data="$ctrl.callreport.applicationType"
-          array-list="$ctrl.applicationtypes">
-        </select-list>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.type.$invalid}">
+          <label>Application Type</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.applicationType"
+            name="type"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.applicationType,'applicationType')"
+            ng-options="item.type as item.type for item in $ctrl.applicationtypes | filter:$select"
+            required>
+          </select>
+        </div>
       </div>
 
       <!-- col 5 -->
@@ -94,13 +109,17 @@
 
       <!-- col 1 -->
       <div class="col-md-3">
-        <text-field
-          label-text="Office Location"
-          model-name="officeLocation"
-          placeholder-text="Ex: Midland"
-          on-data-change="$ctrl.textFieldChange(changedData, selected)"
-          data="$ctrl.callreport.officeLocation">
-        </text-field>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.location.$invalid && !$ctrl.crOppInfo.location.$pristine}">
+          <label>Office Location</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.officeLocation"
+            name="location"
+            placeholder="Ex: Midland"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.officeLocation,'officeLocation')"
+            required>
+        </div>
       </div>
 
       <!-- col 2 -->
@@ -141,6 +160,8 @@
       </div>
 
     </div> <!-- end of row 2 -->
+
+    <!--</form>--> <!-- end of crOppInfo form -->
 
   </div> <!-- end of panel -->
 

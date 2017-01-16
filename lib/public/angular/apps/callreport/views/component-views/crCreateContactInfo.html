@@ -8,52 +8,65 @@
   <!-- Panel for contact info -->
   <div class="panel-body cr-contact-info">
 
+    <!-- validation check for crContactInfo -->
+    <!--<form name="crContactInfo">-->
+
     <!-- row 1 -->
     <div class="row">
       <!-- col 1 -->
-      <div class="col-md-3 form-group">
+      <div class="col-md-3 form-group" ng-class="{'has-error': $ctrl.crContactInfo.date.$invalid || $ctrl.crContactInfo.date.$error.date}">
         <label>Date</label>
         <input
           class="form-control search"
           ng-model="$ctrl.callreport.callTime"
-          name="callDate" type="date"
-          placeholder="yyyy-mm-dd">
+          name="date"
+          type="date"
+          placeholder="yyyy-mm-dd"
+          required>
       </div>
 
       <!-- col 2 -->
       <div class="col-md-3">
-        <select-list
-          label-text="Activity Type"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="activity"
-          display-field="activity"
-          model-name="activityType"
-          data="$ctrl.callreport.activityType"
-          array-list="$ctrl.activitytypes">
-        </select-list>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.activity.$invalid}">
+          <label>Activity Type</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.activityType"
+            name="activity"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.activityType,'activityType')"
+            ng-options="item.activity as item.activity for item in $ctrl.activitytypes | filter:$select"
+            required>
+          </select>
+        </div>
       </div>
 
       <!-- col 3 -->
       <div class="col-md-3">
-        <text-field
-          label-text="Contact Name"
-          model-name="contactName"
-          on-data-change="$ctrl.textFieldChange(changedData, selected)"
-          data="$ctrl.callreport.contactName">
-        </text-field>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.contactName.$invalid && !$ctrl.crContactInfo.contactName.$pristine}">
+          <label>Contact Name</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.contactName"
+            name="contactName"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.contactName,'contactName')"
+            required>
+        </div>
       </div>
 
       <!-- col 4 -->
       <div class="col-md-3">
-        <select-list
-          label-text="Job Title"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="type"
-          display-field="type"
-          model-name="title"
-          data="$ctrl.callreport.title"
-          array-list="$ctrl.titles">
-        </select-list>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.title.$invalid}">
+          <label>Job Title</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.title"
+            name="title"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.title,'title')"
+            ng-options="item.type as item.type for item in $ctrl.titles | filter:$select"
+            required>
+          </select>
+        </div>
       </div>
 
     </div> <!-- end of row 1 -->
@@ -61,51 +74,52 @@
     <!-- row 2 -->
     <div class="row">
 
-      <form name="numberEmail">
-        <!-- col 1 -->
-        <div class="col-md-3">
-          <text-field
-            label-text="Phone Number"
-            model-name="phoneNumber"
-            placeholder-text="Ex: 888-888-8888"
-            on-data-change="$ctrl.textFieldChange(changedData, selected)"
-            data="$ctrl.callreport.phoneNumber">
-          </text-field>
-        </div>
+      <!-- col 1 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Phone Number"
+          model-name="phoneNumber"
+          placeholder-text="Ex: 888-888-8888"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.phoneNumber">
+        </text-field>
+      </div>
 
-        <!-- col 2 and col 3 -->
-        <div class="col-md-6">
-          <div class="form-group" ng-class="{ 'has-error': numberEmail.email.$error.pattern }">
-            <label>Email</label>
-            <input
-              type="text"
-              class="col-md-12 form-control"
-              ng-model="$ctrl.callreport.email"
-              name="email"
-              ng-pattern="$ctrl.testEmail"
-              placeholder="Ex: emailName@provider.com"
-              ng-model-options="{debounce: 1000}"
-              required>
-            <p ng-show="numberEmail.email.$error.pattern" class="help-block">Please format email correctly.</p>
-          </div>
+      <!-- col 2 and col 3 -->
+      <div class="col-md-6">
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.email.$error.pattern }">
+          <label>Email</label>
+          <input
+            type="text"
+            class="col-md-12 form-control"
+            ng-model="$ctrl.callreport.email"
+            name="email"
+            ng-pattern="$ctrl.testEmail"
+            placeholder="Ex: emailName@provider.com"
+            ng-model-options="{debounce: 1000}"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.email,'email')">
+          <p ng-show="$ctrl.crContactInfo.email.$error.pattern" class="help-block">Please format email correctly.</p>
         </div>
-
-      </form>
+      </div>
 
       <!-- col 4 -->
       <div class="col-md-3">
-        <select-list
-          label-text="Decision Maker?"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="type"
-          display-field="type"
-          model-name="decisionMaker"
-          data="$ctrl.callreport.decisionMaker"
-          array-list="$ctrl.decisionMakerObjArray">
-        </select-list>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.decisionMaker.$invalid}">
+          <label>Decision Maker?</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.decisionMaker"
+            name="decisionMaker"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.decisionMaker,'decisionMaker')"
+            ng-options="item.type as item.type for item in $ctrl.decisionMakerObjArray | filter:$select"
+            required>
+          </select>
+        </div>
       </div>
 
-    </div> <!-- end of row 2-->
+    </div> <!-- end of row 2 -->
+
+    <!--</form>--> <!-- end of form -->
 
   </div> <!-- end of panel -->
 
