@@ -76,13 +76,20 @@
 
       <!-- col 1 -->
       <div class="col-md-3">
-        <text-field
-          label-text="Phone Number"
-          model-name="phoneNumber"
-          placeholder-text="Ex: 888-888-8888"
-          on-data-change="$ctrl.textFieldChange(changedData, selected)"
-          data="$ctrl.callreport.phoneNumber">
-        </text-field>
+
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.phone.$error.pattern }">
+          <label>Phone Number</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.phoneNumber"
+            name="phone"
+            ng-pattern="$ctrl.phoneNumber"
+            placeholder="Ex: 888-888-8888"
+            ng-model-options="{debounce: 1000}"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.phoneNumber,'phoneNumber')">
+          <p ng-show="$ctrl.crContactInfo.phone.$error.pattern" class="help-block">Correct Format: ###-###-####</p>
+        </div>
       </div>
 
       <!-- col 2 and col 3 -->
@@ -91,7 +98,7 @@
           <label>Email</label>
           <input
             type="text"
-            class="col-md-12 form-control"
+            class="form-control"
             ng-model="$ctrl.callreport.email"
             name="email"
             ng-pattern="$ctrl.testEmail"
