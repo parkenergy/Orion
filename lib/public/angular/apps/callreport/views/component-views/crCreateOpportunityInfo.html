@@ -6,13 +6,13 @@
   </div>
 
   <!-- Panel for opportunity info -->
-  <div class="panel cr-opportunity-info">
+  <div class="panel-body cr-opportunity-info">
 
     <!-- row 1 -->
     <div class="row">
 
       <!-- col 1 -->
-      <div class="col-md-1 col-xs-1">
+      <div class="col-md-1">
         <label>New</label>
         <input
           class="cr-checkbox"
@@ -23,7 +23,7 @@
 
       <!-- col 2 -->
       <!-- Not a new Customer -->
-      <div class="col-md-3 col-xs-3"
+      <div class="col-md-3"
            ng-if="!$ctrl.callreport.newCustomer">
         <type-ahead
           label-text="Customer"
@@ -37,7 +37,7 @@
       </div>
 
       <!-- A new Customer -->
-      <div class="col-md-3 col-xs-3"
+      <div class="col-md-3"
            ng-if="$ctrl.callreport.newCustomer">
         <text-field
           label-text="Customer"
@@ -49,7 +49,7 @@
       </div>
 
       <!-- col 3 -->
-      <div class="col-md-3 col-xs-3">
+      <div class="col-md-3">
         <select-list
           label-text="Status"
           on-data-change="$ctrl.selectFieldChange(changedData, selected)"
@@ -62,20 +62,20 @@
       </div>
 
       <!-- col 4 -->
-      <div class="col-md-3 col-xs-3">
+      <div class="col-md-3">
         <select-list
-          label-text="Opp Type"
+          label-text="Application Type"
           on-data-change="$ctrl.selectFieldChange(changedData, selected)"
           select-field="type"
           display-field="type"
-          model-name="oppType"
-          data="$ctrl.callreport.oppType"
-          array-list="$ctrl.opptypes">
+          model-name="applicationType"
+          data="$ctrl.callreport.applicationType"
+          array-list="$ctrl.applicationtypes">
         </select-list>
       </div>
 
       <!-- col 5 -->
-      <div class="col-md-2 col-xs-2">
+      <div class="col-md-2">
         <select-list
           label-text="Unity Type"
           on-data-change="$ctrl.selectFieldChange(changedData, selected)"
@@ -93,20 +93,18 @@
     <div class="row">
 
       <!-- col 1 -->
-      <div class="col-md-3 col-xs-3">
-        <select-list
-          label-text="Activity Type"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="activity"
-          display-field="activity"
-          model-name="activityType"
-          data="$ctrl.callreport.activityType"
-          array-list="$ctrl.activitytypes">
-        </select-list>
+      <div class="col-md-3">
+        <text-field
+          label-text="Office Location"
+          model-name="officeLocation"
+          placeholder-text="Ex: Midland"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.officeLocation">
+        </text-field>
       </div>
 
       <!-- col 2 -->
-      <div class="col-md-3 col-xs-3">
+      <div class="col-md-3">
         <select-list
           label-text="Size of Opp"
           on-data-change="$ctrl.selectFieldChange(changedData, selected)"
@@ -119,26 +117,27 @@
       </div>
 
       <!-- col 3 -->
-      <div class="col-md-3 col-xs-3">
+      <div class="col-md-3">
         <select-list
-          label-text="Application Type"
+          label-text="Opp Type"
           on-data-change="$ctrl.selectFieldChange(changedData, selected)"
           select-field="type"
           display-field="type"
-          model-name="applicationType"
-          data="$ctrl.callreport.applicationType"
-          array-list="$ctrl.applicationtypes">
+          model-name="oppType"
+          data="$ctrl.callreport.oppType"
+          array-list="$ctrl.opptypes">
         </select-list>
       </div>
 
       <!-- col 4 -->
-      <div class="col-md-3 col-xs-3 form-group">
-        <label>Date</label>
-        <input
-          class="form-control search"
-          ng-model="$ctrl.callreport.callTime"
-          name="callDate" type="date"
-          placeholder="yyyy-mm-dd">
+      <div class="col-md-3">
+        <text-field
+          label-text="Current Spend"
+          model-name="currentSpend"
+          placeholder-text="Ex: 50"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.currentSpend">
+        </text-field>
       </div>
 
     </div> <!-- end of row 2 -->
