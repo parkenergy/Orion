@@ -6234,9 +6234,8 @@ input[type="checkbox"] {
   margin-bottom: 10px;
 }
 #PartOrderCreate button.po-create {
-  width: 90%;
-  height: 100px;
-  margin: 0px 5% 15px 5%;
+  width: 100%;
+  height: 80px;
 }
 #PartOrderEdit div.panel.panel-default.po-edit {
   margin-left: 15px;
@@ -6271,14 +6270,9 @@ input[type="checkbox"] {
 #CallReportOverview i.fa.fa-refresh.fa-spin.cr-overview {
   font-size: 80px;
 }
-#CallReportCreate div.panel.panel-default.po-edit {
-  margin-left: 15px;
-  margin-right: 25px;
-}
-#CallReportCreate button.po-edit {
+#CallReportCreate button.cr-create {
   width: 100%;
-  height: 100px;
-  margin: 0px 15px 15px 25px;
+  height: 80px;
 }
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;

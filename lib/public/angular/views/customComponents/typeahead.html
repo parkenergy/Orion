@@ -1,0 +1,13 @@
+<div id="Ctypeahead" class="form-group">
+  <label for="{{$ctrl.data}}">{{$ctrl.labelText}}</label>
+  <input type="text"
+    placeholder="{{$ctrl.placeholderText}}"
+    ng-model="$ctrl.data"
+    name="{{$ctrl.data}}"
+    class="form-control"
+    ng-change="$ctrl.onUpdate($ctrl.data)"
+    uib-typeahead="item for item in $ctrl.objItemArray | filter:$viewValue | limitTo:$ctrl.limit"
+    ng-disabled="$ctrl.disabled"
+    typeahead-select-on-exact="true"
+    typeahead-on-select="$ctrl.onUpdate($item)">
+</div>

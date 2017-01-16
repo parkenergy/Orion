@@ -1,0 +1,11 @@
+<!-- datefield -->
+<div id="Cdatefield" class="form-group">
+  <label for="{{$ctrl.data}}" ng-hide="!$ctrl.labelText">{{$ctrl.labelText}}</label>
+  <datepicker
+    class="well well-sm"
+    ng-change="$ctrl.onUpdate($ctrl.data)"
+    ng-model="$ctrl.data"
+    show-weeks="$ctrl.weeks"
+    placeholder="{{$ctrl.placeholderText}}">
+  </datepicker>
+</div>
