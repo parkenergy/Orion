@@ -1,4 +1,0 @@
-nodeBin: '/usr/bin/node'
-appPath: '/vagrant/app.js'
-user: 'vagrant'
-env: 'development'

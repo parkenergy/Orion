@@ -1,6 +1,6 @@
 {
   "name": "Orion",
-  "version": "0.5.7",
+  "version": "0.6.0r1",
   "description": "A workorder tracking software system for Park Energy",
   "main": "",
   "scripts": {
@@ -24,8 +24,8 @@
     "url": ""
   },
   "engines": {
-    "node": "^4.1.1",
-    "npm": "^2.1.0"
+    "node": "^7.4.0",
+    "npm": "^4.0.5"
   },
   "homepage": "",
   "dependencies": {

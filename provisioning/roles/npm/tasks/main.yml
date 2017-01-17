@@ -11,4 +11,5 @@
     - nodemon
     - protractor
     - jshint
+    - bunyan
     - browserify

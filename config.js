@@ -1,6 +1,7 @@
-var BunyanSlack = require('bunyan-slack');
+'use strict';
+const BunyanSlack = require('bunyan-slack');
 
-var config = {
+const config = {
   production: {
     mongodb: "mongodb://172.31.8.0:27017/orion",
     viewsPath: "./lib/views",
