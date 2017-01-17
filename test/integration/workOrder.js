@@ -44,7 +44,7 @@ describe("WorkOrder Integrations", function () {
   it("Should sync WorkOrder to Netsuite", function () {
     nock('https://rest.na1.netsuite.com')
       .post('/app/site/hosting/restlet.nl?script=112&deploy=1', {
-        pm: 'F',
+        isPM: 'F',
         techId: 'TEST001',
         truckId: 'truck001',
         unitNumber: 'T456'
