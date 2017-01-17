@@ -1,0 +1,223 @@
+<div id="CrCreateOpportunityInfo"
+     class="panel panel-default">
+
+  <div class="panel-heading">
+    <h3 class="panel-title">Company/Application</h3>
+  </div>
+
+  <!-- Panel for opportunity info -->
+  <div class="panel-body cr-opportunity-info">
+
+    <!-- validation check for crOppInfo --->
+    <!--<form name="crOppInfo">-->
+
+    <!-- row 1 -->
+    <div class="row">
+
+      <!-- col 1 -->
+      <div class="col-md-1">
+        <label>New</label>
+        <input
+          type="checkbox"
+          ng-model="$ctrl.callreport.newCustomer"
+          ng-change="$ctrl.checkboxChange($ctrl.callreport.newCustomer, 'newCustomer')">
+      </div>
+
+      <!-- col 2 -->
+      <!-- Not a new Customer -->
+      <div class="col-md-3"
+           ng-if="!$ctrl.callreport.newCustomer">
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.customer1.$invalid && !$ctrl.crOppInfo.customer1.$pristine }">
+          <label>Customer</label>
+          <input type="text"
+                 ng-model="$ctrl.callreport.customer"
+                 name="customer1"
+                 class="form-control"
+                 ng-change="$ctrl.typeaheadChange($ctrl.callreport.customer,'customer')"
+                 uib-typeahead="item for item in $ctrl.objItemArray | filter:$viewValue | limitTo:12"
+                 typeahead-select-on-exact="true"
+                 typeahead-on-select="$ctrl.typeaheadChange($ctrl.callreport.customer,'customer')"
+                 required>
+        </div>
+
+      </div>
+
+      <!-- A new Customer -->
+      <div class="col-md-3"
+           ng-if="$ctrl.callreport.newCustomer">
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.customer2.$invalid && !$ctrl.crOppInfo.customer2.$pristine }">
+          <label>Customer</label>
+          <input
+            type="text"
+            class="form-control"
+            name="customer2"
+            ng-model="$ctrl.callreport.customer"
+            placeholder="Ex: Texas Petroleum"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.customer,'customer')"
+            required>
+        </div>
+      </div>
+
+      <!-- col 3 -->
+      <div class="col-md-3">
+        <!-- Drop down list for activity type -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.status.$invalid}" ng-show="!$ctrl.callreport.isManualStatus">
+          <label>Status</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.status"
+            name="status"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.status,'status')"
+            ng-options="item.status as item.status for item in $ctrl.statustypes | filter:$select"
+            required>
+          </select>
+        </div>
+
+        <!-- if Other is selected from status' -->
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crOppInfo.status.$invalid && !$ctrl.crOppInfo.status.$pristine}" ng-show="$ctrl.callreport.isManualStatus">
+          <label>Status</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.status"
+            name="status"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.status,'status')"
+            placeholder="Back to list type:  *"
+            required>
+        </div>
+      </div>
+
+      <!-- col 4 -->
+      <div class="col-md-3">
+        <!-- Drop down list for application types -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.appType.$invalid}" ng-if="!$ctrl.callreport.isManualAppType">
+          <label>Application Type</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.applicationType"
+            name="appType"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.applicationType,'applicationType')"
+            ng-options="item.type as item.type for item in $ctrl.applicationtypes | filter:$select"
+            required>
+          </select>
+        </div>
+
+        <!-- if Other is selected from application types -->
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crOppInfo.appType.$invalid && !$ctrl.crOppInfo.appType.$pristine}" ng-show="$ctrl.callreport.isManualAppType">
+          <label>Application Type</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.applicationType"
+            name="appType"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.applicationType,'applicationType')"
+            placeholder="Back to list type:  *"
+            required>
+        </div>
+      </div>
+
+      <!-- col 5 -->
+      <div class="col-md-2">
+        <!-- List for unit Types -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.unitType.$invalid}" ng-show="!$ctrl.callreport.isManualUnitType">
+          <label>Unit Type</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.unitType"
+            name="unitType"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.unitType,'unitType')"
+            ng-options="item.type as item.type for item in $ctrl.unittypes | filter:$select">
+          </select>
+        </div>
+
+        <!-- Text if other is selected for unit types -->
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.unitType.$invalid && !$ctrl.crContactInfo.unitType.$pristine }" ng-show="$ctrl.callreport.isManualUnitType">
+          <label>Unit Type</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.unitType"
+            name="unitType"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.unitType, 'unitType')"
+            placeholder="Back to list type:  *">
+        </div>
+      </div>
+
+    </div> <!-- end of row 1 -->
+
+    <!-- row 2 -->
+    <div class="row">
+
+      <!-- col 1 -->
+      <div class="col-md-3">
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.location.$invalid && !$ctrl.crOppInfo.location.$pristine}">
+          <label>Office Location</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.officeLocation"
+            name="location"
+            placeholder="Ex: Midland"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.officeLocation,'officeLocation')"
+            required>
+        </div>
+      </div>
+
+      <!-- col 2 -->
+      <div class="col-md-3">
+        <select-list
+          label-text="Size of Opp"
+          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+          select-field="size"
+          display-field="size"
+          model-name="size"
+          data="$ctrl.callreport.size"
+          array-list="$ctrl.opportunitysizes">
+        </select-list>
+      </div>
+
+      <!-- col 3 -->
+      <div class="col-md-3">
+        <!-- List for Opportunity Types -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.oppType.$invalid}" ng-show="!$ctrl.callreport.isManualOppType">
+          <label>Opp Type</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.oppType"
+            name="oppType"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.oppType,'oppType')"
+            ng-options="item.type as item.type for item in $ctrl.opptypes | filter:$select">
+          </select>
+        </div>
+
+        <!-- Text if other is selected for opp types -->
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.oppType.$invalid && !$ctrl.crContactInfo.oppType.$pristine }" ng-show="$ctrl.callreport.isManualOppType">
+          <label>Opp Type</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.oppType"
+            name="oppType"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.oppType, 'oppType')"
+            placeholder="Back to list type:  *">
+        </div>
+      </div>
+
+      <!-- col 4 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Current Spend"
+          model-name="currentSpend"
+          placeholder-text="Ex: 50"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.currentSpend">
+        </text-field>
+      </div>
+
+    </div> <!-- end of row 2 -->
+
+    <!--</form>--> <!-- end of crOppInfo form -->
+
+  </div> <!-- end of panel -->
+
+</div> <!-- end of component -->

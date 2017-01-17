@@ -6234,9 +6234,8 @@ input[type="checkbox"] {
   margin-bottom: 10px;
 }
 #PartOrderCreate button.po-create {
-  width: 90%;
-  height: 100px;
-  margin: 0px 5% 15px 5%;
+  width: 100%;
+  height: 80px;
 }
 #PartOrderEdit div.panel.panel-default.po-edit {
   margin-left: 15px;
@@ -6260,6 +6259,42 @@ input[type="checkbox"] {
 }
 #PartOrderOverview i.fa.fa-refresh.fa-spin.po-overview {
   font-size: 80px;
+}
+#CrOverviewTable {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+#CrOverviewTable div.panel-body.cr-main-dash-body {
+  padding: 0px;
+}
+#CrOverviewTable div.panel-body.cr-main-dash-body div.cr-search-bar {
+  padding-top: 20px;
+}
+#CrOverviewTable div.panel-body.cr-main-dash-body table.table-bordered.table-striped.table-hover {
+  margin-bottom: 0px;
+}
+#CrOverviewTable div.panel-body.cr-main-dash-body table.table-bordered.table-striped.table-hover tr {
+  cursor: pointer;
+}
+#CrReviewContactInfo div.row div.col-md-3 div.crci-content {
+  background-color: #c2c8d1;
+  text-align: center;
+  vertical-align: middle;
+}
+#CallReportOverview div.text-center.cr-overview {
+  margin-bottom: 25px;
+}
+#CallReportOverview div.text-center.cr-overview button.cr-overview {
+  width: 80%;
+  height: 50px;
+}
+#CallReportOverview i.fa.fa-refresh.fa-spin.cr-overview {
+  font-size: 80px;
+}
+#CallReportCreate button.cr-create {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 10px;
 }
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;

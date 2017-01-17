@@ -25,6 +25,7 @@ angular.module('Orion', [
   'UserApp',
   'VendorApp',
   'PartOrderApp',
+  'CallReportApp',
   'WorkOrderApp',
   'ui.bootstrap',
   'ui.utils',

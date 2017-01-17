@@ -1,0 +1,26 @@
+<alerts></alerts>
+<header></header>
+
+<div id="CallReportOverview">
+  <div class="text-center cr-overview">
+    <button class="btn btn-lg btn-primary cr-overview"
+            ng-click="createCallReport();">
+      Create Call Report
+    </button>
+  </div>
+
+  <div>
+    <div align="center">
+      <i ng-show="spinner" class="fa fa-refresh fa-spin cr-overview"></i>
+    </div>
+
+    <!-- content -->
+    <cr-overview-table
+      ng-show="loaded"
+      callreports="callreports"
+      scroll-content-search="CallReportScrollLookup(query)"
+      content-search="lookup(query)">
+    </cr-overview-table>
+  </div>
+
+</div>

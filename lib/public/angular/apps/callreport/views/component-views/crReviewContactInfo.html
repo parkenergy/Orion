@@ -1,0 +1,85 @@
+<div id="CrReviewContactInfo"
+     class="panel panel-default">
+
+  <div class="panel-heading">
+    <h3 class="panel-title">Contact Information</h3>
+  </div>
+
+  <!-- Panel -->
+  <div class="panel-body cr-rv-contact-info">
+
+    <!-- row 1-->
+    <div class="row">
+
+      <!-- col 1 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Date"
+          data=" $ctrl.callreport.callTime | date: 'MM/dd/yyyy HH:mm:ss' "
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 2 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Activity Type"
+          data="$ctrl.callreport.activityType"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 3 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Contact Name"
+          data="$ctrl.callreport.contactName"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 4 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Job Title"
+          data="$ctrl.callreport.title"
+          disabled="true">
+        </text-field>
+      </div>
+
+    </div> <!-- end of row 1 -->
+
+    <!-- row 2 -->
+    <div class="row">
+
+      <!-- col 1 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Phone Number"
+          data="$ctrl.callreport.phoneNumber"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 2-3 -->
+      <div class="col-md-6">
+        <text-field
+          label-text="Email"
+          data="$ctrl.callreport.email"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 4 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Decision Maker?"
+          data="$ctrl.callreport.decisionMaker"
+          disabled="true">
+        </text-field>
+      </div>
+
+    </div> <!-- end of row 2 -->
+
+  </div> <!-- Panel End-->
+</div>

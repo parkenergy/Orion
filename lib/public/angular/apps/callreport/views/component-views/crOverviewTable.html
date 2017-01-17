@@ -1,0 +1,161 @@
+<div id="CrOverviewTable"
+     class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Part Orders</h3>
+  </div>
+  <div class="panel-body cr-main-dash-body">
+
+    <!-- Search Bar Panel -->
+    <div class="col-md-9 cr-search-bar">
+      <div class="panel panel-default">
+
+        <!-- Title -->
+        <div class="panel-heading" data-toggle="collapse" data-target="#crSearch">
+          <h3 class="panel-title">Search</h3>
+        </div>
+
+        <!-- collapsible search settings -->
+        <div class="panel-body collapse" id="crSearch">
+
+          <form role="form">
+
+            <!-- col 1 -->
+            <div class="col-md-6">
+
+              <!-- row 1 -->
+              <div class="form-group">
+                <label>From</label>
+                <input
+                  class="form-control search"
+                  ng-model="$ctrl.dates.from"
+                  ng-change="$ctrl.startofDaty()"
+                  name="fromDate" type="date"
+                  placeholder="yyyy-mm-dd">
+              </div>
+
+              <!-- row 2 -->
+              <button
+                class="btn btn-primary form-inline"
+                type="button"
+                data-toggle="collapse"
+                data-target="#crSearch"
+                ng-click="$ctrl.submit()">
+                Search
+              </button>
+
+            </div>
+
+            <!-- col 2 -->
+            <div class="col-md-6">
+
+              <!-- row 1-->
+              <div class="form-group">
+                <label>To</label>
+                <input
+                  class="form-control search"
+                  ng-model="$ctrl.dates.to"
+                  ng-change="$ctrl.endOfDay()"
+                  name="toDate" type="date"
+                  placeholder="yyyy-mm-dd">
+              </div>
+
+            </div>
+
+          </form> <!-- End of Search Form -->
+        </div>  <!-- End of Search Panel-->
+
+
+      </div> <!-- End of Search Bar -->
+    </div> <!-- End of Search bar body -->
+
+    <!--Start Search Table-->
+    <table class="table table-bordered table-striped table-hover">
+      <!--Search settings-->
+      <thead>
+        <tr>
+
+          <!-- Sort by Unit #-->
+          <th ng-click="$ctrl.resort('contactName')">
+            Contact Name
+            <span
+              ng-show="$ctrl.sortType == 'contactName' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'contactName' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by MPN -->
+          <th ng-click="$ctrl.resort('customer')">
+            Customer Name
+            <span
+              ng-show="$ctrl.sortType == 'customer' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'customer' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by TechID-->
+          <th ng-click="$ctrl.resort('status')">
+            Status
+            <span
+              ng-show="$ctrl.sortType == 'status' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'status' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <!-- Sort by Destination Locaiton -->
+         <!-- <th ng-click="$ctrl.resort('officeLocation')">
+            Destination
+            <span
+              ng-show="$ctrl.sortType == 'officeLocation' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'officeLocation' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>-->
+
+          <!-- Sort by Status-->
+          <!--<th ng-click="$ctrl.resort('size')">
+            Status
+            <span
+              ng-show="$ctrl.sortType == 'size' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'size' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>-->
+
+          <!-- Sort by Time Created -->
+          <th ng-click="$ctrl.resort('epoch')">
+            Time Created
+            <span
+              ng-show="$ctrl.sortType == 'epoch' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'epoch' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+        </tr>
+      </thead>
+      <!-- Sorted Table -->
+      <tbody infinite-scroll="$ctrl.loadOnScroll()"
+             infinite-scroll-immediate-check="false"
+             infinite-scroll-disabled="$ctrl.loaded">
+        <tr ng-repeat="callreport in $ctrl.callreports | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToCallReport(callreport);">
+          <td>{{ callreport.contactName }}</td>
+          <td>{{ callreport.customer }}</td>
+          <td>{{ callreport.status }}</td>
+          <!--<td>{{ callreport.officeLocation }}</td>
+          <td>{{ callreport.size }}</td>-->
+          <td>{{ callreport.callTime | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+    <!--End Serch Table-->
+  </div>
+</div>
