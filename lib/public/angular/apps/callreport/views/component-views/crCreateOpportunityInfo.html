@@ -62,7 +62,7 @@
       <!-- col 3 -->
       <div class="col-md-3">
         <!-- Drop down list for activity type -->
-        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.status.$invalid}" ng-show="!$ctrl.otherStatus">
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.status.$invalid}" ng-show="!$ctrl.callreport.isManualStatus">
           <label>Status</label>
           <select
             class="form-control"
@@ -75,7 +75,7 @@
         </div>
 
         <!-- if Other is selected from status' -->
-        <div class="form-group" ng-class="{ 'has-error': $ctrl.crOppInfo.status.$invalid && !$ctrl.crOppInfo.status.$pristine}" ng-show="$ctrl.otherStatus">
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crOppInfo.status.$invalid && !$ctrl.crOppInfo.status.$pristine}" ng-show="$ctrl.callreport.isManualStatus">
           <label>Status</label>
           <input
             type="text"
@@ -91,7 +91,7 @@
       <!-- col 4 -->
       <div class="col-md-3">
         <!-- Drop down list for application types -->
-        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.appType.$invalid}" ng-if="!$ctrl.otherAppType">
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.appType.$invalid}" ng-if="!$ctrl.callreport.isManualAppType">
           <label>Application Type</label>
           <select
             class="form-control"
@@ -104,7 +104,7 @@
         </div>
 
         <!-- if Other is selected from application types -->
-        <div class="form-group" ng-class="{ 'has-error': $ctrl.crOppInfo.appType.$invalid && !$ctrl.crOppInfo.appType.$pristine}" ng-show="$ctrl.otherAppType">
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crOppInfo.appType.$invalid && !$ctrl.crOppInfo.appType.$pristine}" ng-show="$ctrl.callreport.isManualAppType">
           <label>Application Type</label>
           <input
             type="text"
@@ -120,26 +120,28 @@
       <!-- col 5 -->
       <div class="col-md-2">
         <!-- List for unit Types -->
-        <select-list
-          ng-show="!$ctrl.otherUnitType"
-          label-text="Unit Type"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="type"
-          display-field="type"
-          model-name="unitType"
-          data="$ctrl.callreport.unitType"
-          array-list="$ctrl.unittypes">
-        </select-list>
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.unitType.$invalid}" ng-show="!$ctrl.callreport.isManualUnitType">
+          <label>Unit Type</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.unitType"
+            name="unitType"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.unitType,'unitType')"
+            ng-options="item.type as item.type for item in $ctrl.unittypes | filter:$select">
+          </select>
+        </div>
 
         <!-- Text if other is selected for unit types -->
-        <text-field
-          ng-show="$ctrl.otherUnitType"
-          label-text="Unit Type"
-          model-name="unitType"
-          placeholder-text="Back to list type:  *"
-          on-data-change="$ctrl.textFieldChange(changedData, selected)"
-          data="$ctrl.callreport.unitType">
-        </text-field>
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.unitType.$invalid && !$ctrl.crContactInfo.unitType.$pristine }" ng-show="$ctrl.callreport.isManualUnitType">
+          <label>Unit Type</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.unitType"
+            name="unitType"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.unitType, 'unitType')"
+            placeholder="Back to list type:  *">
+        </div>
       </div>
 
     </div> <!-- end of row 1 -->
@@ -177,15 +179,29 @@
 
       <!-- col 3 -->
       <div class="col-md-3">
-        <select-list
-          label-text="Opp Type"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="type"
-          display-field="type"
-          model-name="oppType"
-          data="$ctrl.callreport.oppType"
-          array-list="$ctrl.opptypes">
-        </select-list>
+        <!-- List for Opportunity Types -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.oppType.$invalid}" ng-show="!$ctrl.callreport.isManualOppType">
+          <label>Opp Type</label>
+          <select
+            class="form-control"
+            ng-model="$ctrl.callreport.oppType"
+            name="oppType"
+            ng-change="$ctrl.selectFieldChange($ctrl.callreport.oppType,'oppType')"
+            ng-options="item.type as item.type for item in $ctrl.opptypes | filter:$select">
+          </select>
+        </div>
+
+        <!-- Text if other is selected for opp types -->
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.oppType.$invalid && !$ctrl.crContactInfo.oppType.$pristine }" ng-show="$ctrl.callreport.isManualOppType">
+          <label>Opp Type</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.oppType"
+            name="oppType"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.oppType, 'oppType')"
+            placeholder="Back to list type:  *">
+        </div>
       </div>
 
       <!-- col 4 -->

@@ -9,6 +9,7 @@
     <cr-create-contact-info
       on-select-change="selectFieldChange(changedData, selected)"
       on-text-change="textFieldChange(changedData, selected)"
+      on-manual-change="isManualChange(changedData, selected)"
       activitytypes="activitytypes"
       titles="titles"
       callreport="callreport"
@@ -21,6 +22,7 @@
       on-text-change="textFieldChange(changedData, selected)"
       on-checkbox-change="checkboxChange(changedData, selected)"
       on-typeahead-change="typeaheadChange(changedData, selected)"
+      on-manual-change="isManualChange(changedData, selected)"
       customers="customers"
       statustypes="statustypes"
       opptypes="opptypes"

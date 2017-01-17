@@ -28,7 +28,7 @@
       <!-- col 2 -->
       <div class="col-md-3">
         <!-- Drop down list for activity type -->
-        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.activity.$invalid}" ng-show="!$ctrl.otherActivity">
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.activity.$invalid}" ng-show="!$ctrl.callreport.isManualActivity">
           <label>Activity Type</label>
           <select
             class="form-control"
@@ -41,7 +41,7 @@
         </div>
 
         <!-- if Other is selected for activity type-->
-        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.activity.$invalid && !$ctrl.crContactInfo.activity.$pristine }" ng-show="$ctrl.otherActivity">
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.activity.$invalid && !$ctrl.crContactInfo.activity.$pristine }" ng-show="$ctrl.callreport.isManualActivity">
           <label>Activity Type</label>
           <input
             type="text"
@@ -71,7 +71,7 @@
       <!-- col 4 -->
       <div class="col-md-3">
         <!-- List for titles -->
-        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.title.$invalid}" ng-show="!$ctrl.otherTitle">
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.title.$invalid}" ng-show="!$ctrl.callreport.isManualTitle">
           <label>Job Title</label>
           <select
             class="form-control"
@@ -84,7 +84,7 @@
         </div>
 
         <!-- Text field if Other is selected for titles -->
-        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.title.$invalid && !$ctrl.crContactInfo.title.$pristine }" ng-show="$ctrl.otherTitle">
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.title.$invalid && !$ctrl.crContactInfo.title.$pristine }" ng-show="$ctrl.callreport.isManualTitle">
           <label>Job Title</label>
           <input
             type="text"

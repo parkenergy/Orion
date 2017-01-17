@@ -61,12 +61,12 @@
 
             </div>
 
-          </form>
-        </div>
+          </form> <!-- End of Search Form -->
+        </div>  <!-- End of Search Panel-->
 
 
-      </div>
-    </div>
+      </div> <!-- End of Search Bar -->
+    </div> <!-- End of Search bar body -->
 
     <!--Start Search Table-->
     <table class="table table-bordered table-striped table-hover">
@@ -75,35 +75,35 @@
       <tr>
 
         <!-- Sort by Unit #-->
-        <th ng-click="$ctrl.resort('username')">
-          Part #
-          <span
-            ng-show="$ctrl.sortType == 'username' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType == 'username' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
-
-        <!-- Sort by MPN -->
-        <th ng-click="$ctrl.resort('customer')">
-          MPN
-          <span
-            ng-show="$ctrl.sortType == 'customer' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType == 'customer' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
-
-        <!-- Sort by TechID-->
         <th ng-click="$ctrl.resort('contactName')">
-          User ID
+          Part #
           <span
             ng-show="$ctrl.sortType == 'contactName' && !$ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-down"></span>
           <span
             ng-show="$ctrl.sortType == 'contactName' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
+        <!-- Sort by MPN -->
+        <th ng-click="$ctrl.resort('title')">
+          MPN
+          <span
+            ng-show="$ctrl.sortType == 'title' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType == 'title' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
+        <!-- Sort by TechID-->
+        <th ng-click="$ctrl.resort('customer')">
+          User ID
+          <span
+            ng-show="$ctrl.sortType == 'customer' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType == 'customer' && $ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
@@ -119,24 +119,13 @@
         </th>
 
         <!-- Sort by Status-->
-        <th ng-click="$ctrl.resort('status')">
+        <th ng-click="$ctrl.resort('size')">
           Status
           <span
-            ng-show="$ctrl.sortType == 'status' && !$ctrl.sortReverse"
+            ng-show="$ctrl.sortType == 'size' && !$ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-down"></span>
           <span
-            ng-show="$ctrl.sortType == 'status' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
-
-        <!-- Sort by quantity -->
-        <th ng-click="$ctrl.resort('oppType')">
-          Quantity
-          <span
-            ng-show="$ctrl.sortType == 'oppType' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType == 'oppType' && $ctrl.sortReverse"
+            ng-show="$ctrl.sortType == 'size' && $ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
@@ -156,14 +145,13 @@
       <tbody infinite-scroll="$ctrl.loadOnScroll()"
              infinite-scroll-immediate-check="false"
              infinite-scroll-disabled="$ctrl.loaded">
-      <tr ng-repeat="report in $ctrl.callreports | reportBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToCallReport(report);">
-        <td>{{ report.username }}</td>
-        <td>{{ report.customer }}</td>
-        <td>{{ report.contactName }}</td>
-        <td>{{ report.officeLocation }}</td>
-        <td>{{ report.status }}</td>
-        <td>{{ report.oppType }}</td>
-        <td>{{ report.callTime | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+      <tr ng-repeat="call in $ctrl.callreports | reportBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToCallReport(report);">
+        <td>{{  call.contactName }}</td>
+        <td>{{  call.title }}</td>
+        <td>{{  call.customer }}</td>
+        <td>{{  call.officeLocation }}</td>
+        <td>{{  call.size }}</td>
+        <td>{{  call.callTime | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
       </tr>
       </tbody>
 
