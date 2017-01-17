@@ -6276,6 +6276,11 @@ input[type="checkbox"] {
 #CrOverviewTable div.panel-body.cr-main-dash-body table.table-bordered.table-striped.table-hover tr {
   cursor: pointer;
 }
+#CrReviewContactInfo div.row div.col-md-3 div.crci-content {
+  background-color: #c2c8d1;
+  text-align: center;
+  vertical-align: middle;
+}
 #CallReportOverview div.text-center.cr-overview {
   margin-bottom: 25px;
 }

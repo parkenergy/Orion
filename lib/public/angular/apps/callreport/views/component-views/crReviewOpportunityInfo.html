@@ -1,0 +1,103 @@
+<div id="CrReviewOpportunityInfo"
+     class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Company/Application</h3>
+  </div>
+
+  <!-- Panel -->
+  <div class="panel-body cr-rv-opportunity-info">
+
+    <!-- row 1 -->
+    <div class="row">
+
+      <!-- col 1 -->
+      <div class="col-md-1">
+        <label>New</label>
+        <input
+          type="checkbox"
+          ng-model="$ctrl.callreport.newCustomer"
+          disabled="true">
+      </div>
+
+      <!-- col 2 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Customer"
+          data="$ctrl.callreport.customer"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 3 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Status"
+          data="$ctrl.callreport.status"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 4 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Application Type"
+          data="$ctrl.callreport.applicationType"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 5 -->
+      <div class="col-md-2">
+        <text-field
+          label-text="Unit Type"
+          data="$ctrl.callreport.unitType"
+          disabled="true">
+        </text-field>
+      </div>
+
+    </div> <!-- End of row 1 -->
+
+    <!-- row 2 -->
+    <div class="row">
+
+      <!-- col 1 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Office Location"
+          data="$ctrl.callreport.officeLocation"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 2 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Size of Opp"
+          data="$ctrl.callreport.size"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 3 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Opp Type"
+          data="$ctrl.callreport.oppType"
+          disabled="true">
+        </text-field>
+      </div>
+
+      <!-- col 4 -->
+      <div class="col-md-3">
+        <text-field
+          label-text="Current Spend"
+          data="$ctrl.callreport.currentSpend"
+          disabled="true">
+        </text-field>
+      </div>
+
+    </div> <!-- end of row 2 -->
+
+  </div> <!-- end of panel -->
+
+</div>
