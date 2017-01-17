@@ -61,7 +61,8 @@
 
       <!-- col 3 -->
       <div class="col-md-3">
-        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.status.$invalid}">
+        <!-- Drop down list for activity type -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.status.$invalid}" ng-show="!$ctrl.otherStatus">
           <label>Status</label>
           <select
             class="form-control"
@@ -72,27 +73,56 @@
             required>
           </select>
         </div>
+
+        <!-- if Other is selected from status' -->
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crOppInfo.status.$invalid && !$ctrl.crOppInfo.status.$pristine}" ng-show="$ctrl.otherStatus">
+          <label>Status</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.status"
+            name="status"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.status,'status')"
+            placeholder="Back to list type:  *"
+            required>
+        </div>
       </div>
 
       <!-- col 4 -->
       <div class="col-md-3">
-        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.type.$invalid}">
+        <!-- Drop down list for application types -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.crOppInfo.appType.$invalid}" ng-if="!$ctrl.otherAppType">
           <label>Application Type</label>
           <select
             class="form-control"
             ng-model="$ctrl.callreport.applicationType"
-            name="type"
+            name="appType"
             ng-change="$ctrl.selectFieldChange($ctrl.callreport.applicationType,'applicationType')"
             ng-options="item.type as item.type for item in $ctrl.applicationtypes | filter:$select"
             required>
           </select>
         </div>
+
+        <!-- if Other is selected from application types -->
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crOppInfo.appType.$invalid && !$ctrl.crOppInfo.appType.$pristine}" ng-show="$ctrl.otherAppType">
+          <label>Application Type</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.applicationType"
+            name="appType"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.applicationType,'applicationType')"
+            placeholder="Back to list type:  *"
+            required>
+        </div>
       </div>
 
       <!-- col 5 -->
       <div class="col-md-2">
+        <!-- List for unit Types -->
         <select-list
-          label-text="Unity Type"
+          ng-show="!$ctrl.otherUnitType"
+          label-text="Unit Type"
           on-data-change="$ctrl.selectFieldChange(changedData, selected)"
           select-field="type"
           display-field="type"
@@ -100,6 +130,16 @@
           data="$ctrl.callreport.unitType"
           array-list="$ctrl.unittypes">
         </select-list>
+
+        <!-- Text if other is selected for unit types -->
+        <text-field
+          ng-show="$ctrl.otherUnitType"
+          label-text="Unit Type"
+          model-name="unitType"
+          placeholder-text="Back to list type:  *"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.unitType">
+        </text-field>
       </div>
 
     </div> <!-- end of row 1 -->

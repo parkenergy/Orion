@@ -27,7 +27,8 @@
 
       <!-- col 2 -->
       <div class="col-md-3">
-        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.activity.$invalid}">
+        <!-- Drop down list for activity type -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.activity.$invalid}" ng-show="!$ctrl.otherActivity">
           <label>Activity Type</label>
           <select
             class="form-control"
@@ -37,6 +38,19 @@
             ng-options="item.activity as item.activity for item in $ctrl.activitytypes | filter:$select"
             required>
           </select>
+        </div>
+
+        <!-- if Other is selected for activity type-->
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.activity.$invalid && !$ctrl.crContactInfo.activity.$pristine }" ng-show="$ctrl.otherActivity">
+          <label>Activity Type</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.activityType"
+            name="activity"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.activityType, 'activityType')"
+            placeholder="Back to list type:  *"
+            required>
         </div>
       </div>
 
@@ -56,7 +70,8 @@
 
       <!-- col 4 -->
       <div class="col-md-3">
-        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.title.$invalid}">
+        <!-- List for titles -->
+        <div class="form-group" ng-class="{'has-error': $ctrl.crContactInfo.title.$invalid}" ng-show="!$ctrl.otherTitle">
           <label>Job Title</label>
           <select
             class="form-control"
@@ -66,6 +81,19 @@
             ng-options="item.type as item.type for item in $ctrl.titles | filter:$select"
             required>
           </select>
+        </div>
+
+        <!-- Text field if Other is selected for titles -->
+        <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.title.$invalid && !$ctrl.crContactInfo.title.$pristine }" ng-show="$ctrl.otherTitle">
+          <label>Job Title</label>
+          <input
+            type="text"
+            class="form-control"
+            ng-model="$ctrl.callreport.title"
+            name="title"
+            ng-change="$ctrl.textFieldChange($ctrl.callreport.title, 'title')"
+            placeholder="Back to list type:  *"
+            required>
         </div>
       </div>
 
