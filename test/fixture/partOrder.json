@@ -1,0 +1,25 @@
+{
+  "partNSID": 1234,
+  "part": {
+    "vendor": "",
+    "number": "",
+    "description": "",
+    "componentName": "tester100",
+    "MPN": "111-000",
+    "isManual": false
+  },
+  "quantity": 1,
+  "status": "pending",
+  "timeCreated": "Wed Jan 17 2017 11:32:45 GMT-0600 (CST)",
+  "timeShipped": null,
+  "timeComplete": null,
+  "techId": "TEST001",
+  "approvedBy": "",
+  "completedBy": "",
+  "originNSID": 7,
+  "destinationNSID": 23,
+  "trackingNumber": "",
+  "carrier": "",
+  "comment": "",
+  "source": "Client"
+}

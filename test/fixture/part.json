@@ -1,0 +1,12 @@
+{
+  "netsuiteId": 1234,
+  "description": "testing description",
+  "componentName": "1100.002.01",
+  "MPN": "111000/TEST",
+  "system":     0,
+  "subsystem":  0,
+  "engine":     0,
+  "compressor": 0,
+  "component":  0,
+  "revision":   0
+}

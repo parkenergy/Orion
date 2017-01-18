@@ -26,7 +26,7 @@ describe("CallReport Units", () => {
   
   describe("#createDoc()", () => {
     
-    it("Should create and return new document", () => {
+    it("Should create and return a new document", () => {
       return CallReport.createDoc(fixture)
         .then((doc) => {
           should.exist(doc);
@@ -36,7 +36,7 @@ describe("CallReport Units", () => {
           doc.username.should.equal("TEST001");
           doc.phoneNumber.should.be.a.String();
         });
-    }); /* End of 'it' #createDoc */
+    }); /* End of 'it' #createDoc create new doc */
   }); /* End of 'describe' #createDoc */
   
   describe("#fetch()", () => {
@@ -168,7 +168,7 @@ describe("CallReport Units", () => {
     
   }); /* End of 'describe' #list() */
   
-});
+}); /* End of 'describe' CallReport Unit Tests */
 
 
 

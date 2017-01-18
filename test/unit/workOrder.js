@@ -13,7 +13,7 @@ var State = require('../../lib/models/state');
 var Area = require('../../lib/models/area');
 
 before(function(done) {
-    WorkOrder.remove({}, done);
+  WorkOrder.remove({}, done);
 });
 
 
