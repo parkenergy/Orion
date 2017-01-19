@@ -14,11 +14,11 @@ const should     = require('should');
 const _          = require('lodash');
 const fixture    = require('../fixture/callReport.json');
 
-before((done) => {
+before(done => {
   CallReport.remove({}, done);
 });
 
-after((done) => {
+after(done => {
   CallReport.remove({}, done);
 });
 
@@ -28,7 +28,7 @@ describe("CallReport Units", () => {
     
     it("Should create and return a new document", () => {
       return CallReport.createDoc(fixture)
-        .then((doc) => {
+        .then(doc => {
           should.exist(doc);
           doc.should.not.be.Array();
           doc.callTime.should.be.a.Date();
@@ -36,7 +36,7 @@ describe("CallReport Units", () => {
           doc.username.should.equal("TEST001");
           doc.phoneNumber.should.be.a.String();
         });
-    }); /* End of 'it' #createDoc create new doc */
+    });
   }); /* End of 'describe' #createDoc */
   
   describe("#fetch()", () => {
@@ -46,20 +46,20 @@ describe("CallReport Units", () => {
       return CallReport.remove({})
         .then(() => {
           return CallReport.createDoc(fixture);
-        }).then((doc) => {
+        }).then(doc => {
           id = doc._id;
       });
-    }); /* End of 'before' #fetch() */
+    });
     
     it("Should fetch one document", () => {
       return CallReport.fetch(id)
-        .then((doc) => {
+        .then(doc => {
           doc.should.have.property("_id");
           doc.should.have.property("customer");
           doc.phoneNumber.should.be.a.String();
           doc.title.should.be.equal("TestTitle");
         });
-    }); /* End of 'it' #fetch() */
+    });
   }); /* End of 'describe' #fetch() */
   
   describe('#list()', () =>{
@@ -99,7 +99,7 @@ describe("CallReport Units", () => {
             
             return _.flatten([phoneDocs, userDocs, activityDocs, dateDocs]);
           })
-          .then((docs) => {
+          .then(docs => {
             return CallReport.insertMany(docs);
           })
           .then(resolve)
@@ -115,34 +115,34 @@ describe("CallReport Units", () => {
       };
       
       return CallReport.list(options)
-        .then((docs) => {
+        .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
           options.skip += 25;
           
           return CallReport.list(options);
         })
-        .then((docs) => {
+        .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
           options.skip += 25;
           
           return CallReport.list(options);
         })
-        .then((docs) => {
+        .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
           options.skip += 25;
           
           return CallReport.list(options);
         })
-        .then((docs) => {
+        .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
           
           return null;
         });
-    }).slow(500); /* End of 'it' list 4 pages #list() */
+    }).slow(500);
     
     it("Should list callreports with specific callTime", () => {
       var options = {
@@ -154,17 +154,17 @@ describe("CallReport Units", () => {
       };
       
       return CallReport.list(options)
-        .then((docs) => {
+        .then(docs => {
            docs.should.be.an.Array();
            docs.should.be.length(25);
            
-           docs.forEach((doc) => {
+           docs.forEach(doc => {
              doc.callTime.should.be.a.Date();
              doc.callTime.should.eql(new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)'));
            });
         });
       
-    }); /* End of 'it' list specific callTime #list() */
+    });
     
   }); /* End of 'describe' #list() */
   
