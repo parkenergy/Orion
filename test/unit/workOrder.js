@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
-const Promise = require('bluebird');
-const should = require('should');
-const _ = require('lodash');
-const fixture = require('../fixture/workOrder.json');
-const unitFixture = require('../fixture/unit.json');
-const userFixture = require('../fixture/user.json');
-const WorkOrder = require('../../lib/models/workOrder');
-const User = require('../../lib/models/user');
-const Unit = require('../../lib/models/unit');
-const County = require('../../lib/models/county');
-const State = require('../../lib/models/state');
-const Area = require('../../lib/models/area');
+const mongoose = require('mongoose'),
+  Promise      = require('bluebird'),
+  should       = require('should'),
+  _            = require('lodash'),
+  fixture      = require('../fixture/workOrder.json'),
+  unitFixture  = require('../fixture/unit.json'),
+  userFixture  = require('../fixture/user.json'),
+  WorkOrder    = require('../../lib/models/workOrder'),
+  User         = require('../../lib/models/user'),
+  Unit         = require('../../lib/models/unit'),
+  County       = require('../../lib/models/county'),
+  State        = require('../../lib/models/state'),
+  Area         = require('../../lib/models/area');
 
 before(() => WorkOrder.remove({}));
 
@@ -66,7 +66,7 @@ describe("WorkOrder Units", () => {
 
   describe("#updateDoc()", () => {
     let id;
-    
+
     before(() => {
       return WorkOrder.remove({})
         .then(() => WorkOrder.createDoc(fixture))
@@ -93,7 +93,7 @@ describe("WorkOrder Units", () => {
 
   describe("#fetch()", () => {
     let id;
-    
+
     before(() => {
       return WorkOrder.remove({})
         .then(() => WorkOrder.createDoc(fixture))
@@ -143,7 +143,7 @@ describe("WorkOrder Units", () => {
 
               return f;
             });
-            
+
             return [...unitDocs, ...techDocs, ...locDocs, ...custDocs];
           })
           .then(docs => WorkOrder.insertMany(docs))
@@ -195,7 +195,7 @@ describe("WorkOrder Units", () => {
         }).then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
-        
+
           return null;
         });
     }).slow(500);

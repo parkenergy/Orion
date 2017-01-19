@@ -6,13 +6,13 @@
  * Contact: marcus.j.whelan@gmail.com
  *
  */
-const CallReport = require('../../lib/models/callReport');
-const mongoose   = require('mongoose');
-const config     = require('../../config');
-const Promise    = require('bluebird');
-const should     = require('should');
-const _          = require('lodash');
-const fixture    = require('../fixture/callReport.json');
+const CallReport = require('../../lib/models/callReport'),
+  mongoose       = require('mongoose'),
+  config         = require('../../config'),
+  Promise        = require('bluebird'),
+  should         = require('should'),
+  _              = require('lodash'),
+  fixture        = require('../fixture/callReport.json');
 
 before(() => CallReport.remove({}));
 

@@ -6,17 +6,17 @@
  * Contact: marcus.j.whelan@gmail.com
  *
  */
-const PartOrder   = require('../../lib/models/partOrder');
-const Part        = require('../../lib/models/part');
-const User        = require('../../lib/models/user');
-const mongoose    = require('mongoose');
-const config      = require('../../config');
-const Promise     = require('bluebird');
-const should      = require('should');
-const _           = require('lodash');
-const fixture     = require('../fixture/partOrder.json');
-const userFixture = require('../fixture/user.json');
-const partFixture = require('../fixture/part.json');
+const PartOrder   = require('../../lib/models/partOrder'),
+  Part            = require('../../lib/models/part'),
+  User            = require('../../lib/models/user'),
+  mongoose        = require('mongoose'),
+  config          = require('../../config'),
+  Promise         = require('bluebird'),
+  should          = require('should'),
+  _               = require('lodash'),
+  fixture         = require('../fixture/partOrder.json'),
+  userFixture     = require('../fixture/user.json'),
+  partFixture     = require('../fixture/part.json');
 
 before(() => PartOrder.remove({}));
 

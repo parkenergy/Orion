@@ -1,13 +1,12 @@
-const mongoose = require('mongoose');
-const Promise = require('bluebird');
-const should = require('should');
-const nock = require('nock');
-const _ = require('lodash');
-const fixture = require('../fixture/workOrder.json');
-const userFixture = require('../fixture/user.json');
-const customerFixture = require('../fixture/customer.json');
-const WorkOrder = require('../../lib/models/workOrder');
-const Customer = require('../../lib/models/customer');
+const mongoose    = require('mongoose'),
+  should          = require('should'),
+  nock            = require('nock'),
+  _               = require('lodash'),
+  fixture         = require('../fixture/workOrder.json'),
+  userFixture     = require('../fixture/user.json'),
+  customerFixture = require('../fixture/customer.json'),
+  WorkOrder       = require('../../lib/models/workOrder'),
+  Customer        = require('../../lib/models/customer');
 
 before(() => {
   return WorkOrder.remove({})

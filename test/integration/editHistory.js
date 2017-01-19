@@ -1,11 +1,10 @@
-const mongoose = require('mongoose');
-const Promise = require('bluebird');
-const config = require('../../config');
-const should = require('should');
-const _ = require('lodash');
-const workOrderFixture = require('../fixture/workOrder.json');
-const WorkOrder = require('../../lib/models/workOrder');
-const EditHistory = require('../../lib/models/editHistory');
+const mongoose     = require('mongoose'),
+  config           = require('../../config'),
+  should           = require('should'),
+  _                = require('lodash'),
+  workOrderFixture = require('../fixture/workOrder.json'),
+  WorkOrder        = require('../../lib/models/workOrder'),
+  EditHistory      = require('../../lib/models/editHistory');
 
 before(() => {
   return WorkOrder.remove({})

@@ -1,9 +1,9 @@
- const User = require('../../lib/models/user');
- const mongoose = require('mongoose');
- const config = require('../../config');
- const should = require('should');
- const _ = require('lodash');
- const fixture = require('../fixture/user.json');
+ const User = require('../../lib/models/user'),
+  mongoose  = require('mongoose'),
+  config    = require('../../config'),
+  should    = require('should'),
+  _         = require('lodash'),
+  fixture   = require('../fixture/user.json');
 
 before(() => User.remove({}));
 
