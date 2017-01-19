@@ -355,7 +355,7 @@ describe("PartOrder Units", () => {
 
           docs.forEach(doc => {
             doc.status.should.be.instanceOf(String);
-            /* some check to see if it is either pending or completed */
+            doc.status.should.be.equalOneOf(['pending','completed']);
           })
         })
     });

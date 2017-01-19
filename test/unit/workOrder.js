@@ -12,13 +12,9 @@ const County = require('../../lib/models/county');
 const State = require('../../lib/models/state');
 const Area = require('../../lib/models/area');
 
-before(done => {
-  WorkOrder.remove({}, done);
-});
+before(() => WorkOrder.remove({}));
 
-after(done => {
-  WorkOrder.remove({}, done);
-});
+after(() => WorkOrder.remove({}));
 
 describe("WorkOrder Units", () => {
   let unitId, userId, unitDoc, userDoc;
