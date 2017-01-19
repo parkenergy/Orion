@@ -1,53 +1,46 @@
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
-var config = require('../../config');
-var should = require('should');
-var _ = require('lodash');
-var workOrderFixture = require('../fixture/workOrder.json');
-var WorkOrder = require('../../lib/models/workOrder');
-var EditHistory = require('../../lib/models/editHistory');
+const mongoose     = require('mongoose'),
+  config           = require('../../config'),
+  should           = require('should'),
+  _                = require('lodash'),
+  workOrderFixture = require('../fixture/workOrder.json'),
+  WorkOrder        = require('../../lib/models/workOrder'),
+  EditHistory      = require('../../lib/models/editHistory');
 
-before(function () {
+before(() => {
   return WorkOrder.remove({})
     .exec()
-    .then(function () {
-      return EditHistory.remove({});
-    });
+    .then(() => EditHistory.remove({}));
 });
 
 
-after(function () {
+after(() => {
   return WorkOrder.remove({})
     .exec()
-    .then(function () {
-      return EditHistory.remove({});
-    });
+    .then(() => EditHistory.remove({}));
 });
 
-describe("EditHistory Integrations", function () {
-  var workOrderId, wo;
-  it("Should create WorkOrder but no EditHistory", function () {
+describe("EditHistory Integrations", () => {
+  let workOrderId, wo;
+  it("Should create WorkOrder but no EditHistory", () => {
     return WorkOrder.createDoc(workOrderFixture)
-      .then(function (workOrder) {
+      .then(workOrder => {
         workOrderId = workOrder[0]._id;
         wo = workOrder[0];
         return EditHistory.list({workOrder: workOrderId});
       })
-      .then(function (edits) {
+      .then(edits => {
         edits.should.be.Array().with.length(0);
 
         return null;
       });
   });
 
-  it("Should create EditHistory on WorkOrder Update", function () {
-    var newData = _.clone(JSON.parse(JSON.stringify(wo)));
+  it("Should create EditHistory on WorkOrder Update", () => {
+    let newData = _.clone(JSON.parse(JSON.stringify(wo)));
     newData.header.unitNumber = "test1234";
     return WorkOrder.updateDoc(workOrderId, newData, {role: 'admin', username: 'TEST004'})
-      .then(function () {
-        return EditHistory.list({workOrder: workOrderId});
-      })
-      .then(function (edits) {
+      .then(() => EditHistory.list({workOrder: workOrderId}))
+      .then(edits => {
         edits.should.be.Array().with.length(1);
 
         edits[0].should.have.property('workOrder');
