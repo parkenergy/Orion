@@ -14,9 +14,13 @@ const should     = require('should');
 const _          = require('lodash');
 const fixture    = require('../fixture/callReport.json');
 
-before(done => CallReport.remove({}, done));
+before(done => {
+  CallReport.remove({}, done)
+});
 
-after(done => CallReport.remove({}, done));
+after(done => {
+  CallReport.remove({}, done)
+});
 
 describe("CallReport Units", () => {
   
