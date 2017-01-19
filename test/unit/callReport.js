@@ -14,13 +14,9 @@ const should     = require('should');
 const _          = require('lodash');
 const fixture    = require('../fixture/callReport.json');
 
-before(done => {
-  CallReport.remove({}, done);
-});
+before(done => CallReport.remove({}, done));
 
-after(done => {
-  CallReport.remove({}, done);
-});
+after(done => CallReport.remove({}, done));
 
 describe("CallReport Units", () => {
   
@@ -44,11 +40,10 @@ describe("CallReport Units", () => {
     
     before(() => {
       return CallReport.remove({})
-        .then(() => {
-          return CallReport.createDoc(fixture);
-        }).then(doc => {
+        .then(() => CallReport.createDoc(fixture))
+        .then(doc => {
           id = doc._id;
-      });
+        });
     });
     
     it("Should fetch one document", () => {
@@ -99,12 +94,10 @@ describe("CallReport Units", () => {
             
             return _.flatten([phoneDocs, userDocs, activityDocs, dateDocs]);
           })
-          .then(docs => {
-            return CallReport.insertMany(docs);
-          })
+          .then(docs => CallReport.insertMany(docs))
           .then(resolve)
           .catch(reject);
-      }); /* End of 'before' #list() Promise */
+      });
     }); /* End of 'before' #list() */
     
     it("Should list 4 pages of 25 results", () => {

@@ -18,31 +18,18 @@ const fixture     = require('../fixture/partOrder.json');
 const userFixture = require('../fixture/user.json');
 const partFixture = require('../fixture/part.json');
 
-before(done => {
-  PartOrder.remove({}, done);
-});
+before(done => PartOrder.remove({}, done));
 
-after(done => {
-  PartOrder.remove({}, done);
-});
+after(done => PartOrder.remove({}, done));
 
 describe("PartOrder Units", () => {
-  let userId, userDoc, partId, partDoc;
+  let partId, partDoc;
   
   before(() => {
     return User.remove({})
-      .then(() => {
-        return Part.remove({});
-      })
-      .then(() => {
-        return new User(userFixture).save();
-      })
-      .then((user) => {
-        userId = user._id;
-        userDoc = user;
-        
-        return new Part(partFixture).save();
-      })
+      .then(() => Part.remove({}))
+      .then(() => new User(userFixture).save())
+      .then(() => new Part(partFixture).save())
       .then((part) => {
         partId = part._id;
         partDoc = part;
@@ -51,9 +38,7 @@ describe("PartOrder Units", () => {
   
   after(() => {
     return User.remove({})
-      .then(() => {
-        return Part.remove({});
-      });
+      .then(() => Part.remove({}));
   });
   
   describe("#createDoc()", () => {
@@ -105,9 +90,7 @@ describe("PartOrder Units", () => {
     
     beforeEach(() => {
       return PartOrder.remove({})
-        .then(() => {
-          return PartOrder.createDoc(fixture);
-        })
+        .then(() =>  PartOrder.createDoc(fixture))
         .then(doc => {
           updatingDoc = _.cloneDeep(doc);
           updatingDoc.trackingNumber = '1234-5678-910';
@@ -118,9 +101,7 @@ describe("PartOrder Units", () => {
         })
     });
     
-    afterEach(() => {
-      return PartOrder.remove({});
-    });
+    afterEach(() => PartOrder.remove({}));
     
     it("Should set timeShipped on status change to 'shipped'", () => {
       updatingDoc.status = 'shipped';
@@ -181,5 +162,155 @@ describe("PartOrder Units", () => {
     });
     
   }); /* End of 'describe' #updateDoc() */
+  
+  describe('#fetch()', () => {
+    let orderId;
+    
+    before(() => {
+      return PartOrder.remove({})
+        .then(() => PartOrder.createDoc(fixture))
+        .then(doc => {
+          orderId = doc.orderId;
+        });
+    });
+    
+    it("Should fetch one document", () => {
+      return PartOrder.fetch(orderId)
+        .then(doc => {
+          should.exist(doc);
+          doc.should.have.property("_id");
+          doc.orderId.should.be.equal(orderId);
+          doc.timeCreated.should.be.a.Date();
+          doc.techId.should.be.a.String();
+          doc.techId.should.be.equal('TEST001')
+        });
+    });
+    
+  }); /* End of 'describe' #fetch() */
+  
+  describe('#list()', () => {
+    
+    before(() => {
+      return new Promise((resolve, reject) => {
+        PartOrder.remove({})
+          .then(() => {
+            
+            let dateDocs = _.range(10).map(() => {
+              let f = _.cloneDeep(fixture);
+              f.techId = "TEST003";
+              f.timeCreated = new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)');
+              return f;
+            });
+            
+            let pendingDocs = _.range(10).map(() => {
+              let f = _.cloneDeep(fixture);
+              f.status = 'pending';
+              return f;
+            });
+  
+            let completedDocs = _.range(10).map(() => {
+              let f = _.cloneDeep(fixture);
+              f.status = 'completed';
+              return f;
+            });
+  
+            let canceledDocs = _.range(10).map(() => {
+              let f = _.cloneDeep(fixture);
+              f.status = 'canceled';
+              return f;
+            });
+  
+            let shippedDocs = _.range(10).map(() => {
+              let f = _.cloneDeep(fixture);
+              f.status = 'shipped';
+              return f;
+            });
+  
+            let backorderDocs = _.range(10).map(() => {
+              let f = _.cloneDeep(fixture);
+              f.status = 'backorder';
+              return f;
+            });
+            
+            return _.flatten([dateDocs, pendingDocs, completedDocs, canceledDocs, shippedDocs, backorderDocs]);
+          })
+          .then(docs => PartOrder.insertMany(docs))
+          .then(() => {
+            let newUser = _.clone(userFixture);
+            newUser.firstName = "Find";
+            newUser.lastName = "Me";
+            newUser.username = "TEST003";
+            
+            return new User(newUser).save();
+          })
+          .then(resolve)
+          .catch(reject);
+      });
+    }); /* End of 'before' #list() */
+    
+    it("Should list 5 pages of 10 results", () => {
+      let options = {
+        sort:       '-timeCreated',
+        supervised: ['TEST001', 'TEST003'],
+        pending:    true,
+        canceled:   true,
+        backorder:  true,
+        shipped:    true,
+        completed:  true,
+        limit:      10,
+        skip:        0
+      };
+      
+      return PartOrder.list(options)
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.have.length(10);
+          options.skip+=10;
+          
+          return PartOrder.list(options);
+        })
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.have.length(10);
+          options.skip+=10;
+  
+          return PartOrder.list(options);
+        })
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.have.length(10);
+          options.skip+=10;
+
+          return PartOrder.list(options);
+        })
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.have.length(10);
+
+          return null;
+        });
+        
+    }).slow(500);
+    
+  }); /* End of 'describe' #list() */
+  
+  describe("#delete()", () => {
+    let id;
+    
+    before(() => {
+      
+      return PartOrder.remove({}, (err) => {
+        if(err) throw err;
+        
+        return PartOrder.createDoc(fixture)
+          .then(doc => {
+            id = doc._id;
+            return doc;
+          });
+      });
+    });
+    
+    it("Should remove a partOrder", () => PartOrder.delete(id));
+  }); /* End of 'describe' #delete() */
   
 }); /* End of 'describe' PartOrder Unit Tests */
