@@ -1,25 +1,25 @@
-var User = require('../../lib/models/user');
-var mongoose = require('mongoose');
-var config = require('../../config');
-var should = require('should');
-var _ = require('lodash');
-var fixture = require('../fixture/user.json');
+ const User = require('../../lib/models/user');
+ const mongoose = require('mongoose');
+ const config = require('../../config');
+ const should = require('should');
+ const _ = require('lodash');
+ const fixture = require('../fixture/user.json');
 
-before(function(done) {
+before(done => {
   User.remove({}, done);
 });
 
-after(function(done) {
+after(done => {
   User.remove({}, done);
 });
 
-describe("User Units", function () {
+describe("User Units", () => {
 
-  describe("#createDoc()", function () {
-    var uid, user;
-    it('Should create a user document', function () {
+  describe("#createDoc()", () => {
+    let uid, user;
+    it('Should create a user document', () => {
       return User.createDoc(fixture)
-        .then(function (docs) {
+        .then(docs => {
           docs.should.be.length(1);
           docs[0].username.should.equal("TEST001");
           uid = docs[0]._id;
@@ -28,45 +28,43 @@ describe("User Units", function () {
     });
   });
 
-  describe("#updateDoc()", function () {
-    it('Should update user document', function () {
+  describe("#updateDoc()", () => {
+    it('Should update user document', () => {
       fixture.netsuiteId = '1234';
       return User.updateDoc('TEST001', fixture)
-        .then(function (doc) {
+        .then(doc => {
           doc.netsuiteId.should.equal('1234');
         });
     });
   });
 
-  describe("#fetch()", function () {
-    it('Should fetch user document by username', function () {
+  describe("#fetch()", () => {
+    it('Should fetch user document by username', () => {
       return User.fetch('TEST001')
-        .then(function (doc) {
+        .then(doc => {
           doc.username.should.equal("TEST001");
           doc.netsuiteId.should.equal('1234');
         });
     });
-    it('Should fetch user document by identity', function () {
-      return User.fetch('me', fixture);
-    });
+    it('Should fetch user document by identity', () => User.fetch('me', fixture));
   });
 
   describe("#list()", function() {
-    it("Should fetch list of users", function () {
+    it("Should fetch list of users", () => {
       return User.list({})
-        .then(function (docs) {
+        .then(docs => {
           docs.should.be.length(1);
           docs[0].username.should.equal("TEST001");
           docs[0].netsuiteId.should.equal('1234');
         });
     });
-    it("Should fetch list of users for supervisor", function () {
-      var options = {
+    it("Should fetch list of users for supervisor", () => {
+      const options = {
         supervisor: 'TEST002'
       };
 
       return User.list(options)
-        .then(function (docs) {
+        .then(docs => {
           docs.should.be.length(1);
           docs[0].username.should.equal("TEST001");
           docs[0].netsuiteId.should.equal('1234');

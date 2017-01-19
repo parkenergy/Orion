@@ -1,64 +1,57 @@
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
-var should = require('should');
-var _ = require('lodash');
-var fixture = require('../fixture/workOrder.json');
-var unitFixture = require('../fixture/unit.json');
-var userFixture = require('../fixture/user.json');
-var WorkOrder = require('../../lib/models/workOrder');
-var User = require('../../lib/models/user');
-var Unit = require('../../lib/models/unit');
-var County = require('../../lib/models/county');
-var State = require('../../lib/models/state');
-var Area = require('../../lib/models/area');
+const mongoose = require('mongoose');
+const Promise = require('bluebird');
+const should = require('should');
+const _ = require('lodash');
+const fixture = require('../fixture/workOrder.json');
+const unitFixture = require('../fixture/unit.json');
+const userFixture = require('../fixture/user.json');
+const WorkOrder = require('../../lib/models/workOrder');
+const User = require('../../lib/models/user');
+const Unit = require('../../lib/models/unit');
+const County = require('../../lib/models/county');
+const State = require('../../lib/models/state');
+const Area = require('../../lib/models/area');
 
-before(function(done) {
+before(done => {
   WorkOrder.remove({}, done);
 });
 
-
-after(function(done) {
+after(done => {
   WorkOrder.remove({}, done);
 });
 
-describe("WorkOrder Units", function() {
-  var unitId, userId, unitDoc, userDoc;
+describe("WorkOrder Units", () => {
+  let unitId, userId, unitDoc, userDoc;
 
-  before(function() {
+  before(() => {
     return User.remove({})
-      .then(function() {
-        return Unit.remove({})
-      })
-      .then(function() {
-        return new User(userFixture).save()
-      })
-      .then(function(user) {
+      .then(() => Unit.remove({}))
+      .then(() => new User(userFixture).save())
+      .then(user => {
         userId = user._id;
         userDoc = user;
 
         return new Unit(unitFixture).save();
       })
-      .then(function(unit) {
+      .then(unit => {
         unitId = unit._id;
         unitDoc = unit;
       });
   });
 
-  after(function () {
+  after(() => {
     return User.remove({})
-      .then(function () {
-        return Unit.remove({});
-      });
+      .then(() => Unit.remove({}));
   });
 
-  describe("#createDoc()", function() {
-    it('should create and return new document', function() {
-      var doc = _.cloneDeep(fixture);
+  describe("#createDoc()", () => {
+    it('should create and return new document', () => {
+      let doc = _.cloneDeep(fixture);
       doc.technician = userDoc;
       doc.unit = unitDoc;
 
       return WorkOrder.createDoc(fixture)
-        .then(function(doc) {
+        .then(doc => {
           should.exist(doc);
           doc.should.be.Array().with.length(1);
           doc[0].updated_at.should.be.a.Date();
@@ -75,24 +68,23 @@ describe("WorkOrder Units", function() {
     }).slow(50);
   });
 
-  describe("#updateDoc()", function() {
-
-    var id;
-    before(function() {
+  describe("#updateDoc()", () => {
+    let id;
+    
+    before(() => {
       return WorkOrder.remove({})
-        .then(function() {
-          return WorkOrder.createDoc(fixture);
-        }).then(function(docs) {
+        .then(() => WorkOrder.createDoc(fixture))
+        .then(docs => {
           id = docs[0]._id;
         });
     });
 
-    it('should update document', function() {
-      var updated = _.cloneDeep(fixture);
+    it('should update document', () => {
+      let updated = _.cloneDeep(fixture);
       updated.header.unitNumber = 'TEST2';
 
       return WorkOrder.updateDoc(id, updated, userFixture)
-        .then(function(doc) {
+        .then(doc => {
 
           doc.should.have.property('header');
           doc.should.have.property("_id");
@@ -103,21 +95,20 @@ describe("WorkOrder Units", function() {
     }).slow(100);
   });
 
-  describe("#fetch()", function() {
-
-    var id;
-    before(function() {
+  describe("#fetch()", () => {
+    let id;
+    
+    before(() => {
       return WorkOrder.remove({})
-        .then(function() {
-          return WorkOrder.createDoc(fixture);
-        }).then(function(docs) {
+        .then(() => WorkOrder.createDoc(fixture))
+        .then(docs => {
           id = docs[0]._id;
         });
     });
 
-    it('should fetch one document', function() {
+    it('should fetch one document', () => {
       return WorkOrder.fetch(id)
-        .then(function(doc) {
+        .then(doc => {
           doc.should.have.property("_id");
 
           doc.should.have.property('header');
@@ -128,42 +119,40 @@ describe("WorkOrder Units", function() {
     }).slow(30);
   });
 
-  describe("#list()", function() {
-    before(function() {
-      return new Promise(function (resolve, reject) {
+  describe("#list()", () => {
+    before(() => {
+      return new Promise((resolve, reject) => {
         WorkOrder.remove({})
-          .then(function () {
-            var unitDocs = _.range(25).map(function () {
-              var f = _.cloneDeep(fixture);
+          .then(() => {
+            let unitDocs = _.range(25).map(() => {
+              let f = _.cloneDeep(fixture);
               f.unitNumber = "123TEST";
               return f;
             });
-            var techDocs = _.range(25).map(function () {
-              var f = _.cloneDeep(fixture);
+            let techDocs = _.range(25).map(() => {
+              let f = _.cloneDeep(fixture);
               f.techId = "TEST003";
 
               return f;
             });
-            var locDocs = _.range(25).map(function () {
-              var f = _.cloneDeep(fixture);
+            let locDocs = _.range(25).map(() => {
+              let f = _.cloneDeep(fixture);
               f.header.leaseName = "TESTLOC";
 
               return f;
             });
-            var custDocs = _.range(25).map(function () {
-              var f = _.cloneDeep(fixture);
+            let custDocs = _.range(25).map(() => {
+              let f = _.cloneDeep(fixture);
               f.header.customerName = "TESTCUST";
 
               return f;
             });
-
-            return _.flatten([unitDocs, techDocs, locDocs, custDocs]);
+            
+            return [...unitDocs, ...techDocs, ...locDocs, ...custDocs];
           })
-          .then(function (docs) {
-            return WorkOrder.insertMany(docs);
-          })
-          .then(function () {
-            var newUser = _.clone(userFixture);
+          .then(docs => WorkOrder.insertMany(docs))
+          .then(() => {
+            let newUser = _.clone(userFixture);
 
             newUser.firstName = "Find";
             newUser.lastName = "Me";
@@ -176,8 +165,8 @@ describe("WorkOrder Units", function() {
       });
     });
 
-    it("Should list 4 pages of 25 results", function() {
-      var options = {
+    it("Should list 4 pages of 25 results", () => {
+      let options = {
         sort:  '-updated_at',
         unit:  null,
         tech:  null,
@@ -189,35 +178,34 @@ describe("WorkOrder Units", function() {
       };
 
       return WorkOrder.list(options)
-        .then(function(docs) {
+        .then(docs => {
             docs.should.be.an.Array();
             docs.should.have.length(25);
             options.skip+=25;
           return WorkOrder.list(options);
-        }).then(function(docs) {
+        }).then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
           options.skip+=25;
 
           return WorkOrder.list(options);
-        }).then(function(docs) {
+        }).then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
 
           options.skip+=25;
 
           return WorkOrder.list(options);
-        }).then(function(docs) {
+        }).then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
-
-
+        
           return null;
         });
     }).slow(500);
 
-    it("Should list workorders with specific unitNumber", function() {
-      var options = {
+    it("Should list workorders with specific unitNumber", () => {
+      const options = {
         sort:  '-updated_at',
         unit:  '123TEST',
         tech:  null,
@@ -229,18 +217,18 @@ describe("WorkOrder Units", function() {
       };
 
       return WorkOrder.list(options)
-        .then(function(docs) {
+        .then(docs => {
           docs.should.be.an.Array();
           docs.should.be.length(25);
 
-          docs.forEach(function(doc) {
+          docs.forEach(doc => {
             doc.unitNumber.should.equal("123TEST");
           });
         });
     }).slow(200);
 
-    it("Should list workorders with specific technician name", function() {
-      var options = {
+    it("Should list workorders with specific technician name", () => {
+      const options = {
         sort:  '-updated_at',
         unit:  null,
         tech:  "find me",
@@ -252,18 +240,18 @@ describe("WorkOrder Units", function() {
       };
 
       return WorkOrder.list(options)
-        .then(function(docs) {
+        .then(docs => {
           docs.should.be.an.Array();
           docs.should.be.length(25);
 
-          docs.forEach(function(doc) {
+          docs.forEach(doc => {
             doc.techId.should.equal("TEST003");
           });
         });
     }).slow(200);
 
-    it("Should list workorders with specific leaseName", function() {
-      var options = {
+    it("Should list workorders with specific leaseName", () => {
+      const options = {
         sort:  '-updated_at',
         unit:  null,
         tech:  null,
@@ -275,18 +263,18 @@ describe("WorkOrder Units", function() {
       };
 
       return WorkOrder.list(options)
-        .then(function(docs) {
+        .then(docs => {
           docs.should.be.an.Array();
           docs.should.be.length(25);
 
-          docs.forEach(function(doc) {
+          docs.forEach(doc => {
             doc.header.leaseName.should.equal("TESTLOC");
           });
         });
     }).slow(200);
 
-    it("Should list workorders with specific customerName", function() {
-      var options = {
+    it("Should list workorders with specific customerName", () => {
+      const options = {
         sort:  '-updated_at',
         unit:  null,
         tech:  null,
@@ -298,33 +286,31 @@ describe("WorkOrder Units", function() {
       };
 
       return WorkOrder.list(options)
-        .then(function(docs) {
+        .then(docs => {
           docs.should.be.an.Array();
           docs.should.be.length(25);
 
-          docs.forEach(function(doc) {
+          docs.forEach(doc => {
             doc.header.customerName.should.equal("TESTCUST");
           });
         });
     }).slow(200);
   });
 
-  describe("#delete()", function() {
-    var id;
-    before(function() {
-      return WorkOrder.remove({}, function(err) {
+  describe("#delete()", () => {
+    let id;
+    before(() => {
+      return WorkOrder.remove({}, (err) => {
         if(err) throw err;
 
         return WorkOrder.createDoc(fixture)
-          .then(function(docs) {
+          .then(docs => {
             id = docs[0]._id;
             return docs;
           });
       });
     });
 
-    it("Should remove workorder", function() {
-      return WorkOrder.delete(id);
-    });
+    it("Should remove workorder", () => WorkOrder.delete(id));
   });
 });

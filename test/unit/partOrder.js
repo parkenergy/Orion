@@ -199,15 +199,10 @@ describe("PartOrder Units", () => {
         PartOrder.remove({})
           .then(() => {
             
-            let dateDocs = _.range(10).map(() => {
+            let pendingDateDocs = _.range(10).map(() => {
               let f = _.cloneDeep(fixture);
               f.techId = "TEST003";
               f.timeCreated = new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)');
-              return f;
-            });
-            
-            let pendingDocs = _.range(10).map(() => {
-              let f = _.cloneDeep(fixture);
               f.status = 'pending';
               return f;
             });
@@ -236,7 +231,7 @@ describe("PartOrder Units", () => {
               return f;
             });
             
-            return _.flatten([dateDocs, pendingDocs, completedDocs, canceledDocs, shippedDocs, backorderDocs]);
+            return [...pendingDateDocs, ...completedDocs, ...canceledDocs, ...canceledDocs, ...shippedDocs, ...backorderDocs];
           })
           .then(docs => PartOrder.insertMany(docs))
           .then(() => {
@@ -252,25 +247,48 @@ describe("PartOrder Units", () => {
       });
     }); /* End of 'before' #list() */
     
-    it("Should list 5 pages of 10 results", () => {
+    it("Should list 6 pages of 10 results", () => {
       let options = {
         sort:       '-timeCreated',
         supervised: ['TEST001', 'TEST003'],
-        pending:    true,
-        canceled:   true,
-        backorder:  true,
-        shipped:    true,
-        completed:  true,
+        status: {
+          pending:    true,
+          backorder:  true,
+          canceled:   true,
+          shipped:    true,
+          completed:  true
+        },
         limit:      10,
         skip:        0
       };
       
       return PartOrder.list(options)
-        .then(docs => {
+        .then((docs) => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
           options.skip+=10;
           
+          return PartOrder.list(options);
+        })
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.have.length(10);
+          options.skip+=10;
+
+          return PartOrder.list(options);
+        })
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.have.length(10);
+          options.skip+=10;
+
+          return PartOrder.list(options);
+        })
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.have.length(10);
+          options.skip+=10;
+
           return PartOrder.list(options);
         })
         .then(docs => {
@@ -283,18 +301,95 @@ describe("PartOrder Units", () => {
         .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
-          options.skip+=10;
-
-          return PartOrder.list(options);
-        })
-        .then(docs => {
-          docs.should.be.an.Array();
-          docs.should.have.length(10);
-
+          
           return null;
         });
         
     }).slow(500);
+    
+    it("Should list 10 pending partOrders", () => {
+      const options = {
+        sort:       '-timeCreated',
+        supervised: ['TEST001', 'TEST003'],
+        status: {
+          pending:    true,
+          backorder:  false,
+          canceled:   false,
+          shipped:    false,
+          completed:  false
+        },
+        limit:      50,
+        skip:       0
+      };
+      
+      return PartOrder.list(options)
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.be.length(10);
+          
+          docs.forEach(doc => {
+            doc.status.should.equal('pending');
+          })
+        })
+    });
+  
+    it("Should list 20 of 2 different status partOrders", () => {
+      const options = {
+        sort:       '-timeCreated',
+        supervised: ['TEST001', 'TEST003'],
+        status: {
+          pending:    true,
+          backorder:  false,
+          canceled:   false,
+          shipped:    false,
+          completed:  true
+        },
+        limit:      20,
+        skip:       0
+      };
+    
+      return PartOrder.list(options)
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.be.length(20);
+
+          docs.forEach(doc => {
+            doc.status.should.be.instanceOf(String);
+            /* some check to see if it is either pending or completed */
+          })
+        })
+    });
+  
+  
+    it("Should list 10 partOrders with specific timeCreated", () => {
+      const options = {
+        sort:       '-timeCreated',
+        supervised: ['TEST001', 'TEST003'],
+        to: new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)'),
+        from: new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)'),
+        status: {
+          pending:    true,
+          backorder:  true,
+          canceled:   true,
+          shipped:    true,
+          completed:  true
+        },
+        limit:      60,
+        skip:       0
+      };
+    
+      return PartOrder.list(options)
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.be.length(10);
+
+          docs.forEach(doc => {
+            doc.timeCreated.should.be.a.Date();
+            doc.timeCreated.should.eql(new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)'));
+          })
+        })
+    });
+
     
   }); /* End of 'describe' #list() */
   

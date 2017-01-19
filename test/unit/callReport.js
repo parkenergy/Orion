@@ -96,7 +96,7 @@ describe("CallReport Units", () => {
               return f;
             });
             
-            return _.flatten([phoneDocs, userDocs, activityDocs, dateDocs]);
+            return [...phoneDocs, ...userDocs, ...activityDocs, ...dateDocs];
           })
           .then(docs => CallReport.insertMany(docs))
           .then(resolve)
@@ -142,11 +142,11 @@ describe("CallReport Units", () => {
     }).slow(500);
     
     it("Should list callreports with specific callTime", () => {
-      var options = {
+      const options = {
         sort: '-callTime',
         to: new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)'),
         from: new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)'),
-        limit: 25,
+        limit: 50,
         skip: 0
       };
       
