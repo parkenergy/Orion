@@ -5,13 +5,9 @@
  const _ = require('lodash');
  const fixture = require('../fixture/user.json');
 
-before(done => {
-  User.remove({}, done);
-});
+before(() => User.remove({}));
 
-after(done => {
-  User.remove({}, done);
-});
+after(() => User.remove({}));
 
 describe("User Units", () => {
 

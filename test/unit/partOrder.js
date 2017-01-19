@@ -18,17 +18,13 @@ const fixture     = require('../fixture/partOrder.json');
 const userFixture = require('../fixture/user.json');
 const partFixture = require('../fixture/part.json');
 
-before(done => {
-  PartOrder.remove({}, done)
-});
+before(() => PartOrder.remove({}));
 
-after(done => {
-  PartOrder.remove({}, done)
-});
+after(() => PartOrder.remove({}));
 
 describe("PartOrder Units", () => {
   let partId, partDoc;
-  
+
   before(() => {
     return User.remove({})
       .then(() => Part.remove({}))
@@ -39,15 +35,15 @@ describe("PartOrder Units", () => {
         partDoc = part;
       });
   });
-  
+
   after(() => {
     return User.remove({})
       .then(() => Part.remove({}));
   });
-  
+
   describe("#createDoc()", () => {
     let manualPartFixture = _.cloneDeep(fixture);
-    
+
     it("Should create a non manual partOrder document", () => {
       return PartOrder.createDoc(fixture)
         .then(doc => {
@@ -59,17 +55,17 @@ describe("PartOrder Units", () => {
           doc.should.have.property("_id");
           should.exist(doc.orderId);
           doc.orderId.should.be.a.String();
-          
+
           doc.part.should.be.an.instanceOf(Object);
           doc.part.should.have.property('isManual');
           doc.part.MPN.should.equal('111000/TEST');
         });
     });
-  
+
     it("Should create a manual partOrder document", () => {
       manualPartFixture.partNSID = 0;
       manualPartFixture.part.isManual = true;
-      
+
       return PartOrder.createDoc(manualPartFixture)
         .then(doc => {
           should.exist(doc);
@@ -80,7 +76,7 @@ describe("PartOrder Units", () => {
           doc.should.have.property("_id");
           should.exist(doc.orderId);
           doc.orderId.should.be.a.String();
-          
+
           doc.part.should.be.an.instanceOf(Object);
           doc.part.should.have.property('isManual');
           doc.part.MPN.should.equal('111-000');
@@ -88,10 +84,10 @@ describe("PartOrder Units", () => {
         });
     });
   }); /* End of 'describe' #createDoc() */
-  
+
   describe("#updateDoc()", () => {
     let orderId, updated_at, updatingDoc;
-    
+
     beforeEach(() => {
       return PartOrder.remove({})
         .then(() =>  PartOrder.createDoc(fixture))
@@ -104,26 +100,26 @@ describe("PartOrder Units", () => {
           updated_at = doc.updated_at;
         })
     });
-    
+
     afterEach(() => PartOrder.remove({}));
-    
+
     it("Should set timeShipped on status change to 'shipped'", () => {
       updatingDoc.status = 'shipped';
-      
+
       return PartOrder.updateDoc(orderId, updatingDoc)
         .then(doc => {
           should.exist(doc);
           doc.should.not.be.Array();
           doc.timeShipped.should.be.a.Date();
-          
+
           doc.updated_at.should.not.eql(updated_at);
           doc.trackingNumber.should.be.equal('1234-5678-910');
         });
     });
-    
+
     it("Should set many fields on status change to 'completed'", () => {
       updatingDoc.status = 'shipped';
-      
+
       return PartOrder.updateDoc(orderId, updatingDoc)
         .then(doc => {
           doc.status = 'completed';
@@ -134,17 +130,17 @@ describe("PartOrder Units", () => {
         .then(doc => {
           should.exist(doc);
           doc.timeComplete.should.be.a.Date();
-          
+
           doc.updated_at.should.not.eql(updated_at);
           doc.completedBy.should.be.equal('TEST002');
           doc.carrier.should.be.equal('UPS');
           doc.done.should.be.equal(true);
         })
     });
-  
+
     it("Should set many fields on status change to 'canceled'", () => {
       updatingDoc.status = 'shipped';
-    
+
       return PartOrder.updateDoc(orderId, updatingDoc)
         .then(doc => {
           doc.status = 'canceled';
@@ -157,19 +153,19 @@ describe("PartOrder Units", () => {
         .then(doc => {
           should.exist(doc);
           doc.timeComplete.should.be.a.Date();
-          
+
           doc.updated_at.should.not.eql(updated_at);
           doc.comment.should.be.equal('TestCancel');
           doc.approvedBy.should.be.equal('TEST001');
           doc.done.should.be.equal(true);
         })
     });
-    
+
   }); /* End of 'describe' #updateDoc() */
-  
+
   describe('#fetch()', () => {
     let orderId;
-    
+
     before(() => {
       return PartOrder.remove({})
         .then(() => PartOrder.createDoc(fixture))
@@ -177,7 +173,7 @@ describe("PartOrder Units", () => {
           orderId = doc.orderId;
         });
     });
-    
+
     it("Should fetch one document", () => {
       return PartOrder.fetch(orderId)
         .then(doc => {
@@ -189,16 +185,16 @@ describe("PartOrder Units", () => {
           doc.techId.should.be.equal('TEST001')
         });
     });
-    
+
   }); /* End of 'describe' #fetch() */
-  
+
   describe('#list()', () => {
-    
+
     before(() => {
       return new Promise((resolve, reject) => {
         PartOrder.remove({})
           .then(() => {
-            
+
             let pendingDateDocs = _.range(10).map(() => {
               let f = _.cloneDeep(fixture);
               f.techId = "TEST003";
@@ -206,31 +202,31 @@ describe("PartOrder Units", () => {
               f.status = 'pending';
               return f;
             });
-  
+
             let completedDocs = _.range(10).map(() => {
               let f = _.cloneDeep(fixture);
               f.status = 'completed';
               return f;
             });
-  
+
             let canceledDocs = _.range(10).map(() => {
               let f = _.cloneDeep(fixture);
               f.status = 'canceled';
               return f;
             });
-  
+
             let shippedDocs = _.range(10).map(() => {
               let f = _.cloneDeep(fixture);
               f.status = 'shipped';
               return f;
             });
-  
+
             let backorderDocs = _.range(10).map(() => {
               let f = _.cloneDeep(fixture);
               f.status = 'backorder';
               return f;
             });
-            
+
             return [...pendingDateDocs, ...completedDocs, ...canceledDocs, ...canceledDocs, ...shippedDocs, ...backorderDocs];
           })
           .then(docs => PartOrder.insertMany(docs))
@@ -239,14 +235,14 @@ describe("PartOrder Units", () => {
             newUser.firstName = "Find";
             newUser.lastName = "Me";
             newUser.username = "TEST003";
-            
+
             return new User(newUser).save();
           })
           .then(resolve)
           .catch(reject);
       });
     }); /* End of 'before' #list() */
-    
+
     it("Should list 6 pages of 10 results", () => {
       let options = {
         sort:       '-timeCreated',
@@ -261,19 +257,12 @@ describe("PartOrder Units", () => {
         limit:      10,
         skip:        0
       };
-      
+
       return PartOrder.list(options)
         .then((docs) => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
           options.skip+=10;
-          
-          return PartOrder.list(options);
-        })
-        .then(docs => {
-          docs.should.be.an.Array();
-          docs.should.have.length(10);
-          options.skip+=10;
 
           return PartOrder.list(options);
         })
@@ -295,18 +284,25 @@ describe("PartOrder Units", () => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
           options.skip+=10;
-  
+
           return PartOrder.list(options);
         })
         .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
-          
+          options.skip+=10;
+
+          return PartOrder.list(options);
+        })
+        .then(docs => {
+          docs.should.be.an.Array();
+          docs.should.have.length(10);
+
           return null;
         });
-        
+
     }).slow(500);
-    
+
     it("Should list 10 pending partOrders", () => {
       const options = {
         sort:       '-timeCreated',
@@ -321,18 +317,18 @@ describe("PartOrder Units", () => {
         limit:      50,
         skip:       0
       };
-      
+
       return PartOrder.list(options)
         .then(docs => {
           docs.should.be.an.Array();
           docs.should.be.length(10);
-          
+
           docs.forEach(doc => {
             doc.status.should.equal('pending');
           })
         })
     });
-  
+
     it("Should list 20 of 2 different status partOrders", () => {
       const options = {
         sort:       '-timeCreated',
@@ -347,7 +343,7 @@ describe("PartOrder Units", () => {
         limit:      20,
         skip:       0
       };
-    
+
       return PartOrder.list(options)
         .then(docs => {
           docs.should.be.an.Array();
@@ -359,8 +355,8 @@ describe("PartOrder Units", () => {
           })
         })
     });
-  
-  
+
+
     it("Should list 10 partOrders with specific timeCreated", () => {
       const options = {
         sort:       '-timeCreated',
@@ -377,7 +373,7 @@ describe("PartOrder Units", () => {
         limit:      60,
         skip:       0
       };
-    
+
       return PartOrder.list(options)
         .then(docs => {
           docs.should.be.an.Array();
@@ -390,17 +386,17 @@ describe("PartOrder Units", () => {
         })
     });
 
-    
+
   }); /* End of 'describe' #list() */
-  
+
   describe("#delete()", () => {
     let id;
-    
+
     before(() => {
-      
+
       return PartOrder.remove({}, (err) => {
         if(err) throw err;
-        
+
         return PartOrder.createDoc(fixture)
           .then(doc => {
             id = doc._id;
@@ -408,8 +404,8 @@ describe("PartOrder Units", () => {
           });
       });
     });
-    
+
     it("Should remove a partOrder", () => PartOrder.delete(id));
   }); /* End of 'describe' #delete() */
-  
+
 }); /* End of 'describe' PartOrder Unit Tests */
