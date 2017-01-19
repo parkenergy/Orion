@@ -1,47 +1,41 @@
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
-var should = require('should');
-var nock = require('nock');
-var _ = require('lodash');
-var fixture = require('../fixture/workOrder.json');
-var userFixture = require('../fixture/user.json');
-var customerFixture = require('../fixture/customer.json');
-var WorkOrder = require('../../lib/models/workOrder');
-var Customer = require('../../lib/models/customer');
+const mongoose = require('mongoose');
+const Promise = require('bluebird');
+const should = require('should');
+const nock = require('nock');
+const _ = require('lodash');
+const fixture = require('../fixture/workOrder.json');
+const userFixture = require('../fixture/user.json');
+const customerFixture = require('../fixture/customer.json');
+const WorkOrder = require('../../lib/models/workOrder');
+const Customer = require('../../lib/models/customer');
 
-before(function() {
+before(() => {
   return WorkOrder.remove({})
     .exec()
-    .then(function () {
-      return Customer.remove({}).exec();
-    })
-    .then(function () {
-      return new Customer(customerFixture).save();
-    });
+    .then(() => Customer.remove({}).exec())
+    .then(() => new Customer(customerFixture).save());
 });
 
 
-after(function() {
+after(() => {
   WorkOrder.remove({})
-    .then(function () {
-      return Customer.remove({}).exec();
-    });
+    .then(() => Customer.remove({}).exec());
 });
 
-describe("WorkOrder Integrations", function () {
-  var wo;
+describe("WorkOrder Integrations", () => {
+  let wo;
 
-  before(function () {
+  before(() => {
     fixture.type = "Corrective";
     fixture.header.customerName = "APACHE CORP";
 
     return WorkOrder.createDoc(fixture)
-      .then(function (doc) {
+      .then(doc => {
         wo = doc[0];
       });
   });
 
-  it("Should sync WorkOrder to Netsuite", function () {
+  it("Should sync WorkOrder to Netsuite", () => {
     nock('https://rest.na1.netsuite.com')
       .post('/app/site/hosting/restlet.nl?script=112&deploy=1', {
         isPM: 'F',
@@ -56,7 +50,7 @@ describe("WorkOrder Integrations", function () {
     wo.netsuiteSyned = true;
 
       return WorkOrder.updateDoc(wo.id, wo, userFixture)
-        .then(function (doc) {
+        .then(doc => {
           doc.timeSynced.should.be.Date();
 
           doc.syncedBy.should.be.String();
