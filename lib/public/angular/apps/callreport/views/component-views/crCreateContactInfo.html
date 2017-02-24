@@ -103,8 +103,7 @@
     <div class="row">
 
       <!-- col 1 -->
-      <div class="col-md-3">
-
+      <div class="col-md-2">
         <div class="form-group" ng-class="{ 'has-error': $ctrl.crContactInfo.phone.$error.pattern }">
           <label>Phone Number</label>
           <input
@@ -118,6 +117,15 @@
             ng-change="$ctrl.textFieldChange($ctrl.callreport.phoneNumber,'phoneNumber')">
           <p ng-show="$ctrl.crContactInfo.phone.$error.pattern" class="help-block">Correct Format: ###-###-####</p>
         </div>
+      </div>
+
+      <div class="col-md-1">
+        <text-field
+          label-text="Ext:"
+          model-name="extension"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+          data="$ctrl.callreport.extension">
+        </text-field>
       </div>
 
       <!-- col 2 and col 3 -->
