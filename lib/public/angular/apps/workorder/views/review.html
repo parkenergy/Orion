@@ -23,7 +23,7 @@
 <review-parts></review-parts>
 
 <div>
-  <div ng-show="workorder.netsuiteSyned && (workorder.type !== 'Indirect')">
+  <div ng-show="workorder.netsuiteId && (workorder.type !== 'Indirect')">
     Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
   </div>
   <div ng-show="workorder.syncedBy && (workorder.type === 'Indirect')">
