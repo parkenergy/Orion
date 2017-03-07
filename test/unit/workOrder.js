@@ -175,26 +175,27 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
-            docs.hits.should.be.an.Array();
-            docs.hits.should.have.length(25);
+            should.exist(docs);
+            docs.should.be.an.Array();
+            docs.should.have.length(25);
             options.skip+=25;
           return WorkOrder.list(options);
         }).then(docs => {
-          docs.hits.should.be.an.Array();
-          docs.hits.should.have.length(25);
+          docs.should.be.an.Array();
+          docs.should.have.length(25);
           options.skip+=25;
 
           return WorkOrder.list(options);
         }).then(docs => {
-          docs.hits.should.be.an.Array();
-          docs.hits.should.have.length(25);
+          docs.should.be.an.Array();
+          docs.should.have.length(25);
 
           options.skip+=25;
 
           return WorkOrder.list(options);
         }).then(docs => {
-          docs.hits.should.be.an.Array();
-          docs.hits.should.have.length(25);
+          docs.should.be.an.Array();
+          docs.should.have.length(25);
 
           return null;
         });
@@ -214,10 +215,11 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
-          docs.hits.should.be.an.Array();
-          docs.hits.should.be.length(25);
+          should.exist(docs);
+          docs.should.be.an.Array();
+          docs.should.be.length(25);
 
-          docs.hits.forEach(doc => {
+          docs.forEach(doc => {
             doc.unitNumber.should.equal("123TEST");
           });
         });
@@ -237,10 +239,11 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
-          docs.hits.should.be.an.Array();
-          docs.hits.should.be.length(25);
+          should.exist(docs);
+          docs.should.be.an.Array();
+          docs.should.be.length(25);
 
-          docs.hits.forEach(doc => {
+          docs.forEach(doc => {
             doc.techId.should.equal("TEST003");
           });
         });
@@ -260,10 +263,11 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
-          docs.hits.should.be.an.Array();
-          docs.hits.should.be.length(25);
+          should.exist(docs);
+          docs.should.be.an.Array();
+          docs.should.be.length(25);
 
-          docs.hits.forEach(doc => {
+          docs.forEach(doc => {
             doc.header.leaseName.should.equal("TESTLOC");
           });
         });
@@ -283,10 +287,11 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
-          docs.hits.should.be.an.Array();
-          docs.hits.should.be.length(25);
+          should.exist(docs);
+          docs.should.be.an.Array();
+          docs.should.be.length(25);
 
-          docs.hits.forEach(doc => {
+          docs.forEach(doc => {
             doc.header.customerName.should.equal("TESTCUST");
           });
         });

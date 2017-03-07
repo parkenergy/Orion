@@ -6,6 +6,10 @@
     "warrantyWork" : false,
     "AFE" : false
   },
+  "geo": {
+    "type": "Point",
+    "coordinates": [0.0, 0.0]
+  },
   "comments" : {
     "repairsDescription" : "",
     "repairsReason" : "",
