@@ -24,6 +24,7 @@
     "angular-resource": "^1.5.8",
     "angular-bootstrap": "^2.1.4",
     "satellizer": "^0.15.5",
-    "nginfinitescroll": "1.2.*"
+    "nginfinitescroll": "1.2.*",
+    "angular-leaflet-directive": "^0.10.0"
   }
 }
