@@ -1,1 +1,19 @@
-<leaflet center="$ctrl.center" markers="$ctrl.markers" layers="$ctrl.layers" defaults="defaults"></leaflet>
+<ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.map.bounds" draggable="true" options="$ctrl.options">
+  <ui-gmap-markers models="$ctrl.markers" coords="'geo'" icon="'icon'" click="$ctrl.onClick">
+    <ui-gmap-windows show="show">
+      <div ng-non-bindable>
+        Unit Number: <a href="/#/unit/view/{{id}}">{{id}}</a>
+        <br>
+        Unit Type: {{productSeries}}
+        <br>
+        Lease: {{locationName}}
+        <br>
+        Customer: {{customerName}}
+        <br>
+        Tech: {{assignedTo}}
+        <br>
+        Next PM Date: {{nextPmDate}}
+      </div>
+    </ui-gmap-windows>
+  </ui-gmap-markers>
+</ui-gmap-google-map>

@@ -70,9 +70,6 @@ gulp.task('scripts', function() { // concat & minify js files
     './public/app/**/*.js'
   ])
     .pipe(concat('bundle.js'))
-    .pipe(gulp.dest('public'))
-    .pipe(rename('bundle.min.js'))
-    .pipe(uglify())
     .pipe(gulp.dest('public'));
 });
 
