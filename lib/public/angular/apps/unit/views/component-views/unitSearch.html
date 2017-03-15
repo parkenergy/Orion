@@ -1,4 +1,4 @@
-<div class="panel-body" id="showSearch">
+<div class="panel-body">
   <h3>Search</h3>
   <form role="form">
     <div class="form-group">
@@ -32,6 +32,13 @@
              name="customer"
              type="text">
     </div>
+
+    <button
+      class="btn btn-primary form-inline"
+      type="button"
+      ng-click="$ctrl.search()">
+      Search
+    </button>
 
   </form>
 </div>

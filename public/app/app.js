@@ -29,8 +29,7 @@ angular.module('Orion', [
   'WorkOrderApp',
   'ui.bootstrap',
   'ui.utils',
-  'satellizer',
-  'uiGmapgoogle-maps'
+  'satellizer'
   ]);
 
   angular.module('Orion').config(['$routeProvider', '$authProvider',
