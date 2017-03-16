@@ -4,11 +4,11 @@
     height: 100%;
   }
   .angular-google-map-container {
-    height: 600px;
+    height: 25.000em;
   }
 </style>
 <div>
-  <ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.map.bounds" draggable="true" options="$ctrl.options">
+  <ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.bounds" draggable="true" options="$ctrl.options">
     <ui-gmap-markers models="$ctrl.units" coords="'geo'" icon="'icon'" click="$ctrl.onClick">
       <ui-gmap-windows show="show">
         <div ng-non-bindable>
@@ -21,6 +21,8 @@
           <b>Customer:</b> {{customerName}}
           <br>
           <b>Tech:</b> {{assignedTo}}
+          <br>
+          <b>PM Date: </b> {{pmDate | date:'MM/dd/yyyy'}}
         </div>
       </ui-gmap-windows>
     </ui-gmap-markers>

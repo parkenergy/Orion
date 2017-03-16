@@ -25,6 +25,7 @@
     "angular-bootstrap": "^2.1.4",
     "satellizer": "^0.15.5",
     "nginfinitescroll": "1.2.*",
-    "angular-google-maps": "^2.4.1"
+    "angular-google-maps": "^2.4.1",
+    "moment": "^2.17.1"
   }
 }
