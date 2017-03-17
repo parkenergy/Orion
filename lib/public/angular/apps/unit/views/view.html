@@ -7,15 +7,157 @@
   <header></header>
 
   <div class="jumbotron">
-    <h1 class="page-title">{{title}}</h1>
-  </div>
+    <h2 class="page-title">Unit {{title}}</h2>
 
-  <div class="row">
-    <unit-birds-eye></unit-birds-eye>
+    <unit-birds-eye unit="unit"></unit-birds-eye>
   </div>
-
   <div class="row">
-    <unit-info></unit-info>
+
+    <div class="col-md-6">
+      <h3>Unit Information</h3>
+      <div class="row">
+
+        <div class="col-md-4">
+          <h4>
+            Unit Number<br>
+            <small>{{unit.number}}</small>
+          </h4>
+        </div>
+
+        <div class="col-md-4">
+          <h4>
+            Product Series<br>
+            <small>{{unit.productSeries}}</small>
+          </h4>
+        </div>
+
+        <div class="col-md-4">
+          <h4>
+            Latitude<br>
+            <small>{{unit.geo.coordinates[1]}}</small>
+          </h4>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <h4>
+            State<br>
+            <small>{{unit.state.name}}</small>
+          </h4>
+        </div>
+
+        <div class="col-md-4">
+          <h4>
+            County<br>
+            <small>{{unit.county.name}}</small>
+          </h4>
+        </div>
+
+        <div class="col-md-4">
+          <h4>
+            Longitude<br>
+            <small>{{unit.geo.coordinates[0]}}</small>
+          </h4>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <h4>
+            Lease<br>
+            <small>{{unit.locationName}}</small>
+          </h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <h4>
+            Customer<br>
+            <small>{{unit.customerName}}</small>
+          </h4>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      <h3>PM Information</h3>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <h4>
+            Cycle Time<br>
+            <small>{{unit.pmReport.cycleTime}}</small>
+          </h4>
+        </div>
+
+        <div class="col-md-4">
+          <h4>
+            Next PM Date<br>
+            <small>{{unit.pmReport.nextPmDate | date:'MM/dd/yyyy'}}</small>
+          </h4>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <h4>
+            Tech Id<br>
+            <small>{{user.username}}</small>
+          </h4>
+        </div>
+
+        <div class="col-md-4">
+          <h4>
+            First Name<br>
+            <small>{{user.firstName}}</small>
+          </h4>
+        </div>
+
+        <div class="col-md-4">
+          <h4>
+            Last Name<br>
+            <small>{{user.lastName}}</small>
+          </h4>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <h4>
+            Supervisor Id<br>
+            <small>{{supervisor.username}}</small>
+          </h4>
+        </div>
+
+        <div class="col-md-4">
+          <h4>
+            First Name<br>
+            <small>{{supervisor.firstName}}</small>
+          </h4>
+        </div>
+
+        <div class="col-md-4">
+          <h4>
+            Last Name<br>
+            <small>{{supervisor.lastName}}</small>
+          </h4>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
 </div>
