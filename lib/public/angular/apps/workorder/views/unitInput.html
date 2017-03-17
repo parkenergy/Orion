@@ -32,7 +32,7 @@
       type="text"
       name="lease"
       ng-model="workorder.header.leaseName"
-      uib-typeahead="name for name in unitLocationArray | filter:$viewValue | limitTo:12"
+      uib-typeahead="unit.locationName for unit in unitLocationArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="unitLocationArray"
       ng-disabled="disabled">
