@@ -26,7 +26,7 @@ function ($scope, $route, $location, $window, $cookies, AlertService, LoaderServ
         console.log("Failure: ", reason);
       }
     );
-    
+
     $scope.WorkOrderCount(obj).then(
       function (count) {
         $scope.WOSearchCount = count.data;
@@ -470,11 +470,11 @@ angular.module('CommonControllers').controller('MyAccountCtrl',
       );
       return deferred.promise;
     };
-    
+
     $scope.WorkOrderCount = function (obj) {
       var deferred = $q.defer();
       console.log("Getting count...");
-      
+
       $http({method: 'GET', url: '/api/workorderscount', params: obj})
         .then(function (count) {
             console.log("Workorder Count");
@@ -483,7 +483,7 @@ angular.module('CommonControllers').controller('MyAccountCtrl',
           function (err) {
             return deferred.reject(err);
           });
-      
+
       return deferred.promise;
     };
 }]);
@@ -1666,7 +1666,7 @@ angular.module('CommonServices')
           HtoM = Math.abs(Math.round(h * 60));
           totalM = m - HtoM;
           // Deal with negative times
-          if (totalM > 0) { 
+          if (totalM > 0) {
             h = ((totalM / 60) < 1) ? 0 : Math.round(totalM / 60);
           } else {
             h = parseInt(totalM / 60);
@@ -1708,7 +1708,7 @@ angular.module('CommonServices')
 .factory('AssetTypes', ['$resource', function ($resource) {
   return $resource('/api/assettypes/:id', {id: '@id'});
 }])
-       
+
 .factory('Areas', ['$resource', function ($resource) {
   return $resource('/api/areas/:id', {id: '@id'});
 }])
@@ -4101,11 +4101,11 @@ angular.module('CallReportApp.Components')
 function CrCreateContactInfoCtrl () {
   // Variables ------------------------------------------
   var self = this;
-  
+
   self.phoneNumber= /^\d{3}-\d{3}-\d{4}$/;
   self.testEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   // ----------------------------------------------------
-  
+
   // Obj for array for Decision Maker -------------------
   self.decisionMakerObjArray = [
     { type: 'Yes' },
@@ -4113,7 +4113,7 @@ function CrCreateContactInfoCtrl () {
     { type: 'Maybe' }
   ];
   // ----------------------------------------------------
-  
+
   // Pass back Changes ----------------------------------
   self.selectFieldChange = function (changedData, selected) {
     if(changedData !== 'Other'){
@@ -4188,14 +4188,14 @@ function CrCreateOpportunityInfoCtrl (ObjectService) {
 
   // Init functions and tasks ---------------------------
   self.$onInit = function () {
-    
+
     // Populate the customer names into an array for typeahead
     self.customers.map(function (obj) {
       self.objItemArray.push(ObjectService.getNestedObjectValue(obj,'name'));
     });
   };
   // ----------------------------------------------------
-  
+
   // Pass back Changes ----------------------------------
   self.selectFieldChange = function (changedData, selected) {
     if(changedData !== 'Other'){
@@ -4428,7 +4428,7 @@ function ($scope, $timeout, $uibModal, $cookies, $location, AlertService, Object
   function newCallReport () {
     return {
       customer: '',
-      
+
       title: '',
       isManualTitle: false,
       activityType: '',
@@ -4441,7 +4441,7 @@ function ($scope, $timeout, $uibModal, $cookies, $location, AlertService, Object
       isManualStatus: false,
       oppType: '',
       isManualOppType: false,
-      
+
       size: '',
       phoneNumber: '',
       contactName: '',
@@ -4475,12 +4475,12 @@ function ($scope, $timeout, $uibModal, $cookies, $location, AlertService, Object
   $scope.checkboxChange = function (changedData, selected) {
     ObjectService.updateNonNestedObjectValue($scope.callreport, changedData,selected);
   };
-  
+
   $scope.isManualChange = function (changedData, selected) {
     ObjectService.updateNonNestedObjectValue($scope.callreport, changedData, selected);
   };
   // -----------------------------------------------
-  
+
   // Save Call Report ------------------------------
   $scope.save = function () {
     CallReports.save({},$scope.callreport,
@@ -4592,7 +4592,7 @@ function ($scope, $http, $timeout, $location, $q, $cookies, AlertService, CallRe
 angular.module('CallReportApp.Controllers')
 .controller('CallReportReviewCtrl',['$scope','callreport',
 function ($scope, callreport) {
-  
+
   // Variables -------------------------------------
   $scope.callreport = callreport;
   // -----------------------------------------------
@@ -7281,7 +7281,7 @@ function ($window, $scope, $location, $timeout, $uibModal, $cookies, AlertServic
       $scope.unitStateArray.push("");
     }
   });
-  
+
   // Return the NSID of referenced AssetType -----------
   $scope.getAssetTypeNSID = function (name) {
     var returnId = '';
@@ -7293,7 +7293,7 @@ function ($window, $scope, $location, $timeout, $uibModal, $cookies, AlertServic
     return returnId;
   };
   // ----------------------------------------------------
-  
+
   // Set Asset Type -------------------------------------
   $scope.setDisplayAssetType = function () {
     _.forEach($scope.assettypes, function (asset) {
@@ -7309,7 +7309,7 @@ function ($window, $scope, $location, $timeout, $uibModal, $cookies, AlertServic
   };
   $scope.setDisplayAssetType();
   // ----------------------------------------------------
-  
+
   // Add componentName to Pars in WO for listing --------
   $scope.workorder = CommonWOfunctions.addComponentNameToParts($scope.workorder, $scope.parts);
   // ----------------------------------------------------
@@ -7349,7 +7349,7 @@ function ($window, $scope, $location, $timeout, $uibModal, $cookies, AlertServic
     ObjectService.updateNestedObjectValue($scope.workorder, changedData, selected);
   };
   // ------------------------------------------------
-  
+
   // Auto fill for header information
   $scope.$watch('workorder.header.unitNumber', function (newVal, oldVal) {
 
@@ -7368,10 +7368,10 @@ function ($window, $scope, $location, $timeout, $uibModal, $cookies, AlertServic
         $scope.workorder.header.customerName = $scope.unitCustomerArray[unitNumberIndex];
         $scope.workorder.header.unitNumber = $scope.unitNumberArray[unitNumberIndex];
         $scope.workorder.unit = $scope.units[unitNumberIndex];
-        
+
         $scope.workorder.assetType = $scope.getAssetTypeNSID($scope.workorder.unit.productSeries);
         $scope.displayAssetType = $scope.workorder.unit.productSeries;
-        
+
         // Auto poplulate JSA customer and location
         $scope.workorder.jsa.location = $scope.unitLocationArray[unitNumberIndex];
         $scope.workorder.jsa.customer = $scope.unitCustomerArray[unitNumberIndex];
@@ -8058,7 +8058,7 @@ function ($scope, $route, $location, AlertService, LoaderService, workorders) {
     if (ele.timeSubmitted === null) { resumeWorkOrderId = ele._id; }
   });
   $location.path("/workorder/edit/" + (resumeWorkOrderId || ""));
-  
+
 }]);
 
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderReviewCtrl', ['$window', '$scope', '$location', '$timeout', '$uibModal', '$cookies', 'AlertService', 'TimeDisplayService', 'CommonWOfunctions', 'WorkOrders', 'ReviewNotes','EditHistories', 'workorder', 'assettypes', 'reviewNotes', 'editHistories', 'users', 'me', 'applicationtypes', 'counties', 'states', 'units', 'customers', 'parts',
@@ -8118,8 +8118,8 @@ function ($window, $scope, $location, $timeout, $uibModal, $cookies, AlertServic
       $scope.unitStateArray.push("");
     }
   });
-  
-  
+
+
   // Set Asset Type -------------------------------------
   $scope.setDisplayAssetType = function () {
     _.forEach($scope.assettypes, function (asset) {
