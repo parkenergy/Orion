@@ -175,6 +175,7 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
+            should.exist(docs);
             docs.should.be.an.Array();
             docs.should.have.length(25);
             options.skip+=25;
@@ -214,6 +215,7 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
+          should.exist(docs);
           docs.should.be.an.Array();
           docs.should.be.length(25);
 
@@ -237,6 +239,7 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
+          should.exist(docs);
           docs.should.be.an.Array();
           docs.should.be.length(25);
 
@@ -260,6 +263,7 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
+          should.exist(docs);
           docs.should.be.an.Array();
           docs.should.be.length(25);
 
@@ -283,6 +287,7 @@ describe("WorkOrder Units", () => {
 
       return WorkOrder.list(options)
         .then(docs => {
+          should.exist(docs);
           docs.should.be.an.Array();
           docs.should.be.length(25);
 
