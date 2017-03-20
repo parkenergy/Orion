@@ -9,6 +9,7 @@
       uib-typeahead="unit.number for unit in unitNumberArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="unitNumberArray"
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
@@ -22,6 +23,7 @@
       uib-typeahead="customerName for customerName in customersArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="customersArray"
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
@@ -35,6 +37,7 @@
       uib-typeahead="unit.locationName for unit in unitLocationArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="unitLocationArray"
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
@@ -48,6 +51,7 @@
       uib-typeahead="county for county in countiesArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="countiesArray"
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
@@ -61,6 +65,7 @@
       uib-typeahead="state for state in statesArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match="statesArray"
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
