@@ -6,9 +6,11 @@
       type="text"
       name="number"
       ng-model="workorder.header.unitNumber"
-      uib-typeahead="unitNumber for unitNumber in unitNumberArray | filter:$viewValue | limitTo:12"
+      uib-typeahead="unit.number for unit in unitNumberArray | filter:$viewValue | limitTo:12"
       class="form-control"
-      pes-collection-match="unitNumberArray"
+      pes-collection-match
+      typeahead-wait-ms="100"
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
@@ -21,7 +23,8 @@
       ng-model="workorder.header.customerName"
       uib-typeahead="customerName for customerName in customersArray | filter:$viewValue | limitTo:12"
       class="form-control"
-      pes-collection-match="customersArray"
+      pes-collection-match
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
@@ -32,9 +35,11 @@
       type="text"
       name="lease"
       ng-model="workorder.header.leaseName"
-      uib-typeahead="name for name in unitLocationArray | filter:$viewValue | limitTo:12"
+      uib-typeahead="unit.locationName for unit in unitLocationArray | filter:$viewValue | limitTo:12"
       class="form-control"
-      pes-collection-match="unitLocationArray"
+      pes-collection-match
+      typeahead-wait-ms="100"
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
@@ -47,7 +52,8 @@
       ng-model="workorder.header.county"
       uib-typeahead="county for county in countiesArray | filter:$viewValue | limitTo:12"
       class="form-control"
-      pes-collection-match="countiesArray"
+      pes-collection-match
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
@@ -60,7 +66,8 @@
       ng-model="workorder.header.state"
       uib-typeahead="state for state in statesArray | filter:$viewValue | limitTo:12"
       class="form-control"
-      pes-collection-match="statesArray"
+      pes-collection-match
+      typeahead-select-on-exact="true"
       ng-disabled="disabled">
   </div>
 
