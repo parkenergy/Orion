@@ -1,4 +1,6 @@
 {
+  "assignedTo": "TEST001",
   "netsuiteId": "T123",
-  "number": "123"
+  "number": "123",
+  "customerName": "CUST 0123"
 }
