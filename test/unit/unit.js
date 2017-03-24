@@ -2,6 +2,8 @@ const mongoose    = require('mongoose'),
   Promise         = require('bluebird'),
   should          = require('should'),
   _               = require('lodash'),
+  County          = require('../../lib/models/county'),
+  State           = require('../../lib/models/state'),
   Unit            = require('../../lib/models/unit'),
   PmReport        = require('../../lib/models/pmReport'),
   User            = require('../../lib/models/user'),
@@ -56,13 +58,6 @@ describe("Unit Units", () => {
       ]);
     });
 
-    after(() => Promise.join([
-        Unit.remove({}),
-        //User.remove({}),
-        PmReport.remove({})
-      ])
-    );
-
     it("should list 1 Unit with limit", () => Unit.list({size: 1})
       .then(units => {
         should.exist(units);
@@ -106,14 +101,13 @@ describe("Unit Units", () => {
       })
     );
 
-    /*it("should list 1 Unit by supervisor", Unit.list({supervisor: "TEST002"})
+    it("should list 1 Unit by supervisor", () => Unit.list({supervisor: "TEST002"})
       .then(units => {
         should.exist(units);
         units.should.be.Array().with.length(1);
 
-        units[0].number.should.equal("123");
         units[0].assignedTo.should.equal("TEST001");
       })
-    );*/
+    );
   });
 });
