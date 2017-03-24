@@ -123,7 +123,6 @@ describe("Unit Units", () => {
       .map(unit => {
         should.exist(unit);
         should.exist(unit.pmReport);
-
         unit.pmReport.unitNumber.should.equal(unit.number);
       })
     );
