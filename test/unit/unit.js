@@ -30,6 +30,9 @@ describe("Unit Units", () => {
           unit.assignedTo.should.equal('TEST001');
           unit.netsuiteId.should.equal('T123');
           unit.number.should.equal('123');
+
+          should.exist(unit.pmReport);
+          unit.pmReport.unitNumber.should.equal(unit.number);
         })
     );
   });
@@ -109,5 +112,21 @@ describe("Unit Units", () => {
         units[0].assignedTo.should.equal("TEST001");
       })
     );
+
+    it("should populate PmReports for Units", () => Unit.list({})
+      .then(units => {
+        should.exist(units);
+        units.should.be.Array().with.length(2);
+
+        return units;
+      })
+      .map(unit => {
+        should.exist(unit);
+        should.exist(unit.pmReport);
+
+        unit.pmReport.unitNumber.should.equal(unit.number);
+      })
+    );
+
   });
 });
