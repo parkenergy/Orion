@@ -9,7 +9,7 @@
   </thead>
 
   <tbody>
-    <tr ng-repeat="workorder in $ctrl.workorders">
+    <tr ng-repeat="workorder in $ctrl.workorders" ng-click="$ctrl.onClick(workorder._id)">
       <td>{{ workorder.technician.firstName + ' ' + workorder.technician.lastName }}</td>
       <td>{{ workorder.orderType }}</td>
       <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm'}}</td>
