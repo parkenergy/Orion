@@ -1,0 +1,19 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Tech</th>
+      <th>Type</th>
+      <th>Time Started</th>
+      <th>Time Finished</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr ng-repeat="workorder in $ctrl.workorders">
+      <td>{{ workorder.technician.firstName + ' ' + workorder.technician.lastName }}</td>
+      <td>{{ workorder.orderType }}</td>
+      <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm'}}</td>
+      <td>{{ workorder.timeSubmitted| date:'MM/dd/yyyy HH:mm'}}</td>
+    </tr>
+  </tbody>
+</table>
