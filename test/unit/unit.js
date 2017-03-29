@@ -1,15 +1,18 @@
-const mongoose    = require('mongoose'),
-  Promise         = require('bluebird'),
-  should          = require('should'),
-  _               = require('lodash'),
-  County          = require('../../lib/models/county'),
-  State           = require('../../lib/models/state'),
-  Unit            = require('../../lib/models/unit'),
-  PmReport        = require('../../lib/models/pmReport'),
-  User            = require('../../lib/models/user'),
-  unitFixture     = require('../fixture/unit.json'),
-  userFixture     = require('../fixture/user.json'),
-  pmReportFixture = require('../fixture/pmReport.json');
+const mongoose     = require('mongoose'),
+  Promise          = require('bluebird'),
+  should           = require('should'),
+  _                = require('lodash'),
+  County           = require('../../lib/models/county'),
+  State            = require('../../lib/models/state'),
+  Area             = require('../../lib/models/area'),
+  WorkOrder        = require('../../lib/models/workOrder'),
+  Unit             = require('../../lib/models/unit'),
+  PmReport         = require('../../lib/models/pmReport'),
+  User             = require('../../lib/models/user'),
+  unitFixture      = require('../fixture/unit.json'),
+  userFixture      = require('../fixture/user.json'),
+  pmReportFixture  = require('../fixture/pmReport.json'),
+  workOrderFixture = require('../fixture/workOrder.json');
 
 mongoose.Promise = Promise;
 
@@ -17,10 +20,12 @@ describe("Unit Units", () => {
   before(() => Unit.createDoc(unitFixture));
   before(() => User.createDoc(userFixture));
   before(() => PmReport.createDoc(pmReportFixture));
+  before(() => WorkOrder.createDoc(workOrderFixture));
 
   after(() => Unit.remove({}));
   after(() => User.remove({}));
   after(() => PmReport.remove({}));
+  after(() => WorkOrder.remove({}));
 
   describe("#fetch()", () => {
     it("should fetch Unit by number", () => Unit.fetch("123")
@@ -124,6 +129,15 @@ describe("Unit Units", () => {
         should.exist(unit);
         should.exist(unit.pmReport);
         unit.pmReport.unitNumber.should.equal(unit.number);
+      })
+    );
+
+    it("should fetch WorkOrders for Units", () => Unit.getWorkOrders('123')
+      .then(workorders => {
+        should.exist(workorders);
+        workorders.should.be.Array().with.length(1);
+
+        workorders[0].unitNumber.should.equal('123');
       })
     );
 
