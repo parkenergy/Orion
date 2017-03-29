@@ -119,7 +119,7 @@ describe("WorkOrder Units", () => {
 
 
   describe('#getUnitWorkOrders()' , () => {
-    it("should fetch WorkOrders for Units", () => WorkOrder.getWorkOrders('123')
+    it("should fetch WorkOrders for Units", () => WorkOrder.getUnitWorkOrders('123')
       .then(workorders => {
         should.exist(workorders);
         workorders.should.be.Array().with.length(1);
