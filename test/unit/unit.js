@@ -20,6 +20,7 @@ describe("Unit Units", () => {
   before(() => Unit.createDoc(unitFixture));
   before(() => User.createDoc(userFixture));
   before(() => PmReport.createDoc(pmReportFixture));
+  before(() => WorkOrder.remove({}));
   before(() => WorkOrder.createDoc(workOrderFixture));
 
   after(() => Unit.remove({}));
@@ -132,14 +133,6 @@ describe("Unit Units", () => {
       })
     );
 
-    it("should fetch WorkOrders for Units", () => Unit.getWorkOrders('123')
-      .then(workorders => {
-        should.exist(workorders);
-        workorders.should.be.Array().with.length(1);
-
-        workorders[0].unitNumber.should.equal('123');
-      })
-    );
-
   });
+
 });

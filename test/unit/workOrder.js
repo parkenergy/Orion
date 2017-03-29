@@ -12,6 +12,7 @@ const mongoose = require('mongoose'),
   State        = require('../../lib/models/state'),
   Area         = require('../../lib/models/area');
 
+
 before(() => WorkOrder.remove({}));
 
 after(() => WorkOrder.remove({}));
@@ -113,6 +114,20 @@ describe("WorkOrder Units", () => {
           doc.header.unitNumber.should.equal('TEST1');
         });
     }).slow(30);
+  });
+
+
+
+  describe('#getUnitWorkOrders()' , () => {
+    it("should fetch WorkOrders for Units", () => WorkOrder.getWorkOrders('123')
+      .then(workorders => {
+        should.exist(workorders);
+        workorders.should.be.Array().with.length(1);
+
+        workorders[0].unitNumber.should.equal('123');
+      })
+    );
+
   });
 
   describe("#list()", () => {
