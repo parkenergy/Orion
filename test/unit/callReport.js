@@ -14,11 +14,11 @@ const CallReport = require('../../lib/models/callReport'),
   _              = require('lodash'),
   fixture        = require('../fixture/callReport.json');
 
-before(() => CallReport.remove({}));
-
-after(() => CallReport.remove({}));
 
 describe("CallReport Units", () => {
+  before(() => CallReport.remove({}));
+
+  after(() => CallReport.remove({}));
 
   describe("#createDoc()", () => {
 

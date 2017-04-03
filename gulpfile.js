@@ -62,7 +62,7 @@ gulp.task('less', function () { // compile LESS to CSS
     .pipe(gulp.dest('./lib/public/stylesheets'));
 });
 
-gulp.task('scripts', function() { // concat & minify js files
+gulp.task('scripts', function() { // concat js files
   return gulp.src([
     './lib/public/angular/**/*.js',
     './lib/public/scripts/**/*.js',
@@ -70,9 +70,6 @@ gulp.task('scripts', function() { // concat & minify js files
     './public/app/**/*.js'
   ])
     .pipe(concat('bundle.js'))
-    .pipe(gulp.dest('public'))
-    .pipe(rename('bundle.min.js'))
-    .pipe(uglify())
     .pipe(gulp.dest('public'));
 });
 
@@ -120,9 +117,8 @@ gulp.task('start', ['test'], function () {
     script: 'app.js',
     ext: 'js',
     watch: [
-      './git/ORIG_HEAD',
-      './Common/**/*',
-      './routes/**/*.js',
+      './public/bundle.js',
+      './public/lib/**/*.js',
       './app.js'
     ]})
     .on('restart', 'test');
