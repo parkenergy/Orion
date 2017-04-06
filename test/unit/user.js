@@ -5,11 +5,10 @@
   _         = require('lodash'),
   fixture   = require('../fixture/user.json');
 
-before(() => User.remove({}));
-
-after(() => User.remove({}));
-
 describe("User Units", () => {
+  before(() => User.remove({}));
+
+  after(() => User.remove({}));
 
   describe("#createDoc()", () => {
     let uid, user;
@@ -61,10 +60,21 @@ describe("User Units", () => {
 
       return User.list(options)
         .then(docs => {
-          docs.should.be.length(1);
+          docs.should.be.Array().with.length(1);
           docs[0].username.should.equal("TEST001");
           docs[0].netsuiteId.should.equal('1234');
         });
     });
+  });
+
+  describe("#getTechsForSupervisor()", () => {
+    it("should get 1 user for supervisor", () => User.getTechsForSupervisor("TEST002")
+      .then(users => {
+        should.exist(users);
+
+        users.should.be.Array().with.length(1);
+        users[0].should.equal("TEST001");
+      })
+    );
   });
 });

@@ -18,12 +18,13 @@ const PartOrder   = require('../../lib/models/partOrder'),
   userFixture     = require('../fixture/user.json'),
   partFixture     = require('../fixture/part.json');
 
-before(() => PartOrder.remove({}));
-
-after(() => PartOrder.remove({}));
 
 describe("PartOrder Units", () => {
   let partId, partDoc;
+
+  before(() => PartOrder.remove({}));
+
+  after(() => PartOrder.remove({}));
 
   before(() => {
     return User.remove({})

@@ -302,7 +302,7 @@
   "unit": {"netsuiteId":"T123"},
   "timeApproved" : null,
   "type" : "Indirect",
-  "unitNumber" : "",
+  "unitNumber" : "123",
   "unitOwnership" : {
     "isRental" : false,
     "isCustomerUnit" : false

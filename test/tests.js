@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
-var config = require('../config');
-var Promise = require('bluebird');
+const mongoose = require('mongoose'),
+  config = require('../config'),
+  Promise = require('bluebird');
 
 before(function (done) {
   mongoose.Promise = Promise;
