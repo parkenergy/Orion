@@ -129,6 +129,17 @@
               class="glyphicon glyphicon-chevron-up"></span>
           </th>-->
 
+          <!-- Sort by Username -->
+          <th ng-click="$ctrl.resort('username')">
+            UserId
+            <span
+              ng-show="$ctrl.sortType == 'username' && !$ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-down"></span>
+            <span
+              ng-show="$ctrl.sortType == 'username' && $ctrl.sortReverse"
+              class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
           <!-- Sort by Time Created -->
           <th ng-click="$ctrl.resort('epoch')">
             Time Created
@@ -151,6 +162,7 @@
           <td>{{ callreport.status }}</td>
           <!--<td>{{ callreport.officeLocation }}</td>
           <td>{{ callreport.size }}</td>-->
+          <td>{{ callreport.username }}</td>
           <td>{{ callreport.callTime | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
         </tr>
       </tbody>
