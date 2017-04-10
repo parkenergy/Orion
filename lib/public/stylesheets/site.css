@@ -6295,6 +6295,23 @@ input[type="checkbox"] {
   height: 80px;
   margin-bottom: 10px;
 }
+#UnitMap .angular-google-map {
+  width: 100%;
+  height: 100%;
+}
+#UnitMap .angular-google-map-container {
+  height: 25.000em;
+}
+#UnitSat .angular-google-map {
+  width: 100%;
+  height: 100%;
+}
+#UnitSat .angular-google-map-container {
+  height: 12.000em;
+}
+#UnitsIndex div.panel.panel-default div.panel-heading span p.pull-right.ng-binding {
+  margin-bottom: 0px;
+}
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
 }

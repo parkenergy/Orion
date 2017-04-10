@@ -1,13 +1,4 @@
-<style>
-  .angular-google-map {
-    width: 100%;
-    height: 100%;
-  }
-  .angular-google-map-container {
-    height: 25.000em;
-  }
-</style>
-<div>
+<div id="UnitMap">
   <ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.bounds" draggable="true" options="$ctrl.options">
     <ui-gmap-markers models="$ctrl.units" coords="'geo'" icon="'icon'" click="$ctrl.onClick">
       <ui-gmap-windows show="show">

@@ -1,14 +1,6 @@
-<style>
-  .angular-google-map {
-    width: 100%;
-    height: 100%;
-  }
-  .angular-google-map-container {
-    height: 12.000em;
-  }
-</style>
-<div>
-<ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.map.bounds" draggable="true" options="$ctrl.options">
-  <ui-gmap-marker idkey="$ctrl.marker.id" coords="$ctrl.marker.geo" options="$ctrl.marker.options"></ui-gmap-marker>
-</ui-gmap-google-map>
+<div id="UnitSat">
+  <ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.map.bounds" draggable="true" options="$ctrl.options">
+    <ui-gmap-marker idkey="$ctrl.marker.id" coords="$ctrl.marker.geo" options="$ctrl.marker.options">
+    </ui-gmap-marker>
+  </ui-gmap-google-map>
 </div>

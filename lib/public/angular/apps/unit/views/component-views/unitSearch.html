@@ -1,44 +1,67 @@
-<div class="panel-body">
-  <h3>Search</h3>
-  <form role="form">
-    <div class="form-group">
-    <label>Unit Number: </label>
-      <input class="form-control search"
-             ng-model="$ctrl.params.number"
-             name="unit"
-             type="text">
-    </div>
+<div id="UnitSearch">
+  <div class="panel-body">
+    <form role="form">
+      <div class="form-group">
+        <label>Unit Number: </label>
+        <input class="form-control search"
+               ng-model="$ctrl.params.number"
+               name="unit"
+               type="text"
+               ng-change="$ctrl.unitChange($ctrl.params.number, 'unitNumber')"
+               uib-typeahead="unit.number for unit in $ctrl.displayUnits | filter:$viewValue | limitTo:12"
+               typeahead-select-on-exact="true"
+               typeahead-wait-ms="100"
+               typeahead-on-select="$ctrl.unitChange($ctrl.params.number,'unitNumber')">
+      </div>
 
-    <div class="form-group">
-      <label>Supervisor: </label>
-      <input class="form-control search"
-             ng-model="$ctrl.params.supervisor"
-             name="supervisor"
-             type="text">
-    </div>
+      <div class="form-group">
+        <label>Supervisor: </label>
+        <input class="form-control search"
+               ng-model="$ctrl.params.supervisor"
+               name="supervisor"
+               type="text"
+               ng-change="$ctrl.supervisorChange($ctrl.params.supervisor, 'supervisor')"
+               uib-typeahead="user.username as user.fullName for user in $ctrl.users | filter:$viewValue | limitTo:12"
+               typeahead-select-on-exact="true"
+               typeahead-wait-ms="100"
+               typeahead-on-select="$ctrl.supervisorChange($ctrl.params.supervisor,'supervisor')"
+        >
+      </div>
 
-    <div class="form-group">
-      <label>Tech ID: </label>
-      <input class="form-control search"
-             ng-model="$ctrl.params.tech"
-             name="tech"
-             type="text">
-    </div>
+      <div class="form-group">
+        <label>Tech ID: </label>
+        <input class="form-control search"
+               ng-model="$ctrl.params.tech"
+               name="tech"
+               type="text"
+               ng-change="$ctrl.techChange($ctrl.params.tech, 'tech')"
+               uib-typeahead="user.username as user.fullName for user in $ctrl.users | filter:$viewValue | limitTo:12"
+               typeahead-select-on-exact="true"
+               typeahead-wait-ms="100"
+               typeahead-on-select="$ctrl.techChange($ctrl.params.tech,'tech')">
+      </div>
 
-    <div class="form-group">
-      <label>Customer: </label>
-      <input class="form-control search"
-             ng-model="$ctrl.params.customer"
-             name="customer"
-             type="text">
-    </div>
+      <div class="form-group">
+        <label>Customer: </label>
+        <input class="form-control search"
+               ng-model="$ctrl.params.customer"
+               name="customer"
+               type="text"
+               ng-change="$ctrl.customerChange($ctrl.params.customer, 'customer')"
+               uib-typeahead="customer.name for customer in $ctrl.customers | filter:$viewValue | limitTo:12"
+               typeahead-select-on-exact="true"
+               typeahead-wait-ms="100"
+               typeahead-on-select="$ctrl.customerChange($ctrl.params.customer, 'customer')">
+      </div>
 
-    <button
-      class="btn btn-primary form-inline"
-      type="button"
-      ng-click="$ctrl.search()">
-      Search
-    </button>
+      <button
+        class="btn btn-primary form-inline"
+        type="button"
+        ng-click="$ctrl.search()">
+        Search
+      </button>
 
-  </form>
+    </form>
+  </div>
+
 </div>
