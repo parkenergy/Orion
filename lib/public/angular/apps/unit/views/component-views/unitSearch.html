@@ -1,7 +1,7 @@
 <div id="UnitSearch">
   <div class="panel-body">
     <form role="form">
-      <div class="form-group">
+      <div class="form-group has-feedback">
         <label>Unit Number: </label>
         <input class="form-control search"
                ng-model="$ctrl.params.number"
@@ -12,9 +12,15 @@
                typeahead-select-on-exact="true"
                typeahead-wait-ms="100"
                typeahead-on-select="$ctrl.unitChange($ctrl.params.number,'unitNumber')">
+        <span
+          ng-if="$ctrl.params.number"
+          ng-click="$ctrl.clearText('unitNumber')"
+          class="glyphicon glyphicon-remove form-control-feedback"
+          uib-tooltip="clear">
+        </span>
       </div>
 
-      <div class="form-group">
+      <div class="form-group has-feedback">
         <label>Supervisor: </label>
         <input class="form-control search"
                ng-model="$ctrl.params.supervisor"
@@ -24,11 +30,16 @@
                uib-typeahead="user.username as user.fullName for user in $ctrl.users | filter:$viewValue | limitTo:12"
                typeahead-select-on-exact="true"
                typeahead-wait-ms="100"
-               typeahead-on-select="$ctrl.supervisorChange($ctrl.params.supervisor,'supervisor')"
-        >
+               typeahead-on-select="$ctrl.supervisorChange($ctrl.params.supervisor,'supervisor')">
+        <span
+          ng-if="$ctrl.params.supervisor"
+          ng-click="$ctrl.clearText('supervisor')"
+          class="glyphicon glyphicon-remove form-control-feedback"
+          uib-tooltip="clear">
+        </span>
       </div>
 
-      <div class="form-group">
+      <div class="form-group has-feedback">
         <label>Tech ID: </label>
         <input class="form-control search"
                ng-model="$ctrl.params.tech"
@@ -39,9 +50,15 @@
                typeahead-select-on-exact="true"
                typeahead-wait-ms="100"
                typeahead-on-select="$ctrl.techChange($ctrl.params.tech,'tech')">
+        <span
+          ng-if="$ctrl.params.tech"
+          ng-click="$ctrl.clearText('tech')"
+          class="glyphicon glyphicon-remove form-control-feedback"
+          uib-tooltip="clear">
+        </span>
       </div>
 
-      <div class="form-group">
+      <div class="form-group has-feedback">
         <label>Customer: </label>
         <input class="form-control search"
                ng-model="$ctrl.params.customer"
@@ -52,6 +69,12 @@
                typeahead-select-on-exact="true"
                typeahead-wait-ms="100"
                typeahead-on-select="$ctrl.customerChange($ctrl.params.customer, 'customer')">
+        <span
+          ng-if="$ctrl.params.customer"
+          ng-click="$ctrl.clearText('customer')"
+          class="glyphicon glyphicon-remove form-control-feedback"
+          uib-tooltip="clear">
+        </span>
       </div>
 
       <button
