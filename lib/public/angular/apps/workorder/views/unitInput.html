@@ -12,6 +12,7 @@
       pes-collection-match
       typeahead-wait-ms="100"
       typeahead-select-on-exact="true"
+      typeahead-on-select="unitNumberChange(workorder.header.unitNumber)"
       ng-disabled="disabled">
   </div>
 
@@ -28,6 +29,7 @@
       pes-collection-match
       typeahead-wait-ms="100"
       typeahead-select-on-exact="true"
+      typeahead-on-select="customerChange(workorder.header.customerName)"
       ng-disabled="disabled">
   </div>
 
@@ -45,6 +47,7 @@
       pes-collection-match
       typeahead-wait-ms="100"
       typeahead-select-on-exact="true"
+      typeahead-on-select="leaseChange(workorder.header.leaseName)"
       ng-disabled="disabled">
   </div>
 
