@@ -1,30 +1,29 @@
-<style>
-  .angular-google-map {
-    width: 100%;
-    height: 100%;
-  }
-  .angular-google-map-container {
-    height: 25.000em;
-  }
-</style>
-<div>
+<div id="UnitMap">
   <ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.bounds" draggable="true" options="$ctrl.options">
-    <ui-gmap-markers models="$ctrl.units" coords="'geo'" icon="'icon'" click="$ctrl.onClick">
-      <ui-gmap-windows show="show">
-        <div ng-non-bindable>
-          <b>Unit Number:</b> <a href="/#/unit/view/{{id}}">{{id}}</a>
-          <br>
-          <b>Unit Type:</b> {{productSeries}}
-          <br>
-          <b>Lease:</b> {{locationName}}
-          <br>
-          <b>Customer:</b> {{customerName}}
-          <br>
-          <b>Tech:</b> {{assignedTo}}
-          <br>
-          <b>PM Date: </b> {{pmDate | date:'MM/dd/yyyy'}}
-        </div>
-      </ui-gmap-windows>
+
+    <ui-gmap-window
+      show="$ctrl.map.window.show"
+      coords="$ctrl.map.window.model.geo"
+      options="$ctrl.map.options"
+      closeClick="$ctrl.map.window.closeClick()"
+      templateParameter="$ctrl.map.window">
+      <div>
+        <b>Unit Number:</b> <a target="_blank" href="/#/unit/view/{{$ctrl.map.window.model.id}}">{{$ctrl.map.window.model.id}}</a>
+        <br>
+        <b>Unit Type:</b> {{$ctrl.map.window.model.productSeries}}
+        <br>
+        <b>Lease:</b> {{$ctrl.map.window.model.locationName}}
+        <br>
+        <b>Customer:</b> {{$ctrl.map.window.model.customerName}}
+        <br>
+        <b>Tech:</b> {{$ctrl.map.window.model.assignedTo}}
+        <br>
+        <b>PM Date: </b> {{$ctrl.map.window.model.pmDate | date:'MM/dd/yyyy'}}
+      </div>
+    </ui-gmap-window>
+
+    <ui-gmap-markers models="$ctrl.units" coords="'geo'" icon="'icon'"  events="$ctrl.map.markerEvents">
     </ui-gmap-markers>
+
   </ui-gmap-google-map>
 </div>
