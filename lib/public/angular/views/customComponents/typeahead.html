@@ -9,5 +9,6 @@
     uib-typeahead="item for item in $ctrl.objItemArray | filter:$viewValue | limitTo:$ctrl.limit"
     ng-disabled="$ctrl.disabled"
     typeahead-select-on-exact="true"
+    typeahead-wait-ms="$ctrl.wait"
     typeahead-on-select="$ctrl.onUpdate($item)">
 </div>

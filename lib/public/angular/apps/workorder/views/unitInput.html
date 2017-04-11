@@ -6,11 +6,13 @@
       type="text"
       name="number"
       ng-model="workorder.header.unitNumber"
+      ng-change="unitNumberChange(workorder.header.unitNumber)"
       uib-typeahead="unit.number for unit in unitNumberArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match
       typeahead-wait-ms="100"
       typeahead-select-on-exact="true"
+      typeahead-on-select="unitNumberChange(workorder.header.unitNumber)"
       ng-disabled="disabled">
   </div>
 
@@ -21,12 +23,16 @@
       type="text"
       name="customer"
       ng-model="workorder.header.customerName"
-      uib-typeahead="customerName for customerName in customersArray | filter:$viewValue | limitTo:12"
+      ng-change="customerChange(workorder.header.customerName)"
+      uib-typeahead="customer.name for customer in customersArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match
+      typeahead-wait-ms="100"
       typeahead-select-on-exact="true"
+      typeahead-on-select="customerChange(workorder.header.customerName)"
       ng-disabled="disabled">
   </div>
+
 
   <!-- Lease Name -->
   <div class="form-group col-xs-4">
@@ -35,11 +41,13 @@
       type="text"
       name="lease"
       ng-model="workorder.header.leaseName"
+      ng-change="leaseChange(workorder.header.leaseName)"
       uib-typeahead="unit.locationName for unit in unitLocationArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match
       typeahead-wait-ms="100"
       typeahead-select-on-exact="true"
+      typeahead-on-select="leaseChange(workorder.header.leaseName)"
       ng-disabled="disabled">
   </div>
 
