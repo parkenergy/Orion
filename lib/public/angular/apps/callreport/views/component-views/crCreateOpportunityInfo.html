@@ -34,7 +34,7 @@
                  name="customer1"
                  class="form-control"
                  ng-change="$ctrl.typeaheadChange($ctrl.callreport.customer,'customer')"
-                 uib-typeahead="item for item in $ctrl.objItemArray | filter:$viewValue | limitTo:12"
+                 uib-typeahead="item.name for item in $ctrl.customers | filter:$viewValue | limitTo:12"
                  typeahead-select-on-exact="true"
                  typeahead-wait-ms="100"
                  typeahead-on-select="$ctrl.typeaheadChange($ctrl.callreport.customer,'customer')"
