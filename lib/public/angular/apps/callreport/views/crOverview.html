@@ -17,9 +17,12 @@
     <!-- content -->
     <cr-overview-table
       ng-show="loaded"
+      users="displayUsersFromController"
+      customers="displayCustomersFromController"
       callreports="callreports"
       scroll-content-search="CallReportScrollLookup(query)"
-      content-search="lookup(query)">
+      content-search="lookup(query)"
+      on-typeahead-change="typeaheadChange(changedData, selected)">
     </cr-overview-table>
   </div>
 

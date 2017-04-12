@@ -34,6 +34,27 @@
               </div>
 
               <!-- row 2 -->
+              <div class="form-group has-feedback">
+                <label>Customer</label>
+                <input
+                  class="form-control search"
+                  ng-model="$ctrl.customerName"
+                  name="customer"
+                  type="text"
+                  ng-change="$ctrl.customerChange($ctrl.customerName, 'customer')"
+                  uib-typeahead="customer.name for customer in $ctrl.customers | filter:$viewValue | limitTo:12"
+                  typeahead-select-on-exact="true"
+                  typeahead-wait-ms="100"
+                  typeahead-on-select="$ctrl.customerChange($ctrl.customerName, 'customer')">
+                <span
+                  ng-if="$ctrl.customerName"
+                  ng-click="$ctrl.clearText('customer')"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  uib-tooltip="clear">
+                </span>
+              </div>
+
+              <!-- row 3 -->
               <button
                 class="btn btn-primary form-inline"
                 type="button"
@@ -57,6 +78,27 @@
                   ng-change="$ctrl.endOfDay()"
                   name="toDate" type="date"
                   placeholder="yyyy-mm-dd">
+              </div>
+
+              <!-- row 2 -->
+              <div class="form-group has-feedback">
+                <label>User Name</label>
+                <input
+                  class="form-control search"
+                  ng-model="$ctrl.userName"
+                  name="user"
+                  type="text"
+                  ng-change="$ctrl.userChange($ctrl.userName, 'user')"
+                  uib-typeahead="user.username as user.fullName for user in $ctrl.users | filter:$viewValue | limitTo:12"
+                  typeahead-select-on-exact="true"
+                  typeahead-wait-ms="100"
+                  typeahead-on-select="$ctrl.userChange($ctrl.userName, 'user')">
+                <span
+                  ng-if="$ctrl.userName"
+                  ng-click="$ctrl.clearText('user')"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  uib-tooltip="clear">
+                </span>
               </div>
 
             </div>
@@ -107,28 +149,6 @@
               class="glyphicon glyphicon-chevron-up"></span>
           </th>
 
-          <!-- Sort by Destination Locaiton -->
-         <!-- <th ng-click="$ctrl.resort('officeLocation')">
-            Destination
-            <span
-              ng-show="$ctrl.sortType == 'officeLocation' && !$ctrl.sortReverse"
-              class="glyphicon glyphicon-chevron-down"></span>
-            <span
-              ng-show="$ctrl.sortType == 'officeLocation' && $ctrl.sortReverse"
-              class="glyphicon glyphicon-chevron-up"></span>
-          </th>-->
-
-          <!-- Sort by Status-->
-          <!--<th ng-click="$ctrl.resort('size')">
-            Status
-            <span
-              ng-show="$ctrl.sortType == 'size' && !$ctrl.sortReverse"
-              class="glyphicon glyphicon-chevron-down"></span>
-            <span
-              ng-show="$ctrl.sortType == 'size' && $ctrl.sortReverse"
-              class="glyphicon glyphicon-chevron-up"></span>
-          </th>-->
-
           <!-- Sort by Username -->
           <th ng-click="$ctrl.resort('username')">
             UserId
@@ -155,13 +175,11 @@
       <!-- Sorted Table -->
       <tbody infinite-scroll="$ctrl.loadOnScroll()"
              infinite-scroll-immediate-check="false"
-             infinite-scroll-disabled="$ctrl.loaded">
+             infinite-scroll-disabled="false">
         <tr ng-repeat="callreport in $ctrl.callreports | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToCallReport(callreport);">
           <td>{{ callreport.contactName }}</td>
           <td>{{ callreport.customer }}</td>
           <td>{{ callreport.status }}</td>
-          <!--<td>{{ callreport.officeLocation }}</td>
-          <td>{{ callreport.size }}</td>-->
           <td>{{ callreport.username }}</td>
           <td>{{ callreport.callTime | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
         </tr>
