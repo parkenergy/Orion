@@ -1,28 +1,51 @@
 <div id="UnitMap">
-  <ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.bounds" draggable="true" options="$ctrl.options">
+  <ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.bounds" draggable="true" options="$ctrl.options" events="$ctrl.map.mapEvents">
 
+    <!-- Click Coordinate Info Window -->
     <ui-gmap-window
-      show="$ctrl.map.window.show"
-      coords="$ctrl.map.window.model.geo"
+      show="$ctrl.map.CoordInfoWindow.show"
+      coords="$ctrl.map.CoordInfoWindow.marker.geo"
       options="$ctrl.map.options"
-      closeClick="$ctrl.map.window.closeClick()"
-      templateParameter="$ctrl.map.window">
+      closeClick="$ctrl.map.CoordInfoWindow.closeClick()"
+      templateParameter="$ctrl.map.CoordInfoWindow">
       <div>
-        <b>Unit Number:</b> <a target="_blank" href="/#/unit/view/{{$ctrl.map.window.model.id}}">{{$ctrl.map.window.model.id}}</a>
+        <b>Latitude: </b> {{ $ctrl.map.CoordInfoWindow.marker.geo.coordinates[1] }}
         <br>
-        <b>Unit Type:</b> {{$ctrl.map.window.model.productSeries}}
-        <br>
-        <b>Lease:</b> {{$ctrl.map.window.model.locationName}}
-        <br>
-        <b>Customer:</b> {{$ctrl.map.window.model.customerName}}
-        <br>
-        <b>Tech:</b> {{$ctrl.map.window.model.assignedTo}}
-        <br>
-        <b>PM Date: </b> {{$ctrl.map.window.model.pmDate | date:'MM/dd/yyyy'}}
+        <b>Longitude: </b> {{ $ctrl.map.CoordInfoWindow.marker.geo.coordinates[0] }}
       </div>
     </ui-gmap-window>
 
-    <ui-gmap-markers models="$ctrl.units" coords="'geo'" icon="'icon'"  events="$ctrl.map.markerEvents">
+    <!-- Click Coordinate marker -->
+    <ui-gmap-marker
+      idKey="$ctrl.map.CoordInfoWindow.marker.id"
+      coords="$ctrl.map.CoordInfoWindow.marker.geo"
+      events="$ctrl.map.CoordMarkerEvents">
+    </ui-gmap-marker>
+
+    <!-- Unit Marker Info window -->
+    <ui-gmap-window
+      show="$ctrl.map.unitInfoWindow.show"
+      coords="$ctrl.map.unitInfoWindow.model.geo"
+      options="$ctrl.map.options"
+      closeClick="$ctrl.map.unitInfoWindow.closeClick()"
+      templateParameter="$ctrl.map.unitInfoWindow">
+      <div>
+        <b>Unit Number:</b> <a target="_blank" href="/#/unit/view/{{$ctrl.map.unitInfoWindow.model.id}}">{{$ctrl.map.unitInfoWindow.model.id}}</a>
+        <br>
+        <b>Unit Type:</b> {{$ctrl.map.unitInfoWindow.model.productSeries}}
+        <br>
+        <b>Lease:</b> {{$ctrl.map.unitInfoWindow.model.locationName}}
+        <br>
+        <b>Customer:</b> {{$ctrl.map.unitInfoWindow.model.customerName}}
+        <br>
+        <b>Tech:</b> {{$ctrl.map.unitInfoWindow.model.assignedTo}}
+        <br>
+        <b>PM Date: </b> {{$ctrl.map.unitInfoWindow.model.pmDate | date:'MM/dd/yyyy'}}
+      </div>
+    </ui-gmap-window>
+
+    <!-- Unit markers -->
+    <ui-gmap-markers models="$ctrl.units" coords="'geo'" icon="'icon'"  events="$ctrl.map.unitMarkerEvents">
     </ui-gmap-markers>
 
   </ui-gmap-google-map>
