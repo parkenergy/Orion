@@ -1,0 +1,331 @@
+#woReview {
+  @media print {
+    //             PRINT SETTINGS FOR WORKORDER PREVIEW PAGE ORION
+    // dont show navbar its wasting space on print.
+    nav.navbar{
+      display: none;
+    }
+    // all other text
+    div{
+      font-size: 8px;
+    }
+    // keep rows in page.
+    div.row{
+      margin-top: 5px;
+      margin-bottom: 5px;
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+    // This covers all other panel columns, [engine compression and the input fields above it], row panels such as, [engine checks, general checks, unit ownership, billing info, the leaseNots group],[work order type, heading information, work order info, and spacing between labor code columns].
+    div.col-xs-12,
+    div.col-xs-9,
+    div.col-xs-6,
+    div.col-xs-4,
+    div.col-xs-3{
+      padding-left: 2px !important;
+      padding-right: 2px !important;
+    }
+    text-field.col-xs-12,
+    text-field.col-xs-9,
+    text-field.col-xs-6,
+    text-field.col-xs-4,
+    text-field.col-xs-3{
+      padding-left: 2px !important;
+      padding-right: 2px !important;
+    }
+    // decrease padding on the bottom of each panel
+    div.panel{
+      margin-bottom: 5px !important;
+    }
+    // decrease padding between heading text and walls
+    div.panel-heading{
+      padding: 2px !important;
+    }
+    // decrease padding in panel bodies and everything inside.
+    div.panel-body{
+      padding: 2px !important;
+    }
+    // spacing under all input fields decreases.
+    div.form-group{
+      margin-bottom: 4px !important;
+    }
+    #CcheckBox {
+      margin-top: 2px;
+      margin-bottom: 2px;
+      padding-left: 20px;
+      padding-top: 0;
+      padding-right: 0;
+      padding-bottom: 0;
+      min-height: 15px;
+      input {
+        margin-right: 4px;
+        margin-top: 2px;
+        margin-left: 0px;
+        height: 15px;
+      }
+      label {
+        margin-bottom: 2px;
+      }
+    }
+
+    #Ctextfield {
+      margin-bottom: 2px;
+      margin-top: 2px;
+      input {
+        margin: 0;
+        padding: 2px;
+        height: 15px;
+      }
+      label {
+        margin-bottom: 2px;
+      }
+    }
+
+    review-header {
+      div.row {
+        div.col-xs-4 {
+
+          // dont display the Notes panel
+          review-notes{
+            display: none;
+          }
+
+          // dont display the History panel
+          review-data-history{
+            display: none;
+          }
+        }
+
+        div.col-xs-3 {
+
+          // dont display the edit button
+          button{
+            display: none;
+          }
+        }
+      }
+
+
+      //-------------- heading info [start]----------------
+      review-heading.ng-scope {
+        unit-input {
+          label {
+            margin-bottom: 2px;
+          }
+          input.form-control {
+            font-size: 8px;
+            padding: 2px !important;
+            margin: 0px;
+            height: 15px;
+          }
+        }
+
+        label {
+          margin-bottom: 2px;
+        }
+        select-list {
+          padding: 2px !important;
+        }
+        input.form-control {
+          padding: 2px !important;
+          margin: 0px;
+          height: 15px;
+        }
+        text-field.col-xs-4 {
+          padding: 2px !important;
+        }
+        text-field.col-xs-3 {
+          padding: 2px !important;
+          margin: 0px;
+          height: 15px;
+        }
+        text-field.col-xs-2 {
+          padding: 2px !important;
+          margin: 0px;
+          height: 15px;
+        }
+        type-ahead.col-xs-4 {
+          padding: 2px !important;
+          margin: 0px;
+          height: 15px;
+        }
+        select.form-control {
+          padding: 2px !important;
+          margin: 0px;
+          height: 15px;
+        }
+
+      }
+      //-------------- heading info [end] -------------------
+
+      // review-billing -------------------------------------
+      review-billing {
+
+        text-field {
+          padding: 2px !important;
+          margin: 0px;
+          height: 15px;
+        }
+      }
+      // ----------------------------------------------------
+
+      // review-misc ----------------------------------------
+      review-misc {
+        button {
+          display: none;
+        }
+        check-box {
+          padding: 0;
+        }
+        number-field {
+          padding: 0;
+          div.form-group {
+            margin-bottom: 2px;
+          }
+          label {
+            margin-bottom: 2px;
+          }
+          input {
+            padding: 2px !important;
+            margin: 0px;
+            height: 15px;
+          }
+        }
+      }
+      // ----------------------------------------------------
+    }
+
+    // dont need to see bottom submit button if it is submitted
+    #submitReview {
+      button.btn {
+        display: none;
+      }
+    }
+
+
+    //-------------- check boxes [start] --------------------------------------------------
+    // work order info
+    // fist PM checkbox is seperate from the rest
+    #pm > input.ng-pristine.ng-untouched.ng-valid{
+      margin-top: 2px;
+      margin-bottom: 4px !important;
+      margin-left: 10px;
+    }
+    // edit spacing between checkboxes rows
+    div.panel-body > div.ng-binding.ng-scope{
+      margin-bottom: 4px !important;
+      margin-left: 10px;
+    }
+    // edit the padding above each checkbox in work order type
+    div.panel-body > div.ng-binding.ng-scope > input.ng-pristine.ng-untouched.ng-valid{
+      margin-top: 0px;
+    }
+    // ALL OTHER CHECK BOX GROUPS
+    // fix margins
+    div.panel-body > check-box.ng-isolate-scope> div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid{
+      margin-left: 0px;
+      margin-top: 2px !important;
+      margin-bottom: 0px !important;
+      margin-right: 4px;
+    }
+    // decrease bottome margin
+    div.panel-body > check-box.ng-isolate-scope > div.checkbox{
+      min-height: 15px !important;
+      margin-top: 2px !important;
+      margin-bottom: 2px !important;
+    }
+    div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding{
+      margin-bottom: 0px !important;
+    }
+    //-------------- check boxes [end] ----------------------------------------------------
+
+    // -------------- labor codes [Start]--------------------------------------------------
+    review-labor-codes {
+      div.form-group.row {
+        margin: 0;
+        margin-bottom: 2px !important;
+        padding-left: 2px;
+        padding-right: 2px;
+      }
+      select {
+        padding: 2px;
+        margin: 0;
+        height: 15px;
+      }
+      label {
+        margin-bottom: 2px;
+      }
+    }
+    //-------------- Labor codes [End]--------------------------------------------------
+
+    //-------------- Parts [start] -----------------------------------------------------
+    review-parts {
+      table.table.table-hover{
+        margin-bottom: 0px !important;
+        th{
+          margin-bottom: 0px;
+          padding: 2px;
+          padding-left: 5px;
+        }
+        td{
+          padding: 2px;
+          padding-left: 5px;
+          div.form-group{
+            margin-bottom: 2px;
+          }
+          input{
+            padding: 2px;
+            margin: 0px;
+            height: 15px;
+            font-size: 8px;
+          }
+          price-field {
+            div.form-group {
+              margin-bottom: 2px;
+            }
+            span.input-group-addon {
+              padding: 2px;
+              font-size: 8px;
+            }
+          }
+        }
+      }
+    }
+    //-------------- Parts [end] -------------------------------------------------------
+
+
+
+
+    // FONT SIZE FORMATTING
+    // Headings
+    div.panel-heading > h3.panel-title{
+      font-size: 10px !important;
+    }
+    div.panel-heading > h1.panel-title{
+      font-size: 10px !important;
+    }
+    //input fields
+    div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid{
+      font-size: 8px !important;
+    }
+    //comment fields
+    div.form-group > textarea.form-control.ng-pristine.ng-untouched.ng-valid{
+      font-size: 8px !important;
+    }
+    //open text in spans + labor code times
+    div.panel-body,
+    p.ng-binding,
+    select.form-control{
+      font-size: 8px !important;
+    }
+    // workorder info
+    div.panel-body > div > p{
+      font-weight: normal !important;
+      font-size: 8px !important;
+    }
+    button.btn{
+      font-size: 10px !important;
+    }
+  }
+
+}

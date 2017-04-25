@@ -179,332 +179,76 @@ th {
   padding: 0;
 }
 @media print {
-  nav.navbar {
-    display: none;
-  }
-  review-header > div.row > div.col-xs-4 > review-notes {
-    display: none;
-  }
-  review-header > div.row > div.col-xs-4 > review-data-history {
-    display: none;
-  }
-  review-header > div.row > div.col-xs-3 > button {
-    display: none;
-  }
-  review-misc.ng-scope > div.panel > div.panel-body > button.btn {
-    display: none;
-  }
-  div.ng-scope > button.btn.btn-lg.btn-primary.pull-right {
-    display: none;
-  }
-  div.ng-scope > div.ng-binding.ng-hide > button.btn.btn-lg.btn-primary.pull-right {
-    display: none;
-  }
-  div {
-    font-size: 8px;
-  }
-  div.row {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-right: 0px;
-    margin-left: 0px;
-  }
-  div.col-xs-12,
-  div.col-xs-9,
-  div.col-xs-6,
-  div.col-xs-4,
-  div.col-xs-3 {
-    padding-left: 2px !important;
-    padding-right: 2px !important;
-  }
-  div.panel {
-    margin-bottom: 5px !important;
-  }
-  div.panel-heading {
-    padding: 2px !important;
-  }
-  div.panel-body {
-    padding: 2px !important;
-  }
-  div.form-group {
-    margin-bottom: 4px !important;
-  }
-  div.panel-body > type-ahead.col-xs-3.ng-isolate-scope {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-  div.panel-body > text-field.col-xs-3.ng-isolate-scope {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-  div.panel-body > type-ahead.col-xs-4.ng-isolate-scope {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-  div.panel-body > text-field.col-xs-2.ng-isolate-scope {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-  div.panel-body > select-list.col-xs-4.ng-isolate-scope {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-  div.panel-body > type-ahead.col-xs-3.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  div.panel-body > text-field.col-xs-3.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  div.panel-body > type-ahead.col-xs-4.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  div.panel-body > text-field.col-xs-2.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  div.panel-body > select-list.col-xs-4.ng-isolate-scope > div.form-group > select.form-control.ng-pristine.ng-untouched.ng-valid {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  review-pm-misc > div > div > number-field.ng-isolate-scope > div.form-group > input {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  div.panel-body > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  div.panel-body > div.col-xs-6 > text-field.ng-isolate-scope > div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  #pm > input.ng-pristine.ng-untouched.ng-valid {
-    margin-top: 2px;
-    margin-bottom: 4px !important;
-    margin-left: 10px;
-  }
-  div.panel-body > div.ng-binding.ng-scope {
-    margin-bottom: 4px !important;
-    margin-left: 10px;
-  }
-  div.panel-body > div.ng-binding.ng-scope > input.ng-pristine.ng-untouched.ng-valid {
-    margin-top: 0px;
-  }
-  div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid {
-    margin-left: 0px;
-    margin-top: 2px !important;
-    margin-bottom: 0px !important;
-    margin-right: 4px;
-  }
-  div.panel-body > check-box.ng-isolate-scope > div.checkbox {
-    min-height: 15px !important;
-    margin-top: 2px !important;
-    margin-bottom: 2px !important;
-  }
-  div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding {
-    margin-bottom: 0px !important;
-  }
-  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope {
-    margin: 0px;
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope > div.col-xs-12 {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-  div.panel-body > time-field.ng-isolate-scope > div.form-group.row.ng-scope > div.col-xs-12 > div.col-xs-6 {
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-  div.panel-body > time-field.ng-isolate-scope > div > div > div > select {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  div.panel-body > table.table.table-hover {
-    margin-bottom: 0px !important;
-  }
-  div.panel-body > table.table.table-hover > thead > tr > th {
-    margin-bottom: 0px;
-    padding: 2px;
-    padding-left: 5px;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td {
-    padding: 2px;
-    padding-left: 5px;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td > number-field.ng-isolate-scope > div.form-group {
-    margin-bottom: 2px;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td > number-field.ng-isolate-scope > div.form-group > input {
-    padding: 2px;
-    margin: 0px;
-    height: 15px;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td > check-box.ng-isolate-scope > div.checkbox {
-    min-height: 15px !important;
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
-    padding-left: 8px !important;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td > check-box.ng-isolate-scope > div.checkbox > label.ng-binding {
-    margin: 0px !important;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td > check-box.ng-isolate-scope > div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid {
-    margin-left: 0px !important;
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
-    margin-right: 4px !important;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group {
-    margin-bottom: 0px;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group > label.ng-binding.ng-hide {
-    margin-bottom: 0px;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group > div.input-group > span.input-group-addon {
-    padding: 2px;
-    font-size: 8px;
-    height: 15px;
-  }
-  div.panel-body > table.table.table-hover > tbody > tr > td > price-field.ng-isolate-scope > div.form-group > div.input-group > input.form-control.ng-pristine.ng-untouched.ng-valid.ng-scope {
-    padding: 2px;
-    font-size: 8px;
-    height: 15px;
-  }
-  div.panel-heading > h3.panel-title {
-    font-size: 10px !important;
-  }
-  div.panel-heading > h1.panel-title {
-    font-size: 10px !important;
-  }
-  div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
-    font-size: 8px !important;
-  }
-  div.form-group > textarea.form-control.ng-pristine.ng-untouched.ng-valid {
-    font-size: 8px !important;
-  }
-  div.panel-body,
-  p.ng-binding,
-  select.form-control {
-    font-size: 8px !important;
-  }
-  div.panel-body > div > p {
-    font-weight: normal !important;
-    font-size: 8px !important;
-  }
-  button.btn {
-    font-size: 10px !important;
-  }
-}
-/*@media print {
-
   * {
     text-shadow: none !important;
-    color: #000 !important; // Black prints faster: h5bp.com/s
+    color: #000 !important;
     background: transparent !important;
     box-shadow: none !important;
   }
-
   a,
   a:visited {
     text-decoration: underline;
   }
-
   a[href]:after {
     content: " (" attr(href) ")";
   }
-
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
-
-  // Don't show links for images, or javascript/internal links
   a[href^="javascript:"]:after,
   a[href^="#"]:after {
     content: "";
   }
-
   pre,
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
-
   thead {
-    display: table-header-group; // h5bp.com/t
+    display: table-header-group;
   }
-
   tr,
   img {
     page-break-inside: avoid;
   }
-
   img {
     max-width: 100% !important;
   }
-
   p,
   h2,
   h3 {
     orphans: 3;
     widows: 3;
   }
-
   h2,
   h3 {
     page-break-after: avoid;
   }
-
-  // Chrome (OSX) fix for https://github.com/twbs/bootstrap/issues/11245
-  // Once fixed, we can just straight up remove this.
   select {
     background: #fff !important;
   }
-
-  // Bootstrap components
   .navbar {
     display: none;
   }
-  .table {
-    td,
-    th {
-      background-color: #fff !important;
-    }
+  .table td,
+  .table th {
+    background-color: #fff !important;
   }
-  .btn,
-  .dropup > .btn {
-    > .caret {
-      border-top-color: #000 !important;
-    }
+  .btn > .caret,
+  .dropup > .btn > .caret {
+    border-top-color: #000 !important;
   }
   .label {
     border: 1px solid #000;
   }
-
   .table {
     border-collapse: collapse !important;
   }
-  .table-bordered {
-    th,
-    td {
-      border: 1px solid #ddd !important;
-    }
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #ddd !important;
   }
-
-}*/
+}
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -6149,6 +5893,250 @@ input[type="checkbox"] {
   -moz-transform: scale(1.4, 1.4);
   -o-transform: scale(1.4, 1.4);
   margin-right: 10px;
+}
+@media print {
+  #woReview nav.navbar {
+    display: none;
+  }
+  #woReview div {
+    font-size: 8px;
+  }
+  #woReview div.row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  #woReview div.col-xs-12,
+  #woReview div.col-xs-9,
+  #woReview div.col-xs-6,
+  #woReview div.col-xs-4,
+  #woReview div.col-xs-3 {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+  }
+  #woReview text-field.col-xs-12,
+  #woReview text-field.col-xs-9,
+  #woReview text-field.col-xs-6,
+  #woReview text-field.col-xs-4,
+  #woReview text-field.col-xs-3 {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+  }
+  #woReview div.panel {
+    margin-bottom: 5px !important;
+  }
+  #woReview div.panel-heading {
+    padding: 2px !important;
+  }
+  #woReview div.panel-body {
+    padding: 2px !important;
+  }
+  #woReview div.form-group {
+    margin-bottom: 4px !important;
+  }
+  #woReview #CcheckBox {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 20px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    min-height: 15px;
+  }
+  #woReview #CcheckBox input {
+    margin-right: 4px;
+    margin-top: 2px;
+    margin-left: 0px;
+    height: 15px;
+  }
+  #woReview #CcheckBox label {
+    margin-bottom: 2px;
+  }
+  #woReview #Ctextfield {
+    margin-bottom: 2px;
+    margin-top: 2px;
+  }
+  #woReview #Ctextfield input {
+    margin: 0;
+    padding: 2px;
+    height: 15px;
+  }
+  #woReview #Ctextfield label {
+    margin-bottom: 2px;
+  }
+  #woReview review-header div.row div.col-xs-4 review-notes {
+    display: none;
+  }
+  #woReview review-header div.row div.col-xs-4 review-data-history {
+    display: none;
+  }
+  #woReview review-header div.row div.col-xs-3 button {
+    display: none;
+  }
+  #woReview review-header review-heading.ng-scope unit-input label {
+    margin-bottom: 2px;
+  }
+  #woReview review-header review-heading.ng-scope unit-input input.form-control {
+    font-size: 8px;
+    padding: 2px !important;
+    margin: 0px;
+    height: 15px;
+  }
+  #woReview review-header review-heading.ng-scope label {
+    margin-bottom: 2px;
+  }
+  #woReview review-header review-heading.ng-scope select-list {
+    padding: 2px !important;
+  }
+  #woReview review-header review-heading.ng-scope input.form-control {
+    padding: 2px !important;
+    margin: 0px;
+    height: 15px;
+  }
+  #woReview review-header review-heading.ng-scope text-field.col-xs-4 {
+    padding: 2px !important;
+  }
+  #woReview review-header review-heading.ng-scope text-field.col-xs-3 {
+    padding: 2px !important;
+    margin: 0px;
+    height: 15px;
+  }
+  #woReview review-header review-heading.ng-scope text-field.col-xs-2 {
+    padding: 2px !important;
+    margin: 0px;
+    height: 15px;
+  }
+  #woReview review-header review-heading.ng-scope type-ahead.col-xs-4 {
+    padding: 2px !important;
+    margin: 0px;
+    height: 15px;
+  }
+  #woReview review-header review-heading.ng-scope select.form-control {
+    padding: 2px !important;
+    margin: 0px;
+    height: 15px;
+  }
+  #woReview review-header review-billing text-field {
+    padding: 2px !important;
+    margin: 0px;
+    height: 15px;
+  }
+  #woReview review-header review-misc button {
+    display: none;
+  }
+  #woReview review-header review-misc check-box {
+    padding: 0;
+  }
+  #woReview review-header review-misc number-field {
+    padding: 0;
+  }
+  #woReview review-header review-misc number-field div.form-group {
+    margin-bottom: 2px;
+  }
+  #woReview review-header review-misc number-field label {
+    margin-bottom: 2px;
+  }
+  #woReview review-header review-misc number-field input {
+    padding: 2px !important;
+    margin: 0px;
+    height: 15px;
+  }
+  #woReview #submitReview button.btn {
+    display: none;
+  }
+  #woReview #pm > input.ng-pristine.ng-untouched.ng-valid {
+    margin-top: 2px;
+    margin-bottom: 4px !important;
+    margin-left: 10px;
+  }
+  #woReview div.panel-body > div.ng-binding.ng-scope {
+    margin-bottom: 4px !important;
+    margin-left: 10px;
+  }
+  #woReview div.panel-body > div.ng-binding.ng-scope > input.ng-pristine.ng-untouched.ng-valid {
+    margin-top: 0px;
+  }
+  #woReview div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding > input.ng-pristine.ng-untouched.ng-valid {
+    margin-left: 0px;
+    margin-top: 2px !important;
+    margin-bottom: 0px !important;
+    margin-right: 4px;
+  }
+  #woReview div.panel-body > check-box.ng-isolate-scope > div.checkbox {
+    min-height: 15px !important;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+  }
+  #woReview div.panel-body > check-box.ng-isolate-scope > div.checkbox > label.ng-binding {
+    margin-bottom: 0px !important;
+  }
+  #woReview review-labor-codes div.form-group.row {
+    margin: 0;
+    margin-bottom: 2px !important;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  #woReview review-labor-codes select {
+    padding: 2px;
+    margin: 0;
+    height: 15px;
+  }
+  #woReview review-labor-codes label {
+    margin-bottom: 2px;
+  }
+  #woReview review-parts table.table.table-hover {
+    margin-bottom: 0px !important;
+  }
+  #woReview review-parts table.table.table-hover th {
+    margin-bottom: 0px;
+    padding: 2px;
+    padding-left: 5px;
+  }
+  #woReview review-parts table.table.table-hover td {
+    padding: 2px;
+    padding-left: 5px;
+  }
+  #woReview review-parts table.table.table-hover td div.form-group {
+    margin-bottom: 2px;
+  }
+  #woReview review-parts table.table.table-hover td input {
+    padding: 2px;
+    margin: 0px;
+    height: 15px;
+    font-size: 8px;
+  }
+  #woReview review-parts table.table.table-hover td price-field div.form-group {
+    margin-bottom: 2px;
+  }
+  #woReview review-parts table.table.table-hover td price-field span.input-group-addon {
+    padding: 2px;
+    font-size: 8px;
+  }
+  #woReview div.panel-heading > h3.panel-title {
+    font-size: 10px !important;
+  }
+  #woReview div.panel-heading > h1.panel-title {
+    font-size: 10px !important;
+  }
+  #woReview div.form-group > input.form-control.ng-pristine.ng-untouched.ng-valid {
+    font-size: 8px !important;
+  }
+  #woReview div.form-group > textarea.form-control.ng-pristine.ng-untouched.ng-valid {
+    font-size: 8px !important;
+  }
+  #woReview div.panel-body,
+  #woReview p.ng-binding,
+  #woReview select.form-control {
+    font-size: 8px !important;
+  }
+  #woReview div.panel-body > div > p {
+    font-weight: normal !important;
+    font-size: 8px !important;
+  }
+  #woReview button.btn {
+    font-size: 10px !important;
+  }
 }
 #PoEditTable {
   margin-left: 25px;
