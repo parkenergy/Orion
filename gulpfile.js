@@ -137,7 +137,7 @@ gulp.task('watch', function() {
       './lib/public/angular/**/*.js',
       './public/app/**/*.js',
       './public/scripts/**/*.js'],
-    ['scripts']);
+    ['less','scripts']);
 
 });
 

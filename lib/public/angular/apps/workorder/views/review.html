@@ -1,4 +1,4 @@
-<loader></loader>
+
 <alerts></alerts>
 <header></header>
 <!--
@@ -8,31 +8,33 @@
   </p>
 </div> -->
 
-<review-header></review-header>
+<div id="woReview">
+  <review-header></review-header>
 
-<review-pm></review-pm>
+  <review-pm></review-pm>
 
-<review-unit-readings></review-unit-readings>
+  <review-unit-readings></review-unit-readings>
 
-<review-emissions-readings></review-emissions-readings>
+  <review-emissions-readings></review-emissions-readings>
 
-<review-comments></review-comments>
+  <review-comments></review-comments>
 
-<review-labor-codes></review-labor-codes>
+  <review-labor-codes></review-labor-codes>
 
-<review-parts></review-parts>
+  <review-parts></review-parts>
 
-<div>
-  <div ng-show="workorder.netsuiteId && (workorder.type !== 'Indirect')">
-    Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
+  <div id="submitReview">
+    <div ng-show="workorder.netsuiteId && (workorder.type !== 'Indirect')">
+      Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
+    </div>
+    <div ng-show="workorder.syncedBy && (workorder.type === 'Indirect')">
+      Workorder Submitted {{ workorder.timeSynced | date: 'MM/dd/yy HH:mm:ss' }}
+    </div>
+    <button ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect')" class="btn btn-lg btn-primary pull-right"
+            style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
+            ng-click="submit()">
+      Submit
+    </button>
+    <div class="clearfix" style="height: 65px;"></div>
   </div>
-  <div ng-show="workorder.syncedBy && (workorder.type === 'Indirect')">
-    Workorder Submitted {{ workorder.timeSynced | date: 'MM/dd/yy HH:mm:ss' }}
-  </div>
-  <button ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect')" class="btn btn-lg btn-primary pull-right"
-          style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
-          ng-click="submit()">
-    Submit
-  </button>
-  <div class="clearfix" style="height: 65px;"></div>
 </div>
