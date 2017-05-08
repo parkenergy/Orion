@@ -38,9 +38,13 @@ const app = express();
 
 //CORS
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+  } else {
+    res.header("Access-Control-Allow-Origin", "*");
+  }
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "POST, GET, PATCH, OPTIONS");
+  res.header("Access-Control-Allow-Methods", "POST, PUT, GET, PATCH, OPTIONS");
   next();
 });
 
