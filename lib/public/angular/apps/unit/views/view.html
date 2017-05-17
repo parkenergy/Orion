@@ -2,177 +2,168 @@
 <alerts></alerts>
 <header></header>
 
-<div id="UnitView" class="container">
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="panel-title">Unit {{title}}</h2>
-    </div>
-    <unit-sat unit="unit"></unit-sat>
-  </div>
+<div id="UnitView" class="container-fluid">
 
   <div class="row">
-    <h4><a href="#/myaccount"></a></h4>
-  </div>
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Unit {{title}}</h2>
+        </div>
+        <unit-sat unit="unit"></unit-sat>
+      </div>
 
-  <div class="row">
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Unit Information</h3>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <h4>
+                Unit Number<br>
+                <small>{{unit.number}}</small>
+              </h4>
+            </div>
 
-    <div class="col-md-6">
-      <h3>Unit Information</h3>
+            <div class="col-md-4">
+              <h4>
+                Product Series<br>
+                <small>{{unit.productSeries}}</small>
+              </h4>
+            </div>
+
+            <div class="col-md-4">
+              <h4>
+                Latitude<br>
+                <small>{{unit.geo.coordinates[1]}}</small>
+              </h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <h4>
+                State<br>
+                <small>{{unit.state.name}}</small>
+              </h4>
+            </div>
+
+            <div class="col-md-4">
+              <h4>
+                County<br>
+                <small>{{unit.county.name}}</small>
+              </h4>
+            </div>
+
+            <div class="col-md-4">
+              <h4>
+                Longitude<br>
+                <small>{{unit.geo.coordinates[0]}}</small>
+              </h4>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-4">
+              <h4>
+                Lease<br>
+                <small>{{unit.locationName}}</small>
+              </h4>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-4">
+              <h4>
+                Customer<br>
+                <small>{{unit.customerName}}</small>
+              </h4>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-6">
+          <h3>PM Information</h3>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <h4>
+                Cycle Time<br>
+                <small>{{unit.pmReport.cycleTime}}</small>
+              </h4>
+            </div>
+
+            <div class="col-md-4">
+              <h4>
+                Next PM Date<br>
+                <small>{{unit.pmReport.nextPmDate | date:'MM/dd/yyyy'}}</small>
+              </h4>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-4">
+              <h4>
+                Tech Id<br>
+                <small>{{user.username}}</small>
+              </h4>
+            </div>
+
+            <div class="col-md-4">
+              <h4>
+                First Name<br>
+                <small>{{user.firstName}}</small>
+              </h4>
+            </div>
+
+            <div class="col-md-4">
+              <h4>
+                Last Name<br>
+                <small>{{user.lastName}}</small>
+              </h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <h4>
+                Supervisor Id<br>
+                <small>{{supervisor.username}}</small>
+              </h4>
+            </div>
+
+            <div class="col-md-4">
+              <h4>
+                First Name<br>
+                <small>{{supervisor.firstName}}</small>
+              </h4>
+            </div>
+
+            <div class="col-md-4">
+              <h4>
+                Last Name<br>
+                <small>{{supervisor.lastName}}</small>
+              </h4>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
       <hr>
-      <div class="row">
-
-        <div class="col-md-4">
-          <h4>
-            Unit Number<br>
-            <small>{{unit.number}}</small>
-          </h4>
-        </div>
-
-        <div class="col-md-4">
-          <h4>
-            Product Series<br>
-            <small>{{unit.productSeries}}</small>
-          </h4>
-        </div>
-
-        <div class="col-md-4">
-          <h4>
-            Latitude<br>
-            <small>{{unit.geo.coordinates[1]}}</small>
-          </h4>
-        </div>
-
-      </div>
 
       <div class="row">
-
-        <div class="col-md-4">
-          <h4>
-            State<br>
-            <small>{{unit.state.name}}</small>
-          </h4>
-        </div>
-
-        <div class="col-md-4">
-          <h4>
-            County<br>
-            <small>{{unit.county.name}}</small>
-          </h4>
-        </div>
-
-        <div class="col-md-4">
-          <h4>
-            Longitude<br>
-            <small>{{unit.geo.coordinates[0]}}</small>
-          </h4>
-        </div>
-
+        <button class="btn btn-lg btn-primary"
+                ng-click="searchUnits()">
+          Search Unit Work Orders
+        </button>
       </div>
-
-      <div class="row">
-        <div class="col-md-4">
-          <h4>
-            Lease<br>
-            <small>{{unit.locationName}}</small>
-          </h4>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-4">
-          <h4>
-            Customer<br>
-            <small>{{unit.customerName}}</small>
-          </h4>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col-md-6">
-      <h3>PM Information</h3>
-      <hr>
-      <div class="row">
-
-        <div class="col-md-4">
-          <h4>
-            Cycle Time<br>
-            <small>{{unit.pmReport.cycleTime}}</small>
-          </h4>
-        </div>
-
-        <div class="col-md-4">
-          <h4>
-            Next PM Date<br>
-            <small>{{unit.pmReport.nextPmDate | date:'MM/dd/yyyy'}}</small>
-          </h4>
-        </div>
-
-      </div>
-
-      <div class="row">
-
-        <div class="col-md-4">
-          <h4>
-            Tech Id<br>
-            <small>{{user.username}}</small>
-          </h4>
-        </div>
-
-        <div class="col-md-4">
-          <h4>
-            First Name<br>
-            <small>{{user.firstName}}</small>
-          </h4>
-        </div>
-
-        <div class="col-md-4">
-          <h4>
-            Last Name<br>
-            <small>{{user.lastName}}</small>
-          </h4>
-        </div>
-
-      </div>
-
-      <div class="row">
-
-        <div class="col-md-4">
-          <h4>
-            Supervisor Id<br>
-            <small>{{supervisor.username}}</small>
-          </h4>
-        </div>
-
-        <div class="col-md-4">
-          <h4>
-            First Name<br>
-            <small>{{supervisor.firstName}}</small>
-          </h4>
-        </div>
-
-        <div class="col-md-4">
-          <h4>
-            Last Name<br>
-            <small>{{supervisor.lastName}}</small>
-          </h4>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <hr>
-
-  <div class="row">
-    <h3>Unit Work Orders</h3>
-    <div>
-      <unit-workorders unit="unit"></unit-workorders>
     </div>
   </div>
-
 
 </div>
