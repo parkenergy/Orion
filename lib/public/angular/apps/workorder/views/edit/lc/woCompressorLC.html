@@ -3,23 +3,29 @@
     <h3 class="panel-title">Compressor Labor Codes</h3>
   </div>
   <div class="panel-body">
-  	<time-field
+    <time-field
       show="true"
-  		label-text="Inspect/Change Compressor"
-  		data="workorder.laborCodes.compressor.inspect"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="Inspect/Change Compressor"
+      model-name="laborCodes.compressor.inspect"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.compressor.inspect"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="Replace Compressor"
-  		data="workorder.laborCodes.compressor.replace"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
+      label-text="Replace Compressor"
+      model-name="laborCodes.compressor.replace"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.compressor.replace"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
     <time-field
       show="true"
       label-text="Add Oil"
+      model-name="laborCodes.compressor.addOil"
+      on-data-change="changeThisTimeField(changedData, selected)"
       data="workorder.laborCodes.compressor.addOil"
       hours="hours"
       minutes="minutes">

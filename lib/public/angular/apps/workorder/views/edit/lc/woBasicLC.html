@@ -3,16 +3,20 @@
     <h3 class="panel-title">Basic Labor Codes</h3>
   </div>
   <div class="panel-body">
-  	<time-field
+    <time-field
       show="true"
-  		label-text="Safety"
-  		data="workorder.laborCodes.basic.safety"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
+      label-text="Safety"
+      model-name="laborCodes.basic.safety"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.safety"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
     <time-field
       show="true"
       label-text="Positive Time Adjustment"
+      model-name="laborCodes.basic.positiveAdj"
+      on-data-change="changeThisTimeField(changedData, selected)"
       data="workorder.laborCodes.basic.positiveAdj"
       hours="hours"
       minutes="minutes">
@@ -20,79 +24,101 @@
     <time-field
       show="true"
       label-text="Negative Time Adjustment"
+      model-name="laborCodes.basic.negativeAdj"
+      on-data-change="changeThisTimeField(changedData, selected)"
       data="workorder.laborCodes.basic.negativeAdj"
       hours="hours"
       minutes="minutes">
     </time-field>
-  	<time-field
+    <time-field
       show="true"
-  		label-text="Lunch"
-  		data="workorder.laborCodes.basic.lunch"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="Lunch"
+      model-name="laborCodes.basic.lunch"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.lunch"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="Cust. Relations"
-  		data="workorder.laborCodes.basic.custRelations"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="Cust. Relations"
+      model-name="laborCodes.basic.custRelations"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.custRelations"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="Telemetry"
-  		data="workorder.laborCodes.basic.telemetry"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="Telemetry"
+      model-name="laborCodes.basic.telemetry"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.telemetry"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="Environmental"
-  		data="workorder.laborCodes.basic.environmental"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="Environmental"
+      model-name="laborCodes.basic.environmental"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.environmental"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="Diagnostic"
-  		data="workorder.laborCodes.basic.diagnostic"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="Diagnostic"
+      model-name="laborCodes.basic.diagnostic"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.diagnostic"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="Service Travel"
-  		data="workorder.laborCodes.basic.serviceTravel"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="Service Travel"
+      model-name="laborCodes.basic.serviceTravel"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.serviceTravel"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="Optimize Unit"
-  		data="workorder.laborCodes.basic.optimizeUnit"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="Optimize Unit"
+      model-name="laborCodes.basic.optimizeUnit"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.optimizeUnit"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="PM"
-  		data="workorder.laborCodes.basic.pm"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="PM"
+      model-name="laborCodes.basic.pm"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.pm"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="Wash Unit"
-  		data="workorder.laborCodes.basic.washUnit"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
-  	<time-field
+      label-text="Wash Unit"
+      model-name="laborCodes.basic.washUnit"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.washUnit"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
       show="true"
-  		label-text="Training"
-  		data="workorder.laborCodes.basic.training"
-  		hours="hours"
-  		minutes="minutes">
-  	</time-field>
+      label-text="Training"
+      model-name="laborCodes.basic.training"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.training"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
   </div>
 </div>

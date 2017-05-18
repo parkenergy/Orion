@@ -7,14 +7,16 @@
     on-data-change="changeNoteTextAreaField(changedData, selected)"
     label-text="Lease Notes"
     placeholder-text="Lease Notes"
-    data="notes">
+    data="notes"
+    disabled="disabled">
   </text-area-field>
 </div>
 <div class="modal-footer">
   <button
     class="btn btn-primary"
     type="button"
-    ng-click="ok()">
+    ng-click="ok()"
+    ng-disabled="disabled">
     OK
   </button>
   <button
