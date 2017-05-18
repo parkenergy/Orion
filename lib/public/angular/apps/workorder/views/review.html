@@ -1,14 +1,14 @@
 
 <alerts></alerts>
 <header></header>
-<!--
-<div class="highlight">
-  <p class="text-center">
-    Time Elapsed: {{ timeElapsed }}
-  </p>
-</div> -->
 
 <div id="woReview">
+  <div class="highlight">
+    <p class="text-center">
+      Work Order Run Time: {{ pad(eHours) }}:{{ pad(eMinutes) }}:{{ pad(eSeconds) }}
+    </p>
+  </div>
+
   <review-header></review-header>
 
   <review-pm></review-pm>

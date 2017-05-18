@@ -713,6 +713,193 @@ function ($scope, RedirectService, title, objectList, displayColumns, sort, rowC
 
 }]);
 
+angular.module('CommonComponents')
+.component('checkBox', {
+  templateUrl: '/lib/public/angular/views/customComponents/checkbox.html',
+  bindings: {
+    labelText: '@',
+    modelName: '@',
+    boxStyling: '@',
+    inputStyling: '@',
+    onDataChange: '&',
+    data: '<',
+    disabled: '<'
+  },
+  controller: CheckBoxCtrl
+});
+
+function CheckBoxCtrl () {
+  // Variables -------------------------------------------
+  var self = this;
+  // -----------------------------------------------------
+
+  // Pass back changes -----------------------------------
+  self.onUpdate = function (item) {
+    self.onDataChange({ changedData: item, selected: self.modelName });
+  };
+  // -----------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('dateField',{
+  templateUrl: '/lib/public/angular/views/customComponents/datefield.html',
+  bindings: {
+    labelText: '@',
+    modelName: '@',
+    placeholderText: '@',
+    onDataChange: '&',
+    data: '<',
+    weeks: '<'
+  },
+  controller: DateFieldCtrl
+});
+
+function DateFieldCtrl () {
+  // Variables -------------------------------------------
+  var self = this;
+  // -----------------------------------------------------
+
+  // Pass back Changes -----------------------------------
+  self.onUpdate = function (item) {
+    console.log(item);
+    self.onDataChange({ changedData: item, selected: self.modelName });
+  };
+  // -----------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('selectList', {
+  templateUrl: '/lib/public/angular/views/customComponents/selectlist.html',
+  bindings: {
+    labelText: '@',
+    selectField: '@',
+    modelName: '@',
+    displayField: '@',
+    onDataChange: '&',
+    arrayList: '<',
+    data: '<',
+    disabled: '<'
+  },
+  controller: SelectListCtrl
+});
+
+function SelectListCtrl () {
+  var self = this;
+
+  // Pass back the Changed Item to Parent -----------
+  self.onUpdate = function (item) {
+    self.onDataChange({ changedData: item, selected: self.modelName});
+  };
+  // ------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('textAreaField', {
+  templateUrl: '/lib/public/angular/views/customComponents/textareafield.html',
+  bindings: {
+    labelText: '@',
+    modelName: '@',
+    placeholderText: '@',
+    rows: '@',
+    onDataChange: '&',
+    data: '<',
+    disabled: '<'
+  },
+  controller: TextAreaFieldCtrl
+});
+
+function TextAreaFieldCtrl () {
+  // Variables -----------------------------------------
+  var self = this;
+  // ---------------------------------------------------
+
+  // Pass back Changes ---------------------------------
+  self.onUpdate = function (item) {
+    self.onDataChange({ changedData: item, selected: self.modelName });
+  };
+  // ---------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('textField',{
+  templateUrl: '/lib/public/angular/views/customComponents/textfield.html',
+  bindings: {
+    labelText: '@',
+    modelName: '@',
+    inputStyling: '@',
+    fieldStyling: '@',
+    placeholderText: '@',
+    onDataChange: '&',
+    data: '<',
+    disabled: '<'
+  },
+  controller: TextFieldCtrl
+});
+
+function TextFieldCtrl () {
+  // Variables -------------------------------------------
+  var self = this;
+  // -----------------------------------------------------
+
+  // Pass back Changes -----------------------------------
+  self.onUpdate = function (item) {
+    self.onDataChange({ changedData: item, selected: self.modelName });
+  };
+  // -----------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('typeAhead',{
+  templateUrl: '/lib/public/angular/views/customComponents/typeahead.html',
+  bindings: {
+    labelText: '@',
+    itemPath: '@',
+    modelName: '@',
+    placeholderText: '@',
+    onDataChange: '&',
+    wait: '<',
+    arrayList: '<',
+    data: '<',
+    limit: '<',
+    disabled: '<'
+  },
+  controller: ['ObjectService', TypeAheadCtrl]
+});
+
+function TypeAheadCtrl (ObjectService) {
+  var self = this;
+  self.objItemArray = [];
+
+  // Make array list display field ------------------
+  self.$onChanges = function (changes) {
+    if ( !self.disabled ){
+      if(self.arrayList){
+        if(self.arrayList.length > 0){
+          if (typeof self.arrayList[0] === 'object') {
+            self.arrayList.map(function (obj) {
+              self.objItemArray.push(ObjectService.getNestedObjectValue(obj,self.itemPath));
+            });
+          } else if (
+            (typeof self.arrayList[0] === 'string') ||
+            (typeof self.arrayList[0] === 'number') ||
+            (typeof self.arrayList[0] === 'boolean')) {
+            self.objItemArray = self.arrayList;
+          } else {
+            console.error({arrayList: self.arrayList}, "An Error occurred while attempting to display typeahead item: " + self.labelText +".");
+          }
+        }
+      }
+    }
+  };
+  // ------------------------------------------------
+
+  // Pass back the Changed Item to Parent -----------
+  self.onUpdate = function (item) {
+    self.onDataChange({ changedData: item, selected: self.modelName});
+  };
+  // ------------------------------------------------
+}
+
 angular.module('CommonDirectives')
 
 .directive('alerts', ['AlertService', function (AlertService) {
@@ -973,193 +1160,6 @@ angular.module('CommonDirectives')
 
 
 */
-
-angular.module('CommonComponents')
-.component('checkBox', {
-  templateUrl: '/lib/public/angular/views/customComponents/checkbox.html',
-  bindings: {
-    labelText: '@',
-    modelName: '@',
-    boxStyling: '@',
-    inputStyling: '@',
-    onDataChange: '&',
-    data: '<',
-    disabled: '<'
-  },
-  controller: CheckBoxCtrl
-});
-
-function CheckBoxCtrl () {
-  // Variables -------------------------------------------
-  var self = this;
-  // -----------------------------------------------------
-
-  // Pass back changes -----------------------------------
-  self.onUpdate = function (item) {
-    self.onDataChange({ changedData: item, selected: self.modelName });
-  };
-  // -----------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('dateField',{
-  templateUrl: '/lib/public/angular/views/customComponents/datefield.html',
-  bindings: {
-    labelText: '@',
-    modelName: '@',
-    placeholderText: '@',
-    onDataChange: '&',
-    data: '<',
-    weeks: '<'
-  },
-  controller: DateFieldCtrl
-});
-
-function DateFieldCtrl () {
-  // Variables -------------------------------------------
-  var self = this;
-  // -----------------------------------------------------
-
-  // Pass back Changes -----------------------------------
-  self.onUpdate = function (item) {
-    console.log(item);
-    self.onDataChange({ changedData: item, selected: self.modelName });
-  };
-  // -----------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('selectList', {
-  templateUrl: '/lib/public/angular/views/customComponents/selectlist.html',
-  bindings: {
-    labelText: '@',
-    selectField: '@',
-    modelName: '@',
-    displayField: '@',
-    onDataChange: '&',
-    arrayList: '<',
-    data: '<',
-    disabled: '<'
-  },
-  controller: SelectListCtrl
-});
-
-function SelectListCtrl () {
-  var self = this;
-
-  // Pass back the Changed Item to Parent -----------
-  self.onUpdate = function (item) {
-    self.onDataChange({ changedData: item, selected: self.modelName});
-  };
-  // ------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('textAreaField', {
-  templateUrl: '/lib/public/angular/views/customComponents/textareafield.html',
-  bindings: {
-    labelText: '@',
-    modelName: '@',
-    placeholderText: '@',
-    rows: '@',
-    onDataChange: '&',
-    data: '<',
-    disabled: '<'
-  },
-  controller: TextAreaFieldCtrl
-});
-
-function TextAreaFieldCtrl () {
-  // Variables -----------------------------------------
-  var self = this;
-  // ---------------------------------------------------
-
-  // Pass back Changes ---------------------------------
-  self.onUpdate = function (item) {
-    self.onDataChange({ changedData: item, selected: self.modelName });
-  };
-  // ---------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('textField',{
-  templateUrl: '/lib/public/angular/views/customComponents/textfield.html',
-  bindings: {
-    labelText: '@',
-    modelName: '@',
-    inputStyling: '@',
-    fieldStyling: '@',
-    placeholderText: '@',
-    onDataChange: '&',
-    data: '<',
-    disabled: '<'
-  },
-  controller: TextFieldCtrl
-});
-
-function TextFieldCtrl () {
-  // Variables -------------------------------------------
-  var self = this;
-  // -----------------------------------------------------
-
-  // Pass back Changes -----------------------------------
-  self.onUpdate = function (item) {
-    self.onDataChange({ changedData: item, selected: self.modelName });
-  };
-  // -----------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('typeAhead',{
-  templateUrl: '/lib/public/angular/views/customComponents/typeahead.html',
-  bindings: {
-    labelText: '@',
-    itemPath: '@',
-    modelName: '@',
-    placeholderText: '@',
-    onDataChange: '&',
-    wait: '<',
-    arrayList: '<',
-    data: '<',
-    limit: '<',
-    disabled: '<'
-  },
-  controller: ['ObjectService', TypeAheadCtrl]
-});
-
-function TypeAheadCtrl (ObjectService) {
-  var self = this;
-  self.objItemArray = [];
-
-  // Make array list display field ------------------
-  self.$onChanges = function (changes) {
-    if ( !self.disabled ){
-      if(self.arrayList){
-        if(self.arrayList.length > 0){
-          if (typeof self.arrayList[0] === 'object') {
-            self.arrayList.map(function (obj) {
-              self.objItemArray.push(ObjectService.getNestedObjectValue(obj,self.itemPath));
-            });
-          } else if (
-            (typeof self.arrayList[0] === 'string') ||
-            (typeof self.arrayList[0] === 'number') ||
-            (typeof self.arrayList[0] === 'boolean')) {
-            self.objItemArray = self.arrayList;
-          } else {
-            console.error({arrayList: self.arrayList}, "An Error occurred while attempting to display typeahead item: " + self.labelText +".");
-          }
-        }
-      }
-    }
-  };
-  // ------------------------------------------------
-
-  // Pass back the Changed Item to Parent -----------
-  self.onUpdate = function (item) {
-    self.onDataChange({ changedData: item, selected: self.modelName});
-  };
-  // ------------------------------------------------
-}
 
 /**
  * This service handles server side error responses for the whole app.
@@ -1905,6 +1905,67 @@ angular.module('CommonServices')
 
 }]);
 
+angular.module('CommonControllers').controller('SuperTableCtrl',
+['$scope', 'AlertService', 'LoaderService',
+  function ($scope, AlertService, LoaderService) {
+
+    $scope.changeSorting = function (column) {
+      var sort = $scope.sort;
+      if (sort.column == column) {
+        sort.descending = !sort.descending;
+      } else {
+        sort.column = column;
+        sort.descending = false;
+      }
+    };
+
+    /* -------------------------------------------------------------------------
+    CONFIGURATION / ON LOAD
+    ------------------------------------------------------------------------- */
+    $scope.getDefaultSort = function () {
+      var column = [];
+      for (var key in $scope.displayColumns) { column.push(key.toString()); }
+      $scope.defaultSort = { column: column, descending: [false] };
+    };
+
+    $scope.onLoad = function () {
+      var m = $scope.model;
+
+      // if the required fields are not present, bail out
+      if (!m.objectList || !m.displayColumns) {
+        console.log("WARNING!");
+        console.log("You failed to provide required data for the directive.");
+        console.log("See super-table documentation for more info.");
+        var errMessage =  "SuperTabelCtrl: " +
+                          "Required attributes were not assigned to model.";
+        throw new Error(errMessage);
+      } else {
+        $scope.tableName = m.tableName || "My Table Name";
+
+        // required variables
+        $scope.objectList = m.objectList;
+        $scope.displayColumns = m.displayColumns;
+
+        // optional variables
+        $scope.rowClickAction = m.rowClickAction;
+        $scope.headerButtons = m.headerButtons;
+        $scope.rowButtons = m.rowButtons;
+        $scope.sort = m.sort || $scope.getDefaultSort();
+
+      }
+    };
+
+    $scope.clearSearchPhrase = function(obj){
+      $scope.searchPhrase = '';
+      var alertString = obj.description + ' added';
+      AlertService.add('success',  alertString);
+    };
+
+    // call on load
+    (function () { $scope.onLoad(); })();
+
+}]);
+
 angular.module('AreaApp.Controllers', []);
 angular.module('AreaApp.Directives', []);
 angular.module('AreaApp.Services', ['ngResource', 'ngCookies']);
@@ -2060,6 +2121,167 @@ angular.module('CallReportApp').config(['$routeProvider',
 
 
 
+/**
+ *            GeneralDestinationSelection
+ *
+ * Created by marcusjwhelan on 11/14/16.
+ *
+ * Contact: marcus.j.whelan@gmail.com
+ *
+ */
+angular.module('CommonComponents')
+.component('generalDestinationSelection', {
+  templateUrl: '/lib/public/angular/views/customContainers/GeneralDestinationSelection.html',
+  bindings: {
+    ccPanelTitle: '@',
+    ccLabelOrigin: '@',
+    ccLabelDestination: '@',
+    ccReturnType: '@',
+    ccOriginType: '@',
+    ccDestinationType: '@',
+    ccOriginModelName: '@',
+    ccDestinationModelName: '@',
+    ccOriginChange: '&',
+    ccDestinationChange: '&',
+    ccDataOrigin: '<',
+    ccDataDestination: '<',
+    ccLocations: '<'
+  },
+  controller: ['LocationItemService', OriginDestinationLocationCtrl]
+});
+
+function OriginDestinationLocationCtrl (LocationItemService) {
+  // Variables --------------------------------------
+  var self = this;
+  self.originArray = [];
+  self.destinationArray = [];
+  // ------------------------------------------------
+
+  // Fill Origin Array ------------------------------
+  // Add Any origin type you would like and add a location item
+  // Service to serve that type below.
+  if (self.ccOriginType === 'warehouse') {
+    self.originArray = LocationItemService.getLocationWarehouseObjArray(self.ccLocations);
+  } else {
+    self.originArray = self.ccLocations;
+  }
+  // ------------------------------------------------
+
+  // Fill Destination Array -------------------------
+  // Add any Destination type you would like and add a location
+  // item service to serve that type below
+  if (self.ccDestinationType === 'warehouse-truck') {
+    self.destinationArray = LocationItemService.getTruckObj(self.ccLocations);
+  } else {
+    self.destinationArray = self.ccLocations;
+  }
+  // ------------------------------------------------
+
+  // On Changes to Either Pass Back to Parent CTRL --
+  self.OriginChange = function (changedData, selected) {
+    self.ccOriginChange({ changedData: changedData, selected: selected});
+  };
+  self.DestinationChange = function (changedData, selected) {
+    self.ccDestinationChange({ changedData: changedData, selected: selected});
+  };
+  // ------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.controller('AddPartModalCtrl',['$scope', '$uibModalInstance',
+  function ($scope, $uibModalInstance) {
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  }])
+.component('generalPartsList', {
+  templateUrl: 'lib/public/angular/views/customContainers/GeneralPartsList.html',
+  bindings: {
+    ccData: '<',
+    ccPanelTitle: '@',
+    ccTableClass: '@',
+    ccOnManualAdd: '&',
+    ccOnDelete: '&'
+  },
+  controller: ['$uibModal',GeneralPartsListCtrl]
+});
+
+function GeneralPartsListCtrl ($uibModal) {
+  // Variables ----------------------------------------------------------
+  var self = this;
+  // --------------------------------------------------------------------
+
+  // This Calls the Manual Part Modal Ctrl Above ------------------------
+  self.openManualPartModal = function(){
+    var modalInstance = $uibModal.open({
+      templateUrl: '/lib/public/angular/views/modals/manualAddPartModal.html',
+      controller: 'AddPartModalCtrl'
+    });
+
+    // Take Results of Modal Instance and Push into Parts Array ---------
+    modalInstance.result.then(function (part){
+      var thisPart = part;
+      thisPart.quantity = 0;
+      thisPart.isManual = true;
+      self.ccOnManualAdd({part: thisPart});
+    });
+  };
+  // --------------------------------------------------------------------
+}
+
+/**
+ *            selectTechWarehouseId
+ *
+ * Created by marcusjwhelan on 11/10/16.
+ *
+ * Contact: marcus.j.whelan@gmail.com
+ *
+ */
+
+/// NEED TO FINISH UPDATING  REFERENCE General DestinationSelection.js
+angular.module('CommonComponents')
+.component('selectTechWarehouseId', {
+  templateUrl: 'lib/public/angular/views/customContainers/selectTechWarehouseId.html',
+  bindings: {
+    ccPanelTitle: '@',
+    ccClass: '@',
+    ccLabel: '@',
+    ccModelName: '@',
+    ccReturnType: '@',
+    ccType: '@',
+    ccOnDataChange: '&',
+    ccData: '<',
+    ccLocations: '<'
+  },
+  controller: ['LocationItemService', SelectTechOrWarehouseCtrl]
+});
+
+function SelectTechOrWarehouseCtrl (LocationItemService) {
+  // Variables --------------------------------------------------
+  var self = this;
+  self.locationWarehouseArray = [];
+  self.locationWarehouseNSIDArray = [];
+  // ------------------------------------------------------------
+
+  // Push All Warehouse ID --------------------------------------
+  if (self.ccType === "name") {
+    // get the location id array
+    self.locationWarehouseArray = LocationItemService.getLocationNameArray(self.ccTruckId, self.ccLocations);
+  }
+  if (self.ccType === "netsuiteId") {
+    // get all location Objects plus
+    self.locationTechWarehouseObjArray = LocationItemService.getLocationTechWarehouseObjArray(self.ccTruckId, self.ccLocations);
+  }
+  // ------------------------------------------------------------
+
+
+  // Pass Back Change to Parent ---------------------------------
+  self.onChange = function (changedData, selected) {
+    self.ccOnDataChange({ item: changedData , type: self.ccType, selected: selected });
+  };
+  // ------------------------------------------------------------
+}
+
 angular.module('CompressorApp.Controllers', []);
 angular.module('CompressorApp.Directives', []);
 angular.module('CompressorApp.Services', ['ngResource', 'ngCookies']);
@@ -2180,66 +2402,6 @@ angular.module('CountyApp').config(['$routeProvider',
   });
 }]);
 
-angular.module('EngineApp.Controllers', []);
-angular.module('EngineApp.Directives', []);
-angular.module('EngineApp.Services', ['ngResource', 'ngCookies']);
-
-angular.module('EngineApp', [
-  'EngineApp.Controllers',
-  'EngineApp.Directives',
-  'EngineApp.Services',
-]);
-
-
-angular.module('EngineApp').config(['$routeProvider',
-  function ($routeProvider) {
-  $routeProvider
-
-  .when('/engine/edit/:id?', {
-    controller: 'EngineEditCtrl',
-    templateUrl: '/lib/public/angular/apps/engine/views/edit.html',
-    resolve: {
-      engine: function ($route, $q, Engines) {
-        //determine if we're creating or editing a engine.
-        var id = $route.current.params.id || 0;
-        if (id) {
-          var deferred = $q.defer();
-          Engines.get({id: id},
-            function (response) { return deferred.resolve(response); },
-            function (err) { return deferred.reject(err); }
-          );
-          return deferred.promise;
-        } else {
-          return null;
-        }
-      },
-      units: function ($route, $q, Units) {
-        var deferred = $q.defer();
-        Units.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      }
-    }
-  })
-
-  .when('/engine', {
-    controller: 'EngineIndexCtrl',
-    templateUrl: '/lib/public/angular/apps/engine/views/index.html',
-    resolve: {
-      engines: function ($route, $q, Engines) {
-        var deferred = $q.defer();
-        Engines.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      }
-    }
-  });
-}]);
-
 angular.module('CustomerApp.Controllers', []);
 angular.module('CustomerApp.Directives', []);
 angular.module('CustomerApp.Services', ['ngResource', 'ngCookies']);
@@ -2298,6 +2460,66 @@ angular.module('CustomerApp').config(['$routeProvider',
       customers: function ($route, $q, Customers) {
         var deferred = $q.defer();
         Customers.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      }
+    }
+  });
+}]);
+
+angular.module('EngineApp.Controllers', []);
+angular.module('EngineApp.Directives', []);
+angular.module('EngineApp.Services', ['ngResource', 'ngCookies']);
+
+angular.module('EngineApp', [
+  'EngineApp.Controllers',
+  'EngineApp.Directives',
+  'EngineApp.Services',
+]);
+
+
+angular.module('EngineApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
+
+  .when('/engine/edit/:id?', {
+    controller: 'EngineEditCtrl',
+    templateUrl: '/lib/public/angular/apps/engine/views/edit.html',
+    resolve: {
+      engine: function ($route, $q, Engines) {
+        //determine if we're creating or editing a engine.
+        var id = $route.current.params.id || 0;
+        if (id) {
+          var deferred = $q.defer();
+          Engines.get({id: id},
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
+          );
+          return deferred.promise;
+        } else {
+          return null;
+        }
+      },
+      units: function ($route, $q, Units) {
+        var deferred = $q.defer();
+        Units.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      }
+    }
+  })
+
+  .when('/engine', {
+    controller: 'EngineIndexCtrl',
+    templateUrl: '/lib/public/angular/apps/engine/views/index.html',
+    resolve: {
+      engines: function ($route, $q, Engines) {
+        var deferred = $q.defer();
+        Engines.query({},
           function (response) { return deferred.resolve(response); },
           function (err) { return deferred.reject(err); }
         );
@@ -2397,6 +2619,72 @@ function ($route, $rootScope, $location) {
   };
 }]);
 
+angular.module('PartApp.Controllers', []);
+angular.module('PartApp.Directives', []);
+angular.module('PartApp.Services', ['ngResource', 'ngCookies']);
+
+angular.module('PartApp', [
+  'PartApp.Controllers',
+  'PartApp.Directives',
+  'PartApp.Services',
+]);
+
+
+angular.module('PartApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
+
+  .when('/part/edit/:id?', {
+    controller: 'PartEditCtrl',
+    templateUrl: '/lib/public/angular/apps/part/views/edit.html',
+    resolve: {
+      part: function ($route, $q, Parts) {
+        //determine if we're creating or editing a part.
+        var id = $route.current.params.id || 0;
+        if (id) {
+          var deferred = $q.defer();
+          Parts.get({id: id},
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
+          );
+          return deferred.promise;
+        } else {
+          return null;
+        }
+      },
+      vendors: function ($route, $q, Vendors) {
+        var deferred = $q.defer();
+        Vendors.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      },
+      role: function ($route, $q, role) {
+        return role.get();
+      }
+    }
+  })
+
+  .when('/part', {
+    controller: 'PartIndexCtrl',
+    templateUrl: '/lib/public/angular/apps/part/views/index.html',
+    resolve: {
+      parts: function ($route, $q, Parts) {
+        var deferred = $q.defer();
+        Parts.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      },
+      role: function ($route, $q, role) {
+        return role.get();
+      }
+    }
+  });
+}]);
+
 angular.module('LocationApp.Controllers', []);
 angular.module('LocationApp.Directives', []);
 angular.module('LocationApp.Services', ['ngResource', 'ngCookies']);
@@ -2476,72 +2764,6 @@ angular.module('LocationApp').config(['$routeProvider',
           function (err) { return deferred.reject(err); }
         );
         return deferred.promise;
-      }
-    }
-  });
-}]);
-
-angular.module('PartApp.Controllers', []);
-angular.module('PartApp.Directives', []);
-angular.module('PartApp.Services', ['ngResource', 'ngCookies']);
-
-angular.module('PartApp', [
-  'PartApp.Controllers',
-  'PartApp.Directives',
-  'PartApp.Services',
-]);
-
-
-angular.module('PartApp').config(['$routeProvider',
-  function ($routeProvider) {
-  $routeProvider
-
-  .when('/part/edit/:id?', {
-    controller: 'PartEditCtrl',
-    templateUrl: '/lib/public/angular/apps/part/views/edit.html',
-    resolve: {
-      part: function ($route, $q, Parts) {
-        //determine if we're creating or editing a part.
-        var id = $route.current.params.id || 0;
-        if (id) {
-          var deferred = $q.defer();
-          Parts.get({id: id},
-            function (response) { return deferred.resolve(response); },
-            function (err) { return deferred.reject(err); }
-          );
-          return deferred.promise;
-        } else {
-          return null;
-        }
-      },
-      vendors: function ($route, $q, Vendors) {
-        var deferred = $q.defer();
-        Vendors.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      },
-      role: function ($route, $q, role) {
-        return role.get();
-      }
-    }
-  })
-
-  .when('/part', {
-    controller: 'PartIndexCtrl',
-    templateUrl: '/lib/public/angular/apps/part/views/index.html',
-    resolve: {
-      parts: function ($route, $q, Parts) {
-        var deferred = $q.defer();
-        Parts.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      },
-      role: function ($route, $q, role) {
-        return role.get();
       }
     }
   });
@@ -2636,6 +2858,53 @@ angular.module('PartOrderApp')
 ]);
 
 
+
+angular.module('SupportApp.Controllers', []);
+angular.module('SupportApp.Directives', []);
+angular.module('SupportApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
+
+angular.module('SupportApp', [
+  'SupportApp.Controllers',
+  'SupportApp.Directives',
+  'SupportApp.Services',
+]);
+
+angular.module('SupportApp').config(['$routeProvider',
+  function ($routeProvider){
+  $routeProvider
+  .when('/support', {
+    needsLogin: true,
+    controller: 'SupportIndexCtrl',
+    templateUrl: '/lib/public/angular/apps/support/views/index.html',
+    resolve:{
+      me: function ($route, $q, Users) {
+        var deferred = $q.defer();
+        Users.get({id: 'me'},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      }
+    }
+  });
+}]);
+
+angular.module('SupportApp')
+.run(['$route', '$rootScope', '$location',
+function ($route, $rootScope, $location) {
+  var original = $location.path;
+  $location.path = function (path, reload) {
+    if (reload === false) {
+      var lastRoute = $route.current;
+      var un = $rootScope.$on('$locationChangeSuccess', function () {
+          $route.current = lastRoute;
+          un();
+      });
+    }
+    return original.apply($location, [path]);
+  };
+}]);
+
 angular.module('ServicePartnerApp.Controllers', []);
 angular.module('ServicePartnerApp.Directives', []);
 angular.module('ServicePartnerApp.Services', ['ngResource', 'ngCookies']);
@@ -2688,6 +2957,38 @@ angular.module('ServicePartnerApp').config(['$routeProvider',
   });
 }]);
 
+angular.module('UnitApp.Controllers', []);
+angular.module('UnitApp.Directives', []);
+angular.module('UnitApp.Components', ['uiGmapgoogle-maps']);
+angular.module('UnitApp.Services', ['ngResource', 'ngCookies']);
+
+angular.module('UnitApp', [
+  'UnitApp.Controllers',
+  'UnitApp.Directives',
+  'UnitApp.Services',
+  'UnitApp.Components'
+]);
+
+
+angular.module('UnitApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
+
+  .when('/unit/view/:id?', {
+    controller: 'UnitViewCtrl',
+    templateUrl: '/lib/public/angular/apps/unit/views/view.html',
+    resolve: {
+      unit: function ($route, $q, Units) {
+        return Units.get({id: $route.current.params.id}).$promise;
+      }
+    }
+  })
+
+  .when('/unit', {
+    controller: 'UnitIndexCtrl',
+    templateUrl: '/lib/public/angular/apps/unit/views/index.html'
+  });
+}]);
 
 angular.module('TransferApp.Controllers', []);
 angular.module('TransferApp.Directives', []);
@@ -2797,82 +3098,66 @@ function ($route, $rootScope, $location) {
   };
 }]);
 
-angular.module('SupportApp.Controllers', []);
-angular.module('SupportApp.Directives', []);
-angular.module('SupportApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
+angular.module('VendorApp.Controllers', []);
+angular.module('VendorApp.Directives', []);
+angular.module('VendorApp.Services', ['ngResource', 'ngCookies']);
 
-angular.module('SupportApp', [
-  'SupportApp.Controllers',
-  'SupportApp.Directives',
-  'SupportApp.Services',
+angular.module('VendorApp', [
+  'VendorApp.Controllers',
+  'VendorApp.Directives',
+  'VendorApp.Services',
 ]);
 
-angular.module('SupportApp').config(['$routeProvider',
-  function ($routeProvider){
+
+angular.module('VendorApp').config(['$routeProvider',
+  function ($routeProvider) {
   $routeProvider
-  .when('/support', {
-    needsLogin: true,
-    controller: 'SupportIndexCtrl',
-    templateUrl: '/lib/public/angular/apps/support/views/index.html',
-    resolve:{
-      me: function ($route, $q, Users) {
+
+  .when('/vendor/edit/:id?', {
+    controller: 'VendorEditCtrl',
+    templateUrl: '/lib/public/angular/apps/vendor/views/edit.html',
+    resolve: {
+      vendor: function ($route, $q, Vendors) {
+        //determine if we're creating or editing a vendor.
+        var id = $route.current.params.id || 0;
+        if (id) {
+          var deferred = $q.defer();
+          Vendors.get({id: id},
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
+          );
+          return deferred.promise;
+        } else {
+          return null;
+        }
+      },
+      vendorFamilies: function ($route, $q, VendorFamilies) {
         var deferred = $q.defer();
-        Users.get({id: 'me'},
+        VendorFamilies.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      },
+      role: function ($route, $q, role) {
+        return role.get();
+      }
+    }
+  })
+
+  .when('/vendor', {
+    controller: 'VendorIndexCtrl',
+    templateUrl: '/lib/public/angular/apps/vendor/views/index.html',
+    resolve: {
+      vendors: function ($route, $q, Vendors) {
+        var deferred = $q.defer();
+        Vendors.query({},
           function (response) { return deferred.resolve(response); },
           function (err) { return deferred.reject(err); }
         );
         return deferred.promise;
       }
     }
-  });
-}]);
-
-angular.module('SupportApp')
-.run(['$route', '$rootScope', '$location',
-function ($route, $rootScope, $location) {
-  var original = $location.path;
-  $location.path = function (path, reload) {
-    if (reload === false) {
-      var lastRoute = $route.current;
-      var un = $rootScope.$on('$locationChangeSuccess', function () {
-          $route.current = lastRoute;
-          un();
-      });
-    }
-    return original.apply($location, [path]);
-  };
-}]);
-
-angular.module('UnitApp.Controllers', []);
-angular.module('UnitApp.Directives', []);
-angular.module('UnitApp.Components', ['uiGmapgoogle-maps']);
-angular.module('UnitApp.Services', ['ngResource', 'ngCookies']);
-
-angular.module('UnitApp', [
-  'UnitApp.Controllers',
-  'UnitApp.Directives',
-  'UnitApp.Services',
-  'UnitApp.Components'
-]);
-
-
-angular.module('UnitApp').config(['$routeProvider',
-  function ($routeProvider) {
-  $routeProvider
-
-  .when('/unit/view/:id?', {
-    controller: 'UnitViewCtrl',
-    templateUrl: '/lib/public/angular/apps/unit/views/view.html',
-    resolve: {
-      unit: function ($route, $q, Units) {
-        return Units.get({id: $route.current.params.id}).$promise;
-      }
-    }
-  })
-
-  .when('/unit', {
-    controller: 'UnitIndexCtrl',
-    templateUrl: '/lib/public/angular/apps/unit/views/index.html'
   });
 }]);
 
@@ -2957,31 +3242,31 @@ angular.module('UserApp').config(['$routeProvider',
   });
 }]);
 
-angular.module('VendorApp.Controllers', []);
-angular.module('VendorApp.Directives', []);
-angular.module('VendorApp.Services', ['ngResource', 'ngCookies']);
+angular.module('VendorPartApp.Controllers', []);
+angular.module('VendorPartApp.Directives', []);
+angular.module('VendorPartApp.Services', ['ngResource', 'ngCookies']);
 
-angular.module('VendorApp', [
-  'VendorApp.Controllers',
-  'VendorApp.Directives',
-  'VendorApp.Services',
+angular.module('VendorPartApp', [
+  'VendorPartApp.Controllers',
+  'VendorPartApp.Directives',
+  'VendorPartApp.Services',
 ]);
 
 
-angular.module('VendorApp').config(['$routeProvider',
+angular.module('VendorPartApp').config(['$routeProvider',
   function ($routeProvider) {
   $routeProvider
 
-  .when('/vendor/edit/:id?', {
-    controller: 'VendorEditCtrl',
-    templateUrl: '/lib/public/angular/apps/vendor/views/edit.html',
+  .when('/vendorpart/edit/:id?', {
+    controller: 'VendorPartEditCtrl',
+    templateUrl: '/lib/public/angular/apps/vendorpart/views/edit.html',
     resolve: {
-      vendor: function ($route, $q, Vendors) {
-        //determine if we're creating or editing a vendor.
+      vendorpart: function ($route, $q, VendorParts) {
+        //determine if we're creating or editing a vendorpart.
         var id = $route.current.params.id || 0;
         if (id) {
           var deferred = $q.defer();
-          Vendors.get({id: id},
+          VendorParts.get({id: id},
             function (response) { return deferred.resolve(response); },
             function (err) { return deferred.reject(err); }
           );
@@ -2990,9 +3275,17 @@ angular.module('VendorApp').config(['$routeProvider',
           return null;
         }
       },
-      vendorFamilies: function ($route, $q, VendorFamilies) {
+      parts: function ($route, $q, Parts) {
         var deferred = $q.defer();
-        VendorFamilies.query({},
+        Parts.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      },
+      vendors: function ($route, $q, Vendors) {
+        var deferred = $q.defer();
+        Vendors.query({},
           function (response) { return deferred.resolve(response); },
           function (err) { return deferred.reject(err); }
         );
@@ -3004,13 +3297,13 @@ angular.module('VendorApp').config(['$routeProvider',
     }
   })
 
-  .when('/vendor', {
-    controller: 'VendorIndexCtrl',
-    templateUrl: '/lib/public/angular/apps/vendor/views/index.html',
+  .when('/vendorpart', {
+    controller: 'VendorPartIndexCtrl',
+    templateUrl: '/lib/public/angular/apps/vendorpart/views/index.html',
     resolve: {
-      vendors: function ($route, $q, Vendors) {
+      vendorparts: function ($route, $q, VendorParts) {
         var deferred = $q.defer();
-        Vendors.query({},
+        VendorParts.query({},
           function (response) { return deferred.resolve(response); },
           function (err) { return deferred.reject(err); }
         );
@@ -3117,138 +3410,6 @@ function ($route, $rootScope, $location) {
         }
         return original.apply($location, [path]);
     };
-}]);
-
-angular.module('VendorPartApp.Controllers', []);
-angular.module('VendorPartApp.Directives', []);
-angular.module('VendorPartApp.Services', ['ngResource', 'ngCookies']);
-
-angular.module('VendorPartApp', [
-  'VendorPartApp.Controllers',
-  'VendorPartApp.Directives',
-  'VendorPartApp.Services',
-]);
-
-
-angular.module('VendorPartApp').config(['$routeProvider',
-  function ($routeProvider) {
-  $routeProvider
-
-  .when('/vendorpart/edit/:id?', {
-    controller: 'VendorPartEditCtrl',
-    templateUrl: '/lib/public/angular/apps/vendorpart/views/edit.html',
-    resolve: {
-      vendorpart: function ($route, $q, VendorParts) {
-        //determine if we're creating or editing a vendorpart.
-        var id = $route.current.params.id || 0;
-        if (id) {
-          var deferred = $q.defer();
-          VendorParts.get({id: id},
-            function (response) { return deferred.resolve(response); },
-            function (err) { return deferred.reject(err); }
-          );
-          return deferred.promise;
-        } else {
-          return null;
-        }
-      },
-      parts: function ($route, $q, Parts) {
-        var deferred = $q.defer();
-        Parts.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      },
-      vendors: function ($route, $q, Vendors) {
-        var deferred = $q.defer();
-        Vendors.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      },
-      role: function ($route, $q, role) {
-        return role.get();
-      }
-    }
-  })
-
-  .when('/vendorpart', {
-    controller: 'VendorPartIndexCtrl',
-    templateUrl: '/lib/public/angular/apps/vendorpart/views/index.html',
-    resolve: {
-      vendorparts: function ($route, $q, VendorParts) {
-        var deferred = $q.defer();
-        VendorParts.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      }
-    }
-  });
-}]);
-
-angular.module('CommonControllers').controller('SuperTableCtrl',
-['$scope', 'AlertService', 'LoaderService',
-  function ($scope, AlertService, LoaderService) {
-
-    $scope.changeSorting = function (column) {
-      var sort = $scope.sort;
-      if (sort.column == column) {
-        sort.descending = !sort.descending;
-      } else {
-        sort.column = column;
-        sort.descending = false;
-      }
-    };
-
-    /* -------------------------------------------------------------------------
-    CONFIGURATION / ON LOAD
-    ------------------------------------------------------------------------- */
-    $scope.getDefaultSort = function () {
-      var column = [];
-      for (var key in $scope.displayColumns) { column.push(key.toString()); }
-      $scope.defaultSort = { column: column, descending: [false] };
-    };
-
-    $scope.onLoad = function () {
-      var m = $scope.model;
-
-      // if the required fields are not present, bail out
-      if (!m.objectList || !m.displayColumns) {
-        console.log("WARNING!");
-        console.log("You failed to provide required data for the directive.");
-        console.log("See super-table documentation for more info.");
-        var errMessage =  "SuperTabelCtrl: " +
-                          "Required attributes were not assigned to model.";
-        throw new Error(errMessage);
-      } else {
-        $scope.tableName = m.tableName || "My Table Name";
-
-        // required variables
-        $scope.objectList = m.objectList;
-        $scope.displayColumns = m.displayColumns;
-
-        // optional variables
-        $scope.rowClickAction = m.rowClickAction;
-        $scope.headerButtons = m.headerButtons;
-        $scope.rowButtons = m.rowButtons;
-        $scope.sort = m.sort || $scope.getDefaultSort();
-
-      }
-    };
-
-    $scope.clearSearchPhrase = function(obj){
-      $scope.searchPhrase = '';
-      var alertString = obj.description + ' added';
-      AlertService.add('success',  alertString);
-    };
-
-    // call on load
-    (function () { $scope.onLoad(); })();
-
 }]);
 
 angular.module('CommonDirectives')
@@ -3488,167 +3649,6 @@ angular.module('CommonDirectives')
   };
 }]);
 
-/**
- *            GeneralDestinationSelection
- *
- * Created by marcusjwhelan on 11/14/16.
- *
- * Contact: marcus.j.whelan@gmail.com
- *
- */
-angular.module('CommonComponents')
-.component('generalDestinationSelection', {
-  templateUrl: '/lib/public/angular/views/customContainers/GeneralDestinationSelection.html',
-  bindings: {
-    ccPanelTitle: '@',
-    ccLabelOrigin: '@',
-    ccLabelDestination: '@',
-    ccReturnType: '@',
-    ccOriginType: '@',
-    ccDestinationType: '@',
-    ccOriginModelName: '@',
-    ccDestinationModelName: '@',
-    ccOriginChange: '&',
-    ccDestinationChange: '&',
-    ccDataOrigin: '<',
-    ccDataDestination: '<',
-    ccLocations: '<'
-  },
-  controller: ['LocationItemService', OriginDestinationLocationCtrl]
-});
-
-function OriginDestinationLocationCtrl (LocationItemService) {
-  // Variables --------------------------------------
-  var self = this;
-  self.originArray = [];
-  self.destinationArray = [];
-  // ------------------------------------------------
-
-  // Fill Origin Array ------------------------------
-  // Add Any origin type you would like and add a location item
-  // Service to serve that type below.
-  if (self.ccOriginType === 'warehouse') {
-    self.originArray = LocationItemService.getLocationWarehouseObjArray(self.ccLocations);
-  } else {
-    self.originArray = self.ccLocations;
-  }
-  // ------------------------------------------------
-
-  // Fill Destination Array -------------------------
-  // Add any Destination type you would like and add a location
-  // item service to serve that type below
-  if (self.ccDestinationType === 'warehouse-truck') {
-    self.destinationArray = LocationItemService.getTruckObj(self.ccLocations);
-  } else {
-    self.destinationArray = self.ccLocations;
-  }
-  // ------------------------------------------------
-
-  // On Changes to Either Pass Back to Parent CTRL --
-  self.OriginChange = function (changedData, selected) {
-    self.ccOriginChange({ changedData: changedData, selected: selected});
-  };
-  self.DestinationChange = function (changedData, selected) {
-    self.ccDestinationChange({ changedData: changedData, selected: selected});
-  };
-  // ------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.controller('AddPartModalCtrl',['$scope', '$uibModalInstance',
-  function ($scope, $uibModalInstance) {
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-  }])
-.component('generalPartsList', {
-  templateUrl: 'lib/public/angular/views/customContainers/GeneralPartsList.html',
-  bindings: {
-    ccData: '<',
-    ccPanelTitle: '@',
-    ccTableClass: '@',
-    ccOnManualAdd: '&',
-    ccOnDelete: '&'
-  },
-  controller: ['$uibModal',GeneralPartsListCtrl]
-});
-
-function GeneralPartsListCtrl ($uibModal) {
-  // Variables ----------------------------------------------------------
-  var self = this;
-  // --------------------------------------------------------------------
-
-  // This Calls the Manual Part Modal Ctrl Above ------------------------
-  self.openManualPartModal = function(){
-    var modalInstance = $uibModal.open({
-      templateUrl: '/lib/public/angular/views/modals/manualAddPartModal.html',
-      controller: 'AddPartModalCtrl'
-    });
-
-    // Take Results of Modal Instance and Push into Parts Array ---------
-    modalInstance.result.then(function (part){
-      var thisPart = part;
-      thisPart.quantity = 0;
-      thisPart.isManual = true;
-      self.ccOnManualAdd({part: thisPart});
-    });
-  };
-  // --------------------------------------------------------------------
-}
-
-/**
- *            selectTechWarehouseId
- *
- * Created by marcusjwhelan on 11/10/16.
- *
- * Contact: marcus.j.whelan@gmail.com
- *
- */
-
-/// NEED TO FINISH UPDATING  REFERENCE General DestinationSelection.js
-angular.module('CommonComponents')
-.component('selectTechWarehouseId', {
-  templateUrl: 'lib/public/angular/views/customContainers/selectTechWarehouseId.html',
-  bindings: {
-    ccPanelTitle: '@',
-    ccClass: '@',
-    ccLabel: '@',
-    ccModelName: '@',
-    ccReturnType: '@',
-    ccType: '@',
-    ccOnDataChange: '&',
-    ccData: '<',
-    ccLocations: '<'
-  },
-  controller: ['LocationItemService', SelectTechOrWarehouseCtrl]
-});
-
-function SelectTechOrWarehouseCtrl (LocationItemService) {
-  // Variables --------------------------------------------------
-  var self = this;
-  self.locationWarehouseArray = [];
-  self.locationWarehouseNSIDArray = [];
-  // ------------------------------------------------------------
-
-  // Push All Warehouse ID --------------------------------------
-  if (self.ccType === "name") {
-    // get the location id array
-    self.locationWarehouseArray = LocationItemService.getLocationNameArray(self.ccTruckId, self.ccLocations);
-  }
-  if (self.ccType === "netsuiteId") {
-    // get all location Objects plus
-    self.locationTechWarehouseObjArray = LocationItemService.getLocationTechWarehouseObjArray(self.ccTruckId, self.ccLocations);
-  }
-  // ------------------------------------------------------------
-
-
-  // Pass Back Change to Parent ---------------------------------
-  self.onChange = function (changedData, selected) {
-    self.ccOnDataChange({ item: changedData , type: self.ccType, selected: selected });
-  };
-  // ------------------------------------------------------------
-}
-
 angular.module('AreaApp.Controllers').controller('AreaEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Areas', 'area',
   function ($scope, $route, $location, AlertService, LoaderService, Areas, area) {
@@ -3775,6 +3775,214 @@ angular.module('AreaApp.Controllers').controller('AreaIndexCtrl',
         };
       }
 
+}]);
+
+angular.module('CallReportApp.Controllers')
+.controller('CallReportCreateCtrl', ['$scope','$timeout','$uibModal','$cookies','$location','AlertService','ObjectService', 'ApiRequestService', 'CallReports','unittypes','titles','statustypes','opportunitysizes','opptypes','activitytypes','applicationtypes',
+function ($scope, $timeout, $uibModal, $cookies, $location, AlertService, ObjectService, ApiRequestService, CallReports, unittypes, titles, statustypes, opportunitysizes, opptypes, activitytypes, applicationtypes) {
+
+  // Variables -------------------------------------
+  const ARS = ApiRequestService;
+  $scope.unittypes = unittypes;
+  $scope.titles = titles;
+  $scope.statustypes = statustypes;
+  $scope.opportunitysizes = opportunitysizes;
+  $scope.opptypes = opptypes;
+  $scope.activitytypes = activitytypes;
+  $scope.customers = [];
+  $scope.applicationtypes = applicationtypes;
+  $scope.techId = $cookies.get('tech');
+  $scope.valid = false;
+  $scope.callreport = newCallReport();
+  $scope.oppFormValid = false;
+  // -----------------------------------------------
+
+  // Make shift call report ------------------------
+  function newCallReport () {
+    return {
+      customer: '',
+      
+      title: '',
+      isManualTitle: false,
+      activityType: '',
+      isManualActivity: false,
+      applicationType: '',
+      isManualAppType: false,
+      unitType: '',
+      isManualUnitType: false,
+      status: '',
+      isManualStatus: false,
+      oppType: '',
+      isManualOppType: false,
+      
+      size: '',
+      phoneNumber: '',
+      contactName: '',
+      officeLocation: '',
+      email: '',
+      callTime: new Date(),
+      newCustomer: false,
+      decisionMaker: '',
+      currentSpend: '',
+
+      username: $scope.techId,
+      extension: '',
+      comment: ''
+    }
+  }
+  // -----------------------------------------------
+
+  // Passed Functions To Child Components ----------
+  $scope.selectFieldChange = (changedData, selected) => {
+    ObjectService.updateNonNestedObjectValue($scope.callreport,changedData, selected);
+  };
+
+  $scope.typeaheadChange = (changedData, selected) => {
+    ObjectService.updateNonNestedObjectValue($scope.callreport, changedData, selected);
+    if(selected === 'customer'){
+      ARS.Customers({regexName: changedData})
+        .then((customers) => {
+          $scope.customers = customers;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  $scope.textFieldChange = (changedData, selected) => {
+    ObjectService.updateNonNestedObjectValue($scope.callreport, changedData, selected);
+  };
+
+  $scope.checkboxChange = (changedData, selected) => {
+    ObjectService.updateNonNestedObjectValue($scope.callreport, changedData,selected);
+  };
+  
+  $scope.isManualChange = (changedData, selected) => {
+    ObjectService.updateNonNestedObjectValue($scope.callreport, changedData, selected);
+  };
+  // -----------------------------------------------
+  
+  // Save Call Report ------------------------------
+  $scope.save = () => {
+    CallReports.save({},$scope.callreport,
+      (res) => {
+        AlertService.add('success', "Successfully created Call Report.");
+        $location.url('/callreport');
+      },
+      (err) => {
+        AlertService.add('danger', 'An error occurred while attempting to save.');
+        console.log(err);
+      }
+    );
+  };
+  // -----------------------------------------------
+}]);
+
+angular.module('CallReportApp.Controllers')
+.controller('CallReportCtrl',
+  ['$scope', '$http', '$timeout', '$location', '$q', 'ApiRequestService',
+function ($scope, $http, $timeout, $location, $q, ApiRequestService) {
+  // Variables-----------------------------------------
+  const ARS = ApiRequestService;              // local
+  $scope.loaded = false;                      // local
+  $scope.spinner = true;                      // local
+  $scope.displayUsersFromController = [];     // to OverviewTable
+  $scope.displayCustomersFromController = []; // to OverviewTable
+  // --------------------------------------------------
+
+  // Turn Spinner Off ---------------------------------
+  $scope.spinnerOff = () => {
+    $scope.spinner = false;
+  };
+  // --------------------------------------------------
+
+  // Passed to Component ------------------------------
+  // Function called any time Page loads or user scrolls past 50 units
+  $scope.lookup = (query) => {
+    $scope.loaded = false;
+    ARS.CallReports(query)
+      .then((callreports) => {
+        $scope.callreports = callreports.map(mapCallReports);
+        $scope.loaded = true;
+        $scope.spinnerOff();
+      })
+      .catch((err) => console.log("Failed to load: ", err));
+  };
+
+  $scope.CallReportScrollLookup = (query) => {
+    console.log("Looking up Call Reports...");
+    ARS.CallReports(query)
+      .then((callreports) => {
+        console.log("Call Reports Loaded.");
+        const cr = callreports.map(mapCallReports);
+        $scope.callreports = $scope.callreports.concat(cr);
+      })
+      .catch((err) => console.log("Failed to load call reports on scroll: ",err));
+  };
+  $scope.typeaheadChange = (changedData, selected) => {
+    if(selected === 'user'){
+      
+      ARS.Users({ regexName: name })
+      .then((users) => {
+        const userArray = [];
+        if(users.length > 0){
+          for(let user in users){
+            if(users.hasOwnProperty(user)){
+              if(users[user].hasOwnProperty('firstName')){
+                const fullName = users[user].firstName.concat(" ").concat(users[user].lastName);
+                const thisUser = users[user];
+                thisUser.fullName = fullName;
+                userArray.push(thisUser);
+              }
+            }
+          }
+          $scope.displayUsersFromController = userArray;
+        }
+      })
+      .catch((err) => console.log(err));
+    } else if(selected === 'customer'){
+      ARS.Customers({ regexName: changedData })
+      .then((customers) => {
+        $scope.displayCustomersFromController = customers;
+      })
+      .catch((err) => console.log(err));
+    }
+  };
+  // --------------------------------------------------
+
+  // Create Sorting parameters ------------------------
+  function mapCallReports (cr) {
+    cr.epoch = new Date(cr.callTime).getTime();
+
+    return cr;
+  }
+  // --------------------------------------------------
+
+  // Routing ------------------------------------------
+  $scope.createCallReport = function () {
+    $location.url('/callreport/create');
+  };
+  // --------------------------------------------------
+}]);
+
+angular.module('CallReportApp.Controllers')
+.controller('CallReportReviewCtrl',['$scope', 'ApiRequestService', 'callreport',
+function ($scope, ApiRequestService, callreport) {
+  
+  // Variables -------------------------------------
+  const ARS = ApiRequestService;
+  $scope.callreport = callreport;
+  $scope.userRealName = '';
+  // -----------------------------------------------
+  
+  // Load User first + last name for display -------
+  ARS.getUser({id: callreport.username})
+    .then((user) => {
+      $scope.userRealName = user.firstName.concat(' ').concat(user.lastName);
+    })
+    .catch((err) => console.log(err));
+  // -----------------------------------------------
 }]);
 
 angular.module('CallReportApp.Components')
@@ -4073,214 +4281,6 @@ angular.module('CallReportApp.Components')
  });
 
 
-angular.module('CallReportApp.Controllers')
-.controller('CallReportCreateCtrl', ['$scope','$timeout','$uibModal','$cookies','$location','AlertService','ObjectService', 'ApiRequestService', 'CallReports','unittypes','titles','statustypes','opportunitysizes','opptypes','activitytypes','applicationtypes',
-function ($scope, $timeout, $uibModal, $cookies, $location, AlertService, ObjectService, ApiRequestService, CallReports, unittypes, titles, statustypes, opportunitysizes, opptypes, activitytypes, applicationtypes) {
-
-  // Variables -------------------------------------
-  const ARS = ApiRequestService;
-  $scope.unittypes = unittypes;
-  $scope.titles = titles;
-  $scope.statustypes = statustypes;
-  $scope.opportunitysizes = opportunitysizes;
-  $scope.opptypes = opptypes;
-  $scope.activitytypes = activitytypes;
-  $scope.customers = [];
-  $scope.applicationtypes = applicationtypes;
-  $scope.techId = $cookies.get('tech');
-  $scope.valid = false;
-  $scope.callreport = newCallReport();
-  $scope.oppFormValid = false;
-  // -----------------------------------------------
-
-  // Make shift call report ------------------------
-  function newCallReport () {
-    return {
-      customer: '',
-      
-      title: '',
-      isManualTitle: false,
-      activityType: '',
-      isManualActivity: false,
-      applicationType: '',
-      isManualAppType: false,
-      unitType: '',
-      isManualUnitType: false,
-      status: '',
-      isManualStatus: false,
-      oppType: '',
-      isManualOppType: false,
-      
-      size: '',
-      phoneNumber: '',
-      contactName: '',
-      officeLocation: '',
-      email: '',
-      callTime: new Date(),
-      newCustomer: false,
-      decisionMaker: '',
-      currentSpend: '',
-
-      username: $scope.techId,
-      extension: '',
-      comment: ''
-    }
-  }
-  // -----------------------------------------------
-
-  // Passed Functions To Child Components ----------
-  $scope.selectFieldChange = (changedData, selected) => {
-    ObjectService.updateNonNestedObjectValue($scope.callreport,changedData, selected);
-  };
-
-  $scope.typeaheadChange = (changedData, selected) => {
-    ObjectService.updateNonNestedObjectValue($scope.callreport, changedData, selected);
-    if(selected === 'customer'){
-      ARS.Customers({regexName: changedData})
-        .then((customers) => {
-          $scope.customers = customers;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
-  $scope.textFieldChange = (changedData, selected) => {
-    ObjectService.updateNonNestedObjectValue($scope.callreport, changedData, selected);
-  };
-
-  $scope.checkboxChange = (changedData, selected) => {
-    ObjectService.updateNonNestedObjectValue($scope.callreport, changedData,selected);
-  };
-  
-  $scope.isManualChange = (changedData, selected) => {
-    ObjectService.updateNonNestedObjectValue($scope.callreport, changedData, selected);
-  };
-  // -----------------------------------------------
-  
-  // Save Call Report ------------------------------
-  $scope.save = () => {
-    CallReports.save({},$scope.callreport,
-      (res) => {
-        AlertService.add('success', "Successfully created Call Report.");
-        $location.url('/callreport');
-      },
-      (err) => {
-        AlertService.add('danger', 'An error occurred while attempting to save.');
-        console.log(err);
-      }
-    );
-  };
-  // -----------------------------------------------
-}]);
-
-angular.module('CallReportApp.Controllers')
-.controller('CallReportCtrl',
-  ['$scope', '$http', '$timeout', '$location', '$q', 'ApiRequestService',
-function ($scope, $http, $timeout, $location, $q, ApiRequestService) {
-  // Variables-----------------------------------------
-  const ARS = ApiRequestService;              // local
-  $scope.loaded = false;                      // local
-  $scope.spinner = true;                      // local
-  $scope.displayUsersFromController = [];     // to OverviewTable
-  $scope.displayCustomersFromController = []; // to OverviewTable
-  // --------------------------------------------------
-
-  // Turn Spinner Off ---------------------------------
-  $scope.spinnerOff = () => {
-    $scope.spinner = false;
-  };
-  // --------------------------------------------------
-
-  // Passed to Component ------------------------------
-  // Function called any time Page loads or user scrolls past 50 units
-  $scope.lookup = (query) => {
-    $scope.loaded = false;
-    ARS.CallReports(query)
-      .then((callreports) => {
-        $scope.callreports = callreports.map(mapCallReports);
-        $scope.loaded = true;
-        $scope.spinnerOff();
-      })
-      .catch((err) => console.log("Failed to load: ", err));
-  };
-
-  $scope.CallReportScrollLookup = (query) => {
-    console.log("Looking up Call Reports...");
-    ARS.CallReports(query)
-      .then((callreports) => {
-        console.log("Call Reports Loaded.");
-        const cr = callreports.map(mapCallReports);
-        $scope.callreports = $scope.callreports.concat(cr);
-      })
-      .catch((err) => console.log("Failed to load call reports on scroll: ",err));
-  };
-  $scope.typeaheadChange = (changedData, selected) => {
-    if(selected === 'user'){
-      
-      ARS.Users({ regexName: name })
-      .then((users) => {
-        const userArray = [];
-        if(users.length > 0){
-          for(let user in users){
-            if(users.hasOwnProperty(user)){
-              if(users[user].hasOwnProperty('firstName')){
-                const fullName = users[user].firstName.concat(" ").concat(users[user].lastName);
-                const thisUser = users[user];
-                thisUser.fullName = fullName;
-                userArray.push(thisUser);
-              }
-            }
-          }
-          $scope.displayUsersFromController = userArray;
-        }
-      })
-      .catch((err) => console.log(err));
-    } else if(selected === 'customer'){
-      ARS.Customers({ regexName: changedData })
-      .then((customers) => {
-        $scope.displayCustomersFromController = customers;
-      })
-      .catch((err) => console.log(err));
-    }
-  };
-  // --------------------------------------------------
-
-  // Create Sorting parameters ------------------------
-  function mapCallReports (cr) {
-    cr.epoch = new Date(cr.callTime).getTime();
-
-    return cr;
-  }
-  // --------------------------------------------------
-
-  // Routing ------------------------------------------
-  $scope.createCallReport = function () {
-    $location.url('/callreport/create');
-  };
-  // --------------------------------------------------
-}]);
-
-angular.module('CallReportApp.Controllers')
-.controller('CallReportReviewCtrl',['$scope', 'ApiRequestService', 'callreport',
-function ($scope, ApiRequestService, callreport) {
-  
-  // Variables -------------------------------------
-  const ARS = ApiRequestService;
-  $scope.callreport = callreport;
-  $scope.userRealName = '';
-  // -----------------------------------------------
-  
-  // Load User first + last name for display -------
-  ARS.getUser({id: callreport.username})
-    .then((user) => {
-      $scope.userRealName = user.firstName.concat(' ').concat(user.lastName);
-    })
-    .catch((err) => console.log(err));
-  // -----------------------------------------------
-}]);
-
 angular.module('CompressorApp.Controllers').controller('CompressorEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Compressors', 'compressor', 'units',
   function ($scope, $route, $location, AlertService, LoaderService, Compressors, compressor, units) {
@@ -4554,6 +4554,136 @@ angular.module('CountyApp.Controllers').controller('CountyIndexCtrl',
 
 }]);
 
+angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Customers', 'customer', 'locations',
+  function ($scope, $route, $location, AlertService, LoaderService, Customers, customer, locations) {
+
+    $scope.title = customer ? "Edit " + customer.dbaCustomerName :
+                              "Create a new customer";
+
+    $scope.customer = customer;
+    $scope.locations = locations;
+
+    $scope.save = function () {
+      $scope.submitting = true;
+      if ($scope.customer._id) {
+        // Edit an existing customer.
+        Customers.save({_id: customer._id}, $scope.customer,
+          function (response) {
+            $location.path("/customer");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      } else {
+        // Create a new customer.
+        Customers.save({}, $scope.customer,
+          function (response) {
+            $location.path("/customer");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      }
+    };
+
+    $scope.destroy = function () {
+      $scope.submitting = true;
+      Customers.delete({id: customer._id},
+        function (response) {
+          $location.path("/customer");
+          $scope.submitting = false;
+        },
+        function (err) {
+          AlertService.add("error", err);
+          $scope.submitting = false;
+        }
+      );
+    };
+
+}]);
+
+angular.module('CustomerApp.Controllers').controller('CustomerIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'customers',
+  function ($scope, $route, $location, AlertService, LoaderService, customers) {
+
+    $scope.title = "Customers";
+
+    $scope.customers = customers;
+
+    $scope.editCustomer = function (id) {
+      $location.path("/customer/edit/" + (id || ""));
+    };
+
+    $scope.createCustomer = function () {
+      $scope.editCustomer();
+    };
+
+  	/* Table
+  	--------------------------------------------------------------------------- */
+    $scope.superTableModel = {
+      tableName: "Customers", // displayed at top of page
+      objectList: getObjectList(), // objects to be shown in list
+      displayColumns: getTableDisplayColumns(),
+  		rowClickAction: null, // takes a function that accepts an obj param
+      rowButtons: getTableRowButtons(), // an array of button object (format below)
+      headerButtons: getTableHeaderButtons(), // an array of button object (format below)
+  		sort: getTableSort()
+    };
+
+  	function getObjectList () {
+  		return customers;
+  	}
+
+    function getTableDisplayColumns () {
+      return [ // which columns need to be displayed in the table
+        { title: "DBA", objKey: "dbaCustomerName" },
+        { title: "Family", objKey: "customerFamily"},
+        { title: "Phone", objKey: "phone"}
+      ];
+    }
+
+    function rowClickAction (obj) { // takes the row object
+      $scope.editCustomer(obj._id);
+    }
+
+    function getTableRowButtons () {
+      var arr = [];
+      var button = {};
+      button.title = "edit";
+      button.action = rowClickAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function tableHeaderAction () { // takes no parameters
+  		$scope.createCustomer();
+    }
+
+    function getTableHeaderButtons() {
+      var arr = [];
+      var button = {};
+      button.title = "new customer";
+      button.action = tableHeaderAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function getTableSort () {
+      return {
+        column: ["dbaCustomerName"],
+        descending: [false],
+      };
+    }
+
+}]);
+
 angular.module('EngineApp.Controllers').controller('EngineEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Engines', 'engine', 'units',
   function ($scope, $route, $location, AlertService, LoaderService, Engines, engine, units) {
@@ -4694,136 +4824,6 @@ angular.module('EngineApp.Controllers').controller('EngineIndexCtrl',
 
 }]);
 
-angular.module('CustomerApp.Controllers').controller('CustomerEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Customers', 'customer', 'locations',
-  function ($scope, $route, $location, AlertService, LoaderService, Customers, customer, locations) {
-
-    $scope.title = customer ? "Edit " + customer.dbaCustomerName :
-                              "Create a new customer";
-
-    $scope.customer = customer;
-    $scope.locations = locations;
-
-    $scope.save = function () {
-      $scope.submitting = true;
-      if ($scope.customer._id) {
-        // Edit an existing customer.
-        Customers.save({_id: customer._id}, $scope.customer,
-          function (response) {
-            $location.path("/customer");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      } else {
-        // Create a new customer.
-        Customers.save({}, $scope.customer,
-          function (response) {
-            $location.path("/customer");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      }
-    };
-
-    $scope.destroy = function () {
-      $scope.submitting = true;
-      Customers.delete({id: customer._id},
-        function (response) {
-          $location.path("/customer");
-          $scope.submitting = false;
-        },
-        function (err) {
-          AlertService.add("error", err);
-          $scope.submitting = false;
-        }
-      );
-    };
-
-}]);
-
-angular.module('CustomerApp.Controllers').controller('CustomerIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'customers',
-  function ($scope, $route, $location, AlertService, LoaderService, customers) {
-
-    $scope.title = "Customers";
-
-    $scope.customers = customers;
-
-    $scope.editCustomer = function (id) {
-      $location.path("/customer/edit/" + (id || ""));
-    };
-
-    $scope.createCustomer = function () {
-      $scope.editCustomer();
-    };
-
-  	/* Table
-  	--------------------------------------------------------------------------- */
-    $scope.superTableModel = {
-      tableName: "Customers", // displayed at top of page
-      objectList: getObjectList(), // objects to be shown in list
-      displayColumns: getTableDisplayColumns(),
-  		rowClickAction: null, // takes a function that accepts an obj param
-      rowButtons: getTableRowButtons(), // an array of button object (format below)
-      headerButtons: getTableHeaderButtons(), // an array of button object (format below)
-  		sort: getTableSort()
-    };
-
-  	function getObjectList () {
-  		return customers;
-  	}
-
-    function getTableDisplayColumns () {
-      return [ // which columns need to be displayed in the table
-        { title: "DBA", objKey: "dbaCustomerName" },
-        { title: "Family", objKey: "customerFamily"},
-        { title: "Phone", objKey: "phone"}
-      ];
-    }
-
-    function rowClickAction (obj) { // takes the row object
-      $scope.editCustomer(obj._id);
-    }
-
-    function getTableRowButtons () {
-      var arr = [];
-      var button = {};
-      button.title = "edit";
-      button.action = rowClickAction;
-      arr.push(button);
-      return arr;
-    }
-
-    function tableHeaderAction () { // takes no parameters
-  		$scope.createCustomer();
-    }
-
-    function getTableHeaderButtons() {
-      var arr = [];
-      var button = {};
-      button.title = "new customer";
-      button.action = tableHeaderAction;
-      arr.push(button);
-      return arr;
-    }
-
-    function getTableSort () {
-      return {
-        column: ["dbaCustomerName"],
-        descending: [false],
-      };
-    }
-
-}]);
-
 angular.module('InventoryTransferApp.Controllers').controller('InventoryTransferEditCtrl',
 ['$scope', '$window', '$location', '$timeout', 'AlertService', 'InventoryTransfers', 'inventorytransfer', 'parts', 'locations', 'users',
   function ($scope, $window, $location, $timeout, AlertService, InventoryTransfers, inventorytransfer, parts, locations, users){
@@ -4919,184 +4919,6 @@ angular.module('InventoryTransferApp.Controllers').controller('InventoryTransfer
     };
 
   }]);
-
-angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Locations', 'location', 'customers', 'areas', 'states', 'counties',
-  function ($scope, $route, $location, AlertService, LoaderService, Locations, location, customers, areas, states, counties) {
-
-    $scope.title = location ? "Edit " + location.name : "Create a new location";
-
-    $scope.location = location;
-    $scope.customers = customers;
-    $scope.states = states;
-    $scope.counties = counties;
-    $scope.locationTypes = [{name:"Lease"},{name:"Truck"}, {name:"Yard"}];
-
-    $scope.$watch('location.state', function (newVal, oldVal) {
-      if (newVal != oldVal) {
-        if (newVal === null) { $scope.counties = counties; }
-        $scope.counties = getCountiesForState(counties, newVal);
-      }
-    }, true);
-
-    $scope.$watch('location.county', function (newVal, oldVal) {
-      if (newVal != oldVal) {
-        if (newVal === null) { $scope.states = states; }
-        counties.forEach(function (ele, ind, arr) {
-          if (ele._id == newVal) {
-            $scope.location.state = ele.state._id;
-          }
-        });
-      }
-    }, true);
-
-    $scope.save = function () {
-      $scope.submitting = true;
-      if ($scope.location._id) {
-        // Edit an existing location.
-        Locations.save({_id: $scope.location._id}, $scope.location,
-          function (response) {
-            $location.path("/location");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      } else {
-        // Create a new location.
-        Locations.save({name: $scope.location.name}, $scope.location,
-          function (response) {
-            $location.path("/location");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      }
-    };
-
-    $scope.destroy = function () {
-      $scope.submitting = true;
-      Locations.delete({id: location._id},
-        function (response) {
-          $location.path("/location");
-          $scope.submitting = false;
-        },
-        function (err) {
-          AlertService.add("error", err);
-          $scope.submitting = false;
-        }
-      );
-    };
-
-    function getCountiesForState(counties, state) {
-      var countyArr = [];
-      if (state) {
-        counties.forEach(function (ele) {
-          if (ele.state._id == state) { countyArr.push(ele); }
-        });
-      } else {
-        countyArr = counties;
-      }
-      countyArr.sort(function (a, b) {
-        if (a.name > b.name) { return 1; }
-        if (a.name < b.name) { return -1; }
-        else { return 0; }
-      });
-      return countyArr;
-    }
-}]);
-
-angular.module('LocationApp.Controllers').controller('LocationIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'locations',
-  function ($scope, $route, $location, AlertService, LoaderService, locations) {
-
-    $scope.title = "Locations";
-
-    $scope.locations = locations;
-
-    $scope.editLocation = function (id) {
-      $location.path("/location/edit/" + (id || ""));
-    };
-
-    $scope.createLocation = function () {
-      $scope.editLocation();
-    };
-
-  	/* Table
-  	--------------------------------------------------------------------------- */
-    $scope.superTableModel = {
-      tableName: "Locations", // displayed at top of page
-      objectList: getObjectList(), // objects to be shown in list
-      displayColumns: getTableDisplayColumns(),
-  		rowClickAction: null, // takes a function that accepts an obj param
-      rowButtons: getTableRowButtons(), // an array of button object (format below)
-      headerButtons: getTableHeaderButtons(), // an array of button object (format below)
-  		sort: getTableSort()
-    };
-
-  	function getObjectList () {
-      var oList = [];
-      console.log(locations);
-      locations.forEach(function (ele, ind, arr) {
-        oList.push({
-          _id: ele._id,
-          name: ele.name,
-          type: ele.locationType,
-          customer: ele.customer.dbaCustomerName || null,
-          area: (ele.area ? ele.area.name : null )
-        });
-      });
-  		return oList;
-  	}
-
-    function getTableDisplayColumns () {
-      return [ // which columns need to be displayed in the table
-        { title: "Name", objKey: "name" },
-        { title: "Type", objKey: "type" },
-        { title: "Customer", objKey: "customer" },
-        { title: "Area", objKey: "area"}
-      ];
-    }
-
-    function rowClickAction (obj) { // takes the row object
-      $scope.editLocation(obj._id);
-    }
-
-    function getTableRowButtons () {
-      var arr = [];
-      var button = {};
-      button.title = "edit";
-      button.action = rowClickAction;
-      arr.push(button);
-      return arr;
-    }
-
-    function tableHeaderAction () { // takes no parameters
-  		$scope.createLocation();
-    }
-
-    function getTableHeaderButtons() {
-      var arr = [];
-      var button = {};
-      button.title = "new location";
-      button.action = tableHeaderAction;
-      arr.push(button);
-      return arr;
-    }
-
-    function getTableSort () {
-      return {
-        column: ["area", "name"],
-        descending: [false],
-      };
-    }
-
-}]);
 
 angular.module('PartApp.Controllers').controller('PartEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Parts', 'part', 'vendors', 'enumeration', '$window', 'VendorParts',
@@ -5371,6 +5193,184 @@ angular.module('PartApp.Directives')
     scope: true,
     controller: 'PartsVendorPartsCtrl'
   };
+}]);
+
+angular.module('LocationApp.Controllers').controller('LocationEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Locations', 'location', 'customers', 'areas', 'states', 'counties',
+  function ($scope, $route, $location, AlertService, LoaderService, Locations, location, customers, areas, states, counties) {
+
+    $scope.title = location ? "Edit " + location.name : "Create a new location";
+
+    $scope.location = location;
+    $scope.customers = customers;
+    $scope.states = states;
+    $scope.counties = counties;
+    $scope.locationTypes = [{name:"Lease"},{name:"Truck"}, {name:"Yard"}];
+
+    $scope.$watch('location.state', function (newVal, oldVal) {
+      if (newVal != oldVal) {
+        if (newVal === null) { $scope.counties = counties; }
+        $scope.counties = getCountiesForState(counties, newVal);
+      }
+    }, true);
+
+    $scope.$watch('location.county', function (newVal, oldVal) {
+      if (newVal != oldVal) {
+        if (newVal === null) { $scope.states = states; }
+        counties.forEach(function (ele, ind, arr) {
+          if (ele._id == newVal) {
+            $scope.location.state = ele.state._id;
+          }
+        });
+      }
+    }, true);
+
+    $scope.save = function () {
+      $scope.submitting = true;
+      if ($scope.location._id) {
+        // Edit an existing location.
+        Locations.save({_id: $scope.location._id}, $scope.location,
+          function (response) {
+            $location.path("/location");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      } else {
+        // Create a new location.
+        Locations.save({name: $scope.location.name}, $scope.location,
+          function (response) {
+            $location.path("/location");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      }
+    };
+
+    $scope.destroy = function () {
+      $scope.submitting = true;
+      Locations.delete({id: location._id},
+        function (response) {
+          $location.path("/location");
+          $scope.submitting = false;
+        },
+        function (err) {
+          AlertService.add("error", err);
+          $scope.submitting = false;
+        }
+      );
+    };
+
+    function getCountiesForState(counties, state) {
+      var countyArr = [];
+      if (state) {
+        counties.forEach(function (ele) {
+          if (ele.state._id == state) { countyArr.push(ele); }
+        });
+      } else {
+        countyArr = counties;
+      }
+      countyArr.sort(function (a, b) {
+        if (a.name > b.name) { return 1; }
+        if (a.name < b.name) { return -1; }
+        else { return 0; }
+      });
+      return countyArr;
+    }
+}]);
+
+angular.module('LocationApp.Controllers').controller('LocationIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'locations',
+  function ($scope, $route, $location, AlertService, LoaderService, locations) {
+
+    $scope.title = "Locations";
+
+    $scope.locations = locations;
+
+    $scope.editLocation = function (id) {
+      $location.path("/location/edit/" + (id || ""));
+    };
+
+    $scope.createLocation = function () {
+      $scope.editLocation();
+    };
+
+  	/* Table
+  	--------------------------------------------------------------------------- */
+    $scope.superTableModel = {
+      tableName: "Locations", // displayed at top of page
+      objectList: getObjectList(), // objects to be shown in list
+      displayColumns: getTableDisplayColumns(),
+  		rowClickAction: null, // takes a function that accepts an obj param
+      rowButtons: getTableRowButtons(), // an array of button object (format below)
+      headerButtons: getTableHeaderButtons(), // an array of button object (format below)
+  		sort: getTableSort()
+    };
+
+  	function getObjectList () {
+      var oList = [];
+      console.log(locations);
+      locations.forEach(function (ele, ind, arr) {
+        oList.push({
+          _id: ele._id,
+          name: ele.name,
+          type: ele.locationType,
+          customer: ele.customer.dbaCustomerName || null,
+          area: (ele.area ? ele.area.name : null )
+        });
+      });
+  		return oList;
+  	}
+
+    function getTableDisplayColumns () {
+      return [ // which columns need to be displayed in the table
+        { title: "Name", objKey: "name" },
+        { title: "Type", objKey: "type" },
+        { title: "Customer", objKey: "customer" },
+        { title: "Area", objKey: "area"}
+      ];
+    }
+
+    function rowClickAction (obj) { // takes the row object
+      $scope.editLocation(obj._id);
+    }
+
+    function getTableRowButtons () {
+      var arr = [];
+      var button = {};
+      button.title = "edit";
+      button.action = rowClickAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function tableHeaderAction () { // takes no parameters
+  		$scope.createLocation();
+    }
+
+    function getTableHeaderButtons() {
+      var arr = [];
+      var button = {};
+      button.title = "new location";
+      button.action = tableHeaderAction;
+      arr.push(button);
+      return arr;
+    }
+
+    function getTableSort () {
+      return {
+        column: ["area", "name"],
+        descending: [false],
+      };
+    }
+
 }]);
 
 angular.module('PartOrderApp.Components')
@@ -6008,6 +6008,14 @@ function ($scope, partorder, locations) {
   // -----------------------------------------------
 }]);
 
+angular.module('SupportApp.Controllers').controller('SupportIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'me',
+  function ($scope, $route, $location, AlertService, LoaderService, me){
+    $scope.me = me;
+    $scope.title = "Support";
+
+}]);
+
 angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerEditCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'ServicePartners', 'servicePartner',
   function ($scope, $route, $location, AlertService, LoaderService, ServicePartners, servicePartner) {
@@ -6091,124 +6099,6 @@ angular.module('ServicePartnerApp.Controllers').controller('ServicePartnerIndexC
         sort.column = column;
         sort.descending = false;
       }
-    };
-
-}]);
-
-angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
-['$scope', '$window', '$location', '$timeout', 'AlertService', 'Transfers', 'transfer', 'units', 'customers', 'users', 'states', 'counties',
-  function ($scope, $window, $location, $timeout, AlertService, Transfers, transfer, units, customers, users, states, counties) {
-
-    $scope.message = (transfer !== null ? "Edit " : "Create ") + "Transfer";
-    $scope.transfer = transfer || newTransfer();
-
-    $scope.units = units;
-    $scope.customers = customers;
-    users.forEach(function (u){
-      u.fullname = u.firstName + ' ' + u.lastName;
-    });
-    $scope.users = users;
-    $scope.states = states;
-    $scope.counties = counties;
-
-    $scope.today =  Date.now();
-
-    $scope.status = {
-      opened: false
-    };
-
-    $scope.open = function ($event) {
-      $scope.status.opened = true;
-    };
-
-    $scope.$watch(
-      function () { return $scope.transfer.unit; },
-      function ( newValue, oldValue) {
-        $scope.transfer.origin.customer = $scope.transfer.unit.Customer;
-        $scope.transfer.origin.county = $scope.transfer.unit.county;
-        $scope.transfer.origin.state = $scope.transfer.unit.state;
-        $scope.transfer.origin.location = $scope.transfer.unit.locationName;
-        $scope.transfer.origin.legal = $scope.trasnfer.unit.legalDescription;
-      }, true );
-
-
-    $scope.save = function () {
-      console.log('Saving');
-      $scope.submitting = true;
-      console.log($scope.transfer);
-      Transfers.save({_id: $scope.transfer._id}, $scope.transfer,
-        function (response) {
-          AlertService.add("success", "Save was successful!");
-          $scope.submitting = false;
-          $location.path("/transfer");
-        },
-        function (err) {
-          console.log(err);
-          AlertService.add("danger", "An error occurred while attempting to save.");
-          $scope.submitting = false;
-        }
-      );
-    };
-
-    $scope.destroy = function () {
-      $scope.submitting = true;
-      Transfers.destroy($scope.transfer,
-        function (response) {
-          AlertService.add("success", "Save was successful!");
-          $scope.submitting = false;
-          $location.path("/myaccount");
-        },
-        function (err) {
-          console.log(err);
-          AlertService.add("danger", "An error occurred while attempting to save.");
-          $scope.submitting = false;
-        }
-      );
-    };
-
-
-    function newTransfer() {
-      var newTrans =
-      {
-        transferDate :  new Date(),
-
-        unit: {number: ''},
-
-        origin : {
-          customer : {},
-          county : {},
-          state : {},
-          location: '',
-          legal : '',
-        },
-
-        destination : {
-          customer : {},
-          location: '',
-          legal : '',
-        },
-
-        transferedBy : {},
-
-        transferNote : ""
-
-      };
-      return newTrans;
-    }
-}]);
-
-angular.module('TransferApp.Controllers').controller('TransferIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'transfers',
-  function ($scope, $route, $location, AlertService, LoaderService, transfers) {
-
-    $scope.title = "Transfers";
-
-    $scope.editTransfer = function (id) {
-      $location.path("/transfer/edit/" + (id || ""));
-    };
-
-    $scope.createTransfer = function () {
-      $scope.editTransfer();
     };
 
 }]);
@@ -6299,8 +6189,12 @@ angular.module('UnitApp.Components')
     bindings: {
       unit: '<'
     },
-    controller: ['$scope', class UnitSatCtrl {
-      constructor($scope) {
+    controller: ['$scope', '$timeout', 'uiGmapGoogleMapApi', class UnitSatCtrl {
+      constructor($scope, $timeout, uiGmapGoogleMapApi) {
+        this.showMap = false;
+        this.$scope = $scope;
+        this.$timeout = $timeout;
+        this.ui = uiGmapGoogleMapApi;
         // Map creation and events ----------------------------
         this.map = {
           center: {
@@ -6357,11 +6251,11 @@ angular.module('UnitApp.Components')
       // Initialize map and add unit marker -----------------
       $onInit() {
         this.map.center = _.cloneDeep(this.unit.geo);
-
+  
         let now = new Date();
         let inSevenDays = moment().add(7, 'days');
         let pmDate = this.unit.pmReport ? new Date(this.unit.pmReport.nextPmDate) : null;
-
+  
         let icon = 'lib/public/images/marker_grey.png';
         if(pmDate) {
           //If pmDate has passed, icon is red
@@ -6377,14 +6271,21 @@ angular.module('UnitApp.Components')
             icon = 'lib/public/images/marker_green.png';
           }
         }
-
+  
         this.marker = {
           id: 0,
           geo: this.unit.geo,
           options: {
             icon
           }
-        }
+        };
+        
+        this.ui.then(() => {
+          this.$timeout(() => {
+            this.showMap = true;
+          }, 100)
+        })
+        
       }
       // ----------------------------------------------------
     }]
@@ -6457,14 +6358,6 @@ angular.module('UnitApp.Components')
   });
 
 
-
-angular.module('SupportApp.Controllers').controller('SupportIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'me',
-  function ($scope, $route, $location, AlertService, LoaderService, me){
-    $scope.me = me;
-    $scope.title = "Support";
-
-}]);
 
 angular.module('UnitApp.Controllers').controller('UnitIndexCtrl',
 ['$scope', 'AlertService', 'ApiRequestService',
@@ -6600,6 +6493,216 @@ function ($window, $scope, $route, $location, AlertService, LoaderService, Sessi
     $window.open(`#/myaccount`);
   }
   // ----------------------------------------------------
+}]);
+
+angular.module('TransferApp.Controllers').controller('TransferEditCtrl',
+['$scope', '$window', '$location', '$timeout', 'AlertService', 'Transfers', 'transfer', 'units', 'customers', 'users', 'states', 'counties',
+  function ($scope, $window, $location, $timeout, AlertService, Transfers, transfer, units, customers, users, states, counties) {
+
+    $scope.message = (transfer !== null ? "Edit " : "Create ") + "Transfer";
+    $scope.transfer = transfer || newTransfer();
+
+    $scope.units = units;
+    $scope.customers = customers;
+    users.forEach(function (u){
+      u.fullname = u.firstName + ' ' + u.lastName;
+    });
+    $scope.users = users;
+    $scope.states = states;
+    $scope.counties = counties;
+
+    $scope.today =  Date.now();
+
+    $scope.status = {
+      opened: false
+    };
+
+    $scope.open = function ($event) {
+      $scope.status.opened = true;
+    };
+
+    $scope.$watch(
+      function () { return $scope.transfer.unit; },
+      function ( newValue, oldValue) {
+        $scope.transfer.origin.customer = $scope.transfer.unit.Customer;
+        $scope.transfer.origin.county = $scope.transfer.unit.county;
+        $scope.transfer.origin.state = $scope.transfer.unit.state;
+        $scope.transfer.origin.location = $scope.transfer.unit.locationName;
+        $scope.transfer.origin.legal = $scope.trasnfer.unit.legalDescription;
+      }, true );
+
+
+    $scope.save = function () {
+      console.log('Saving');
+      $scope.submitting = true;
+      console.log($scope.transfer);
+      Transfers.save({_id: $scope.transfer._id}, $scope.transfer,
+        function (response) {
+          AlertService.add("success", "Save was successful!");
+          $scope.submitting = false;
+          $location.path("/transfer");
+        },
+        function (err) {
+          console.log(err);
+          AlertService.add("danger", "An error occurred while attempting to save.");
+          $scope.submitting = false;
+        }
+      );
+    };
+
+    $scope.destroy = function () {
+      $scope.submitting = true;
+      Transfers.destroy($scope.transfer,
+        function (response) {
+          AlertService.add("success", "Save was successful!");
+          $scope.submitting = false;
+          $location.path("/myaccount");
+        },
+        function (err) {
+          console.log(err);
+          AlertService.add("danger", "An error occurred while attempting to save.");
+          $scope.submitting = false;
+        }
+      );
+    };
+
+
+    function newTransfer() {
+      var newTrans =
+      {
+        transferDate :  new Date(),
+
+        unit: {number: ''},
+
+        origin : {
+          customer : {},
+          county : {},
+          state : {},
+          location: '',
+          legal : '',
+        },
+
+        destination : {
+          customer : {},
+          location: '',
+          legal : '',
+        },
+
+        transferedBy : {},
+
+        transferNote : ""
+
+      };
+      return newTrans;
+    }
+}]);
+
+angular.module('TransferApp.Controllers').controller('TransferIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'transfers',
+  function ($scope, $route, $location, AlertService, LoaderService, transfers) {
+
+    $scope.title = "Transfers";
+
+    $scope.editTransfer = function (id) {
+      $location.path("/transfer/edit/" + (id || ""));
+    };
+
+    $scope.createTransfer = function () {
+      $scope.editTransfer();
+    };
+
+}]);
+
+angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Vendors', 'vendor', 'vendorFamilies', 'role',
+  function ($scope, $route, $location, AlertService, LoaderService, Vendors, vendor, vendorFamilies, role) {
+
+    $scope.title = vendor ? "Edit " + vendor.name : "Create a new vendor";
+
+    if (vendor) {
+      $scope.vendor = vendor;
+    }
+
+    $scope.vendorFamilies = vendorFamilies;
+
+    $scope.vendorFamilies.push({name: "Other", id: 0});
+
+    $scope.save = function () {
+      $scope.submitting = true;
+      if ($scope.vendor._id) {
+        // Edit an existing vendor.
+        Vendors.save({id: vendor._id}, $scope.vendor,
+          function (response) {
+            $location.path("/vendor");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      } else {
+        // Create a new vendor.
+        Vendors.save({}, $scope.vendor,
+          function (response) {
+            $location.path("/vendor");
+            $scope.submitting = false;
+          },
+          function (err) {
+            AlertService.add("error", err);
+            $scope.submitting = false;
+          }
+        );
+      }
+    };
+
+    $scope.destroy = function () {
+      $scope.submitting = true;
+      Vendors.delete({id: vendor._id},
+        function (response) {
+          $location.path("/vendor");
+          $scope.submitting = false;
+        },
+        function (err) {
+          AlertService.add("error", err);
+          $scope.submitting = false;
+        }
+      );
+    };
+
+}]);
+
+angular.module('VendorApp.Controllers').controller('VendorIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'vendors',
+  function ($scope, $route, $location, AlertService, LoaderService, vendors) {
+
+    $scope.title = "Vendors";
+
+    $scope.vendors = vendors;
+
+    $scope.editVendor = function (id) {
+      $location.path("/vendor/edit/" + (id || ""));
+    };
+
+    $scope.createVendor = function () {
+      $scope.editVendor();
+    };
+
+    $scope.sort = {
+      column: "name",
+      descending: false,
+    };
+
+    $scope.changeSorting = function (column) {
+      var sort = $scope.sort;
+      if (sort.column == column) {
+        sort.descending = !sort.descending;
+      } else {
+        sort.column = column;
+        sort.descending = false;
+      }
+    };
+
 }]);
 
 angular.module('UserApp.Controllers').controller('UserEditCtrl',
@@ -6745,27 +6848,42 @@ angular.module('UserApp.Controllers').controller('UserIndexCtrl',
 
 }]);
 
-angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'Vendors', 'vendor', 'vendorFamilies', 'role',
-  function ($scope, $route, $location, AlertService, LoaderService, Vendors, vendor, vendorFamilies, role) {
+angular.module('VendorPartApp.Controllers').controller('VendorPartEditCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'VendorParts', 'vendorpart','vendors', 'parts', 'role',
+  function ($scope, $route, $location, AlertService, LoaderService, VendorParts, vendorpart, vendors, parts, role) {
 
-    $scope.title = vendor ? "Edit " + vendor.name : "Create a new vendor";
+    $scope.title = vendorpart ? "Edit " + vendorpart.vendorPartNumber :
+                                "Create a new vendor";
 
-    if (vendor) {
-      $scope.vendor = vendor;
+    if (vendorpart) {
+      $scope.vendorpart = vendorpart;
     }
 
-    $scope.vendorFamilies = vendorFamilies;
+    $scope.vendors = vendors;
+    $scope.parts = parts;
 
-    $scope.vendorFamilies.push({name: "Other", id: 0});
+    $scope.$watch('vendorpart.PartId', function (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        var oldPart = getPartById(oldVal);
+        var newPart = getPartById(newVal);
+        if (!$scope.vendorpart.vendorPartDescription) {
+          $scope.vendorpart.vendorPartDescription = newPart.description;
+        } else if ($scope.vendorpart.vendorPartDescription === oldPart.description) {
+          $scope.vendorpart.vendorPartDescription = newPart.description;
+        } else {
+          // user has input a description.
+          // don't change it automatically.
+        }
+      }
+    }, true);
 
     $scope.save = function () {
       $scope.submitting = true;
-      if ($scope.vendor._id) {
+      if ($scope.vendorpart._id) {
         // Edit an existing vendor.
-        Vendors.save({id: vendor._id}, $scope.vendor,
+        VendorParts.save({id: vendorpart._id}, $scope.vendorpart,
           function (response) {
-            $location.path("/vendor");
+            $location.path("/vendorpart");
             $scope.submitting = false;
           },
           function (err) {
@@ -6775,9 +6893,9 @@ angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
         );
       } else {
         // Create a new vendor.
-        Vendors.save({}, $scope.vendor,
+        VendorParts.save({}, $scope.vendorpart,
           function (response) {
-            $location.path("/vendor");
+            $location.path("/vendorpart");
             $scope.submitting = false;
           },
           function (err) {
@@ -6790,9 +6908,9 @@ angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
 
     $scope.destroy = function () {
       $scope.submitting = true;
-      Vendors.delete({id: vendor._id},
+      VendorParts.delete({id: vendorpart._id},
         function (response) {
-          $location.path("/vendor");
+          $location.path("/vendorpart");
           $scope.submitting = false;
         },
         function (err) {
@@ -6802,22 +6920,31 @@ angular.module('VendorApp.Controllers').controller('VendorEditCtrl',
       );
     };
 
+    function getPartById (id) {
+      if (!id) { return null; }
+      var parts = $scope.parts.filter(function (p) {
+        return p._id === id;
+      });
+      if (parts.length < 0) { return null; }
+      return parts[0];
+    }
+
 }]);
 
-angular.module('VendorApp.Controllers').controller('VendorIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'vendors',
-  function ($scope, $route, $location, AlertService, LoaderService, vendors) {
+angular.module('VendorPartApp.Controllers').controller('VendorPartIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'vendorparts',
+  function ($scope, $route, $location, AlertService, LoaderService, vendorparts) {
 
-    $scope.title = "Vendors";
+    $scope.title = "Vendor Parts";
 
-    $scope.vendors = vendors;
+    $scope.vendorparts = vendorparts;
 
-    $scope.editVendor = function (id) {
-      $location.path("/vendor/edit/" + (id || ""));
+    $scope.editVendorPart = function (id) {
+      $location.path("/vendorpart/edit/" + (id || ""));
     };
 
-    $scope.createVendor = function () {
-      $scope.editVendor();
+    $scope.createVendorPart = function () {
+      $scope.editVendorPart();
     };
 
     $scope.sort = {
@@ -7500,9 +7627,6 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
           }
         });
       });
-      $timeout(() => {
-        $scope.getUsedLaborCodes();
-      }, 300);
     };
 
   // TimeDisplayService handles all time display issues with HH:MM
@@ -7517,8 +7641,6 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
     $scope.eSeconds = Math.floor((($scope.eMilli / 1000) % 60));
     $scope.eMinutes = Math.floor((($scope.eMilli / (6e4) % 60)));
     $scope.eHours = Math.floor((($scope.eMilli / (36e5))));
-
-    $timeout(() => { $scope.getTimeElapsed(); }, 300);
   };
 
   // get total wo time based on used labor codes
@@ -7541,8 +7663,6 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
     $scope.laborH = parseInt($scope.totalMinutes / 60);
     $scope.laborM = Math.round($scope.totalMinutes % 60);
     $scope.totalLabor = TimeDisplayService.timeManager($scope.laborH,$scope.laborM);
-
-    $timeout(() => { $scope.getTotalLaborTime(); }, 300);
   };
 
    // get unaccounted for time based on used labor coded and elapsed time FIX
@@ -7553,26 +7673,20 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
     $scope.unaccountedH = parseInt($scope.unaccountedM/60);
     $scope.unaccountedM = Math.round($scope.unaccountedM%60);
     $scope.unaccountedTime = TimeDisplayService.timeManager($scope.unaccountedH,$scope.unaccountedM);
-
-    $timeout(() => { $scope.getUnaccountedTime(); }, 300);
   };
-
+  
   function getHours() {
     const hours = [];
-    let i = 0;
-    while (i <= 24) {
+    for (let i = 0; i <= 24; i++) {
       hours.push(i);
-      i++;
     }
     return hours;
   }
-
+  
   function getMinutes() {
     const minutes = [];
-    let i = 0;
-    while (i < 60) {
+    for (let i = 0; i < 60; i += 15) {
       minutes.push(i);
-      i+=15;
     }
     return minutes;
   }
@@ -7613,7 +7727,7 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
 
   $scope.openLeaseNotes = () => {
     const modalInstance = $uibModal.open({
-      templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woLeaseNotesModal.html',
+      templateUrl: '/lib/public/angular/apps/workorder/views/edit/modals/woLeaseNotesModal.html',
       controller: 'NotesEditModalCtrl',
       resolve: {
         notes: function (){
@@ -7629,7 +7743,7 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
 
   $scope.openUnitNotes = () => {
     const modalInstance = $uibModal.open({
-      templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woUnitNotesModal.html',
+      templateUrl: '/lib/public/angular/apps/workorder/views/edit/modals/woUnitNotesModal.html',
       controller: 'NotesEditModalCtrl',
       resolve: {
         notes: function (){
@@ -7645,7 +7759,7 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
 
   $scope.openJSA = () => {
     const modalInstance = $uibModal.open({
-      templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woJsaModal.html',
+      templateUrl: '/lib/public/angular/apps/workorder/views/edit/modals/woJsaModal.html',
       controller: 'JsaEditModalCtrl',
       windowClass: 'jsa-modal',
       resolve: {
@@ -7662,7 +7776,7 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
 
   $scope.openManualPartModal = () => {
     const modalInstance = $uibModal.open({
-      templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woManualAddModal.html',
+      templateUrl: '/lib/public/angular/apps/workorder/views/edit/modals/woManualAddModal.html',
       controller: 'AddPartEditModalCtrl'
     });
 
@@ -7774,6 +7888,12 @@ function ($window, $http, $q, $scope, $location, $timeout, $uibModal, $cookies, 
   $scope.hours = getHours();
   $scope.minutes = getMinutes();
   $scope.displayAssetType = '';
+  $scope.usedLaborCodes = [];
+  $scope.pad = TimeDisplayService.pad;
+  $scope.editable = ($cookies.get('role') === 'admin');
+  $scope.SyncedToNetsuite = $scope.workorder.timeSynced || $scope.workorder.updated_at;
+  $scope.workorderTypes1 = ['Corrective', 'Trouble Call'];
+  $scope.workorderTypes2 = ['New Set', 'Release', 'Indirect'];
   // need this to be viewed on review
   $scope.applicationtypes = applicationtypes;
   
@@ -7790,37 +7910,32 @@ function ($window, $http, $q, $scope, $location, $timeout, $uibModal, $cookies, 
     })
     .catch((err) => console.log(err));
   // ----------------------------------------------------
-  
-  $scope.customerChange = (hmm) => {
-    ARS.Customers({regexName: hmm})
-      .then((customers) => {
-        $scope.customers = customers;
-      })
-      .catch((err) => console.log(err));
-  };
 
   // Add componentName to Pars in WO for listing --------
   $scope.workorder = CommonWOfunctions.addComponentNameToParts($scope.workorder, $scope.parts);
   // ----------------------------------------------------
 
-  // Misc -----------------------------------------------
-  $scope.editable = ($cookies.get('role') === 'admin');
-
-  $scope.SyncedToNetsuite = $scope.workorder.timeSynced || $scope.workorder.updated_at;
-
-  $scope.workorderTypes1 = ['Corrective', 'Trouble Call'];
-  $scope.workorderTypes2 = ['New Set', 'Release', 'Indirect'];
-
-  // FORMAT TIME
+  // Elapsed time and LC time ---------------------------
   $scope.$watch('workorder', (newVal) => {
     if(newVal && $scope.workorder.hasOwnProperty('totalWoTime')){
       $scope.totalLaborTime = TimeDisplayService.timeManager($scope.workorder.totalWoTime.hours, $scope.workorder.totalWoTime.minutes);
   
     }
   },true);
+  $scope.getTimeElapsed = () => {
+    const start = new Date($scope.workorder.timeStarted);
+    const now = $scope.workorder.timeSubmitted ?
+      new Date($scope.workorder.timeSubmitted) :
+      new Date();
+    // e short for elapsed
+    $scope.eMilli = (now.getTime() - start.getTime()).toFixed();
+    $scope.eSeconds = Math.floor((($scope.eMilli / 1000) % 60));
+    $scope.eMinutes = Math.floor((($scope.eMilli / (6e4) % 60)));
+    $scope.eHours = Math.floor((($scope.eMilli / (36e5))));
+  };
+  // ----------------------------------------------------
 
-  $scope.usedLaborCodes = [];
-
+  // Only show labor codes that are selected ------------
   $scope.getUsedLaborCodes = () => {
     _.forEach($scope.workorder.laborCodes,(lc) => {
       _.forEach(lc,(code) => {
@@ -7835,23 +7950,21 @@ function ($window, $http, $q, $scope, $location, $timeout, $uibModal, $cookies, 
       $scope.getUsedLaborCodes();
     }, 500);
   };
+  // ----------------------------------------------------
 
+  // Routing and labor code hours -----------------------
   function getHours() {
     const hours = [];
-    let i = 0;
-    while (i <= 24) {
+    for (let i = 0; i <= 24; i++) {
       hours.push(i);
-      i++;
     }
     return hours;
   }
 
   function getMinutes() {
     const minutes = [];
-    let i = 0;
-    while (i < 60) {
+    for (let i = 0; i < 60; i += 15) {
       minutes.push(i);
-      i += 15;
     }
     return minutes;
   }
@@ -8025,60 +8138,7 @@ function ($window, $http, $q, $scope, $location, $timeout, $uibModal, $cookies, 
   
   // ----------------------------------------------------
 
-  $scope.removePart = (part) => {
-    const index = $scope.workorder.parts.indexOf(part);
-    $scope.workorder.parts.splice(index, 1);
-  };
-
-  $scope.openLeaseNotes = () => {
-    const $uibModalInstance = $uibModal.open({
-      templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woLeaseNotesModal.html',
-      controller: 'NotesModalCtrl',
-      resolve: {
-        notes: function () {
-          return $scope.workorder.misc.leaseNotes;
-        }
-      }
-    });
-
-    $uibModalInstance.result.then((notes) => {
-      $scope.workorder.misc.leaseNotes = notes;
-    });
-  };
-
-  $scope.openUnitNotes = () => {
-    const $uibModalInstance = $uibModal.open({
-      templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woUnitNotesModal.html',
-      controller: 'NotesModalCtrl',
-      resolve: {
-        notes: function () {
-          return $scope.workorder.misc.unitNotes;
-        }
-      }
-    });
-
-    $uibModalInstance.result.then((notes) => {
-      $scope.workorder.misc.unitNotes = notes;
-    });
-  };
-
-  $scope.openJSA = () => {
-    const $uibModalInstance = $uibModal.open({
-      templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woJsaModal.html',
-      controller: 'JsaModalCtrl',
-      windowClass: 'jsa-modal',
-      resolve: {
-        jsa: function () {
-          return $scope.workorder.jsa;
-        }
-      }
-    });
-
-    $uibModalInstance.result.then((jsa) => {
-      $scope.workorder.jsa = jsa;
-    });
-  };
-
+  // Submit for approval or to Netsuite -----------------
   $scope.submit = () => {
     let allowSubmit = true;
     console.log("Submitting...");
@@ -8142,14 +8202,84 @@ function ($window, $http, $q, $scope, $location, $timeout, $uibModal, $cookies, 
       }
     }
   };
+  // ----------------------------------------------------
+  
+  // Modals ---------------------------------------------
+  $scope.openLeaseNotes = () => {
+    const modalInstance = $uibModal.open({
+      templateUrl: '/lib/public/angular/apps/workorder/views/review/modals/woLeaseNotesModal.html',
+      controller: 'NotesModalCtrl',
+      resolve: {
+        notes: function () {
+          return $scope.workorder.misc.leaseNotes;
+        }
+      }
+    });
+    
+    modalInstance.result.then((notes) => {
+      $scope.workorder.misc.leaseNotes = notes;
+    });
+  };
+  
+  $scope.openUnitNotes = () => {
+    const modalInstance = $uibModal.open({
+      templateUrl: '/lib/public/angular/apps/workorder/views/review/modals/woUnitNotesModal.html',
+      controller: 'NotesModalCtrl',
+      resolve: {
+        notes: function () {
+          return $scope.workorder.misc.unitNotes;
+        }
+      }
+    });
+    
+    modalInstance.result.then((notes) => {
+      $scope.workorder.misc.unitNotes = notes;
+    });
+  };
+  
+  $scope.openUnitView = () => {
+    const modalInstance = $uibModal.open({
+      templateUrl: '/lib/public/angular/apps/workorder/views/review/modals/woLocationModal.html',
+      scope: $scope,
+      controller: 'UnitModalViewCtrl'
+    });
+  };
+  
+  $scope.openJSA = () => {
+    const modalInstance = $uibModal.open({
+      templateUrl: '/lib/public/angular/apps/workorder/views/review/modals/woJsaModal.html',
+      controller: 'JsaModalCtrl',
+      windowClass: 'jsa-modal',
+      resolve: {
+        jsa: function () {
+          return $scope.workorder.jsa;
+        }
+      }
+    });
+    
+    modalInstance.result.then((jsa) => {
+      $scope.workorder.jsa = jsa;
+    });
+  };
+  // ----------------------------------------------------
   $scope.getUsedLaborCodes();
+  $scope.getTimeElapsed();
 }]);
+
+angular.module('WorkOrderApp.Controllers').controller('UnitModalViewCtrl',
+function ($scope, $uibModalInstance) {
+  $scope.unit = $scope.$parent.workorder.unit;
+  
+  $scope.ok = () => {
+    $uibModalInstance.close();
+  }
+});
 
 angular.module('WorkOrderApp.Controllers').controller('NotesModalCtrl',
 function ( $scope, $uibModalInstance, notes){
   $scope.notes = notes;
 
-  $scope.ok = ()=> {
+  $scope.ok = () => {
     $uibModalInstance.close($scope.notes);
   };
   $scope.cancel = () => {
@@ -8192,122 +8322,6 @@ angular.module('WorkOrderApp.Services')
   // ----------------------------------------------------
   
   return CommonWOFunctions;
-}]);
-
-angular.module('VendorPartApp.Controllers').controller('VendorPartEditCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'VendorParts', 'vendorpart','vendors', 'parts', 'role',
-  function ($scope, $route, $location, AlertService, LoaderService, VendorParts, vendorpart, vendors, parts, role) {
-
-    $scope.title = vendorpart ? "Edit " + vendorpart.vendorPartNumber :
-                                "Create a new vendor";
-
-    if (vendorpart) {
-      $scope.vendorpart = vendorpart;
-    }
-
-    $scope.vendors = vendors;
-    $scope.parts = parts;
-
-    $scope.$watch('vendorpart.PartId', function (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        var oldPart = getPartById(oldVal);
-        var newPart = getPartById(newVal);
-        if (!$scope.vendorpart.vendorPartDescription) {
-          $scope.vendorpart.vendorPartDescription = newPart.description;
-        } else if ($scope.vendorpart.vendorPartDescription === oldPart.description) {
-          $scope.vendorpart.vendorPartDescription = newPart.description;
-        } else {
-          // user has input a description.
-          // don't change it automatically.
-        }
-      }
-    }, true);
-
-    $scope.save = function () {
-      $scope.submitting = true;
-      if ($scope.vendorpart._id) {
-        // Edit an existing vendor.
-        VendorParts.save({id: vendorpart._id}, $scope.vendorpart,
-          function (response) {
-            $location.path("/vendorpart");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      } else {
-        // Create a new vendor.
-        VendorParts.save({}, $scope.vendorpart,
-          function (response) {
-            $location.path("/vendorpart");
-            $scope.submitting = false;
-          },
-          function (err) {
-            AlertService.add("error", err);
-            $scope.submitting = false;
-          }
-        );
-      }
-    };
-
-    $scope.destroy = function () {
-      $scope.submitting = true;
-      VendorParts.delete({id: vendorpart._id},
-        function (response) {
-          $location.path("/vendorpart");
-          $scope.submitting = false;
-        },
-        function (err) {
-          AlertService.add("error", err);
-          $scope.submitting = false;
-        }
-      );
-    };
-
-    function getPartById (id) {
-      if (!id) { return null; }
-      var parts = $scope.parts.filter(function (p) {
-        return p._id === id;
-      });
-      if (parts.length < 0) { return null; }
-      return parts[0];
-    }
-
-}]);
-
-angular.module('VendorPartApp.Controllers').controller('VendorPartIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'LoaderService', 'vendorparts',
-  function ($scope, $route, $location, AlertService, LoaderService, vendorparts) {
-
-    $scope.title = "Vendor Parts";
-
-    $scope.vendorparts = vendorparts;
-
-    $scope.editVendorPart = function (id) {
-      $location.path("/vendorpart/edit/" + (id || ""));
-    };
-
-    $scope.createVendorPart = function () {
-      $scope.editVendorPart();
-    };
-
-    $scope.sort = {
-      column: "name",
-      descending: false,
-    };
-
-    $scope.changeSorting = function (column) {
-      var sort = $scope.sort;
-      if (sort.column == column) {
-        sort.descending = !sort.descending;
-      } else {
-        sort.column = column;
-        sort.descending = false;
-      }
-    };
-
 }]);
 
 angular.module('InventoryTransferApp.Directives')
@@ -8618,6 +8632,66 @@ angular.module('WorkOrderApp.Directives')
 
 angular.module('WorkOrderApp.Directives')
 
+.directive('workorderEngineChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEngineCompression', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderGeneralChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderKillSettings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPmMisc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPm', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPM.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
 .directive('workorderBilling', [function () {
   return {
     restrict: 'E',
@@ -8728,66 +8802,6 @@ angular.module('WorkOrderApp.Directives')
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderEngineChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderEngineCompression', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderGeneralChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderKillSettings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPmMisc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPm', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPM.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
 .directive('reviewBilling', [function () {
   return {
     restrict: 'E',
@@ -8872,66 +8886,6 @@ angular.module('WorkOrderApp.Directives')
   return {
     restrict: 'E',
     templateUrl: '/lib/public/angular/apps/workorder/views/review/header/workorderheader.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEngineChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEngineCompression', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineCompression.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewGeneralChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woGeneralChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewKillSettings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woKillSettings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPmMisc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPMMisc.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPm', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPM.html',
     scope: true
   };
 }]);
@@ -9042,6 +8996,66 @@ angular.module('WorkOrderApp.Directives')
   return {
     restrict: 'E',
     templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/workorderLaborCodes.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEngineChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEngineCompression', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineCompression.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewGeneralChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woGeneralChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewKillSettings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woKillSettings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPmMisc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPMMisc.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPm', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPM.html',
     scope: true
   };
 }]);

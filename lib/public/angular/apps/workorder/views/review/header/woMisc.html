@@ -1,42 +1,65 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <button
-      class="btn  btn-primary col-md-4"
-      ng-click="openLeaseNotes()" >
-      Lease Notes
-    </button>
-    <button
-      class="btn  btn-primary col-md-4"
-      ng-click="openJSA()">
-      JSA
-    </button>
-    <button
-      class="btn  btn-primary col-md-4"
-      ng-click="openUnitNotes()">
-      Unit Notes
-    </button>
-    <div class="col-md-8">
-      Asset Type: {{displayAssetType}}
+<div id="woMisc">
+  <div class="panel panel-default">
+    <div class="panel-body">
+
+      <!-- row of 3 buttons -->
+      <div class="row misc-row">
+        <button
+          class="btn  btn-primary col-md-4"
+          ng-click="openLeaseNotes()" >
+          Lease Notes
+        </button>
+        <button
+          class="btn  btn-primary col-md-4"
+          ng-click="openJSA()">
+          JSA
+        </button>
+        <button
+          class="btn  btn-primary col-md-4"
+          ng-click="openUnitNotes()">
+          Unit Notes
+        </button>
+      </div> <!-- end 3 button row -->
+
+      <!-- asset type row-->
+      <div class="row misc-row">
+        <div class="col-md-8">
+          Asset Type: {{displayAssetType}}
+        </div>
+      </div> <!-- end asset type row-->
+
+      <!-- checkbox and view button row -->
+      <div class="row misc-row">
+        <check-box
+          class="col-md-8"
+          label-text="Unit Running on Departure"
+          data="workorder.misc.isUnitRunningOnDeparture"
+          disabled="true">
+        </check-box>
+        <button class="btn btn-info btn-sm col-md-4 misc-map"
+          ng-click="openUnitView()">
+          View Map
+        </button>
+      </div> <!-- end of checkbox view button row -->
+
+      <!-- lat long row -->
+      <div class="row misc-row">
+        <number-field
+          class="col-md-6"
+          placeholder-text="Ex: 35.4600"
+          label-text="Latitude"
+          data="workorder.geo.coordinates[1]"
+          disabled="true">
+        </number-field>
+        <number-field
+          class="col-md-6"
+          placeholder-text="Ex: -97.5200"
+          label-text="Longitude"
+          data="workorder.geo.coordinates[0]"
+          disabled="true">
+        </number-field>
+      </div> <!-- end of lat long row -->
+
     </div>
-  	<check-box
-      class="col-md-8"
-  		label-text="Unit Running on Departure"
-      data="workorder.misc.isUnitRunningOnDeparture"
-      disabled="true">
-  	</check-box>
-    <number-field
-      class="col-md-6"
-      placeholder-text="Ex: 35.4600"
-      label-text="Latitude"
-      data="workorder.geo.coordinates[1]"
-      disabled="true">
-    </number-field>
-    <number-field
-      class="col-md-6"
-      placeholder-text="Ex: -97.5200"
-      label-text="Longitude"
-      data="workorder.geo.coordinates[0]"
-      disabled="true">
-    </number-field>
   </div>
 </div>

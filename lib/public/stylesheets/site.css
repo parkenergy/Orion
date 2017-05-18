@@ -5894,6 +5894,15 @@ input[type="checkbox"] {
   -o-transform: scale(1.4, 1.4);
   margin-right: 10px;
 }
+#woMisc div.row.misc-row {
+  margin-top: 0;
+}
+#woMisc button.misc-map {
+  margin-top: 10px;
+}
+#woLocationModal div.row.misc-row {
+  margin-top: 0;
+}
 @media print {
   #woReview nav.navbar {
     display: none;
