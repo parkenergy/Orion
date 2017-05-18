@@ -119,7 +119,13 @@ describe("WorkOrder Units", () => {
 
 
   describe('#getUnitWorkOrders()' , () => {
-    it("should fetch WorkOrders for Units", () => WorkOrder.getUnitWorkOrders('123')
+    const options = {
+      sort: '-timeSubmitted',
+      unit: '123',
+      limit: 1,
+      skip: 0
+    };
+    it("should fetch WorkOrders for Units", () => WorkOrder.getUnitWorkOrders(options)
       .then(workorders => {
         should.exist(workorders);
         workorders.should.be.Array().with.length(1);

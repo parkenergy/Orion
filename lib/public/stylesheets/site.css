@@ -6300,6 +6300,11 @@ input[type="checkbox"] {
 #UnitsIndex div.panel.panel-default div.panel-heading span p.pull-right.ng-binding {
   margin-bottom: 0;
 }
+#UnitView button {
+  width: 90%;
+  height: 100px;
+  margin: 0 5% 15px 5%;
+}
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
 }
