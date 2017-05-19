@@ -1,0 +1,20 @@
+<div id="woLocationModal">
+  <div class="modal-header">
+    <h3 class="modal-title">Unit Location</h3>
+    <div class="row misc-row">
+      <div class="col-md-6">Latitude: {{unit.geo.coordinates[1]}}</div>
+      <div class="col-md-6">Longitude: {{unit.geo.coordinates[0]}}</div>
+    </div>
+  </div>
+  <div class="modal-body">
+    <unit-sat unit="unit"></unit-sat>
+  </div>
+  <div class="modal-footer">
+    <button
+      class="btn btn-primary"
+      type="button"
+      ng-click="ok()">
+      Close
+    </button>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<!--timeField-->
+<div class="form-group row" ng-if="$ctrl.data.hours > 0 || $ctrl.data.minutes > 0 || $ctrl.show">
+  <div class="pull-left cold-xs-12">
+    <label for="{{$ctrl.data}}">{{$ctrl.labelText}}</label>
+  </div>
+  <div class="col-xs-12">
+
+    <div class="col-xs-6">
+      <select class="form-control"
+        ng-change="$ctrl.onUpdate($ctrl.data)"
+        ng-model="$ctrl.data.hours"
+        name="{{$ctrl.data}}.hours"
+        ng-options="h for h in $ctrl.hours"
+        ng-disabled="{{$ctrl.disabled}}">
+      </select>
+    </div>
+
+    <div class="col-xs-6">
+      <select class="form-control"
+        ng-change="$ctrl.onUpdate($ctrl.data)"
+        ng-model="$ctrl.data.minutes"
+        name="{{$ctrl.data}}.minutes"
+        ng-options="m for m in $ctrl.minutes"
+        ng-disabled="{{$ctrl.disabled}}">
+      </select>
+    </div>
+
+  </div>
+
+</div>
