@@ -87,7 +87,7 @@ gulp.task('back-end-lint', function () {
     './app.js',
     './gulpfile.js'
   ])
-    .pipe(jshint())
+    .pipe(jshint({ esnext: true }))
     .pipe(jshint.reporter('default'));
 });
 
@@ -96,7 +96,7 @@ gulp.task('front-end-lint', function() {
     './lib/public/angular/**/*.js',
     './public/app/**/*.js'
   ])
-    .pipe(jshint())
+    .pipe(jshint({ esnext: true }))
     .pipe(jshint.reporter('default'));
 });
 
