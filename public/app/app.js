@@ -35,22 +35,14 @@ angular.module('Orion', [
   angular.module('Orion').config(['$routeProvider', '$authProvider',
     function ($routeProvider, $authProvider) {
       $routeProvider
-      .when('/login', {
-        controller: 'SessionCtrl',
-        templateUrl: '/lib/public/angular/views/redirecting.html'
-      })
       .when('/myaccount', {
         needsLogin: true,
         controller: 'MyAccountCtrl',
-        templateUrl: '/lib/public/angular/views/myaccount.html'
-      })
-      .when('/example', {
-        controller: 'ExampleCtrl',
-        templateUrl: '/lib/public/angular/views/example.html'
+        templateUrl: '/lib/public/angular/views/controller.views/myaccount.html'
       })
       .when('/', {
-        controller: 'SessionCtrl',
-        templateUrl: '/lib/public/angular/views/clientLogin.html'
+        controller: 'LoginCtrl',
+        templateUrl: '/lib/public/angular/views/controller.views/clientLogin.html'
       });
       // .when('/', {
       //   controller: 'HomepageCtrl',
