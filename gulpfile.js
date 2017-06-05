@@ -88,6 +88,7 @@ gulp.task('back-end-lint', function () {
     './gulpfile.js'
   ])
     .pipe(jshint({ esnext: true }))
+    .pipe(jshint({esnext: true}))
     .pipe(jshint.reporter('default'));
 });
 
@@ -97,6 +98,7 @@ gulp.task('front-end-lint', function() {
     './public/app/**/*.js'
   ])
     .pipe(jshint({ esnext: true }))
+    .pipe(jshint({esnext: true}))
     .pipe(jshint.reporter('default'));
 });
 
