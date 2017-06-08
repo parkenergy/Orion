@@ -430,7 +430,7 @@
     "role": "admin"
   },
   "area": "",
-  "managerApproved": true,
+  "managerApproved": false,
   "version": "0.7.14",
   "jsa": {
     "emergencyEvac": "asdf",
@@ -457,7 +457,7 @@
   "parts": [
     {
       "isWarranty" : true,
-      "isBillable" : true,
+      "isBillable" : false,
       "quantity" : 0.0,
       "laborCode" : "Fuel System",
       "cost" : 0.0,

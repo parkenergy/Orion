@@ -18,7 +18,7 @@ const mongoose     = require('mongoose'),
 mongoose.Promise = Promise;
 
 describe("Unit Units", () => {
-  /*before(() => Unit.createDoc(unitFixture));
+  before(() => Unit.createDoc(unitFixture));
   before(() => User.createDoc(userFixture));
   before(() => PmReport.createDoc(pmReportFixture));
   before(() => WorkOrder.remove({}));
@@ -134,6 +134,6 @@ describe("Unit Units", () => {
       })
     );
 
-  });*/
+  });
 
 });

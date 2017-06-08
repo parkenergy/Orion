@@ -9,12 +9,6 @@ const mongoose = require('mongoose'),
   User         = require('../../lib/models/user'),
   Unit         = require('../../lib/models/unit');
 
-// associated fixtures
-const A_county_fix = require("../fixture/county.json"),
-  A_state_fix      = require("../fixture/state.json"),
-  A_unit_fix       = require("../fixture/unit.json"),
-  A_user_fix       = require("../fixture/user.json"),
-  A_workorder_fix  = require("../fixture/workOrder.json");
 
 before(() => WorkOrder.remove({}));
 
@@ -43,22 +37,9 @@ describe("WorkOrder Units", () => {
     return User.remove({})
       .then(() => Unit.remove({}));
   });
-  
-  describe("insert work order Auto sync to Netsuite", () => {
-    it('should create and sync work order to Netsuite', () => {
-      console.log("Start");
-      return WorkOrder.createDoc(A_workorder_fix[1])
-        .then((doc) => {
-          console.log("End");
-        });
-    })
-  });
 
-  /*describe("#createDoc()", () => {
+  describe("#createDoc()", () => {
     it('should create and return new document', () => {
-      let doc = _.cloneDeep(fixture);
-      doc.technician = userDoc;
-      doc.unit = unitDoc;
 
       return WorkOrder.createDoc(fixture)
         .then(doc => {
@@ -347,5 +328,5 @@ describe("WorkOrder Units", () => {
     });
 
     it("Should remove workorder", () => WorkOrder.delete(id));
-  });*/
+  });
 });

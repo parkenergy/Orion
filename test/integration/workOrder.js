@@ -22,12 +22,11 @@ after(() => {
 });
 
 describe("WorkOrder Integrations", () => {
-  /*let wo;
+  let wo;
 
   before(() => {
     fixture.type = "Corrective";
     fixture.header.customerName = "APACHE CORP";
-    console.log(fixture);
 
     return WorkOrder.createDoc(fixture)
       .then(doc => {
@@ -59,5 +58,5 @@ describe("WorkOrder Integrations", () => {
           doc.netsuiteId.should.be.String();
           doc.netsuiteId.should.equal('1234');
         });
-  }).slow(100);*/
+  }).slow(100);
 });
