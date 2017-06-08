@@ -1,10 +1,20 @@
-{
+[{
   "firstName": "Testing",
   "lastName": "Tester",
   "username": "TEST001",
   "supervisor": "TEST002",
-  "truckId": "T1234",
   "email": "test@test.com",
   "netsuiteId": "5678",
   "role": "admin"
-}
+},{
+  "_id" : "59383f5378df4909419b5308",
+  "netsuiteId" : "1771",
+  "area" : "",
+  "role" : "tech",
+  "supervisor" : "BTI001",
+  "email" : "JTHORNTON@PARKENERGYSERVICES.COM",
+  "username" : "JTH001",
+  "lastName" : "THORNTON",
+  "firstName" : "JOHN",
+  "__v" : 0
+}]

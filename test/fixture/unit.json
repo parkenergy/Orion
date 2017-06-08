@@ -1,6 +1,30 @@
-{
+[{
   "assignedTo": "TEST001",
   "netsuiteId": "T123",
   "number": "123",
   "customerName": "CUST 0123"
-}
+},{
+  "_id" : "58f61e8078df49094164a2fd",
+  "number" : "Q0022",
+  "state" : "55d24ff95a2d568a084de665",
+  "county" : "55d24ffa5a2d568a084de773",
+  "assignedTo" : "JTH001",
+  "compressorSerial" : null,
+  "engineSerial" : null,
+  "geo" : {
+    "coordinates" : [
+      96.032698,
+      34.915466
+    ],
+    "type" : "Point"
+  },
+  "customerName" : "Tag Team Resources",
+  "netsuiteId" : "328",
+  "legalDescription" : null,
+  "locationName" : "Willard #1",
+  "productSeries" : "Park 124",
+  "__v" : 0,
+  "nextPmDate" : "2017-06-12T00:00:00.000Z",
+  "pmCycle" : "45",
+  "status" : "Active - On Contract"
+}]

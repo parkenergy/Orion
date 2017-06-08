@@ -15,7 +15,7 @@ const PartOrder   = require('../../lib/models/partOrder'),
   should          = require('should'),
   _               = require('lodash'),
   fixture         = require('../fixture/partOrder.json'),
-  userFixture     = require('../fixture/user.json'),
+  userFixture     = require('../fixture/user.json')[0],
   partFixture     = require('../fixture/part.json');
 
 

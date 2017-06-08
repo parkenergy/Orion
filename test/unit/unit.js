@@ -9,15 +9,16 @@ const mongoose     = require('mongoose'),
   Unit             = require('../../lib/models/unit'),
   PmReport         = require('../../lib/models/pmReport'),
   User             = require('../../lib/models/user'),
-  unitFixture      = require('../fixture/unit.json'),
-  userFixture      = require('../fixture/user.json'),
+  unitFixture      = require('../fixture/unit.json')[0],
+  userFixture      = require('../fixture/user.json')[0],
+  //userFixture      = require('../fixture/user.json'),
   pmReportFixture  = require('../fixture/pmReport.json'),
   workOrderFixture = require('../fixture/workOrder.json');
 
 mongoose.Promise = Promise;
 
 describe("Unit Units", () => {
-  before(() => Unit.createDoc(unitFixture));
+  /*before(() => Unit.createDoc(unitFixture));
   before(() => User.createDoc(userFixture));
   before(() => PmReport.createDoc(pmReportFixture));
   before(() => WorkOrder.remove({}));
@@ -133,6 +134,6 @@ describe("Unit Units", () => {
       })
     );
 
-  });
+  });*/
 
 });

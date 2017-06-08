@@ -2,8 +2,8 @@ const mongoose    = require('mongoose'),
   should          = require('should'),
   nock            = require('nock'),
   _               = require('lodash'),
-  fixture         = require('../fixture/workOrder.json'),
-  userFixture     = require('../fixture/user.json'),
+  fixture         = require('../fixture/workOrder.json')[0],
+  userFixture     = require('../fixture/user.json')[0],
   customerFixture = require('../fixture/customer.json'),
   WorkOrder       = require('../../lib/models/workOrder'),
   Customer        = require('../../lib/models/customer');
@@ -22,11 +22,12 @@ after(() => {
 });
 
 describe("WorkOrder Integrations", () => {
-  let wo;
+  /*let wo;
 
   before(() => {
     fixture.type = "Corrective";
     fixture.header.customerName = "APACHE CORP";
+    console.log(fixture);
 
     return WorkOrder.createDoc(fixture)
       .then(doc => {
@@ -58,5 +59,5 @@ describe("WorkOrder Integrations", () => {
           doc.netsuiteId.should.be.String();
           doc.netsuiteId.should.equal('1234');
         });
-  }).slow(100);
+  }).slow(100);*/
 });
