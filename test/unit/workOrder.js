@@ -2,15 +2,12 @@ const mongoose = require('mongoose'),
   Promise      = require('bluebird'),
   should       = require('should'),
   _            = require('lodash'),
-  fixture      = require('../fixture/workOrder.json'),
-  unitFixture  = require('../fixture/unit.json'),
-  userFixture  = require('../fixture/user.json'),
+  fixture      = require('../fixture/workOrder.json')[0],
+  unitFixture  = require('../fixture/unit.json')[0],
+  userFixture  = require('../fixture/user.json')[0],
   WorkOrder    = require('../../lib/models/workOrder'),
   User         = require('../../lib/models/user'),
-  Unit         = require('../../lib/models/unit'),
-  County       = require('../../lib/models/county'),
-  State        = require('../../lib/models/state'),
-  Area         = require('../../lib/models/area');
+  Unit         = require('../../lib/models/unit');
 
 
 before(() => WorkOrder.remove({}));
@@ -43,9 +40,6 @@ describe("WorkOrder Units", () => {
 
   describe("#createDoc()", () => {
     it('should create and return new document', () => {
-      let doc = _.cloneDeep(fixture);
-      doc.technician = userDoc;
-      doc.unit = unitDoc;
 
       return WorkOrder.createDoc(fixture)
         .then(doc => {

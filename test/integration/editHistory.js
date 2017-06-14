@@ -2,7 +2,7 @@ const mongoose     = require('mongoose'),
   config           = require('../../config'),
   should           = require('should'),
   _                = require('lodash'),
-  workOrderFixture = require('../fixture/workOrder.json'),
+  workOrderFixture = require('../fixture/workOrder.json')[0],
   WorkOrder        = require('../../lib/models/workOrder'),
   EditHistory      = require('../../lib/models/editHistory');
 

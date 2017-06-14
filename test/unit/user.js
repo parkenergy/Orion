@@ -3,7 +3,7 @@
   config    = require('../../config'),
   should    = require('should'),
   _         = require('lodash'),
-  fixture   = require('../fixture/user.json');
+  fixture   = require('../fixture/user.json')[0];
 
 describe("User Units", () => {
   before(() => User.remove({}));
