@@ -5903,6 +5903,9 @@ input[type="checkbox"] {
 #woMisc-Edit button.misc-map {
   margin-top: 10px;
 }
+#WorkOrderOverviewTable thead tr.wo-dashboard {
+  cursor: pointer;
+}
 #woMisc-Review div.row.misc-row {
   margin-top: 0;
 }
@@ -6153,6 +6156,9 @@ input[type="checkbox"] {
     font-size: 10px !important;
   }
 }
+#WorkOrderOverview i.fa.fa-refresh.fa-spin.workorderdash {
+  font-size: 80px;
+}
 #PoEditTable {
   margin-left: 25px;
   margin-right: 25px;
@@ -6322,9 +6328,6 @@ input[type="checkbox"] {
 }
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
-}
-#Dashboard thead tr.wo-dashboard {
-  cursor: pointer;
 }
 #SuperTable tbody tr td.super-table {
   word-wrap: break-word;

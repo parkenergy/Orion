@@ -1,0 +1,265 @@
+<div id="WorkOrderOverviewTable">
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <span>Work Orders</span>
+        <i Popover-animation="true" class="glyphicon glyphicon-question-sign pull-right" popover-placement="left" popover-template="unitNumberPopover.html" popover-title="Where are the rest of the work orders?" popover-trigger="click"/>
+      </h3>
+    </div>
+
+    <div class="panel-body">
+      <!-- Search Bar -->
+      <div class="col-md-11">
+        <div class="panel panel-default">
+          <div class="panel-heading" data-toggle="collapse" data-target="#showSearch">
+            <h3 class="panel-title">Search</h3>
+            <span class="pull-right">{{$ctrl.woSearchCount}}</span>
+          </div>
+          <div class="panel-body collapse" id="showSearch">
+            <form role="form">
+
+              <!-- col 1 -->
+              <div class="col-md-6">
+
+                <!-- row 1 -->
+                <div class="form-group">
+                  <label>From</label>
+                  <input class="form-control search"
+                         ng-model="$ctrl.dates.from"
+                         ng-change="$ctrl.startOfDay()"
+                         name="fromDate" type="date">
+                </div>
+
+                <!-- row 2 -->
+                <div class="form-group has-feedback">
+                  <label for="unit">Unit Number</label>
+                  <input id="unit"
+                         class="form-control search"
+                         name="unitNumber"
+                         ng-model="$ctrl.unitNumber"
+                         ng-change="$ctrl.changeTextField($ctrl.unitNumber, 'unitNumber')"
+                         type="text" />
+                  <span
+                    ng-if="$ctrl.unitNumber"
+                    ng-click="$ctrl.clearText('unitNumber')"
+                    class="glyphicon glyphicon-remove form-control-feedback"
+                    uib-tooltip="clear">
+                  </span>
+                </div>
+
+                <!-- row 3 -->
+                <div class="form-group has-feedback">
+                  <label for="location">Location</label>
+                  <input id="location"
+                         class="form-control search"
+                         name="location"
+                         ng-model="$ctrl.leaseName"
+                         ng-change="$ctrl.changeTextField($ctrl.leaseName, 'leaseName')"
+                         type="text" />
+                  <span
+                    ng-if="$ctrl.leaseName"
+                    ng-click="$ctrl.clearText('leaseName')"
+                    class="glyphicon glyphicon-remove form-control-feedback"
+                    uib-tooltip="clear">
+                  </span>
+                </div>
+
+                <!-- row 4 -->
+                <div class="form-group">
+                  <label for="billable">Billable To Customer(Workorder): </label>
+                  <input id="billable"
+                         name="billable"
+                         ng-model="$ctrl.billable"
+                         ng-change="$ctrl.changeCheckBox($ctrl.billable, 'billable')"
+                         type="checkbox" />
+                </div>
+
+                <!-- row 5 -->
+                <div class="form-group">
+                  <label for="billParts">Billable To Customer(Parts): </label>
+                  <input id="billParts"
+                         name="billParts"
+                         ng-model="$ctrl.billParts"
+                         ng-change="$ctrl.changeCheckBox($ctrl.billParts, 'billParts')"
+                         type="checkbox" />
+                </div>
+
+                <!-- row 6 -->
+                <div class="form-group">
+                  <label for="billed">Billed To Customer(Workorder): </label>
+                  <input id="billed"
+                         name="billed"
+                         ng-model="$ctrl.billed"
+                         ng-change="$ctrl.changeCheckBox($ctrl.billed, 'billed')"
+                         type="checkbox" />
+                </div>
+
+                <!-- row 7 -->
+                <button
+                  class="btn btn-primary form-inline"
+                  type="button"
+                  data-toggle="collapse" data-target="#showSearch"
+                  ng-click="$ctrl.submit()">
+                  Search
+                </button>
+                <button
+                  class="btn btn-primary form-inline"
+                  ng-class="{reportDisabled: disabled}"
+                  type="button"
+                  data-toggle="collapse" data-target="#showSearch"
+                  ng-click="$ctrl.report()">
+                  Time Report
+                </button>
+
+              </div>
+
+              <!-- col 2 -->
+              <div class="col-md-6">
+
+                <!-- row 1 -->
+                <div class="form-group">
+                  <label>To</label>
+                  <input class="form-control search"
+                         ng-model="$ctrl.dates.to"
+                         ng-change="$ctrl.endOfDay()"
+                         name="toDate"
+                         type="date">
+                </div>
+
+                <!-- row 2 -->
+                <div class="form-group has-feedback">
+                  <label for="tech">Technician</label>
+                  <input id="tech"
+                         class="form-control search"
+                         name="techName"
+                         ng-model="$ctrl.techName"
+                         ng-change="$ctrl.changeTextField($ctrl.techName, 'techName')"
+                         type="text" />
+                  <span
+                    ng-if="$ctrl.techName"
+                    ng-click="$ctrl.clearText('techName')"
+                    class="glyphicon glyphicon-remove form-control-feedback"
+                    uib-tooltip="clear">
+                  </span>
+                </div>
+
+                <!-- row 3 -->
+                <div class="form-group has-feedback">
+                  <label for="customer">Customer</label>
+                  <input id="customer"
+                         class="form-control search"
+                         name="customer"
+                         ng-model="$ctrl.customerName"
+                         ng-change="$ctrl.changeTextField($ctrl.customerName, 'customerName')"
+                         type="text" />
+                  <span
+                    ng-if="$ctrl.customerName"
+                    ng-click="$ctrl.clearText('customerName')"
+                    class="glyphicon glyphicon-remove form-control-feedback"
+                    uib-tooltip="clear">
+                  </span>
+                </div>
+
+                <!-- row 4 -->
+                <div class="form-group">
+                  <label for="unapproved">Unapproved by Manager</label>
+                  <input id="unapproved"
+                         name="unapproved"
+                         ng-model="$ctrl.unapproved"
+                         ng-change="$ctrl.changeCheckBox($ctrl.unapproved, 'unapproved')"
+                         type="checkbox" />
+                </div>
+
+                <!-- row 5 -->
+                <div class="form-group">
+                  <label for="approved">Approved by Manager</label>
+                  <input id="approved"
+                         name="approved"
+                         ng-model="$ctrl.approved"
+                         ng-change="$ctrl.changeCheckBox($ctrl.approved, 'approved')"
+                         type="checkbox" />
+                </div>
+
+                <!-- row 6 -->
+                <div class="form-group">
+                  <label for="synced">Submitted to Netsuite</label>
+                  <input id="synced"
+                         name="synced"
+                         ng-model="$ctrl.synced"
+                         ng-change="$ctrl.changeCheckBox($ctrl.synced, 'synced')"
+                         type="checkbox" />
+                </div>
+
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div> <!-- End Search Bar -->
+
+      <!-- Work order table -->
+      <table class="table table-hover">
+
+        <thead>
+        <tr class="wo-dashboard">
+          <th ng-click="$ctrl.resort('unitSort');">
+            Unit #
+            <span ng-show="$ctrl.orderByField == 'unitSort' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+            <span ng-show="$ctrl.orderByField == 'unitSort' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th ng-click="$ctrl.resort('techName');">
+            Tech
+            <span ng-show="$ctrl.orderByField == 'techName' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+            <span ng-show="$ctrl.orderByField == 'techName' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th ng-click="$ctrl.resort('orderType');">
+            Type
+            <span ng-show="$ctrl.orderByField == 'orderType' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+            <span ng-show="$ctrl.orderByField == 'orderType' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th ng-click="$ctrl.resort('unit.locationName');">
+            Location
+            <span ng-show="$ctrl.orderByField == 'locationName' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+            <span ng-show="$ctrl.orderByField == 'locationName' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th ng-click="$ctrl.resort('unit.customerName');">
+            Customer
+            <span ng-show="$ctrl.orderByField == 'customerName' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+            <span ng-show="$ctrl.orderByField == 'customerName' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th ng-click="$ctrl.resort('epoch');">
+            Time Started
+            <span ng-show="$ctrl.orderByField == 'epoch' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+            <span ng-show="$ctrl.orderByField == 'epoch' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+          <th ng-click="$ctrl.resort('totalMinutes');">
+            Total WO Time
+            <span ng-show="$ctrl.orderByField == 'totalWoTime' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+            <span ng-show="$ctrl.orderByField == 'totalWoTime' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody infinite-scroll="$ctrl.loadOnScroll()"
+               infinite-scroll-immediate-check="false"
+               infinite-scroll-disabled="false">
+        <tr ng-repeat="workorder in $ctrl.workorders | orderBy:$ctrl.orderByField:$ctrl.reverseSort"  ng-click="$ctrl.clickWorkOrder(workorder);"
+            style="background-color: {{$ctrl.setBillableBackgroundColor(workorder)}}">
+          <td>{{ workorder.unitNumber }}</td>
+          <td>{{ workorder.techName }}</td>
+          <td>{{ workorder.orderType }}</td>
+          <td>{{ workorder.locationName}}</td>
+          <td>{{ workorder.customerName }}</td>
+          <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm'}}</td>
+          <td>{{ $ctrl.pad(workorder.totalWoTime.hours) }}:{{ $ctrl.pad(workorder.totalWoTime.minutes) }}</td>
+        </tr>
+        </tbody>
+
+      </table> <!-- end of workorder table -->
+    </div> <!-- panel body -->
+
+  </div> <!-- default panel -->
+
+</div> <!-- WorkOrderOverviewTable -->
