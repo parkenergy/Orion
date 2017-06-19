@@ -35,19 +35,38 @@ angular.module('Orion', [
   angular.module('Orion').config(['$routeProvider', '$authProvider',
     function ($routeProvider, $authProvider) {
       $routeProvider
-      .when('/myaccount', {
-        needsLogin: true,
-        controller: 'MyAccountCtrl',
-        templateUrl: '/lib/public/angular/views/controller.views/myaccount.html'
-      })
+      
       .when('/', {
         controller: 'LoginCtrl',
         templateUrl: '/lib/public/angular/views/controller.views/clientLogin.html'
+      })
+      
+      .when('/myaccount', {
+        needsLogin: true,
+        controller: 'MyAccountCtrl',
+        templateUrl: '/lib/public/angular/views/controller.views/myaccount.html',
+        resolve: {
+          users: function ($route, $q, Users) {
+            return Users.query({size: 100000}).$promise;
+          },
+          units: function ($route, $q, Units) {
+            return Units.query({size: 100000}).$promise;
+          }
+        }
+      })
+
+      .when('/areapmreport/:name', {
+        needsLogin: true,
+        controller: 'AreaPMReportCtrl',
+        templateUrl: '/lib/public/angular/views/controller.views/areapmreport.html',
+        resolve: {
+          users: function ($route, $q, Users) {
+            let locationName = $route.current.params.name;
+            return Users.query({regexArea: locationName, size: 100000}).$promise;
+          }
+        }
       });
-      // .when('/', {
-      //   controller: 'HomepageCtrl',
-      //   templateUrl: '/lib/public/angular/views/homepage.html'
-      // });
+      
       $authProvider.google({
         url: '/auth/google',
         authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
