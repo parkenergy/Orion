@@ -1,9 +1,9 @@
-<div id="PMDash" class="container-fluid">
+<div id="AreaPMDash" class="container-fluid">
 
   <!-- Header info -->
   <div class="panel panel-default">
     <div class="panel-heading clearfix title">
-      <h3 class="panel-title pull-left">Park</h3>
+      <h3 class="panel-title pull-left">{{$ctrl.areaName}}</h3>
 
       <div class="pull-right status">Active PM Status: <span class="spaceMe" style="background-color: {{$ctrl.PMS.setBackgroundColor($ctrl.activePMStatus)}}">{{$ctrl.activePMStatus}}%</span></div>
       <div class="pull-right active">Active: <span class="spaceMe">{{$ctrl.active}}</span></div>
@@ -12,23 +12,34 @@
     </div>
   </div>
 
+
   <table class="table table-bordered table-striped table-hover">
     <!-- headers -->
     <thead>
       <tr>
         <!-- heading sort click -->
-        <th ng-click="$ctrl.resort('locationName')" class="col-xs-8">
-          Area
+        <th ng-click="$ctrl.resort('name')" class="col-xs-6">
+          Name
           <span
-            ng-show="$ctrl.sortType === 'locationName' && !$ctrl.sortReverse"
+            ng-show="$ctrl.sortType === 'name' && !$ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-down"></span>
           <span
-            ng-show="$ctrl.sortType === 'locationName' && $ctrl.sortReverse"
+            ng-show="$ctrl.sortType === 'name' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
+        <th ng-click="$ctrl.resort('idleUnits')" class="col-xs-2">
+          Idle
+          <span
+            ng-show="$ctrl.sortType === 'idleUnits' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType === 'idleUnits' && $ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
         <th ng-click="$ctrl.resort('activeUnits')" class="col-xs-2">
-          Units
+          Active
           <span
             ng-show="$ctrl.sortType === 'activeUnits' && !$ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-down"></span>
@@ -52,11 +63,12 @@
 
     <!-- Sorted Table -->
     <tbody>
-      <tr ng-repeat="area in $ctrl.areas | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
-        ng-click="$ctrl.routeToArea(area)">
-        <td>{{ area.locationName }}</td>
-        <td class="text-center">{{ area.activeUnits }}</td>
-        <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(area.percent)}}">{{ area.percent }}%</td>
+      <tr ng-repeat="user in $ctrl.displayUsers | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
+        ng-click="">
+        <td>{{ user.name }}</td>
+        <td class="text-center">{{ user.idleUnits }}</td>
+        <td class="text-center">{{ user.activeUnits }}</td>
+        <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(user.percent)}}">{{ user.percent }}%</td>
       </tr>
     </tbody>
 

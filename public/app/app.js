@@ -63,6 +63,12 @@ angular.module('Orion', [
           users: function ($route, $q, Users) {
             let locationName = $route.current.params.name;
             return Users.query({regexArea: locationName, size: 100000}).$promise;
+          },
+          units: function ($route, $q, Units) {
+            return Units.query({size: 100000}).$promise;
+          },
+          areaName: function ($route) {
+            return $route.current.params.name;
           }
         }
       });

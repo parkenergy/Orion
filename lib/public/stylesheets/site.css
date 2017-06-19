@@ -6338,6 +6338,49 @@ input[type="checkbox"] {
 #GeneralPartsList div.panel-body button.general-parts-list {
   margin-bottom: 10px;
 }
+#AreaPMDash .title h3 {
+  font-weight: bold;
+}
+#AreaPMDash .title p {
+  font-weight: normal;
+}
+#AreaPMDash .title h3,
+#AreaPMDash .title p {
+  display: inline;
+}
+#AreaPMDash span.spaceMe {
+  width: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 15px;
+  text-align: center;
+}
+#AreaPMDash div.pull-right.status {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#AreaPMDash div.pull-right.active {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#AreaPMDash div.pull-right.idle {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#AreaPMDash div.pull-right.total {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#AreaPMDash table.table-bordered.table-striped.table-hover {
+  margin-bottom: 0px;
+}
+#AreaPMDash table.table-bordered.table-striped.table-hover tr {
+  cursor: pointer;
+}
 #PMDash .title h3 {
   font-weight: bold;
 }
