@@ -64,7 +64,7 @@
     <!-- Sorted Table -->
     <tbody>
       <tr ng-repeat="user in $ctrl.displayUsers | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
-        ng-click="">
+        ng-click="$ctrl.routeToUser(user)">
         <td>{{ user.name }}</td>
         <td class="text-center">{{ user.idleUnits }}</td>
         <td class="text-center">{{ user.activeUnits }}</td>

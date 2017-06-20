@@ -6329,6 +6329,9 @@ input[type="checkbox"] {
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
 }
+#UserPMReport div.row.notop {
+  margin-top: 0px;
+}
 #SuperTable tbody tr td.super-table {
   word-wrap: break-word;
   min-width: 100px;
@@ -6337,6 +6340,49 @@ input[type="checkbox"] {
 }
 #GeneralPartsList div.panel-body button.general-parts-list {
   margin-bottom: 10px;
+}
+#PMDash .title h3 {
+  font-weight: bold;
+}
+#PMDash .title p {
+  font-weight: normal;
+}
+#PMDash .title h3,
+#PMDash .title p {
+  display: inline;
+}
+#PMDash span.spaceMe {
+  width: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 15px;
+  text-align: center;
+}
+#PMDash div.pull-right.status {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#PMDash div.pull-right.active {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#PMDash div.pull-right.idle {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#PMDash div.pull-right.total {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#PMDash table.table-bordered.table-striped.table-hover {
+  margin-bottom: 0px;
+}
+#PMDash table.table-bordered.table-striped.table-hover tr {
+  cursor: pointer;
 }
 #AreaPMDash .title h3 {
   font-weight: bold;
@@ -6381,47 +6427,60 @@ input[type="checkbox"] {
 #AreaPMDash table.table-bordered.table-striped.table-hover tr {
   cursor: pointer;
 }
-#PMDash .title h3 {
+#UserPMDash .title h3 {
   font-weight: bold;
 }
-#PMDash .title p {
+#UserPMDash .title p {
   font-weight: normal;
 }
-#PMDash .title h3,
-#PMDash .title p {
+#UserPMDash .title h3,
+#UserPMDash .title p {
   display: inline;
 }
-#PMDash span.spaceMe {
+#UserPMDash div.title-row {
+  margin-top: 5px;
+}
+#UserPMDash span.spaceMe {
   width: 10px;
   padding-left: 10px;
   padding-right: 10px;
   max-width: 15px;
   text-align: center;
 }
-#PMDash div.pull-right.status {
+#UserPMDash div.pull-right.status {
   width: 200px;
   max-width: 250px;
   text-align: center;
 }
-#PMDash div.pull-right.active {
+#UserPMDash div.pull-right.active {
   width: 200px;
   max-width: 250px;
   text-align: center;
 }
-#PMDash div.pull-right.idle {
+#UserPMDash div.pull-right.idle {
   width: 200px;
   max-width: 250px;
   text-align: center;
 }
-#PMDash div.pull-right.total {
+#UserPMDash div.pull-right.total {
   width: 200px;
   max-width: 250px;
   text-align: center;
 }
-#PMDash table.table-bordered.table-striped.table-hover {
+#UserPMDash div.panel.panel-default {
+  margin-bottom: 10px;
+}
+#UserPMDash div.supervisor {
+  margin-bottom: 10px;
+}
+#UserPMDash label {
+  margin-right: 10px;
+}
+#UserPMDash table.table-bordered.table-striped.table-hover {
+  margin-top: 20px;
   margin-bottom: 0px;
 }
-#PMDash table.table-bordered.table-striped.table-hover tr {
+#UserPMDash table.table-bordered.table-striped.table-hover tr {
   cursor: pointer;
 }
 .highlighted {

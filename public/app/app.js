@@ -71,6 +71,18 @@ angular.module('Orion', [
             return $route.current.params.name;
           }
         }
+      })
+      
+      .when('/areapmreport/:name/:user', {
+        needsLogin: true,
+        controller: 'UserPMReportCtrl',
+        templateUrl: '/lib/public/angular/views/controller.views/userpmreport.html',
+        resolve: {
+          users: function ($route, $q, Users) {
+            let username = $route.current.params.user;
+            return Users.query({textId: username}).$promise;
+          }
+        }
       });
       
       $authProvider.google({
