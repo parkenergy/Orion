@@ -5903,6 +5903,9 @@ input[type="checkbox"] {
 #woMisc-Edit button.misc-map {
   margin-top: 10px;
 }
+#WorkOrderOverviewTable thead tr.wo-dashboard {
+  cursor: pointer;
+}
 #woMisc-Review div.row.misc-row {
   margin-top: 0;
 }
@@ -6153,6 +6156,9 @@ input[type="checkbox"] {
     font-size: 10px !important;
   }
 }
+#WorkOrderOverview i.fa.fa-refresh.fa-spin.workorderdash {
+  font-size: 80px;
+}
 #PoEditTable {
   margin-left: 25px;
   margin-right: 25px;
@@ -6298,12 +6304,8 @@ input[type="checkbox"] {
   height: 80px;
   margin-bottom: 10px;
 }
-#UnitMap .angular-google-map {
-  width: 100%;
-  height: 100%;
-}
 #UnitMap .angular-google-map-container {
-  height: 25.000em;
+  height: 80vh;
 }
 #UnitSat .angular-google-map {
   width: 100%;
@@ -6323,17 +6325,163 @@ input[type="checkbox"] {
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
 }
-#Dashboard thead tr.wo-dashboard {
-  cursor: pointer;
-}
-#GeneralPartsList div.panel-body button.general-parts-list {
-  margin-bottom: 10px;
+#UserPMReport div.row.notop {
+  margin-top: 0px;
 }
 #SuperTable tbody tr td.super-table {
   word-wrap: break-word;
   min-width: 100px;
   max-width: 160px;
   white-space: normal;
+}
+#GeneralPartsList div.panel-body button.general-parts-list {
+  margin-bottom: 10px;
+}
+#PMDash .title h3 {
+  font-weight: bold;
+}
+#PMDash .title p {
+  font-weight: normal;
+}
+#PMDash .title h3,
+#PMDash .title p {
+  display: inline;
+}
+#PMDash span.spaceMe {
+  width: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 15px;
+  text-align: center;
+}
+#PMDash div.pull-right.status {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#PMDash div.pull-right.active {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#PMDash div.pull-right.idle {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#PMDash div.pull-right.total {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#PMDash table.table-bordered.table-striped.table-hover {
+  margin-bottom: 0px;
+}
+#PMDash table.table-bordered.table-striped.table-hover tr {
+  cursor: pointer;
+}
+#AreaPMDash .title h3 {
+  font-weight: bold;
+}
+#AreaPMDash .title p {
+  font-weight: normal;
+}
+#AreaPMDash .title h3,
+#AreaPMDash .title p {
+  display: inline;
+}
+#AreaPMDash span.spaceMe {
+  width: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 15px;
+  text-align: center;
+}
+#AreaPMDash div.pull-right.status {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#AreaPMDash div.pull-right.active {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#AreaPMDash div.pull-right.idle {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#AreaPMDash div.pull-right.total {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#AreaPMDash table.table-bordered.table-striped.table-hover {
+  margin-bottom: 0px;
+}
+#AreaPMDash table.table-bordered.table-striped.table-hover tr {
+  cursor: pointer;
+}
+#UserPMDash .title h3 {
+  font-weight: bold;
+}
+#UserPMDash .title p {
+  font-weight: normal;
+}
+#UserPMDash .title h3,
+#UserPMDash .title p {
+  display: inline;
+}
+#UserPMDash div.title-row {
+  margin-top: 5px;
+}
+#UserPMDash span.spaceMe {
+  width: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 15px;
+  text-align: center;
+}
+#UserPMDash div.pull-right.status {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#UserPMDash div.pull-right.active {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#UserPMDash div.pull-right.idle {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#UserPMDash div.pull-right.total {
+  width: 200px;
+  max-width: 250px;
+  text-align: center;
+}
+#UserPMDash div.panel.panel-default {
+  margin-bottom: 10px;
+}
+#UserPMDash div.supervisor {
+  margin-bottom: 10px;
+}
+#UserPMDash label {
+  margin-right: 10px;
+}
+#UserPMDash i.fa.fa-refresh.fa-spin.userpmdash {
+  margin-top: 40px;
+  font-size: 80px;
+}
+#UserPMDash table.table-bordered.table-striped.table-hover {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+#UserPMDash table.table-bordered.table-striped.table-hover tr {
+  cursor: pointer;
 }
 .highlighted {
   background-color: #a4cf80 !important;

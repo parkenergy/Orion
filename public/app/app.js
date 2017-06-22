@@ -35,27 +35,56 @@ angular.module('Orion', [
   angular.module('Orion').config(['$routeProvider', '$authProvider',
     function ($routeProvider, $authProvider) {
       $routeProvider
-      .when('/login', {
-        controller: 'SessionCtrl',
-        templateUrl: '/lib/public/angular/views/redirecting.html'
+      
+      .when('/', {
+        controller: 'LoginCtrl',
+        templateUrl: '/lib/public/angular/views/controller.views/clientLogin.html'
       })
+      
       .when('/myaccount', {
         needsLogin: true,
         controller: 'MyAccountCtrl',
-        templateUrl: '/lib/public/angular/views/myaccount.html'
+        templateUrl: '/lib/public/angular/views/controller.views/myaccount.html',
+        resolve: {
+          users: function ($route, $q, Users) {
+            return Users.query({size: 100000}).$promise;
+          },
+          units: function ($route, $q, Units) {
+            return Units.query({size: 100000}).$promise;
+          }
+        }
       })
-      .when('/example', {
-        controller: 'ExampleCtrl',
-        templateUrl: '/lib/public/angular/views/example.html'
+
+      .when('/areapmreport/:name', {
+        needsLogin: true,
+        controller: 'AreaPMReportCtrl',
+        templateUrl: '/lib/public/angular/views/controller.views/areapmreport.html',
+        resolve: {
+          users: function ($route, $q, Users) {
+            let locationName = $route.current.params.name;
+            return Users.query({regexArea: locationName, size: 100000}).$promise;
+          },
+          units: function ($route, $q, Units) {
+            return Units.query({size: 100000}).$promise;
+          },
+          areaName: function ($route) {
+            return $route.current.params.name;
+          }
+        }
       })
-      .when('/', {
-        controller: 'SessionCtrl',
-        templateUrl: '/lib/public/angular/views/clientLogin.html'
+      
+      .when('/areapmreport/:name/:user', {
+        needsLogin: true,
+        controller: 'UserPMReportCtrl',
+        templateUrl: '/lib/public/angular/views/controller.views/userpmreport.html',
+        resolve: {
+          users: function ($route, $q, Users) {
+            let username = $route.current.params.user;
+            return Users.query({textId: username}).$promise;
+          }
+        }
       });
-      // .when('/', {
-      //   controller: 'HomepageCtrl',
-      //   templateUrl: '/lib/public/angular/views/homepage.html'
-      // });
+      
       $authProvider.google({
         url: '/auth/google',
         authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',

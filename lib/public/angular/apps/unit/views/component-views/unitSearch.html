@@ -4,16 +4,16 @@
       <div class="form-group has-feedback">
         <label>Unit Number: </label>
         <input class="form-control search"
-               ng-model="$ctrl.params.number"
+               ng-model="$ctrl.params.numbers"
                name="unit"
                type="text"
-               ng-change="$ctrl.unitChange($ctrl.params.number, 'unitNumber')"
+               ng-change="$ctrl.unitChange($ctrl.params.numbers, 'unitNumber')"
                uib-typeahead="unit.number for unit in $ctrl.displayUnits | filter:$viewValue | limitTo:12"
                typeahead-select-on-exact="true"
                typeahead-wait-ms="100"
-               typeahead-on-select="$ctrl.unitChange($ctrl.params.number,'unitNumber')">
+               typeahead-on-select="$ctrl.unitChange($ctrl.params.numbers,'unitNumber')">
         <span
-          ng-if="$ctrl.params.number"
+          ng-if="$ctrl.params.numbers"
           ng-click="$ctrl.clearText('unitNumber')"
           class="glyphicon glyphicon-remove form-control-feedback"
           uib-tooltip="clear">
@@ -42,16 +42,16 @@
       <div class="form-group has-feedback">
         <label>Tech ID: </label>
         <input class="form-control search"
-               ng-model="$ctrl.params.tech"
+               ng-model="$ctrl.params.techs"
                name="tech"
                type="text"
-               ng-change="$ctrl.techChange($ctrl.params.tech, 'tech')"
+               ng-change="$ctrl.techChange($ctrl.params.techs, 'tech')"
                uib-typeahead="user.username as user.fullName for user in $ctrl.users | filter:$viewValue | limitTo:12"
                typeahead-select-on-exact="true"
                typeahead-wait-ms="100"
-               typeahead-on-select="$ctrl.techChange($ctrl.params.tech,'tech')">
+               typeahead-on-select="$ctrl.techChange($ctrl.params.techs,'tech')">
         <span
-          ng-if="$ctrl.params.tech"
+          ng-if="$ctrl.params.techs"
           ng-click="$ctrl.clearText('tech')"
           class="glyphicon glyphicon-remove form-control-feedback"
           uib-tooltip="clear">
