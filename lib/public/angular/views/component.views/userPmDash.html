@@ -33,7 +33,11 @@
     </span>
   </form>
 
-  <table class="table table-bordered table-striped table-hover">
+  <div align="center">
+    <i ng-show="$ctrl.spin" class="fa fa-refresh fa-spin userpmdash"></i>
+  </div>
+
+  <table class="table table-bordered table-striped table-hover" ng-show="$ctrl.loaded">
     <!-- headers -->
     <thead>
       <tr>
