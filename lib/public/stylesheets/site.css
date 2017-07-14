@@ -6359,21 +6359,6 @@ input[type="checkbox"] {
   max-width: 250px;
   text-align: center;
 }
-#PMDash div.pull-right.active {
-  width: 200px;
-  max-width: 250px;
-  text-align: center;
-}
-#PMDash div.pull-right.idle {
-  width: 200px;
-  max-width: 250px;
-  text-align: center;
-}
-#PMDash div.pull-right.total {
-  width: 200px;
-  max-width: 250px;
-  text-align: center;
-}
 #PMDash table.table-bordered.table-striped.table-hover {
   margin-bottom: 0px;
 }
@@ -6398,21 +6383,6 @@ input[type="checkbox"] {
   text-align: center;
 }
 #AreaPMDash div.pull-right.status {
-  width: 200px;
-  max-width: 250px;
-  text-align: center;
-}
-#AreaPMDash div.pull-right.active {
-  width: 200px;
-  max-width: 250px;
-  text-align: center;
-}
-#AreaPMDash div.pull-right.idle {
-  width: 200px;
-  max-width: 250px;
-  text-align: center;
-}
-#AreaPMDash div.pull-right.total {
   width: 200px;
   max-width: 250px;
   text-align: center;
@@ -6444,21 +6414,6 @@ input[type="checkbox"] {
   text-align: center;
 }
 #UserPMDash div.pull-right.status {
-  width: 200px;
-  max-width: 250px;
-  text-align: center;
-}
-#UserPMDash div.pull-right.active {
-  width: 200px;
-  max-width: 250px;
-  text-align: center;
-}
-#UserPMDash div.pull-right.idle {
-  width: 200px;
-  max-width: 250px;
-  text-align: center;
-}
-#UserPMDash div.pull-right.total {
   width: 200px;
   max-width: 250px;
   text-align: center;
