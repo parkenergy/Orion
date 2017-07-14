@@ -6,9 +6,10 @@
       <h3 class="panel-title pull-left">{{ $ctrl.fullName }}</h3>
 
       <div class="pull-right status">Active PM Status: <span class="spaceMe" style="background-color: {{$ctrl.PMS.setBackgroundColor($ctrl.activePMStatus)}}">{{$ctrl.activePMStatus}}%</span></div>
-      <div class="pull-right active">Active: <span class="spaceMe">{{$ctrl.active}}</span></div>
-      <div class="pull-right idle">Idle: <span class="spaceMe">{{$ctrl.idle}}</span></div>
-      <div class="pull-right total">Total: <span class="spaceMe">{{$ctrl.total}}</span></div>
+      <div class="pull-right status">Active: <span class="spaceMe">{{$ctrl.active}}</span></div>
+      <div class="pull-right status">Test: <span class="spaceMe">{{$ctrl.test}}</span></div>
+      <div class="pull-right status">Idle: <span class="spaceMe">{{$ctrl.idle}}</span></div>
+      <div class="pull-right status">Total: <span class="spaceMe">{{$ctrl.total}}</span></div>
     </div>
   </div>
 
@@ -127,7 +128,8 @@
 
     <!-- Sorted Table -->
     <tbody>
-      <tr ng-repeat="unit in $ctrl.displayUnits | orderBy:$ctrl.sortType:!$ctrl.sortReverse">
+      <tr ng-repeat="unit in $ctrl.displayUnits | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
+        ng-click="$ctrl.searchUnits(unit)">
         <td class="text-center">{{ unit.unitNumber }}</td>
         <td class="text-center">{{ unit.corrective }}</td>
         <td class="text-center">{{ unit.release }}</td>
