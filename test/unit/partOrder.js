@@ -255,43 +255,43 @@ describe("PartOrder Units", () => {
           shipped:    true,
           completed:  true
         },
-        limit:      10,
-        skip:        0
+        size:      10,
+        page:        0
       };
 
       return PartOrder.list(options)
         .then((docs) => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
-          options.skip+=10;
+          options.page+=10;
 
           return PartOrder.list(options);
         })
         .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
-          options.skip+=10;
+          options.page+=10;
 
           return PartOrder.list(options);
         })
         .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
-          options.skip+=10;
+          options.page+=10;
 
           return PartOrder.list(options);
         })
         .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
-          options.skip+=10;
+          options.page+=10;
 
           return PartOrder.list(options);
         })
         .then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(10);
-          options.skip+=10;
+          options.page+=10;
 
           return PartOrder.list(options);
         })
@@ -315,8 +315,8 @@ describe("PartOrder Units", () => {
           shipped:    false,
           completed:  false
         },
-        limit:      50,
-        skip:       0
+        size:      50,
+        page:       0
       };
 
       return PartOrder.list(options)
@@ -341,8 +341,8 @@ describe("PartOrder Units", () => {
           shipped:    false,
           completed:  true
         },
-        limit:      20,
-        skip:       0
+        size:      20,
+        page:       0
       };
 
       return PartOrder.list(options)
@@ -371,8 +371,8 @@ describe("PartOrder Units", () => {
           shipped:    true,
           completed:  true
         },
-        limit:      60,
-        skip:       0
+        size:      60,
+        page:       0
       };
 
       return PartOrder.list(options)
