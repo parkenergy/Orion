@@ -1,6 +1,6 @@
 {
   "name": "Orion",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "A workorder tracking software system for Park Energy",
   "main": "",
   "scripts": {
@@ -31,6 +31,7 @@
   "dependencies": {
     "agenda": "^0.7.2",
     "async": "^2.0.0-rc.3",
+    "axios": "^0.16.2",
     "bluebird": "^3.3.4",
     "body-parser": "^1.15.0",
     "bunyan": "^1.8.0",
