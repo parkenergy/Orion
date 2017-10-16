@@ -1,0 +1,25 @@
+{
+  "_id" : "58f61e8078df49094164a31f",
+  "number" : "Q1506",
+  "state" : "55d24ff95a2d568a084de666",
+  "county" : "55d24ffb5a2d568a084de823",
+  "assignedTo" : "SLI001",
+  "compressorSerial" : "UTZ352225",
+  "engineSerial" : "DM4430106731",
+  "geo" : {
+    "coordinates" : [
+      -94.1416,
+      32.0856
+    ],
+    "type" : "Point"
+  },
+  "customerName" : "SHERIDAN PRODUCTION COMPANY, LLC",
+  "netsuiteId" : "362",
+  "legalDescription" : null,
+  "locationName" : "HULL A 7",
+  "productSeries" : "Park 127",
+  "__v" : 0,
+  "nextPmDate" : "2017-03-10T00:00:00.000Z",
+  "pmCycle" : "45",
+  "status" : "Active - On Contract"
+}

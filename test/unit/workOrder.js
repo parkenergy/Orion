@@ -5,8 +5,12 @@ const mongoose = require('mongoose'),
   fixture      = require('../fixture/workOrder.json')[0],
   unitFixture  = require('../fixture/unit.json')[0],
   userFixture  = require('../fixture/user.json')[0],
+  stateFixture = require('../fixture/state.json'),
+  countyFixture= require('../fixture/county.json')[0],
   WorkOrder    = require('../../lib/models/workOrder'),
   User         = require('../../lib/models/user'),
+  County       = require('../../lib/models/county'),
+  State        = require('../../lib/models/state'),
   Unit         = require('../../lib/models/unit');
 
 
@@ -15,11 +19,13 @@ before(() => WorkOrder.remove({}));
 after(() => WorkOrder.remove({}));
 
 describe("WorkOrder Units", () => {
-  let unitId, userId, unitDoc, userDoc;
+  let unitId, userId, unitDoc, userDoc, stateDoc, countyDoc;
 
   before(() => {
     return User.remove({})
       .then(() => Unit.remove({}))
+      .then(() => County.remove({}))
+      .then(() => State.remove({}))
       .then(() => new User(userFixture).save())
       .then(user => {
         userId = user._id;
@@ -30,12 +36,22 @@ describe("WorkOrder Units", () => {
       .then(unit => {
         unitId = unit._id;
         unitDoc = unit;
+        return new State(stateFixture).save();
+      })
+      .then((state) => {
+        stateDoc = state;
+        return new County(countyFixture).save();
+      })
+      .then((county) => {
+        countyDoc = county;
       });
   });
 
   after(() => {
     return User.remove({})
-      .then(() => Unit.remove({}));
+      .then(() => Unit.remove({}))
+      .then(() => State.remove({}))
+      .then(() => County.remove({}));
   });
 
   describe("#createDoc()", () => {
@@ -47,7 +63,7 @@ describe("WorkOrder Units", () => {
           doc.should.be.Array().with.length(1);
           doc[0].updated_at.should.be.a.Date();
           doc[0].should.have.property("_id");
-
+          
           doc[0].header.should.have.property('unitNumber');
           doc[0].header.unitNumber.should.be.a.String();
           doc[0].header.unitNumber.should.equal('TEST1');

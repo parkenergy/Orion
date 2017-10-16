@@ -9,6 +9,8 @@ const mongoose     = require('mongoose'),
   Unit             = require('../../lib/models/unit'),
   PmReport         = require('../../lib/models/pmReport'),
   User             = require('../../lib/models/user'),
+  stateFixtrue     = require('../fixture/state.json'),
+  countyFixture    = require('../fixture/county.json'),
   unitFixture      = require('../fixture/unit.json')[0],
   userFixture      = require('../fixture/user.json')[0],
   //userFixture      = require('../fixture/user.json'),
@@ -18,16 +20,21 @@ const mongoose     = require('mongoose'),
 mongoose.Promise = Promise;
 
 describe("Unit Units", () => {
+  before(() => Unit.remove({}));
+  before(() => State.remove({}));
+  before(() => County.remove({}));
   before(() => Unit.createDoc(unitFixture));
+  before(() => State.createDoc(stateFixtrue));
+  before(() => County.createDoc(countyFixture));
   before(() => User.createDoc(userFixture));
   before(() => PmReport.createDoc(pmReportFixture));
   before(() => WorkOrder.remove({}));
-  before(() => WorkOrder.createDoc(workOrderFixture));
 
   after(() => Unit.remove({}));
   after(() => User.remove({}));
+  after(() => State.remove({}));
+  after(() => County.remove({}));
   after(() => PmReport.remove({}));
-  after(() => WorkOrder.remove({}));
 
   describe("#fetch()", () => {
     it("should fetch Unit by number", () => Unit.fetch("123")
@@ -52,6 +59,7 @@ describe("Unit Units", () => {
       newUser.supervisor = "TEST003";
 
       const newUnit = _.clone(unitFixture);
+      newUnit._id = "888888888888888888888888";
       newUnit.number = "321";
       newUnit.assignedTo = "TEST002";
       newUnit.netsuiteId = "s987";
