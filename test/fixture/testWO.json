@@ -1,393 +1,417 @@
 {
-  "_id" : "59e22bbcf4db7bdb38415bd0",
-  "timeStarted" : "2017-10-12T17:36:46.640Z",
-  "truckId" : "8076",
-  "truckNSID" : "44",
-  "unitNumber" : "Q1506",
-  "unit" : "58f61e8078df49094164a31f",
-  "newEngineSerial" : "",
-  "assetType" : "4",
-  "timeSubmitted" : "2017-10-12T20:04:17.807Z",
-  "timeApproved" : null,
-  "pm" : false,
-  "type" : "Trouble Call",
-  "approvedBy" : "",
-  "techId" : "SLI001",
-  "technician" : "59b1624078df490941e1dc32",
-  "version" : "0.7.15",
-  "updated_at" : "2017-10-12T20:04:17.818Z",
-  "managerApproved" : false,
-  "netsuiteSyned" : false,
-  "netsuiteId" : "",
-  "jsa" : {
-    "emergencyEvac" : "back out gate to main road.",
-    "descriptionOfWork" : "replace push rods and lifters.",
-    "customer" : "SHERIDAN PRODUCTION COMPANY, LLC",
-    "location" : "HULL A 7",
-    "hazardPlanning" : "were ppe and watch for hot surfaces.",
-    "agree" : true,
-    "techinicians" : [
+  "_id": "V1F6bUpsOEJBQUE9alA3RXNoV2t4SzA9eHhKRmVMdXVLcVU9RTRjaVN6dms2VFU9",
+  "approvedBy": "MWH001",
+  "area": "",
+  "assetType": "4",
+  "billingInfo": {
+    "AFE": false,
+    "AFENumber": "",
+    "billableToCustomer": false,
+    "warrantyWork": false
+  },
+  "comments": {
+    "calloutReason": "",
+    "indirectNotes": "",
+    "newsetNotes": "",
+    "releaseNotes": "",
+    "repairsDescription": "asdf",
+    "repairsReason": "asdf",
+    "timeAdjustmentNotes": ""
+  },
+  "emissionsReadings": {
+    "afrmvTarget": null,
+    "catalystTempPost": null,
+    "catalystTempPre": null,
+    "permitNumber": null
+  },
+  "geo": {
+    "coordinates": [
+      -97.6573,
+      33.3047
+    ],
+    "type": "Point"
+  },
+  "header": {
+    "applicationtype": "10",
+    "contactName": "",
+    "county": "Wise",
+    "customerName": "BRIAR ENERGY CORPORATION",
+    "endMileage": "2",
+    "leaseName": "H.E. SMITH",
+    "rideAlong": "",
+    "startMileage": "1",
+    "state": "Texas",
+    "unitNumber": "Q1607",
+    "unitNumberNSID": "544"
+  },
+  "isSynced": false,
+  "jsa": {
+    "agree": true,
+    "controlsAndPractices": {
+      "confinedSpaceEntry": true
+    },
+    "customer": "BRIAR ENERGY CORPORATION",
+    "descriptionOfWork": "asdf",
+    "emergencyEvac": "asdf",
+    "hazardPlanning": "asdf",
+    "location": "H.E. SMITH",
+    "potentialHazards": {
+      "bodyPosition": true
+    },
+    "techinicians": [
       {
-        "_id" : "59dfa82e486edb1394d69b26",
-        "tech" : "Steve Lindsey"
+        "tech": "Marcus Whelan"
       }
-    ],
-    "controlsAndPractices" : {
-      "ppe" : true
-    },
-    "potentialHazards" : {
-      "hotColdSurfaces" : true,
-      "slips" : true,
-      "trips" : true,
-      "falls" : true
-    }
+    ]
   },
-  "parts" : [
-    {
-      "description" : "KIT, LIFTER, KOHLER",
-      "quantity" : 2,
-      "cost" : 0,
-      "laborCode" : "Replace Cylinder Head",
-      "netsuiteId" : "3059",
-      "_id" : "59dfcac1486edb1394d69b30",
-      "isManual" : false,
-      "isBillable" : false,
-      "isWarranty" : true
-    }
-  ],
-  "laborCodes" : {
-    "vessel" : {
-      "suctionValve" : {
-        "text" : "Suction Valve",
-        "minutes" : 0,
-        "hours" : 0
+  "laborCodes": {
+    "basic": {
+      "custRelations": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Cust. Relations"
       },
-      "reliefValve" : {
-        "text" : "Relief Valve",
-        "minutes" : 0,
-        "hours" : 0
+      "diagnostic": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Diagnostic"
       },
-      "dumpControl" : {
-        "text" : "Dump Control",
-        "minutes" : 0,
-        "hours" : 0
+      "environmental": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Environment"
+      },
+      "lunch": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Lunch"
+      },
+      "negativeAdj": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Negative Time Adjustment"
+      },
+      "optimizeUnit": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Optimize Unit"
+      },
+      "pm": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "PM"
+      },
+      "positiveAdj": {
+        "hours": 0,
+        "minutes": 5,
+        "text": "Positive Time Adjustment"
+      },
+      "safety": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Safety"
+      },
+      "serviceTravel": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Service Travel"
+      },
+      "telemetry": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Telemetry"
+      },
+      "training": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Training"
+      },
+      "washUnit": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Wash Unit"
       }
     },
-    "cooler" : {
-      "cooling" : {
-        "text" : "Cooler",
-        "minutes" : 0,
-        "hours" : 0
+    "compressor": {
+      "addOil": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Add Oil"
+      },
+      "inspect": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Inspect"
+      },
+      "replace": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Replace"
       }
     },
-    "compressor" : {
-      "addOil" : {
-        "text" : "Add Oil",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "replace" : {
-        "text" : "Replace",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "inspect" : {
-        "text" : "Inspect",
-        "minutes" : 0,
-        "hours" : 0
+    "cooler": {
+      "cooling": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Cooling"
       }
     },
-    "panel" : {
-      "electrical" : {
-        "text" : "Eletrical",
-        "minutes" : 0,
-        "hours" : 0
+    "emissions": {
+      "install": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Install"
       },
-      "panel" : {
-        "text" : "Panel",
-        "minutes" : 0,
-        "hours" : 0
+      "repair": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Repair"
+      },
+      "test": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Test"
       }
     },
-    "emissions" : {
-      "repair" : {
-        "text" : "Repair",
-        "minutes" : 0,
-        "hours" : 0
+    "engine": {
+      "addOil": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Add Oil"
       },
-      "test" : {
-        "text" : "Test",
-        "minutes" : 0,
-        "hours" : 0
+      "alternator": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Alternator"
       },
-      "install" : {
-        "text" : "Install",
-        "minutes" : 0,
-        "hours" : 0
+      "compression": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Compression"
+      },
+      "driveOrCoupling": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Drive or Coupling"
+      },
+      "exhaust": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Exhaust"
+      },
+      "fuelSystem": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Fuel System"
+      },
+      "ignition": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Ignition"
+      },
+      "lubrication": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Lubrication"
+      },
+      "oilAndFilter": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Oil and Filter"
+      },
+      "replaceCylHead": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Replace Cyl Head"
+      },
+      "replaceEngine": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Replace Engine"
+      },
+      "replaceRadiator": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Replace Radiator"
+      },
+      "sealsAndGaskets": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Seals and Gaskets"
+      },
+      "starter": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Starter"
       }
     },
-    "engine" : {
-      "sealsAndGaskets" : {
-        "text" : "Seals and Gaskets",
-        "minutes" : 0,
-        "hours" : 0
+    "panel": {
+      "electrical": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Electrical"
       },
-      "driveOrCoupling" : {
-        "text" : "Drive or Coupling",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "alternator" : {
-        "text" : "Alternator",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "exhaust" : {
-        "text" : "Exhaust",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "lubrication" : {
-        "text" : "Lubrication",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "starter" : {
-        "text" : "Starter",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "ignition" : {
-        "text" : "Ignition",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "fuelSystem" : {
-        "text" : "Fuel System",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "replaceRadiator" : {
-        "text" : "Replace Radiator",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "replaceCylHead" : {
-        "text" : "Replace Cylinder Head",
-        "minutes" : 45,
-        "hours" : 0
-      },
-      "replaceEngine" : {
-        "text" : "Replace Engine",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "compression" : {
-        "text" : "Compression",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "addOil" : {
-        "text" : "Add Oil",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "oilAndFilter" : {
-        "text" : "Oil And Filter",
-        "minutes" : 0,
-        "hours" : 0
+      "panel": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Panel"
       }
     },
-    "basic" : {
-      "training" : {
-        "text" : "Training",
-        "minutes" : 0,
-        "hours" : 0
+    "vessel": {
+      "dumpControl": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Dump Control"
       },
-      "washUnit" : {
-        "text" : "Wash Unit",
-        "minutes" : 0,
-        "hours" : 0
+      "reliefValve": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Relief Valve"
       },
-      "pm" : {
-        "text" : "Preventive Maitenance",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "optimizeUnit" : {
-        "text" : "Optimize Unit",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "serviceTravel" : {
-        "text" : "Service Travel",
-        "minutes" : 15,
-        "hours" : 1
-      },
-      "diagnostic" : {
-        "text" : "Diagnostic",
-        "minutes" : 30,
-        "hours" : 0
-      },
-      "environmental" : {
-        "text" : "Environmental",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "telemetry" : {
-        "text" : "Telemetry",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "custRelations" : {
-        "text" : "Customer Relations",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "lunch" : {
-        "text" : "Lunch",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "negativeAdj" : {
-        "text" : "Negative Adjustment",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "positiveAdj" : {
-        "text" : "Positive Adjustment",
-        "minutes" : 0,
-        "hours" : 0
-      },
-      "safety" : {
-        "text" : "Safety",
-        "minutes" : 0,
-        "hours" : 0
+      "suctionValve": {
+        "hours": 0,
+        "minutes": 0,
+        "text": "Suction Valve"
       }
     }
   },
-  "comments" : {
-    "timeAdjustmentNotes" : "",
-    "indirectNotes" : "",
-    "releaseNotes" : "",
-    "newsetNotes" : "",
-    "calloutReason" : "unit down oil pressure and want stay running.",
-    "repairsReason" : "",
-    "repairsDescription" : "replaced lifters,push rods androcker arms."
+  "managerApproved": true,
+  "misc": {
+    "isUnitRunningOnDeparture": true,
+    "leaseNotes": "",
+    "typeOfAsset": "",
+    "unitNotes": ""
   },
-  "pmChecklist" : {
-    "visibleLeaksNotes" : "",
-    "fuelPressureSecondCut" : null,
-    "fuelPressureFirstCut" : null,
-    "engineCompression" : {
-      "cylinder8" : null,
-      "cylinder7" : null,
-      "cylinder6" : null,
-      "cylinder5" : null,
-      "cylinder4" : null,
-      "cylinder3" : null,
-      "cylinder2" : null,
-      "cylinder1" : null
+  "newCompressorSerial": "",
+  "newEngineSerial": "",
+  "parts": [],
+  "pm": false,
+  "pmChecklist": {
+    "engineChecks": {
+      "airFilter": false,
+      "airFilterNa": false,
+      "battery": false,
+      "batteryNa": false,
+      "belts": false,
+      "beltsNa": false,
+      "capAndRotor": false,
+      "capAndRotorNa": false,
+      "driveLine": false,
+      "driveLineNa": false,
+      "guardsAndBrackets": false,
+      "guardsAndBracketsNa": false,
+      "magPickup": false,
+      "magPickupNa": false,
+      "oilAndFilters": false,
+      "oilAndFiltersNa": false,
+      "plugWires": false,
+      "plugWiresNa": false,
+      "sparkPlugs": false,
+      "sparkPlugsNa": false
     },
-    "generalChecks" : {
-      "oilPumpBeltNa" : false,
-      "panelWiresNa" : false,
-      "fanForCrackingNa" : false,
-      "filledDayTankNa" : false,
-      "plugInSkidNa" : false,
-      "scrubberDumpNa" : false,
-      "coolerLouverCleanedNa" : false,
-      "coolerLouverMovementNa" : false,
-      "coolerForCracksNa" : false,
-      "airHosesNa" : false,
-      "killsNa" : false,
-      "oilPumpBelt" : false,
-      "panelWires" : false,
-      "fanForCracking" : false,
-      "filledDayTank" : false,
-      "plugInSkid" : false,
-      "scrubberDump" : false,
-      "coolerLouverCleaned" : false,
-      "coolerLouverMovement" : false,
-      "coolerForCracks" : false,
-      "airHoses" : false,
-      "kills" : false
+    "engineCompression": {
+      "cylinder1": null,
+      "cylinder2": null,
+      "cylinder3": null,
+      "cylinder4": null,
+      "cylinder5": null,
+      "cylinder6": null,
+      "cylinder7": null,
+      "cylinder8": null
     },
-    "engineChecks" : {
-      "driveLine" : false,
-      "plugWires" : false,
-      "sparkPlugs" : false,
-      "guardsAndBrackets" : false,
-      "belts" : false,
-      "magPickup" : false,
-      "oilAndFilters" : false,
-      "airFilter" : false,
-      "capAndRotor" : false,
-      "battery" : false
+    "fuelPressureFirstCut": null,
+    "fuelPressureSecondCut": null,
+    "generalChecks": {
+      "airHoses": false,
+      "airHosesNa": false,
+      "coolerForCracks": false,
+      "coolerForCracksNa": false,
+      "coolerLouverCleaned": false,
+      "coolerLouverCleanedNa": false,
+      "coolerLouverMovement": false,
+      "coolerLouverMovementNa": false,
+      "fanForCracking": false,
+      "fanForCrackingNa": false,
+      "filledDayTank": false,
+      "filledDayTankNa": false,
+      "kills": false,
+      "killsNa": false,
+      "oilPumpBelt": false,
+      "oilPumpBeltNa": false,
+      "panelWires": false,
+      "panelWiresNa": false,
+      "plugInSkid": false,
+      "plugInSkidNa": false,
+      "pressureReliefValve": false,
+      "pressureReliefValveNa": false,
+      "scrubberDump": false,
+      "scrubberDumpNa": false
     },
-    "killSettings" : {
-      "highDischargeTempKill" : null,
-      "lowDischargeKill" : null,
-      "lowSuctionKill" : null,
-      "highDischargeKill" : null,
-      "highSuctionKill" : null
-    }
+    "killSettings": {
+      "highDischargeKill": null,
+      "highDischargeTempKill": null,
+      "highSuctionKill": null,
+      "lowDischargeKill": null,
+      "lowSuctionKill": null
+    },
+    "visibleLeaksNotes": ""
   },
-  "emissionsReadings" : {
-    "permitNumber" : "0",
-    "catalystTempPost" : "0",
-    "catalystTempPre" : "0",
-    "afrmvTarget" : "0"
+  "techId": "MWH001",
+  "technician": "597f6a8578df490941e1d67e",
+  "timeApproved": "2017-10-16T20:36:22.000Z",
+  "timeStarted": "2017-10-16T20:35:31.544Z",
+  "timeSubmitted": "2017-10-16T20:36:22.000Z",
+  "truckId": "0000",
+  "truckNSID": "45",
+  "type": "Corrective",
+  "unit": {
+    "_id": "anJEVEpsOEJBQUE9dTFEVndYL2s3Qk09eVJ4dlk1c2dKUlE9bjkwcnQ2NWUvQ3c9",
+    "assignedTo": "AMI002",
+    "compressorSerial": "UTY251121",
+    "county": "Wise",
+    "customerName": "BRIAR ENERGY CORPORATION",
+    "engineSerial": "4EW6770",
+    "geo": {
+      "coordinates": [
+        -97.6573,
+        33.3047
+      ],
+      "type": "Point"
+    },
+    "id": "58f61e8178df49094164a3d0",
+    "isSynced": true,
+    "legalDescription": null,
+    "locationName": "H.E. SMITH",
+    "netsuiteId": "544",
+    "nextPmDate": "2017-11-24T00:00:00.000Z",
+    "number": "Q1607",
+    "pmCycle": "45",
+    "pmReport": "2017-11-24T00:00:00.000Z",
+    "productSeries": "Park 127",
+    "state": "Texas",
+    "status": "Active - On Contract"
   },
-  "unitReadings" : {
-    "engineManifoldVac" : "0",
-    "engineJWTemp" : "0",
-    "compressorOilPressure" : "45",
-    "alternatorOutput" : "0",
-    "engineOilPressure" : "40",
-    "engineSerial" : "DM4430106731",
-    "compressorSerial" : "UTZ352225",
-    "hourReading" : "0",
-    "dischargeTemp2" : "0",
-    "dischargeTemp1" : "210",
-    "rpm" : "877",
-    "flowMCF" : "102",
-    "dischargePressure" : "68",
-    "suctionPressure" : "12"
+  "unitNumber": "Q1607",
+  "unitOwnership": {
+    "isCustomerUnit": false,
+    "isRental": false
   },
-  "geo" : {
-    "coordinates" : [
-      -94.1416,
-      32.0856
-    ],
-    "type" : "Point"
+  "unitReadings": {
+    "alternatorOutput": 1,
+    "compressorOilPressure": 1,
+    "compressorSerial": "UTY251121",
+    "dischargePressure": 1,
+    "dischargeTemp1": 1,
+    "dischargeTemp2": 1,
+    "engineJWTemp": 1,
+    "engineManifoldVac": 1,
+    "engineOilPressure": 1,
+    "engineSerial": "4EW6770",
+    "flowMCF": 1,
+    "hourReading": 1,
+    "rpm": 1,
+    "suctionPressure": 1
   },
-  "misc" : {
-    "isUnitRunningOnDeparture" : true,
-    "unitNotes" : "",
-    "leaseNotes" : ""
-  },
-  "billingInfo" : {
-    "AFE" : false,
-    "warrantyWork" : false,
-    "billableToCustomer" : false
-  },
-  "unitOwnership" : {
-    "isCustomerUnit" : false,
-    "isRental" : false
-  },
-  "header" : {
-    "leaseName" : "HULL A 7",
-    "state" : "Texas",
-    "county" : "Panola",
-    "contactName" : "",
-    "customerName" : "SHERIDAN PRODUCTION COMPANY, LLC",
-    "unitNumberNSID" : "362",
-    "unitNumber" : "Q1506",
-    "applicationtype" : "3",
-    "endMileage" : "105940",
-    "startMileage" : "105879",
-    "rideAlong" : ""
-  },
-  "timePosted" : "2017-10-14T15:22:36.423Z"
+  "updated_at": "2017-10-16T20:35:31.545Z",
+  "version": "1.0.0"
 }
