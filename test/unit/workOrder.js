@@ -87,6 +87,7 @@ describe("WorkOrder Units", () => {
     });
 
     it('should update document', () => {
+      console.log(fixture);
       let updated = _.cloneDeep(fixture);
       updated.header.unitNumber = 'TEST2';
 
