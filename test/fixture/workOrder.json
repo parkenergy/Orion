@@ -4,7 +4,7 @@
   "truckId" : "truck001",
   "truckNSID" : "28",
   "unitNumber" : "123",
-  "unit" : {"netsuiteId":"T123"},
+  "unit" : "123456789123456789123456",
   "newEngineSerial" : "",
   "assetType" : "5",
   "timeSubmitted" : "2017-04-28T16:40:00.353Z",
@@ -365,45 +365,7 @@
   "truckId": "0000",
   "truckNSID": 45,
   "unitNumber": "1234",
-  "unit": {
-    "_id": "588914a5e1063e1724dad2bf",
-    "number": "1234",
-    "__v": 0,
-    "netsuiteId": "2",
-    "state": {
-      "_id": "55d24ff95a2d568a084de665",
-      "name": "Oklahoma",
-      "__v": 0,
-      "updated_at": "2015-08-17T21:19:53.611Z"
-    },
-    "county": {
-      "_id": "55d24ffa5a2d568a084de76d",
-      "name": "Oklahoma",
-      "__v": 0,
-      "updated_at": "2015-10-02T15:14:24.538Z",
-      "state": {
-        "_id": "55d24ff95a2d568a084de665",
-        "name": "Oklahoma",
-        "__v": 0,
-        "updated_at": "2015-08-17T21:19:53.611Z"
-      }
-    },
-    "assignedTo": "CAN001",
-    "customerName": "APACHE CORP",
-    "legalDescription": "N13. W33",
-    "locationName": "Chatter123",
-    "productSeries": "Park 957",
-    "compressorSerial": null,
-    "engineSerial": null,
-    "nextPmDate": null,
-    "pmCycle": "",
-    "status": "Active - On Contract",
-    "geo": {
-      "coordinates": [0,
-        0],
-      "type": "Point"
-    }
-  },
+  "unit": "588914a5e1063e1724dad2bf",
   "newEngineSerial": "",
   "assetType": "2",
   "timeSubmitted": "2017-06-07T21:17:00.240Z",

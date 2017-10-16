@@ -4,8 +4,14 @@ const mongoose    = require('mongoose'),
   _               = require('lodash'),
   fixture         = require('../fixture/workOrder.json')[0],
   userFixture     = require('../fixture/user.json')[0],
+  unitFixture     = require('../fixture/unit.json')[0],
+  stateFixture    = require('../fixture/state.json'),
+  countyFixture   = require('../fixture/county.json')[0],
   customerFixture = require('../fixture/customer.json'),
   WorkOrder       = require('../../lib/models/workOrder'),
+  County          = require('../../lib/models/county'),
+  State           = require('../../lib/models/state'),
+  Unit            = require('../../lib/models/unit'),
   Customer        = require('../../lib/models/customer');
 
 before(() => {
@@ -18,6 +24,9 @@ before(() => {
 
 after(() => {
   WorkOrder.remove({})
+    .then(() => State.remove({}))
+    .then(() => County.remove({}))
+    .then(() => Unit.remove({}))
     .then(() => Customer.remove({}).exec());
 });
 
@@ -27,11 +36,23 @@ describe("WorkOrder Integrations", () => {
   before(() => {
     fixture.type = "Corrective";
     fixture.header.customerName = "APACHE CORP";
-
-    return WorkOrder.createDoc(fixture)
+    
+    return State.remove({})
+      .then(() => County.remove({}))
+      .then(() => Unit.remove({}))
+      .then(() => new State(stateFixture).save())
+      .then(() => new County(countyFixture).save())
+      .then(() => new Unit(unitFixture).save())
+      .then(() => WorkOrder.createDoc(fixture))
       .then(doc => {
         wo = doc[0];
       });
+  });
+  
+  after(() => {
+    return County.remove({})
+    .then(() => State.remove({}))
+    .then(() => Unit.remove({}));
   });
 
   it("Should sync WorkOrder to Netsuite", () => {

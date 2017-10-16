@@ -2,8 +2,14 @@ const mongoose     = require('mongoose'),
   config           = require('../../config'),
   should           = require('should'),
   _                = require('lodash'),
+  unitFixture     = require('../fixture/unit.json')[0],
+  stateFixture    = require('../fixture/state.json'),
+  countyFixture   = require('../fixture/county.json')[0],
   workOrderFixture = require('../fixture/workOrder.json')[0],
   WorkOrder        = require('../../lib/models/workOrder'),
+  County          = require('../../lib/models/county'),
+  State           = require('../../lib/models/state'),
+  Unit            = require('../../lib/models/unit'),
   EditHistory      = require('../../lib/models/editHistory');
 
 before(() => {
@@ -21,6 +27,22 @@ after(() => {
 
 describe("EditHistory Integrations", () => {
   let workOrderId, wo;
+  
+  before(() => {
+    return Unit.remove({})
+      .then(() => County.remove({}))
+      .then(() => State.remove({}))
+      .then(() => new State(stateFixture).save())
+      .then(() => new County(countyFixture).save())
+      .then(() => new Unit(unitFixture).save());
+  });
+  
+  after(() => {
+    return County.remove({})
+      .then(() => State.remove({}))
+      .then(() => Unit.remove({}));
+  });
+  
   it("Should create WorkOrder but no EditHistory", () => {
     return WorkOrder.createDoc(workOrderFixture)
       .then(workOrder => {
