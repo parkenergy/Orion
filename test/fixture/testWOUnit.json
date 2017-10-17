@@ -1,25 +1,27 @@
 {
-  "_id" : "58f61e8078df49094164a31f",
-  "number" : "Q1506",
-  "state" : "55d24ff95a2d568a084de666",
-  "county" : "55d24ffb5a2d568a084de823",
-  "assignedTo" : "SLI001",
-  "compressorSerial" : "UTZ352225",
-  "engineSerial" : "DM4430106731",
-  "geo" : {
-    "coordinates" : [
-      -94.1416,
-      32.0856
+  "_id": "58f61e8178df49094164a3d0",
+  "assignedTo": "AMI002",
+  "compressorSerial": "UTY251121",
+  "county": "55d24ffb5a2d568a084de860",
+  "customerName": "BRIAR ENERGY CORPORATION",
+  "engineSerial": "4EW6770",
+  "geo": {
+    "coordinates": [
+      -97.6573,
+      33.3047
     ],
-    "type" : "Point"
+    "type": "Point"
   },
-  "customerName" : "SHERIDAN PRODUCTION COMPANY, LLC",
-  "netsuiteId" : "362",
-  "legalDescription" : null,
-  "locationName" : "HULL A 7",
-  "productSeries" : "Park 127",
-  "__v" : 0,
-  "nextPmDate" : "2017-03-10T00:00:00.000Z",
-  "pmCycle" : "45",
-  "status" : "Active - On Contract"
+  "id": "58f61e8178df49094164a3d0",
+  "isSynced": true,
+  "legalDescription": null,
+  "locationName": "H.E. SMITH",
+  "netsuiteId": "544",
+  "nextPmDate": "2017-11-24T00:00:00.000Z",
+  "number": "Q1607",
+  "pmCycle": "45",
+  "pmReport": "2017-11-24T00:00:00.000Z",
+  "productSeries": "Park 127",
+  "state" : "55d24ff95a2d568a084de666",
+  "status": "Active - On Contract"
 }
