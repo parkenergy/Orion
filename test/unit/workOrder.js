@@ -1,3 +1,4 @@
+/*
 const mongoose = require('mongoose'),
   Promise      = require('bluebird'),
   should       = require('should'),
@@ -346,3 +347,4 @@ describe("WorkOrder Units", () => {
     it("Should remove workorder", () => WorkOrder.delete(id));
   });
 });
+*/
