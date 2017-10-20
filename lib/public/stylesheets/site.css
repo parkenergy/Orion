@@ -6246,6 +6246,11 @@ input[type="checkbox"] {
   width: 100%;
   height: 80px;
 }
+#PartOrderCreate td.tableCell {
+  min-width: 150px;
+  white-space: unset;
+  word-break: break-all;
+}
 #PartOrderEdit div.panel.panel-default.po-edit {
   margin-left: 15px;
   margin-right: 25px;

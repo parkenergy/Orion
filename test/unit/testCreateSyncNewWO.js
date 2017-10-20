@@ -53,7 +53,6 @@ describe("Workorder Separate important unit", () => {
   
   describe("#createDoc()", () => {
     it('should create doc and unit info should match', () => {
-      console.log(2)
       return WorkOrder.createDoc(workorder)
         .then((doc) => {
           should.exist(doc);
