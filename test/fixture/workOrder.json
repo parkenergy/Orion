@@ -4,7 +4,7 @@
   "truckId" : "truck001",
   "truckNSID" : "28",
   "unitNumber" : "123",
-  "unit" : "58f61e7d78df49094164a19e",
+  "unit": null,
   "newEngineSerial" : "",
   "assetType" : "5",
   "timeSubmitted" : "2017-04-28T16:40:00.353Z",
