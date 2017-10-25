@@ -89,7 +89,7 @@ agenda.define('netsuiteSync', (job, done) => {
   log.info("Netsuite import...");
   syncTask.execute((err) => {
     if(err){
-      log.error({error: err}, "Error occured during Netsuite Sync");
+      log.error({error: err}, "Error occured during Netsuite Sync: " + err);
     }
     else {
       log.info("...Netsuite import finished");
@@ -126,7 +126,7 @@ function loader(dir) {
 function graceful() {
   // cancel all netsuiteSync jobs.
   agenda.cancel({name: 'netsuiteSync'}, function (err,numberRemoved) {
-    if(err) log.trace({err: err}, 'Error Shutting down netsuiteSync agenda job');
+    if(err) log.error({err: err}, 'Error Shutting down netsuiteSync agenda job' + err);
     log.trace({number: numberRemoved}, 'Number of netsuiteSync agenda jobs removed');
   });
   agenda.stop();
