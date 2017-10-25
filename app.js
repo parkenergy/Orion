@@ -80,28 +80,9 @@ loader(path.join(__dirname, '/lib/middleware'));
 log.info({path: path.join(__dirname, '/lib/routes')}, 'Load routes from path');
 loader(path.join(__dirname, '/lib/routes'));
 
-//Scheduled tasks
-const netsuiteSync = require('./lib/tasks/netsuiteSync'),
-  syncTask         = new netsuiteSync(),
-  agenda           = new Agenda({db: {address: config.mongodb}});
+// Pull in the agenda tasks to. They are gathered and all started in this file. require it here.
+require('./lib/tasks/Agenda/agenda');
 
-agenda.define('netsuiteSync', (job, done) => {
-  log.info("Netsuite import...");
-  syncTask.execute((err) => {
-    if(err){
-      log.error({error: err}, "Error occured during Netsuite Sync: " + err);
-    }
-    else {
-      log.info("...Netsuite import finished");
-    }
-  });
-  done();
-});
-
-agenda.on('ready', () => {
-  agenda.every('5 minutes', 'netsuiteSync');
-  agenda.start();
-});
 
 //Listen
 log.info("Starting app...");
@@ -121,23 +102,3 @@ function loader(dir) {
       require(modulePath)(app);
     });
 }
-
-// Gracefully shutdown
-function graceful() {
-  // cancel all netsuiteSync jobs.
-  agenda.cancel({name: 'netsuiteSync'}, function (err,numberRemoved) {
-    if(err) log.error({err: err}, 'Error Shutting down netsuiteSync agenda job' + err);
-    log.trace({number: numberRemoved}, 'Number of netsuiteSync agenda jobs removed');
-  });
-  agenda.stop();
-  // disconnect from database
-  mongoose.connection.close();
-
-  setTimeout(function () {
-    process.exit(0);
-  },300);
-
-}
-// Run Gracefull when ctrl+c or termination
-process.on('SIGTERM',graceful);
-process.on('SIGINT', graceful); // ctrl+c
