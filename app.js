@@ -81,7 +81,10 @@ log.info({path: path.join(__dirname, '/lib/routes')}, 'Load routes from path');
 loader(path.join(__dirname, '/lib/routes'));
 
 // Pull in the agenda tasks to. They are gathered and all started in this file. require it here.
-require('./lib/tasks/Agenda/agenda');
+// require('./lib/tasks/Agenda/agenda');
+const ApplicationAgenda = require('./lib/tasks/Agenda/agenda');
+ApplicationAgenda.start();
+
 
 
 //Listen
@@ -102,3 +105,6 @@ function loader(dir) {
       require(modulePath)(app);
     });
 }
+
+process.on('SIGTERM',ApplicationAgenda.graceful);
+process.on('SIGINT', ApplicationAgenda.graceful); // ctrl+c
