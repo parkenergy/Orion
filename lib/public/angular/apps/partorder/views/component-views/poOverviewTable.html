@@ -124,13 +124,13 @@
           </th>
 
           <!-- Sort by MPN -->
-          <th ng-click="$ctrl.resort('part.mpn')">
-            MPN
+          <th ng-click="$ctrl.resort('part.description')">
+            Description
             <span
-              ng-show="$ctrl.sortType == 'part.mpn' && !$ctrl.sortReverse"
+              ng-show="$ctrl.sortType == 'part.description' && !$ctrl.sortReverse"
               class="glyphicon glyphicon-chevron-down"></span>
             <span
-              ng-show="$ctrl.sortType == 'part.mpn' && $ctrl.sortReverse"
+              ng-show="$ctrl.sortType == 'part.description' && $ctrl.sortReverse"
               class="glyphicon glyphicon-chevron-up"></span>
           </th>
 
@@ -197,7 +197,7 @@
         infinite-scroll-disabled="false">
         <tr ng-repeat="order in $ctrl.partorders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToPartOrder(order);">
           <td>{{ order.part.componentName || order.part.number }}</td>
-          <td>{{ order.part.MPN }}</td>
+          <td>{{ order.part.description }}</td>
           <td>{{ order.techId }}</td>
           <td>{{ order.destination }}</td>
           <td>{{ order.status }}</td>
