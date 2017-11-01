@@ -13,7 +13,7 @@ const express  = require('express'),
   mongoose     = require('mongoose');
 
 //Catch uncaught exceptions to log in bunyan
-/*process.on('uncaughtException', (err) => {
+process.on('uncaughtException', (err) => {
   log.fatal({
     stack: err.stack || null,
     code: err.code ||null
@@ -21,7 +21,7 @@ const express  = require('express'),
 
   //DO NOT CONTINUE EXECUTION. Process could be in undefined state, safer to exit.
   process.exit(1); //Uncaught exception exit code
-});*/
+});
 
 //plugin bluebird as promise provider
 mongoose.Promise = Promise;
@@ -107,5 +107,4 @@ function loader(dir) {
 }
 
 process.on('SIGTERM', ApplicationAgenda.graceful);
-process.on('uncaughtException', ApplicationAgenda.graceful);
 process.on('SIGINT', ApplicationAgenda.graceful); // ctrl+c
