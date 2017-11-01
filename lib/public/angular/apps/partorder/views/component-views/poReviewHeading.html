@@ -62,13 +62,13 @@
     <!--Show Tracking number if it exists-->
     <!-- COMPLETED ORDER -->
     <div class="col-md-3 col-xs-3" ng-show="$ctrl.partorder.timeShipped">
-      <div>Tracking Number: {{$ctrl.partorder.carrier}}</div>
+      <div>PO Number: {{$ctrl.partorder.carrier}}</div>
       <div class="porh-content">{{ $ctrl.partorder.trackingNumber}}</div>
     </div>
 
     <!-- CANCELED ORDER -->
     <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeShipped">
-      <div>Tracking Number</div>
+      <div>PO Number</div>
       <div class="porh-content">
         Order Canceled
       </div>
