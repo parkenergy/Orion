@@ -113,7 +113,31 @@ angular.module('Orion', [
       $authProvider.authToken = 'Bearer';
       $authProvider.storageType = 'localStorage';
     }
-  ]);
+  ])
+  .factory('authProvider',['$cookies', '$location', function ($cookies, $location) {
+    return{
+      isLoggedIn: function () {
+        const currentPath = $location.path();
+        if ($cookies.get('tech') === 'Logged Out' || !$cookies.get('tech')) {
+          if (currentPath !== '/') {
+            $cookies.put('OrionNotLoggedInRoute', currentPath);
+          }
+          return false;
+        } else {
+          return true;
+        }
+      }
+    };
+  }])
+  .run(['$rootScope', '$location', 'authProvider', function ($rootScope, $location, authProvider) {
+    $rootScope.$on('$routeChangeStart', function (event) {
+      if (!authProvider.isLoggedIn()) {
+        // event.preventDefault();
+        $location.path('/');
+      } else {
+      }
+    })
+  }]);
 
 
   /* Handle errors from the server side
