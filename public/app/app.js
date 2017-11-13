@@ -118,7 +118,7 @@ angular.module('Orion', [
     return{
       isLoggedIn: function () {
         const currentPath = $location.path();
-        if ($cookies.get('tech') === 'Logged Out' || !$cookies.get('tech')) {
+        if ($cookies.get('tech') === 'Logged Out' || !$cookies.get('tech') || !$cookies.get('identity')) {
           if (currentPath !== '/') {
             $cookies.put('OrionNotLoggedInRoute', currentPath);
           }
@@ -135,6 +135,7 @@ angular.module('Orion', [
         // event.preventDefault();
         $location.path('/');
       } else {
+        console.log('here?')
       }
     })
   }]);
