@@ -118,7 +118,8 @@ angular.module('Orion', [
     return{
       isLoggedIn: function () {
         const currentPath = $location.path();
-        if ($cookies.get('tech') === 'Logged Out' || !$cookies.get('tech') || !$cookies.get('identity')) {
+        const LS = localStorage;
+        if ($cookies.get('tech') === 'Logged Out' || !$cookies.get('tech') || !LS.getItem('satellizer_token')) {
           if (currentPath !== '/') {
             $cookies.put('OrionNotLoggedInRoute', currentPath);
           }
