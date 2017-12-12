@@ -119,11 +119,9 @@ angular.module('Orion', [
       isLoggedIn: function () {
         const currentPath = $location.path();
         const SS = SessionService;
-        const LS = localStorage;
-        console.log(SS.get('loggedIn'));
-        if ($cookies.get('tech') === 'Logged Out' || !$cookies.get('tech') || !LS.getItem('satellizer_token') || !SS.get('loggedIn')) {
+        if (!$cookies.get('tech') || !localStorage.getItem('satellizer_token') || !SS.get('loggedIn')) {
           if (currentPath !== '/') {
-            SS.add('loggedIn', 'true');
+            SS.add('loggedIn', true);
             $cookies.put('OrionNotLoggedInRoute', currentPath);
           }
           return false;
@@ -137,7 +135,6 @@ angular.module('Orion', [
     $rootScope.$on('$routeChangeStart', function (event) {
       if (!authProvider.isLoggedIn()) {
         // event.preventDefault();
-        console.log('/')
         $location.path('/');
       } else {
         console.log('here?')
