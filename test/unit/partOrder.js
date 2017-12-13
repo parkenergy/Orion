@@ -47,19 +47,19 @@ describe("PartOrder Units", () => {
 
     it("Should create a non manual partOrder document", () => {
       return PartOrder.createDoc(fixture)
-        .then(doc => {
-          should.exist(doc);
-          doc.should.not.be.Array();
-          doc.timeCreated.should.be.a.Date();
-          should.exist(doc.timeSubmitted);
-          doc.timeSubmitted.should.be.a.Date();
-          doc.should.have.property("_id");
-          should.exist(doc.orderId);
-          doc.orderId.should.be.a.String();
+        .then(docs => {
+          should.exist(docs[0]);
+          docs[0].should.not.be.Array();
+          docs[0].timeCreated.should.be.a.Date();
+          should.exist(docs[0].timeSubmitted);
+          docs[0].timeSubmitted.should.be.a.Date();
+          docs[0].should.have.property("_id");
+          should.exist(docs[0].orderId);
+          docs[0].orderId.should.be.a.String();
 
-          doc.part.should.be.an.instanceOf(Object);
-          doc.part.should.have.property('isManual');
-          doc.part.MPN.should.equal('111000/TEST');
+          docs[0].part.should.be.an.instanceOf(Object);
+          docs[0].part.should.have.property('isManual');
+          docs[0].part.MPN.should.equal('111000/TEST');
         });
     });
 
@@ -68,20 +68,20 @@ describe("PartOrder Units", () => {
       manualPartFixture.part.isManual = true;
 
       return PartOrder.createDoc(manualPartFixture)
-        .then(doc => {
-          should.exist(doc);
-          doc.should.not.be.Array();
-          doc.timeCreated.should.be.a.Date();
-          should.exist(doc.timeSubmitted);
-          doc.timeSubmitted.should.be.a.Date();
-          doc.should.have.property("_id");
-          should.exist(doc.orderId);
-          doc.orderId.should.be.a.String();
+        .then(docs => {
+          should.exist(docs[0]);
+          docs[0].should.not.be.Array();
+          docs[0].timeCreated.should.be.a.Date();
+          should.exist(docs[0].timeSubmitted);
+          docs[0].timeSubmitted.should.be.a.Date();
+          docs[0].should.have.property("_id");
+          should.exist(docs[0].orderId);
+          docs[0].orderId.should.be.a.String();
 
-          doc.part.should.be.an.instanceOf(Object);
-          doc.part.should.have.property('isManual');
-          doc.part.MPN.should.equal('111-000');
-          doc.part.isManual.should.equal(true);
+          docs[0].part.should.be.an.instanceOf(Object);
+          docs[0].part.should.have.property('isManual');
+          docs[0].part.MPN.should.equal('111-000');
+          docs[0].part.isManual.should.equal(true);
         });
     });
   }); /* End of 'describe' #createDoc() */
@@ -92,13 +92,13 @@ describe("PartOrder Units", () => {
     beforeEach(() => {
       return PartOrder.remove({})
         .then(() =>  PartOrder.createDoc(fixture))
-        .then(doc => {
-          updatingDoc = _.cloneDeep(doc);
+        .then(docs => {
+          updatingDoc = _.cloneDeep(docs[0]);
           updatingDoc.trackingNumber = '1234-5678-910';
           updatingDoc.carrier = 'UPS';
           updatingDoc.approvedBy = 'TEST001';
-          orderId = doc.orderId;
-          updated_at = doc.updated_at;
+          orderId = docs[0].orderId;
+          updated_at = docs[0].updated_at;
         })
     });
 
@@ -170,8 +170,8 @@ describe("PartOrder Units", () => {
     before(() => {
       return PartOrder.remove({})
         .then(() => PartOrder.createDoc(fixture))
-        .then(doc => {
-          orderId = doc.orderId;
+        .then(docs => {
+          orderId = docs[0].orderId;
         });
     });
 

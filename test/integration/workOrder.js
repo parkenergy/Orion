@@ -15,7 +15,6 @@ const mongoose    = require('mongoose'),
 
 before(() => {
   return WorkOrder.remove({})
-    .exec()
     .then(() => Customer.remove({}).exec())
     .then(() => new Customer(customerFixture).save());
 });
@@ -39,12 +38,15 @@ describe("WorkOrder Integrations", () => {
     return State.remove({})
       .then(() => County.remove({}))
       .then(() => Unit.remove({}))
+      .then(() => WorkOrder.remove({}))
       .then(() => new State(stateFixture).save())
       .then(() => new County(countyFixture).save())
       .then(() => new Unit(unitFixture).save())
       .then(() => WorkOrder.createDoc(fixture))
       .then(doc => {
         wo = doc[0];
+        wo.type = "Corrective";
+        wo.header.customerName = "APACHE CORP";
       });
   });
   
@@ -67,7 +69,7 @@ describe("WorkOrder Integrations", () => {
       });
     
     wo.netsuiteSyned = true;
-
+    
       return WorkOrder.updateDoc(wo.id, wo, userFixture)
         .then(doc => {
           doc.timeSynced.should.be.Date();
