@@ -4,6 +4,7 @@
     <label>Unit #</label>
     <input
       type="text"
+      ng-style="myStyle"
       name="number"
       ng-model="workorder.header.unitNumber"
       ng-change="unitNumberChange(workorder.header.unitNumber)"
@@ -21,6 +22,7 @@
     <label>Customer</label>
     <input
       type="text"
+      ng-style="myStyle"
       name="customer"
       ng-model="workorder.header.customerName"
       ng-change="customerChange(workorder.header.customerName)"
@@ -39,6 +41,7 @@
     <label>Lease</label>
     <input
       type="text"
+      ng-style="myStyle"
       name="lease"
       ng-model="workorder.header.leaseName"
       ng-change="leaseChange(workorder.header.leaseName)"
@@ -56,6 +59,7 @@
     <label>County</label>
     <input
       type="text"
+      ng-style="myStyle"
       name="county"
       ng-model="workorder.header.county"
       uib-typeahead="county for county in countiesArray | filter:$viewValue | limitTo:12"
@@ -70,6 +74,7 @@
     <label>State</label>
     <input
       type="text"
+      ng-style="myStyle"
       name="state"
       ng-model="workorder.header.state"
       uib-typeahead="state for state in statesArray | filter:$viewValue | limitTo:12"
