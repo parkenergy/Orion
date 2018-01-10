@@ -18,7 +18,7 @@
     <thead>
       <tr>
         <!-- heading sort click -->
-        <th ng-click="$ctrl.resort('name')" class="col-xs-4">
+        <th ng-click="$ctrl.resort('name')" class="col-xs-5">
           Name
           <span
             ng-show="$ctrl.sortType === 'name' && !$ctrl.sortReverse"
@@ -28,7 +28,17 @@
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
-        <th ng-click="$ctrl.resort('idleUnits')" class="col-xs-2">
+        <th ng-click="$ctrl.resort('totalHours')" class="col-xs-2">
+          Week Hours
+          <span
+            ng-show="$ctrl.sortType === 'totalHours' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType === 'totalHours' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
+        <th ng-click="$ctrl.resort('idleUnits')" class="col-xs-1">
           Idle
           <span
             ng-show="$ctrl.sortType === 'idleUnits' && !$ctrl.sortReverse"
@@ -38,7 +48,7 @@
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
-        <th ng-click="$ctrl.resort('testUnits')" class="col-xs-2">
+        <th ng-click="$ctrl.resort('testUnits')" class="col-xs-1">
           Test
           <span
             ng-show="$ctrl.sortType === 'testUnits' && !$ctrl.sortReverse"
@@ -58,7 +68,7 @@
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
-        <th ng-click="$ctrl.resort('percent')" class="col-xs-2">
+        <th ng-click="$ctrl.resort('percent')" class="col-xs-1">
           Percent
           <span
             ng-show="$ctrl.sortType === 'percent' && !$ctrl.sortReverse"
@@ -76,6 +86,7 @@
       <tr ng-repeat="user in $ctrl.displayUsers | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
         ng-click="$ctrl.routeToUser(user)">
         <td>{{ user.name }}</td>
+        <td class="text-center">{{ user.totalHours.toFixed(2)}}</td>
         <td class="text-center">{{ user.idleUnits }}</td>
         <td class="text-center">{{ user.testUnits }}</td>
         <td class="text-center">{{ user.activeUnits }}</td>
