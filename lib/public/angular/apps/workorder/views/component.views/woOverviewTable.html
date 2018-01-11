@@ -162,7 +162,25 @@
                   </span>
                 </div>
 
-                <!-- row 4 -->
+                <!-- row 4-->
+                <div class="form-group has-feedback">
+                  <label for="supervisor">Supervisor username</label>
+                  <input id="supervisor"
+                         class="form-control search"
+                         name="searchSupervisor"
+                         ng-model="$ctrl.searchSupervisor"
+                         ng-change="$ctrl.changeTextField($ctrl.searchSupervisor, 'supervisor')"
+                         type="text" />
+                  <span
+                    ng-if="$ctrl.searchSupervisor"
+                    ng-click="$ctrl.clearText('searchSupervisor')"
+                    class="glyphicon glyphicon-remove form-control-feedback"
+                    uib-tooltip="clear">
+                  </span>
+                </div>
+
+
+                <!-- row 5 -->
                 <div class="form-group">
                   <label for="unapproved">Unapproved by Manager</label>
                   <input id="unapproved"
@@ -172,7 +190,7 @@
                          type="checkbox" />
                 </div>
 
-                <!-- row 5 -->
+                <!-- row 6 -->
                 <div class="form-group">
                   <label for="approved">Approved by Manager</label>
                   <input id="approved"
@@ -182,7 +200,7 @@
                          type="checkbox" />
                 </div>
 
-                <!-- row 6 -->
+                <!-- row 7 -->
                 <div class="form-group">
                   <label for="synced">Submitted to Netsuite</label>
                   <input id="synced"
