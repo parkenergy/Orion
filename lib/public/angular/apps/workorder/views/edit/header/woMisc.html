@@ -45,18 +45,30 @@
 
       <!-- lat long row -->
       <div class="row misc-row">
-        <number-field
-          class="col-md-6"
-          placeholder-text="Ex: 35.4600"
-          label-text="Latitude"
-          data="workorder.geo.coordinates[1]">
-        </number-field>
-        <number-field
-          class="col-md-6"
-          placeholder-text="Ex: -97.5200"
-          label-text="Longitude"
-          data="workorder.geo.coordinates[0]">
-        </number-field>
+        <div class="form-group col-xs-6">
+          <label>Latitude</label>
+          <input
+            type="text"
+            ng-style="myStyle"
+            name="latitude"
+            ng-model="workorder.geo.coordinates[1]"
+            class="form-control"
+            pes-collection-match
+            placeholder="Ex: 35.4699"
+          >
+        </div>
+        <div class="form-group col-xs-6">
+          <label>Longitude</label>
+          <input
+            type="text"
+            ng-style="myStyle"
+            name="longitude"
+            ng-model="workorder.geo.coordinates[0]"
+            class="form-control"
+            pes-collection-match
+            placeholder="Ex: -97.5399"
+          >
+        </div>
       </div> <!-- end of lat long row -->
 
     </div>
