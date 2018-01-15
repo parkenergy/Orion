@@ -6364,6 +6364,11 @@ input[type="checkbox"] {
   max-width: 250px;
   text-align: center;
 }
+#PMDash div.pull-right.status1 {
+  width: 150px;
+  max-width: 200px;
+  text-align: center;
+}
 #PMDash table.table-bordered.table-striped.table-hover {
   margin-bottom: 0px;
 }

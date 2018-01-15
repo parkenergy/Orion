@@ -104,14 +104,6 @@
                   ng-click="$ctrl.submit()">
                   Search
                 </button>
-                <button
-                  class="btn btn-primary form-inline"
-                  ng-class="{reportDisabled: disabled}"
-                  type="button"
-                  data-toggle="collapse" data-target="#showSearch"
-                  ng-click="$ctrl.report()">
-                  Excel Time Dump
-                </button>
 
               </div>
 
@@ -209,6 +201,32 @@
                          ng-change="$ctrl.changeCheckBox($ctrl.synced, 'synced')"
                          type="checkbox" />
                 </div>
+
+                <!-- row 8 -->
+                <button
+                  class="btn btn-primary form-inline"
+                  ng-class="{reportDisabled: disabled}"
+                  type="button"
+                  data-toggle="collapse" data-target="#showSearch"
+                  ng-click="$ctrl.report('timeReport')">
+                  Excel Time Dump
+                </button>
+                <button
+                  class="btn btn-primary form-inline"
+                  ng-class="{reportDisabled: disabled}"
+                  type="button"
+                  data-toggle="collapse" data-target="#showSearch"
+                  ng-click="$ctrl.report('woDump')">
+                  Excel WO Dump
+                </button>
+                <button
+                  class="btn btn-primary form-inline"
+                  ng-class="{reportDisabled: disabled}"
+                  type="button"
+                  data-toggle="collapse" data-target="#showSearch"
+                  ng-click="$ctrl.report('woPartsDump')">
+                  Excel WO Parts Dump
+                </button>
 
               </div>
 
