@@ -31,7 +31,7 @@
         </tr><!-- end header row -->
       </thead><!-- end table header -->
       <tbody>
-        <tr ng-click="rowsClickAction(obj); clearSearchPhrase(obj)"
+        <tr ng-click="clearSearchPhrase(obj); model.rowsClickAction(obj)"
             ng-repeat="obj in oList = (objectList | filter: filterPart)">
           <td class="super-table tableCell" ng-repeat="c in displayColumns">
             {{obj[c.objKey]}}
