@@ -10,6 +10,7 @@ const express  = require('express'),
   Promise      = require('bluebird'),
   cookieParser = require('cookie-parser'),
   bodyParser   = require('body-parser'),
+  TH           = require('./lib/helpers/task_helper'),
   mongoose     = require('mongoose');
 
 //Catch uncaught exceptions to log in bunyan
