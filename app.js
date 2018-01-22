@@ -11,6 +11,7 @@ const express  = require('express'),
   cookieParser = require('cookie-parser'),
   bodyParser   = require('body-parser'),
   TH           = require('./lib/helpers/task_helper'),
+  DS           = require('./lib/databaseScripts'),
   mongoose     = require('mongoose');
 
 //Catch uncaught exceptions to log in bunyan
