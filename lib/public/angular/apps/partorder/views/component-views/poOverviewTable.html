@@ -33,25 +33,42 @@
                   placeholder="yyyy-mm-dd">
               </div>
 
-              <!-- row 2 -->
+              <!-- row 2-->
+              <div class="form-group has-feedback">
+                <label for="destination">Destination</label>
+                <input type="text"
+                       id="destination"
+                       class="form-control search"
+                       ng-model="$ctrl.destination"
+                >
+                <span
+                  ng-if="$ctrl.destination"
+                  ng-click="$ctrl.clearText('destination')"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  uib-tooltip="clear"
+                >
+                </span>
+              </div>
+
+              <!-- row 3 -->
               <div class="form-group">
                 <label for="Pending">Pending</label>
                 <input type="checkbox" id="Pending" name="Completed" ng-model="$ctrl.pending"/>
               </div>
 
-              <!-- row 3 -->
+              <!-- row 4 -->
               <div class="form-group">
                 <label for="BackOrder">Back Ordered</label>
                 <input type="checkbox" id="BackOrder" name="Completed" ng-model="$ctrl.backorder"/>
               </div>
 
-              <!-- row 4 -->
+              <!-- row 5 -->
               <div class="form-group">
                 <label for="Shipped">Shipped</label>
                 <input type="checkbox" id="Shipped" name="Completed" ng-model="$ctrl.shipped"/>
               </div>
 
-              <!-- row 5 -->
+              <!-- row 6 -->
               <button
                 class="btn btn-primary form-inline"
                 type="button"
@@ -86,12 +103,29 @@
               </div>
 
               <!-- row 2 -->
+              <div class="form-group has-feedback">
+                <label for="username">Tech ID</label>
+                <input type="text"
+                       id="username"
+                       class="form-control search"
+                       ng-model="$ctrl.username"
+                >
+                <span
+                  ng-if="$ctrl.username"
+                  ng-click="$ctrl.clearText('username')"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  uib-tooltip="clear"
+                >
+                </span>
+              </div>
+
+              <!-- row 3 -->
               <div class="form-group">
                 <label for="Completed">Completed</label>
                 <input type="checkbox" id="Completed" name="Completed" ng-model="$ctrl.completed"/>
               </div>
 
-              <!-- row 3 -->
+              <!-- row 4 -->
               <div class="form-group">
                 <label for="Canceled">Canceled</label>
                 <input type="checkbox" id="Canceled" name="Canceled" ng-model="$ctrl.canceled"/>
