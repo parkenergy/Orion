@@ -5,13 +5,13 @@
   <div class="panel-body">
     <div style="font-weight: normal; margin-bottom: 10px;">
       <input type="checkbox"
-      ng-model="workorder.pm"
-      ng-change="pmChange(workorder.pm)">PM
+        ng-model="workorder.pm"
+        ng-change="pmChange(workorder.pm)">PM
     </div>
     <div ng-repeat="obj in type" style="font-weight: normal; margin-bottom: 10px;">
       <input type="checkbox"
-      ng-model="obj.value"
-      ng-change="typeChange(obj)">{{ obj.text }}
+        ng-model="obj.value"
+        ng-change="typeChange(obj)">{{ obj.text }}
     </div>
   </div>
 </div>
