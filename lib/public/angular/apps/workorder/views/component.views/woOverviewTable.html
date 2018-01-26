@@ -290,7 +290,7 @@
             style="background-color: {{$ctrl.setBillableBackgroundColor(workorder)}}">
           <td>{{ workorder.unitNumber }}</td>
           <td>{{ workorder.techName }}</td>
-          <td>{{ workorder.orderType }}</td>
+          <td>{{ workorder.orderType }}{{workorder.pm ? ' (PM)': ''}}</td>
           <td>{{ workorder.stateName }}</td>
           <td>{{ workorder.locationName}}</td>
           <td>{{ workorder.customerName }}</td>
