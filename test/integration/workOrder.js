@@ -34,7 +34,7 @@ describe("WorkOrder Integrations", () => {
   before(() => {
     fixture.type = "Corrective";
     fixture.header.customerName = "APACHE CORP";
-    
+
     return State.remove({})
       .then(() => County.remove({}))
       .then(() => Unit.remove({}))
@@ -49,7 +49,7 @@ describe("WorkOrder Integrations", () => {
         wo.header.customerName = "APACHE CORP";
       });
   });
-  
+
   after(() => {
     return County.remove({})
     .then(() => State.remove({}))
@@ -59,7 +59,7 @@ describe("WorkOrder Integrations", () => {
   it("Should sync WorkOrder to Netsuite", () => {
     nock('https://rest.na1.netsuite.com/', {
         reqheaders: {
-          'Authorization': 'NLAuth nlauth_account=4086435,nlauth_email=WebServices@parkenergyservices.com,nlauth_signature=~Orion2017~',
+          'Authorization': 'NLAuth nlauth_account=4086435,nlauth_email=WebServices@parkenergyservices.com,nlauth_signature=~Orion2018~',
           'User-Agent': 'SuiteScript-Call'
         },
       })
@@ -67,9 +67,9 @@ describe("WorkOrder Integrations", () => {
       .reply(200, {
         nswoid: "1234"
       });
-    
+
     wo.netsuiteSyned = true;
-    
+
       return WorkOrder.updateDoc(wo.id, wo, userFixture)
         .then(doc => {
           doc.timeSynced.should.be.Date();
