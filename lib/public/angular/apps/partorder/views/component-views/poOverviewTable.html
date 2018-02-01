@@ -27,8 +27,8 @@
                 <label>From</label>
                 <input
                   class="form-control search"
-                  ng-model="$ctrl.dates.from"
-                  ng-change="$ctrl.startOfDay()"
+                  ng-model="$ctrl.dates.fromInput"
+                  ng-change="$ctrl.postartOfDay($ctrl.dates.fromInput)"
                   name="fromDate" type="date"
                   placeholder="yyyy-mm-dd">
               </div>
@@ -96,8 +96,8 @@
                 <label>To</label>
                 <input
                   class="form-control search"
-                  ng-model="$ctrl.dates.to"
-                  ng-change="$ctrl.endOfDay()"
+                  ng-model="$ctrl.dates.toInput"
+                  ng-change="$ctrl.poendOfDay($ctrl.dates.toInput)"
                   name="toDate" type="date"
                   placeholder="yyyy-mm-dd">
               </div>
