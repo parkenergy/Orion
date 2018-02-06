@@ -13,5 +13,12 @@
         ng-model="obj.value"
         ng-change="typeChange(obj)">{{ obj.text }}
     </div>
+    <div ng-show="workorder.type === 'Corrective'">
+      <div style="font-weight: normal; margin-bottom: 10px;">
+        <input type="checkbox"
+               ng-model="workorder.atShop">
+        {{'Shop Work?'}}
+      </div>
+    </div>
   </div>
 </div>

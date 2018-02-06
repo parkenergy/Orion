@@ -13,6 +13,15 @@
     <div data-ng-repeat="woType in workorderTypes2" style="font-weight: normal; margin-bottom: 10px">
       <input type="checkbox" ng-model="workorder.type" ng-checked="workorder.type ==='{{ woType }}'" ng-change="nonPmType()" ng-disabled="true">{{ woType }}
     </div>
+    <div ng-show="workorder.type === 'Corrective'">
+      <div style="font-weight: normal; margin-bottom: 10px;">
+        <input type="checkbox"
+               ng-model="workorder.atShop"
+               ng-disabled="true"
+               ng-change="atShopChange()">
+        {{'Shop Work?'}}
+      </div>
+    </div>
   </div>
 </div>
 
