@@ -288,7 +288,7 @@
                infinite-scroll-disabled="false">
         <tr ng-repeat="workorder in $ctrl.workorders | orderBy:$ctrl.orderByField:$ctrl.reverseSort"  ng-click="$ctrl.clickWorkOrder(workorder);"
             style="background-color: {{$ctrl.setBillableBackgroundColor(workorder)}}">
-          <td>{{ workorder.unitNumber }}</td>
+          <td>{{ workorder.unitNumber === '' ? '-' : workorder.unitNumber }}</td>
           <td>{{ workorder.techName }}</td>
           <td>{{ workorder.orderType }}{{workorder.pm ? ' (PM)': ''}}</td>
           <td>{{ workorder.stateName }}</td>
