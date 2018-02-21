@@ -113,6 +113,15 @@
     </time-field>
     <time-field
       show="true"
+      label-text="Inventory"
+      model-name="laborCodes.basic.inventory"
+      on-data-change="changeThisTimeField(changedData, selected)"
+      data="workorder.laborCodes.basic.inventory"
+      hours="hours"
+      minutes="minutes">
+    </time-field>
+    <time-field
+      show="true"
       label-text="Training"
       model-name="laborCodes.basic.training"
       on-data-change="changeThisTimeField(changedData, selected)"
