@@ -5,7 +5,8 @@
     <div class="panel-heading clearfix title">
       <h3 class="panel-title pull-left">Park</h3>
 
-      <div class="pull-right status">Active PM Status: <span class="spaceMe" style="background-color: {{$ctrl.PMS.setBackgroundColor($ctrl.activePMStatus)}}">{{$ctrl.activePMStatus}}%</span></div>
+      <div class="pull-right status">Active User PM Status: <span class="spaceMe" style="background-color: {{$ctrl.PMS.setBackgroundColor($ctrl.activePMStatus)}}">{{$ctrl.activePMStatus}}%</span></div>
+      <div class="pull-right status">Active Unit PM Status: <span class="spaceMe" style="background-color: {{$ctrl.PMS.setBackgroundColor($ctrl.activePMStatus)}}">{{$ctrl.activeUnitPMStatus}}%</span></div>
       <div class="pull-right status1">Active: <span class="spaceMe">{{$ctrl.active}}</span></div>
       <div class="pull-right status1">Test: <span class="spaceMe">{{$ctrl.test}}</span></div>
       <div class="pull-right status1">Idle: <span class="spaceMe">{{$ctrl.idle}}</span></div>
@@ -18,7 +19,7 @@
     <thead>
       <tr>
         <!-- heading sort click -->
-        <th ng-click="$ctrl.resort('locationName')" class="col-xs-4">
+        <th ng-click="$ctrl.resort('locationName')" class="col-xs-2">
           Area
           <span
             ng-show="$ctrl.sortType === 'locationName' && !$ctrl.sortReverse"
@@ -58,8 +59,18 @@
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
-        <th ng-click="$ctrl.resort('percent')" class="col-xs-2 text-center">
-          Percent
+        <th ng-click="$ctrl.resort('unitPercent')" class="col-xs-2 text-center">
+          Unit Percent
+          <span
+            ng-show="$ctrl.sortType === 'unitPercent' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType === 'unitPercent' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
+        <th ng-click="$ctrl.resort('unitPercent')" class="col-xs-2 text-center">
+          User Percent
           <span
             ng-show="$ctrl.sortType === 'percent' && !$ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-down"></span>
@@ -79,6 +90,7 @@
         <td class="text-center">{{ area.areaAvg }}</td>
         <td class="text-center">{{ area.unapproved }}</td>
         <td class="text-center">{{ area.activeUnits }}</td>
+        <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(area.percent)}}">{{ area.unitPercent }}%</td>
         <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(area.percent)}}">{{ area.percent }}%</td>
       </tr>
     </tbody>

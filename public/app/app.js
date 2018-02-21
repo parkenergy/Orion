@@ -24,6 +24,7 @@ angular.module('Orion', [
   'UnitApp',
   'UserApp',
   'VendorApp',
+  'PaidTimeOffApp',
   'PartOrderApp',
   'CallReportApp',
   'WorkOrderApp',
@@ -35,12 +36,12 @@ angular.module('Orion', [
   angular.module('Orion').config(['$routeProvider', '$authProvider',
     function ($routeProvider, $authProvider) {
       $routeProvider
-      
+
       .when('/', {
         controller: 'LoginCtrl',
         templateUrl: '/lib/public/angular/views/controller.views/clientLogin.html'
       })
-      
+
       .when('/myaccount', {
         needsLogin: true,
         controller: 'MyAccountCtrl',
@@ -72,7 +73,7 @@ angular.module('Orion', [
           }
         }
       })
-      
+
       .when('/areapmreport/:name/:user', {
         needsLogin: true,
         controller: 'UserPMReportCtrl',
@@ -84,7 +85,7 @@ angular.module('Orion', [
           }
         }
       });
-      
+
       $authProvider.google({
         url: '/auth/google',
         authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',

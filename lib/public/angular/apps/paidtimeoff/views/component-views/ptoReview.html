@@ -1,0 +1,133 @@
+<div id="PTOCReview">
+  <div class="row">
+
+    <div class="col-md-2 col-xs-2">
+      <div>User ID</div>
+      <div class="ptor-content">{{ $ctrl.paidtimeoff.username }}</div>
+    </div>
+
+    <div class="col-md-2 col-xs-2">
+      <div>Type</div>
+      <div class="ptor-content">{{ $ctrl.paidtimeoff.type }}</div>
+    </div>
+
+    <div class="col-md-2 col-xs-2">
+      <div>Hours</div>
+      <div class="ptor-content">{{ $ctrl.paidtimeoff.hours }}</div>
+    </div>
+
+    <div class="col-md-3 col-xs-3">
+      <div>Request Made</div>
+      <div class="ptor-content">{{ $ctrl.paidtimeoff.created | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
+    </div>
+
+  </div>
+
+  <div class="row" id="table">
+
+    <table class="table table-bordered table-striped">
+      <!--Search settings-->
+      <thead>
+      <tr>
+        <th>Date From</th>
+        <th>Date To</th>
+        <th>Approval Status</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>{{ $ctrl.paidtimeoff.DateFrom | date: 'MM/dd/yyyy' }}</td>
+        <td>{{ $ctrl.paidtimeoff.DateTo | date: 'MM/dd/yyyy' }}</td>
+        <td>
+          <div>
+            <ul>
+              <ol>
+                <check-box
+                  label-text="Approve"
+                  box-styling="margin: 0px"
+                  input-styling=""
+                  model-name="approved"
+                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                  data="$ctrl.paidtimeoff.approved"
+                  disabled="$ctrl.checkDisabled()">
+                </check-box>
+              </ol>
+              <ol>
+                <check-box
+                  label-text="Reject"
+                  box-styling="margin: 0px"
+                  input-styling=""
+                  model-name="rejected"
+                  on-data-change="$ctrl.thisBoxDataChange(changedData, selected)"
+                  data="$ctrl.paidtimeoff.rejected"
+                  disabled="$ctrl.checkDisabled()">
+                </check-box>
+              </ol>
+            </ul>
+          </div>
+        </td>
+        <td ng-show="$ctrl.paidtimeoff.adminReviewed === false && $ctrl.paidtimeoff.approvedBy === ''">
+          <Button class="btn btn-lg btn-primary"
+                  ng-click="$ctrl.setManagerReviewed()"
+                  ng-disabled="($ctrl.paidtimeoff.rejected === false && $ctrl.paidtimeoff.approved === false)"
+          >
+            Submit
+          </Button>
+        </td>
+        <td ng-show="$ctrl.paidtimeoff.adminReviewed === false && $ctrl.paidtimeoff.approvedBy !== ''">
+          <Button class="btn btn-lg btn-primary"
+                  ng-click="$ctrl.setAdminReviewed()"
+          >
+            Set Reviewed
+          </Button>
+        </td>
+        <td ng-show="$ctrl.paidtimeoff.adminReviewed === true">
+          Reviewed
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <div class="row ">
+
+    <div class="col-md-6">
+      <div class="panel panel-default po-review">
+        <div class="panel-body">
+          <text-area-field
+            data="$ctrl.paidtimeoff.comment"
+            label-text="User Comments"
+            disabled="true">
+          </text-area-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="panel panel-default po-review">
+        <div class="panel-body">
+          <div ng-if="$ctrl.paidtimeoff.approvedBy === ''">
+            <text-area-field
+              data="$ctrl.paidtimeoff.managerComment"
+              label-text="Manager Comments"
+              on-data-change="$ctrl.managerCommentChange(changedData, selected)"
+              disabled="false">
+            </text-area-field>
+          </div>
+          <div ng-if="$ctrl.paidtimeoff.approvedBy !== ''">
+            <text-area-field
+              data="$ctrl.paidtimeoff.managerComment"
+              label-text="Manager Comments"
+              disabled="true">
+            </text-area-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

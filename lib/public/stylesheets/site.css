@@ -6309,6 +6309,54 @@ input[type="checkbox"] {
   height: 80px;
   margin-bottom: 10px;
 }
+#PTOOverviewTable div.text-center.pto-overview {
+  margin-bottom: 25px;
+}
+#PTOOverviewTable div.text-center.pto-overview button.pto-overview {
+  width: 80%;
+  height: 50px;
+}
+#PTOOverviewTable i.fa.fa-refresh.fa-spin.pto-overview {
+  font-size: 80px;
+}
+#PTOCReview div.row {
+  margin-bottom: 25px;
+}
+#PTOCReview div.row div.col-md-2.col-xs-2 {
+  margin-left: 25px;
+}
+#PTOCReview div.row div.col-md-2.col-xs-2 div.ptor-content {
+  background-color: #c2c8d1;
+  text-align: center;
+  vertical-align: middle;
+}
+#PTOCReview div.row div.col-md-3.col-xs-3 {
+  margin-left: 25px;
+}
+#PTOCReview div.row div.col-md-3.col-xs-3 div.ptor-content {
+  background-color: #c2c8d1;
+  text-align: center;
+  vertical-align: middle;
+}
+#PTOCReview #table {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+#PTOCReview #table div.panel-body.po-edit-table {
+  padding: 0px;
+}
+#PTOCReview #table div.panel-body.po-edit-table table.table-bordered.table-striped.po-edit-table {
+  margin-bottom: 0px;
+}
+#PTOCReview #table div.panel-body.po-edit-table table.table-bordered.table-striped.po-edit-table ul {
+  padding-left: 0px;
+}
+#PTOCReview #table div.panel-body.po-edit-table table.table-bordered.table-striped.po-edit-table ul ol {
+  padding-left: 5px;
+}
+#PaidTimeOffOverview i.fa.fa-refresh.fa-spin.pto-overview {
+  font-size: 80px;
+}
 #UnitMap .angular-google-map-container {
   height: 80vh;
 }
@@ -6360,8 +6408,8 @@ input[type="checkbox"] {
   text-align: center;
 }
 #PMDash div.pull-right.status {
-  width: 200px;
-  max-width: 250px;
+  width: 300px;
+  max-width: 350px;
   text-align: center;
 }
 #PMDash div.pull-right.status1 {
