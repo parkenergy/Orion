@@ -1,0 +1,61 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Unit Change Information</h3>
+  </div>
+  <div class="panel-body">
+    <text-field
+      class="col-xs-4"
+      label-text="Yard Destination"
+      data="workorder.unitChangeInfo.releaseDestination"
+      ng-show="workorder.type === 'Release'"
+      disabled="false">
+    </text-field>
+
+    <text-field
+      class="col-xs-4"
+      label-text="New County"
+      data="workorder.unitChangeInfo.transferCounty"
+      ng-show="workorder.type === 'Transfer'"
+      disabled="false">
+    </text-field>
+    <text-field
+      class="col-xs-4"
+      label-text="New State"
+      data="workorder.unitChangeInfo.transferState"
+      ng-show="workorder.type === 'Transfer'"
+      disabled="false">
+    </text-field>
+    <text-field
+      class="col-xs-4"
+      label-text="New Lease"
+      data="workorder.unitChangeInfo.transferLease"
+      ng-show="workorder.type === 'Transfer'"
+      disabled="false">
+    </text-field>
+
+    <div class="form-group col-xs-4">
+      <label>New Unit #</label>
+      <input
+        type="text"
+        ng-style="myStyle"
+        name="number"
+        ng-model="workorder.unitChangeInfo.swapUnitNumber"
+        ng-change="swapUnitNumberChange(workorder.unitChangeInfo.swapUnitNumber)"
+        uib-typeahead="unit.number for unit in unitNumberArray | filter:$viewValue | limitTo:12"
+        class="form-control"
+        pes-swap-collection-match
+        typeahead-wait-ms="100"
+        typeahead-select-on-exact="true"
+        typeahead-on-select="swapUnitNumberChange(workorder.unitChangeInfo.swapUnitNumber)"
+        ng-disabled="disabled">
+    </div>
+    <text-field
+      class="col-xs-4"
+      label-text="Old Unit Yard Destination"
+      data="workorder.unitChangeInfo.swapDestination"
+      ng-show="workorder.type === 'Swap'"
+      disabled="false">
+    </text-field>
+
+  </div>
+</div>
