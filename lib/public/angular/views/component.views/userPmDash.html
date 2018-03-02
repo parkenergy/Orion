@@ -53,6 +53,16 @@
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
+        <th ng-click="$ctrl.resort('unitNumber')" class="col-xs-1">
+         Customer
+          <span
+            ng-show="$ctrl.sortType === 'unitNumber' && !$ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-down"></span>
+          <span
+            ng-show="$ctrl.sortType === 'unitNumber' && $ctrl.sortReverse"
+            class="glyphicon glyphicon-chevron-up"></span>
+        </th>
+
         <th ng-click="$ctrl.resort('corrective')" class="col-xs-1">
           Corrective
           <span
@@ -131,6 +141,7 @@
       <tr ng-repeat="unit in $ctrl.displayUnits | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
         ng-click="$ctrl.searchUnits(unit)">
         <td class="text-center">{{ unit.unitNumber }}</td>
+        <td class="text-center">{{ unit.customerName }}</td>
         <td class="text-center">{{ unit.corrective }}</td>
         <td class="text-center">{{ unit.release }}</td>
         <td class="text-center">{{ unit.troubleCall }}</td>
