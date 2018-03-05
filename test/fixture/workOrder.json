@@ -130,8 +130,8 @@
         "minutes" : 0,
         "hours" : 0
       },
-      "replaceRadiator" : {
-        "text" : "Replace Radiator",
+      "coolingSystem" : {
+        "text" : "Cooling System",
         "minutes" : 0,
         "hours" : 0
       },
@@ -546,8 +546,8 @@
         "minutes": 0,
         "hours": 0
       },
-      "replaceRadiator": {
-        "text": "Replace Radiator",
+      "coolingSystem": {
+        "text": "Cooling System",
         "minutes": 0,
         "hours": 0
       },
