@@ -11,8 +11,18 @@
   </div>
 
   <div class="col-xs-9">
-    <review-heading></review-heading>
+    <div class="row">
+      <div class="col-xs-12">
+        <review-heading></review-heading>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12" ng-show="workorder.type === 'Release' || workorder.type === 'Transfer' || workorder.type === 'Swap'">
+       <unit-change-info></unit-change-info>
+      </div>
+    </div>
   </div>
+
 </div>
 
 <div class="row">

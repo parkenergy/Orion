@@ -63,7 +63,7 @@ describe("WorkOrder Units", () => {
           doc.should.be.Array().with.length(1);
           doc[0].updated_at.should.be.a.Date();
           doc[0].should.have.property("_id");
-          
+
           doc[0].header.should.have.property('unitNumber');
           doc[0].header.unitNumber.should.be.a.String();
           doc[0].header.unitNumber.should.equal('TEST1');
@@ -177,7 +177,7 @@ describe("WorkOrder Units", () => {
 
             return [...unitDocs, ...techDocs, ...locDocs, ...custDocs];
           })
-          .then(docs => WorkOrder.insertMany(docs))
+          .then(docs => WorkOrder.createDoc(docs))
           .then(() => {
             let newUser = _.clone(userFixture);
 

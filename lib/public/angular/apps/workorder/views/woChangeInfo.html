@@ -1,0 +1,91 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Unit Change Information</h3>
+  </div>
+  <div class="panel-body">
+    <div class="form-group col-xs-4" ng-show="workorder.type === 'Release'">
+      <label>Yard Destination</label>
+      <input
+        type="text"
+        name="releaseDestination"
+        ng-model="workorder.unitChangeInfo.releaseDestination"
+        uib-typeahead="yard.name for yard in yards | filter:$viewValue | limitTo:12"
+        class="form-control"
+        typeahead-select-on-exact="true"
+        ng-disabled="disabled">
+    </div>
+
+
+    <div class="form-group col-xs-4" ng-show="workorder.type === 'Transfer'">
+      <label>New County</label>
+      <input
+        type="text"
+        ng-style="myStyle"
+        name="county"
+        ng-model="workorder.unitChangeInfo.transferCounty"
+        uib-typeahead="county for county in countiesArray | filter:$viewValue | limitTo:12"
+        class="form-control"
+        pes-swap-collection-match
+        typeahead-select-on-exact="true"
+        ng-disabled="disabled">
+    </div>
+    <div class="form-group col-xs-4" ng-show="workorder.type === 'Transfer'">
+      <label>New State</label>
+      <input
+        type="text"
+        ng-style="myStyle"
+        name="transferState"
+        ng-model="workorder.unitChangeInfo.transferState"
+        uib-typeahead="state for state in statesArray | filter:$viewValue | limitTo:12"
+        class="form-control"
+        pes-swap-collection-match
+        typeahead-select-on-exact="true"
+        ng-disabled="disabled">
+    </div>
+    <div class="form-group col-xs-4" ng-show="workorder.type === 'Transfer'">
+      <label>New Lease</label>
+      <input
+        type="text"
+        ng-style="myStyle"
+        name="transferLease"
+        ng-model="workorder.unitChangeInfo.transferLease"
+        ng-change="leaseChange(workorder.unitChangeInfo.transferLease)"
+        uib-typeahead="unit.locationName for unit in unitLocationArray | filter:$viewValue | limitTo:12"
+        class="form-control"
+        pes-swap-collection-match
+        typeahead-wait-ms="100"
+        typeahead-select-on-exact="true"
+        typeahead-on-select="leaseChange(workorder.unitChangeInfo.transferLease)"
+        ng-disabled="disabled">
+    </div>
+
+    <div class="form-group col-xs-4" ng-show="workorder.type === 'Swap'">
+      <label>New Unit #</label>
+      <input
+        type="text"
+        ng-style="myStyle"
+        name="number"
+        ng-model="workorder.unitChangeInfo.swapUnitNumber"
+        ng-change="swapUnitNumberChange(workorder.unitChangeInfo.swapUnitNumber)"
+        uib-typeahead="unit.number for unit in unitNumberArray | filter:$viewValue | limitTo:12"
+        class="form-control"
+        pes-swap-collection-match
+        typeahead-wait-ms="100"
+        typeahead-select-on-exact="true"
+        typeahead-on-select="swapUnitNumberChange(workorder.unitChangeInfo.swapUnitNumber)"
+        ng-disabled="disabled">
+    </div>
+    <div class="form-group col-xs-4" ng-show="workorder.type === 'Swap'">
+      <label>Old Unit Yard Destination</label>
+      <input
+        type="text"
+        name="swapDestination"
+        ng-model="workorder.unitChangeInfo.swapDestination"
+        uib-typeahead="yard.name for yard in yards | filter:$viewValue | limitTo:12"
+        class="form-control"
+        typeahead-select-on-exact="true"
+        ng-disabled="disabled">
+    </div>
+
+  </div>
+</div>
