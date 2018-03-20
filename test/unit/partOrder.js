@@ -59,7 +59,7 @@ describe("PartOrder Units", () => {
 
           docs[0].part.should.be.an.instanceOf(Object);
           docs[0].part.should.have.property('isManual');
-          docs[0].part.MPN.should.equal('111000/TEST');
+          docs[0].part.MPN.should.equal('111-000');
         });
     });
 
@@ -94,8 +94,7 @@ describe("PartOrder Units", () => {
         .then(() =>  PartOrder.createDoc(fixture))
         .then(docs => {
           updatingDoc = _.cloneDeep(docs[0]);
-          updatingDoc.trackingNumber = '1234-5678-910';
-          updatingDoc.carrier = 'UPS';
+          updatingDoc.poNumber = '1234-5678-910';
           updatingDoc.approvedBy = 'TEST001';
           orderId = docs[0].orderId;
           updated_at = docs[0].updated_at;
@@ -104,22 +103,22 @@ describe("PartOrder Units", () => {
 
     afterEach(() => PartOrder.remove({}));
 
-    it("Should set timeShipped on status change to 'shipped'", () => {
-      updatingDoc.status = 'shipped';
+    it("Should set timeOrdered on status change to 'ordered'", () => {
+      updatingDoc.status = 'ordered';
 
       return PartOrder.updateDoc(orderId, updatingDoc)
         .then(doc => {
           should.exist(doc);
           doc.should.not.be.Array();
-          doc.timeShipped.should.be.a.Date();
+          doc.timeOrdered.should.be.a.Date();
 
           doc.updated_at.should.not.eql(updated_at);
-          doc.trackingNumber.should.be.equal('1234-5678-910');
+          doc.poNumber.should.be.equal('1234-5678-910');
         });
     });
 
     it("Should set many fields on status change to 'completed'", () => {
-      updatingDoc.status = 'shipped';
+      updatingDoc.status = 'ordered';
 
       return PartOrder.updateDoc(orderId, updatingDoc)
         .then(doc => {
@@ -134,7 +133,6 @@ describe("PartOrder Units", () => {
 
           doc.updated_at.should.not.eql(updated_at);
           doc.completedBy.should.be.equal('TEST002');
-          doc.carrier.should.be.equal('UPS');
           doc.done.should.be.equal(true);
         })
     });
@@ -199,7 +197,7 @@ describe("PartOrder Units", () => {
             let pendingDateDocs = _.range(10).map(() => {
               let f = _.cloneDeep(fixture);
               f.techId = "TEST003";
-              f.timeCreated = new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)');
+              f.timeSubmitted = new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)');
               f.status = 'pending';
               return f;
             });
@@ -218,7 +216,7 @@ describe("PartOrder Units", () => {
 
             let shippedDocs = _.range(10).map(() => {
               let f = _.cloneDeep(fixture);
-              f.status = 'shipped';
+              f.status = 'ordered';
               return f;
             });
 
@@ -252,7 +250,7 @@ describe("PartOrder Units", () => {
           pending:    true,
           backorder:  true,
           canceled:   true,
-          shipped:    true,
+          ordered:    true,
           completed:  true
         },
         size:      10,
@@ -312,7 +310,7 @@ describe("PartOrder Units", () => {
           pending:    true,
           backorder:  false,
           canceled:   false,
-          shipped:    false,
+          ordered:    false,
           completed:  false
         },
         size:      50,
@@ -338,7 +336,7 @@ describe("PartOrder Units", () => {
           pending:    true,
           backorder:  false,
           canceled:   false,
-          shipped:    false,
+          ordered:    false,
           completed:  true
         },
         size:      20,
@@ -360,7 +358,7 @@ describe("PartOrder Units", () => {
 
     it("Should list 10 partOrders with specific timeCreated", () => {
       const options = {
-        sort:       '-timeCreated',
+        sort:       '-timeSubmitted',
         supervised: ['TEST001', 'TEST003'],
         to: new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)'),
         from: new Date('Wed Jan 18 2017 11:32:45 GMT-0600 (CST)'),
@@ -368,7 +366,7 @@ describe("PartOrder Units", () => {
           pending:    true,
           backorder:  true,
           canceled:   true,
-          shipped:    true,
+          ordered:    true,
           completed:  true
         },
         size:      60,
