@@ -27,10 +27,15 @@
     <div ng-show="workorder.netsuiteSyned">
       Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
     </div>
-    <button ng-disabled="workorder.netsuiteSyned" class="btn btn-lg btn-primary pull-right"
-            style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
+    <button ng-disabled="workorder.netsuiteSyned" class="btn btn-lg btn-primary pull-left"
+            style="width: 45%; height: 100px; margin-left: 20px; margin-bottom: 20px"
             ng-click="save()">
       Complete
+    </button>
+    <button ng-disabled="workorder.netsuiteSyned" class="btn btn-lg btn-danger pull-right"
+            style="width: 45%; height: 100px; margin-right: 20px; margin-bottom: 20px"
+            ng-click="destroy()">
+      Delete
     </button>
     <div class="clearfix" style="height: 65px;"></div>
   </div>
