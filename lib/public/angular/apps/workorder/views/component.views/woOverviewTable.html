@@ -13,7 +13,7 @@
       <!-- Search Bar -->
       <div class="col-md-11">
         <div class="panel panel-default">
-          <div class="panel-heading" data-toggle="collapse" data-target="#showSearch">
+          <div class="panel-heading" data-toggle="collapse" data-target="#showSearch" ng-click="$ctrl.clicked()">
             <h3 class="panel-title">Search</h3>
             <span class="pull-right">{{$ctrl.woSearchCount}}</span>
           </div>
@@ -29,6 +29,7 @@
                   <input class="form-control search"
                          ng-model="$ctrl.dates.fromInput"
                          ng-change="$ctrl.startOfDay($ctrl.dates.fromInput)"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          name="fromDate" type="date">
                 </div>
 
@@ -40,6 +41,7 @@
                          name="unitNumber"
                          ng-model="$ctrl.unitNumber"
                          ng-change="$ctrl.changeTextField($ctrl.unitNumber, 'unitNumber')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="text" />
                   <span
                     ng-if="$ctrl.unitNumber"
@@ -57,6 +59,7 @@
                          name="location"
                          ng-model="$ctrl.leaseName"
                          ng-change="$ctrl.changeTextField($ctrl.leaseName, 'leaseName')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="text" />
                   <span
                     ng-if="$ctrl.leaseName"
@@ -73,6 +76,7 @@
                          name="billable"
                          ng-model="$ctrl.billable"
                          ng-change="$ctrl.changeCheckBox($ctrl.billable, 'billable')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="checkbox" />
                 </div>
 
@@ -83,6 +87,7 @@
                          name="billParts"
                          ng-model="$ctrl.billParts"
                          ng-change="$ctrl.changeCheckBox($ctrl.billParts, 'billParts')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="checkbox" />
                 </div>
 
@@ -93,6 +98,7 @@
                          name="billed"
                          ng-model="$ctrl.billed"
                          ng-change="$ctrl.changeCheckBox($ctrl.billed, 'billed')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="checkbox" />
                 </div>
 
@@ -117,6 +123,7 @@
                          ng-model="$ctrl.dates.toInput"
                          ng-change="$ctrl.endOfDay($ctrl.dates.toInput)"
                          name="toDate"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="date">
                 </div>
 
@@ -145,6 +152,7 @@
                          name="customer"
                          ng-model="$ctrl.customerName"
                          ng-change="$ctrl.changeTextField($ctrl.customerName, 'customerName')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="text" />
                   <span
                     ng-if="$ctrl.customerName"
@@ -162,6 +170,7 @@
                          name="searchSupervisor"
                          ng-model="$ctrl.searchSupervisor"
                          ng-change="$ctrl.changeTextField($ctrl.searchSupervisor, 'supervisor')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="text" />
                   <span
                     ng-if="$ctrl.searchSupervisor"
@@ -179,6 +188,7 @@
                          name="unapproved"
                          ng-model="$ctrl.unapproved"
                          ng-change="$ctrl.changeCheckBox($ctrl.unapproved, 'unapproved')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="checkbox" />
                 </div>
 
@@ -189,6 +199,7 @@
                          name="approved"
                          ng-model="$ctrl.approved"
                          ng-change="$ctrl.changeCheckBox($ctrl.approved, 'approved')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="checkbox" />
                 </div>
 
