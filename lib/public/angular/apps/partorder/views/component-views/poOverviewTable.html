@@ -53,19 +53,19 @@
               <!-- row 3 -->
               <div class="form-group">
                 <label for="Pending">Pending</label>
-                <input type="checkbox" id="Pending" name="Completed" ng-model="$ctrl.pending"/>
+                <input type="checkbox" id="Pending" name="Pending" ng-model="$ctrl.pending"/>
               </div>
 
               <!-- row 4 -->
               <div class="form-group">
                 <label for="BackOrder">Back Ordered</label>
-                <input type="checkbox" id="BackOrder" name="Completed" ng-model="$ctrl.backorder"/>
+                <input type="checkbox" id="BackOrder" name="BackOrder" ng-model="$ctrl.backorder"/>
               </div>
 
               <!-- row 5 -->
               <div class="form-group">
-                <label for="Shipped">Shipped</label>
-                <input type="checkbox" id="Shipped" name="Completed" ng-model="$ctrl.shipped"/>
+                <label for="Ordered">Ordered</label>
+                <input type="checkbox" id="Ordered" name="Ordered" ng-model="$ctrl.ordered"/>
               </div>
 
               <!-- row 6 -->
@@ -214,7 +214,7 @@
 
           <!-- Sort by Time Created -->
           <th ng-click="$ctrl.resort('epoch')">
-            Time Created
+            Time Submitted
             <span
               ng-show="$ctrl.sortType == 'epoch' && !$ctrl.sortReverse"
               class="glyphicon glyphicon-chevron-down"></span>
@@ -236,7 +236,7 @@
           <td>{{ order.destination }}</td>
           <td>{{ order.status }}</td>
           <td>{{ order.quantity }}</td>
-          <td>{{ order.timeCreated | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+          <td>{{ order.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
         </tr>
       </tbody>
 
