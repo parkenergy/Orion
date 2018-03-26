@@ -63,43 +63,13 @@
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
-        <th ng-click="$ctrl.resort('corrective')" class="col-xs-1">
-          Corrective
+        <th ng-click="$ctrl.resort('leaseName')" class="col-xs-2">
+          Lease Name
           <span
-            ng-show="$ctrl.sortType === 'corrective' && !$ctrl.sortReverse"
+            ng-show="$ctrl.sortType === 'leaseName' && !$ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-down"></span>
           <span
-            ng-show="$ctrl.sortType === 'corrective' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
-
-        <th ng-click="$ctrl.resort('release')" class="col-xs-1">
-          Release
-          <span
-            ng-show="$ctrl.sortType === 'release' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'release' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
-
-        <th ng-click="$ctrl.resort('troubleCall')" class="col-xs-1">
-          Trouble Call
-          <span
-            ng-show="$ctrl.sortType === 'troubleCall' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'troubleCall' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
-
-        <th ng-click="$ctrl.resort('newSet')" class="col-xs-1">
-          New Set
-          <span
-            ng-show="$ctrl.sortType === 'newSet' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'newSet' && $ctrl.sortReverse"
+            ng-show="$ctrl.sortType === 'leaseName' && $ctrl.sortReverse"
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
@@ -113,7 +83,7 @@
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
-        <th ng-click="$ctrl.resort('status')" class="col-xs-1">
+        <th ng-click="$ctrl.resort('status')" class="col-xs-3">
           Status
           <span
             ng-show="$ctrl.sortType === 'status' && !$ctrl.sortReverse"
@@ -142,10 +112,7 @@
         ng-click="$ctrl.searchUnits(unit)">
         <td class="text-center">{{ unit.unitNumber }}</td>
         <td class="text-center">{{ unit.customerName }}</td>
-        <td class="text-center">{{ unit.corrective }}</td>
-        <td class="text-center">{{ unit.release }}</td>
-        <td class="text-center">{{ unit.troubleCall }}</td>
-        <td class="text-center">{{ unit.newSet }}</td>
+        <td class="text-center">{{ unit.leaseName }}</td>
         <td class="text-center">{{ unit.PM }}</td>
         <td class="text-center">{{ unit.status }}</td>
         <td class="text-center" style="background-color: {{$ctrl.PMS.setDateBackground(unit.nextPmDate)}}">{{ unit.nextPmDate | date:'MM/dd/yyyy' }}</td>
