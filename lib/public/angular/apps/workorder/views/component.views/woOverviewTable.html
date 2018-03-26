@@ -135,6 +135,7 @@
                          name="techName"
                          ng-model="$ctrl.techName"
                          ng-change="$ctrl.changeTextField($ctrl.techName, 'techName')"
+                         ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
                          type="text" />
                   <span
                     ng-if="$ctrl.techName"
@@ -271,12 +272,12 @@
             <span ng-show="$ctrl.orderByField == 'stateName' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
             <span ng-show="$ctrl.orderByField == 'stateName' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>
           </th>
-          <th ng-click="$ctrl.resort('unit.locationName');">
+          <th ng-click="$ctrl.resort('locationName');">
             Location
             <span ng-show="$ctrl.orderByField == 'locationName' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
             <span ng-show="$ctrl.orderByField == 'locationName' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>
           </th>
-          <th ng-click="$ctrl.resort('unit.customerName');">
+          <th ng-click="$ctrl.resort('header.customerName');">
             Customer
             <span ng-show="$ctrl.orderByField == 'customerName' && !$ctrl.reverseSort" class="glyphicon glyphicon-chevron-up"></span>
             <span ng-show="$ctrl.orderByField == 'customerName' && $ctrl.reverseSort" class="glyphicon glyphicon-chevron-down"></span>

@@ -6367,6 +6367,13 @@ input[type="checkbox"] {
 #UnitSat .angular-google-map-container {
   height: 20.000em;
 }
+#UnitPage .angular-google-map {
+  width: 100%;
+  height: 100%;
+}
+#UnitPage .angular-google-map-container {
+  height: 80vh;
+}
 #UnitsIndex div.panel.panel-default div.panel-heading span p.pull-right.ng-binding {
   margin-bottom: 0;
 }
