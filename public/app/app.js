@@ -81,7 +81,7 @@ angular.module('Orion', [
         resolve: {
           users: function ($route, $q, Users) {
             let username = $route.current.params.user;
-            return Users.query({textId: username}).$promise;
+            return Users.query({userName: username}).$promise;
           }
         }
       });
