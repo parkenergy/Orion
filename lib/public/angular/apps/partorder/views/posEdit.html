@@ -40,7 +40,7 @@
     <div class="col-md-4">
       <div ng-if="type.type === 'canceled' && type.value === true">
         <button
-          disabled="disabled"
+          ng-disabled="disabled"
           class="btn btn-lg btn-danger pull-right po-edit"
           ng-click="submit(type.type)">
           Cancel Part Order
@@ -49,7 +49,7 @@
 
       <div ng-if="type.type === 'completed' && type.value === true">
         <button
-          disabled="disabled"
+          ng-disabled="disabled"
           class="btn btn-lg btn-primary pull-right po-edit"
           ng-click="submit(type.type)">
           Order Arrived
@@ -58,7 +58,7 @@
 
       <div ng-if="type.type === 'ordered' && type.value === true">
         <button
-          disabled="disabled"
+          ng-disabled="disabled"
           class="btn btn-lg btn-primary pull-right po-edit"
           ng-click="submit(type.type)">
           Order Shipment
@@ -67,7 +67,7 @@
 
       <div ng-if="type.type === 'backorder' && type.value === true">
         <button
-          disabled="disabled"
+          ng-disabled="disabled"
           class="btn btn-lg btn-primary pull-right po-edit"
           ng-click="submit(type.type)">
           Place on Back Order
