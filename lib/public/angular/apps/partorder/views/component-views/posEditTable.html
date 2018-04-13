@@ -1,0 +1,34 @@
+<div id="PoEditTable"
+     class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Part Orders</h3>
+  </div>
+  <div class="panel-body po-edit-table">
+    <!--Start Search Table-->
+    <table class="table table-bordered table-striped po-edit-table">
+      <!--Search settings-->
+      <thead>
+        <tr>
+          <th>Tech ID</th>
+          <th>Destination</th>
+          <th>Part #</th>
+          <th>Description</th>
+          <th>status</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="order in $ctrl.partorders">
+          <td>{{ order.techId }}</td>
+          <td>{{ order.destinationLocationName}}</td>
+          <td>{{ order.part.componentName || order.part.number }}</td>
+          <td>{{ order.part.description }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.quantity }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+    <!--End Serch Table-->
+  </div>
+</div>
