@@ -1942,6 +1942,87 @@ function TypeAheadCtrl (ObjectService) {
   // ------------------------------------------------
 }
 
+angular.module('CommonControllers').controller('SuperTableCtrl',
+['$scope', 'AlertService',
+  function ($scope, AlertService) {
+
+    $scope.changeSorting = function (column) {
+      var sort = $scope.sort;
+      if (sort.column == column) {
+        sort.descending = !sort.descending;
+      } else {
+        sort.column = column;
+        sort.descending = false;
+      }
+    };
+
+    $scope.filterPart = function (obj, index, fullArrayOfParts) {
+      if ($scope.searchPhrase) {
+        if ($scope.searchPhrase.length >= 3) {
+          const pattern2 = new RegExp($scope.searchPhrase, 'i');
+          const mpn = obj.MPN ? obj.MPN : '';
+          const desc = obj.description ? obj.description : '';
+          const compN = obj.componentName ? obj.componentName : '';
+          const full = `${mpn} ${desc} ${compN}`;
+          const pattern = new RegExp( '(?=.*\\b' + $scope.searchPhrase.split(' ').join('\\b)(?=.*\\b') + '\\b)', 'i');
+          if (mpn.match(pattern) || desc.match(pattern) || compN.match(pattern) || full.match(pattern) || mpn.match(pattern2) || desc.match(pattern2) || compN.match(pattern2) || full.match(pattern2)) {
+            return true;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    };
+    
+    /* -------------------------------------------------------------------------
+    CONFIGURATION / ON LOAD
+    ------------------------------------------------------------------------- */
+    $scope.getDefaultSort = function () {
+      var column = [];
+      for (var key in $scope.displayColumns) { column.push(key.toString()); }
+      $scope.defaultSort = { column: column, descending: [false] };
+    };
+
+    $scope.onLoad = function () {
+      var m = $scope.model;
+
+      // if the required fields are not present, bail out
+      if (!m.objectList || !m.displayColumns) {
+        console.log("WARNING!");
+        console.log("You failed to provide required data for the directive.");
+        console.log("See super-table documentation for more info.");
+        var errMessage =  "SuperTabelCtrl: " +
+                          "Required attributes were not assigned to model.";
+        throw new Error(errMessage);
+      } else {
+        $scope.tableName = m.tableName || "My Table Name";
+
+        // required variables
+        $scope.objectList = m.objectList;
+        $scope.displayColumns = m.displayColumns;
+
+        // optional variables
+        $scope.rowClickAction = m.rowClickAction;
+        $scope.headerButtons = m.headerButtons;
+        $scope.rowButtons = m.rowButtons;
+        $scope.sort = m.sort || $scope.getDefaultSort();
+
+      }
+    };
+
+    $scope.clearSearchPhrase = function(obj){
+      $scope.searchPhrase = '';
+      var alertString = obj.description + ' added';
+      AlertService.add('success',  alertString);
+    };
+
+    // call on load
+    (function () { $scope.onLoad(); })();
+
+}]);
+
 angular.module('CallReportApp.Controllers', []);
 angular.module('CallReportApp.Components', []);
 angular.module('CallReportApp.Directives', []);
@@ -2135,111 +2216,6 @@ function ($route, $rootScope, $location) {
   };
 }]);
 
-angular.module('PaidTimeOffApp.Controllers', []);
-angular.module('PaidTimeOffApp.Components', []);
-angular.module('PaidTimeOffApp.Directives', []);
-angular.module('PaidTimeOffApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
-
-angular.module('PaidTimeOffApp', [
-  'PaidTimeOffApp.Controllers',
-  'PaidTimeOffApp.Components',
-  'PaidTimeOffApp.Directives',
-  'PaidTimeOffApp.Services',
-  'infinite-scroll'
-]);
-
-angular.module('PaidTimeOffApp').config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider
-
-      .when('/paidtimeoff', {
-        needsLogin: true,
-        controller: 'PaidTimeOffCtrl',
-        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoOverview.html',
-      })
-      .when('/paidtimeoff/review/:id',{
-        needsLogin: true,
-        controller: 'PaidTimeOffReviewCtrl',
-        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoReview.html',
-        resolve: {
-          paidtimeoff: function ($route, $q, PaidTimeOffs) {
-            const id = $route.current.params.id || 0;
-            return (id) ? PaidTimeOffs.get({id}).$promise : null;
-          }
-        }
-      })
-      /*.when('/paidtimeoff/create',{
-        needsLogin: true,
-        controller: 'PaidTimeOffCreateCtrl',
-        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoCreate.html',
-      });*/
-  }
-]);
-
-angular.module('PaidTimeOffApp')
-  .run(['$route', '$rootScope', '$location',
-    function($route, $rootScope, $location) {
-      var original = $location.path;
-      $location.path = function(path, reload) {
-        if (reload === false) {
-          var lastRoute = $route.current;
-          var un = $rootScope.$on('$locationChangeSuccess', function() {
-            $route.current = lastRoute;
-            un();
-          });
-        }
-        return original.apply($location, [path]);
-      };
-    }
-  ]);
-
-
-angular.module('SupportApp.Controllers', []);
-angular.module('SupportApp.Directives', []);
-angular.module('SupportApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
-
-angular.module('SupportApp', [
-  'SupportApp.Controllers',
-  'SupportApp.Directives',
-  'SupportApp.Services',
-]);
-
-angular.module('SupportApp').config(['$routeProvider',
-  function ($routeProvider){
-  $routeProvider
-  .when('/support', {
-    needsLogin: true,
-    controller: 'SupportIndexCtrl',
-    templateUrl: '/lib/public/angular/apps/support/views/index.html',
-    resolve:{
-      me: function ($route, $q, Users) {
-        var deferred = $q.defer();
-        Users.get({id: 'me'},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      }
-    }
-  });
-}]);
-
-angular.module('SupportApp')
-.run(['$route', '$rootScope', '$location',
-function ($route, $rootScope, $location) {
-  var original = $location.path;
-  $location.path = function (path, reload) {
-    if (reload === false) {
-      var lastRoute = $route.current;
-      var un = $rootScope.$on('$locationChangeSuccess', function () {
-          $route.current = lastRoute;
-          un();
-      });
-    }
-    return original.apply($location, [path]);
-  };
-}]);
-
 angular.module('PartOrderApp.Controllers', []);
 angular.module('PartOrderApp.Components', []);
 angular.module('PartOrderApp.Directives', []);
@@ -2343,6 +2319,65 @@ angular.module('PartOrderApp')
   ]);
 
 
+angular.module('PaidTimeOffApp.Controllers', []);
+angular.module('PaidTimeOffApp.Components', []);
+angular.module('PaidTimeOffApp.Directives', []);
+angular.module('PaidTimeOffApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
+
+angular.module('PaidTimeOffApp', [
+  'PaidTimeOffApp.Controllers',
+  'PaidTimeOffApp.Components',
+  'PaidTimeOffApp.Directives',
+  'PaidTimeOffApp.Services',
+  'infinite-scroll'
+]);
+
+angular.module('PaidTimeOffApp').config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider
+
+      .when('/paidtimeoff', {
+        needsLogin: true,
+        controller: 'PaidTimeOffCtrl',
+        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoOverview.html',
+      })
+      .when('/paidtimeoff/review/:id',{
+        needsLogin: true,
+        controller: 'PaidTimeOffReviewCtrl',
+        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoReview.html',
+        resolve: {
+          paidtimeoff: function ($route, $q, PaidTimeOffs) {
+            const id = $route.current.params.id || 0;
+            return (id) ? PaidTimeOffs.get({id}).$promise : null;
+          }
+        }
+      })
+      /*.when('/paidtimeoff/create',{
+        needsLogin: true,
+        controller: 'PaidTimeOffCreateCtrl',
+        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoCreate.html',
+      });*/
+  }
+]);
+
+angular.module('PaidTimeOffApp')
+  .run(['$route', '$rootScope', '$location',
+    function($route, $rootScope, $location) {
+      var original = $location.path;
+      $location.path = function(path, reload) {
+        if (reload === false) {
+          var lastRoute = $route.current;
+          var un = $rootScope.$on('$locationChangeSuccess', function() {
+            $route.current = lastRoute;
+            un();
+          });
+        }
+        return original.apply($location, [path]);
+      };
+    }
+  ]);
+
+
 angular.module('UnitApp.Controllers', []);
 angular.module('UnitApp.Directives', ['uiGmapgoogle-maps']);
 angular.module('UnitApp.Components', []);
@@ -2385,6 +2420,52 @@ angular.module('UnitApp').config(['$routeProvider',
       controller: 'UnitIndexCtrl',
       templateUrl: '/lib/public/angular/apps/unit/views/index.html'
     });
+}]);
+
+angular.module('SupportApp.Controllers', []);
+angular.module('SupportApp.Directives', []);
+angular.module('SupportApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
+
+angular.module('SupportApp', [
+  'SupportApp.Controllers',
+  'SupportApp.Directives',
+  'SupportApp.Services',
+]);
+
+angular.module('SupportApp').config(['$routeProvider',
+  function ($routeProvider){
+  $routeProvider
+  .when('/support', {
+    needsLogin: true,
+    controller: 'SupportIndexCtrl',
+    templateUrl: '/lib/public/angular/apps/support/views/index.html',
+    resolve:{
+      me: function ($route, $q, Users) {
+        var deferred = $q.defer();
+        Users.get({id: 'me'},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      }
+    }
+  });
+}]);
+
+angular.module('SupportApp')
+.run(['$route', '$rootScope', '$location',
+function ($route, $rootScope, $location) {
+  var original = $location.path;
+  $location.path = function (path, reload) {
+    if (reload === false) {
+      var lastRoute = $route.current;
+      var un = $rootScope.$on('$locationChangeSuccess', function () {
+          $route.current = lastRoute;
+          un();
+      });
+    }
+    return original.apply($location, [path]);
+  };
 }]);
 
 angular.module('WorkOrderApp.Controllers', []);
@@ -2539,87 +2620,6 @@ function ($route, $rootScope, $location) {
         }
         return original.apply($location, [path]);
     };
-}]);
-
-angular.module('CommonControllers').controller('SuperTableCtrl',
-['$scope', 'AlertService',
-  function ($scope, AlertService) {
-
-    $scope.changeSorting = function (column) {
-      var sort = $scope.sort;
-      if (sort.column == column) {
-        sort.descending = !sort.descending;
-      } else {
-        sort.column = column;
-        sort.descending = false;
-      }
-    };
-
-    $scope.filterPart = function (obj, index, fullArrayOfParts) {
-      if ($scope.searchPhrase) {
-        if ($scope.searchPhrase.length >= 3) {
-          const pattern2 = new RegExp($scope.searchPhrase, 'i');
-          const mpn = obj.MPN ? obj.MPN : '';
-          const desc = obj.description ? obj.description : '';
-          const compN = obj.componentName ? obj.componentName : '';
-          const full = `${mpn} ${desc} ${compN}`;
-          const pattern = new RegExp( '(?=.*\\b' + $scope.searchPhrase.split(' ').join('\\b)(?=.*\\b') + '\\b)', 'i');
-          if (mpn.match(pattern) || desc.match(pattern) || compN.match(pattern) || full.match(pattern) || mpn.match(pattern2) || desc.match(pattern2) || compN.match(pattern2) || full.match(pattern2)) {
-            return true;
-          }
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    };
-    
-    /* -------------------------------------------------------------------------
-    CONFIGURATION / ON LOAD
-    ------------------------------------------------------------------------- */
-    $scope.getDefaultSort = function () {
-      var column = [];
-      for (var key in $scope.displayColumns) { column.push(key.toString()); }
-      $scope.defaultSort = { column: column, descending: [false] };
-    };
-
-    $scope.onLoad = function () {
-      var m = $scope.model;
-
-      // if the required fields are not present, bail out
-      if (!m.objectList || !m.displayColumns) {
-        console.log("WARNING!");
-        console.log("You failed to provide required data for the directive.");
-        console.log("See super-table documentation for more info.");
-        var errMessage =  "SuperTabelCtrl: " +
-                          "Required attributes were not assigned to model.";
-        throw new Error(errMessage);
-      } else {
-        $scope.tableName = m.tableName || "My Table Name";
-
-        // required variables
-        $scope.objectList = m.objectList;
-        $scope.displayColumns = m.displayColumns;
-
-        // optional variables
-        $scope.rowClickAction = m.rowClickAction;
-        $scope.headerButtons = m.headerButtons;
-        $scope.rowButtons = m.rowButtons;
-        $scope.sort = m.sort || $scope.getDefaultSort();
-
-      }
-    };
-
-    $scope.clearSearchPhrase = function(obj){
-      $scope.searchPhrase = '';
-      var alertString = obj.description + ' added';
-      AlertService.add('success',  alertString);
-    };
-
-    // call on load
-    (function () { $scope.onLoad(); })();
-
 }]);
 
 angular.module('CommonDirectives')
@@ -3629,382 +3629,452 @@ angular.module('InventoryTransferApp.Controllers').controller('InventoryTransfer
 
   }]);
 
-angular.module('PaidTimeOffApp.Components')
-  .component('ptoOverviewTable', {
-    templateUrl: '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoOverviewTable.html',
-    bindings: {
-      paidtimeoffs: '<',
-      scrollContentSearch: '&',
-      getPaidTimeOffReport: '&',
-      contentSearch: '&'
-    },
-    controller: ['$window', '$cookies', 'DateService', class PoOverviewCtrl {
-      constructor ($window, $cookies, DateService) {
-        this.$window = $window;
-        this.$cookies = $cookies;
-        this.DS = DateService;
+angular.module('PartOrderApp.Components')
+.controller('AddPartPOModalCtrl', [ '$scope', '$uibModalInstance',
+function ($scope, $uibModalInstance) {
+  $scope.part = {};
 
-        this.sortType = 'epoch';
-        this.sortReverse = false;
-        this.searchFilter = '';
-        this.isLoaded = false;
+  $scope.part.netsuiteId = 0;
 
-        // query params
-        this.username = '';
-        this.type = '';
-        this.approved = false;
-        this.rejected = false;
-        this.adminReviewed = false;
+  $scope.addPart = () => {
+    $uibModalInstance.close($scope.part);
+  };
 
-        this.size = 50;
-        this.page = 0;
-
-
-        this.dates = {
-          from: null,
-          fromInput: null,
-          to: null,
-          toInput: null,
-        };
-      }
-
-      // Initializes original search ---------------------
-      $onInit() {
-        this.role = this.$cookies.get('role');
-        if (this.role === 'admin') {
-          this.approved = true;
-          this.rejected = true;
-        }
-        if (this.role === 'manager') {
-          this.approved = false;
-          this.rejected = false;
-        }
-
-        this.submit();
-      };
-      // -------------------------------------------------
-
-      // Sorting for Table -------------------------------
-      resort(by) {
-        this.sortType = by;
-        this.sortReverse = !this.sortReverse;
-      };
-      // -------------------------------------------------
-
-      // Get start and end of Day ------------------------
-      ptostartOfDay(input) {
-        this.dates.fromInput = input;
-        if (typeof input === 'object') {
-          this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
-        }
-      };
-
-      ptoendOfDay(input) {
-        this.dates.toInput = input;
-        if (typeof input === 'object') {
-          this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
-        }
-      };
-      // -------------------------------------------------
-
-      stringForType(pto) {
-        if (pto.approved) {
-          return 'approved';
-        }
-        if (pto.rejected) {
-          return 'rejected';
-        }
-        if (!pto.rejected && !pto.approved) {
-          return 'not reviewed';
-        }
-      }
-
-      // Query Constructor -------------------------------
-      queryConstruct(size, page) {
-        const query = {
-          size: size,
-          page: page
-        };
-
-        // gather query params
-        if ( this.dates.from && this.dates.to ) {
-          query.from = this.DS.saveToOrion(this.dates.from);
-          query.to = this.DS.saveToOrion(this.dates.to);
-        }
-        if (this.username) {
-          query.username = this.username.toUpperCase();
-        }
-        if (this.type) {
-          query.type = this.type;
-        }
-        query.approved = this.approved;
-        query.rejected = this.rejected;
-        query.adminReviewed = this.adminReviewed;
-
-        return query;
-      };
-      // -------------------------------------------------
-
-      // Load content on scroll from Parent Controller ---
-      loadOnScroll() {
-        console.log("Scrolling...");
-        this.page += this.size;
-
-        const query = this.queryConstruct(this.size, this.page);
-        this.scrollContentSearch({ query });
-      };
-      // -------------------------------------------------
-
-      // Submit Query to Parent Controller ---------------
-      submit() {
-        this.size = 50;
-        this.page = 0;
-
-        const query = this.queryConstruct(this.size, this.page);
-        this.contentSearch({ query });
-      };
-      // -------------------------------------------------
-
-      // Submit Query to get Report to Parent Controller -
-      getReport() {
-        const query = this.queryConstruct(this.size, this.page);
-
-        query.report = true;
-
-        this.getPaidTimeOffReport({ query });
-      };
-      // -------------------------------------------------
-
-      // clear -------------------------------------------
-      clearText(selected) {
-        switch (selected) {
-          case 'username':
-            this.username = null;
-            break;
-          case 'type':
-            this.type = null;
-            break;
-        }
-      }
-      // -------------------------------------------------
-
-      // Routing -----------------------------------------
-      routeToPaidTimeOff(pto) {
-        this.$window.open('#/paidtimeoff/review/' + pto._id);
-      };
-      // -------------------------------------------------
-
-    }]
-  });
-
-angular.module('PaidTimeOffApp.Components')
-.component('ptoReview', {
-  templateUrl  : '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoReview.html',
+  $scope.cancel = () => {
+    $uibModalInstance.dismiss('cancel');
+  };
+}])
+.component('poCreatePart', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poCreatePart.html',
   bindings: {
-    paidtimeoff: '<',
-    approvalStatusChange: '&',
-    setManagerReviewed: '&',
-    setAdminReviewed: '&',
-    textAreaChange: '&',
+    part: '<',
+    onManualAdd: '&',
+    onDelete: '&'
   },
-  controller: [ class PaidTimeOffReviewCtrl {
-    constructor () {
-      this.status = {
-        approved: false,
-        rejected: false,
-      };
+  controller: [ '$uibModal', class CreatePart {
+    constructor ($uibModal) {
+      this.$uibModal = $uibModal;
     }
+    
+    // Show Table of parts if Part Isn't Empty -------
+    Empty() {
+      if(_.isEmpty(this.part)){ return false; }
+      return true;
+    };
+    // -----------------------------------------------
+  
+    // Call the Modal for Manual Part Add ------------
+    openManualPartModal() {
+      const modalInstance = this.$uibModal.open({
+        templateUrl: '/lib/public/angular/views/modals/manualAddPartModal.html',
+        controller: 'AddPartPOModalCtrl'
+      });
+    
+      // Modal Instance Result Calls Parent Function -
+      modalInstance.result.then((part) => {
+        const thispart = part;
+        thispart.quantity = 0;
+        thispart.isManual = true;
+        this.onManualAdd({part: thispart});
+      });
+    };
+    // -----------------------------------------------
+    
+  }]
+});
+
+angular.module('PartOrderApp.Components')
+.component('poEditHeading', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poEditHeading.html',
+  bindings: {
+    selectOriginType: '@',
+    onTextChange: '&',
+    onSelectChange: '&',
+    locations: '<',
+    partorder: '<'
+  },
+  controller: ['LocationItemService', class PartOrderEditHeadingCtrl {
+    constructor (LocationItemService) {
+      this.LocationItemService = LocationItemService;
+    }
+  
+    $onInit() {
+      this.locationWarehouseObjArray = this.LocationItemService.getLocationWarehouseObjArray(this.locations);
+      // Change origin and destination NSID to name for display
+      this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
+      this.destinationLocation = this.LocationItemService.getNameFromNSID(this.partorder.destinationNSID, this.locations);
+    }
+    
+    // React to changes to Part Order Obj -----------------
+    $doCheck() {
+      if(this.partorder.originNSID !== null){
+        this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
+      }
+    };
+    // ----------------------------------------------------
+  
+    // Pass back Changes ----------------------------------
+    selectFieldChange(changedData, selected) {
+      this.onSelectChange({ changedData, selected});
+    };
+  
+    textFieldChange(changedData, selected) {
+      this.onTextChange({ changedData, selected });
+    };
+    // ----------------------------------------------------
+    
+  }]
+});
+
+angular.module('PartOrderApp.Components')
+.component('poEditTable', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poEditTable.html',
+  bindings: {
+    partorder: '<',   // one way data binding for partorder
+    onSelection: '&'
+  },
+  controller: class EditTableCtrl {
+    constructor () {
+      this.status = [
+        { type: 'ordered', value: false },
+        { type: 'backorder', value: false },
+        { type: 'canceled', value: false },
+        { type: 'completed', value: false }
+      ];
+    }
+
+    // Change Selected Check box --------------------------
+    changeCheckBoxes(data, selected) {
+      _.map(this.status,(obj) => {
+        if ( obj.type === selected ){
+          obj.value = true;
+          this.status.forEach((x) => {
+            if( x.type !== selected ){
+              x.value = false;
+            }
+          });
+        }
+      });
+    };
+    // ----------------------------------------------------
+
+    // Disable check boxes based on Part Order State ------
+    checkDisabled(box) {
+      if(box !== 'complete'){
+        if(this.partorder.timeShipped){
+          return true;
+        }
+      }
+      return false;
+    };
+    // ----------------------------------------------------
 
     // Send Back Changed Data and Type --------------------
     thisBoxDataChange(changedData, selected) {
-      this.approvalStatusChange({changedData, selected});
-    }
-    managerCommentChange(changedData, selected) {
-      this.textAreaChange({changedData, selected});
-    }
+      if ( selected !== 'canceled' ){
+        this.partorder.comment = '';
+      }
+      if( changedData === true ) {
+        this.changeCheckBoxes(changedData, selected);
+        this.onSelection({ changedData, selected });
+      }
+    };
     // ----------------------------------------------------
 
-    checkDisabled(type) {
-      if (this.paidtimeoff.approvedBy !== '') {
-        return true;
-      } else {
-        return false;
+  }
+});
+
+angular.module('PartOrderApp.Components')
+.component('poOverviewTable', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poOverviewTable.html',
+  bindings: {
+    partorders: '<',
+    locations: '<',
+    listIt: '&',
+    scrollContentSearch: '&',
+    getPartOrderReport: '&',
+    contentSearch: '&'
+  },
+  controller: ['$window', 'LocationItemService', 'DateService', class PoOverviewCtrl {
+    constructor ($window, LocationItemService, DateService) {
+      this.$window = $window;
+      this.LIS = LocationItemService;
+      this.DS = DateService;
+
+      this.sortType = 'epoch';
+      this.sortReverse = false;
+      this.searchFilter = '';
+      this.isLoaded = false;
+
+      // query params
+      this.username = null;
+      this.destination = null;
+      this.pending = true;
+      this.backorder  = true;
+      this.ordered = true;
+      this.completed = false;
+      this.canceled = false;
+      this.size = 50;
+      this.page = 0;
+
+      this.dates = {
+        from: null,
+        fromInput: null,
+        to: null,
+        toInput: null,
+      };
+    }
+
+    // Initializes original search ---------------------
+    $onInit() {
+      this.submit();
+    };
+    // -------------------------------------------------
+
+    // Sorting for Table -------------------------------
+    resort(by) {
+      this.sortType = by;
+      this.sortReverse = !this.sortReverse;
+    };
+    // -------------------------------------------------
+
+    // Get start and end of Day ------------------------
+    postartOfDay(input) {
+      this.dates.fromInput = input;
+      if (typeof input === 'object') {
+        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
       }
+    };
+
+    poendOfDay(input) {
+      this.dates.toInput = input;
+      if (typeof input === 'object') {
+        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
+      }
+    };
+    // -------------------------------------------------
+
+    changeThisCheckbox(selected) {
+      this.listIt({po: selected})
+    };
+
+
+    // Query Constructor -------------------------------
+    queryConstruct(size, page) {
+      const query = {
+        size: size,
+        page: page
+      };
+
+      // gather query params
+      if ( this.dates.from && this.dates.to ) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+      if (this.username) {
+        query.techId = this.username.toUpperCase();
+      }
+      if (this.destination) {
+        query.destination = this.LIS.getTruckFromString(this.destination, this.locations).netsuiteId;
+      }
+      if (this.pending) {
+        query.pending = this.pending;
+      }
+      if (this.ordered) {
+        query.ordered = this.ordered;
+      }
+      if (this.backorder) {
+        query.backorder = this.backorder;
+      }
+      if (this.canceled) {
+        query.canceled = this.canceled;
+      }
+      if (this.completed) {
+        query.completed = this.completed;
+      }
+
+      return query;
+    };
+    // -------------------------------------------------
+
+    // Load content on scroll from Parent Controller ---
+    loadOnScroll() {
+      console.log("Scrolling...");
+      this.page += this.size;
+
+      const query = this.queryConstruct(this.size, this.page);
+      this.scrollContentSearch({ query });
+    };
+    // -------------------------------------------------
+
+    // Submit Query to Parent Controller ---------------
+    submit() {
+      this.size = 50;
+      this.page = 0;
+
+      const query = this.queryConstruct(this.size, this.page);
+      this.contentSearch({ query });
+    };
+    // -------------------------------------------------
+
+    // Submit Query to get Report to Parent Controller -
+    getReport() {
+      const query = this.queryConstruct(this.size, this.page);
+
+      query.report = true;
+
+      this.getPartOrderReport({ query });
+    };
+    // -------------------------------------------------
+
+    // clear -------------------------------------------
+    clearText(selected) {
+      switch (selected) {
+        case 'username':
+          this.username = null;
+          break;
+        case 'destination':
+          this.destination = null;
+          break;
+      }
+    }
+    // -------------------------------------------------
+
+    // Routing -----------------------------------------
+    routeToPartOrder(po) {
+      if (!po.inList) {
+        if ( po.status !== 'canceled' && po.status !== 'completed' ){
+          this.$window.open('#/partorder/edit/' + po.orderId);
+        } else {
+          this.$window.open('#/partorder/review/' + po.orderId);
+        }
+      } else {
+        const pos = [];
+        this.partorders.forEach((p) => {
+          if (p.inList) {
+            pos.push(p._id);
+          }
+        });
+        if (po.inList) {
+          this.$window.open('#/partorder/editMany/' + JSON.stringify(pos));
+        }
+      }
+    };
+    // -------------------------------------------------
+
+  }]
+});
+
+angular.module('PartOrderApp.Components')
+.component('poReviewHeading', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poReviewHeading.html',
+  bindings: {
+    locations: '<',
+    partorder: '<'
+  },
+  controller: ['LocationItemService', class PartOrderReviewHeadingCtrl {
+    constructor (LocationItemService) {
+      this.LocationItemService = LocationItemService;
+    }
+    
+    $onInit() {
+      // Change origin and destination NSID to name for display
+      this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
+      this.destinationLocation = this.LocationItemService.getNameFromNSID(this.partorder.destinationNSID, this.locations);
+      // -----------------------------------------------
     }
   }]
 });
 
-angular.module('PaidTimeOffApp.Controllers')
-.controller('PaidTimeOffCtrl', ['$scope', '$http', '$timeout', '$location', '$q', '$cookies', 'AlertService', 'ApiRequestService', 'DateService',
-  function ($scope, $http, $timeout, $location, $q, $cookies, AlertService, ApiRequestService, DateService) {
-    // Variables-----------------------------------------
-    const ARS = ApiRequestService;
-    const DS = DateService;
-    $scope.loaded = false;
-    $scope.spinner = true;
-    // --------------------------------------------------
 
-    // Turn Spinner Off ---------------------------------
-    $scope.spinnerOff = () => {
-      $scope.spinner = false;
-    };
-    // --------------------------------------------------
+angular.module('PartOrderApp.Components')
+.component('poReviewTable', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poReviewTable.html',
+  bindings: {
+    partorder: '<'
+  }
+});
 
-    // Passed to Component ------------------------------
-    // Function called any time Page loads or user scrolls past 50 units
-    $scope.lookup = (query) => {
-      $scope.loaded = false;
-      console.log("Looking up PTOs...");
-      console.log(query)
-      ARS.PaidTimeOffs(query)
-        .then((paidtimeoffs) => {
-          console.log("PTOs Loaded.");
-          $scope.paidtimeoffs = paidtimeoffs.map(mapPaidTimeOffs);
-          $scope.loaded = true;
-          $scope.spinnerOff();
-        })
-        .catch((err) => console.log("Failed to load: ", err));
-    };
-/*
-    $scope.report = (query) => {
-      $http({method: 'GET',url: '/api/paidtimeoffs', params: query})
-        .then((res) =>{
-            const anchor = angular.element('<a/>');
-            anchor.attr({
-              href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
-              target: '_blank',
-              download: 'PartsReport.csv'
-            })[0].click();
-          },
-          (err) => {
-            AlertService.add("danger", "Report failed to load", 2000);
-            console.log(err);
+angular.module('PartOrderApp.Components')
+  .component('posEditHeading', {
+    templateUrl: '/lib/public/angular/apps/partorder/views/component-views/posEditHeading.html',
+    bindings: {
+      selectOriginType: '@',
+      onTextChange: '&',
+      onSelectChange: '&',
+      onSelection: '&',
+      changeCheckBoxes: '&',
+      disabled: '<',
+      locations: '<',
+      status: '<',
+      partorders: '<'
+    },
+    controller: ['LocationItemService', class PartOrderEditHeadingCtrl {
+      constructor (LocationItemService) {
+        this.LocationItemService = LocationItemService;
+        this.poNumber = '';
+        this.originNSID = 0;
+      }
+
+      $onInit() {
+        this.locationWarehouseObjArray = this.LocationItemService.getLocationWarehouseObjArray(this.locations);
+      }
+
+      // Pass back Changes ----------------------------------
+      selectFieldChange(changedData, selected) {
+        this.onSelectChange({ changedData, selected});
+      };
+
+      textFieldChange(changedData, selected) {
+        this.onTextChange({ changedData, selected });
+      };
+      // ----------------------------------------------------
+
+      // Send Back Changed Data and Type --------------------
+      thisBoxDataChange(changedData, selected) {
+        if ( selected !== 'canceled' ){
+          this.partorders.forEach((po) => po.comment = '');
+          /// this.partorder.comment = '';
+        }
+        if( changedData === true ) {
+          this.changeCheckBoxes({changedData, selected});
+          this.onSelection({ changedData, selected });
+        }
+      };
+      // ----------------------------------------------------
+    }]
+  });
+
+angular.module('PartOrderApp.Components')
+  .component('posEditTable', {
+    templateUrl: '/lib/public/angular/apps/partorder/views/component-views/posEditTable.html',
+    bindings: {
+      disabled: '<',
+      partorders: '<',   // one way data binding for partorder
+    },
+    controller: class EditTableCtrl {
+      constructor () {
+        this.status = [
+          { type: 'ordered', value: false },
+          { type: 'backorder', value: false },
+          { type: 'canceled', value: false },
+          { type: 'completed', value: false }
+        ];
+      }
+
+      // Disable check boxes based on Part Order State ------
+      checkDisabled(box) {
+        if(box !== 'complete'){
+          if(this.partorder.timeShipped){
+            return true;
           }
-        );
-    };*/
+        }
+        return false;
+      };
+      // ----------------------------------------------------
 
-    $scope.PaidTimeOffScrollLookup = (query) => {
-      console.log("Looking up Ptos...");
-      ARS.PaidTimeOffs(query)
-        .then((paidtimeoffs) => {
-          console.log("Part Orders Loaded.");
-          const pto = paidtimeoffs.map(mapPaidTimeOffs);
-          $scope.paidtimeoffs = $scope.paidtimeoffs.concat(pto);
-        })
-        .catch((err) => console.log("Failed to load part orders: ", err));
-    };
-    // --------------------------------------------------
-
-    // Create sorting parameters ------------------------
-    function mapPaidTimeOffs (pto) {
-      // set to local times
-      pto.DateFrom = DS.displayLocal(new Date(pto.DateFrom));
-      pto.DateTo = DS.displayLocal(new Date(pto.DateTo));
-      pto.epochDateFrom = new Date(pto.DateFrom).getTime();
-      pto.epochDateTo = new Date(pto.DateTo).getTime();
-      // set status
-      if (pto.approved) {
-        pto.status = 'approved';
-      }
-      if (pto.rejected) {
-        pto.status = 'rejected';
-      }
-      if (!pto.rejected && !pto.approved) {
-        pto.status = 'not reviewed';
-      }
-
-      return pto;
     }
-    // --------------------------------------------------
-
-    // Routing ------------------------------------------
-  /*  $scope.createPaidTimeOff = () => {
-      $location.url('/paidtimeoff/create');
-    };*/
-    // --------------------------------------------------
-  },
-]);
-
-angular.module('PaidTimeOffApp.Controllers')
-.controller('PaidTimeOffReviewCtrl', ['$scope', '$location', '$cookies', 'paidtimeoff', 'PaidTimeOffs', 'AlertService', 'DateService',
-function ($scope, $location, $cookies, paidtimeoff, PaidTimeOffs, AlertService, DateService) {
-  const DS = DateService;
-
-  $scope.paidtimeoff = paidtimeoff;
-
-  // init
-  const preLoad = () => {
-    $scope.paidtimeoff.DateFrom = DS.displayLocal(new Date($scope.paidtimeoff.DateFrom));
-    $scope.paidtimeoff.DateTo = DS.displayLocal(new Date($scope.paidtimeoff.DateTo));
-    $scope.paidtimeoff.created = DS.displayLocal(new Date($scope.paidtimeoff.created));
-    if ($scope.paidtimeoff.timeApproved) {
-      $scope.paidtimeoff.timeApproved = DS.displayLocal(new Date($scope.paidtimeoff.timeApproved));
-    }
-  };
-  preLoad();
-
-  const preSave = () => {
-    $scope.paidtimeoff.DateFrom = DS.saveToOrion(new Date($scope.paidtimeoff.DateFrom));
-    $scope.paidtimeoff.DateTo = DS.saveToOrion(new Date($scope.paidtimeoff.DateTo));
-    $scope.paidtimeoff.created = DS.saveToOrion(new Date($scope.paidtimeoff.created));
-    if ($scope.paidtimeoff.timeApproved) {
-      $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date($scope.paidtimeoff.timeApproved));
-    }
-  };
-
-  $scope.approvalStatusChange = (changedData, selected) => {
-    if (selected === 'approved') {
-      $scope.paidtimeoff.approved = changedData;
-      if ($scope.paidtimeoff.rejected) {
-        $scope.paidtimeoff.rejected = false;
-      }
-    }
-    if (selected === 'rejected') {
-      $scope.paidtimeoff.rejected = changedData;
-      if ($scope.paidtimeoff.approved) {
-        $scope.paidtimeoff.approved = false;
-      }
-    }
-  };
-
-  $scope.changeManagerComment = (changedData, selected) => {
-    $scope.paidtimeoff.managerComment = changedData;
-  };
-
-  $scope.update = (doc) => {
-    PaidTimeOffs.update({id: doc._id}, doc,
-      (res) => {
-        AlertService.add('success', "Update was successful.");
-        $location.url('/paidtimeoff');
-      }, (err) => {
-        console.log(err);
-        // if error reset back to display times
-        preLoad();
-        AlertService.add('danger', 'An error occurred while attempting to update this PTO.');
-      })
-  };
-
-  $scope.setManagerReviewed = () => {
-    $scope.paidtimeoff.approvedBy = $cookies.get('tech');
-    $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date());
-    preSave();
-    $scope.update($scope.paidtimeoff);
-  };
-
-  $scope.setAdminReviewed = () => {
-    $scope.paidtimeoff.adminReviewed = true;
-    preSave();
-    $scope.update($scope.paidtimeoff);
-  };
-}]);
-
-angular.module('SupportApp.Controllers').controller('SupportIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'me',
-  function ($scope, $route, $location, AlertService, me){
-    $scope.me = me;
-    $scope.title = "Support";
-
-}]);
+  });
 
 angular.module('PartOrderApp.Controllers')
 .controller('PartOrderCreateCtrl', ['$scope', '$timeout', '$uibModal', '$cookies', '$location', 'AlertService', 'GeneralPartSearchService', 'LocationItemService', 'ObjectService', 'PartOrders', 'locations', 'parts', 'DateService',
@@ -4633,452 +4703,374 @@ angular.module('PartOrderApp.Controllers')
       isComplete();
     }]);
 
-angular.module('PartOrderApp.Components')
-.controller('AddPartPOModalCtrl', [ '$scope', '$uibModalInstance',
-function ($scope, $uibModalInstance) {
-  $scope.part = {};
-
-  $scope.part.netsuiteId = 0;
-
-  $scope.addPart = () => {
-    $uibModalInstance.close($scope.part);
-  };
-
-  $scope.cancel = () => {
-    $uibModalInstance.dismiss('cancel');
-  };
-}])
-.component('poCreatePart', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poCreatePart.html',
-  bindings: {
-    part: '<',
-    onManualAdd: '&',
-    onDelete: '&'
-  },
-  controller: [ '$uibModal', class CreatePart {
-    constructor ($uibModal) {
-      this.$uibModal = $uibModal;
-    }
-    
-    // Show Table of parts if Part Isn't Empty -------
-    Empty() {
-      if(_.isEmpty(this.part)){ return false; }
-      return true;
-    };
-    // -----------------------------------------------
-  
-    // Call the Modal for Manual Part Add ------------
-    openManualPartModal() {
-      const modalInstance = this.$uibModal.open({
-        templateUrl: '/lib/public/angular/views/modals/manualAddPartModal.html',
-        controller: 'AddPartPOModalCtrl'
-      });
-    
-      // Modal Instance Result Calls Parent Function -
-      modalInstance.result.then((part) => {
-        const thispart = part;
-        thispart.quantity = 0;
-        thispart.isManual = true;
-        this.onManualAdd({part: thispart});
-      });
-    };
-    // -----------------------------------------------
-    
-  }]
-});
-
-angular.module('PartOrderApp.Components')
-.component('poEditHeading', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poEditHeading.html',
-  bindings: {
-    selectOriginType: '@',
-    onTextChange: '&',
-    onSelectChange: '&',
-    locations: '<',
-    partorder: '<'
-  },
-  controller: ['LocationItemService', class PartOrderEditHeadingCtrl {
-    constructor (LocationItemService) {
-      this.LocationItemService = LocationItemService;
-    }
-  
-    $onInit() {
-      this.locationWarehouseObjArray = this.LocationItemService.getLocationWarehouseObjArray(this.locations);
-      // Change origin and destination NSID to name for display
-      this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
-      this.destinationLocation = this.LocationItemService.getNameFromNSID(this.partorder.destinationNSID, this.locations);
-    }
-    
-    // React to changes to Part Order Obj -----------------
-    $doCheck() {
-      if(this.partorder.originNSID !== null){
-        this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
-      }
-    };
-    // ----------------------------------------------------
-  
-    // Pass back Changes ----------------------------------
-    selectFieldChange(changedData, selected) {
-      this.onSelectChange({ changedData, selected});
-    };
-  
-    textFieldChange(changedData, selected) {
-      this.onTextChange({ changedData, selected });
-    };
-    // ----------------------------------------------------
-    
-  }]
-});
-
-angular.module('PartOrderApp.Components')
-.component('poEditTable', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poEditTable.html',
-  bindings: {
-    partorder: '<',   // one way data binding for partorder
-    onSelection: '&'
-  },
-  controller: class EditTableCtrl {
-    constructor () {
-      this.status = [
-        { type: 'ordered', value: false },
-        { type: 'backorder', value: false },
-        { type: 'canceled', value: false },
-        { type: 'completed', value: false }
-      ];
-    }
-
-    // Change Selected Check box --------------------------
-    changeCheckBoxes(data, selected) {
-      _.map(this.status,(obj) => {
-        if ( obj.type === selected ){
-          obj.value = true;
-          this.status.forEach((x) => {
-            if( x.type !== selected ){
-              x.value = false;
-            }
-          });
-        }
-      });
-    };
-    // ----------------------------------------------------
-
-    // Disable check boxes based on Part Order State ------
-    checkDisabled(box) {
-      if(box !== 'complete'){
-        if(this.partorder.timeShipped){
-          return true;
-        }
-      }
-      return false;
-    };
-    // ----------------------------------------------------
-
-    // Send Back Changed Data and Type --------------------
-    thisBoxDataChange(changedData, selected) {
-      if ( selected !== 'canceled' ){
-        this.partorder.comment = '';
-      }
-      if( changedData === true ) {
-        this.changeCheckBoxes(changedData, selected);
-        this.onSelection({ changedData, selected });
-      }
-    };
-    // ----------------------------------------------------
-
-  }
-});
-
-angular.module('PartOrderApp.Components')
-.component('poOverviewTable', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poOverviewTable.html',
-  bindings: {
-    partorders: '<',
-    locations: '<',
-    listIt: '&',
-    scrollContentSearch: '&',
-    getPartOrderReport: '&',
-    contentSearch: '&'
-  },
-  controller: ['$window', 'LocationItemService', 'DateService', class PoOverviewCtrl {
-    constructor ($window, LocationItemService, DateService) {
-      this.$window = $window;
-      this.LIS = LocationItemService;
-      this.DS = DateService;
-
-      this.sortType = 'epoch';
-      this.sortReverse = false;
-      this.searchFilter = '';
-      this.isLoaded = false;
-
-      // query params
-      this.username = null;
-      this.destination = null;
-      this.pending = true;
-      this.backorder  = true;
-      this.ordered = true;
-      this.completed = false;
-      this.canceled = false;
-      this.size = 50;
-      this.page = 0;
-
-      this.dates = {
-        from: null,
-        fromInput: null,
-        to: null,
-        toInput: null,
-      };
-    }
-
-    // Initializes original search ---------------------
-    $onInit() {
-      this.submit();
-    };
-    // -------------------------------------------------
-
-    // Sorting for Table -------------------------------
-    resort(by) {
-      this.sortType = by;
-      this.sortReverse = !this.sortReverse;
-    };
-    // -------------------------------------------------
-
-    // Get start and end of Day ------------------------
-    postartOfDay(input) {
-      this.dates.fromInput = input;
-      if (typeof input === 'object') {
-        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
-      }
-    };
-
-    poendOfDay(input) {
-      this.dates.toInput = input;
-      if (typeof input === 'object') {
-        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
-      }
-    };
-    // -------------------------------------------------
-
-    changeThisCheckbox(selected) {
-      this.listIt({po: selected})
-    };
-
-
-    // Query Constructor -------------------------------
-    queryConstruct(size, page) {
-      const query = {
-        size: size,
-        page: page
-      };
-
-      // gather query params
-      if ( this.dates.from && this.dates.to ) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-      if (this.username) {
-        query.techId = this.username.toUpperCase();
-      }
-      if (this.destination) {
-        query.destination = this.LIS.getTruckFromString(this.destination, this.locations).netsuiteId;
-      }
-      if (this.pending) {
-        query.pending = this.pending;
-      }
-      if (this.ordered) {
-        query.ordered = this.ordered;
-      }
-      if (this.backorder) {
-        query.backorder = this.backorder;
-      }
-      if (this.canceled) {
-        query.canceled = this.canceled;
-      }
-      if (this.completed) {
-        query.completed = this.completed;
-      }
-
-      return query;
-    };
-    // -------------------------------------------------
-
-    // Load content on scroll from Parent Controller ---
-    loadOnScroll() {
-      console.log("Scrolling...");
-      this.page += this.size;
-
-      const query = this.queryConstruct(this.size, this.page);
-      this.scrollContentSearch({ query });
-    };
-    // -------------------------------------------------
-
-    // Submit Query to Parent Controller ---------------
-    submit() {
-      this.size = 50;
-      this.page = 0;
-
-      const query = this.queryConstruct(this.size, this.page);
-      this.contentSearch({ query });
-    };
-    // -------------------------------------------------
-
-    // Submit Query to get Report to Parent Controller -
-    getReport() {
-      const query = this.queryConstruct(this.size, this.page);
-
-      query.report = true;
-
-      this.getPartOrderReport({ query });
-    };
-    // -------------------------------------------------
-
-    // clear -------------------------------------------
-    clearText(selected) {
-      switch (selected) {
-        case 'username':
-          this.username = null;
-          break;
-        case 'destination':
-          this.destination = null;
-          break;
-      }
-    }
-    // -------------------------------------------------
-
-    // Routing -----------------------------------------
-    routeToPartOrder(po) {
-      if (!po.inList) {
-        if ( po.status !== 'canceled' && po.status !== 'completed' ){
-          this.$window.open('#/partorder/edit/' + po.orderId);
-        } else {
-          this.$window.open('#/partorder/review/' + po.orderId);
-        }
-      } else {
-        const pos = [];
-        this.partorders.forEach((p) => {
-          if (p.inList) {
-            pos.push(p._id);
-          }
-        });
-        if (po.inList) {
-          this.$window.open('#/partorder/editMany/' + JSON.stringify(pos));
-        }
-      }
-    };
-    // -------------------------------------------------
-
-  }]
-});
-
-angular.module('PartOrderApp.Components')
-.component('poReviewHeading', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poReviewHeading.html',
-  bindings: {
-    locations: '<',
-    partorder: '<'
-  },
-  controller: ['LocationItemService', class PartOrderReviewHeadingCtrl {
-    constructor (LocationItemService) {
-      this.LocationItemService = LocationItemService;
-    }
-    
-    $onInit() {
-      // Change origin and destination NSID to name for display
-      this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
-      this.destinationLocation = this.LocationItemService.getNameFromNSID(this.partorder.destinationNSID, this.locations);
-      // -----------------------------------------------
-    }
-  }]
-});
-
-
-angular.module('PartOrderApp.Components')
-.component('poReviewTable', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poReviewTable.html',
-  bindings: {
-    partorder: '<'
-  }
-});
-
-angular.module('PartOrderApp.Components')
-  .component('posEditHeading', {
-    templateUrl: '/lib/public/angular/apps/partorder/views/component-views/posEditHeading.html',
+angular.module('PaidTimeOffApp.Components')
+  .component('ptoOverviewTable', {
+    templateUrl: '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoOverviewTable.html',
     bindings: {
-      selectOriginType: '@',
-      onTextChange: '&',
-      onSelectChange: '&',
-      onSelection: '&',
-      changeCheckBoxes: '&',
-      disabled: '<',
-      locations: '<',
-      status: '<',
-      partorders: '<'
+      paidtimeoffs: '<',
+      scrollContentSearch: '&',
+      getPaidTimeOffReport: '&',
+      contentSearch: '&'
     },
-    controller: ['LocationItemService', class PartOrderEditHeadingCtrl {
-      constructor (LocationItemService) {
-        this.LocationItemService = LocationItemService;
-        this.poNumber = '';
-        this.originNSID = 0;
+    controller: ['$window', '$cookies', 'DateService', class PoOverviewCtrl {
+      constructor ($window, $cookies, DateService) {
+        this.$window = $window;
+        this.$cookies = $cookies;
+        this.DS = DateService;
+
+        this.sortType = 'epoch';
+        this.sortReverse = false;
+        this.searchFilter = '';
+        this.isLoaded = false;
+
+        // query params
+        this.username = '';
+        this.type = '';
+        this.approved = false;
+        this.rejected = false;
+        this.adminReviewed = false;
+
+        this.size = 50;
+        this.page = 0;
+
+
+        this.dates = {
+          from: null,
+          fromInput: null,
+          to: null,
+          toInput: null,
+        };
       }
 
+      // Initializes original search ---------------------
       $onInit() {
-        this.locationWarehouseObjArray = this.LocationItemService.getLocationWarehouseObjArray(this.locations);
+        this.role = this.$cookies.get('role');
+        if (this.role === 'admin') {
+          this.approved = true;
+          this.rejected = true;
+        }
+        if (this.role === 'manager') {
+          this.approved = false;
+          this.rejected = false;
+        }
+
+        this.submit();
+      };
+      // -------------------------------------------------
+
+      // Sorting for Table -------------------------------
+      resort(by) {
+        this.sortType = by;
+        this.sortReverse = !this.sortReverse;
+      };
+      // -------------------------------------------------
+
+      // Get start and end of Day ------------------------
+      ptostartOfDay(input) {
+        this.dates.fromInput = input;
+        if (typeof input === 'object') {
+          this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
+        }
+      };
+
+      ptoendOfDay(input) {
+        this.dates.toInput = input;
+        if (typeof input === 'object') {
+          this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
+        }
+      };
+      // -------------------------------------------------
+
+      stringForType(pto) {
+        if (pto.approved) {
+          return 'approved';
+        }
+        if (pto.rejected) {
+          return 'rejected';
+        }
+        if (!pto.rejected && !pto.approved) {
+          return 'not reviewed';
+        }
       }
 
-      // Pass back Changes ----------------------------------
-      selectFieldChange(changedData, selected) {
-        this.onSelectChange({ changedData, selected});
-      };
+      // Query Constructor -------------------------------
+      queryConstruct(size, page) {
+        const query = {
+          size: size,
+          page: page
+        };
 
-      textFieldChange(changedData, selected) {
-        this.onTextChange({ changedData, selected });
-      };
-      // ----------------------------------------------------
+        // gather query params
+        if ( this.dates.from && this.dates.to ) {
+          query.from = this.DS.saveToOrion(this.dates.from);
+          query.to = this.DS.saveToOrion(this.dates.to);
+        }
+        if (this.username) {
+          query.username = this.username.toUpperCase();
+        }
+        if (this.type) {
+          query.type = this.type;
+        }
+        query.approved = this.approved;
+        query.rejected = this.rejected;
+        query.adminReviewed = this.adminReviewed;
 
-      // Send Back Changed Data and Type --------------------
-      thisBoxDataChange(changedData, selected) {
-        if ( selected !== 'canceled' ){
-          this.partorders.forEach((po) => po.comment = '');
-          /// this.partorder.comment = '';
-        }
-        if( changedData === true ) {
-          this.changeCheckBoxes({changedData, selected});
-          this.onSelection({ changedData, selected });
-        }
+        return query;
       };
-      // ----------------------------------------------------
+      // -------------------------------------------------
+
+      // Load content on scroll from Parent Controller ---
+      loadOnScroll() {
+        console.log("Scrolling...");
+        this.page += this.size;
+
+        const query = this.queryConstruct(this.size, this.page);
+        this.scrollContentSearch({ query });
+      };
+      // -------------------------------------------------
+
+      // Submit Query to Parent Controller ---------------
+      submit() {
+        this.size = 50;
+        this.page = 0;
+
+        const query = this.queryConstruct(this.size, this.page);
+        this.contentSearch({ query });
+      };
+      // -------------------------------------------------
+
+      // Submit Query to get Report to Parent Controller -
+      getReport() {
+        const query = this.queryConstruct(this.size, this.page);
+
+        query.report = true;
+
+        this.getPaidTimeOffReport({ query });
+      };
+      // -------------------------------------------------
+
+      // clear -------------------------------------------
+      clearText(selected) {
+        switch (selected) {
+          case 'username':
+            this.username = null;
+            break;
+          case 'type':
+            this.type = null;
+            break;
+        }
+      }
+      // -------------------------------------------------
+
+      // Routing -----------------------------------------
+      routeToPaidTimeOff(pto) {
+        this.$window.open('#/paidtimeoff/review/' + pto._id);
+      };
+      // -------------------------------------------------
+
     }]
   });
 
-angular.module('PartOrderApp.Components')
-  .component('posEditTable', {
-    templateUrl: '/lib/public/angular/apps/partorder/views/component-views/posEditTable.html',
-    bindings: {
-      disabled: '<',
-      partorders: '<',   // one way data binding for partorder
-    },
-    controller: class EditTableCtrl {
-      constructor () {
-        this.status = [
-          { type: 'ordered', value: false },
-          { type: 'backorder', value: false },
-          { type: 'canceled', value: false },
-          { type: 'completed', value: false }
-        ];
+angular.module('PaidTimeOffApp.Components')
+.component('ptoReview', {
+  templateUrl  : '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoReview.html',
+  bindings: {
+    paidtimeoff: '<',
+    approvalStatusChange: '&',
+    setManagerReviewed: '&',
+    setAdminReviewed: '&',
+    textAreaChange: '&',
+  },
+  controller: [ class PaidTimeOffReviewCtrl {
+    constructor () {
+      this.status = {
+        approved: false,
+        rejected: false,
+      };
+    }
+
+    // Send Back Changed Data and Type --------------------
+    thisBoxDataChange(changedData, selected) {
+      this.approvalStatusChange({changedData, selected});
+    }
+    managerCommentChange(changedData, selected) {
+      this.textAreaChange({changedData, selected});
+    }
+    // ----------------------------------------------------
+
+    checkDisabled(type) {
+      if (this.paidtimeoff.approvedBy !== '') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }]
+});
+
+angular.module('PaidTimeOffApp.Controllers')
+.controller('PaidTimeOffCtrl', ['$scope', '$http', '$timeout', '$location', '$q', '$cookies', 'AlertService', 'ApiRequestService', 'DateService',
+  function ($scope, $http, $timeout, $location, $q, $cookies, AlertService, ApiRequestService, DateService) {
+    // Variables-----------------------------------------
+    const ARS = ApiRequestService;
+    const DS = DateService;
+    $scope.loaded = false;
+    $scope.spinner = true;
+    // --------------------------------------------------
+
+    // Turn Spinner Off ---------------------------------
+    $scope.spinnerOff = () => {
+      $scope.spinner = false;
+    };
+    // --------------------------------------------------
+
+    // Passed to Component ------------------------------
+    // Function called any time Page loads or user scrolls past 50 units
+    $scope.lookup = (query) => {
+      $scope.loaded = false;
+      console.log("Looking up PTOs...");
+      console.log(query)
+      ARS.PaidTimeOffs(query)
+        .then((paidtimeoffs) => {
+          console.log("PTOs Loaded.");
+          $scope.paidtimeoffs = paidtimeoffs.map(mapPaidTimeOffs);
+          $scope.loaded = true;
+          $scope.spinnerOff();
+        })
+        .catch((err) => console.log("Failed to load: ", err));
+    };
+/*
+    $scope.report = (query) => {
+      $http({method: 'GET',url: '/api/paidtimeoffs', params: query})
+        .then((res) =>{
+            const anchor = angular.element('<a/>');
+            anchor.attr({
+              href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
+              target: '_blank',
+              download: 'PartsReport.csv'
+            })[0].click();
+          },
+          (err) => {
+            AlertService.add("danger", "Report failed to load", 2000);
+            console.log(err);
+          }
+        );
+    };*/
+
+    $scope.PaidTimeOffScrollLookup = (query) => {
+      console.log("Looking up Ptos...");
+      ARS.PaidTimeOffs(query)
+        .then((paidtimeoffs) => {
+          console.log("Part Orders Loaded.");
+          const pto = paidtimeoffs.map(mapPaidTimeOffs);
+          $scope.paidtimeoffs = $scope.paidtimeoffs.concat(pto);
+        })
+        .catch((err) => console.log("Failed to load part orders: ", err));
+    };
+    // --------------------------------------------------
+
+    // Create sorting parameters ------------------------
+    function mapPaidTimeOffs (pto) {
+      // set to local times
+      pto.DateFrom = DS.displayLocal(new Date(pto.DateFrom));
+      pto.DateTo = DS.displayLocal(new Date(pto.DateTo));
+      pto.epochDateFrom = new Date(pto.DateFrom).getTime();
+      pto.epochDateTo = new Date(pto.DateTo).getTime();
+      // set status
+      if (pto.approved) {
+        pto.status = 'approved';
+      }
+      if (pto.rejected) {
+        pto.status = 'rejected';
+      }
+      if (!pto.rejected && !pto.approved) {
+        pto.status = 'not reviewed';
       }
 
-      // Disable check boxes based on Part Order State ------
-      checkDisabled(box) {
-        if(box !== 'complete'){
-          if(this.partorder.timeShipped){
-            return true;
-          }
-        }
-        return false;
-      };
-      // ----------------------------------------------------
-
+      return pto;
     }
-  });
+    // --------------------------------------------------
+
+    // Routing ------------------------------------------
+  /*  $scope.createPaidTimeOff = () => {
+      $location.url('/paidtimeoff/create');
+    };*/
+    // --------------------------------------------------
+  },
+]);
+
+angular.module('PaidTimeOffApp.Controllers')
+.controller('PaidTimeOffReviewCtrl', ['$scope', '$location', '$cookies', 'paidtimeoff', 'PaidTimeOffs', 'AlertService', 'DateService',
+function ($scope, $location, $cookies, paidtimeoff, PaidTimeOffs, AlertService, DateService) {
+  const DS = DateService;
+
+  $scope.paidtimeoff = paidtimeoff;
+
+  // init
+  const preLoad = () => {
+    $scope.paidtimeoff.DateFrom = DS.displayLocal(new Date($scope.paidtimeoff.DateFrom));
+    $scope.paidtimeoff.DateTo = DS.displayLocal(new Date($scope.paidtimeoff.DateTo));
+    $scope.paidtimeoff.created = DS.displayLocal(new Date($scope.paidtimeoff.created));
+    if ($scope.paidtimeoff.timeApproved) {
+      $scope.paidtimeoff.timeApproved = DS.displayLocal(new Date($scope.paidtimeoff.timeApproved));
+    }
+  };
+  preLoad();
+
+  const preSave = () => {
+    $scope.paidtimeoff.DateFrom = DS.saveToOrion(new Date($scope.paidtimeoff.DateFrom));
+    $scope.paidtimeoff.DateTo = DS.saveToOrion(new Date($scope.paidtimeoff.DateTo));
+    $scope.paidtimeoff.created = DS.saveToOrion(new Date($scope.paidtimeoff.created));
+    if ($scope.paidtimeoff.timeApproved) {
+      $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date($scope.paidtimeoff.timeApproved));
+    }
+  };
+
+  $scope.approvalStatusChange = (changedData, selected) => {
+    if (selected === 'approved') {
+      $scope.paidtimeoff.approved = changedData;
+      if ($scope.paidtimeoff.rejected) {
+        $scope.paidtimeoff.rejected = false;
+      }
+    }
+    if (selected === 'rejected') {
+      $scope.paidtimeoff.rejected = changedData;
+      if ($scope.paidtimeoff.approved) {
+        $scope.paidtimeoff.approved = false;
+      }
+    }
+  };
+
+  $scope.changeManagerComment = (changedData, selected) => {
+    $scope.paidtimeoff.managerComment = changedData;
+  };
+
+  $scope.update = (doc) => {
+    PaidTimeOffs.update({id: doc._id}, doc,
+      (res) => {
+        AlertService.add('success', "Update was successful.");
+        $location.url('/paidtimeoff');
+      }, (err) => {
+        console.log(err);
+        // if error reset back to display times
+        preLoad();
+        AlertService.add('danger', 'An error occurred while attempting to update this PTO.');
+      })
+  };
+
+  $scope.setManagerReviewed = () => {
+    $scope.paidtimeoff.approvedBy = $cookies.get('tech');
+    $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date());
+    preSave();
+    $scope.update($scope.paidtimeoff);
+  };
+
+  $scope.setAdminReviewed = () => {
+    $scope.paidtimeoff.adminReviewed = true;
+    preSave();
+    $scope.update($scope.paidtimeoff);
+  };
+}]);
 
 angular.module('UnitApp.Components')
   .component('unitMap', {
@@ -5570,6 +5562,875 @@ angular.module('UnitApp.Controllers').controller('UnitPageCtrl',
     function (coords, $scope) {
       $scope.coords = coords;
     }]);
+
+angular.module('SupportApp.Controllers').controller('SupportIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'me',
+  function ($scope, $route, $location, AlertService, me){
+    $scope.me = me;
+    $scope.title = "Support";
+
+}]);
+
+angular.module('WorkOrderApp.Components')
+.component('woOverviewTable', {
+  templateUrl: '/lib/public/angular/apps/workorder/views/component.views/woOverviewTable.html',
+  bindings: {
+    scrollContentSearch: '&',
+    contentReport: '&',
+    woDumpReport: '&',
+    woPartsDumpReport: '&',
+    contentSearch: '&',
+    onTextFieldChange: '&',
+    onCheckBoxChange: '&',
+    woSearchCount: '<',
+    reportDisabled: '<',
+    workorders: '<',
+    startTime: '<',
+    endTime: '<',
+    woType: '<',
+    techId: '<',
+  },
+  controller: ['$window','$cookies','SessionService','TimeDisplayService', 'DateService', class WorkOrderOverviewTableCCtrl {
+    constructor($window,$cookies,SessionService,TimeDisplayService, DateService) {
+      // Initialize all variables on component
+      this.$window = $window;
+      this.$cookies = $cookies;
+      this.TDS = TimeDisplayService;
+      this.SS = SessionService;
+      this.DS = DateService;
+
+      this.orderByField = 'epoch';
+      this.reverseSort = true;
+      this.unitNumber = this.SS.get("unitNumber") ? this.SS.get("unitNumber") : null;
+      this.techName = null;
+      this.leaseName = null;
+      this.customerName = null;
+      this.billable = null;
+      this.billed = null;
+      this.billParts = null;
+      this.unapproved = false;
+      this.approved = false;
+      this.synced = false;
+      this.limit = 50;
+      this.skip = 0;
+      this.open = false;
+      this.pad = this.TDS.pad;
+      this.searchSupervisor = null;
+      this.role = 'admin';
+      this.dates = {
+        from: null,
+        to: null,
+        fromInput: null,
+        toInput: null,
+      };
+    }
+    // -------------------------------------------------
+
+
+    // Initialize original state -----------------------
+    $onInit() {
+      this.role = this.$cookies.get('role');
+      if(!this.SS.get("unitNumber")){
+        if(this.role === "admin"){
+          this.approved = true;
+          this.reverseSort = true;
+        }
+        if(this.role === "manager"){
+          this.unapproved = true;
+          this.reverseSort = false;
+        }
+      }
+
+      this.submit();
+    };
+    // -------------------------------------------------
+
+    clicked() {
+      this.role = this.$cookies.get('role');
+      if(this.role === "admin"){
+        this.approved = true;
+        this.unapproved = true;
+        this.synced = true;
+        this.reverseSort = true;
+        this.open = !this.open;
+      }
+    }
+
+    // Search Changes ----------------------------------
+    changeTextField(changedData, selected) {
+      this.onTextFieldChange({ changedData, selected });
+    }
+    changeCheckBox(changedData, selected) {
+      this.onCheckBoxChange({ changedData, selected });
+    }
+    // -------------------------------------------------
+
+
+    // Get start and end of Day ------------------------
+    startOfDay(input) {
+      this.dates.fromInput = input;
+      if (typeof input === 'object') {
+        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
+      }
+    };
+
+    endOfDay(input) {
+      this.dates.toInput = input;
+      if (typeof input === 'object') {
+        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
+      }
+    };
+    // -------------------------------------------------
+
+    // Load content on scroll from parent controller ---
+    loadOnScroll() {
+      console.log("Scrolling..");
+      this.skip += this.limit;
+
+      const query = {
+        limit: this.limit,
+        skip: this.skip
+      };
+
+      if(this.dates.from && this.dates.to) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+
+      if (this.endTime || this.startTime) {
+        // this.startTime and this.endTime are generated on the server
+        // so no need to convert to server.
+        // this.dates are generated on client so need to format to server
+        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
+        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
+      }
+      if(this.unitNumber) {
+        query.unit = this.unitNumber;
+      }
+      if(this.techName || this.techId) {
+        query.tech = this.techId ? this.techId : this.techName;
+      }
+      if(this.leaseName) {
+        query.loc = this.leaseName;
+      }
+      if (this.searchSupervisor) {
+        query.searchSupervisor = this.searchSupervisor.toUpperCase();
+      }
+      if(this.customerName) {
+        query.cust = this.customerName;
+      }
+      if(this.billed){
+        query.billed = this.billed;
+      }
+      if(this.billable) {
+        query.billable = this.billable;
+      }
+      if(this.billParts) {
+        query.billParts = this.billParts;
+      }
+      if(this.unapproved || this.techId){
+        query.unapproved = this.techId ? true : this.unapproved;
+      }
+      if(this.approved || this.techId){
+        query.approved = this.techId ? true : this.approved;
+      }
+      if(this.synced || this.techId){
+        query.synced = this.techId ? true :  this.synced;
+      }
+      if(this.woType) {
+        query.type = this.woType;
+      }
+
+      this.scrollContentSearch({query});
+    };
+    // -------------------------------------------------
+
+    // Submit query to parent controller ---------------
+    submit() {
+      console.log("submit");
+      this.limit = 50;
+      this.skip = 0;
+
+      const query = {
+        limit: this.limit,
+        skip: this.skip
+      };
+
+
+      if(this.dates.from && this.dates.to) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+      if (this.endTime || this.startTime) {
+        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
+        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
+      }
+
+      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
+        query.unit = this.unitNumber;
+      } else if(this.unitNumber !== this.SS.get("unitNumber")){
+        query.unit = this.unitNumber;
+        this.SS.drop("unitNumber");
+      } else {
+        this.SS.drop("unitNumber");
+      }
+      if(this.techId || this.techName) {
+        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
+        query.tech = this.techName;
+      }
+      if(this.leaseName) {
+        query.loc = this.leaseName;
+      }
+      if (this.searchSupervisor) {
+        query.searchSupervisor = this.searchSupervisor.toUpperCase();
+      }
+      if(this.customerName) {
+        query.cust = this.customerName;
+      }
+      if(this.billed){
+        query.billed = this.billed;
+      }
+      if(this.billable) {
+        query.billable = this.billable
+      }
+      if(this.billParts) {
+        query.billParts = this.billParts
+      }
+      if(this.unapproved || this.techId){
+        query.unapproved = this.techId ? true : this.unapproved;
+      }
+      if(this.approved || this.techId){
+        query.approved = this.techId ? true : this.approved;
+      }
+      if(this.synced || this.techId){
+        query.synced = this.techId ? true :  this.synced;
+      }
+      if(this.woType) {
+        query.type = this.woType;
+      }
+
+      console.log(query)
+      this.contentSearch({query});
+    };
+    // -------------------------------------------------
+
+    // Get Time Report of searched users ---------------
+    report(type) {
+      this.reportText = "Loading...";
+      this.reportDisabled = true;
+
+      const query = {};
+
+      if(this.dates.from && this.dates.to) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+      if (this.endTime || this.startTime) {
+        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
+        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
+      }
+    /*
+      if(this.unitNumber) {
+        query.unit = this.unitNumber.toString();
+      }
+      if(this.techName) {
+        query.tech = this.techName.toUpperCase();
+      }*/
+      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
+        query.unit = this.unitNumber;
+      } else if(this.unitNumber !== this.SS.get("unitNumber")){
+        query.unit = this.unitNumber;
+        this.SS.drop("unitNumber");
+      } else {
+        this.SS.drop("unitNumber");
+      }
+      if(this.techId || this.techName) {
+        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
+        query.tech = this.techName;
+      }
+      if(this.leaseName) {
+        query.loc = this.leaseName.toString();
+      }
+      if(this.customerName) {
+        query.cust = this.customerName.toString();
+      }
+      if (this.searchSupervisor) {
+        query.searchSupervisor = this.searchSupervisor.toUpperCase();
+      }
+      if(this.billed){
+        query.billed = this.billed;
+      }
+      if(this.billable) {
+        query.billable = this.billable
+      }
+      if(this.billParts) {
+        query.billParts = this.billParts
+      }
+      if(this.unapproved || this.techId){
+        query.unapproved = this.techId ? true : this.unapproved;
+      }
+      if(this.approved || this.techId){
+        query.approved = this.techId ? true : this.approved;
+      }
+      if(this.synced || this.techId){
+        query.synced = this.techId ? true :  this.synced;
+      }
+      if(this.woType) {
+        query.type = this.woType;
+      }
+      query.report = 'true';
+
+      if (type === 'timeReport') {
+        this.contentReport({query});
+      } else if (type === 'woDump') {
+        this.woDumpReport({query});
+      } else if (type === 'woPartsDump') {
+        this.woPartsDumpReport({query});
+      }
+    };
+    // -------------------------------------------------
+
+    // Sorting for Table -------------------------------
+    resort(by) {
+      this.orderByField = by;
+      this.reverseSort = !this.reverseSort;
+    };
+    // -------------------------------------------------
+
+
+    // Set billable background color for workorders
+    setBillableBackgroundColor(wo) {
+      if(wo.parts.length > 0){
+        const partBillable = wo.isPartBillable.color;
+        if(wo.billingInfo.billableToCustomer || (partBillable === '#a4cf80')) return '#a4cf80';
+      } else {
+        if(wo.billingInfo.billableToCustomer) return '#a4cf80';
+      }
+    };
+    // -------------------------------------------------
+
+    clearText(selected) {
+      switch (selected) {
+        case 'unitNumber':
+          this.unitNumber = null;
+          break;
+        case 'leaseName':
+          this.leaseName = null;
+          break;
+        case 'techName':
+          this.techName = null;
+          break;
+        case 'customerName':
+          this.customerName = null;
+          break;
+        case 'searchSupervisor':
+          this.searchSupervisor = null;
+          break;
+      }
+    }
+
+    // Routing to work order ---------------------------
+    clickWorkOrder(wo) {
+      this.$window.open('#/workorder/review/' + wo._id);
+    };
+    // -------------------------------------------------
+
+
+  }]
+});
+
+
+
+
+/*
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
+
+function clearSearch() {
+
+  //let elements = [] ;
+  const elements = document.getElementsByClassName("search");
+
+  for(let i=0; i<elements.length ; i++){
+    elements[i].value = "" ;
+  }
+}
+*/
+
+angular.module('WorkOrderApp.Directives')
+.directive('newSerialNumbers', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/newSerial.html',
+    scope: true
+  };
+}]);
+
+/**
+ * Created by marcusjwhelan on 10/20/16.
+ */
+angular.module('WorkOrderApp.Directives')
+.directive('pesCollectionMatch', function(){
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, elem, attr, ctrl){
+      // set the border of the input for color to be larger
+      scope.myStyle = {
+        borderWidth: "6px",
+      };
+      // validity setters.
+      var setInvalid = function(arg){
+        ctrl.$setValidity( arg, false);
+        if(elem.parent().hasClass('has-success')){
+          elem.parent().removeClass('has-success');
+          elem.parent().addClass('has-error');
+        } else {
+          elem.parent().addClass('has-error');
+        }
+      };
+      var setHighlight = function (arg) {
+        ctrl.$setValidity( arg, false);
+        if (elem.parent().hasClass('has-success')) {
+          elem.parent().removeClass('has-success');
+        }
+        if (elem.parent().hasClass('has-error')) {
+          elem.parent().removeClass('has-error');
+        }
+        elem.parent().addClass('has-highlight');
+      };
+      var setValid = function(arg){
+        ctrl.$setValidity( arg, true );
+        if(elem.parent().hasClass('has-error')){
+          elem.parent().removeClass('has-error');
+          elem.parent().addClass('has-success');
+        } else {
+          elem.parent().addClass('has-success');
+        }
+      };
+
+      // runs on page load and on item selection.
+      scope.$watch(attr.ngModel, _.debounce(function(viewValue){
+        scope.$apply(function(){
+          // get the model name EG header.unitNumber
+          // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
+          var attribute = attr.ngModel;
+          var unitExists;
+
+          // if there is a unit and not a Indirect WO
+          if(scope.displayUnit && scope.workorder.type !== 'Indirect'){
+            unitExists = 'is_unit';
+          // if there is no unit and not a Indirect WO
+          } else if(!scope.displayUnit && scope.workorder.type !== 'Indirect') {
+            unitExists = 'should_unit';
+          // its an Indirect WO. false unless empty
+          } else {
+            unitExists = 'no_unit'
+          }
+
+          var checkUnitFields = function(vv){
+            // get the index of the unit number out of the array
+            switch(attribute){
+              case "workorder.header.unitNumber":
+                if(unitExists === 'is_unit'){
+                  var number;
+                  if (scope.workorder.type === 'Transfer') {
+                    number = scope.headerUnit.number;
+                  } else {
+                    number = scope.displayUnit.number;
+                  }
+                  if(number.toUpperCase() === scope.workorder.header.unitNumber.toUpperCase()){
+                    if ((scope.workorder.header.unitNumber.toUpperCase() === scope.workorder.unitNumber.toUpperCase()) && scope.workorder.type !== 'Swap') {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else {
+                    setInvalid(attribute);
+                  }
+                } else if (unitExists === 'should_unit'){
+                  setInvalid(attribute);
+                } else if(unitExists === 'no_unit'){
+                  if(vv){
+                    setInvalid(attribute);
+                  } else {
+                    setValid(attribute);
+                  }
+                }
+                break;
+              case "workorder.header.customerName":
+                // customer
+                if(unitExists === 'is_unit'){
+                  var customerName;
+                  if (scope.workorder.type === 'Swap') {
+                    customerName = scope.headerUnit.customerName;
+                  } else {
+                    customerName = scope.displayUnit.customerName;
+                  }
+                  if(customerName.toUpperCase() === scope.workorder.header.customerName.toUpperCase()){
+                    setValid(attribute);
+                  } else {
+                    setInvalid(attribute);
+                  }
+                } else if (unitExists === 'should_unit'){
+                  setInvalid(attribute);
+                } else if(unitExists === 'no_unit'){
+                  if(vv){
+                    setInvalid(attribute);
+                  } else {
+                    setValid(attribute);
+                  }
+                }
+
+                break;
+              case "workorder.header.leaseName":
+                // lease
+                if(unitExists === 'is_unit'){
+                  var locationName;
+                  if (scope.workorder.type === 'Swap') {
+                    locationName = scope.headerUnit.locationName;
+                  } else {
+                    locationName = scope.displayUnit.locationName;
+                  }
+                  if(locationName.toUpperCase() === scope.workorder.header.leaseName.toUpperCase()){
+                    setValid(attribute);
+                  } else {
+                    setInvalid(attribute);
+                  }
+                } else if (unitExists === 'should_unit'){
+                  setInvalid(attribute);
+                } else if(unitExists === 'no_unit'){
+                  if(vv){
+                    setInvalid(attribute);
+                  } else {
+                    setValid(attribute);
+                  }
+                }
+
+                break;
+              case "workorder.header.county":
+                // county
+                if(unitExists === 'is_unit'){
+                  var county;
+                  if (scope.workorder.type === 'Swap') {
+                    county = scope.headerUnit.county === null ? '' : scope.headerUnit.county.name;
+                  } else {
+                    county = scope.displayUnit.county === null ? "" : scope.displayUnit.county.name;
+                  }
+                  if(county.toUpperCase() === scope.workorder.header.county.toUpperCase()){
+                    setValid(attribute);
+                  } else {
+                    setInvalid(attribute);
+                  }
+                } else if (unitExists === 'should_unit'){
+                  setInvalid(attribute);
+                } else if(unitExists === 'no_unit'){
+                  if(vv){
+                    setInvalid(attribute);
+                  } else {
+                    setValid(attribute);
+                  }
+                }
+
+                break;
+              case "workorder.header.state":
+                // state
+                if(unitExists === 'is_unit'){
+                  var state;
+                  if (scope.workorder.type === 'Swap') {
+                    state = scope.headerUnit.state === null ? "" : scope.headerUnit.state.name;
+                  } else {
+                    state = scope.displayUnit.state === null ? "" : scope.displayUnit.state.name;
+                  }
+                  if(state.toUpperCase() === scope.workorder.header.state.toUpperCase()){
+                    setValid(attribute);
+                  } else {
+                    setInvalid(attribute);
+                  }
+                } else if (unitExists === 'should_unit'){
+                  setInvalid(attribute);
+                } else if(unitExists === 'no_unit'){
+                  if(vv){
+                    setInvalid(attribute);
+                  } else {
+                    setValid(attribute);
+                  }
+                }
+
+                break;
+              case "workorder.unitReadings.compressorSerial":
+                // compressor serial
+                if (unitExists === 'is_unit') {
+                  var compressorSerial = scope.displayUnit.compressorSerial === null ? "" : scope.displayUnit.compressorSerial;
+                  if (compressorSerial === scope.workorder.unitReadings.compressorSerial) {
+                    if (scope.workorder.type === 'Swap') {
+                      setHighlight(attribute);
+                    } else {
+                      setValid(attribute);
+                    }
+                  } else {
+                    if (scope.workorder.type === 'Swap') {
+                      setHighlight(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  }
+                } else if (unitExists === 'should_unit') {
+                  setInvalid(attribute);
+                } else if (unitExists === 'no_unit') {
+                  if (vv) {
+                    setInvalid(attribute);
+                  } else {
+                    setValid(attribute);
+                  }
+                }
+                break;
+
+              case "workorder.unitReadings.engineSerial":
+                // Engine serial
+                if (unitExists === 'is_unit') {
+                  var engineSerial = scope.displayUnit.engineSerial === null ? "" : scope.displayUnit.engineSerial;
+                  if (engineSerial === scope.workorder.unitReadings.engineSerial) {
+                    if (scope.workorder.type === 'Swap') {
+                      setHighlight(attribute);
+                    } else {
+                      setValid(attribute);
+                    }
+                  } else {
+                    if (scope.workorder.type === 'Swap') {
+                      setHighlight(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  }
+                } else if (unitExists === 'should_unit') {
+                  setInvalid(attribute);
+                } else if (unitExists === 'no_unit') {
+                  if (vv) {
+                    setInvalid(attribute);
+                  } else {
+                    setValid(attribute);
+                  }
+                }
+                break;
+
+              case "workorder.geo.coordinates[1]":
+                // Engine serial
+                if (unitExists === 'is_unit') {
+                  var latitude;
+                  if (scope.workorder.type === 'Swap') {
+                    latitude = scope.headerUnit.geo.coordinates[1] === 0 ? 0 : scope.headerUnit.geo.coordinates[1];
+                  } else {
+                    latitude = scope.displayUnit.geo.coordinates[1] === 0 ? 0 : scope.displayUnit.geo.coordinates[1];
+                  }
+                  if (latitude === scope.workorder.geo.coordinates[1]) {
+                    setValid(attribute);
+                  } else {
+                    if (scope.workorder.atShop) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  }
+                } else if (unitExists === 'should_unit') {
+                  setInvalid(attribute);
+                } else if (unitExists === 'no_unit') {
+                  if (vv) {
+                    setInvalid(attribute);
+                  } else {
+                    setValid(attribute);
+                  }
+                }
+                break;
+
+              case "workorder.geo.coordinates[0]":
+                // Engine serial
+                if (unitExists === 'is_unit') {
+                  var longitude;
+                  if (scope.workorder.type === 'Swap') {
+                    longitude = scope.headerUnit.geo.coordinates[0] === 0 ? 0 : scope.headerUnit.geo.coordinates[0];
+                  } else {
+                    longitude = scope.displayUnit.geo.coordinates[0] === 0 ? 0 : scope.displayUnit.geo.coordinates[0];
+                  }
+                  if (longitude === scope.workorder.geo.coordinates[0]) {
+                    setValid(attribute);
+                  } else {
+                    if (scope.workorder.atShop) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  }
+                } else if (unitExists === 'should_unit') {
+                  setInvalid(attribute);
+                } else if (unitExists === 'no_unit') {
+                  if (vv) {
+                    setInvalid(attribute);
+                  } else {
+                    setValid(attribute);
+                  }
+                }
+                break;
+            }
+          };
+          // if empty don't set has-error
+          if(viewValue || viewValue === '' || viewValue === null || viewValue === 0){
+            checkUnitFields(viewValue);
+
+            return viewValue;
+          }
+        })
+      },300)); // 300 ms wait. Don't do it every change
+    }
+  };
+})
+.directive('unitInput', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/unitInput.html',
+    scope: false
+  };
+}]);
+
+
+angular.module('WorkOrderApp.Directives')
+  .directive('pesSwapCollectionMatch', function () {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, elem, attr, ctrl){
+        scope.myStyle = {
+          borderWidth: "6px",
+        };
+        // validity setters.
+        var setInvalid = function(arg){
+          ctrl.$setValidity( arg, false);
+          if(elem.parent().hasClass('has-success')){
+            elem.parent().removeClass('has-success');
+            elem.parent().addClass('has-highlight');
+          } else {
+            elem.parent().addClass('has-highlight');
+          }
+        };
+        var setValid = function(arg){
+          ctrl.$setValidity( arg, true );
+          if(elem.parent().hasClass('has-error')){
+            elem.parent().removeClass('has-error');
+            elem.parent().addClass('has-highlight');
+          } else {
+            elem.parent().addClass('has-highlight');
+          }
+        };
+
+        scope.$watch(attr.ngModel, _.debounce(function(viewValue){
+          scope.$apply(function(){
+            // get the model name EG header.unitNumber
+            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
+            var attribute = attr.ngModel;
+            var unitExists;
+            // if there is a unit and not a Indirect WO
+            if(scope.displayUnit && scope.workorder.type !== 'Indirect'){
+              unitExists = 'is_unit';
+              // if there is no unit and not a Indirect WO
+            } else if(!scope.displayUnit && scope.workorder.type !== 'Indirect') {
+              unitExists = 'should_unit';
+              // its an Indirect WO. false unless empty
+            } else {
+              unitExists = 'no_unit'
+            }
+
+            var checkUnitFields = function (vv) {
+              switch(attribute) {
+                case 'workorder.unitChangeInfo.transferCounty':
+                  if (unitExists === 'is_unit') {
+                    var county = scope.displayUnit.county === null ? '' : scope.displayUnit.county.name;
+                    if (county.toUpperCase() === scope.workorder.unitChangeInfo.transferCounty.toUpperCase()) {
+                      setValid(attribute)
+                    } else {
+                      setInvalid(attribute)
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+                case 'workorder.unitChangeInfo.transferState':
+                  if (unitExists === 'is_unit') {
+                    var state = scope.displayUnit.state === null ? '' : scope.displayUnit.state.name;
+                    if (state.toUpperCase() === scope.workorder.unitChangeInfo.transferState.toUpperCase()) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+                case 'workorder.unitChangeInfo.transferLease':
+                  if (unitExists === 'is_unit') {
+                    if (scope.displayUnit.locationName.toUpperCase() === scope.workorder.unitChangeInfo.transferLease.toUpperCase()) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+                case 'workorder.unitChangeInfo.swapUnitNumber':
+                  if (unitExists === 'is_unit') {
+                    if (scope.displayUnit.number.toUpperCase() === scope.workorder.unitChangeInfo.swapUnitNumber.toUpperCase()) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+              }
+            };
+
+            if(viewValue || viewValue === '' || viewValue === null || viewValue === 0){
+              checkUnitFields(viewValue);
+
+              return viewValue;
+            }
+          })
+        },300)); // 300 ms wait. Don't do it every change
+      }
+    }
+  })
+  .directive('unitChangeInfo', [function() {
+    return {
+      restrict: 'E',
+      templateUrl: '/lib/public/angular/apps/workorder/views/woChangeInfo.html',
+      scope: true
+    };
+  }]);
+
+angular.module('WorkOrderApp.Services')
+.factory('CommonWOfunctions', [function () {
+  var CommonWOFunctions = {};
+
+  // Add Component Name to every part in wo -------------
+  CommonWOFunctions.addComponentNameToParts = function (wo, parts) {
+    if(wo.hasOwnProperty('parts')){
+      if(wo.parts.length !== 0){
+        wo.parts.map(function (part) {
+          var netsuiteId = +part.netsuiteId;
+          _.forEach(parts, function (obj) {
+            if(obj.netsuiteId === netsuiteId){
+              part.componentName = (obj.componentName) ? obj.componentName : '';
+            }
+          });
+        });
+      }
+    }
+    return wo;
+  };
+  // ----------------------------------------------------
+  
+  return CommonWOFunctions;
+}]);
 
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderCtrl',
 ['$window','$location','$scope','SessionService','ApiRequestService','AlertService','$http', 'STARTTIME', 'ENDTIME', 'WOTYPE', 'TECHNICIANID', 'DateService', function ($window,$location,$scope,SessionService,ApiRequestService,AlertService,$http, STARTTIME, ENDTIME, WOTYPE, TECHNICIANID, DateService) {
@@ -7306,867 +8167,6 @@ function ($window, $http, $q, $scope, $location, $timeout, $uibModal, $cookies, 
   $scope.getTimeElapsed();
 }]);
 
-angular.module('WorkOrderApp.Directives')
-.directive('newSerialNumbers', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/newSerial.html',
-    scope: true
-  };
-}]);
-
-/**
- * Created by marcusjwhelan on 10/20/16.
- */
-angular.module('WorkOrderApp.Directives')
-.directive('pesCollectionMatch', function(){
-  return {
-    restrict: 'A',
-    require: 'ngModel',
-    link: function(scope, elem, attr, ctrl){
-      // set the border of the input for color to be larger
-      scope.myStyle = {
-        borderWidth: "6px",
-      };
-      // validity setters.
-      var setInvalid = function(arg){
-        ctrl.$setValidity( arg, false);
-        if(elem.parent().hasClass('has-success')){
-          elem.parent().removeClass('has-success');
-          elem.parent().addClass('has-error');
-        } else {
-          elem.parent().addClass('has-error');
-        }
-      };
-      var setHighlight = function (arg) {
-        ctrl.$setValidity( arg, false);
-        if (elem.parent().hasClass('has-success')) {
-          elem.parent().removeClass('has-success');
-        }
-        if (elem.parent().hasClass('has-error')) {
-          elem.parent().removeClass('has-error');
-        }
-        elem.parent().addClass('has-highlight');
-      };
-      var setValid = function(arg){
-        ctrl.$setValidity( arg, true );
-        if(elem.parent().hasClass('has-error')){
-          elem.parent().removeClass('has-error');
-          elem.parent().addClass('has-success');
-        } else {
-          elem.parent().addClass('has-success');
-        }
-      };
-
-      // runs on page load and on item selection.
-      scope.$watch(attr.ngModel, _.debounce(function(viewValue){
-        scope.$apply(function(){
-          // get the model name EG header.unitNumber
-          // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
-          var attribute = attr.ngModel;
-          var unitExists;
-
-          // if there is a unit and not a Indirect WO
-          if(scope.displayUnit && scope.workorder.type !== 'Indirect'){
-            unitExists = 'is_unit';
-          // if there is no unit and not a Indirect WO
-          } else if(!scope.displayUnit && scope.workorder.type !== 'Indirect') {
-            unitExists = 'should_unit';
-          // its an Indirect WO. false unless empty
-          } else {
-            unitExists = 'no_unit'
-          }
-
-          var checkUnitFields = function(vv){
-            // get the index of the unit number out of the array
-            switch(attribute){
-              case "workorder.header.unitNumber":
-                if(unitExists === 'is_unit'){
-                  var number;
-                  if (scope.workorder.type === 'Transfer') {
-                    number = scope.headerUnit.number;
-                  } else {
-                    number = scope.displayUnit.number;
-                  }
-                  if(number.toUpperCase() === scope.workorder.header.unitNumber.toUpperCase()){
-                    if ((scope.workorder.header.unitNumber.toUpperCase() === scope.workorder.unitNumber.toUpperCase()) && scope.workorder.type !== 'Swap') {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else {
-                    setInvalid(attribute);
-                  }
-                } else if (unitExists === 'should_unit'){
-                  setInvalid(attribute);
-                } else if(unitExists === 'no_unit'){
-                  if(vv){
-                    setInvalid(attribute);
-                  } else {
-                    setValid(attribute);
-                  }
-                }
-                break;
-              case "workorder.header.customerName":
-                // customer
-                if(unitExists === 'is_unit'){
-                  var customerName;
-                  if (scope.workorder.type === 'Swap') {
-                    customerName = scope.headerUnit.customerName;
-                  } else {
-                    customerName = scope.displayUnit.customerName;
-                  }
-                  if(customerName.toUpperCase() === scope.workorder.header.customerName.toUpperCase()){
-                    setValid(attribute);
-                  } else {
-                    setInvalid(attribute);
-                  }
-                } else if (unitExists === 'should_unit'){
-                  setInvalid(attribute);
-                } else if(unitExists === 'no_unit'){
-                  if(vv){
-                    setInvalid(attribute);
-                  } else {
-                    setValid(attribute);
-                  }
-                }
-
-                break;
-              case "workorder.header.leaseName":
-                // lease
-                if(unitExists === 'is_unit'){
-                  var locationName;
-                  if (scope.workorder.type === 'Swap') {
-                    locationName = scope.headerUnit.locationName;
-                  } else {
-                    locationName = scope.displayUnit.locationName;
-                  }
-                  if(locationName.toUpperCase() === scope.workorder.header.leaseName.toUpperCase()){
-                    setValid(attribute);
-                  } else {
-                    setInvalid(attribute);
-                  }
-                } else if (unitExists === 'should_unit'){
-                  setInvalid(attribute);
-                } else if(unitExists === 'no_unit'){
-                  if(vv){
-                    setInvalid(attribute);
-                  } else {
-                    setValid(attribute);
-                  }
-                }
-
-                break;
-              case "workorder.header.county":
-                // county
-                if(unitExists === 'is_unit'){
-                  var county;
-                  if (scope.workorder.type === 'Swap') {
-                    county = scope.headerUnit.county === null ? '' : scope.headerUnit.county.name;
-                  } else {
-                    county = scope.displayUnit.county === null ? "" : scope.displayUnit.county.name;
-                  }
-                  if(county.toUpperCase() === scope.workorder.header.county.toUpperCase()){
-                    setValid(attribute);
-                  } else {
-                    setInvalid(attribute);
-                  }
-                } else if (unitExists === 'should_unit'){
-                  setInvalid(attribute);
-                } else if(unitExists === 'no_unit'){
-                  if(vv){
-                    setInvalid(attribute);
-                  } else {
-                    setValid(attribute);
-                  }
-                }
-
-                break;
-              case "workorder.header.state":
-                // state
-                if(unitExists === 'is_unit'){
-                  var state;
-                  if (scope.workorder.type === 'Swap') {
-                    state = scope.headerUnit.state === null ? "" : scope.headerUnit.state.name;
-                  } else {
-                    state = scope.displayUnit.state === null ? "" : scope.displayUnit.state.name;
-                  }
-                  if(state.toUpperCase() === scope.workorder.header.state.toUpperCase()){
-                    setValid(attribute);
-                  } else {
-                    setInvalid(attribute);
-                  }
-                } else if (unitExists === 'should_unit'){
-                  setInvalid(attribute);
-                } else if(unitExists === 'no_unit'){
-                  if(vv){
-                    setInvalid(attribute);
-                  } else {
-                    setValid(attribute);
-                  }
-                }
-
-                break;
-              case "workorder.unitReadings.compressorSerial":
-                // compressor serial
-                if (unitExists === 'is_unit') {
-                  var compressorSerial = scope.displayUnit.compressorSerial === null ? "" : scope.displayUnit.compressorSerial;
-                  if (compressorSerial === scope.workorder.unitReadings.compressorSerial) {
-                    if (scope.workorder.type === 'Swap') {
-                      setHighlight(attribute);
-                    } else {
-                      setValid(attribute);
-                    }
-                  } else {
-                    if (scope.workorder.type === 'Swap') {
-                      setHighlight(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  }
-                } else if (unitExists === 'should_unit') {
-                  setInvalid(attribute);
-                } else if (unitExists === 'no_unit') {
-                  if (vv) {
-                    setInvalid(attribute);
-                  } else {
-                    setValid(attribute);
-                  }
-                }
-                break;
-
-              case "workorder.unitReadings.engineSerial":
-                // Engine serial
-                if (unitExists === 'is_unit') {
-                  var engineSerial = scope.displayUnit.engineSerial === null ? "" : scope.displayUnit.engineSerial;
-                  if (engineSerial === scope.workorder.unitReadings.engineSerial) {
-                    if (scope.workorder.type === 'Swap') {
-                      setHighlight(attribute);
-                    } else {
-                      setValid(attribute);
-                    }
-                  } else {
-                    if (scope.workorder.type === 'Swap') {
-                      setHighlight(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  }
-                } else if (unitExists === 'should_unit') {
-                  setInvalid(attribute);
-                } else if (unitExists === 'no_unit') {
-                  if (vv) {
-                    setInvalid(attribute);
-                  } else {
-                    setValid(attribute);
-                  }
-                }
-                break;
-
-              case "workorder.geo.coordinates[1]":
-                // Engine serial
-                if (unitExists === 'is_unit') {
-                  var latitude;
-                  if (scope.workorder.type === 'Swap') {
-                    latitude = scope.headerUnit.geo.coordinates[1] === 0 ? 0 : scope.headerUnit.geo.coordinates[1];
-                  } else {
-                    latitude = scope.displayUnit.geo.coordinates[1] === 0 ? 0 : scope.displayUnit.geo.coordinates[1];
-                  }
-                  if (latitude === scope.workorder.geo.coordinates[1]) {
-                    setValid(attribute);
-                  } else {
-                    if (scope.workorder.atShop) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  }
-                } else if (unitExists === 'should_unit') {
-                  setInvalid(attribute);
-                } else if (unitExists === 'no_unit') {
-                  if (vv) {
-                    setInvalid(attribute);
-                  } else {
-                    setValid(attribute);
-                  }
-                }
-                break;
-
-              case "workorder.geo.coordinates[0]":
-                // Engine serial
-                if (unitExists === 'is_unit') {
-                  var longitude;
-                  if (scope.workorder.type === 'Swap') {
-                    longitude = scope.headerUnit.geo.coordinates[0] === 0 ? 0 : scope.headerUnit.geo.coordinates[0];
-                  } else {
-                    longitude = scope.displayUnit.geo.coordinates[0] === 0 ? 0 : scope.displayUnit.geo.coordinates[0];
-                  }
-                  if (longitude === scope.workorder.geo.coordinates[0]) {
-                    setValid(attribute);
-                  } else {
-                    if (scope.workorder.atShop) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  }
-                } else if (unitExists === 'should_unit') {
-                  setInvalid(attribute);
-                } else if (unitExists === 'no_unit') {
-                  if (vv) {
-                    setInvalid(attribute);
-                  } else {
-                    setValid(attribute);
-                  }
-                }
-                break;
-            }
-          };
-          // if empty don't set has-error
-          if(viewValue || viewValue === '' || viewValue === null || viewValue === 0){
-            checkUnitFields(viewValue);
-
-            return viewValue;
-          }
-        })
-      },300)); // 300 ms wait. Don't do it every change
-    }
-  };
-})
-.directive('unitInput', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/unitInput.html',
-    scope: false
-  };
-}]);
-
-
-angular.module('WorkOrderApp.Directives')
-  .directive('pesSwapCollectionMatch', function () {
-    return {
-      restrict: 'A',
-      require: 'ngModel',
-      link: function(scope, elem, attr, ctrl){
-        scope.myStyle = {
-          borderWidth: "6px",
-        };
-        // validity setters.
-        var setInvalid = function(arg){
-          ctrl.$setValidity( arg, false);
-          if(elem.parent().hasClass('has-success')){
-            elem.parent().removeClass('has-success');
-            elem.parent().addClass('has-highlight');
-          } else {
-            elem.parent().addClass('has-highlight');
-          }
-        };
-        var setValid = function(arg){
-          ctrl.$setValidity( arg, true );
-          if(elem.parent().hasClass('has-error')){
-            elem.parent().removeClass('has-error');
-            elem.parent().addClass('has-highlight');
-          } else {
-            elem.parent().addClass('has-highlight');
-          }
-        };
-
-        scope.$watch(attr.ngModel, _.debounce(function(viewValue){
-          scope.$apply(function(){
-            // get the model name EG header.unitNumber
-            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
-            var attribute = attr.ngModel;
-            var unitExists;
-            // if there is a unit and not a Indirect WO
-            if(scope.displayUnit && scope.workorder.type !== 'Indirect'){
-              unitExists = 'is_unit';
-              // if there is no unit and not a Indirect WO
-            } else if(!scope.displayUnit && scope.workorder.type !== 'Indirect') {
-              unitExists = 'should_unit';
-              // its an Indirect WO. false unless empty
-            } else {
-              unitExists = 'no_unit'
-            }
-
-            var checkUnitFields = function (vv) {
-              switch(attribute) {
-                case 'workorder.unitChangeInfo.transferCounty':
-                  if (unitExists === 'is_unit') {
-                    var county = scope.displayUnit.county === null ? '' : scope.displayUnit.county.name;
-                    if (county.toUpperCase() === scope.workorder.unitChangeInfo.transferCounty.toUpperCase()) {
-                      setValid(attribute)
-                    } else {
-                      setInvalid(attribute)
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-                case 'workorder.unitChangeInfo.transferState':
-                  if (unitExists === 'is_unit') {
-                    var state = scope.displayUnit.state === null ? '' : scope.displayUnit.state.name;
-                    if (state.toUpperCase() === scope.workorder.unitChangeInfo.transferState.toUpperCase()) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-                case 'workorder.unitChangeInfo.transferLease':
-                  if (unitExists === 'is_unit') {
-                    if (scope.displayUnit.locationName.toUpperCase() === scope.workorder.unitChangeInfo.transferLease.toUpperCase()) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-                case 'workorder.unitChangeInfo.swapUnitNumber':
-                  if (unitExists === 'is_unit') {
-                    if (scope.displayUnit.number.toUpperCase() === scope.workorder.unitChangeInfo.swapUnitNumber.toUpperCase()) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-              }
-            };
-
-            if(viewValue || viewValue === '' || viewValue === null || viewValue === 0){
-              checkUnitFields(viewValue);
-
-              return viewValue;
-            }
-          })
-        },300)); // 300 ms wait. Don't do it every change
-      }
-    }
-  })
-  .directive('unitChangeInfo', [function() {
-    return {
-      restrict: 'E',
-      templateUrl: '/lib/public/angular/apps/workorder/views/woChangeInfo.html',
-      scope: true
-    };
-  }]);
-
-angular.module('WorkOrderApp.Components')
-.component('woOverviewTable', {
-  templateUrl: '/lib/public/angular/apps/workorder/views/component.views/woOverviewTable.html',
-  bindings: {
-    scrollContentSearch: '&',
-    contentReport: '&',
-    woDumpReport: '&',
-    woPartsDumpReport: '&',
-    contentSearch: '&',
-    onTextFieldChange: '&',
-    onCheckBoxChange: '&',
-    woSearchCount: '<',
-    reportDisabled: '<',
-    workorders: '<',
-    startTime: '<',
-    endTime: '<',
-    woType: '<',
-    techId: '<',
-  },
-  controller: ['$window','$cookies','SessionService','TimeDisplayService', 'DateService', class WorkOrderOverviewTableCCtrl {
-    constructor($window,$cookies,SessionService,TimeDisplayService, DateService) {
-      // Initialize all variables on component
-      this.$window = $window;
-      this.$cookies = $cookies;
-      this.TDS = TimeDisplayService;
-      this.SS = SessionService;
-      this.DS = DateService;
-
-      this.orderByField = 'epoch';
-      this.reverseSort = true;
-      this.unitNumber = this.SS.get("unitNumber") ? this.SS.get("unitNumber") : null;
-      this.techName = null;
-      this.leaseName = null;
-      this.customerName = null;
-      this.billable = null;
-      this.billed = null;
-      this.billParts = null;
-      this.unapproved = false;
-      this.approved = false;
-      this.synced = false;
-      this.limit = 50;
-      this.skip = 0;
-      this.open = false;
-      this.pad = this.TDS.pad;
-      this.searchSupervisor = null;
-      this.role = 'admin';
-      this.dates = {
-        from: null,
-        to: null,
-        fromInput: null,
-        toInput: null,
-      };
-    }
-    // -------------------------------------------------
-
-
-    // Initialize original state -----------------------
-    $onInit() {
-      this.role = this.$cookies.get('role');
-      if(!this.SS.get("unitNumber")){
-        if(this.role === "admin"){
-          this.approved = true;
-          this.reverseSort = true;
-        }
-        if(this.role === "manager"){
-          this.unapproved = true;
-          this.reverseSort = false;
-        }
-      }
-
-      this.submit();
-    };
-    // -------------------------------------------------
-
-    clicked() {
-      this.role = this.$cookies.get('role');
-      if(this.role === "admin"){
-        this.approved = true;
-        this.unapproved = true;
-        this.synced = true;
-        this.reverseSort = true;
-        this.open = !this.open;
-      }
-    }
-
-    // Search Changes ----------------------------------
-    changeTextField(changedData, selected) {
-      this.onTextFieldChange({ changedData, selected });
-    }
-    changeCheckBox(changedData, selected) {
-      this.onCheckBoxChange({ changedData, selected });
-    }
-    // -------------------------------------------------
-
-
-    // Get start and end of Day ------------------------
-    startOfDay(input) {
-      this.dates.fromInput = input;
-      if (typeof input === 'object') {
-        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
-      }
-    };
-
-    endOfDay(input) {
-      this.dates.toInput = input;
-      if (typeof input === 'object') {
-        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
-      }
-    };
-    // -------------------------------------------------
-
-    // Load content on scroll from parent controller ---
-    loadOnScroll() {
-      console.log("Scrolling..");
-      this.skip += this.limit;
-
-      const query = {
-        limit: this.limit,
-        skip: this.skip
-      };
-
-      if(this.dates.from && this.dates.to) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-
-      if (this.endTime || this.startTime) {
-        // this.startTime and this.endTime are generated on the server
-        // so no need to convert to server.
-        // this.dates are generated on client so need to format to server
-        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
-        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
-      }
-      if(this.unitNumber) {
-        query.unit = this.unitNumber;
-      }
-      if(this.techName || this.techId) {
-        query.tech = this.techId ? this.techId : this.techName;
-      }
-      if(this.leaseName) {
-        query.loc = this.leaseName;
-      }
-      if (this.searchSupervisor) {
-        query.searchSupervisor = this.searchSupervisor.toUpperCase();
-      }
-      if(this.customerName) {
-        query.cust = this.customerName;
-      }
-      if(this.billed){
-        query.billed = this.billed;
-      }
-      if(this.billable) {
-        query.billable = this.billable;
-      }
-      if(this.billParts) {
-        query.billParts = this.billParts;
-      }
-      if(this.unapproved || this.techId){
-        query.unapproved = this.techId ? true : this.unapproved;
-      }
-      if(this.approved || this.techId){
-        query.approved = this.techId ? true : this.approved;
-      }
-      if(this.synced || this.techId){
-        query.synced = this.techId ? true :  this.synced;
-      }
-      if(this.woType) {
-        query.type = this.woType;
-      }
-
-      this.scrollContentSearch({query});
-    };
-    // -------------------------------------------------
-
-    // Submit query to parent controller ---------------
-    submit() {
-      console.log("submit");
-      this.limit = 50;
-      this.skip = 0;
-
-      const query = {
-        limit: this.limit,
-        skip: this.skip
-      };
-
-
-      if(this.dates.from && this.dates.to) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-      if (this.endTime || this.startTime) {
-        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
-        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
-      }
-
-      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
-        query.unit = this.unitNumber;
-      } else if(this.unitNumber !== this.SS.get("unitNumber")){
-        query.unit = this.unitNumber;
-        this.SS.drop("unitNumber");
-      } else {
-        this.SS.drop("unitNumber");
-      }
-      if(this.techId || this.techName) {
-        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
-        query.tech = this.techName;
-      }
-      if(this.leaseName) {
-        query.loc = this.leaseName;
-      }
-      if (this.searchSupervisor) {
-        query.searchSupervisor = this.searchSupervisor.toUpperCase();
-      }
-      if(this.customerName) {
-        query.cust = this.customerName;
-      }
-      if(this.billed){
-        query.billed = this.billed;
-      }
-      if(this.billable) {
-        query.billable = this.billable
-      }
-      if(this.billParts) {
-        query.billParts = this.billParts
-      }
-      if(this.unapproved || this.techId){
-        query.unapproved = this.techId ? true : this.unapproved;
-      }
-      if(this.approved || this.techId){
-        query.approved = this.techId ? true : this.approved;
-      }
-      if(this.synced || this.techId){
-        query.synced = this.techId ? true :  this.synced;
-      }
-      if(this.woType) {
-        query.type = this.woType;
-      }
-
-      console.log(query)
-      this.contentSearch({query});
-    };
-    // -------------------------------------------------
-
-    // Get Time Report of searched users ---------------
-    report(type) {
-      this.reportText = "Loading...";
-      this.reportDisabled = true;
-
-      const query = {};
-
-      if(this.dates.from && this.dates.to) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-      if (this.endTime || this.startTime) {
-        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
-        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
-      }
-    /*
-      if(this.unitNumber) {
-        query.unit = this.unitNumber.toString();
-      }
-      if(this.techName) {
-        query.tech = this.techName.toUpperCase();
-      }*/
-      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
-        query.unit = this.unitNumber;
-      } else if(this.unitNumber !== this.SS.get("unitNumber")){
-        query.unit = this.unitNumber;
-        this.SS.drop("unitNumber");
-      } else {
-        this.SS.drop("unitNumber");
-      }
-      if(this.techId || this.techName) {
-        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
-        query.tech = this.techName;
-      }
-      if(this.leaseName) {
-        query.loc = this.leaseName.toString();
-      }
-      if(this.customerName) {
-        query.cust = this.customerName.toString();
-      }
-      if (this.searchSupervisor) {
-        query.searchSupervisor = this.searchSupervisor.toUpperCase();
-      }
-      if(this.billed){
-        query.billed = this.billed;
-      }
-      if(this.billable) {
-        query.billable = this.billable
-      }
-      if(this.billParts) {
-        query.billParts = this.billParts
-      }
-      if(this.unapproved || this.techId){
-        query.unapproved = this.techId ? true : this.unapproved;
-      }
-      if(this.approved || this.techId){
-        query.approved = this.techId ? true : this.approved;
-      }
-      if(this.synced || this.techId){
-        query.synced = this.techId ? true :  this.synced;
-      }
-      if(this.woType) {
-        query.type = this.woType;
-      }
-      query.report = 'true';
-
-      if (type === 'timeReport') {
-        this.contentReport({query});
-      } else if (type === 'woDump') {
-        this.woDumpReport({query});
-      } else if (type === 'woPartsDump') {
-        this.woPartsDumpReport({query});
-      }
-    };
-    // -------------------------------------------------
-
-    // Sorting for Table -------------------------------
-    resort(by) {
-      this.orderByField = by;
-      this.reverseSort = !this.reverseSort;
-    };
-    // -------------------------------------------------
-
-
-    // Set billable background color for workorders
-    setBillableBackgroundColor(wo) {
-      if(wo.parts.length > 0){
-        const partBillable = wo.isPartBillable.color;
-        if(wo.billingInfo.billableToCustomer || (partBillable === '#a4cf80')) return '#a4cf80';
-      } else {
-        if(wo.billingInfo.billableToCustomer) return '#a4cf80';
-      }
-    };
-    // -------------------------------------------------
-
-    clearText(selected) {
-      switch (selected) {
-        case 'unitNumber':
-          this.unitNumber = null;
-          break;
-        case 'leaseName':
-          this.leaseName = null;
-          break;
-        case 'techName':
-          this.techName = null;
-          break;
-        case 'customerName':
-          this.customerName = null;
-          break;
-        case 'searchSupervisor':
-          this.searchSupervisor = null;
-          break;
-      }
-    }
-
-    // Routing to work order ---------------------------
-    clickWorkOrder(wo) {
-      this.$window.open('#/workorder/review/' + wo._id);
-    };
-    // -------------------------------------------------
-
-
-  }]
-});
-
-
-
-
-/*
-angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
-
-function clearSearch() {
-
-  //let elements = [] ;
-  const elements = document.getElementsByClassName("search");
-
-  for(let i=0; i<elements.length ; i++){
-    elements[i].value = "" ;
-  }
-}
-*/
-
-angular.module('WorkOrderApp.Services')
-.factory('CommonWOfunctions', [function () {
-  var CommonWOFunctions = {};
-
-  // Add Component Name to every part in wo -------------
-  CommonWOFunctions.addComponentNameToParts = function (wo, parts) {
-    if(wo.hasOwnProperty('parts')){
-      if(wo.parts.length !== 0){
-        wo.parts.map(function (part) {
-          var netsuiteId = +part.netsuiteId;
-          _.forEach(parts, function (obj) {
-            if(obj.netsuiteId === netsuiteId){
-              part.componentName = (obj.componentName) ? obj.componentName : '';
-            }
-          });
-        });
-      }
-    }
-    return wo;
-  };
-  // ----------------------------------------------------
-  
-  return CommonWOFunctions;
-}]);
-
 angular.module('InventoryTransferApp.Directives')
 
 .directive('inventoryTransferDetails', [ function (){
@@ -8186,55 +8186,6 @@ angular.module('InventoryTransferApp.Directives')
     scope: true
   };
 }]);
-
-angular.module('WorkOrderApp.Controllers').controller('ConfirmationCtrl',
-  function ($scope, $uibModalInstance){
-    $scope.confirm = () => {
-      $uibModalInstance.close(true);
-    };
-    $scope.cancel = () => {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
-
-angular.module('WorkOrderApp.Controllers').controller('ErrorCtrl',
-  function ($scope, $uibModalInstance){
-    $scope.ok = () => {
-      $uibModalInstance.close();
-    };
-  });
-
-angular.module('WorkOrderApp.Controllers').controller('NotesModalCtrl',
-  function ( $scope, $uibModalInstance, notes){
-    $scope.notes = notes;
-    $scope.disabled = $scope.$parent.disabled;
-    
-    $scope.changeNoteTextAreaField = ( changedData, selected ) => {
-      $scope.notes = changedData;
-    };
-    
-    $scope.ok = () => {
-      $uibModalInstance.close($scope.notes);
-    };
-    $scope.cancel = () => {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
-
-angular.module('WorkOrderApp.Controllers').controller('woLocationModalCtrl',['$window', '$scope', '$uibModalInstance',
-  function ($window, $scope, $uibModalInstance) {
-    $scope.unit = $scope.$parent.displayUnit;
-    $scope.unit.geo = $scope.$parent.workorder.geo;
-
-    $scope.toUnitPage = () => {
-      console.log('executed')
-      $uibModalInstance.close();
-      $window.open('#/unit/page/' + $scope.unit.geo.coordinates[1]+','+$scope.unit.geo.coordinates[0]);
-    };
-    $scope.ok = () => {
-      $uibModalInstance.close();
-    }
-  }]);
 
 angular.module('WorkOrderApp.Directives')
 
@@ -8316,144 +8267,54 @@ angular.module('WorkOrderApp.Directives')
   };
 }]);
 
-angular.module('WorkOrderApp.Controllers').controller('AddPartEditModalCtrl',
-  function ( $scope, $uibModalInstance, ObjectService){
-    $scope.part = {};
-    
-    $scope.changePartTextAreaField = (changedData, selected) => {
-      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
-    };
-    
-    $scope.changePartTextField = ( changedData, selected ) => {
-      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
-    };
-    
-    $scope.addPart = () => {
-      $uibModalInstance.close($scope.part);
+angular.module('WorkOrderApp.Controllers').controller('ConfirmationCtrl',
+  function ($scope, $uibModalInstance){
+    $scope.confirm = () => {
+      $uibModalInstance.close(true);
     };
     $scope.cancel = () => {
       $uibModalInstance.dismiss('cancel');
     };
   });
 
-angular.module('WorkOrderApp.Controllers').controller('JsaEditModalCtrl',
-  function ( $scope, $uibModalInstance, jsa, ObjectService ){
-    $scope.jsa = jsa;
-    
-    $scope.changeJsaTextAreaField = (changeData, selected) => {
-      ObjectService.updateNestedObjectValue($scope.jsa, changeData, selected);
-    };
-    
-    $scope.changeJsaCheckbox = (changedData, selected) => {
-      ObjectService.updateNestedObjectValue($scope.jsa, changedData, selected);
-    };
-    $scope.changeJsaTextField = (changedData, selected) => {
-      ObjectService.updateNonNestedObjectValue($scope.jsa, changedData, selected);
-    };
-    
+angular.module('WorkOrderApp.Controllers').controller('ErrorCtrl',
+  function ($scope, $uibModalInstance){
     $scope.ok = () => {
-      $uibModalInstance.close($scope.jsa);
-    };
-    $scope.cancel = function (){
-      $uibModalInstance.dismiss('cancel');
-    };
-    $scope.removeTech = (tech) => {
-      const index = $scope.jsa.techinicians.indexOf(tech);
-      $scope.jsa.techinicians.splice(index, 1);
+      $uibModalInstance.close();
     };
   });
 
-angular.module('WorkOrderApp.Controllers').controller('JsaReviewModalCtrl',
-  function ( $scope, $uibModalInstance, jsa ){
-    $scope.jsa = jsa;
+angular.module('WorkOrderApp.Controllers').controller('NotesModalCtrl',
+  function ( $scope, $uibModalInstance, notes){
+    $scope.notes = notes;
+    $scope.disabled = $scope.$parent.disabled;
+    
+    $scope.changeNoteTextAreaField = ( changedData, selected ) => {
+      $scope.notes = changedData;
+    };
     
     $scope.ok = () => {
-      $uibModalInstance.close($scope.jsa);
+      $uibModalInstance.close($scope.notes);
     };
     $scope.cancel = () => {
       $uibModalInstance.dismiss('cancel');
     };
   });
 
-angular.module('WorkOrderApp.Directives')
+angular.module('WorkOrderApp.Controllers').controller('woLocationModalCtrl',['$window', '$scope', '$uibModalInstance',
+  function ($window, $scope, $uibModalInstance) {
+    $scope.unit = $scope.$parent.displayUnit;
+    $scope.unit.geo = $scope.$parent.workorder.geo;
 
-.directive('workorderBasicLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woBasicLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderCompressorLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woCompressorLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderCoolerLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woCoolerLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderEmissionsLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woEmissionsLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderEngineLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woEngineLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPanelLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woPanelLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderVesselLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woVesselLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderLaborCodes', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/workorderLaborCodes.html',
-    scope: true
-  };
-}]);
+    $scope.toUnitPage = () => {
+      console.log('executed')
+      $uibModalInstance.close();
+      $window.open('#/unit/page/' + $scope.unit.geo.coordinates[1]+','+$scope.unit.geo.coordinates[0]);
+    };
+    $scope.ok = () => {
+      $uibModalInstance.close();
+    }
+  }]);
 
 angular.module('WorkOrderApp.Directives')
 
@@ -8531,6 +8392,146 @@ angular.module('WorkOrderApp.Directives')
   return {
     restrict: 'E',
     templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/workorderheader.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEngineChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEngineCompression', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderGeneralChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderKillSettings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPmMisc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPm', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPM.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderBasicLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woBasicLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderCompressorLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woCompressorLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderCoolerLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woCoolerLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEmissionsLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woEmissionsLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEngineLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woEngineLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPanelLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woPanelLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderVesselLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/woVesselLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderLaborCodes', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/lc/workorderLaborCodes.html',
     scope: true
   };
 }]);
@@ -8657,60 +8658,80 @@ angular.module('WorkOrderApp.Directives')
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderEngineChecks', [function () {
+.directive('reviewBasicLc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woBasicLC.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderEngineCompression', [function () {
+.directive('reviewCompressorLc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCompressorLC.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderGeneralChecks', [function () {
+.directive('reviewCoolerLc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCoolerLC.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderKillSettings', [function () {
+.directive('reviewEmissionsLc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEmissionsLC.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderPmMisc', [function () {
+.directive('reviewEngineLc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEngineLC.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderPm', [function () {
+.directive('reviewPanelLc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPM.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woPanelLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewVesselLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woVesselLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewLaborCodes', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/workorderLaborCodes.html',
     scope: true
   };
 }]);
@@ -8805,85 +8826,64 @@ angular.module('WorkOrderApp.Directives')
   };
 }]);
 
-angular.module('WorkOrderApp.Directives')
+angular.module('WorkOrderApp.Controllers').controller('AddPartEditModalCtrl',
+  function ( $scope, $uibModalInstance, ObjectService){
+    $scope.part = {};
+    
+    $scope.changePartTextAreaField = (changedData, selected) => {
+      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
+    };
+    
+    $scope.changePartTextField = ( changedData, selected ) => {
+      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
+    };
+    
+    $scope.addPart = () => {
+      $uibModalInstance.close($scope.part);
+    };
+    $scope.cancel = () => {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
 
-.directive('reviewBasicLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woBasicLC.html',
-    scope: true
-  };
-}]);
+angular.module('WorkOrderApp.Controllers').controller('JsaEditModalCtrl',
+  function ( $scope, $uibModalInstance, jsa, ObjectService ){
+    $scope.jsa = jsa;
+    
+    $scope.changeJsaTextAreaField = (changeData, selected) => {
+      ObjectService.updateNestedObjectValue($scope.jsa, changeData, selected);
+    };
+    
+    $scope.changeJsaCheckbox = (changedData, selected) => {
+      ObjectService.updateNestedObjectValue($scope.jsa, changedData, selected);
+    };
+    $scope.changeJsaTextField = (changedData, selected) => {
+      ObjectService.updateNonNestedObjectValue($scope.jsa, changedData, selected);
+    };
+    
+    $scope.ok = () => {
+      $uibModalInstance.close($scope.jsa);
+    };
+    $scope.cancel = function (){
+      $uibModalInstance.dismiss('cancel');
+    };
+    $scope.removeTech = (tech) => {
+      const index = $scope.jsa.techinicians.indexOf(tech);
+      $scope.jsa.techinicians.splice(index, 1);
+    };
+  });
 
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewCompressorLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCompressorLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewCoolerLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCoolerLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEmissionsLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEmissionsLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEngineLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEngineLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPanelLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woPanelLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewVesselLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woVesselLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewLaborCodes', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/workorderLaborCodes.html',
-    scope: true
-  };
-}]);
+angular.module('WorkOrderApp.Controllers').controller('JsaReviewModalCtrl',
+  function ( $scope, $uibModalInstance, jsa ){
+    $scope.jsa = jsa;
+    
+    $scope.ok = () => {
+      $uibModalInstance.close($scope.jsa);
+    };
+    $scope.cancel = () => {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
 
 /*
  *
