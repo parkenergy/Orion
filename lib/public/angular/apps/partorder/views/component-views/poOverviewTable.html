@@ -145,7 +145,9 @@
       <!--Search settings-->
       <thead>
         <tr>
-
+          <th>
+            Add
+          </th>
           <!-- Sort by Part #-->
           <th ng-click="$ctrl.resort('part.componentName')">
             Part #
@@ -229,14 +231,20 @@
       <tbody infinite-scroll="$ctrl.loadOnScroll()"
         infinite-scroll-immediate-check="false"
         infinite-scroll-disabled="false">
-        <tr ng-repeat="order in $ctrl.partorders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToPartOrder(order);">
-          <td>{{ order.part.componentName || order.part.number }}</td>
-          <td>{{ order.part.description }}</td>
-          <td>{{ order.techId }}</td>
-          <td>{{ order.destination }}</td>
-          <td>{{ order.status }}</td>
-          <td>{{ order.quantity }}</td>
-          <td>{{ order.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+        <tr ng-repeat="order in $ctrl.partorders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter">
+          <td>
+            <input type="checkbox"
+                   ng-model="order.inList"
+                   ng-change="$ctrl.changeThisCheckbox(order)"
+            >
+          </td>
+          <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.part.componentName || order.part.number }}</td>
+          <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.part.description }}</td>
+          <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.techId }}</td>
+          <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.destination }}</td>
+          <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.status }}</td>
+          <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.quantity }}</td>
+          <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
         </tr>
       </tbody>
 

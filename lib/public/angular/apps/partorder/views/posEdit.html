@@ -1,0 +1,79 @@
+<alerts></alerts>
+<header></header>
+
+<div id="PartOrderEdit" class="container-fluid">
+
+  <pos-edit-heading
+    select-origin-type="warehouse"
+    locations="locations"
+    partorders="partorders"
+    status="status"
+    disabled="disabled"
+    change-check-boxes="changeCheckBoxes(changedData, selected)"
+    on-select-change="headerSelectFieldChange(changedData, selected)"
+    on-text-change="headerTextFieldChange(changedData, selected)"
+    on-selection="changeStatus(changedData, selected)">
+  </pos-edit-heading>
+
+  <pos-edit-table partorders="partorders"
+  disabled="disabled">
+  </pos-edit-table>
+
+  <div class="row">
+    <div class="col-md-8">
+      <!-- Manager Comments for Canceled Orders-->
+      <div ng-if="type.type === 'canceled'">
+        <div class="panel panel-default po-edit">
+          <div class="panel-body">
+            <text-area-field
+              model-name="comment"
+              on-data-change="changeThisTextAreaField(changedData, selected)"
+              disabled="disabled"
+              data="comment"
+              label-text="Manager Comments">
+            </text-area-field>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-4">
+      <div ng-if="type.type === 'canceled' && type.value === true">
+        <button
+          ng-disabled="disabled"
+          class="btn btn-lg btn-danger pull-right po-edit"
+          ng-click="submit(type.type)">
+          Cancel Part Order
+        </button>
+      </div>
+
+      <div ng-if="type.type === 'completed' && type.value === true">
+        <button
+          ng-disabled="disabled"
+          class="btn btn-lg btn-primary pull-right po-edit"
+          ng-click="submit(type.type)">
+          Order Arrived
+        </button>
+      </div>
+
+      <div ng-if="type.type === 'ordered' && type.value === true">
+        <button
+          ng-disabled="disabled"
+          class="btn btn-lg btn-primary pull-right po-edit"
+          ng-click="submit(type.type)">
+          Order Shipment
+        </button>
+      </div>
+
+      <div ng-if="type.type === 'backorder' && type.value === true">
+        <button
+          ng-disabled="disabled"
+          class="btn btn-lg btn-primary pull-right po-edit"
+          ng-click="submit(type.type)">
+          Place on Back Order
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
