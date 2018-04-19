@@ -181,6 +181,7 @@ describe("WorkOrder Units", () => {
           .then(() => {
             let newUser = _.clone(userFixture);
 
+            newUser.netsuiteId = '12456';
             newUser.firstName = "Find";
             newUser.lastName = "Me";
             newUser.username = "TEST003";

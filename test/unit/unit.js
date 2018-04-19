@@ -48,6 +48,7 @@ describe("Unit Units", () => {
 
     before(() => {
       const newUser = _.clone(userFixture);
+      newUser.netsuiteId = '1932';
       newUser.username = "TEST002";
       newUser.supervisor = "TEST003";
 
