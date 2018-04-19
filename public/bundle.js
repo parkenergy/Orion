@@ -1752,64 +1752,95 @@ angular.module('CommonServices')
   }]);
 
 
-angular.module('PaidTimeOffApp.Controllers', []);
-angular.module('PaidTimeOffApp.Components', []);
-angular.module('PaidTimeOffApp.Directives', []);
-angular.module('PaidTimeOffApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
+angular.module('InventoryTransferApp.Controllers', []);
+angular.module('InventoryTransferApp.Directives', []);
+angular.module('InventoryTransferApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
 
-angular.module('PaidTimeOffApp', [
-  'PaidTimeOffApp.Controllers',
-  'PaidTimeOffApp.Components',
-  'PaidTimeOffApp.Directives',
-  'PaidTimeOffApp.Services',
-  'infinite-scroll'
+angular.module('InventoryTransferApp', [
+  'InventoryTransferApp.Controllers',
+  'InventoryTransferApp.Directives',
+  'InventoryTransferApp.Services'
 ]);
 
-angular.module('PaidTimeOffApp').config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider
+angular.module('InventoryTransferApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
 
-      .when('/paidtimeoff', {
-        needsLogin: true,
-        controller: 'PaidTimeOffCtrl',
-        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoOverview.html',
-      })
-      .when('/paidtimeoff/review/:id',{
-        needsLogin: true,
-        controller: 'PaidTimeOffReviewCtrl',
-        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoReview.html',
-        resolve: {
-          paidtimeoff: function ($route, $q, PaidTimeOffs) {
-            const id = $route.current.params.id || 0;
-            return (id) ? PaidTimeOffs.get({id}).$promise : null;
-          }
+  .when('/inventorytransfer/edit/:id?', {
+    needsLogin: true,
+    controller: 'InventoryTransferEditCtrl',
+    templateUrl: '/lib/public/angular/apps/inventorytransfer/views/edit.html',
+    resolve: {
+      inventorytransfer: function ($route, $q, InventoryTransfers) {
+        var id = $route.current.params.id || 0;
+        if (id) {
+          var deferred = $q.defer();
+          InventoryTransfers.get({id: id},
+            function (response) { return deferred.resolve(response); },
+            function (err) { return deferred.reject(err); }
+          );
+          return deferred.promise;
         }
-      })
-      /*.when('/paidtimeoff/create',{
-        needsLogin: true,
-        controller: 'PaidTimeOffCreateCtrl',
-        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoCreate.html',
-      });*/
-  }
-]);
-
-angular.module('PaidTimeOffApp')
-  .run(['$route', '$rootScope', '$location',
-    function($route, $rootScope, $location) {
-      var original = $location.path;
-      $location.path = function(path, reload) {
-        if (reload === false) {
-          var lastRoute = $route.current;
-          var un = $rootScope.$on('$locationChangeSuccess', function() {
-            $route.current = lastRoute;
-            un();
-          });
-        }
-        return original.apply($location, [path]);
-      };
+        else { return null; }
+      },
+      parts: function ($route, $q, Parts) {
+        var deferred = $q.defer();
+        Parts.query({},
+          function (response) {return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      },
+      users: function ($route, $q, Users) {
+        var deferred = $q.defer();
+        Users.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      },
+      locations: function ($route, $q, Locations){
+        var deferred = $q.defer();
+        Locations.query({},
+          function (response){ return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      }
     }
-  ]);
+  })
+  .when('/inventorytransfer', {
+    needsLogin: true,
+    controller: 'InventoryTransferIndexCtrl',
+    templateUrl: '/lib/public/angular/apps/inventorytransfer/views/index.html',
+    resolve: {
+      inventorytransfers: function ($route, $q, InventoryTransfers) {
+        var deferred = $q.defer();
+        InventoryTransfers.query({},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      }
+    }
+  });
+}]);
 
+angular.module('InventoryTransferApp')
+.run(['$route', '$rootScope', '$location',
+function ($route, $rootScope, $location) {
+  var original = $location.path;
+  $location.path = function (path, reload) {
+    if ( reload === false ) {
+      var lastRoute = $route.current;
+      var un = $rootScope.$on('$locationChangeSuccess', function () {
+        $route.current = lastRoute;
+        un();
+      });
+    }
+    return original.apply($location, [path]);
+  };
+}]);
 
 angular.module('CallReportApp.Controllers', []);
 angular.module('CallReportApp.Components', []);
@@ -1914,96 +1945,6 @@ angular.module('CallReportApp').config(['$routeProvider',
 
 
 
-angular.module('InventoryTransferApp.Controllers', []);
-angular.module('InventoryTransferApp.Directives', []);
-angular.module('InventoryTransferApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
-
-angular.module('InventoryTransferApp', [
-  'InventoryTransferApp.Controllers',
-  'InventoryTransferApp.Directives',
-  'InventoryTransferApp.Services'
-]);
-
-angular.module('InventoryTransferApp').config(['$routeProvider',
-  function ($routeProvider) {
-  $routeProvider
-
-  .when('/inventorytransfer/edit/:id?', {
-    needsLogin: true,
-    controller: 'InventoryTransferEditCtrl',
-    templateUrl: '/lib/public/angular/apps/inventorytransfer/views/edit.html',
-    resolve: {
-      inventorytransfer: function ($route, $q, InventoryTransfers) {
-        var id = $route.current.params.id || 0;
-        if (id) {
-          var deferred = $q.defer();
-          InventoryTransfers.get({id: id},
-            function (response) { return deferred.resolve(response); },
-            function (err) { return deferred.reject(err); }
-          );
-          return deferred.promise;
-        }
-        else { return null; }
-      },
-      parts: function ($route, $q, Parts) {
-        var deferred = $q.defer();
-        Parts.query({},
-          function (response) {return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      },
-      users: function ($route, $q, Users) {
-        var deferred = $q.defer();
-        Users.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      },
-      locations: function ($route, $q, Locations){
-        var deferred = $q.defer();
-        Locations.query({},
-          function (response){ return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      }
-    }
-  })
-  .when('/inventorytransfer', {
-    needsLogin: true,
-    controller: 'InventoryTransferIndexCtrl',
-    templateUrl: '/lib/public/angular/apps/inventorytransfer/views/index.html',
-    resolve: {
-      inventorytransfers: function ($route, $q, InventoryTransfers) {
-        var deferred = $q.defer();
-        InventoryTransfers.query({},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      }
-    }
-  });
-}]);
-
-angular.module('InventoryTransferApp')
-.run(['$route', '$rootScope', '$location',
-function ($route, $rootScope, $location) {
-  var original = $location.path;
-  $location.path = function (path, reload) {
-    if ( reload === false ) {
-      var lastRoute = $route.current;
-      var un = $rootScope.$on('$locationChangeSuccess', function () {
-        $route.current = lastRoute;
-        un();
-      });
-    }
-    return original.apply($location, [path]);
-  };
-}]);
-
 angular.module('PartOrderApp.Controllers', []);
 angular.module('PartOrderApp.Components', []);
 angular.module('PartOrderApp.Directives', []);
@@ -2107,6 +2048,65 @@ angular.module('PartOrderApp')
   ]);
 
 
+angular.module('PaidTimeOffApp.Controllers', []);
+angular.module('PaidTimeOffApp.Components', []);
+angular.module('PaidTimeOffApp.Directives', []);
+angular.module('PaidTimeOffApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
+
+angular.module('PaidTimeOffApp', [
+  'PaidTimeOffApp.Controllers',
+  'PaidTimeOffApp.Components',
+  'PaidTimeOffApp.Directives',
+  'PaidTimeOffApp.Services',
+  'infinite-scroll'
+]);
+
+angular.module('PaidTimeOffApp').config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider
+
+      .when('/paidtimeoff', {
+        needsLogin: true,
+        controller: 'PaidTimeOffCtrl',
+        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoOverview.html',
+      })
+      .when('/paidtimeoff/review/:id',{
+        needsLogin: true,
+        controller: 'PaidTimeOffReviewCtrl',
+        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoReview.html',
+        resolve: {
+          paidtimeoff: function ($route, $q, PaidTimeOffs) {
+            const id = $route.current.params.id || 0;
+            return (id) ? PaidTimeOffs.get({id}).$promise : null;
+          }
+        }
+      })
+      /*.when('/paidtimeoff/create',{
+        needsLogin: true,
+        controller: 'PaidTimeOffCreateCtrl',
+        templateUrl: '/lib/public/angular/apps/paidtimeoff/views/ptoCreate.html',
+      });*/
+  }
+]);
+
+angular.module('PaidTimeOffApp')
+  .run(['$route', '$rootScope', '$location',
+    function($route, $rootScope, $location) {
+      var original = $location.path;
+      $location.path = function(path, reload) {
+        if (reload === false) {
+          var lastRoute = $route.current;
+          var un = $rootScope.$on('$locationChangeSuccess', function() {
+            $route.current = lastRoute;
+            un();
+          });
+        }
+        return original.apply($location, [path]);
+      };
+    }
+  ]);
+
+
 angular.module('UnitApp.Controllers', []);
 angular.module('UnitApp.Directives', ['uiGmapgoogle-maps']);
 angular.module('UnitApp.Components', []);
@@ -2149,52 +2149,6 @@ angular.module('UnitApp').config(['$routeProvider',
       controller: 'UnitIndexCtrl',
       templateUrl: '/lib/public/angular/apps/unit/views/index.html'
     });
-}]);
-
-angular.module('SupportApp.Controllers', []);
-angular.module('SupportApp.Directives', []);
-angular.module('SupportApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
-
-angular.module('SupportApp', [
-  'SupportApp.Controllers',
-  'SupportApp.Directives',
-  'SupportApp.Services',
-]);
-
-angular.module('SupportApp').config(['$routeProvider',
-  function ($routeProvider){
-  $routeProvider
-  .when('/support', {
-    needsLogin: true,
-    controller: 'SupportIndexCtrl',
-    templateUrl: '/lib/public/angular/apps/support/views/index.html',
-    resolve:{
-      me: function ($route, $q, Users) {
-        var deferred = $q.defer();
-        Users.get({id: 'me'},
-          function (response) { return deferred.resolve(response); },
-          function (err) { return deferred.reject(err); }
-        );
-        return deferred.promise;
-      }
-    }
-  });
-}]);
-
-angular.module('SupportApp')
-.run(['$route', '$rootScope', '$location',
-function ($route, $rootScope, $location) {
-  var original = $location.path;
-  $location.path = function (path, reload) {
-    if (reload === false) {
-      var lastRoute = $route.current;
-      var un = $rootScope.$on('$locationChangeSuccess', function () {
-          $route.current = lastRoute;
-          un();
-      });
-    }
-    return original.apply($location, [path]);
-  };
 }]);
 
 angular.module('WorkOrderApp.Controllers', []);
@@ -2349,6 +2303,52 @@ function ($route, $rootScope, $location) {
         }
         return original.apply($location, [path]);
     };
+}]);
+
+angular.module('SupportApp.Controllers', []);
+angular.module('SupportApp.Directives', []);
+angular.module('SupportApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
+
+angular.module('SupportApp', [
+  'SupportApp.Controllers',
+  'SupportApp.Directives',
+  'SupportApp.Services',
+]);
+
+angular.module('SupportApp').config(['$routeProvider',
+  function ($routeProvider){
+  $routeProvider
+  .when('/support', {
+    needsLogin: true,
+    controller: 'SupportIndexCtrl',
+    templateUrl: '/lib/public/angular/apps/support/views/index.html',
+    resolve:{
+      me: function ($route, $q, Users) {
+        var deferred = $q.defer();
+        Users.get({id: 'me'},
+          function (response) { return deferred.resolve(response); },
+          function (err) { return deferred.reject(err); }
+        );
+        return deferred.promise;
+      }
+    }
+  });
+}]);
+
+angular.module('SupportApp')
+.run(['$route', '$rootScope', '$location',
+function ($route, $rootScope, $location) {
+  var original = $location.path;
+  $location.path = function (path, reload) {
+    if (reload === false) {
+      var lastRoute = $route.current;
+      var un = $rootScope.$on('$locationChangeSuccess', function () {
+          $route.current = lastRoute;
+          un();
+      });
+    }
+    return original.apply($location, [path]);
+  };
 }]);
 
 angular.module('CommonComponents')
@@ -2861,375 +2861,6 @@ angular.module('CommonDirectives')
 
 */
 
-angular.module('PaidTimeOffApp.Controllers')
-.controller('PaidTimeOffCtrl', ['$scope', '$http', '$timeout', '$location', '$q', '$cookies', 'AlertService', 'ApiRequestService', 'DateService',
-  function ($scope, $http, $timeout, $location, $q, $cookies, AlertService, ApiRequestService, DateService) {
-    // Variables-----------------------------------------
-    const ARS = ApiRequestService;
-    const DS = DateService;
-    $scope.loaded = false;
-    $scope.spinner = true;
-    // --------------------------------------------------
-
-    // Turn Spinner Off ---------------------------------
-    $scope.spinnerOff = () => {
-      $scope.spinner = false;
-    };
-    // --------------------------------------------------
-
-    // Passed to Component ------------------------------
-    // Function called any time Page loads or user scrolls past 50 units
-    $scope.lookup = (query) => {
-      $scope.loaded = false;
-      console.log("Looking up PTOs...");
-      console.log(query)
-      ARS.PaidTimeOffs(query)
-        .then((paidtimeoffs) => {
-          console.log("PTOs Loaded.");
-          $scope.paidtimeoffs = paidtimeoffs.map(mapPaidTimeOffs);
-          $scope.loaded = true;
-          $scope.spinnerOff();
-        })
-        .catch((err) => console.log("Failed to load: ", err));
-    };
-/*
-    $scope.report = (query) => {
-      $http({method: 'GET',url: '/api/paidtimeoffs', params: query})
-        .then((res) =>{
-            const anchor = angular.element('<a/>');
-            anchor.attr({
-              href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
-              target: '_blank',
-              download: 'PartsReport.csv'
-            })[0].click();
-          },
-          (err) => {
-            AlertService.add("danger", "Report failed to load", 2000);
-            console.log(err);
-          }
-        );
-    };*/
-
-    $scope.PaidTimeOffScrollLookup = (query) => {
-      console.log("Looking up Ptos...");
-      ARS.PaidTimeOffs(query)
-        .then((paidtimeoffs) => {
-          console.log("Part Orders Loaded.");
-          const pto = paidtimeoffs.map(mapPaidTimeOffs);
-          $scope.paidtimeoffs = $scope.paidtimeoffs.concat(pto);
-        })
-        .catch((err) => console.log("Failed to load part orders: ", err));
-    };
-    // --------------------------------------------------
-
-    // Create sorting parameters ------------------------
-    function mapPaidTimeOffs (pto) {
-      // set to local times
-      pto.DateFrom = DS.displayLocal(new Date(pto.DateFrom));
-      pto.DateTo = DS.displayLocal(new Date(pto.DateTo));
-      pto.epochDateFrom = new Date(pto.DateFrom).getTime();
-      pto.epochDateTo = new Date(pto.DateTo).getTime();
-      // set status
-      if (pto.approved) {
-        pto.status = 'approved';
-      }
-      if (pto.rejected) {
-        pto.status = 'rejected';
-      }
-      if (!pto.rejected && !pto.approved) {
-        pto.status = 'not reviewed';
-      }
-
-      return pto;
-    }
-    // --------------------------------------------------
-
-    // Routing ------------------------------------------
-  /*  $scope.createPaidTimeOff = () => {
-      $location.url('/paidtimeoff/create');
-    };*/
-    // --------------------------------------------------
-  },
-]);
-
-angular.module('PaidTimeOffApp.Controllers')
-.controller('PaidTimeOffReviewCtrl', ['$scope', '$location', '$cookies', 'paidtimeoff', 'PaidTimeOffs', 'AlertService', 'DateService',
-function ($scope, $location, $cookies, paidtimeoff, PaidTimeOffs, AlertService, DateService) {
-  const DS = DateService;
-
-  $scope.paidtimeoff = paidtimeoff;
-
-  // init
-  const preLoad = () => {
-    $scope.paidtimeoff.DateFrom = DS.displayLocal(new Date($scope.paidtimeoff.DateFrom));
-    $scope.paidtimeoff.DateTo = DS.displayLocal(new Date($scope.paidtimeoff.DateTo));
-    $scope.paidtimeoff.created = DS.displayLocal(new Date($scope.paidtimeoff.created));
-    if ($scope.paidtimeoff.timeApproved) {
-      $scope.paidtimeoff.timeApproved = DS.displayLocal(new Date($scope.paidtimeoff.timeApproved));
-    }
-  };
-  preLoad();
-
-  const preSave = () => {
-    $scope.paidtimeoff.DateFrom = DS.saveToOrion(new Date($scope.paidtimeoff.DateFrom));
-    $scope.paidtimeoff.DateTo = DS.saveToOrion(new Date($scope.paidtimeoff.DateTo));
-    $scope.paidtimeoff.created = DS.saveToOrion(new Date($scope.paidtimeoff.created));
-    if ($scope.paidtimeoff.timeApproved) {
-      $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date($scope.paidtimeoff.timeApproved));
-    }
-  };
-
-  $scope.approvalStatusChange = (changedData, selected) => {
-    if (selected === 'approved') {
-      $scope.paidtimeoff.approved = changedData;
-      if ($scope.paidtimeoff.rejected) {
-        $scope.paidtimeoff.rejected = false;
-      }
-    }
-    if (selected === 'rejected') {
-      $scope.paidtimeoff.rejected = changedData;
-      if ($scope.paidtimeoff.approved) {
-        $scope.paidtimeoff.approved = false;
-      }
-    }
-  };
-
-  $scope.changeManagerComment = (changedData, selected) => {
-    $scope.paidtimeoff.managerComment = changedData;
-  };
-
-  $scope.update = (doc) => {
-    PaidTimeOffs.update({id: doc._id}, doc,
-      (res) => {
-        AlertService.add('success', "Update was successful.");
-        $location.url('/paidtimeoff');
-      }, (err) => {
-        console.log(err);
-        // if error reset back to display times
-        preLoad();
-        AlertService.add('danger', 'An error occurred while attempting to update this PTO.');
-      })
-  };
-
-  $scope.setManagerReviewed = () => {
-    $scope.paidtimeoff.approvedBy = $cookies.get('tech');
-    $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date());
-    preSave();
-    $scope.update($scope.paidtimeoff);
-  };
-
-  $scope.setAdminReviewed = () => {
-    $scope.paidtimeoff.adminReviewed = true;
-    preSave();
-    $scope.update($scope.paidtimeoff);
-  };
-}]);
-
-angular.module('PaidTimeOffApp.Components')
-  .component('ptoOverviewTable', {
-    templateUrl: '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoOverviewTable.html',
-    bindings: {
-      paidtimeoffs: '<',
-      scrollContentSearch: '&',
-      getPaidTimeOffReport: '&',
-      contentSearch: '&'
-    },
-    controller: ['$window', '$cookies', 'DateService', class PoOverviewCtrl {
-      constructor ($window, $cookies, DateService) {
-        this.$window = $window;
-        this.$cookies = $cookies;
-        this.DS = DateService;
-
-        this.sortType = 'epoch';
-        this.sortReverse = false;
-        this.searchFilter = '';
-        this.isLoaded = false;
-
-        // query params
-        this.username = '';
-        this.type = '';
-        this.approved = false;
-        this.rejected = false;
-        this.adminReviewed = false;
-
-        this.size = 50;
-        this.page = 0;
-
-
-        this.dates = {
-          from: null,
-          fromInput: null,
-          to: null,
-          toInput: null,
-        };
-      }
-
-      // Initializes original search ---------------------
-      $onInit() {
-        this.role = this.$cookies.get('role');
-        if (this.role === 'admin') {
-          this.approved = true;
-          this.rejected = true;
-        }
-        if (this.role === 'manager') {
-          this.approved = false;
-          this.rejected = false;
-        }
-
-        this.submit();
-      };
-      // -------------------------------------------------
-
-      // Sorting for Table -------------------------------
-      resort(by) {
-        this.sortType = by;
-        this.sortReverse = !this.sortReverse;
-      };
-      // -------------------------------------------------
-
-      // Get start and end of Day ------------------------
-      ptostartOfDay(input) {
-        this.dates.fromInput = input;
-        if (typeof input === 'object') {
-          this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
-        }
-      };
-
-      ptoendOfDay(input) {
-        this.dates.toInput = input;
-        if (typeof input === 'object') {
-          this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
-        }
-      };
-      // -------------------------------------------------
-
-      stringForType(pto) {
-        if (pto.approved) {
-          return 'approved';
-        }
-        if (pto.rejected) {
-          return 'rejected';
-        }
-        if (!pto.rejected && !pto.approved) {
-          return 'not reviewed';
-        }
-      }
-
-      // Query Constructor -------------------------------
-      queryConstruct(size, page) {
-        const query = {
-          size: size,
-          page: page
-        };
-
-        // gather query params
-        if ( this.dates.from && this.dates.to ) {
-          query.from = this.DS.saveToOrion(this.dates.from);
-          query.to = this.DS.saveToOrion(this.dates.to);
-        }
-        if (this.username) {
-          query.username = this.username.toUpperCase();
-        }
-        if (this.type) {
-          query.type = this.type;
-        }
-        query.approved = this.approved;
-        query.rejected = this.rejected;
-        query.adminReviewed = this.adminReviewed;
-
-        return query;
-      };
-      // -------------------------------------------------
-
-      // Load content on scroll from Parent Controller ---
-      loadOnScroll() {
-        console.log("Scrolling...");
-        this.page += this.size;
-
-        const query = this.queryConstruct(this.size, this.page);
-        this.scrollContentSearch({ query });
-      };
-      // -------------------------------------------------
-
-      // Submit Query to Parent Controller ---------------
-      submit() {
-        this.size = 50;
-        this.page = 0;
-
-        const query = this.queryConstruct(this.size, this.page);
-        this.contentSearch({ query });
-      };
-      // -------------------------------------------------
-
-      // Submit Query to get Report to Parent Controller -
-      getReport() {
-        const query = this.queryConstruct(this.size, this.page);
-
-        query.report = true;
-
-        this.getPaidTimeOffReport({ query });
-      };
-      // -------------------------------------------------
-
-      // clear -------------------------------------------
-      clearText(selected) {
-        switch (selected) {
-          case 'username':
-            this.username = null;
-            break;
-          case 'type':
-            this.type = null;
-            break;
-        }
-      }
-      // -------------------------------------------------
-
-      // Routing -----------------------------------------
-      routeToPaidTimeOff(pto) {
-        this.$window.open('#/paidtimeoff/review/' + pto._id);
-      };
-      // -------------------------------------------------
-
-    }]
-  });
-
-angular.module('PaidTimeOffApp.Components')
-.component('ptoReview', {
-  templateUrl  : '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoReview.html',
-  bindings: {
-    paidtimeoff: '<',
-    approvalStatusChange: '&',
-    setManagerReviewed: '&',
-    setAdminReviewed: '&',
-    textAreaChange: '&',
-  },
-  controller: [ class PaidTimeOffReviewCtrl {
-    constructor () {
-      this.status = {
-        approved: false,
-        rejected: false,
-      };
-    }
-
-    // Send Back Changed Data and Type --------------------
-    thisBoxDataChange(changedData, selected) {
-      this.approvalStatusChange({changedData, selected});
-    }
-    managerCommentChange(changedData, selected) {
-      this.textAreaChange({changedData, selected});
-    }
-    // ----------------------------------------------------
-
-    checkDisabled(type) {
-      if (this.paidtimeoff.approvedBy !== '') {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }]
-});
-
 angular.module('CallReportApp.Components')
 .component('crCreateContactInfo',{
   templateUrl: '/lib/public/angular/apps/callreport/views/component-views/crCreateContactInfo.html',
@@ -3535,6 +3166,102 @@ angular.module('CallReportApp.Components')
  });
 
 
+angular.module('InventoryTransferApp.Controllers').controller('InventoryTransferEditCtrl',
+['$scope', '$window', '$location', '$timeout', 'AlertService', 'InventoryTransfers', 'inventorytransfer', 'parts', 'locations', 'users',
+  function ($scope, $window, $location, $timeout, AlertService, InventoryTransfers, inventorytransfer, parts, locations, users){
+
+    $scope.message = (inventorytransfer !== null ? "Edit " : "Create ") + "Inventory Transfer";
+    $scope.inventorytransfer = inventorytransfer || newInventoryTransfer();
+
+    $scope.parts = parts;
+    $scope.locations = locations;
+
+    $scope.save = function (){
+      $scope.submitting = true;
+      InventoryTransfers.save({_id: $scope.inventorytransfer._id}, $scope.inventorytransfer,
+        function (response){
+          AlertService.add('success', 'Save was successful.');
+          $scope.submitting = false;
+          $location.path('/myaccount');
+        },
+        function (err){
+          AlertService.add('danger','An error occurred while attemping to save.');
+          $scope.submitting = false;
+        }
+      );
+    };
+
+    $scope.destroy = function (){
+      $scope.submitting = true;
+      InventoryTransfers.destroy($scope.inventorytransfer,
+        function (response){
+          AlertService.add('success','Save was successful.');
+          $scope.submitting = false;
+          $location.path('/inventorytransfer');
+        },
+        function (err){
+          AlertService.add('danger', 'An error occured whle attemping to save.');
+          $scope.submitting = false;
+        }
+      );
+    };
+
+    $scope.partsTableModel = {
+      tableName: "Search For Parts", // displayed at top of page
+      objectList: parts, // objects to be shown in list
+      displayColumns: [ // which columns need to be displayed in the table
+        { title: "Part #", objKey: "componentName" },
+        { title: "Description", objKey: "description" }
+      ],
+      rowClickAction: addPart,
+      rowButtons: null,
+      headerButtons: null, // an array of button object (format below)
+      sort: { column: ["number"], descending: false }
+    };
+
+    function addPart(part) {
+      $scope.inventorytransfer.parts.push({
+        number:       part.number,
+        description:  part.description,
+        cost:         0,
+        laborCode:    "",
+        quantity:     0,
+        isBillable:   false,
+        isWarranty:   false
+      });
+    }
+
+    function newInventoryTransfer(){
+      var newInventoryTransfer =
+      {
+        inventorytransferDate: new Date(),
+
+        originLocation: {},
+        destinationLocation: {},
+
+        parts: []
+
+      };
+      return newInventoryTransfer;
+    }
+  }]);
+
+angular.module('InventoryTransferApp.Controllers').controller('InventoryTransferIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'inventoryTransfers',
+  function ($scope, $route, $location, AlertService, inventoryTransfers){
+
+    $scope.title = "Inventory Transfers";
+
+    $scope.editInventoryTransfer = function (id){
+      $location.path('/inventoryTransfer/edit/' + (id || ''));
+    };
+
+    $scope.createInventoryTransfer = function (){
+      $scope.editInventoryTransfer();
+    };
+
+  }]);
+
 angular.module('CallReportApp.Controllers')
 .controller('CallReportCreateCtrl', ['$scope','$timeout','$uibModal','$cookies','$location','AlertService','ObjectService', 'ApiRequestService', 'CallReports','unittypes','titles','statustypes','opportunitysizes','opptypes','activitytypes','applicationtypes', 'DateService',
 function ($scope, $timeout, $uibModal, $cookies, $location, AlertService, ObjectService, ApiRequestService, CallReports, unittypes, titles, statustypes, opportunitysizes, opptypes, activitytypes, applicationtypes, DateService) {
@@ -3758,549 +3485,6 @@ function ($scope, ApiRequestService, callreport, DateService) {
     .catch((err) => console.log(err));
   // -----------------------------------------------
 }]);
-
-angular.module('InventoryTransferApp.Controllers').controller('InventoryTransferEditCtrl',
-['$scope', '$window', '$location', '$timeout', 'AlertService', 'InventoryTransfers', 'inventorytransfer', 'parts', 'locations', 'users',
-  function ($scope, $window, $location, $timeout, AlertService, InventoryTransfers, inventorytransfer, parts, locations, users){
-
-    $scope.message = (inventorytransfer !== null ? "Edit " : "Create ") + "Inventory Transfer";
-    $scope.inventorytransfer = inventorytransfer || newInventoryTransfer();
-
-    $scope.parts = parts;
-    $scope.locations = locations;
-
-    $scope.save = function (){
-      $scope.submitting = true;
-      InventoryTransfers.save({_id: $scope.inventorytransfer._id}, $scope.inventorytransfer,
-        function (response){
-          AlertService.add('success', 'Save was successful.');
-          $scope.submitting = false;
-          $location.path('/myaccount');
-        },
-        function (err){
-          AlertService.add('danger','An error occurred while attemping to save.');
-          $scope.submitting = false;
-        }
-      );
-    };
-
-    $scope.destroy = function (){
-      $scope.submitting = true;
-      InventoryTransfers.destroy($scope.inventorytransfer,
-        function (response){
-          AlertService.add('success','Save was successful.');
-          $scope.submitting = false;
-          $location.path('/inventorytransfer');
-        },
-        function (err){
-          AlertService.add('danger', 'An error occured whle attemping to save.');
-          $scope.submitting = false;
-        }
-      );
-    };
-
-    $scope.partsTableModel = {
-      tableName: "Search For Parts", // displayed at top of page
-      objectList: parts, // objects to be shown in list
-      displayColumns: [ // which columns need to be displayed in the table
-        { title: "Part #", objKey: "componentName" },
-        { title: "Description", objKey: "description" }
-      ],
-      rowClickAction: addPart,
-      rowButtons: null,
-      headerButtons: null, // an array of button object (format below)
-      sort: { column: ["number"], descending: false }
-    };
-
-    function addPart(part) {
-      $scope.inventorytransfer.parts.push({
-        number:       part.number,
-        description:  part.description,
-        cost:         0,
-        laborCode:    "",
-        quantity:     0,
-        isBillable:   false,
-        isWarranty:   false
-      });
-    }
-
-    function newInventoryTransfer(){
-      var newInventoryTransfer =
-      {
-        inventorytransferDate: new Date(),
-
-        originLocation: {},
-        destinationLocation: {},
-
-        parts: []
-
-      };
-      return newInventoryTransfer;
-    }
-  }]);
-
-angular.module('InventoryTransferApp.Controllers').controller('InventoryTransferIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'inventoryTransfers',
-  function ($scope, $route, $location, AlertService, inventoryTransfers){
-
-    $scope.title = "Inventory Transfers";
-
-    $scope.editInventoryTransfer = function (id){
-      $location.path('/inventoryTransfer/edit/' + (id || ''));
-    };
-
-    $scope.createInventoryTransfer = function (){
-      $scope.editInventoryTransfer();
-    };
-
-  }]);
-
-angular.module('PartOrderApp.Components')
-.controller('AddPartPOModalCtrl', [ '$scope', '$uibModalInstance',
-function ($scope, $uibModalInstance) {
-  $scope.part = {};
-
-  $scope.part.netsuiteId = 0;
-
-  $scope.addPart = () => {
-    $uibModalInstance.close($scope.part);
-  };
-
-  $scope.cancel = () => {
-    $uibModalInstance.dismiss('cancel');
-  };
-}])
-.component('poCreatePart', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poCreatePart.html',
-  bindings: {
-    part: '<',
-    onManualAdd: '&',
-    onDelete: '&'
-  },
-  controller: [ '$uibModal', class CreatePart {
-    constructor ($uibModal) {
-      this.$uibModal = $uibModal;
-    }
-    
-    // Show Table of parts if Part Isn't Empty -------
-    Empty() {
-      if(_.isEmpty(this.part)){ return false; }
-      return true;
-    };
-    // -----------------------------------------------
-  
-    // Call the Modal for Manual Part Add ------------
-    openManualPartModal() {
-      const modalInstance = this.$uibModal.open({
-        templateUrl: '/lib/public/angular/views/modals/manualAddPartModal.html',
-        controller: 'AddPartPOModalCtrl'
-      });
-    
-      // Modal Instance Result Calls Parent Function -
-      modalInstance.result.then((part) => {
-        const thispart = part;
-        thispart.quantity = 0;
-        thispart.isManual = true;
-        this.onManualAdd({part: thispart});
-      });
-    };
-    // -----------------------------------------------
-    
-  }]
-});
-
-angular.module('PartOrderApp.Components')
-.component('poEditHeading', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poEditHeading.html',
-  bindings: {
-    selectOriginType: '@',
-    onTextChange: '&',
-    onSelectChange: '&',
-    locations: '<',
-    partorder: '<'
-  },
-  controller: ['LocationItemService', class PartOrderEditHeadingCtrl {
-    constructor (LocationItemService) {
-      this.LocationItemService = LocationItemService;
-    }
-  
-    $onInit() {
-      this.locationWarehouseObjArray = this.LocationItemService.getLocationWarehouseObjArray(this.locations);
-      // Change origin and destination NSID to name for display
-      this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
-      this.destinationLocation = this.LocationItemService.getNameFromNSID(this.partorder.destinationNSID, this.locations);
-    }
-    
-    // React to changes to Part Order Obj -----------------
-    $doCheck() {
-      if(this.partorder.originNSID !== null){
-        this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
-      }
-    };
-    // ----------------------------------------------------
-  
-    // Pass back Changes ----------------------------------
-    selectFieldChange(changedData, selected) {
-      this.onSelectChange({ changedData, selected});
-    };
-  
-    textFieldChange(changedData, selected) {
-      this.onTextChange({ changedData, selected });
-    };
-    // ----------------------------------------------------
-    
-  }]
-});
-
-angular.module('PartOrderApp.Components')
-.component('poEditTable', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poEditTable.html',
-  bindings: {
-    partorder: '<',   // one way data binding for partorder
-    onSelection: '&'
-  },
-  controller: class EditTableCtrl {
-    constructor () {
-      this.status = [
-        { type: 'ordered', value: false },
-        { type: 'backorder', value: false },
-        { type: 'canceled', value: false },
-        { type: 'completed', value: false }
-      ];
-    }
-
-    // Change Selected Check box --------------------------
-    changeCheckBoxes(data, selected) {
-      _.map(this.status,(obj) => {
-        if ( obj.type === selected ){
-          obj.value = true;
-          this.status.forEach((x) => {
-            if( x.type !== selected ){
-              x.value = false;
-            }
-          });
-        }
-      });
-    };
-    // ----------------------------------------------------
-
-    // Disable check boxes based on Part Order State ------
-    checkDisabled(box) {
-      if(box !== 'complete'){
-        if(this.partorder.timeShipped){
-          return true;
-        }
-      }
-      return false;
-    };
-    // ----------------------------------------------------
-
-    // Send Back Changed Data and Type --------------------
-    thisBoxDataChange(changedData, selected) {
-      if ( selected !== 'canceled' ){
-        this.partorder.comment = '';
-      }
-      if( changedData === true ) {
-        this.changeCheckBoxes(changedData, selected);
-        this.onSelection({ changedData, selected });
-      }
-    };
-    // ----------------------------------------------------
-
-  }
-});
-
-angular.module('PartOrderApp.Components')
-.component('poOverviewTable', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poOverviewTable.html',
-  bindings: {
-    partorders: '<',
-    locations: '<',
-    listIt: '&',
-    scrollContentSearch: '&',
-    getPartOrderReport: '&',
-    contentSearch: '&'
-  },
-  controller: ['$window', 'LocationItemService', 'DateService', class PoOverviewCtrl {
-    constructor ($window, LocationItemService, DateService) {
-      this.$window = $window;
-      this.LIS = LocationItemService;
-      this.DS = DateService;
-
-      this.sortType = 'epoch';
-      this.sortReverse = false;
-      this.searchFilter = '';
-      this.isLoaded = false;
-
-      // query params
-      this.username = null;
-      this.destination = null;
-      this.pending = true;
-      this.backorder  = true;
-      this.ordered = true;
-      this.completed = false;
-      this.canceled = false;
-      this.size = 50;
-      this.page = 0;
-
-      this.dates = {
-        from: null,
-        fromInput: null,
-        to: null,
-        toInput: null,
-      };
-    }
-
-    // Initializes original search ---------------------
-    $onInit() {
-      this.submit();
-    };
-    // -------------------------------------------------
-
-    // Sorting for Table -------------------------------
-    resort(by) {
-      this.sortType = by;
-      this.sortReverse = !this.sortReverse;
-    };
-    // -------------------------------------------------
-
-    // Get start and end of Day ------------------------
-    postartOfDay(input) {
-      this.dates.fromInput = input;
-      if (typeof input === 'object') {
-        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
-      }
-    };
-
-    poendOfDay(input) {
-      this.dates.toInput = input;
-      if (typeof input === 'object') {
-        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
-      }
-    };
-    // -------------------------------------------------
-
-    changeThisCheckbox(selected) {
-      this.listIt({po: selected})
-    };
-
-
-    // Query Constructor -------------------------------
-    queryConstruct(size, page) {
-      const query = {
-        size: size,
-        page: page
-      };
-
-      // gather query params
-      if ( this.dates.from && this.dates.to ) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-      if (this.username) {
-        query.techId = this.username.toUpperCase();
-      }
-      if (this.destination) {
-        query.destination = this.LIS.getTruckFromString(this.destination, this.locations).netsuiteId;
-      }
-      if (this.pending) {
-        query.pending = this.pending;
-      }
-      if (this.ordered) {
-        query.ordered = this.ordered;
-      }
-      if (this.backorder) {
-        query.backorder = this.backorder;
-      }
-      if (this.canceled) {
-        query.canceled = this.canceled;
-      }
-      if (this.completed) {
-        query.completed = this.completed;
-      }
-
-      return query;
-    };
-    // -------------------------------------------------
-
-    // Load content on scroll from Parent Controller ---
-    loadOnScroll() {
-      console.log("Scrolling...");
-      this.page += this.size;
-
-      const query = this.queryConstruct(this.size, this.page);
-      this.scrollContentSearch({ query });
-    };
-    // -------------------------------------------------
-
-    // Submit Query to Parent Controller ---------------
-    submit() {
-      this.size = 50;
-      this.page = 0;
-
-      const query = this.queryConstruct(this.size, this.page);
-      this.contentSearch({ query });
-    };
-    // -------------------------------------------------
-
-    // Submit Query to get Report to Parent Controller -
-    getReport() {
-      const query = this.queryConstruct(this.size, this.page);
-
-      query.report = true;
-
-      this.getPartOrderReport({ query });
-    };
-    // -------------------------------------------------
-
-    // clear -------------------------------------------
-    clearText(selected) {
-      switch (selected) {
-        case 'username':
-          this.username = null;
-          break;
-        case 'destination':
-          this.destination = null;
-          break;
-      }
-    }
-    // -------------------------------------------------
-
-    // Routing -----------------------------------------
-    routeToPartOrder(po) {
-      if (!po.inList) {
-        if ( po.status !== 'canceled' && po.status !== 'completed' ){
-          this.$window.open('#/partorder/edit/' + po.orderId);
-        } else {
-          this.$window.open('#/partorder/review/' + po.orderId);
-        }
-      } else {
-        const pos = [];
-        this.partorders.forEach((p) => {
-          if (p.inList) {
-            pos.push(p._id);
-          }
-        });
-        if (po.inList) {
-          this.$window.open('#/partorder/editMany/' + JSON.stringify(pos));
-        }
-      }
-    };
-    // -------------------------------------------------
-
-  }]
-});
-
-angular.module('PartOrderApp.Components')
-.component('poReviewHeading', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poReviewHeading.html',
-  bindings: {
-    locations: '<',
-    partorder: '<'
-  },
-  controller: ['LocationItemService', class PartOrderReviewHeadingCtrl {
-    constructor (LocationItemService) {
-      this.LocationItemService = LocationItemService;
-    }
-    
-    $onInit() {
-      // Change origin and destination NSID to name for display
-      this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
-      this.destinationLocation = this.LocationItemService.getNameFromNSID(this.partorder.destinationNSID, this.locations);
-      // -----------------------------------------------
-    }
-  }]
-});
-
-
-angular.module('PartOrderApp.Components')
-.component('poReviewTable', {
-  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poReviewTable.html',
-  bindings: {
-    partorder: '<'
-  }
-});
-
-angular.module('PartOrderApp.Components')
-  .component('posEditHeading', {
-    templateUrl: '/lib/public/angular/apps/partorder/views/component-views/posEditHeading.html',
-    bindings: {
-      selectOriginType: '@',
-      onTextChange: '&',
-      onSelectChange: '&',
-      onSelection: '&',
-      changeCheckBoxes: '&',
-      disabled: '<',
-      locations: '<',
-      status: '<',
-      partorders: '<'
-    },
-    controller: ['LocationItemService', class PartOrderEditHeadingCtrl {
-      constructor (LocationItemService) {
-        this.LocationItemService = LocationItemService;
-        this.poNumber = '';
-        this.originNSID = 0;
-      }
-
-      $onInit() {
-        this.locationWarehouseObjArray = this.LocationItemService.getLocationWarehouseObjArray(this.locations);
-      }
-
-      // Pass back Changes ----------------------------------
-      selectFieldChange(changedData, selected) {
-        this.onSelectChange({ changedData, selected});
-      };
-
-      textFieldChange(changedData, selected) {
-        this.onTextChange({ changedData, selected });
-      };
-      // ----------------------------------------------------
-
-      // Send Back Changed Data and Type --------------------
-      thisBoxDataChange(changedData, selected) {
-        if ( selected !== 'canceled' ){
-          this.partorders.forEach((po) => po.comment = '');
-          /// this.partorder.comment = '';
-        }
-        if( changedData === true ) {
-          this.changeCheckBoxes({changedData, selected});
-          this.onSelection({ changedData, selected });
-        }
-      };
-      // ----------------------------------------------------
-    }]
-  });
-
-angular.module('PartOrderApp.Components')
-  .component('posEditTable', {
-    templateUrl: '/lib/public/angular/apps/partorder/views/component-views/posEditTable.html',
-    bindings: {
-      disabled: '<',
-      partorders: '<',   // one way data binding for partorder
-    },
-    controller: class EditTableCtrl {
-      constructor () {
-        this.status = [
-          { type: 'ordered', value: false },
-          { type: 'backorder', value: false },
-          { type: 'canceled', value: false },
-          { type: 'completed', value: false }
-        ];
-      }
-
-      // Disable check boxes based on Part Order State ------
-      checkDisabled(box) {
-        if(box !== 'complete'){
-          if(this.partorder.timeShipped){
-            return true;
-          }
-        }
-        return false;
-      };
-      // ----------------------------------------------------
-
-    }
-  });
 
 angular.module('PartOrderApp.Controllers')
 .controller('PartOrderCreateCtrl', ['$scope', '$timeout', '$uibModal', '$cookies', '$location', 'AlertService', 'GeneralPartSearchService', 'LocationItemService', 'ObjectService', 'PartOrders', 'locations', 'parts', 'DateService',
@@ -4929,6 +4113,822 @@ angular.module('PartOrderApp.Controllers')
       isComplete();
     }]);
 
+angular.module('PartOrderApp.Components')
+.controller('AddPartPOModalCtrl', [ '$scope', '$uibModalInstance',
+function ($scope, $uibModalInstance) {
+  $scope.part = {};
+
+  $scope.part.netsuiteId = 0;
+
+  $scope.addPart = () => {
+    $uibModalInstance.close($scope.part);
+  };
+
+  $scope.cancel = () => {
+    $uibModalInstance.dismiss('cancel');
+  };
+}])
+.component('poCreatePart', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poCreatePart.html',
+  bindings: {
+    part: '<',
+    onManualAdd: '&',
+    onDelete: '&'
+  },
+  controller: [ '$uibModal', class CreatePart {
+    constructor ($uibModal) {
+      this.$uibModal = $uibModal;
+    }
+    
+    // Show Table of parts if Part Isn't Empty -------
+    Empty() {
+      if(_.isEmpty(this.part)){ return false; }
+      return true;
+    };
+    // -----------------------------------------------
+  
+    // Call the Modal for Manual Part Add ------------
+    openManualPartModal() {
+      const modalInstance = this.$uibModal.open({
+        templateUrl: '/lib/public/angular/views/modals/manualAddPartModal.html',
+        controller: 'AddPartPOModalCtrl'
+      });
+    
+      // Modal Instance Result Calls Parent Function -
+      modalInstance.result.then((part) => {
+        const thispart = part;
+        thispart.quantity = 0;
+        thispart.isManual = true;
+        this.onManualAdd({part: thispart});
+      });
+    };
+    // -----------------------------------------------
+    
+  }]
+});
+
+angular.module('PartOrderApp.Components')
+.component('poEditHeading', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poEditHeading.html',
+  bindings: {
+    selectOriginType: '@',
+    onTextChange: '&',
+    onSelectChange: '&',
+    locations: '<',
+    partorder: '<'
+  },
+  controller: ['LocationItemService', class PartOrderEditHeadingCtrl {
+    constructor (LocationItemService) {
+      this.LocationItemService = LocationItemService;
+    }
+  
+    $onInit() {
+      this.locationWarehouseObjArray = this.LocationItemService.getLocationWarehouseObjArray(this.locations);
+      // Change origin and destination NSID to name for display
+      this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
+      this.destinationLocation = this.LocationItemService.getNameFromNSID(this.partorder.destinationNSID, this.locations);
+    }
+    
+    // React to changes to Part Order Obj -----------------
+    $doCheck() {
+      if(this.partorder.originNSID !== null){
+        this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
+      }
+    };
+    // ----------------------------------------------------
+  
+    // Pass back Changes ----------------------------------
+    selectFieldChange(changedData, selected) {
+      this.onSelectChange({ changedData, selected});
+    };
+  
+    textFieldChange(changedData, selected) {
+      this.onTextChange({ changedData, selected });
+    };
+    // ----------------------------------------------------
+    
+  }]
+});
+
+angular.module('PartOrderApp.Components')
+.component('poEditTable', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poEditTable.html',
+  bindings: {
+    partorder: '<',   // one way data binding for partorder
+    onSelection: '&'
+  },
+  controller: class EditTableCtrl {
+    constructor () {
+      this.status = [
+        { type: 'ordered', value: false },
+        { type: 'backorder', value: false },
+        { type: 'canceled', value: false },
+        { type: 'completed', value: false }
+      ];
+    }
+
+    // Change Selected Check box --------------------------
+    changeCheckBoxes(data, selected) {
+      _.map(this.status,(obj) => {
+        if ( obj.type === selected ){
+          obj.value = true;
+          this.status.forEach((x) => {
+            if( x.type !== selected ){
+              x.value = false;
+            }
+          });
+        }
+      });
+    };
+    // ----------------------------------------------------
+
+    // Disable check boxes based on Part Order State ------
+    checkDisabled(box) {
+      if(box !== 'complete'){
+        if(this.partorder.timeShipped){
+          return true;
+        }
+      }
+      return false;
+    };
+    // ----------------------------------------------------
+
+    // Send Back Changed Data and Type --------------------
+    thisBoxDataChange(changedData, selected) {
+      if ( selected !== 'canceled' ){
+        this.partorder.comment = '';
+      }
+      if( changedData === true ) {
+        this.changeCheckBoxes(changedData, selected);
+        this.onSelection({ changedData, selected });
+      }
+    };
+    // ----------------------------------------------------
+
+  }
+});
+
+angular.module('PartOrderApp.Components')
+.component('poOverviewTable', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poOverviewTable.html',
+  bindings: {
+    partorders: '<',
+    locations: '<',
+    listIt: '&',
+    scrollContentSearch: '&',
+    getPartOrderReport: '&',
+    contentSearch: '&'
+  },
+  controller: ['$window', 'LocationItemService', 'DateService', class PoOverviewCtrl {
+    constructor ($window, LocationItemService, DateService) {
+      this.$window = $window;
+      this.LIS = LocationItemService;
+      this.DS = DateService;
+
+      this.sortType = 'epoch';
+      this.sortReverse = false;
+      this.searchFilter = '';
+      this.isLoaded = false;
+
+      // query params
+      this.username = null;
+      this.destination = null;
+      this.pending = true;
+      this.backorder  = true;
+      this.ordered = true;
+      this.completed = false;
+      this.canceled = false;
+      this.size = 50;
+      this.page = 0;
+
+      this.dates = {
+        from: null,
+        fromInput: null,
+        to: null,
+        toInput: null,
+      };
+    }
+
+    // Initializes original search ---------------------
+    $onInit() {
+      this.submit();
+    };
+    // -------------------------------------------------
+
+    // Sorting for Table -------------------------------
+    resort(by) {
+      this.sortType = by;
+      this.sortReverse = !this.sortReverse;
+    };
+    // -------------------------------------------------
+
+    // Get start and end of Day ------------------------
+    postartOfDay(input) {
+      this.dates.fromInput = input;
+      if (typeof input === 'object') {
+        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
+      }
+    };
+
+    poendOfDay(input) {
+      this.dates.toInput = input;
+      if (typeof input === 'object') {
+        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
+      }
+    };
+    // -------------------------------------------------
+
+    changeThisCheckbox(selected) {
+      this.listIt({po: selected})
+    };
+
+
+    // Query Constructor -------------------------------
+    queryConstruct(size, page) {
+      const query = {
+        size: size,
+        page: page
+      };
+
+      // gather query params
+      if ( this.dates.from && this.dates.to ) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+      if (this.username) {
+        query.techId = this.username.toUpperCase();
+      }
+      if (this.destination) {
+        query.destination = this.LIS.getTruckFromString(this.destination, this.locations).netsuiteId;
+      }
+      if (this.pending) {
+        query.pending = this.pending;
+      }
+      if (this.ordered) {
+        query.ordered = this.ordered;
+      }
+      if (this.backorder) {
+        query.backorder = this.backorder;
+      }
+      if (this.canceled) {
+        query.canceled = this.canceled;
+      }
+      if (this.completed) {
+        query.completed = this.completed;
+      }
+
+      return query;
+    };
+    // -------------------------------------------------
+
+    // Load content on scroll from Parent Controller ---
+    loadOnScroll() {
+      console.log("Scrolling...");
+      this.page += this.size;
+
+      const query = this.queryConstruct(this.size, this.page);
+      this.scrollContentSearch({ query });
+    };
+    // -------------------------------------------------
+
+    // Submit Query to Parent Controller ---------------
+    submit() {
+      this.size = 50;
+      this.page = 0;
+
+      const query = this.queryConstruct(this.size, this.page);
+      this.contentSearch({ query });
+    };
+    // -------------------------------------------------
+
+    // Submit Query to get Report to Parent Controller -
+    getReport() {
+      const query = this.queryConstruct(this.size, this.page);
+
+      query.report = true;
+
+      this.getPartOrderReport({ query });
+    };
+    // -------------------------------------------------
+
+    // clear -------------------------------------------
+    clearText(selected) {
+      switch (selected) {
+        case 'username':
+          this.username = null;
+          break;
+        case 'destination':
+          this.destination = null;
+          break;
+      }
+    }
+    // -------------------------------------------------
+
+    // Routing -----------------------------------------
+    routeToPartOrder(po) {
+      if (!po.inList) {
+        if ( po.status !== 'canceled' && po.status !== 'completed' ){
+          this.$window.open('#/partorder/edit/' + po.orderId);
+        } else {
+          this.$window.open('#/partorder/review/' + po.orderId);
+        }
+      } else {
+        const pos = [];
+        this.partorders.forEach((p) => {
+          if (p.inList) {
+            pos.push(p._id);
+          }
+        });
+        if (po.inList) {
+          this.$window.open('#/partorder/editMany/' + JSON.stringify(pos));
+        }
+      }
+    };
+    // -------------------------------------------------
+
+  }]
+});
+
+angular.module('PartOrderApp.Components')
+.component('poReviewHeading', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poReviewHeading.html',
+  bindings: {
+    locations: '<',
+    partorder: '<'
+  },
+  controller: ['LocationItemService', class PartOrderReviewHeadingCtrl {
+    constructor (LocationItemService) {
+      this.LocationItemService = LocationItemService;
+    }
+    
+    $onInit() {
+      // Change origin and destination NSID to name for display
+      this.originLocation = this.LocationItemService.getNameFromNSID(this.partorder.originNSID, this.locations);
+      this.destinationLocation = this.LocationItemService.getNameFromNSID(this.partorder.destinationNSID, this.locations);
+      // -----------------------------------------------
+    }
+  }]
+});
+
+
+angular.module('PartOrderApp.Components')
+.component('poReviewTable', {
+  templateUrl: '/lib/public/angular/apps/partorder/views/component-views/poReviewTable.html',
+  bindings: {
+    partorder: '<'
+  }
+});
+
+angular.module('PartOrderApp.Components')
+  .component('posEditHeading', {
+    templateUrl: '/lib/public/angular/apps/partorder/views/component-views/posEditHeading.html',
+    bindings: {
+      selectOriginType: '@',
+      onTextChange: '&',
+      onSelectChange: '&',
+      onSelection: '&',
+      changeCheckBoxes: '&',
+      disabled: '<',
+      locations: '<',
+      status: '<',
+      partorders: '<'
+    },
+    controller: ['LocationItemService', class PartOrderEditHeadingCtrl {
+      constructor (LocationItemService) {
+        this.LocationItemService = LocationItemService;
+        this.poNumber = '';
+        this.originNSID = 0;
+      }
+
+      $onInit() {
+        this.locationWarehouseObjArray = this.LocationItemService.getLocationWarehouseObjArray(this.locations);
+      }
+
+      // Pass back Changes ----------------------------------
+      selectFieldChange(changedData, selected) {
+        this.onSelectChange({ changedData, selected});
+      };
+
+      textFieldChange(changedData, selected) {
+        this.onTextChange({ changedData, selected });
+      };
+      // ----------------------------------------------------
+
+      // Send Back Changed Data and Type --------------------
+      thisBoxDataChange(changedData, selected) {
+        if ( selected !== 'canceled' ){
+          this.partorders.forEach((po) => po.comment = '');
+          /// this.partorder.comment = '';
+        }
+        if( changedData === true ) {
+          this.changeCheckBoxes({changedData, selected});
+          this.onSelection({ changedData, selected });
+        }
+      };
+      // ----------------------------------------------------
+    }]
+  });
+
+angular.module('PartOrderApp.Components')
+  .component('posEditTable', {
+    templateUrl: '/lib/public/angular/apps/partorder/views/component-views/posEditTable.html',
+    bindings: {
+      disabled: '<',
+      partorders: '<',   // one way data binding for partorder
+    },
+    controller: class EditTableCtrl {
+      constructor () {
+        this.status = [
+          { type: 'ordered', value: false },
+          { type: 'backorder', value: false },
+          { type: 'canceled', value: false },
+          { type: 'completed', value: false }
+        ];
+      }
+
+      // Disable check boxes based on Part Order State ------
+      checkDisabled(box) {
+        if(box !== 'complete'){
+          if(this.partorder.timeShipped){
+            return true;
+          }
+        }
+        return false;
+      };
+      // ----------------------------------------------------
+
+    }
+  });
+
+angular.module('PaidTimeOffApp.Components')
+  .component('ptoOverviewTable', {
+    templateUrl: '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoOverviewTable.html',
+    bindings: {
+      paidtimeoffs: '<',
+      scrollContentSearch: '&',
+      getPaidTimeOffReport: '&',
+      contentSearch: '&'
+    },
+    controller: ['$window', '$cookies', 'DateService', class PoOverviewCtrl {
+      constructor ($window, $cookies, DateService) {
+        this.$window = $window;
+        this.$cookies = $cookies;
+        this.DS = DateService;
+
+        this.sortType = 'epoch';
+        this.sortReverse = false;
+        this.searchFilter = '';
+        this.isLoaded = false;
+
+        // query params
+        this.username = '';
+        this.type = '';
+        this.approved = false;
+        this.rejected = false;
+        this.adminReviewed = false;
+
+        this.size = 50;
+        this.page = 0;
+
+
+        this.dates = {
+          from: null,
+          fromInput: null,
+          to: null,
+          toInput: null,
+        };
+      }
+
+      // Initializes original search ---------------------
+      $onInit() {
+        this.role = this.$cookies.get('role');
+        if (this.role === 'admin') {
+          this.approved = true;
+          this.rejected = true;
+        }
+        if (this.role === 'manager') {
+          this.approved = false;
+          this.rejected = false;
+        }
+
+        this.submit();
+      };
+      // -------------------------------------------------
+
+      // Sorting for Table -------------------------------
+      resort(by) {
+        this.sortType = by;
+        this.sortReverse = !this.sortReverse;
+      };
+      // -------------------------------------------------
+
+      // Get start and end of Day ------------------------
+      ptostartOfDay(input) {
+        this.dates.fromInput = input;
+        if (typeof input === 'object') {
+          this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
+        }
+      };
+
+      ptoendOfDay(input) {
+        this.dates.toInput = input;
+        if (typeof input === 'object') {
+          this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
+        }
+      };
+      // -------------------------------------------------
+
+      stringForType(pto) {
+        if (pto.approved) {
+          return 'approved';
+        }
+        if (pto.rejected) {
+          return 'rejected';
+        }
+        if (!pto.rejected && !pto.approved) {
+          return 'not reviewed';
+        }
+      }
+
+      // Query Constructor -------------------------------
+      queryConstruct(size, page) {
+        const query = {
+          size: size,
+          page: page
+        };
+
+        // gather query params
+        if ( this.dates.from && this.dates.to ) {
+          query.from = this.DS.saveToOrion(this.dates.from);
+          query.to = this.DS.saveToOrion(this.dates.to);
+        }
+        if (this.username) {
+          query.username = this.username.toUpperCase();
+        }
+        if (this.type) {
+          query.type = this.type;
+        }
+        query.approved = this.approved;
+        query.rejected = this.rejected;
+        query.adminReviewed = this.adminReviewed;
+
+        return query;
+      };
+      // -------------------------------------------------
+
+      // Load content on scroll from Parent Controller ---
+      loadOnScroll() {
+        console.log("Scrolling...");
+        this.page += this.size;
+
+        const query = this.queryConstruct(this.size, this.page);
+        this.scrollContentSearch({ query });
+      };
+      // -------------------------------------------------
+
+      // Submit Query to Parent Controller ---------------
+      submit() {
+        this.size = 50;
+        this.page = 0;
+
+        const query = this.queryConstruct(this.size, this.page);
+        this.contentSearch({ query });
+      };
+      // -------------------------------------------------
+
+      // Submit Query to get Report to Parent Controller -
+      getReport() {
+        const query = this.queryConstruct(this.size, this.page);
+
+        query.report = true;
+
+        this.getPaidTimeOffReport({ query });
+      };
+      // -------------------------------------------------
+
+      // clear -------------------------------------------
+      clearText(selected) {
+        switch (selected) {
+          case 'username':
+            this.username = null;
+            break;
+          case 'type':
+            this.type = null;
+            break;
+        }
+      }
+      // -------------------------------------------------
+
+      // Routing -----------------------------------------
+      routeToPaidTimeOff(pto) {
+        this.$window.open('#/paidtimeoff/review/' + pto._id);
+      };
+      // -------------------------------------------------
+
+    }]
+  });
+
+angular.module('PaidTimeOffApp.Components')
+.component('ptoReview', {
+  templateUrl  : '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoReview.html',
+  bindings: {
+    paidtimeoff: '<',
+    approvalStatusChange: '&',
+    setManagerReviewed: '&',
+    setAdminReviewed: '&',
+    textAreaChange: '&',
+  },
+  controller: [ class PaidTimeOffReviewCtrl {
+    constructor () {
+      this.status = {
+        approved: false,
+        rejected: false,
+      };
+    }
+
+    // Send Back Changed Data and Type --------------------
+    thisBoxDataChange(changedData, selected) {
+      this.approvalStatusChange({changedData, selected});
+    }
+    managerCommentChange(changedData, selected) {
+      this.textAreaChange({changedData, selected});
+    }
+    // ----------------------------------------------------
+
+    checkDisabled(type) {
+      if (this.paidtimeoff.approvedBy !== '') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }]
+});
+
+angular.module('PaidTimeOffApp.Controllers')
+.controller('PaidTimeOffCtrl', ['$scope', '$http', '$timeout', '$location', '$q', '$cookies', 'AlertService', 'ApiRequestService', 'DateService',
+  function ($scope, $http, $timeout, $location, $q, $cookies, AlertService, ApiRequestService, DateService) {
+    // Variables-----------------------------------------
+    const ARS = ApiRequestService;
+    const DS = DateService;
+    $scope.loaded = false;
+    $scope.spinner = true;
+    // --------------------------------------------------
+
+    // Turn Spinner Off ---------------------------------
+    $scope.spinnerOff = () => {
+      $scope.spinner = false;
+    };
+    // --------------------------------------------------
+
+    // Passed to Component ------------------------------
+    // Function called any time Page loads or user scrolls past 50 units
+    $scope.lookup = (query) => {
+      $scope.loaded = false;
+      console.log("Looking up PTOs...");
+      console.log(query)
+      ARS.PaidTimeOffs(query)
+        .then((paidtimeoffs) => {
+          console.log("PTOs Loaded.");
+          $scope.paidtimeoffs = paidtimeoffs.map(mapPaidTimeOffs);
+          $scope.loaded = true;
+          $scope.spinnerOff();
+        })
+        .catch((err) => console.log("Failed to load: ", err));
+    };
+/*
+    $scope.report = (query) => {
+      $http({method: 'GET',url: '/api/paidtimeoffs', params: query})
+        .then((res) =>{
+            const anchor = angular.element('<a/>');
+            anchor.attr({
+              href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
+              target: '_blank',
+              download: 'PartsReport.csv'
+            })[0].click();
+          },
+          (err) => {
+            AlertService.add("danger", "Report failed to load", 2000);
+            console.log(err);
+          }
+        );
+    };*/
+
+    $scope.PaidTimeOffScrollLookup = (query) => {
+      console.log("Looking up Ptos...");
+      ARS.PaidTimeOffs(query)
+        .then((paidtimeoffs) => {
+          console.log("Part Orders Loaded.");
+          const pto = paidtimeoffs.map(mapPaidTimeOffs);
+          $scope.paidtimeoffs = $scope.paidtimeoffs.concat(pto);
+        })
+        .catch((err) => console.log("Failed to load part orders: ", err));
+    };
+    // --------------------------------------------------
+
+    // Create sorting parameters ------------------------
+    function mapPaidTimeOffs (pto) {
+      // set to local times
+      pto.DateFrom = DS.displayLocal(new Date(pto.DateFrom));
+      pto.DateTo = DS.displayLocal(new Date(pto.DateTo));
+      pto.epochDateFrom = new Date(pto.DateFrom).getTime();
+      pto.epochDateTo = new Date(pto.DateTo).getTime();
+      // set status
+      if (pto.approved) {
+        pto.status = 'approved';
+      }
+      if (pto.rejected) {
+        pto.status = 'rejected';
+      }
+      if (!pto.rejected && !pto.approved) {
+        pto.status = 'not reviewed';
+      }
+
+      return pto;
+    }
+    // --------------------------------------------------
+
+    // Routing ------------------------------------------
+  /*  $scope.createPaidTimeOff = () => {
+      $location.url('/paidtimeoff/create');
+    };*/
+    // --------------------------------------------------
+  },
+]);
+
+angular.module('PaidTimeOffApp.Controllers')
+.controller('PaidTimeOffReviewCtrl', ['$scope', '$location', '$cookies', 'paidtimeoff', 'PaidTimeOffs', 'AlertService', 'DateService',
+function ($scope, $location, $cookies, paidtimeoff, PaidTimeOffs, AlertService, DateService) {
+  const DS = DateService;
+
+  $scope.paidtimeoff = paidtimeoff;
+
+  // init
+  const preLoad = () => {
+    $scope.paidtimeoff.DateFrom = DS.displayLocal(new Date($scope.paidtimeoff.DateFrom));
+    $scope.paidtimeoff.DateTo = DS.displayLocal(new Date($scope.paidtimeoff.DateTo));
+    $scope.paidtimeoff.created = DS.displayLocal(new Date($scope.paidtimeoff.created));
+    if ($scope.paidtimeoff.timeApproved) {
+      $scope.paidtimeoff.timeApproved = DS.displayLocal(new Date($scope.paidtimeoff.timeApproved));
+    }
+  };
+  preLoad();
+
+  const preSave = () => {
+    $scope.paidtimeoff.DateFrom = DS.saveToOrion(new Date($scope.paidtimeoff.DateFrom));
+    $scope.paidtimeoff.DateTo = DS.saveToOrion(new Date($scope.paidtimeoff.DateTo));
+    $scope.paidtimeoff.created = DS.saveToOrion(new Date($scope.paidtimeoff.created));
+    if ($scope.paidtimeoff.timeApproved) {
+      $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date($scope.paidtimeoff.timeApproved));
+    }
+  };
+
+  $scope.approvalStatusChange = (changedData, selected) => {
+    if (selected === 'approved') {
+      $scope.paidtimeoff.approved = changedData;
+      if ($scope.paidtimeoff.rejected) {
+        $scope.paidtimeoff.rejected = false;
+      }
+    }
+    if (selected === 'rejected') {
+      $scope.paidtimeoff.rejected = changedData;
+      if ($scope.paidtimeoff.approved) {
+        $scope.paidtimeoff.approved = false;
+      }
+    }
+  };
+
+  $scope.changeManagerComment = (changedData, selected) => {
+    $scope.paidtimeoff.managerComment = changedData;
+  };
+
+  $scope.update = (doc) => {
+    PaidTimeOffs.update({id: doc._id}, doc,
+      (res) => {
+        AlertService.add('success', "Update was successful.");
+        $location.url('/paidtimeoff');
+      }, (err) => {
+        console.log(err);
+        // if error reset back to display times
+        preLoad();
+        AlertService.add('danger', 'An error occurred while attempting to update this PTO.');
+      })
+  };
+
+  $scope.setManagerReviewed = () => {
+    $scope.paidtimeoff.approvedBy = $cookies.get('tech');
+    $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date());
+    preSave();
+    $scope.update($scope.paidtimeoff);
+  };
+
+  $scope.setAdminReviewed = () => {
+    $scope.paidtimeoff.adminReviewed = true;
+    preSave();
+    $scope.update($scope.paidtimeoff);
+  };
+}]);
+
 angular.module('UnitApp.Components')
   .component('unitMap', {
     templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitMap.html',
@@ -5420,13 +5420,396 @@ angular.module('UnitApp.Controllers').controller('UnitPageCtrl',
       $scope.coords = coords;
     }]);
 
-angular.module('SupportApp.Controllers').controller('SupportIndexCtrl',
-['$scope', '$route', '$location', 'AlertService', 'me',
-  function ($scope, $route, $location, AlertService, me){
-    $scope.me = me;
-    $scope.title = "Support";
+angular.module('WorkOrderApp.Components')
+.component('woOverviewTable', {
+  templateUrl: '/lib/public/angular/apps/workorder/views/component.views/woOverviewTable.html',
+  bindings: {
+    scrollContentSearch: '&',
+    contentReport: '&',
+    woDumpReport: '&',
+    woPartsDumpReport: '&',
+    contentSearch: '&',
+    onTextFieldChange: '&',
+    onCheckBoxChange: '&',
+    woSearchCount: '<',
+    reportDisabled: '<',
+    workorders: '<',
+    startTime: '<',
+    endTime: '<',
+    woType: '<',
+    techId: '<',
+  },
+  controller: ['$window','$cookies','SessionService','TimeDisplayService', 'DateService', class WorkOrderOverviewTableCCtrl {
+    constructor($window,$cookies,SessionService,TimeDisplayService, DateService) {
+      // Initialize all variables on component
+      this.$window = $window;
+      this.$cookies = $cookies;
+      this.TDS = TimeDisplayService;
+      this.SS = SessionService;
+      this.DS = DateService;
 
-}]);
+      this.orderByField = 'epoch';
+      this.reverseSort = true;
+      this.unitNumber = this.SS.get("unitNumber") ? this.SS.get("unitNumber") : null;
+      this.techName = null;
+      this.leaseName = null;
+      this.customerName = null;
+      this.billable = null;
+      this.billed = null;
+      this.billParts = null;
+      this.unapproved = false;
+      this.approved = false;
+      this.synced = false;
+      this.limit = 50;
+      this.skip = 0;
+      this.open = false;
+      this.pad = this.TDS.pad;
+      this.searchSupervisor = null;
+      this.role = 'admin';
+      this.dates = {
+        from: null,
+        to: null,
+        fromInput: null,
+        toInput: null,
+      };
+    }
+    // -------------------------------------------------
+
+
+    // Initialize original state -----------------------
+    $onInit() {
+      this.role = this.$cookies.get('role');
+      if(!this.SS.get("unitNumber")){
+        if(this.role === "admin"){
+          this.approved = true;
+          this.reverseSort = true;
+        }
+        if(this.role === "manager"){
+          this.unapproved = true;
+          this.reverseSort = false;
+        }
+      }
+
+      this.submit();
+    };
+    // -------------------------------------------------
+
+    clicked() {
+      this.role = this.$cookies.get('role');
+      if(this.role === "admin"){
+        this.approved = true;
+        this.unapproved = true;
+        this.synced = true;
+        this.reverseSort = true;
+        this.open = !this.open;
+      }
+    }
+
+    // Search Changes ----------------------------------
+    changeTextField(changedData, selected) {
+      this.onTextFieldChange({ changedData, selected });
+    }
+    changeCheckBox(changedData, selected) {
+      this.onCheckBoxChange({ changedData, selected });
+    }
+    // -------------------------------------------------
+
+
+    // Get start and end of Day ------------------------
+    startOfDay(input) {
+      this.dates.fromInput = input;
+      if (typeof input === 'object' && input !== null) {
+        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
+      }
+      if (input === null) {
+        this.dates.from = null;
+      }
+    };
+
+    endOfDay(input) {
+      this.dates.toInput = input;
+      if (typeof input === 'object' && input !== null) {
+        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
+      }
+      if (input === null) {
+        this.dates.to = null;
+      }
+    };
+    // -------------------------------------------------
+
+    // Load content on scroll from parent controller ---
+    loadOnScroll() {
+      console.log("Scrolling..");
+      this.skip += this.limit;
+
+      const query = {
+        limit: this.limit,
+        skip: this.skip
+      };
+
+      if(this.dates.from && this.dates.to) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+
+      if (this.endTime || this.startTime) {
+        // this.startTime and this.endTime are generated on the server
+        // so no need to convert to server.
+        // this.dates are generated on client so need to format to server
+        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
+        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
+      }
+      if(this.unitNumber) {
+        query.unit = this.unitNumber;
+      }
+      if(this.techName || this.techId) {
+        query.tech = this.techId ? this.techId : this.techName;
+      }
+      if(this.leaseName) {
+        query.loc = this.leaseName;
+      }
+      if (this.searchSupervisor) {
+        query.searchSupervisor = this.searchSupervisor.toUpperCase();
+      }
+      if(this.customerName) {
+        query.cust = this.customerName;
+      }
+      if(this.billed){
+        query.billed = this.billed;
+      }
+      if(this.billable) {
+        query.billable = this.billable;
+      }
+      if(this.billParts) {
+        query.billParts = this.billParts;
+      }
+      if(this.unapproved || this.techId){
+        query.unapproved = this.techId ? true : this.unapproved;
+      }
+      if(this.approved || this.techId){
+        query.approved = this.techId ? true : this.approved;
+      }
+      if(this.synced || this.techId){
+        query.synced = this.techId ? true :  this.synced;
+      }
+      if(this.woType) {
+        query.type = this.woType;
+      }
+
+      this.scrollContentSearch({query});
+    };
+    // -------------------------------------------------
+
+    // Submit query to parent controller ---------------
+    submit() {
+      console.log("submit");
+      this.limit = 50;
+      this.skip = 0;
+
+      const query = {
+        limit: this.limit,
+        skip: this.skip
+      };
+
+
+      if(this.dates.from && this.dates.to) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+      if (this.endTime || this.startTime) {
+        query.from = this.startTime ? new Date(this.startTime) : this.DS.saveToOrion(this.dates.from);
+        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.DS.saveToOrion(this.dates.to) : this.DS.saveToOrion(new Date()));
+      }
+
+      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
+        query.unit = this.unitNumber;
+      } else if(this.unitNumber !== this.SS.get("unitNumber")){
+        query.unit = this.unitNumber;
+        this.SS.drop("unitNumber");
+      } else {
+        this.SS.drop("unitNumber");
+      }
+      if(this.techId || this.techName) {
+        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
+        query.tech = this.techName;
+      }
+      if(this.leaseName) {
+        query.loc = this.leaseName;
+      }
+      if (this.searchSupervisor) {
+        query.searchSupervisor = this.searchSupervisor.toUpperCase();
+      }
+      if(this.customerName) {
+        query.cust = this.customerName;
+      }
+      if(this.billed){
+        query.billed = this.billed;
+      }
+      if(this.billable) {
+        query.billable = this.billable
+      }
+      if(this.billParts) {
+        query.billParts = this.billParts
+      }
+      if(this.unapproved || this.techId){
+        query.unapproved = this.techId ? true : this.unapproved;
+      }
+      if(this.approved || this.techId){
+        query.approved = this.techId ? true : this.approved;
+      }
+      if(this.synced || this.techId){
+        query.synced = this.techId ? true :  this.synced;
+      }
+      if(this.woType) {
+        query.type = this.woType;
+      }
+
+      console.log(query)
+      this.contentSearch({query});
+    };
+    // -------------------------------------------------
+
+    // Get Time Report of searched users ---------------
+    report(type) {
+      this.reportText = "Loading...";
+      this.reportDisabled = true;
+
+      const query = {};
+
+      if(this.dates.from && this.dates.to) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+      if (this.endTime || this.startTime) {
+        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
+        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
+      }
+    /*
+      if(this.unitNumber) {
+        query.unit = this.unitNumber.toString();
+      }
+      if(this.techName) {
+        query.tech = this.techName.toUpperCase();
+      }*/
+      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
+        query.unit = this.unitNumber;
+      } else if(this.unitNumber !== this.SS.get("unitNumber")){
+        query.unit = this.unitNumber;
+        this.SS.drop("unitNumber");
+      } else {
+        this.SS.drop("unitNumber");
+      }
+      if(this.techId || this.techName) {
+        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
+        query.tech = this.techName;
+      }
+      if(this.leaseName) {
+        query.loc = this.leaseName.toString();
+      }
+      if(this.customerName) {
+        query.cust = this.customerName.toString();
+      }
+      if (this.searchSupervisor) {
+        query.searchSupervisor = this.searchSupervisor.toUpperCase();
+      }
+      if(this.billed){
+        query.billed = this.billed;
+      }
+      if(this.billable) {
+        query.billable = this.billable
+      }
+      if(this.billParts) {
+        query.billParts = this.billParts
+      }
+      if(this.unapproved || this.techId){
+        query.unapproved = this.techId ? true : this.unapproved;
+      }
+      if(this.approved || this.techId){
+        query.approved = this.techId ? true : this.approved;
+      }
+      if(this.synced || this.techId){
+        query.synced = this.techId ? true :  this.synced;
+      }
+      if(this.woType) {
+        query.type = this.woType;
+      }
+      query.report = 'true';
+
+      if (type === 'timeReport') {
+        this.contentReport({query});
+      } else if (type === 'woDump') {
+        this.woDumpReport({query});
+      } else if (type === 'woPartsDump') {
+        this.woPartsDumpReport({query});
+      }
+    };
+    // -------------------------------------------------
+
+    // Sorting for Table -------------------------------
+    resort(by) {
+      this.orderByField = by;
+      this.reverseSort = !this.reverseSort;
+    };
+    // -------------------------------------------------
+
+
+    // Set billable background color for workorders
+    setBillableBackgroundColor(wo) {
+      if(wo.parts.length > 0){
+        const partBillable = wo.isPartBillable.color;
+        if(wo.billingInfo.billableToCustomer || (partBillable === '#a4cf80')) return '#a4cf80';
+      } else {
+        if(wo.billingInfo.billableToCustomer) return '#a4cf80';
+      }
+    };
+    // -------------------------------------------------
+
+    clearText(selected) {
+      switch (selected) {
+        case 'unitNumber':
+          this.unitNumber = null;
+          break;
+        case 'leaseName':
+          this.leaseName = null;
+          break;
+        case 'techName':
+          this.techName = null;
+          break;
+        case 'customerName':
+          this.customerName = null;
+          break;
+        case 'searchSupervisor':
+          this.searchSupervisor = null;
+          break;
+      }
+    }
+
+    // Routing to work order ---------------------------
+    clickWorkOrder(wo) {
+      this.$window.open('#/workorder/review/' + wo._id);
+    };
+    // -------------------------------------------------
+
+
+  }]
+});
+
+
+
+
+/*
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
+
+function clearSearch() {
+
+  //let elements = [] ;
+  const elements = document.getElementsByClassName("search");
+
+  for(let i=0; i<elements.length ; i++){
+    elements[i].value = "" ;
+  }
+}
+*/
 
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderCtrl',
 ['$window','$location','$scope','SessionService','ApiRequestService','AlertService','$http', 'STARTTIME', 'ENDTIME', 'WOTYPE', 'TECHNICIANID', 'DateService', function ($window,$location,$scope,SessionService,ApiRequestService,AlertService,$http, STARTTIME, ENDTIME, WOTYPE, TECHNICIANID, DateService) {
@@ -7160,6 +7543,31 @@ function ($window, $http, $q, $scope, $location, $timeout, $uibModal, $cookies, 
   $scope.getTimeElapsed();
 }]);
 
+angular.module('WorkOrderApp.Services')
+.factory('CommonWOfunctions', [function () {
+  var CommonWOFunctions = {};
+
+  // Add Component Name to every part in wo -------------
+  CommonWOFunctions.addComponentNameToParts = function (wo, parts) {
+    if(wo.hasOwnProperty('parts')){
+      if(wo.parts.length !== 0){
+        wo.parts.map(function (part) {
+          var netsuiteId = +part.netsuiteId;
+          _.forEach(parts, function (obj) {
+            if(obj.netsuiteId === netsuiteId){
+              part.componentName = (obj.componentName) ? obj.componentName : '';
+            }
+          });
+        });
+      }
+    }
+    return wo;
+  };
+  // ----------------------------------------------------
+  
+  return CommonWOFunctions;
+}]);
+
 angular.module('WorkOrderApp.Directives')
 .directive('newSerialNumbers', [function () {
   return {
@@ -7611,420 +8019,12 @@ angular.module('WorkOrderApp.Directives')
     };
   }]);
 
-angular.module('WorkOrderApp.Components')
-.component('woOverviewTable', {
-  templateUrl: '/lib/public/angular/apps/workorder/views/component.views/woOverviewTable.html',
-  bindings: {
-    scrollContentSearch: '&',
-    contentReport: '&',
-    woDumpReport: '&',
-    woPartsDumpReport: '&',
-    contentSearch: '&',
-    onTextFieldChange: '&',
-    onCheckBoxChange: '&',
-    woSearchCount: '<',
-    reportDisabled: '<',
-    workorders: '<',
-    startTime: '<',
-    endTime: '<',
-    woType: '<',
-    techId: '<',
-  },
-  controller: ['$window','$cookies','SessionService','TimeDisplayService', 'DateService', class WorkOrderOverviewTableCCtrl {
-    constructor($window,$cookies,SessionService,TimeDisplayService, DateService) {
-      // Initialize all variables on component
-      this.$window = $window;
-      this.$cookies = $cookies;
-      this.TDS = TimeDisplayService;
-      this.SS = SessionService;
-      this.DS = DateService;
+angular.module('SupportApp.Controllers').controller('SupportIndexCtrl',
+['$scope', '$route', '$location', 'AlertService', 'me',
+  function ($scope, $route, $location, AlertService, me){
+    $scope.me = me;
+    $scope.title = "Support";
 
-      this.orderByField = 'epoch';
-      this.reverseSort = true;
-      this.unitNumber = this.SS.get("unitNumber") ? this.SS.get("unitNumber") : null;
-      this.techName = null;
-      this.leaseName = null;
-      this.customerName = null;
-      this.billable = null;
-      this.billed = null;
-      this.billParts = null;
-      this.unapproved = false;
-      this.approved = false;
-      this.synced = false;
-      this.limit = 50;
-      this.skip = 0;
-      this.open = false;
-      this.pad = this.TDS.pad;
-      this.searchSupervisor = null;
-      this.role = 'admin';
-      this.dates = {
-        from: null,
-        to: null,
-        fromInput: null,
-        toInput: null,
-      };
-    }
-    // -------------------------------------------------
-
-
-    // Initialize original state -----------------------
-    $onInit() {
-      this.role = this.$cookies.get('role');
-      if(!this.SS.get("unitNumber")){
-        if(this.role === "admin"){
-          this.approved = true;
-          this.reverseSort = true;
-        }
-        if(this.role === "manager"){
-          this.unapproved = true;
-          this.reverseSort = false;
-        }
-      }
-
-      this.submit();
-    };
-    // -------------------------------------------------
-
-    clicked() {
-      this.role = this.$cookies.get('role');
-      if(this.role === "admin"){
-        this.approved = true;
-        this.unapproved = true;
-        this.synced = true;
-        this.reverseSort = true;
-        this.open = !this.open;
-      }
-    }
-
-    // Search Changes ----------------------------------
-    changeTextField(changedData, selected) {
-      this.onTextFieldChange({ changedData, selected });
-    }
-    changeCheckBox(changedData, selected) {
-      this.onCheckBoxChange({ changedData, selected });
-    }
-    // -------------------------------------------------
-
-
-    // Get start and end of Day ------------------------
-    startOfDay(input) {
-      this.dates.fromInput = input;
-      if (typeof input === 'object' && input !== null) {
-        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
-      }
-      if (input === null) {
-        this.dates.from = null;
-      }
-    };
-
-    endOfDay(input) {
-      this.dates.toInput = input;
-      if (typeof input === 'object' && input !== null) {
-        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
-      }
-      if (input === null) {
-        this.dates.to = null;
-      }
-    };
-    // -------------------------------------------------
-
-    // Load content on scroll from parent controller ---
-    loadOnScroll() {
-      console.log("Scrolling..");
-      this.skip += this.limit;
-
-      const query = {
-        limit: this.limit,
-        skip: this.skip
-      };
-
-      if(this.dates.from && this.dates.to) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-
-      if (this.endTime || this.startTime) {
-        // this.startTime and this.endTime are generated on the server
-        // so no need to convert to server.
-        // this.dates are generated on client so need to format to server
-        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
-        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
-      }
-      if(this.unitNumber) {
-        query.unit = this.unitNumber;
-      }
-      if(this.techName || this.techId) {
-        query.tech = this.techId ? this.techId : this.techName;
-      }
-      if(this.leaseName) {
-        query.loc = this.leaseName;
-      }
-      if (this.searchSupervisor) {
-        query.searchSupervisor = this.searchSupervisor.toUpperCase();
-      }
-      if(this.customerName) {
-        query.cust = this.customerName;
-      }
-      if(this.billed){
-        query.billed = this.billed;
-      }
-      if(this.billable) {
-        query.billable = this.billable;
-      }
-      if(this.billParts) {
-        query.billParts = this.billParts;
-      }
-      if(this.unapproved || this.techId){
-        query.unapproved = this.techId ? true : this.unapproved;
-      }
-      if(this.approved || this.techId){
-        query.approved = this.techId ? true : this.approved;
-      }
-      if(this.synced || this.techId){
-        query.synced = this.techId ? true :  this.synced;
-      }
-      if(this.woType) {
-        query.type = this.woType;
-      }
-
-      this.scrollContentSearch({query});
-    };
-    // -------------------------------------------------
-
-    // Submit query to parent controller ---------------
-    submit() {
-      console.log("submit");
-      this.limit = 50;
-      this.skip = 0;
-
-      const query = {
-        limit: this.limit,
-        skip: this.skip
-      };
-
-
-      if(this.dates.from && this.dates.to) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-      if (this.endTime || this.startTime) {
-        query.from = this.startTime ? new Date(this.startTime) : this.DS.saveToOrion(this.dates.from);
-        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.DS.saveToOrion(this.dates.to) : this.DS.saveToOrion(new Date()));
-      }
-
-      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
-        query.unit = this.unitNumber;
-      } else if(this.unitNumber !== this.SS.get("unitNumber")){
-        query.unit = this.unitNumber;
-        this.SS.drop("unitNumber");
-      } else {
-        this.SS.drop("unitNumber");
-      }
-      if(this.techId || this.techName) {
-        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
-        query.tech = this.techName;
-      }
-      if(this.leaseName) {
-        query.loc = this.leaseName;
-      }
-      if (this.searchSupervisor) {
-        query.searchSupervisor = this.searchSupervisor.toUpperCase();
-      }
-      if(this.customerName) {
-        query.cust = this.customerName;
-      }
-      if(this.billed){
-        query.billed = this.billed;
-      }
-      if(this.billable) {
-        query.billable = this.billable
-      }
-      if(this.billParts) {
-        query.billParts = this.billParts
-      }
-      if(this.unapproved || this.techId){
-        query.unapproved = this.techId ? true : this.unapproved;
-      }
-      if(this.approved || this.techId){
-        query.approved = this.techId ? true : this.approved;
-      }
-      if(this.synced || this.techId){
-        query.synced = this.techId ? true :  this.synced;
-      }
-      if(this.woType) {
-        query.type = this.woType;
-      }
-
-      console.log(query)
-      this.contentSearch({query});
-    };
-    // -------------------------------------------------
-
-    // Get Time Report of searched users ---------------
-    report(type) {
-      this.reportText = "Loading...";
-      this.reportDisabled = true;
-
-      const query = {};
-
-      if(this.dates.from && this.dates.to) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-      if (this.endTime || this.startTime) {
-        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
-        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
-      }
-    /*
-      if(this.unitNumber) {
-        query.unit = this.unitNumber.toString();
-      }
-      if(this.techName) {
-        query.tech = this.techName.toUpperCase();
-      }*/
-      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
-        query.unit = this.unitNumber;
-      } else if(this.unitNumber !== this.SS.get("unitNumber")){
-        query.unit = this.unitNumber;
-        this.SS.drop("unitNumber");
-      } else {
-        this.SS.drop("unitNumber");
-      }
-      if(this.techId || this.techName) {
-        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
-        query.tech = this.techName;
-      }
-      if(this.leaseName) {
-        query.loc = this.leaseName.toString();
-      }
-      if(this.customerName) {
-        query.cust = this.customerName.toString();
-      }
-      if (this.searchSupervisor) {
-        query.searchSupervisor = this.searchSupervisor.toUpperCase();
-      }
-      if(this.billed){
-        query.billed = this.billed;
-      }
-      if(this.billable) {
-        query.billable = this.billable
-      }
-      if(this.billParts) {
-        query.billParts = this.billParts
-      }
-      if(this.unapproved || this.techId){
-        query.unapproved = this.techId ? true : this.unapproved;
-      }
-      if(this.approved || this.techId){
-        query.approved = this.techId ? true : this.approved;
-      }
-      if(this.synced || this.techId){
-        query.synced = this.techId ? true :  this.synced;
-      }
-      if(this.woType) {
-        query.type = this.woType;
-      }
-      query.report = 'true';
-
-      if (type === 'timeReport') {
-        this.contentReport({query});
-      } else if (type === 'woDump') {
-        this.woDumpReport({query});
-      } else if (type === 'woPartsDump') {
-        this.woPartsDumpReport({query});
-      }
-    };
-    // -------------------------------------------------
-
-    // Sorting for Table -------------------------------
-    resort(by) {
-      this.orderByField = by;
-      this.reverseSort = !this.reverseSort;
-    };
-    // -------------------------------------------------
-
-
-    // Set billable background color for workorders
-    setBillableBackgroundColor(wo) {
-      if(wo.parts.length > 0){
-        const partBillable = wo.isPartBillable.color;
-        if(wo.billingInfo.billableToCustomer || (partBillable === '#a4cf80')) return '#a4cf80';
-      } else {
-        if(wo.billingInfo.billableToCustomer) return '#a4cf80';
-      }
-    };
-    // -------------------------------------------------
-
-    clearText(selected) {
-      switch (selected) {
-        case 'unitNumber':
-          this.unitNumber = null;
-          break;
-        case 'leaseName':
-          this.leaseName = null;
-          break;
-        case 'techName':
-          this.techName = null;
-          break;
-        case 'customerName':
-          this.customerName = null;
-          break;
-        case 'searchSupervisor':
-          this.searchSupervisor = null;
-          break;
-      }
-    }
-
-    // Routing to work order ---------------------------
-    clickWorkOrder(wo) {
-      this.$window.open('#/workorder/review/' + wo._id);
-    };
-    // -------------------------------------------------
-
-
-  }]
-});
-
-
-
-
-/*
-angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
-
-function clearSearch() {
-
-  //let elements = [] ;
-  const elements = document.getElementsByClassName("search");
-
-  for(let i=0; i<elements.length ; i++){
-    elements[i].value = "" ;
-  }
-}
-*/
-
-angular.module('WorkOrderApp.Services')
-.factory('CommonWOfunctions', [function () {
-  var CommonWOFunctions = {};
-
-  // Add Component Name to every part in wo -------------
-  CommonWOFunctions.addComponentNameToParts = function (wo, parts) {
-    if(wo.hasOwnProperty('parts')){
-      if(wo.parts.length !== 0){
-        wo.parts.map(function (part) {
-          var netsuiteId = +part.netsuiteId;
-          _.forEach(parts, function (obj) {
-            if(obj.netsuiteId === netsuiteId){
-              part.componentName = (obj.componentName) ? obj.componentName : '';
-            }
-          });
-        });
-      }
-    }
-    return wo;
-  };
-  // ----------------------------------------------------
-  
-  return CommonWOFunctions;
 }]);
 
 /**
@@ -8259,46 +8259,6 @@ angular.module('WorkOrderApp.Controllers').controller('woLocationModalCtrl',['$w
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderComments', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woComments.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderEmissionsReadings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woEmissionsReadings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderHistory', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woHistory.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderUnitReadings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woUnitReadings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
 .directive('reviewComments', [function () {
   return {
     restrict: 'E',
@@ -8337,17 +8297,45 @@ angular.module('WorkOrderApp.Directives')
   };
 }]);
 
-angular.module('WorkOrderApp.Controllers').controller('JsaReviewModalCtrl',
-  function ( $scope, $uibModalInstance, jsa ){
-    $scope.jsa = jsa;
-    
-    $scope.ok = () => {
-      $uibModalInstance.close($scope.jsa);
-    };
-    $scope.cancel = () => {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderComments', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woComments.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEmissionsReadings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woEmissionsReadings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderHistory', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woHistory.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderUnitReadings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woUnitReadings.html',
+    scope: true
+  };
+}]);
 
 angular.module('WorkOrderApp.Controllers').controller('AddPartEditModalCtrl',
   function ( $scope, $uibModalInstance, ObjectService){
@@ -8396,112 +8384,274 @@ angular.module('WorkOrderApp.Controllers').controller('JsaEditModalCtrl',
     };
   });
 
+angular.module('WorkOrderApp.Controllers').controller('JsaReviewModalCtrl',
+  function ( $scope, $uibModalInstance, jsa ){
+    $scope.jsa = jsa;
+    
+    $scope.ok = () => {
+      $uibModalInstance.close($scope.jsa);
+    };
+    $scope.cancel = () => {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
+
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderPartsAdd', [function () {
+.directive('reviewBilling', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woBilling.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderPartsList', [function () {
+.directive('reviewHeading', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woHeading.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderParts', [function () {
+.directive('reviewDataHistory', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woDataHistory.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderBilling', [function () {
+.directive('reviewInfo', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woBilling.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woInfo.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('editDataHistory', [function () {
+.directive('reviewMisc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woDataHistory.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woMisc.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderHeading', [function () {
+.directive('reviewNotes', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woHeading.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woNotes.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderMisc', [function () {
+.directive('reviewOwnership', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woMisc.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woOwnership.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('editNotes', [function () {
+.directive('reviewType', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woNotes.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woType.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderOwnership', [function () {
+.directive('reviewHeader', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woOwnership.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/workorderheader.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderType', [function () {
+.directive('reviewBasicLc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woType.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woBasicLC.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderHeader', [function () {
+.directive('reviewCompressorLc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/workorderheader.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCompressorLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewCoolerLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCoolerLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEmissionsLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEmissionsLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEngineLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEngineLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPanelLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woPanelLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewVesselLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woVesselLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewLaborCodes', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/workorderLaborCodes.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPartsAdd', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/woPartsAdd.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPartsList', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/woPartsList.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewParts', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/workorderParts.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEngineChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEngineCompression', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineCompression.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewGeneralChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woGeneralChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewKillSettings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woKillSettings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPmMisc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPMMisc.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPm', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPM.html',
     scope: true
   };
 }]);
@@ -8648,260 +8798,110 @@ angular.module('WorkOrderApp.Directives')
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewBasicLc', [function () {
+.directive('workorderPartsAdd', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woBasicLC.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewCompressorLc', [function () {
+.directive('workorderPartsList', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCompressorLC.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewCoolerLc', [function () {
+.directive('workorderParts', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCoolerLC.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewEmissionsLc', [function () {
+.directive('workorderBilling', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEmissionsLC.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woBilling.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewEngineLc', [function () {
+.directive('editDataHistory', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEngineLC.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woDataHistory.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewPanelLc', [function () {
+.directive('workorderHeading', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woPanelLC.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woHeading.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewVesselLc', [function () {
+.directive('workorderMisc', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woVesselLC.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woMisc.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewLaborCodes', [function () {
+.directive('editNotes', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/workorderLaborCodes.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woNotes.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewPartsAdd', [function () {
+.directive('workorderOwnership', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/woPartsAdd.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woOwnership.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewPartsList', [function () {
+.directive('workorderType', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/woPartsList.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/woType.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewParts', [function () {
+.directive('workorderHeader', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/workorderParts.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewBilling', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woBilling.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewHeading', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woHeading.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewDataHistory', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woDataHistory.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewInfo', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woInfo.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewMisc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woMisc.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewNotes', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woNotes.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewOwnership', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woOwnership.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewType', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/woType.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewHeader', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/header/workorderheader.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEngineChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEngineCompression', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineCompression.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewGeneralChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woGeneralChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewKillSettings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woKillSettings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPmMisc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPMMisc.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPm', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPM.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/header/workorderheader.html',
     scope: true
   };
 }]);
