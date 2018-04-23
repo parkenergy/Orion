@@ -231,6 +231,7 @@ describe("PartOrder Units", () => {
           .then(docs => PartOrder.insertMany(docs))
           .then(() => {
             let newUser = _.clone(userFixture);
+            newUser.netsuiteId = '124566';
             newUser.firstName = "Find";
             newUser.lastName = "Me";
             newUser.username = "TEST003";
