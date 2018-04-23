@@ -3,111 +3,6 @@ angular.module('CommonComponents', []);
 angular.module('CommonDirectives', []);
 angular.module('CommonServices', ['ngRoute', 'ngResource', 'ngCookies']);
 
-angular.module('CommonDirectives')
-
-.directive('alerts', ['AlertService', function (AlertService) {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/views/directive.views/alerts.html',
-    link: function (scope, elem, attrs, ctrl) {
-      scope.closeAlert = function (obj) {
-      	return AlertService.closeAlert(obj);
-      };
-  	}
-  };
-}]);
-
-angular.module('CommonDirectives')
-.directive('customValidation', function () {
-  return {
-    require: 'ngModel',
-    scope: true,
-    link: function (scope, element, attr, ngModelCtrl) {
-
-      element.bind('focus', function () {
-        if (element.context.value === "0") {
-          element.context.value = "";
-        }
-      });
-
-
-      function fromUser (text) {
-        var originalText = text;
-        var isNumber = attr.number !== undefined;
-        var isTextOnly = attr.textonly !== undefined;
-        var isNonNegative = attr.nonNegative === "true";
-        var isIntegerOnly = attr.integerOnly === "true";
-        console.log(attr.integerOnly);
-
-        if (isNumber) {
-          text = text.replace(/[^-?\d+\.?\d*$]/g,'');
-          var decimalCount = 0;
-
-          for (var i = 0; i < text.length; i++) { // because regex is fucky
-
-            if (i === 0 && text[i] === '-') {
-              continue;
-            } // skip the first negative
-
-            if (text[i] === '-') { // remove subsequent minus signs
-              text = text.slice(0, i) + text.slice(i+1, text.length);
-            } else if (text[i] === '.') {
-              if (decimalCount > 0) { // remove subsequent decimal points
-                text = text.slice(0, i) + text.slice(i+1, text.length);
-              } else { // there can be only 1
-                decimalCount = 1;
-              }
-            }
-
-          }
-
-          if (isNonNegative) {
-            text = text.split('-').join();
-          }
-
-          if (isIntegerOnly) {
-            text = text.split('.')[0];
-          }
-
-        }
-
-        if (isTextOnly) {
-          console.log("text only validation not implemented");
-        }
-
-        if(text !== originalText) {
-            ngModelCtrl.$setViewValue(text);
-            ngModelCtrl.$render();
-        }
-        return text;
-      }
-      ngModelCtrl.$parsers.push(fromUser);
-    }
-  };
-});
-
-angular.module('CommonDirectives')
-
-.directive('header', ['$window', '$location', '$cookies', function ($window, $location, $cookies) {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/views/directive.views/header.html',
-    link: function (scope, elem, attrs, ctrl) {
-
-      function getnavItems() {
-        return [
-          {
-          text: "User: " + $cookies.get('tech') || "Logged Out",
-          action: function () { $location.path('/support'); }
-          }
-        ];
-      }
-
-      scope.navItems = getnavItems();
-  	}
-  };
-}]);
-
 angular.module('CommonComponents')
 .component('areaPmDash', {
   templateUrl: '/lib/public/angular/views/component.views/areaPmDash.html',
@@ -812,6 +707,111 @@ function ($window, $scope, users, ApiRequestService, AlertService) {
   // Initiate a search of at least 150 days prior -------
   $scope.getWorkOrders(45);
   // ----------------------------------------------------
+}]);
+
+angular.module('CommonDirectives')
+
+.directive('alerts', ['AlertService', function (AlertService) {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/views/directive.views/alerts.html',
+    link: function (scope, elem, attrs, ctrl) {
+      scope.closeAlert = function (obj) {
+      	return AlertService.closeAlert(obj);
+      };
+  	}
+  };
+}]);
+
+angular.module('CommonDirectives')
+.directive('customValidation', function () {
+  return {
+    require: 'ngModel',
+    scope: true,
+    link: function (scope, element, attr, ngModelCtrl) {
+
+      element.bind('focus', function () {
+        if (element.context.value === "0") {
+          element.context.value = "";
+        }
+      });
+
+
+      function fromUser (text) {
+        var originalText = text;
+        var isNumber = attr.number !== undefined;
+        var isTextOnly = attr.textonly !== undefined;
+        var isNonNegative = attr.nonNegative === "true";
+        var isIntegerOnly = attr.integerOnly === "true";
+        console.log(attr.integerOnly);
+
+        if (isNumber) {
+          text = text.replace(/[^-?\d+\.?\d*$]/g,'');
+          var decimalCount = 0;
+
+          for (var i = 0; i < text.length; i++) { // because regex is fucky
+
+            if (i === 0 && text[i] === '-') {
+              continue;
+            } // skip the first negative
+
+            if (text[i] === '-') { // remove subsequent minus signs
+              text = text.slice(0, i) + text.slice(i+1, text.length);
+            } else if (text[i] === '.') {
+              if (decimalCount > 0) { // remove subsequent decimal points
+                text = text.slice(0, i) + text.slice(i+1, text.length);
+              } else { // there can be only 1
+                decimalCount = 1;
+              }
+            }
+
+          }
+
+          if (isNonNegative) {
+            text = text.split('-').join();
+          }
+
+          if (isIntegerOnly) {
+            text = text.split('.')[0];
+          }
+
+        }
+
+        if (isTextOnly) {
+          console.log("text only validation not implemented");
+        }
+
+        if(text !== originalText) {
+            ngModelCtrl.$setViewValue(text);
+            ngModelCtrl.$render();
+        }
+        return text;
+      }
+      ngModelCtrl.$parsers.push(fromUser);
+    }
+  };
+});
+
+angular.module('CommonDirectives')
+
+.directive('header', ['$window', '$location', '$cookies', function ($window, $location, $cookies) {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/views/directive.views/header.html',
+    link: function (scope, elem, attrs, ctrl) {
+
+      function getnavItems() {
+        return [
+          {
+          text: "User: " + $cookies.get('tech') || "Logged Out",
+          action: function () { $location.path('/support'); }
+          }
+        ];
+      }
+
+      scope.navItems = getnavItems();
+  	}
+  };
 }]);
 
 /**
@@ -1752,227 +1752,6 @@ angular.module('CommonServices')
   }]);
 
 
-angular.module('CommonDirectives')
-.directive('ngMin', function () {
-  return {
-    restrict: 'A',
-    require: 'ngModel',
-    link: function (scope, elem, attr, ctrl) {
-      
-      const minValidator = viewValue => {
-        viewValue = +viewValue;
-        if(scope.min == 0){
-          scope.check = (viewValue && (viewValue > -1)) ? 'valid' : undefined;
-        } else if(scope.min == 1){
-          scope.check = (viewValue && (viewValue > 0)) ? 'valid' : undefined;
-        } else if(scope.min == null){
-          scope.check = 'valid';
-        }
-        if(scope.check){
-          ctrl.$setValidity('ngMin', true);
-          if(elem.parent().hasClass('has-error')){
-            elem.parent().removeClass('has-error');
-            elem.parent().addClass('has-success');
-          } else {
-            elem.parent().addClass('has-success');
-          }
-          return viewValue;
-        }
-        else{
-          ctrl.$setValidity('ngMin', false);
-          if(elem.parent().hasClass('has-success')){
-            elem.parent().removeClass('has-success');
-            elem.parent().addClass('has-error');
-          } else {
-            elem.parent().addClass('has-error');
-          }
-          return undefined;
-        }
-      };
-      
-      ctrl.$parsers.unshift(minValidator);
-    }
-  };
-})
-.directive('numberField', [function() {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/views/directive.views/customElements/numberfield.html',
-    scope: {
-      labelText: '@',
-      data: '=',
-      min: '@',
-      max: '@',
-      name: '@',
-      nonNegative: '@',
-      integerOnly: '@',
-      placeholderText: '@',
-      disabled: '='
-    }
-  };
-}]);
-
-const isEmpty = value => angular.isUndefined(value) || value === '' || value === null || value !== value;
-
-/**
- *            oldcheckbox
- *
- * Created by marcusjwhelan on 11/15/16.
- *
- * Contact: marcus.j.whelan@gmail.com
- *
- */
-angular.module('CommonDirectives')
-.directive('oldCheckBox', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/views/directive.views/customElements/oldcheckbox.html',
-    scope: {
-      labelText: '@',
-      data: '=',
-      disabled: '='
-    }
-  };
-}]);
-
-angular.module('CommonDirectives')
-.directive('priceField', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/views/directive.views/customElements/pricefield.html',
-    scope: {
-      labelText: '@',
-      placeholderText: '@',
-      data: '=',
-      nonNegative: '@',
-      integerOnly: '@',
-      disabled: '='
-    }
-  };
-}]);
-
-angular.module('CommonDirectives')
-
-.directive('superTable', ['$window', function ($window) {
-  return {
-    restrict: 'E',
-    scope: {
-      model: '='
-    },
-    controller: 'SuperTableCtrl',
-    templateUrl: '/lib/public/angular/views/directive.views/customElements/supertable.html'
-  };
-}]);
-
-/* -----------------------------------------------------------------------------
-  MODEL FORMAT INFORMATION AND DOCUMENTATION
-  ------------------------------------------------------------------------------
-
-
-  ------------------------------------------------------------------------------
-  PropertyName: objectList
-  Status: REQUIRED
-  Format: [Object Array]
-  Description:
-  Example:
-  REQUIRED - [Object Array] - a data list of objects to show in the table
-    model.objectList = [
-      {username: "Charlie", age: 28, sex: "female", favColor: "aubergine"},
-      {username: "Julian", age: 31, sex: "male", favColor: "chartreuse"}
-    ]; // this will handle arbitrary data structures
-
-
-  ------------------------------------------------------------------------------
-  Property Name: displayColumns
-  Status: REQUIRED
-  Format: [Object Array]
-  Description: columns the table will display
-  Example:
-    model.displayColumns = [
-      {
-        title: "User", // what gets displayed in the header
-        objKey: username // key that is looked up on the object
-      }
-    ];
-
-
-  ------------------------------------------------------------------------------
-  PropertyName: tableName
-  Status: OPTIONAL
-  Format: [String]
-  Description: a name for the table
-  Example:
-    model.tableName = "My Table"; // defaults to "My Table Name";
-
-
-  ------------------------------------------------------------------------------
-  PropertyName: sort
-  Status: OPTIONAL (recommended)
-  Format: [Object]
-  Description:
-    Uses Angular sort formatting.
-    Link to documentation: (https://docs.angularjs.org/api/ng/filter/orderBy)
-    This property will be applied on the template as
-      {{ ...| orderBy:defaultSort.column:defaultSort.descending }}
-  Example:
-    model.defaultSort = { column: ["key1", "key2"], descending: [true, false] };
-    // Default behavior is as follows.
-    // model.defaultSort = {
-    //   column: Object.keys(objectList[0][0]),
-    //   descending: [false]
-    // };
-
-
-  ------------------------------------------------------------------------------
-  PropertyName: rowClickAction
-  Status: OPTIONAL
-  Format: [Function]
-  Description:
-    This parameterized function accepts a row object (i.e., objectList[i]).
-    This function is called whenever a user clicks a row.
-    If on-click functionality is not desired, leave this property undefined.
-  Example:
-    model.rowClickAction = function (rowItem) {
-      // Body of this fn does whatever I wanted to do with the rowItem
-    }
-
-
-  ------------------------------------------------------------------------------
-  PropertyName: rowButtons
-  Status: OPTIONAL
-  Format: [Object Array]
-  Description:
-    This provides a means to append an arbitrary number of buttons to the end of
-    a row.
-  Example:
-    model.rowButtons = [
-      { title: "Edit",
-        action: function (rowItem) {
-          // Body of this fn does whatever I wanted to do with the rowItem
-        }
-      }
-    ];
-
-
-  ------------------------------------------------------------------------------
-  PropertyName: headerButtons
-  Status: OPTIONAL
-  Format: [Object Array]
-  Description:
-    This provides a means to append an arbitrary number of buttons to the header
-    row.
-  Example:
-    model.headerButtons = [
-      { tile: "Create",
-        action: function () {
-          // Body of this fn does whatever I wanted to do from the headerRow
-        }
-      }
-    ];
-
-
-*/
-
 angular.module('CallReportApp.Controllers', []);
 angular.module('CallReportApp.Components', []);
 angular.module('CallReportApp.Directives', []);
@@ -2374,50 +2153,6 @@ function ($route, $rootScope, $location) {
   };
 }]);
 
-angular.module('UnitApp.Controllers', []);
-angular.module('UnitApp.Directives', ['uiGmapgoogle-maps']);
-angular.module('UnitApp.Components', []);
-angular.module('UnitApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
-
-angular.module('UnitApp', [
-  'UnitApp.Controllers',
-  'UnitApp.Directives',
-  'UnitApp.Services',
-  'UnitApp.Components'
-]);
-
-
-angular.module('UnitApp').config(['$routeProvider',
-  function ($routeProvider) {
-  $routeProvider
-
-    .when('/unit/view/:id?', {
-      controller: 'UnitViewCtrl',
-      templateUrl: '/lib/public/angular/apps/unit/views/view.html',
-      resolve: {
-        unit: function ($route, $q, Units) {
-          return Units.get({id: $route.current.params.id}).$promise;
-        }
-      }
-    })
-
-    .when('/unit/page/:coords?', {
-      controller: 'UnitPageCtrl',
-      templateUrl: '/lib/public/angular/apps/unit/views/page.html',
-      resolve: {
-        coords: function ($route) {
-          const coords = $route.current.params.coords.split(',');
-          return [+coords[1], +coords[0]];
-        }
-      }
-    })
-
-    .when('/unit', {
-      controller: 'UnitIndexCtrl',
-      templateUrl: '/lib/public/angular/apps/unit/views/index.html'
-    });
-}]);
-
 angular.module('WorkOrderApp.Controllers', []);
 angular.module('WorkOrderApp.Components', []);
 angular.module('WorkOrderApp.Directives', ['uiGmapgoogle-maps']);
@@ -2570,6 +2305,50 @@ function ($route, $rootScope, $location) {
         }
         return original.apply($location, [path]);
     };
+}]);
+
+angular.module('UnitApp.Controllers', []);
+angular.module('UnitApp.Directives', ['uiGmapgoogle-maps']);
+angular.module('UnitApp.Components', []);
+angular.module('UnitApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
+
+angular.module('UnitApp', [
+  'UnitApp.Controllers',
+  'UnitApp.Directives',
+  'UnitApp.Services',
+  'UnitApp.Components'
+]);
+
+
+angular.module('UnitApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
+
+    .when('/unit/view/:id?', {
+      controller: 'UnitViewCtrl',
+      templateUrl: '/lib/public/angular/apps/unit/views/view.html',
+      resolve: {
+        unit: function ($route, $q, Units) {
+          return Units.get({id: $route.current.params.id}).$promise;
+        }
+      }
+    })
+
+    .when('/unit/page/:coords?', {
+      controller: 'UnitPageCtrl',
+      templateUrl: '/lib/public/angular/apps/unit/views/page.html',
+      resolve: {
+        coords: function ($route) {
+          const coords = $route.current.params.coords.split(',');
+          return [+coords[1], +coords[0]];
+        }
+      }
+    })
+
+    .when('/unit', {
+      controller: 'UnitIndexCtrl',
+      templateUrl: '/lib/public/angular/apps/unit/views/index.html'
+    });
 }]);
 
 angular.module('CommonComponents')
@@ -2779,6 +2558,227 @@ function TypeAheadCtrl (ObjectService) {
   };
   // ------------------------------------------------
 }
+
+angular.module('CommonDirectives')
+.directive('ngMin', function () {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function (scope, elem, attr, ctrl) {
+      
+      const minValidator = viewValue => {
+        viewValue = +viewValue;
+        if(scope.min == 0){
+          scope.check = (viewValue && (viewValue > -1)) ? 'valid' : undefined;
+        } else if(scope.min == 1){
+          scope.check = (viewValue && (viewValue > 0)) ? 'valid' : undefined;
+        } else if(scope.min == null){
+          scope.check = 'valid';
+        }
+        if(scope.check){
+          ctrl.$setValidity('ngMin', true);
+          if(elem.parent().hasClass('has-error')){
+            elem.parent().removeClass('has-error');
+            elem.parent().addClass('has-success');
+          } else {
+            elem.parent().addClass('has-success');
+          }
+          return viewValue;
+        }
+        else{
+          ctrl.$setValidity('ngMin', false);
+          if(elem.parent().hasClass('has-success')){
+            elem.parent().removeClass('has-success');
+            elem.parent().addClass('has-error');
+          } else {
+            elem.parent().addClass('has-error');
+          }
+          return undefined;
+        }
+      };
+      
+      ctrl.$parsers.unshift(minValidator);
+    }
+  };
+})
+.directive('numberField', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/views/directive.views/customElements/numberfield.html',
+    scope: {
+      labelText: '@',
+      data: '=',
+      min: '@',
+      max: '@',
+      name: '@',
+      nonNegative: '@',
+      integerOnly: '@',
+      placeholderText: '@',
+      disabled: '='
+    }
+  };
+}]);
+
+const isEmpty = value => angular.isUndefined(value) || value === '' || value === null || value !== value;
+
+/**
+ *            oldcheckbox
+ *
+ * Created by marcusjwhelan on 11/15/16.
+ *
+ * Contact: marcus.j.whelan@gmail.com
+ *
+ */
+angular.module('CommonDirectives')
+.directive('oldCheckBox', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/views/directive.views/customElements/oldcheckbox.html',
+    scope: {
+      labelText: '@',
+      data: '=',
+      disabled: '='
+    }
+  };
+}]);
+
+angular.module('CommonDirectives')
+.directive('priceField', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/views/directive.views/customElements/pricefield.html',
+    scope: {
+      labelText: '@',
+      placeholderText: '@',
+      data: '=',
+      nonNegative: '@',
+      integerOnly: '@',
+      disabled: '='
+    }
+  };
+}]);
+
+angular.module('CommonDirectives')
+
+.directive('superTable', ['$window', function ($window) {
+  return {
+    restrict: 'E',
+    scope: {
+      model: '='
+    },
+    controller: 'SuperTableCtrl',
+    templateUrl: '/lib/public/angular/views/directive.views/customElements/supertable.html'
+  };
+}]);
+
+/* -----------------------------------------------------------------------------
+  MODEL FORMAT INFORMATION AND DOCUMENTATION
+  ------------------------------------------------------------------------------
+
+
+  ------------------------------------------------------------------------------
+  PropertyName: objectList
+  Status: REQUIRED
+  Format: [Object Array]
+  Description:
+  Example:
+  REQUIRED - [Object Array] - a data list of objects to show in the table
+    model.objectList = [
+      {username: "Charlie", age: 28, sex: "female", favColor: "aubergine"},
+      {username: "Julian", age: 31, sex: "male", favColor: "chartreuse"}
+    ]; // this will handle arbitrary data structures
+
+
+  ------------------------------------------------------------------------------
+  Property Name: displayColumns
+  Status: REQUIRED
+  Format: [Object Array]
+  Description: columns the table will display
+  Example:
+    model.displayColumns = [
+      {
+        title: "User", // what gets displayed in the header
+        objKey: username // key that is looked up on the object
+      }
+    ];
+
+
+  ------------------------------------------------------------------------------
+  PropertyName: tableName
+  Status: OPTIONAL
+  Format: [String]
+  Description: a name for the table
+  Example:
+    model.tableName = "My Table"; // defaults to "My Table Name";
+
+
+  ------------------------------------------------------------------------------
+  PropertyName: sort
+  Status: OPTIONAL (recommended)
+  Format: [Object]
+  Description:
+    Uses Angular sort formatting.
+    Link to documentation: (https://docs.angularjs.org/api/ng/filter/orderBy)
+    This property will be applied on the template as
+      {{ ...| orderBy:defaultSort.column:defaultSort.descending }}
+  Example:
+    model.defaultSort = { column: ["key1", "key2"], descending: [true, false] };
+    // Default behavior is as follows.
+    // model.defaultSort = {
+    //   column: Object.keys(objectList[0][0]),
+    //   descending: [false]
+    // };
+
+
+  ------------------------------------------------------------------------------
+  PropertyName: rowClickAction
+  Status: OPTIONAL
+  Format: [Function]
+  Description:
+    This parameterized function accepts a row object (i.e., objectList[i]).
+    This function is called whenever a user clicks a row.
+    If on-click functionality is not desired, leave this property undefined.
+  Example:
+    model.rowClickAction = function (rowItem) {
+      // Body of this fn does whatever I wanted to do with the rowItem
+    }
+
+
+  ------------------------------------------------------------------------------
+  PropertyName: rowButtons
+  Status: OPTIONAL
+  Format: [Object Array]
+  Description:
+    This provides a means to append an arbitrary number of buttons to the end of
+    a row.
+  Example:
+    model.rowButtons = [
+      { title: "Edit",
+        action: function (rowItem) {
+          // Body of this fn does whatever I wanted to do with the rowItem
+        }
+      }
+    ];
+
+
+  ------------------------------------------------------------------------------
+  PropertyName: headerButtons
+  Status: OPTIONAL
+  Format: [Object Array]
+  Description:
+    This provides a means to append an arbitrary number of buttons to the header
+    row.
+  Example:
+    model.headerButtons = [
+      { tile: "Create",
+        action: function () {
+          // Body of this fn does whatever I wanted to do from the headerRow
+        }
+      }
+    ];
+
+
+*/
 
 angular.module('CommonControllers').controller('SuperTableCtrl',
 ['$scope', 'AlertService',
@@ -4560,170 +4560,6 @@ angular.module('InventoryTransferApp.Controllers').controller('InventoryTransfer
 
   }]);
 
-angular.module('PaidTimeOffApp.Controllers')
-.controller('PaidTimeOffCtrl', ['$scope', '$http', '$timeout', '$location', '$q', '$cookies', 'AlertService', 'ApiRequestService', 'DateService',
-  function ($scope, $http, $timeout, $location, $q, $cookies, AlertService, ApiRequestService, DateService) {
-    // Variables-----------------------------------------
-    const ARS = ApiRequestService;
-    const DS = DateService;
-    $scope.loaded = false;
-    $scope.spinner = true;
-    // --------------------------------------------------
-
-    // Turn Spinner Off ---------------------------------
-    $scope.spinnerOff = () => {
-      $scope.spinner = false;
-    };
-    // --------------------------------------------------
-
-    // Passed to Component ------------------------------
-    // Function called any time Page loads or user scrolls past 50 units
-    $scope.lookup = (query) => {
-      $scope.loaded = false;
-      console.log("Looking up PTOs...");
-      console.log(query)
-      ARS.PaidTimeOffs(query)
-        .then((paidtimeoffs) => {
-          console.log("PTOs Loaded.");
-          $scope.paidtimeoffs = paidtimeoffs.map(mapPaidTimeOffs);
-          $scope.loaded = true;
-          $scope.spinnerOff();
-        })
-        .catch((err) => console.log("Failed to load: ", err));
-    };
-/*
-    $scope.report = (query) => {
-      $http({method: 'GET',url: '/api/paidtimeoffs', params: query})
-        .then((res) =>{
-            const anchor = angular.element('<a/>');
-            anchor.attr({
-              href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
-              target: '_blank',
-              download: 'PartsReport.csv'
-            })[0].click();
-          },
-          (err) => {
-            AlertService.add("danger", "Report failed to load", 2000);
-            console.log(err);
-          }
-        );
-    };*/
-
-    $scope.PaidTimeOffScrollLookup = (query) => {
-      console.log("Looking up Ptos...");
-      ARS.PaidTimeOffs(query)
-        .then((paidtimeoffs) => {
-          console.log("Part Orders Loaded.");
-          const pto = paidtimeoffs.map(mapPaidTimeOffs);
-          $scope.paidtimeoffs = $scope.paidtimeoffs.concat(pto);
-        })
-        .catch((err) => console.log("Failed to load part orders: ", err));
-    };
-    // --------------------------------------------------
-
-    // Create sorting parameters ------------------------
-    function mapPaidTimeOffs (pto) {
-      // set to local times
-      pto.DateFrom = DS.displayLocal(new Date(pto.DateFrom));
-      pto.DateTo = DS.displayLocal(new Date(pto.DateTo));
-      pto.epochDateFrom = new Date(pto.DateFrom).getTime();
-      pto.epochDateTo = new Date(pto.DateTo).getTime();
-      // set status
-      if (pto.approved) {
-        pto.status = 'approved';
-      }
-      if (pto.rejected) {
-        pto.status = 'rejected';
-      }
-      if (!pto.rejected && !pto.approved) {
-        pto.status = 'not reviewed';
-      }
-
-      return pto;
-    }
-    // --------------------------------------------------
-
-    // Routing ------------------------------------------
-  /*  $scope.createPaidTimeOff = () => {
-      $location.url('/paidtimeoff/create');
-    };*/
-    // --------------------------------------------------
-  },
-]);
-
-angular.module('PaidTimeOffApp.Controllers')
-.controller('PaidTimeOffReviewCtrl', ['$scope', '$location', '$cookies', 'paidtimeoff', 'PaidTimeOffs', 'AlertService', 'DateService',
-function ($scope, $location, $cookies, paidtimeoff, PaidTimeOffs, AlertService, DateService) {
-  const DS = DateService;
-
-  $scope.paidtimeoff = paidtimeoff;
-
-  // init
-  const preLoad = () => {
-    $scope.paidtimeoff.DateFrom = DS.displayLocal(new Date($scope.paidtimeoff.DateFrom));
-    $scope.paidtimeoff.DateTo = DS.displayLocal(new Date($scope.paidtimeoff.DateTo));
-    $scope.paidtimeoff.created = DS.displayLocal(new Date($scope.paidtimeoff.created));
-    if ($scope.paidtimeoff.timeApproved) {
-      $scope.paidtimeoff.timeApproved = DS.displayLocal(new Date($scope.paidtimeoff.timeApproved));
-    }
-  };
-  preLoad();
-
-  const preSave = () => {
-    $scope.paidtimeoff.DateFrom = DS.saveToOrion(new Date($scope.paidtimeoff.DateFrom));
-    $scope.paidtimeoff.DateTo = DS.saveToOrion(new Date($scope.paidtimeoff.DateTo));
-    $scope.paidtimeoff.created = DS.saveToOrion(new Date($scope.paidtimeoff.created));
-    if ($scope.paidtimeoff.timeApproved) {
-      $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date($scope.paidtimeoff.timeApproved));
-    }
-  };
-
-  $scope.approvalStatusChange = (changedData, selected) => {
-    if (selected === 'approved') {
-      $scope.paidtimeoff.approved = changedData;
-      if ($scope.paidtimeoff.rejected) {
-        $scope.paidtimeoff.rejected = false;
-      }
-    }
-    if (selected === 'rejected') {
-      $scope.paidtimeoff.rejected = changedData;
-      if ($scope.paidtimeoff.approved) {
-        $scope.paidtimeoff.approved = false;
-      }
-    }
-  };
-
-  $scope.changeManagerComment = (changedData, selected) => {
-    $scope.paidtimeoff.managerComment = changedData;
-  };
-
-  $scope.update = (doc) => {
-    PaidTimeOffs.update({id: doc._id}, doc,
-      (res) => {
-        AlertService.add('success', "Update was successful.");
-        $location.url('/paidtimeoff');
-      }, (err) => {
-        console.log(err);
-        // if error reset back to display times
-        preLoad();
-        AlertService.add('danger', 'An error occurred while attempting to update this PTO.');
-      })
-  };
-
-  $scope.setManagerReviewed = () => {
-    $scope.paidtimeoff.approvedBy = $cookies.get('tech');
-    $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date());
-    preSave();
-    $scope.update($scope.paidtimeoff);
-  };
-
-  $scope.setAdminReviewed = () => {
-    $scope.paidtimeoff.adminReviewed = true;
-    preSave();
-    $scope.update($scope.paidtimeoff);
-  };
-}]);
-
 angular.module('PaidTimeOffApp.Components')
   .component('ptoOverviewTable', {
     templateUrl: '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoOverviewTable.html',
@@ -4929,6 +4765,170 @@ angular.module('PaidTimeOffApp.Components')
   }]
 });
 
+angular.module('PaidTimeOffApp.Controllers')
+.controller('PaidTimeOffCtrl', ['$scope', '$http', '$timeout', '$location', '$q', '$cookies', 'AlertService', 'ApiRequestService', 'DateService',
+  function ($scope, $http, $timeout, $location, $q, $cookies, AlertService, ApiRequestService, DateService) {
+    // Variables-----------------------------------------
+    const ARS = ApiRequestService;
+    const DS = DateService;
+    $scope.loaded = false;
+    $scope.spinner = true;
+    // --------------------------------------------------
+
+    // Turn Spinner Off ---------------------------------
+    $scope.spinnerOff = () => {
+      $scope.spinner = false;
+    };
+    // --------------------------------------------------
+
+    // Passed to Component ------------------------------
+    // Function called any time Page loads or user scrolls past 50 units
+    $scope.lookup = (query) => {
+      $scope.loaded = false;
+      console.log("Looking up PTOs...");
+      console.log(query)
+      ARS.PaidTimeOffs(query)
+        .then((paidtimeoffs) => {
+          console.log("PTOs Loaded.");
+          $scope.paidtimeoffs = paidtimeoffs.map(mapPaidTimeOffs);
+          $scope.loaded = true;
+          $scope.spinnerOff();
+        })
+        .catch((err) => console.log("Failed to load: ", err));
+    };
+/*
+    $scope.report = (query) => {
+      $http({method: 'GET',url: '/api/paidtimeoffs', params: query})
+        .then((res) =>{
+            const anchor = angular.element('<a/>');
+            anchor.attr({
+              href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
+              target: '_blank',
+              download: 'PartsReport.csv'
+            })[0].click();
+          },
+          (err) => {
+            AlertService.add("danger", "Report failed to load", 2000);
+            console.log(err);
+          }
+        );
+    };*/
+
+    $scope.PaidTimeOffScrollLookup = (query) => {
+      console.log("Looking up Ptos...");
+      ARS.PaidTimeOffs(query)
+        .then((paidtimeoffs) => {
+          console.log("Part Orders Loaded.");
+          const pto = paidtimeoffs.map(mapPaidTimeOffs);
+          $scope.paidtimeoffs = $scope.paidtimeoffs.concat(pto);
+        })
+        .catch((err) => console.log("Failed to load part orders: ", err));
+    };
+    // --------------------------------------------------
+
+    // Create sorting parameters ------------------------
+    function mapPaidTimeOffs (pto) {
+      // set to local times
+      pto.DateFrom = DS.displayLocal(new Date(pto.DateFrom));
+      pto.DateTo = DS.displayLocal(new Date(pto.DateTo));
+      pto.epochDateFrom = new Date(pto.DateFrom).getTime();
+      pto.epochDateTo = new Date(pto.DateTo).getTime();
+      // set status
+      if (pto.approved) {
+        pto.status = 'approved';
+      }
+      if (pto.rejected) {
+        pto.status = 'rejected';
+      }
+      if (!pto.rejected && !pto.approved) {
+        pto.status = 'not reviewed';
+      }
+
+      return pto;
+    }
+    // --------------------------------------------------
+
+    // Routing ------------------------------------------
+  /*  $scope.createPaidTimeOff = () => {
+      $location.url('/paidtimeoff/create');
+    };*/
+    // --------------------------------------------------
+  },
+]);
+
+angular.module('PaidTimeOffApp.Controllers')
+.controller('PaidTimeOffReviewCtrl', ['$scope', '$location', '$cookies', 'paidtimeoff', 'PaidTimeOffs', 'AlertService', 'DateService',
+function ($scope, $location, $cookies, paidtimeoff, PaidTimeOffs, AlertService, DateService) {
+  const DS = DateService;
+
+  $scope.paidtimeoff = paidtimeoff;
+
+  // init
+  const preLoad = () => {
+    $scope.paidtimeoff.DateFrom = DS.displayLocal(new Date($scope.paidtimeoff.DateFrom));
+    $scope.paidtimeoff.DateTo = DS.displayLocal(new Date($scope.paidtimeoff.DateTo));
+    $scope.paidtimeoff.created = DS.displayLocal(new Date($scope.paidtimeoff.created));
+    if ($scope.paidtimeoff.timeApproved) {
+      $scope.paidtimeoff.timeApproved = DS.displayLocal(new Date($scope.paidtimeoff.timeApproved));
+    }
+  };
+  preLoad();
+
+  const preSave = () => {
+    $scope.paidtimeoff.DateFrom = DS.saveToOrion(new Date($scope.paidtimeoff.DateFrom));
+    $scope.paidtimeoff.DateTo = DS.saveToOrion(new Date($scope.paidtimeoff.DateTo));
+    $scope.paidtimeoff.created = DS.saveToOrion(new Date($scope.paidtimeoff.created));
+    if ($scope.paidtimeoff.timeApproved) {
+      $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date($scope.paidtimeoff.timeApproved));
+    }
+  };
+
+  $scope.approvalStatusChange = (changedData, selected) => {
+    if (selected === 'approved') {
+      $scope.paidtimeoff.approved = changedData;
+      if ($scope.paidtimeoff.rejected) {
+        $scope.paidtimeoff.rejected = false;
+      }
+    }
+    if (selected === 'rejected') {
+      $scope.paidtimeoff.rejected = changedData;
+      if ($scope.paidtimeoff.approved) {
+        $scope.paidtimeoff.approved = false;
+      }
+    }
+  };
+
+  $scope.changeManagerComment = (changedData, selected) => {
+    $scope.paidtimeoff.managerComment = changedData;
+  };
+
+  $scope.update = (doc) => {
+    PaidTimeOffs.update({id: doc._id}, doc,
+      (res) => {
+        AlertService.add('success', "Update was successful.");
+        $location.url('/paidtimeoff');
+      }, (err) => {
+        console.log(err);
+        // if error reset back to display times
+        preLoad();
+        AlertService.add('danger', 'An error occurred while attempting to update this PTO.');
+      })
+  };
+
+  $scope.setManagerReviewed = () => {
+    $scope.paidtimeoff.approvedBy = $cookies.get('tech');
+    $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date());
+    preSave();
+    $scope.update($scope.paidtimeoff);
+  };
+
+  $scope.setAdminReviewed = () => {
+    $scope.paidtimeoff.adminReviewed = true;
+    preSave();
+    $scope.update($scope.paidtimeoff);
+  };
+}]);
+
 angular.module('SupportApp.Controllers').controller('SupportIndexCtrl',
 ['$scope', '$route', '$location', 'AlertService', 'me',
   function ($scope, $route, $location, AlertService, me){
@@ -4936,888 +4936,6 @@ angular.module('SupportApp.Controllers').controller('SupportIndexCtrl',
     $scope.title = "Support";
 
 }]);
-
-angular.module('UnitApp.Components')
-  .component('unitMap', {
-    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitMap.html',
-    bindings: {
-      units: '<',
-      bounds: '<'
-    },
-    controller: ['$scope',class UnitMapCtrl {
-      constructor($scope) {
-        // Map creation and events ----------------------------
-        this.map = {
-          center: {
-            latitude: 37.996162679728116,
-            longitude: -98.0419921875
-          },
-          zoom: 4,
-          mapEvents: {
-            click: (marker, eventName, model) => {
-              const thisMarker = {
-                id: 0,
-                geo: {
-                  type: 'Point',
-                  coordinates: [0.0,0.0]
-                }
-              };
-              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
-              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
-              this.map.CoordInfoWindow.marker = thisMarker;
-              // need to re-render map when new marker is placed on click
-              $scope.$apply();
-            }
-          },
-          options: {
-            pixelOffset: {
-              width: -1,
-              height: -45
-            }
-          },
-        // ----------------------------------------------------
-        
-        // Marker and events for finding Coordinates ----------
-          CoordMarkerEvents: {
-            click: (marker, eventName, model) => {
-              this.map.CoordInfoWindow.model = model;
-              this.map.CoordInfoWindow.show = true;
-              this.map.unitInfoWindow.show = false;
-            }
-          },
-          CoordInfoWindow: {
-            marker: {id: 0},
-            show: false,
-            closeClick: function() {
-              this.show = false;
-            }
-          },
-        // ----------------------------------------------------
-  
-        // Markers and events for Units -----------------------
-          unitMarkerEvents: {
-            click: (marker, eventName, model) => {
-              this.map.unitInfoWindow.model = model;
-              this.map.unitInfoWindow.show = true;
-              this.map.CoordInfoWindow.show = false;
-            }
-          },
-          unitInfoWindow: {
-            marker: {},
-            show: false,
-            closeClick: function() {
-              this.show = false;
-            }
-          }
-        // ----------------------------------------------------
-        };
-        this.options = {scrollwheel: false};
-      }
-    }]
-  });
-
-
-angular.module('UnitApp.Components')
-  .component('unitPage', {
-    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitPage.html',
-    bindings: {
-      coords: '<'
-    },
-    controller: ['$scope', '$timeout', 'uiGmapGoogleMapApi', class UnitPageCtrl {
-      constructor($scope, $timeout, uiGmapGoogleMapApi) {
-        this.showMap = false;
-        this.$scope = $scope;
-        this.$timeout = $timeout;
-        this.ui = uiGmapGoogleMapApi;
-        // Map creation and events ----------------------------
-        this.map = {
-          center: {
-            latitude: 37.996162679728116,
-            longitude: -98.0419921875
-          },
-          zoom: 13,
-          bounds: {},
-          mapEvents: {
-            click: (marker, eventName, model) => {
-              const thisMarker = {
-                id: 3,
-                geo: {
-                  type: 'Point',
-                  coordinates: [0.0, 0.0]
-                }
-              };
-              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
-              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
-              this.map.CoordInfoWindow.marker = thisMarker;
-              // need to re-render map when new marker is placed on click
-              $scope.$apply();
-            }
-          },
-          options: {
-            pixelOffset: {
-              width: -1,
-              height: -45
-            }
-          },
-          // ----------------------------------------------------
-
-          // Marker and events for finding Coordinates ----------
-          CoordMarkerEvents: {
-            click: (marker, eventName, model) => {
-              this.map.CoordInfoWindow.model = model;
-              this.map.CoordInfoWindow.show = true;
-            }
-          },
-          CoordInfoWindow: {
-            marker: {id: 3},
-            show: false,
-            closeClick: function() {
-              this.show = false;
-            }
-          }
-          // ----------------------------------------------------
-        };
-
-        this.options = {scrollwheel: true};
-      }
-      // ----------------------------------------------------
-
-      // Initialize map and add unit marker -----------------
-      $onInit() {
-        this.map.center = {latitude: this.coords[1], longitude: this.coords[0]};
-
-        this.marker = {
-          id: 4,
-          geo: {type: 'Point', coordinates: this.coords},
-        };
-
-        this.ui.then(() => {
-          this.$timeout(() => {
-
-            this.showMap = true;
-          }, 100)
-        })
-
-      }
-      // ----------------------------------------------------
-    }]
-  });
-
-angular.module('UnitApp.Components')
-  .component('unitSat', {
-    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitSat.html',
-    bindings: {
-      unit: '<'
-    },
-    controller: ['$scope', '$timeout', 'uiGmapGoogleMapApi', class UnitSatCtrl {
-      constructor($scope, $timeout, uiGmapGoogleMapApi) {
-        this.showMap = false;
-        this.$scope = $scope;
-        this.$timeout = $timeout;
-        this.ui = uiGmapGoogleMapApi;
-        // Map creation and events ----------------------------
-        this.map = {
-          center: {
-            latitude: 37.996162679728116,
-            longitude: -98.0419921875
-          },
-          zoom: 18,
-          bounds: {},
-          mapEvents: {
-            click: (marker, eventName, model) => {
-              const thisMarker = {
-                id: 1,
-                geo: {
-                  type: 'Point',
-                  coordinates: [0.0, 0.0]
-                }
-              };
-              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
-              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
-              this.map.CoordInfoWindow.marker = thisMarker;
-              // need to re-render map when new marker is placed on click
-              $scope.$apply();
-            }
-          },
-          options: {
-            pixelOffset: {
-              width: -1,
-              height: -45
-            }
-          },
-        // ----------------------------------------------------
-  
-        // Marker and events for finding Coordinates ----------
-          CoordMarkerEvents: {
-            click: (marker, eventName, model) => {
-              this.map.CoordInfoWindow.model = model;
-              this.map.CoordInfoWindow.show = true;
-            }
-          },
-          CoordInfoWindow: {
-            marker: {id: 1},
-            show: false,
-            closeClick: function() {
-              this.show = false;
-            }
-          }
-        // ----------------------------------------------------
-        };
-
-        this.options = {scrollwheel: false, mapTypeId: google.maps.MapTypeId.SATELLITE};
-      }
-      // ----------------------------------------------------
-
-      // Initialize map and add unit marker -----------------
-      $onInit() {
-        this.map.center = _.cloneDeep(this.unit.geo);
-  
-        let now = new Date();
-        let inSevenDays = moment().add(7, 'days');
-        
-        let pmDate = this.unit.nextPmDate ? new Date(this.unit.nextPmDate) : null;
-  
-        let icon = 'lib/public/images/marker_grey.png';
-        if(pmDate) {
-          //If pmDate has passed, icon is red
-          if (moment(now).isAfter(pmDate, 'day')) {
-            icon = 'lib/public/images/marker_red.png';
-          }
-          //If pmDate is under 7 days away, icon is yellow
-          else if(moment(inSevenDays).isAfter(pmDate, 'day')) {
-            icon = 'lib/public/images/marker_yellow.png';
-          }
-          //pmDate hasn't passed and is more than 7 days away
-          else {
-            icon = 'lib/public/images/marker_green.png';
-          }
-        }
-  
-        this.marker = {
-          id: 0,
-          geo: this.unit.geo,
-          options: {
-            icon
-          }
-        };
-        
-        this.ui.then(() => {
-          this.$timeout(() => {
-            this.showMap = true;
-          }, 100)
-        })
-        
-      }
-      // ----------------------------------------------------
-    }]
-  });
-
-angular.module('UnitApp.Components')
-  .component('unitSearch', {
-    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitSearch.html',
-    bindings: {
-      populateUnits: '&',
-      onTypeaheadChange: '&',
-      displayUnits: '<',
-      users: '<',
-      customers: '<',
-    },
-    controller: [ class UnitSearchCtrl {
-      constructor() {
-        this.params = {
-          numbers: null, //Unit Numbers
-          supervisor: null, //Supervisor techID
-          techs: null, //TechID unit is assigned to
-          customer: null,
-          from: null,
-          to: null,
-          size: 99999
-        };
-      }
-      
-      // Search Changes -------------------------------------
-      unitChange(changedData, selected) {
-        this.onTypeaheadChange({ changedData, selected });
-      }
-      supervisorChange(changedData, selected) {
-        this.onTypeaheadChange({ changedData, selected });
-      }
-      techChange(changedData, selected) {
-        this.onTypeaheadChange({ changedData, selected });
-      }
-      customerChange(changedData, selected){
-        this.onTypeaheadChange({ changedData, selected });
-      }
-      // ----------------------------------------------------
-      
-      // Clear search terms ---------------------------------
-      clearText(selected){
-        switch (selected) {
-          case 'unitNumber':
-            this.params.numbers = null;
-            break;
-          case 'supervisor':
-            this.params.supervisor = null;
-            break;
-          case 'tech':
-            this.params.techs = null;
-            break;
-          case 'customer':
-            this.params.customer = null;
-            break;
-        }
-      }
-      // ----------------------------------------------------
-  
-      // Send search to Parent to populate Units ------------
-      search() {
-        const params = _.omitBy(this.params, _.isNull);
-        this.populateUnits({params});
-      }
-      // ----------------------------------------------------
-    }]
-  });
-
-
-
-angular.module('UnitApp.Controllers').controller('UnitIndexCtrl',
-['$scope', 'AlertService', 'ApiRequestService',
-function ($scope, AlertService, ApiRequestService) {
-  
-  // Variables ------------------------------------------
-  const ARS = ApiRequestService;               // local
-  $scope.title = "Units Map";                  // local
-  $scope.units = [];                           // to UnitMap
-  $scope.bounds = {};                          // to UnitMap
-  $scope.displayUnitsFromController = [];      // to UnitSearch
-  $scope.displayUsersFromController = [];      // to UnitSearch
-  $scope.displayCustomersFromController = [];  // to UnitSearch
-  // ----------------------------------------------------
-  
-  // Get Units on Search --------------------------------
-  $scope.setUnits = (params) => {
-    if(params.hasOwnProperty("numbers")) {
-      params.numbers = params.numbers.replace(/\s/g,'').split(",");
-    }
-    if(params.hasOwnProperty("techs")) {
-      params.techs = params.techs.replace(/\s/g,'').split(",");
-    }
-    ARS.Units(params)
-      .then((units) => {
-        $scope.units = units.map((unit) => {
-          let now = new Date();
-          let inSevenDays = moment().add(7, 'days');
-          let pmDate = unit.nextPmDate ? new Date(unit.nextPmDate) : null;
-          
-          let icon = 'lib/public/images/marker_grey.png';
-          if(pmDate) {
-            //If pmDate has passed, icon is red
-            if (moment(now).isAfter(pmDate, 'day')) {
-              icon = 'lib/public/images/marker_red.png';
-            }
-            //If pmDate is under 7 days away, icon is yellow
-            else if(moment(inSevenDays).isAfter(pmDate, 'day')) {
-              icon = 'lib/public/images/marker_yellow.png';
-            }
-            //pmDate hasn't passed and is more than 7 days away
-            else {
-              icon = 'lib/public/images/marker_green.png';
-            }
-          }
-  
-          return {
-            id: unit.number,
-            geo: unit.geo,
-            show: false,
-            productSeries: unit.productSeries,
-            locationName: unit.locationName,
-            customerName: unit.customerName,
-            assignedTo: unit.assignedTo,
-            pmDate,
-            icon
-          }
-        })
-      })
-      .catch( (err) => {
-        AlertService.add('danger', "Failed to load", 2000);
-        console.log(err);
-      });
-  };
-  // ----------------------------------------------------
-  
-  // Component methods ----------------------------------
-  $scope.typeaheadChange = function (changedData, selected) {
-    if(selected === 'unitNumber'){
-      ARS.Units({regexN: changedData})
-        .then((units) => {
-          $scope.displayUnitsFromController = units;
-        })
-        .catch((err) => console.log(err))
-    } else if( selected === 'supervisor' || selected === 'tech'){
-      //const name = changedData.toUpperCase();
-      ARS.Users({ regexName: name })
-        .then((users) => {
-          const userArray = [];
-          if(users.length > 0){
-            for(let user in users){
-              if(users.hasOwnProperty(user)){
-                if(users[user].hasOwnProperty('firstName')){
-                  const fullName = users[user].firstName.concat(" ").concat(users[user].lastName);
-                  const thisUser = users[user];
-                  thisUser.fullName = fullName;
-                  userArray.push(thisUser);
-                }
-              }
-            }
-            $scope.displayUsersFromController = userArray;
-          }
-        })
-        .catch((err) => console.log(err));
-    } else if( selected === 'customer'){
-      ARS.Customers({ regexName: changedData })
-        .then((customers) => {
-          $scope.displayCustomersFromController = customers;
-        })
-        .catch((err) => console.log(err));
-    }
-  }
-  // ----------------------------------------------------
-}]);
-
-angular.module('UnitApp.Controllers').controller('UnitViewCtrl',
-  ['$window', '$scope', '$route', '$location', 'AlertService', 'SessionService', 'ApiRequestService', 'unit',
-function ($window, $scope, $route, $location, AlertService, SessionService, ApiRequestService, unit) {
-  
-  // Variables ------------------------------------------
-  const ARS = ApiRequestService;
-  const SS = SessionService;
-  $scope.unit = unit;
-  $scope.title = unit.number;
-  $scope.user = {};
-  $scope.supervisor = {};
-  // ----------------------------------------------------
-  
-  //fetch user info for PM Report -----------------------
-  if(unit.assignedTo) {
-    ARS.getUser({id: unit.assignedTo})
-      .then((user) => {
-        $scope.user = user;
-        return ARS.getUser({ id: user.supervisor });
-      })
-      .then((supervisor) => {
-        $scope.supervisor = supervisor;
-      })
-      .catch((err) => {
-        AlertService.add('danger',"Could not populate user data for PM Report");
-        console.log(err);
-      })
-  }
-  // ----------------------------------------------------
-  
-  // Routes ---------------------------------------------
-  $scope.searchUnits = () => {
-    SS.add("unitNumber",$scope.unit.number);
-    $window.open(`#/workorder`);
-  }
-  // ----------------------------------------------------
-}]);
-
-angular.module('UnitApp.Controllers').controller('UnitPageCtrl',
-  ['coords', '$scope',
-    function (coords, $scope) {
-      $scope.coords = coords;
-    }]);
-
-angular.module('WorkOrderApp.Components')
-.component('woOverviewTable', {
-  templateUrl: '/lib/public/angular/apps/workorder/views/component.views/woOverviewTable.html',
-  bindings: {
-    scrollContentSearch: '&',
-    contentReport: '&',
-    woDumpReport: '&',
-    woPartsDumpReport: '&',
-    contentSearch: '&',
-    onTextFieldChange: '&',
-    onCheckBoxChange: '&',
-    woSearchCount: '<',
-    reportDisabled: '<',
-    workorders: '<',
-    startTime: '<',
-    endTime: '<',
-    woType: '<',
-    techId: '<',
-  },
-  controller: ['$window','$cookies','SessionService','TimeDisplayService', 'DateService', class WorkOrderOverviewTableCCtrl {
-    constructor($window,$cookies,SessionService,TimeDisplayService, DateService) {
-      // Initialize all variables on component
-      this.$window = $window;
-      this.$cookies = $cookies;
-      this.TDS = TimeDisplayService;
-      this.SS = SessionService;
-      this.DS = DateService;
-
-      this.orderByField = 'epoch';
-      this.reverseSort = true;
-      this.unitNumber = this.SS.get("unitNumber") ? this.SS.get("unitNumber") : null;
-      this.techName = null;
-      this.leaseName = null;
-      this.customerName = null;
-      this.billable = null;
-      this.billed = null;
-      this.billParts = null;
-      this.unapproved = false;
-      this.approved = false;
-      this.synced = false;
-      this.limit = 50;
-      this.skip = 0;
-      this.open = false;
-      this.pad = this.TDS.pad;
-      this.searchSupervisor = null;
-      this.role = 'admin';
-      this.dates = {
-        from: null,
-        to: null,
-        fromInput: null,
-        toInput: null,
-      };
-    }
-    // -------------------------------------------------
-
-
-    // Initialize original state -----------------------
-    $onInit() {
-      this.role = this.$cookies.get('role');
-      if(!this.SS.get("unitNumber")){
-        if(this.role === "admin"){
-          this.approved = true;
-          this.reverseSort = true;
-        }
-        if(this.role === "manager"){
-          this.unapproved = true;
-          this.reverseSort = false;
-        }
-      }
-
-      this.submit();
-    };
-    // -------------------------------------------------
-
-    clicked() {
-      this.role = this.$cookies.get('role');
-      if(this.role === "admin"){
-        this.approved = true;
-        this.unapproved = true;
-        this.synced = true;
-        this.reverseSort = true;
-        this.open = !this.open;
-      }
-    }
-
-    // Search Changes ----------------------------------
-    changeTextField(changedData, selected) {
-      this.onTextFieldChange({ changedData, selected });
-    }
-    changeCheckBox(changedData, selected) {
-      this.onCheckBoxChange({ changedData, selected });
-    }
-    // -------------------------------------------------
-
-
-    // Get start and end of Day ------------------------
-    startOfDay(input) {
-      this.dates.fromInput = input;
-      if (typeof input === 'object' && input !== null) {
-        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
-      }
-      if (input === null) {
-        this.dates.from = null;
-      }
-    };
-
-    endOfDay(input) {
-      this.dates.toInput = input;
-      if (typeof input === 'object' && input !== null) {
-        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
-      }
-      if (input === null) {
-        this.dates.to = null;
-      }
-    };
-    // -------------------------------------------------
-
-    // Load content on scroll from parent controller ---
-    loadOnScroll() {
-      console.log("Scrolling..");
-      this.skip += this.limit;
-
-      const query = {
-        limit: this.limit,
-        skip: this.skip
-      };
-
-      if(this.dates.from && this.dates.to) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-
-      if (this.endTime || this.startTime) {
-        // this.startTime and this.endTime are generated on the server
-        // so no need to convert to server.
-        // this.dates are generated on client so need to format to server
-        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
-        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
-      }
-      if(this.unitNumber) {
-        query.unit = this.unitNumber;
-      }
-      if(this.techName || this.techId) {
-        query.tech = this.techId ? this.techId : this.techName;
-      }
-      if(this.leaseName) {
-        query.loc = this.leaseName;
-      }
-      if (this.searchSupervisor) {
-        query.searchSupervisor = this.searchSupervisor.toUpperCase();
-      }
-      if(this.customerName) {
-        query.cust = this.customerName;
-      }
-      if(this.billed){
-        query.billed = this.billed;
-      }
-      if(this.billable) {
-        query.billable = this.billable;
-      }
-      if(this.billParts) {
-        query.billParts = this.billParts;
-      }
-      if(this.unapproved || this.techId){
-        query.unapproved = this.techId ? true : this.unapproved;
-      }
-      if(this.approved || this.techId){
-        query.approved = this.techId ? true : this.approved;
-      }
-      if(this.synced || this.techId){
-        query.synced = this.techId ? true :  this.synced;
-      }
-      if(this.woType) {
-        query.type = this.woType;
-      }
-
-      this.scrollContentSearch({query});
-    };
-    // -------------------------------------------------
-
-    // Submit query to parent controller ---------------
-    submit() {
-      console.log("submit");
-      this.limit = 50;
-      this.skip = 0;
-
-      const query = {
-        limit: this.limit,
-        skip: this.skip
-      };
-
-
-      if(this.dates.from && this.dates.to) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-      if (this.endTime || this.startTime) {
-        query.from = this.startTime ? new Date(this.startTime) : this.DS.saveToOrion(this.dates.from);
-        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.DS.saveToOrion(this.dates.to) : this.DS.saveToOrion(new Date()));
-      }
-
-      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
-        query.unit = this.unitNumber;
-      } else if(this.unitNumber !== this.SS.get("unitNumber")){
-        query.unit = this.unitNumber;
-        this.SS.drop("unitNumber");
-      } else {
-        this.SS.drop("unitNumber");
-      }
-      if(this.techId || this.techName) {
-        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
-        query.tech = this.techName;
-      }
-      if(this.leaseName) {
-        query.loc = this.leaseName;
-      }
-      if (this.searchSupervisor) {
-        query.searchSupervisor = this.searchSupervisor.toUpperCase();
-      }
-      if(this.customerName) {
-        query.cust = this.customerName;
-      }
-      if(this.billed){
-        query.billed = this.billed;
-      }
-      if(this.billable) {
-        query.billable = this.billable
-      }
-      if(this.billParts) {
-        query.billParts = this.billParts
-      }
-      if(this.unapproved || this.techId){
-        query.unapproved = this.techId ? true : this.unapproved;
-      }
-      if(this.approved || this.techId){
-        query.approved = this.techId ? true : this.approved;
-      }
-      if(this.synced || this.techId){
-        query.synced = this.techId ? true :  this.synced;
-      }
-      if(this.woType) {
-        query.type = this.woType;
-      }
-
-      console.log(query)
-      this.contentSearch({query});
-    };
-    // -------------------------------------------------
-
-    // Get Time Report of searched users ---------------
-    report(type) {
-      this.reportText = "Loading...";
-      this.reportDisabled = true;
-
-      const query = {};
-
-      if(this.dates.from && this.dates.to) {
-        query.from = this.DS.saveToOrion(this.dates.from);
-        query.to = this.DS.saveToOrion(this.dates.to);
-      }
-      if (this.endTime || this.startTime) {
-        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
-        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
-      }
-    /*
-      if(this.unitNumber) {
-        query.unit = this.unitNumber.toString();
-      }
-      if(this.techName) {
-        query.tech = this.techName.toUpperCase();
-      }*/
-      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
-        query.unit = this.unitNumber;
-      } else if(this.unitNumber !== this.SS.get("unitNumber")){
-        query.unit = this.unitNumber;
-        this.SS.drop("unitNumber");
-      } else {
-        this.SS.drop("unitNumber");
-      }
-      if(this.techId || this.techName) {
-        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
-        query.tech = this.techName;
-      }
-      if(this.leaseName) {
-        query.loc = this.leaseName.toString();
-      }
-      if(this.customerName) {
-        query.cust = this.customerName.toString();
-      }
-      if (this.searchSupervisor) {
-        query.searchSupervisor = this.searchSupervisor.toUpperCase();
-      }
-      if(this.billed){
-        query.billed = this.billed;
-      }
-      if(this.billable) {
-        query.billable = this.billable
-      }
-      if(this.billParts) {
-        query.billParts = this.billParts
-      }
-      if(this.unapproved || this.techId){
-        query.unapproved = this.techId ? true : this.unapproved;
-      }
-      if(this.approved || this.techId){
-        query.approved = this.techId ? true : this.approved;
-      }
-      if(this.synced || this.techId){
-        query.synced = this.techId ? true :  this.synced;
-      }
-      if(this.woType) {
-        query.type = this.woType;
-      }
-      query.report = 'true';
-
-      if (type === 'timeReport') {
-        this.contentReport({query});
-      } else if (type === 'woDump') {
-        this.woDumpReport({query});
-      } else if (type === 'woPartsDump') {
-        this.woPartsDumpReport({query});
-      }
-    };
-    // -------------------------------------------------
-
-    // Sorting for Table -------------------------------
-    resort(by) {
-      this.orderByField = by;
-      this.reverseSort = !this.reverseSort;
-    };
-    // -------------------------------------------------
-
-
-    // Set billable background color for workorders
-    setBillableBackgroundColor(wo) {
-      if(wo.parts.length > 0){
-        const partBillable = wo.isPartBillable.color;
-        if(wo.billingInfo.billableToCustomer || (partBillable === '#a4cf80')) return '#a4cf80';
-      } else {
-        if(wo.billingInfo.billableToCustomer) return '#a4cf80';
-      }
-    };
-    // -------------------------------------------------
-
-    clearText(selected) {
-      switch (selected) {
-        case 'unitNumber':
-          this.unitNumber = null;
-          break;
-        case 'leaseName':
-          this.leaseName = null;
-          break;
-        case 'techName':
-          this.techName = null;
-          break;
-        case 'customerName':
-          this.customerName = null;
-          break;
-        case 'searchSupervisor':
-          this.searchSupervisor = null;
-          break;
-      }
-    }
-
-    // Routing to work order ---------------------------
-    clickWorkOrder(wo) {
-      this.$window.open('#/workorder/review/' + wo._id);
-    };
-    // -------------------------------------------------
-
-
-  }]
-});
-
-
-
-
-/*
-angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
-
-function clearSearch() {
-
-  //let elements = [] ;
-  const elements = document.getElementsByClassName("search");
-
-  for(let i=0; i<elements.length ; i++){
-    elements[i].value = "" ;
-  }
-}
-*/
 
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderCtrl',
 ['$window','$location','$scope','SessionService','ApiRequestService','AlertService','$http', 'STARTTIME', 'ENDTIME', 'WOTYPE', 'TECHNICIANID', 'DateService', function ($window,$location,$scope,SessionService,ApiRequestService,AlertService,$http, STARTTIME, ENDTIME, WOTYPE, TECHNICIANID, DateService) {
@@ -7551,6 +6669,31 @@ function ($window, $http, $q, $scope, $location, $timeout, $uibModal, $cookies, 
   $scope.getTimeElapsed();
 }]);
 
+angular.module('WorkOrderApp.Services')
+.factory('CommonWOfunctions', [function () {
+  var CommonWOFunctions = {};
+
+  // Add Component Name to every part in wo -------------
+  CommonWOFunctions.addComponentNameToParts = function (wo, parts) {
+    if(wo.hasOwnProperty('parts')){
+      if(wo.parts.length !== 0){
+        wo.parts.map(function (part) {
+          var netsuiteId = +part.netsuiteId;
+          _.forEach(parts, function (obj) {
+            if(obj.netsuiteId === netsuiteId){
+              part.componentName = (obj.componentName) ? obj.componentName : '';
+            }
+          });
+        });
+      }
+    }
+    return wo;
+  };
+  // ----------------------------------------------------
+  
+  return CommonWOFunctions;
+}]);
+
 angular.module('WorkOrderApp.Directives')
 .directive('newSerialNumbers', [function () {
   return {
@@ -8002,30 +7145,887 @@ angular.module('WorkOrderApp.Directives')
     };
   }]);
 
-angular.module('WorkOrderApp.Services')
-.factory('CommonWOfunctions', [function () {
-  var CommonWOFunctions = {};
+angular.module('WorkOrderApp.Components')
+.component('woOverviewTable', {
+  templateUrl: '/lib/public/angular/apps/workorder/views/component.views/woOverviewTable.html',
+  bindings: {
+    scrollContentSearch: '&',
+    contentReport: '&',
+    woDumpReport: '&',
+    woPartsDumpReport: '&',
+    contentSearch: '&',
+    onTextFieldChange: '&',
+    onCheckBoxChange: '&',
+    woSearchCount: '<',
+    reportDisabled: '<',
+    workorders: '<',
+    startTime: '<',
+    endTime: '<',
+    woType: '<',
+    techId: '<',
+  },
+  controller: ['$window','$cookies','SessionService','TimeDisplayService', 'DateService', class WorkOrderOverviewTableCCtrl {
+    constructor($window,$cookies,SessionService,TimeDisplayService, DateService) {
+      // Initialize all variables on component
+      this.$window = $window;
+      this.$cookies = $cookies;
+      this.TDS = TimeDisplayService;
+      this.SS = SessionService;
+      this.DS = DateService;
 
-  // Add Component Name to every part in wo -------------
-  CommonWOFunctions.addComponentNameToParts = function (wo, parts) {
-    if(wo.hasOwnProperty('parts')){
-      if(wo.parts.length !== 0){
-        wo.parts.map(function (part) {
-          var netsuiteId = +part.netsuiteId;
-          _.forEach(parts, function (obj) {
-            if(obj.netsuiteId === netsuiteId){
-              part.componentName = (obj.componentName) ? obj.componentName : '';
-            }
-          });
-        });
+      this.orderByField = 'epoch';
+      this.reverseSort = true;
+      this.unitNumber = this.SS.get("unitNumber") ? this.SS.get("unitNumber") : null;
+      this.techName = null;
+      this.leaseName = null;
+      this.customerName = null;
+      this.billable = null;
+      this.billed = null;
+      this.billParts = null;
+      this.unapproved = false;
+      this.approved = false;
+      this.synced = false;
+      this.limit = 50;
+      this.skip = 0;
+      this.open = false;
+      this.pad = this.TDS.pad;
+      this.searchSupervisor = null;
+      this.role = 'admin';
+      this.dates = {
+        from: null,
+        to: null,
+        fromInput: null,
+        toInput: null,
+      };
+    }
+    // -------------------------------------------------
+
+
+    // Initialize original state -----------------------
+    $onInit() {
+      this.role = this.$cookies.get('role');
+      if(!this.SS.get("unitNumber")){
+        if(this.role === "admin"){
+          this.approved = true;
+          this.reverseSort = true;
+        }
+        if(this.role === "manager"){
+          this.unapproved = true;
+          this.reverseSort = false;
+        }
+      }
+
+      this.submit();
+    };
+    // -------------------------------------------------
+
+    clicked() {
+      this.role = this.$cookies.get('role');
+      if(this.role === "admin"){
+        this.approved = true;
+        this.unapproved = true;
+        this.synced = true;
+        this.reverseSort = true;
+        this.open = !this.open;
       }
     }
-    return wo;
+
+    // Search Changes ----------------------------------
+    changeTextField(changedData, selected) {
+      this.onTextFieldChange({ changedData, selected });
+    }
+    changeCheckBox(changedData, selected) {
+      this.onCheckBoxChange({ changedData, selected });
+    }
+    // -------------------------------------------------
+
+
+    // Get start and end of Day ------------------------
+    startOfDay(input) {
+      this.dates.fromInput = input;
+      if (typeof input === 'object' && input !== null) {
+        this.dates.from = new Date(new Date(input).setHours(0,0,0,0));
+      }
+      if (input === null) {
+        this.dates.from = null;
+      }
+    };
+
+    endOfDay(input) {
+      this.dates.toInput = input;
+      if (typeof input === 'object' && input !== null) {
+        this.dates.to = new Date(new Date(input).setHours(23,59,59,999));
+      }
+      if (input === null) {
+        this.dates.to = null;
+      }
+    };
+    // -------------------------------------------------
+
+    // Load content on scroll from parent controller ---
+    loadOnScroll() {
+      console.log("Scrolling..");
+      this.skip += this.limit;
+
+      const query = {
+        limit: this.limit,
+        skip: this.skip
+      };
+
+      if(this.dates.from && this.dates.to) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+
+      if (this.endTime || this.startTime) {
+        // this.startTime and this.endTime are generated on the server
+        // so no need to convert to server.
+        // this.dates are generated on client so need to format to server
+        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
+        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
+      }
+      if(this.unitNumber) {
+        query.unit = this.unitNumber;
+      }
+      if(this.techName || this.techId) {
+        query.tech = this.techId ? this.techId : this.techName;
+      }
+      if(this.leaseName) {
+        query.loc = this.leaseName;
+      }
+      if (this.searchSupervisor) {
+        query.searchSupervisor = this.searchSupervisor.toUpperCase();
+      }
+      if(this.customerName) {
+        query.cust = this.customerName;
+      }
+      if(this.billed){
+        query.billed = this.billed;
+      }
+      if(this.billable) {
+        query.billable = this.billable;
+      }
+      if(this.billParts) {
+        query.billParts = this.billParts;
+      }
+      if(this.unapproved || this.techId){
+        query.unapproved = this.techId ? true : this.unapproved;
+      }
+      if(this.approved || this.techId){
+        query.approved = this.techId ? true : this.approved;
+      }
+      if(this.synced || this.techId){
+        query.synced = this.techId ? true :  this.synced;
+      }
+      if(this.woType) {
+        query.type = this.woType;
+      }
+
+      this.scrollContentSearch({query});
+    };
+    // -------------------------------------------------
+
+    // Submit query to parent controller ---------------
+    submit() {
+      console.log("submit");
+      this.limit = 50;
+      this.skip = 0;
+
+      const query = {
+        limit: this.limit,
+        skip: this.skip
+      };
+
+
+      if(this.dates.from && this.dates.to) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+      if (this.endTime || this.startTime) {
+        query.from = this.startTime ? new Date(this.startTime) : this.DS.saveToOrion(this.dates.from);
+        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.DS.saveToOrion(this.dates.to) : this.DS.saveToOrion(new Date()));
+      }
+
+      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
+        query.unit = this.unitNumber;
+      } else if(this.unitNumber !== this.SS.get("unitNumber")){
+        query.unit = this.unitNumber;
+        this.SS.drop("unitNumber");
+      } else {
+        this.SS.drop("unitNumber");
+      }
+      if(this.techId || this.techName) {
+        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
+        query.tech = this.techName;
+      }
+      if(this.leaseName) {
+        query.loc = this.leaseName;
+      }
+      if (this.searchSupervisor) {
+        query.searchSupervisor = this.searchSupervisor.toUpperCase();
+      }
+      if(this.customerName) {
+        query.cust = this.customerName;
+      }
+      if(this.billed){
+        query.billed = this.billed;
+      }
+      if(this.billable) {
+        query.billable = this.billable
+      }
+      if(this.billParts) {
+        query.billParts = this.billParts
+      }
+      if(this.unapproved || this.techId){
+        query.unapproved = this.techId ? true : this.unapproved;
+      }
+      if(this.approved || this.techId){
+        query.approved = this.techId ? true : this.approved;
+      }
+      if(this.synced || this.techId){
+        query.synced = this.techId ? true :  this.synced;
+      }
+      if(this.woType) {
+        query.type = this.woType;
+      }
+
+      console.log(query)
+      this.contentSearch({query});
+    };
+    // -------------------------------------------------
+
+    // Get Time Report of searched users ---------------
+    report(type) {
+      this.reportText = "Loading...";
+      this.reportDisabled = true;
+
+      const query = {};
+
+      if(this.dates.from && this.dates.to) {
+        query.from = this.DS.saveToOrion(this.dates.from);
+        query.to = this.DS.saveToOrion(this.dates.to);
+      }
+      if (this.endTime || this.startTime) {
+        query.from = this.startTime ? new Date(this.startTime) : this.dates.from;
+        query.to = this.endTime ? new Date(this.endTime) : (this.dates.to ? this.dates.to : this.DS.saveToOrion(new Date()));
+      }
+    /*
+      if(this.unitNumber) {
+        query.unit = this.unitNumber.toString();
+      }
+      if(this.techName) {
+        query.tech = this.techName.toUpperCase();
+      }*/
+      if(this.unitNumber && (this.unitNumber === this.SS.get("unitNumber"))) {
+        query.unit = this.unitNumber;
+      } else if(this.unitNumber !== this.SS.get("unitNumber")){
+        query.unit = this.unitNumber;
+        this.SS.drop("unitNumber");
+      } else {
+        this.SS.drop("unitNumber");
+      }
+      if(this.techId || this.techName) {
+        this.techName = this.techId ? this.techId : this.techName.toUpperCase();
+        query.tech = this.techName;
+      }
+      if(this.leaseName) {
+        query.loc = this.leaseName.toString();
+      }
+      if(this.customerName) {
+        query.cust = this.customerName.toString();
+      }
+      if (this.searchSupervisor) {
+        query.searchSupervisor = this.searchSupervisor.toUpperCase();
+      }
+      if(this.billed){
+        query.billed = this.billed;
+      }
+      if(this.billable) {
+        query.billable = this.billable
+      }
+      if(this.billParts) {
+        query.billParts = this.billParts
+      }
+      if(this.unapproved || this.techId){
+        query.unapproved = this.techId ? true : this.unapproved;
+      }
+      if(this.approved || this.techId){
+        query.approved = this.techId ? true : this.approved;
+      }
+      if(this.synced || this.techId){
+        query.synced = this.techId ? true :  this.synced;
+      }
+      if(this.woType) {
+        query.type = this.woType;
+      }
+      query.report = 'true';
+
+      if (type === 'timeReport') {
+        this.contentReport({query});
+      } else if (type === 'woDump') {
+        this.woDumpReport({query});
+      } else if (type === 'woPartsDump') {
+        this.woPartsDumpReport({query});
+      }
+    };
+    // -------------------------------------------------
+
+    // Sorting for Table -------------------------------
+    resort(by) {
+      this.orderByField = by;
+      this.reverseSort = !this.reverseSort;
+    };
+    // -------------------------------------------------
+
+
+    // Set billable background color for workorders
+    setBillableBackgroundColor(wo) {
+      if(wo.parts.length > 0){
+        const partBillable = wo.isPartBillable.color;
+        if(wo.billingInfo.billableToCustomer || (partBillable === '#a4cf80')) return '#a4cf80';
+      } else {
+        if(wo.billingInfo.billableToCustomer) return '#a4cf80';
+      }
+    };
+    // -------------------------------------------------
+
+    clearText(selected) {
+      switch (selected) {
+        case 'unitNumber':
+          this.unitNumber = null;
+          break;
+        case 'leaseName':
+          this.leaseName = null;
+          break;
+        case 'techName':
+          this.techName = null;
+          break;
+        case 'customerName':
+          this.customerName = null;
+          break;
+        case 'searchSupervisor':
+          this.searchSupervisor = null;
+          break;
+      }
+    }
+
+    // Routing to work order ---------------------------
+    clickWorkOrder(wo) {
+      this.$window.open('#/workorder/review/' + wo._id);
+    };
+    // -------------------------------------------------
+
+
+  }]
+});
+
+
+
+
+/*
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
+
+function clearSearch() {
+
+  //let elements = [] ;
+  const elements = document.getElementsByClassName("search");
+
+  for(let i=0; i<elements.length ; i++){
+    elements[i].value = "" ;
+  }
+}
+*/
+
+angular.module('UnitApp.Components')
+  .component('unitMap', {
+    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitMap.html',
+    bindings: {
+      units: '<',
+      bounds: '<'
+    },
+    controller: ['$scope',class UnitMapCtrl {
+      constructor($scope) {
+        // Map creation and events ----------------------------
+        this.map = {
+          center: {
+            latitude: 37.996162679728116,
+            longitude: -98.0419921875
+          },
+          zoom: 4,
+          mapEvents: {
+            click: (marker, eventName, model) => {
+              const thisMarker = {
+                id: 0,
+                geo: {
+                  type: 'Point',
+                  coordinates: [0.0,0.0]
+                }
+              };
+              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
+              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
+              this.map.CoordInfoWindow.marker = thisMarker;
+              // need to re-render map when new marker is placed on click
+              $scope.$apply();
+            }
+          },
+          options: {
+            pixelOffset: {
+              width: -1,
+              height: -45
+            }
+          },
+        // ----------------------------------------------------
+        
+        // Marker and events for finding Coordinates ----------
+          CoordMarkerEvents: {
+            click: (marker, eventName, model) => {
+              this.map.CoordInfoWindow.model = model;
+              this.map.CoordInfoWindow.show = true;
+              this.map.unitInfoWindow.show = false;
+            }
+          },
+          CoordInfoWindow: {
+            marker: {id: 0},
+            show: false,
+            closeClick: function() {
+              this.show = false;
+            }
+          },
+        // ----------------------------------------------------
+  
+        // Markers and events for Units -----------------------
+          unitMarkerEvents: {
+            click: (marker, eventName, model) => {
+              this.map.unitInfoWindow.model = model;
+              this.map.unitInfoWindow.show = true;
+              this.map.CoordInfoWindow.show = false;
+            }
+          },
+          unitInfoWindow: {
+            marker: {},
+            show: false,
+            closeClick: function() {
+              this.show = false;
+            }
+          }
+        // ----------------------------------------------------
+        };
+        this.options = {scrollwheel: false};
+      }
+    }]
+  });
+
+
+angular.module('UnitApp.Components')
+  .component('unitPage', {
+    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitPage.html',
+    bindings: {
+      coords: '<'
+    },
+    controller: ['$scope', '$timeout', 'uiGmapGoogleMapApi', class UnitPageCtrl {
+      constructor($scope, $timeout, uiGmapGoogleMapApi) {
+        this.showMap = false;
+        this.$scope = $scope;
+        this.$timeout = $timeout;
+        this.ui = uiGmapGoogleMapApi;
+        // Map creation and events ----------------------------
+        this.map = {
+          center: {
+            latitude: 37.996162679728116,
+            longitude: -98.0419921875
+          },
+          zoom: 13,
+          bounds: {},
+          mapEvents: {
+            click: (marker, eventName, model) => {
+              const thisMarker = {
+                id: 3,
+                geo: {
+                  type: 'Point',
+                  coordinates: [0.0, 0.0]
+                }
+              };
+              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
+              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
+              this.map.CoordInfoWindow.marker = thisMarker;
+              // need to re-render map when new marker is placed on click
+              $scope.$apply();
+            }
+          },
+          options: {
+            pixelOffset: {
+              width: -1,
+              height: -45
+            }
+          },
+          // ----------------------------------------------------
+
+          // Marker and events for finding Coordinates ----------
+          CoordMarkerEvents: {
+            click: (marker, eventName, model) => {
+              this.map.CoordInfoWindow.model = model;
+              this.map.CoordInfoWindow.show = true;
+            }
+          },
+          CoordInfoWindow: {
+            marker: {id: 3},
+            show: false,
+            closeClick: function() {
+              this.show = false;
+            }
+          }
+          // ----------------------------------------------------
+        };
+
+        this.options = {scrollwheel: true};
+      }
+      // ----------------------------------------------------
+
+      // Initialize map and add unit marker -----------------
+      $onInit() {
+        this.map.center = {latitude: this.coords[1], longitude: this.coords[0]};
+
+        this.marker = {
+          id: 4,
+          geo: {type: 'Point', coordinates: this.coords},
+        };
+
+        this.ui.then(() => {
+          this.$timeout(() => {
+
+            this.showMap = true;
+          }, 100)
+        })
+
+      }
+      // ----------------------------------------------------
+    }]
+  });
+
+angular.module('UnitApp.Components')
+  .component('unitSat', {
+    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitSat.html',
+    bindings: {
+      unit: '<'
+    },
+    controller: ['$scope', '$timeout', 'uiGmapGoogleMapApi', class UnitSatCtrl {
+      constructor($scope, $timeout, uiGmapGoogleMapApi) {
+        this.showMap = false;
+        this.$scope = $scope;
+        this.$timeout = $timeout;
+        this.ui = uiGmapGoogleMapApi;
+        // Map creation and events ----------------------------
+        this.map = {
+          center: {
+            latitude: 37.996162679728116,
+            longitude: -98.0419921875
+          },
+          zoom: 18,
+          bounds: {},
+          mapEvents: {
+            click: (marker, eventName, model) => {
+              const thisMarker = {
+                id: 1,
+                geo: {
+                  type: 'Point',
+                  coordinates: [0.0, 0.0]
+                }
+              };
+              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
+              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
+              this.map.CoordInfoWindow.marker = thisMarker;
+              // need to re-render map when new marker is placed on click
+              $scope.$apply();
+            }
+          },
+          options: {
+            pixelOffset: {
+              width: -1,
+              height: -45
+            }
+          },
+        // ----------------------------------------------------
+  
+        // Marker and events for finding Coordinates ----------
+          CoordMarkerEvents: {
+            click: (marker, eventName, model) => {
+              this.map.CoordInfoWindow.model = model;
+              this.map.CoordInfoWindow.show = true;
+            }
+          },
+          CoordInfoWindow: {
+            marker: {id: 1},
+            show: false,
+            closeClick: function() {
+              this.show = false;
+            }
+          }
+        // ----------------------------------------------------
+        };
+
+        this.options = {scrollwheel: false, mapTypeId: google.maps.MapTypeId.SATELLITE};
+      }
+      // ----------------------------------------------------
+
+      // Initialize map and add unit marker -----------------
+      $onInit() {
+        this.map.center = _.cloneDeep(this.unit.geo);
+  
+        let now = new Date();
+        let inSevenDays = moment().add(7, 'days');
+        
+        let pmDate = this.unit.nextPmDate ? new Date(this.unit.nextPmDate) : null;
+  
+        let icon = 'lib/public/images/marker_grey.png';
+        if(pmDate) {
+          //If pmDate has passed, icon is red
+          if (moment(now).isAfter(pmDate, 'day')) {
+            icon = 'lib/public/images/marker_red.png';
+          }
+          //If pmDate is under 7 days away, icon is yellow
+          else if(moment(inSevenDays).isAfter(pmDate, 'day')) {
+            icon = 'lib/public/images/marker_yellow.png';
+          }
+          //pmDate hasn't passed and is more than 7 days away
+          else {
+            icon = 'lib/public/images/marker_green.png';
+          }
+        }
+  
+        this.marker = {
+          id: 0,
+          geo: this.unit.geo,
+          options: {
+            icon
+          }
+        };
+        
+        this.ui.then(() => {
+          this.$timeout(() => {
+            this.showMap = true;
+          }, 100)
+        })
+        
+      }
+      // ----------------------------------------------------
+    }]
+  });
+
+angular.module('UnitApp.Components')
+  .component('unitSearch', {
+    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitSearch.html',
+    bindings: {
+      populateUnits: '&',
+      onTypeaheadChange: '&',
+      displayUnits: '<',
+      users: '<',
+      customers: '<',
+    },
+    controller: [ class UnitSearchCtrl {
+      constructor() {
+        this.params = {
+          numbers: null, //Unit Numbers
+          supervisor: null, //Supervisor techID
+          techs: null, //TechID unit is assigned to
+          customer: null,
+          from: null,
+          to: null,
+          size: 99999
+        };
+      }
+      
+      // Search Changes -------------------------------------
+      unitChange(changedData, selected) {
+        this.onTypeaheadChange({ changedData, selected });
+      }
+      supervisorChange(changedData, selected) {
+        this.onTypeaheadChange({ changedData, selected });
+      }
+      techChange(changedData, selected) {
+        this.onTypeaheadChange({ changedData, selected });
+      }
+      customerChange(changedData, selected){
+        this.onTypeaheadChange({ changedData, selected });
+      }
+      // ----------------------------------------------------
+      
+      // Clear search terms ---------------------------------
+      clearText(selected){
+        switch (selected) {
+          case 'unitNumber':
+            this.params.numbers = null;
+            break;
+          case 'supervisor':
+            this.params.supervisor = null;
+            break;
+          case 'tech':
+            this.params.techs = null;
+            break;
+          case 'customer':
+            this.params.customer = null;
+            break;
+        }
+      }
+      // ----------------------------------------------------
+  
+      // Send search to Parent to populate Units ------------
+      search() {
+        const params = _.omitBy(this.params, _.isNull);
+        this.populateUnits({params});
+      }
+      // ----------------------------------------------------
+    }]
+  });
+
+
+
+angular.module('UnitApp.Controllers').controller('UnitIndexCtrl',
+['$scope', 'AlertService', 'ApiRequestService',
+function ($scope, AlertService, ApiRequestService) {
+  
+  // Variables ------------------------------------------
+  const ARS = ApiRequestService;               // local
+  $scope.title = "Units Map";                  // local
+  $scope.units = [];                           // to UnitMap
+  $scope.bounds = {};                          // to UnitMap
+  $scope.displayUnitsFromController = [];      // to UnitSearch
+  $scope.displayUsersFromController = [];      // to UnitSearch
+  $scope.displayCustomersFromController = [];  // to UnitSearch
+  // ----------------------------------------------------
+  
+  // Get Units on Search --------------------------------
+  $scope.setUnits = (params) => {
+    if(params.hasOwnProperty("numbers")) {
+      params.numbers = params.numbers.replace(/\s/g,'').split(",");
+    }
+    if(params.hasOwnProperty("techs")) {
+      params.techs = params.techs.replace(/\s/g,'').split(",");
+    }
+    ARS.Units(params)
+      .then((units) => {
+        $scope.units = units.map((unit) => {
+          let now = new Date();
+          let inSevenDays = moment().add(7, 'days');
+          let pmDate = unit.nextPmDate ? new Date(unit.nextPmDate) : null;
+          
+          let icon = 'lib/public/images/marker_grey.png';
+          if(pmDate) {
+            //If pmDate has passed, icon is red
+            if (moment(now).isAfter(pmDate, 'day')) {
+              icon = 'lib/public/images/marker_red.png';
+            }
+            //If pmDate is under 7 days away, icon is yellow
+            else if(moment(inSevenDays).isAfter(pmDate, 'day')) {
+              icon = 'lib/public/images/marker_yellow.png';
+            }
+            //pmDate hasn't passed and is more than 7 days away
+            else {
+              icon = 'lib/public/images/marker_green.png';
+            }
+          }
+  
+          return {
+            id: unit.number,
+            geo: unit.geo,
+            show: false,
+            productSeries: unit.productSeries,
+            locationName: unit.locationName,
+            customerName: unit.customerName,
+            assignedTo: unit.assignedTo,
+            pmDate,
+            icon
+          }
+        })
+      })
+      .catch( (err) => {
+        AlertService.add('danger', "Failed to load", 2000);
+        console.log(err);
+      });
   };
   // ----------------------------------------------------
   
-  return CommonWOFunctions;
+  // Component methods ----------------------------------
+  $scope.typeaheadChange = function (changedData, selected) {
+    if(selected === 'unitNumber'){
+      ARS.Units({regexN: changedData})
+        .then((units) => {
+          $scope.displayUnitsFromController = units;
+        })
+        .catch((err) => console.log(err))
+    } else if( selected === 'supervisor' || selected === 'tech'){
+      //const name = changedData.toUpperCase();
+      ARS.Users({ regexName: name })
+        .then((users) => {
+          const userArray = [];
+          if(users.length > 0){
+            for(let user in users){
+              if(users.hasOwnProperty(user)){
+                if(users[user].hasOwnProperty('firstName')){
+                  const fullName = users[user].firstName.concat(" ").concat(users[user].lastName);
+                  const thisUser = users[user];
+                  thisUser.fullName = fullName;
+                  userArray.push(thisUser);
+                }
+              }
+            }
+            $scope.displayUsersFromController = userArray;
+          }
+        })
+        .catch((err) => console.log(err));
+    } else if( selected === 'customer'){
+      ARS.Customers({ regexName: changedData })
+        .then((customers) => {
+          $scope.displayCustomersFromController = customers;
+        })
+        .catch((err) => console.log(err));
+    }
+  }
+  // ----------------------------------------------------
 }]);
+
+angular.module('UnitApp.Controllers').controller('UnitViewCtrl',
+  ['$window', '$scope', '$route', '$location', 'AlertService', 'SessionService', 'ApiRequestService', 'unit',
+function ($window, $scope, $route, $location, AlertService, SessionService, ApiRequestService, unit) {
+  
+  // Variables ------------------------------------------
+  const ARS = ApiRequestService;
+  const SS = SessionService;
+  $scope.unit = unit;
+  $scope.title = unit.number;
+  $scope.user = {};
+  $scope.supervisor = {};
+  // ----------------------------------------------------
+  
+  //fetch user info for PM Report -----------------------
+  if(unit.assignedTo) {
+    ARS.getUser({id: unit.assignedTo})
+      .then((user) => {
+        $scope.user = user;
+        return ARS.getUser({ id: user.supervisor });
+      })
+      .then((supervisor) => {
+        $scope.supervisor = supervisor;
+      })
+      .catch((err) => {
+        AlertService.add('danger',"Could not populate user data for PM Report");
+        console.log(err);
+      })
+  }
+  // ----------------------------------------------------
+  
+  // Routes ---------------------------------------------
+  $scope.searchUnits = () => {
+    SS.add("unitNumber",$scope.unit.number);
+    $window.open(`#/workorder`);
+  }
+  // ----------------------------------------------------
+}]);
+
+angular.module('UnitApp.Controllers').controller('UnitPageCtrl',
+  ['coords', '$scope',
+    function (coords, $scope) {
+      $scope.coords = coords;
+    }]);
 
 /**
  *            GeneralDestinationSelection
@@ -8337,18 +8337,6 @@ angular.module('WorkOrderApp.Directives')
   };
 }]);
 
-angular.module('WorkOrderApp.Controllers').controller('JsaReviewModalCtrl',
-  function ( $scope, $uibModalInstance, jsa ){
-    $scope.jsa = jsa;
-    
-    $scope.ok = () => {
-      $uibModalInstance.close($scope.jsa);
-    };
-    $scope.cancel = () => {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
-
 angular.module('WorkOrderApp.Controllers').controller('AddPartEditModalCtrl',
   function ( $scope, $uibModalInstance, ObjectService){
     $scope.part = {};
@@ -8395,36 +8383,6 @@ angular.module('WorkOrderApp.Controllers').controller('JsaEditModalCtrl',
       $scope.jsa.techinicians.splice(index, 1);
     };
   });
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPartsAdd', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPartsList', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderParts', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
-    scope: true
-  };
-}]);
 
 angular.module('WorkOrderApp.Directives')
 
@@ -8586,142 +8544,44 @@ angular.module('WorkOrderApp.Directives')
   };
 }]);
 
+angular.module('WorkOrderApp.Controllers').controller('JsaReviewModalCtrl',
+  function ( $scope, $uibModalInstance, jsa ){
+    $scope.jsa = jsa;
+    
+    $scope.ok = () => {
+      $uibModalInstance.close($scope.jsa);
+    };
+    $scope.cancel = () => {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
+
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewBasicLc', [function () {
+.directive('workorderPartsAdd', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woBasicLC.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewCompressorLc', [function () {
+.directive('workorderPartsList', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCompressorLC.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('reviewCoolerLc', [function () {
+.directive('workorderParts', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCoolerLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEmissionsLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEmissionsLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEngineLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEngineLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPanelLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woPanelLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewVesselLc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woVesselLC.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewLaborCodes', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/workorderLaborCodes.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderEngineChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderEngineCompression', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderGeneralChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderKillSettings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPmMisc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPm', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPM.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
     scope: true
   };
 }]);
@@ -8818,6 +8678,86 @@ angular.module('WorkOrderApp.Directives')
 
 angular.module('WorkOrderApp.Directives')
 
+.directive('reviewBasicLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woBasicLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewCompressorLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCompressorLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewCoolerLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woCoolerLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEmissionsLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEmissionsLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEngineLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woEngineLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPanelLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woPanelLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewVesselLc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/woVesselLC.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewLaborCodes', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/workorderLaborCodes.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
 .directive('reviewPartsAdd', [function () {
   return {
     restrict: 'E',
@@ -8842,6 +8782,66 @@ angular.module('WorkOrderApp.Directives')
   return {
     restrict: 'E',
     templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/workorderParts.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEngineChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEngineCompression', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderGeneralChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderKillSettings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPmMisc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPm', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPM.html',
     scope: true
   };
 }]);
