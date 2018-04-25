@@ -193,7 +193,7 @@ describe("WorkOrder Units", () => {
       });
     });
 
-    it("Should list 4 pages of 25 results", () => {
+    it("Should list 4 pages of 25 results", (done) => {
       let options = {
         sort:  '-updated_at',
         unit:  null,
@@ -228,12 +228,12 @@ describe("WorkOrder Units", () => {
         }).then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
+          done()
+        })
+        .catch((err) => done(err));
+    }).slow(15000);
 
-          return null;
-        });
-    }).slow(500);
-
-    it("Should list workorders with specific unitNumber", () => {
+    it("Should list workorders with specific unitNumber", (done) => {
       const options = {
         sort:  '-updated_at',
         unit:  '123TEST',
@@ -254,8 +254,10 @@ describe("WorkOrder Units", () => {
           docs.forEach(doc => {
             doc.unitNumber.should.equal("123TEST");
           });
-        });
-    }).slow(200);
+          done()
+        })
+        .catch((err) => console.log(err));
+    }).slow(15000);
 
     it("Should list workorders with specific technician name", () => {
       const options = {
@@ -279,7 +281,7 @@ describe("WorkOrder Units", () => {
             doc.techId.should.equal("TEST003");
           });
         });
-    }).slow(200);
+    }).slow(15000);
 
     it("Should list workorders with specific leaseName", () => {
       const options = {
@@ -303,7 +305,7 @@ describe("WorkOrder Units", () => {
             doc.header.leaseName.should.equal("TESTLOC");
           });
         });
-    }).slow(200);
+    }).slow(15000);
 
     it("Should list workorders with specific customerName", () => {
       const options = {
@@ -327,7 +329,7 @@ describe("WorkOrder Units", () => {
             doc.header.customerName.should.equal("TESTCUST");
           });
         });
-    }).slow(200);
+    }).slow(15000);
   });
 
   describe("#delete()", () => {
