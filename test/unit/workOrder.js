@@ -259,7 +259,7 @@ describe("WorkOrder Units", () => {
         .catch((err) => console.log(err));
     }).slow(15000);
 
-    it("Should list workorders with specific technician name", () => {
+    it("Should list workorders with specific technician name", (done) => {
       const options = {
         sort:  '-updated_at',
         unit:  null,
@@ -280,10 +280,11 @@ describe("WorkOrder Units", () => {
           docs.forEach(doc => {
             doc.techId.should.equal("TEST003");
           });
+          done()
         });
     }).slow(15000);
 
-    it("Should list workorders with specific leaseName", () => {
+    it("Should list workorders with specific leaseName", (done) => {
       const options = {
         sort:  '-updated_at',
         unit:  null,
@@ -304,10 +305,11 @@ describe("WorkOrder Units", () => {
           docs.forEach(doc => {
             doc.header.leaseName.should.equal("TESTLOC");
           });
+          done()
         });
     }).slow(15000);
 
-    it("Should list workorders with specific customerName", () => {
+    it("Should list workorders with specific customerName", (done) => {
       const options = {
         sort:  '-updated_at',
         unit:  null,
@@ -328,6 +330,7 @@ describe("WorkOrder Units", () => {
           docs.forEach(doc => {
             doc.header.customerName.should.equal("TESTCUST");
           });
+          done()
         });
     }).slow(15000);
   });
