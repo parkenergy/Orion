@@ -147,53 +147,52 @@ describe("WorkOrder Units", () => {
   });
 
   describe("#list()", () => {
-    before(() => {
-      return new Promise((resolve, reject) => {
-        WorkOrder.remove({})
-          .then(() => {
-            let unitDocs = _.range(25).map(() => {
-              let f = _.cloneDeep(fixture);
-              f.unitNumber = "123TEST";
-              return f;
-            });
-            let techDocs = _.range(25).map(() => {
-              let f = _.cloneDeep(fixture);
-              f.techId = "TEST003";
+    before((done) => {
+      WorkOrder.remove({})
+        .then(() => {
+          let unitDocs = _.range(25).map(() => {
+            let f = _.cloneDeep(fixture);
+            f.unitNumber = "123TEST";
+            return f;
+          });
+          let techDocs = _.range(25).map(() => {
+            let f = _.cloneDeep(fixture);
+            f.techId = "TEST003";
 
-              return f;
-            });
-            let locDocs = _.range(25).map(() => {
-              let f = _.cloneDeep(fixture);
-              f.header.leaseName = "TESTLOC";
+            return f;
+          });
+          let locDocs = _.range(25).map(() => {
+            let f = _.cloneDeep(fixture);
+            f.header.leaseName = "TESTLOC";
 
-              return f;
-            });
-            let custDocs = _.range(25).map(() => {
-              let f = _.cloneDeep(fixture);
-              f.header.customerName = "TESTCUST";
+            return f;
+          });
+          let custDocs = _.range(25).map(() => {
+            let f = _.cloneDeep(fixture);
+            f.header.customerName = "TESTCUST";
 
-              return f;
-            });
+            return f;
+          });
 
-            return [...unitDocs, ...techDocs, ...locDocs, ...custDocs];
-          })
-          .then(docs => WorkOrder.createDoc(docs))
-          .then(() => {
-            let newUser = _.clone(userFixture);
+          return [...unitDocs, ...techDocs, ...locDocs, ...custDocs];
+        })
+        .then(docs => WorkOrder.createDoc(docs))
+        .then(() => {
+          let newUser = _.clone(userFixture);
 
-            newUser.netsuiteId = '12456';
-            newUser.firstName = "Find";
-            newUser.lastName = "Me";
-            newUser.username = "TEST003";
+          newUser.netsuiteId = '12456';
+          newUser.firstName = "Find";
+          newUser.lastName = "Me";
+          newUser.username = "TEST003";
 
-            return new User(newUser).save();
-          })
-          .then(resolve)
-          .catch(reject);
-      });
+          return new User(newUser).save();
+        })
+        .then(() => {
+          done();
+        })
     });
 
-    it("Should list 4 pages of 25 results", () => {
+    it("Should list 4 pages of 25 results", (done) => {
       let options = {
         sort:  '-updated_at',
         unit:  null,
@@ -205,12 +204,13 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
-            should.exist(docs);
-            docs.should.be.an.Array();
-            docs.should.have.length(25);
-            options.skip+=25;
+          should.exist(docs);
+          docs.should.be.an.Array();
+          docs.should.have.length(25);
+          options.skip+=25;
+
           return WorkOrder.list(options);
         }).then(docs => {
           docs.should.be.an.Array();
@@ -221,19 +221,18 @@ describe("WorkOrder Units", () => {
         }).then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
-
           options.skip+=25;
 
           return WorkOrder.list(options);
         }).then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
+          done()
+        })
+        .catch((err) => done(err));
+    }).slow(15000);
 
-          return null;
-        });
-    }).slow(500);
-
-    it("Should list workorders with specific unitNumber", () => {
+    it("Should list workorders with specific unitNumber", (done) => {
       const options = {
         sort:  '-updated_at',
         unit:  '123TEST',
@@ -245,7 +244,7 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
           should.exist(docs);
           docs.should.be.an.Array();
@@ -254,10 +253,12 @@ describe("WorkOrder Units", () => {
           docs.forEach(doc => {
             doc.unitNumber.should.equal("123TEST");
           });
-        });
-    }).slow(200);
+          done()
+        })
+        .catch((err) => console.log(err));
+    }).slow(15000);
 
-    it("Should list workorders with specific technician name", () => {
+    it("Should list workorders with specific technician name", (done) => {
       const options = {
         sort:  '-updated_at',
         unit:  null,
@@ -269,7 +270,7 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
           should.exist(docs);
           docs.should.be.an.Array();
@@ -278,10 +279,11 @@ describe("WorkOrder Units", () => {
           docs.forEach(doc => {
             doc.techId.should.equal("TEST003");
           });
+          done()
         });
-    }).slow(200);
+    }).slow(15000);
 
-    it("Should list workorders with specific leaseName", () => {
+    it("Should list workorders with specific leaseName", (done) => {
       const options = {
         sort:  '-updated_at',
         unit:  null,
@@ -293,7 +295,7 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
           should.exist(docs);
           docs.should.be.an.Array();
@@ -302,10 +304,11 @@ describe("WorkOrder Units", () => {
           docs.forEach(doc => {
             doc.header.leaseName.should.equal("TESTLOC");
           });
+          done()
         });
-    }).slow(200);
+    }).slow(15000);
 
-    it("Should list workorders with specific customerName", () => {
+    it("Should list workorders with specific customerName", (done) => {
       const options = {
         sort:  '-updated_at',
         unit:  null,
@@ -317,7 +320,7 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
           should.exist(docs);
           docs.should.be.an.Array();
@@ -326,8 +329,9 @@ describe("WorkOrder Units", () => {
           docs.forEach(doc => {
             doc.header.customerName.should.equal("TESTCUST");
           });
+          done()
         });
-    }).slow(200);
+    }).slow(15000);
   });
 
   describe("#delete()", () => {
