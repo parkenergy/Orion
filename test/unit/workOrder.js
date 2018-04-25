@@ -147,50 +147,49 @@ describe("WorkOrder Units", () => {
   });
 
   describe("#list()", () => {
-    before(() => {
-      return new Promise((resolve, reject) => {
-        WorkOrder.remove({})
-          .then(() => {
-            let unitDocs = _.range(25).map(() => {
-              let f = _.cloneDeep(fixture);
-              f.unitNumber = "123TEST";
-              return f;
-            });
-            let techDocs = _.range(25).map(() => {
-              let f = _.cloneDeep(fixture);
-              f.techId = "TEST003";
+    before((done) => {
+      WorkOrder.remove({})
+        .then(() => {
+          let unitDocs = _.range(25).map(() => {
+            let f = _.cloneDeep(fixture);
+            f.unitNumber = "123TEST";
+            return f;
+          });
+          let techDocs = _.range(25).map(() => {
+            let f = _.cloneDeep(fixture);
+            f.techId = "TEST003";
 
-              return f;
-            });
-            let locDocs = _.range(25).map(() => {
-              let f = _.cloneDeep(fixture);
-              f.header.leaseName = "TESTLOC";
+            return f;
+          });
+          let locDocs = _.range(25).map(() => {
+            let f = _.cloneDeep(fixture);
+            f.header.leaseName = "TESTLOC";
 
-              return f;
-            });
-            let custDocs = _.range(25).map(() => {
-              let f = _.cloneDeep(fixture);
-              f.header.customerName = "TESTCUST";
+            return f;
+          });
+          let custDocs = _.range(25).map(() => {
+            let f = _.cloneDeep(fixture);
+            f.header.customerName = "TESTCUST";
 
-              return f;
-            });
+            return f;
+          });
 
-            return [...unitDocs, ...techDocs, ...locDocs, ...custDocs];
-          })
-          .then(docs => WorkOrder.createDoc(docs))
-          .then(() => {
-            let newUser = _.clone(userFixture);
+          return [...unitDocs, ...techDocs, ...locDocs, ...custDocs];
+        })
+        .then(docs => WorkOrder.createDoc(docs))
+        .then(() => {
+          let newUser = _.clone(userFixture);
 
-            newUser.netsuiteId = '12456';
-            newUser.firstName = "Find";
-            newUser.lastName = "Me";
-            newUser.username = "TEST003";
+          newUser.netsuiteId = '12456';
+          newUser.firstName = "Find";
+          newUser.lastName = "Me";
+          newUser.username = "TEST003";
 
-            return new User(newUser).save();
-          })
-          .then(resolve)
-          .catch(reject);
-      });
+          return new User(newUser).save();
+        })
+        .then(() => {
+          done();
+        })
     });
 
     it("Should list 4 pages of 25 results", (done) => {
@@ -205,12 +204,13 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
-            should.exist(docs);
-            docs.should.be.an.Array();
-            docs.should.have.length(25);
-            options.skip+=25;
+          should.exist(docs);
+          docs.should.be.an.Array();
+          docs.should.have.length(25);
+          options.skip+=25;
+
           return WorkOrder.list(options);
         }).then(docs => {
           docs.should.be.an.Array();
@@ -221,7 +221,6 @@ describe("WorkOrder Units", () => {
         }).then(docs => {
           docs.should.be.an.Array();
           docs.should.have.length(25);
-
           options.skip+=25;
 
           return WorkOrder.list(options);
@@ -245,7 +244,7 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
           should.exist(docs);
           docs.should.be.an.Array();
@@ -271,7 +270,7 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
           should.exist(docs);
           docs.should.be.an.Array();
@@ -296,7 +295,7 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
           should.exist(docs);
           docs.should.be.an.Array();
@@ -321,7 +320,7 @@ describe("WorkOrder Units", () => {
         skip:  0
       };
 
-      return WorkOrder.list(options)
+      WorkOrder.list(options)
         .then(docs => {
           should.exist(docs);
           docs.should.be.an.Array();
