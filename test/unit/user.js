@@ -25,8 +25,9 @@ describe("User Units", () => {
 
   describe("#updateDoc()", () => {
     it('Should update user document', () => {
-      fixture.netsuiteId = '1234';
-      return User.updateDoc('TEST001', fixture)
+      const fix = _.cloneDeep(fixture);
+      fix.netsuiteId = '1234';
+      return User.updateDoc('TEST001', fix)
         .then(doc => {
           doc.netsuiteId.should.equal('1234');
         });

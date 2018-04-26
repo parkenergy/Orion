@@ -7,14 +7,12 @@ const mongoose     = require('mongoose'),
   Area             = require('../../lib/models/area'),
   WorkOrder        = require('../../lib/models/workOrder'),
   Unit             = require('../../lib/models/unit'),
-  PmReport         = require('../../lib/models/pmReport'),
   User             = require('../../lib/models/user'),
   stateFixtrue     = require('../fixture/state.json'),
   countyFixture    = require('../fixture/county.json'),
   unitFixture      = require('../fixture/unit.json')[0],
   userFixture      = require('../fixture/user.json')[0],
   //userFixture      = require('../fixture/user.json'),
-  pmReportFixture  = require('../fixture/pmReport.json'),
   workOrderFixture = require('../fixture/workOrder.json');
 
 mongoose.Promise = Promise;
@@ -27,14 +25,12 @@ describe("Unit Units", () => {
   before(() => State.createDoc(stateFixtrue));
   before(() => County.createDoc(countyFixture));
   before(() => User.createDoc(userFixture));
-  before(() => PmReport.createDoc(pmReportFixture));
   before(() => WorkOrder.remove({}));
 
   after(() => Unit.remove({}));
   after(() => User.remove({}));
   after(() => State.remove({}));
   after(() => County.remove({}));
-  after(() => PmReport.remove({}));
 
   describe("#fetch()", () => {
     it("should fetch Unit by number", () => Unit.fetch("123")
@@ -44,9 +40,6 @@ describe("Unit Units", () => {
           unit.assignedTo.should.equal('TEST001');
           unit.netsuiteId.should.equal('T123');
           unit.number.should.equal('123');
-
-          should.exist(unit.pmReport);
-          unit.pmReport.unitNumber.should.equal(unit.number);
         })
     );
   });
@@ -55,6 +48,7 @@ describe("Unit Units", () => {
 
     before(() => {
       const newUser = _.clone(userFixture);
+      newUser.netsuiteId = '1932';
       newUser.username = "TEST002";
       newUser.supervisor = "TEST003";
 
@@ -65,14 +59,9 @@ describe("Unit Units", () => {
       newUnit.netsuiteId = "s987";
       newUnit.customerName = "CUST 3210";
 
-      const newPM = _.clone(pmReportFixture);
-      newPM.unitNumber = "321";
-      newPM.userId = "TEST002";
-
       return Promise.join([
         Unit.createDoc(newUnit),
         User.createDoc(newUser),
-        PmReport.createDoc(newPM)
       ]);
     });
 
@@ -125,20 +114,6 @@ describe("Unit Units", () => {
         units.should.be.Array().with.length(2);
         // now supervisor is included and the position changes.
         //units[1].assignedTo.should.equal("TEST001");
-      })
-    );
-
-    it("should populate PmReports for Units", () => Unit.list({})
-      .then(units => {
-        should.exist(units);
-        units.should.be.Array().with.length(2);
-
-        return units;
-      })
-      .map(unit => {
-        should.exist(unit);
-        should.exist(unit.pmReport);
-        unit.pmReport.unitNumber.should.equal(unit.number);
       })
     );
 

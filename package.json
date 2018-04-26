@@ -1,6 +1,6 @@
 {
   "name": "Orion",
-  "version": "0.12.1",
+  "version": "0.13.5",
   "description": "A workorder tracking software system for Park Energy",
   "main": "",
   "scripts": {
@@ -51,6 +51,7 @@
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "request-promise": "^3.0.0",
+    "tedb-utils": "0.0.3",
     "xxhashjs": "^0.2.1"
   },
   "devDependencies": {

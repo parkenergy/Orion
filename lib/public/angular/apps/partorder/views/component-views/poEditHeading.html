@@ -12,13 +12,13 @@
     </div>
 
     <div class="col-md-3 col-xs-3">
-      <div>Request Made</div>
+      <div>Request Created</div>
       <div class="poeh-content">{{ $ctrl.partorder.timeCreated | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
     </div>
 
     <!--Show Time Submitted if it exists-->
     <div class="col-md-3 col-xs-3" ng-if="$ctrl.partorder.timeSubmitted">
-      <div>Request Received</div>
+      <div>Request Submitted</div>
       <div class="poeh-content">{{ $ctrl.partorder.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
     </div>
 
@@ -40,7 +40,7 @@
     </div>
 
     <!--Show origin Id if it exists-->
-    <div class="col-md-2 col-xs-2" ng-show="!$ctrl.partorder.timeShipped && !$ctrl.partorder.originNSID">
+    <div class="col-md-2 col-xs-2" ng-show="!$ctrl.partorder.timeOrdered && !$ctrl.partorder.originNSID">
         <select-list
           label-text="Origin Location"
           on-data-change="$ctrl.selectFieldChange(changedData, selected)"
@@ -58,28 +58,28 @@
     </div>
 
     <!--Show Tracking number if it exists-->
-    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeShipped">
+    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeOrdered">
       <text-field
         label-text="PO Number"
-        model-name="trackingNumber"
+        model-name="poNumber"
         on-data-change="$ctrl.textFieldChange(changedData, selected)"
-        data="$ctrl.partorder.trackingNumber">
+        data="$ctrl.partorder.poNumber">
       </text-field>
     </div>
 
-    <div class="col-md-3 col-xs-3" ng-show="$ctrl.partorder.timeShipped">
-      <div>PO Number: {{$ctrl.partorder.carrier}}</div>
-      <div class="poeh-content">{{ $ctrl.partorder.trackingNumber}}</div>
+    <div class="col-md-3 col-xs-3" ng-show="$ctrl.partorder.timeOrdered">
+      <div>PO Number</div>
+      <div class="poeh-content">{{ $ctrl.partorder.poNumber}}</div>
     </div>
 
     <!--Show Time Shipped if it exists-->
-    <div class="col-md-3 col-xs-3" ng-if="$ctrl.partorder.timeShipped">
-      <div>Request Shipped</div>
-      <div class="poeh-content">{{ $ctrl.partorder.timeShipped | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
+    <div class="col-md-3 col-xs-3" ng-if="$ctrl.partorder.timeOrdered">
+      <div>Request Ordered</div>
+      <div class="poeh-content">{{ $ctrl.partorder.timeOrdered | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
     </div>
 
-    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeShipped">
-      Parts Not Shipped Yet
+    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeOrdered">
+      Parts Not Ordered Yet
     </div>
   </div>
 </div>
