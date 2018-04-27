@@ -12,8 +12,6 @@ angular.module('Orion', [
   'Orion.Components',
   'Orion.Directives',
   'Orion.Services',
-  'InventoryTransferApp',
-  'SupportApp',
   'UnitApp',
   'PaidTimeOffApp',
   'PartOrderApp',
