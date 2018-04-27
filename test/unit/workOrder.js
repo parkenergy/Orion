@@ -55,7 +55,7 @@ describe("WorkOrder Units", () => {
   });
 
   describe("#createDoc()", () => {
-    it('should create and return new document', () => {
+    it('should create and return new document', (done) => {
 
       return WorkOrder.createDoc(fixture)
         .then(doc => {
@@ -71,6 +71,7 @@ describe("WorkOrder Units", () => {
           should.exist(doc[0].technician);
           //doc[0].unit.toString().should.equal(unitId.toString());
           doc[0].technician.toString().should.equal(userId.toString());
+          done();
         });
     }).slow(50);
   });
@@ -86,7 +87,7 @@ describe("WorkOrder Units", () => {
         });
     });
 
-    it('should update document', () => {
+    it('should update document', (done) => {
       let updated = _.cloneDeep(fixture);
       updated.header.unitNumber = 'TEST2';
 
@@ -98,6 +99,7 @@ describe("WorkOrder Units", () => {
           doc.header.should.have.property('unitNumber');
           doc.header.unitNumber.should.be.a.String();
           doc.header.unitNumber.should.equal('TEST2');
+          done();
         });
     }).slow(100);
   });
@@ -105,15 +107,16 @@ describe("WorkOrder Units", () => {
   describe("#fetch()", () => {
     let id;
 
-    before(() => {
+    before((done) => {
       return WorkOrder.remove({})
         .then(() => WorkOrder.createDoc(fixture))
         .then(docs => {
           id = docs[0]._id;
+          done();
         });
     });
 
-    it('should fetch one document', () => {
+    it('should fetch one document', (done) => {
       return WorkOrder.fetch(id)
         .then(doc => {
           doc.should.have.property("_id");
@@ -122,6 +125,7 @@ describe("WorkOrder Units", () => {
           doc.header.should.have.property('unitNumber');
           doc.header.unitNumber.should.be.a.String();
           doc.header.unitNumber.should.equal('TEST1');
+          done();
         });
     }).slow(30);
   });
@@ -135,12 +139,13 @@ describe("WorkOrder Units", () => {
       limit: 1,
       skip: 0
     };
-    it("should fetch WorkOrders for Units", () => WorkOrder.getUnitWorkOrders(options)
+    it("should fetch WorkOrders for Units", (done) => WorkOrder.getUnitWorkOrders(options)
       .then(workorders => {
         should.exist(workorders);
         workorders.should.be.Array().with.length(1);
 
         workorders[0].unitNumber.should.equal('123');
+        done();
       })
     );
 
