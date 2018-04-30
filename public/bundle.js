@@ -943,7 +943,7 @@ angular.module('CommonServices')
 }]);
 
 angular.module('CommonServices')
-.factory('ApiRequestService', ['$q','$http','Units','Users','ReviewNotes','Customers', 'CallReports', 'PartOrders', 'WorkOrders', 'PaidTimeOffs', function ($q,$http, Units, Users, ReviewNotes, Customers, CallReports, PartOrders, WorkOrders, PaidTimeOffs) {
+.factory('ApiRequestService', ['$q','$http','Units','Users','ReviewNotes','Customers', 'CallReports', 'PartOrders', 'WorkOrders', 'PaidTimeOffs', 'Counties', function ($q,$http, Units, Users, ReviewNotes, Customers, CallReports, PartOrders, WorkOrders, PaidTimeOffs, Counties) {
   const ARS = {};
   ARS.http = {
     get: {}
@@ -951,6 +951,10 @@ angular.module('CommonServices')
 
   // CallReports -----------------------------------
   ARS.CallReports = (obj) => CallReports.query(obj).$promise;
+  // -----------------------------------------------
+
+  // Counties --------------------------------------
+  ARS.Counties = (obj) => Counties.query(obj).$promise;
   // -----------------------------------------------
 
   // Customers -------------------------------------
@@ -1018,6 +1022,14 @@ angular.module('CommonServices')
   // HTTP no Auth Unit Count ------------------------
   ARS.http.get.UnitsNoIdentityCount = (obj) => $http({
     url: '/api/unitnoidentitycount',
+    method: 'GET',
+    params: obj
+  });
+  // ------------------------------------------------
+
+  // HTTP for counties ------------------------------
+  ARS.http.get.countiesSplit = (obj) => $http({
+    url: '/api/counties',
     method: 'GET',
     params: obj
   });
@@ -1914,50 +1926,6 @@ angular.module('PaidTimeOffApp')
   ]);
 
 
-angular.module('UnitApp.Controllers', []);
-angular.module('UnitApp.Directives', ['uiGmapgoogle-maps']);
-angular.module('UnitApp.Components', []);
-angular.module('UnitApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
-
-angular.module('UnitApp', [
-  'UnitApp.Controllers',
-  'UnitApp.Directives',
-  'UnitApp.Services',
-  'UnitApp.Components'
-]);
-
-
-angular.module('UnitApp').config(['$routeProvider',
-  function ($routeProvider) {
-  $routeProvider
-
-    .when('/unit/view/:id?', {
-      controller: 'UnitViewCtrl',
-      templateUrl: '/lib/public/angular/apps/unit/views/view.html',
-      resolve: {
-        unit: function ($route, $q, Units) {
-          return Units.get({id: $route.current.params.id}).$promise;
-        }
-      }
-    })
-
-    .when('/unit/page/:coords?', {
-      controller: 'UnitPageCtrl',
-      templateUrl: '/lib/public/angular/apps/unit/views/page.html',
-      resolve: {
-        coords: function ($route) {
-          const coords = $route.current.params.coords.split(',');
-          return [+coords[1], +coords[0]];
-        }
-      }
-    })
-
-    .when('/unit', {
-      controller: 'UnitIndexCtrl',
-      templateUrl: '/lib/public/angular/apps/unit/views/index.html'
-    });
-}]);
-
 angular.module('WorkOrderApp.Controllers', []);
 angular.module('WorkOrderApp.Components', []);
 angular.module('WorkOrderApp.Directives', ['uiGmapgoogle-maps']);
@@ -2079,9 +2047,6 @@ angular.module('WorkOrderApp').config(['$routeProvider',
       parts: function ($route, $q, Parts) {
         return Parts.query({}).$promise;
       },
-      counties: function ($route, $q, Counties) {
-        return Counties.query({}).$promise;
-      },
       states: function ($route, $q, States) {
         return States.query({}).$promise;
       },
@@ -2110,6 +2075,50 @@ function ($route, $rootScope, $location) {
         }
         return original.apply($location, [path]);
     };
+}]);
+
+angular.module('UnitApp.Controllers', []);
+angular.module('UnitApp.Directives', ['uiGmapgoogle-maps']);
+angular.module('UnitApp.Components', []);
+angular.module('UnitApp.Services', ['ngResource', 'ngCookies', 'ui.utils']);
+
+angular.module('UnitApp', [
+  'UnitApp.Controllers',
+  'UnitApp.Directives',
+  'UnitApp.Services',
+  'UnitApp.Components'
+]);
+
+
+angular.module('UnitApp').config(['$routeProvider',
+  function ($routeProvider) {
+  $routeProvider
+
+    .when('/unit/view/:id?', {
+      controller: 'UnitViewCtrl',
+      templateUrl: '/lib/public/angular/apps/unit/views/view.html',
+      resolve: {
+        unit: function ($route, $q, Units) {
+          return Units.get({id: $route.current.params.id}).$promise;
+        }
+      }
+    })
+
+    .when('/unit/page/:coords?', {
+      controller: 'UnitPageCtrl',
+      templateUrl: '/lib/public/angular/apps/unit/views/page.html',
+      resolve: {
+        coords: function ($route) {
+          const coords = $route.current.params.coords.split(',');
+          return [+coords[1], +coords[0]];
+        }
+      }
+    })
+
+    .when('/unit', {
+      controller: 'UnitIndexCtrl',
+      templateUrl: '/lib/public/angular/apps/unit/views/index.html'
+    });
 }]);
 
 angular.module('PartOrderApp.Controllers', []);
@@ -3254,170 +3263,6 @@ function ($scope, ApiRequestService, callreport, DateService) {
   // -----------------------------------------------
 }]);
 
-angular.module('PaidTimeOffApp.Controllers')
-.controller('PaidTimeOffCtrl', ['$scope', '$http', '$timeout', '$location', '$q', '$cookies', 'AlertService', 'ApiRequestService', 'DateService',
-  function ($scope, $http, $timeout, $location, $q, $cookies, AlertService, ApiRequestService, DateService) {
-    // Variables-----------------------------------------
-    const ARS = ApiRequestService;
-    const DS = DateService;
-    $scope.loaded = false;
-    $scope.spinner = true;
-    // --------------------------------------------------
-
-    // Turn Spinner Off ---------------------------------
-    $scope.spinnerOff = () => {
-      $scope.spinner = false;
-    };
-    // --------------------------------------------------
-
-    // Passed to Component ------------------------------
-    // Function called any time Page loads or user scrolls past 50 units
-    $scope.lookup = (query) => {
-      $scope.loaded = false;
-      console.log("Looking up PTOs...");
-      console.log(query)
-      ARS.PaidTimeOffs(query)
-        .then((paidtimeoffs) => {
-          console.log("PTOs Loaded.");
-          $scope.paidtimeoffs = paidtimeoffs.map(mapPaidTimeOffs);
-          $scope.loaded = true;
-          $scope.spinnerOff();
-        })
-        .catch((err) => console.log("Failed to load: ", err));
-    };
-/*
-    $scope.report = (query) => {
-      $http({method: 'GET',url: '/api/paidtimeoffs', params: query})
-        .then((res) =>{
-            const anchor = angular.element('<a/>');
-            anchor.attr({
-              href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
-              target: '_blank',
-              download: 'PartsReport.csv'
-            })[0].click();
-          },
-          (err) => {
-            AlertService.add("danger", "Report failed to load", 2000);
-            console.log(err);
-          }
-        );
-    };*/
-
-    $scope.PaidTimeOffScrollLookup = (query) => {
-      console.log("Looking up Ptos...");
-      ARS.PaidTimeOffs(query)
-        .then((paidtimeoffs) => {
-          console.log("Part Orders Loaded.");
-          const pto = paidtimeoffs.map(mapPaidTimeOffs);
-          $scope.paidtimeoffs = $scope.paidtimeoffs.concat(pto);
-        })
-        .catch((err) => console.log("Failed to load part orders: ", err));
-    };
-    // --------------------------------------------------
-
-    // Create sorting parameters ------------------------
-    function mapPaidTimeOffs (pto) {
-      // set to local times
-      pto.DateFrom = DS.displayLocal(new Date(pto.DateFrom));
-      pto.DateTo = DS.displayLocal(new Date(pto.DateTo));
-      pto.epochDateFrom = new Date(pto.DateFrom).getTime();
-      pto.epochDateTo = new Date(pto.DateTo).getTime();
-      // set status
-      if (pto.approved) {
-        pto.status = 'approved';
-      }
-      if (pto.rejected) {
-        pto.status = 'rejected';
-      }
-      if (!pto.rejected && !pto.approved) {
-        pto.status = 'not reviewed';
-      }
-
-      return pto;
-    }
-    // --------------------------------------------------
-
-    // Routing ------------------------------------------
-  /*  $scope.createPaidTimeOff = () => {
-      $location.url('/paidtimeoff/create');
-    };*/
-    // --------------------------------------------------
-  },
-]);
-
-angular.module('PaidTimeOffApp.Controllers')
-.controller('PaidTimeOffReviewCtrl', ['$scope', '$location', '$cookies', 'paidtimeoff', 'PaidTimeOffs', 'AlertService', 'DateService',
-function ($scope, $location, $cookies, paidtimeoff, PaidTimeOffs, AlertService, DateService) {
-  const DS = DateService;
-
-  $scope.paidtimeoff = paidtimeoff;
-
-  // init
-  const preLoad = () => {
-    $scope.paidtimeoff.DateFrom = DS.displayLocal(new Date($scope.paidtimeoff.DateFrom));
-    $scope.paidtimeoff.DateTo = DS.displayLocal(new Date($scope.paidtimeoff.DateTo));
-    $scope.paidtimeoff.created = DS.displayLocal(new Date($scope.paidtimeoff.created));
-    if ($scope.paidtimeoff.timeApproved) {
-      $scope.paidtimeoff.timeApproved = DS.displayLocal(new Date($scope.paidtimeoff.timeApproved));
-    }
-  };
-  preLoad();
-
-  const preSave = () => {
-    $scope.paidtimeoff.DateFrom = DS.saveToOrion(new Date($scope.paidtimeoff.DateFrom));
-    $scope.paidtimeoff.DateTo = DS.saveToOrion(new Date($scope.paidtimeoff.DateTo));
-    $scope.paidtimeoff.created = DS.saveToOrion(new Date($scope.paidtimeoff.created));
-    if ($scope.paidtimeoff.timeApproved) {
-      $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date($scope.paidtimeoff.timeApproved));
-    }
-  };
-
-  $scope.approvalStatusChange = (changedData, selected) => {
-    if (selected === 'approved') {
-      $scope.paidtimeoff.approved = changedData;
-      if ($scope.paidtimeoff.rejected) {
-        $scope.paidtimeoff.rejected = false;
-      }
-    }
-    if (selected === 'rejected') {
-      $scope.paidtimeoff.rejected = changedData;
-      if ($scope.paidtimeoff.approved) {
-        $scope.paidtimeoff.approved = false;
-      }
-    }
-  };
-
-  $scope.changeManagerComment = (changedData, selected) => {
-    $scope.paidtimeoff.managerComment = changedData;
-  };
-
-  $scope.update = (doc) => {
-    PaidTimeOffs.update({id: doc._id}, doc,
-      (res) => {
-        AlertService.add('success', "Update was successful.");
-        $location.url('/paidtimeoff');
-      }, (err) => {
-        console.log(err);
-        // if error reset back to display times
-        preLoad();
-        AlertService.add('danger', 'An error occurred while attempting to update this PTO.');
-      })
-  };
-
-  $scope.setManagerReviewed = () => {
-    $scope.paidtimeoff.approvedBy = $cookies.get('tech');
-    $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date());
-    preSave();
-    $scope.update($scope.paidtimeoff);
-  };
-
-  $scope.setAdminReviewed = () => {
-    $scope.paidtimeoff.adminReviewed = true;
-    preSave();
-    $scope.update($scope.paidtimeoff);
-  };
-}]);
-
 angular.module('PaidTimeOffApp.Components')
   .component('ptoOverviewTable', {
     templateUrl: '/lib/public/angular/apps/paidtimeoff/views/component-views/ptoOverviewTable.html',
@@ -3623,496 +3468,169 @@ angular.module('PaidTimeOffApp.Components')
   }]
 });
 
-angular.module('UnitApp.Components')
-  .component('unitMap', {
-    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitMap.html',
-    bindings: {
-      units: '<',
-      bounds: '<'
-    },
-    controller: ['$scope',class UnitMapCtrl {
-      constructor($scope) {
-        // Map creation and events ----------------------------
-        this.map = {
-          center: {
-            latitude: 37.996162679728116,
-            longitude: -98.0419921875
-          },
-          zoom: 4,
-          mapEvents: {
-            click: (marker, eventName, model) => {
-              const thisMarker = {
-                id: 0,
-                geo: {
-                  type: 'Point',
-                  coordinates: [0.0,0.0]
-                }
-              };
-              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
-              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
-              this.map.CoordInfoWindow.marker = thisMarker;
-              // need to re-render map when new marker is placed on click
-              $scope.$apply();
-            }
-          },
-          options: {
-            pixelOffset: {
-              width: -1,
-              height: -45
-            }
-          },
-        // ----------------------------------------------------
-        
-        // Marker and events for finding Coordinates ----------
-          CoordMarkerEvents: {
-            click: (marker, eventName, model) => {
-              this.map.CoordInfoWindow.model = model;
-              this.map.CoordInfoWindow.show = true;
-              this.map.unitInfoWindow.show = false;
-            }
-          },
-          CoordInfoWindow: {
-            marker: {id: 0},
-            show: false,
-            closeClick: function() {
-              this.show = false;
-            }
-          },
-        // ----------------------------------------------------
-  
-        // Markers and events for Units -----------------------
-          unitMarkerEvents: {
-            click: (marker, eventName, model) => {
-              this.map.unitInfoWindow.model = model;
-              this.map.unitInfoWindow.show = true;
-              this.map.CoordInfoWindow.show = false;
-            }
-          },
-          unitInfoWindow: {
-            marker: {},
-            show: false,
-            closeClick: function() {
-              this.show = false;
-            }
-          }
-        // ----------------------------------------------------
-        };
-        this.options = {scrollwheel: false};
-      }
-    }]
-  });
+angular.module('PaidTimeOffApp.Controllers')
+.controller('PaidTimeOffCtrl', ['$scope', '$http', '$timeout', '$location', '$q', '$cookies', 'AlertService', 'ApiRequestService', 'DateService',
+  function ($scope, $http, $timeout, $location, $q, $cookies, AlertService, ApiRequestService, DateService) {
+    // Variables-----------------------------------------
+    const ARS = ApiRequestService;
+    const DS = DateService;
+    $scope.loaded = false;
+    $scope.spinner = true;
+    // --------------------------------------------------
 
+    // Turn Spinner Off ---------------------------------
+    $scope.spinnerOff = () => {
+      $scope.spinner = false;
+    };
+    // --------------------------------------------------
 
-angular.module('UnitApp.Components')
-  .component('unitPage', {
-    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitPage.html',
-    bindings: {
-      coords: '<'
-    },
-    controller: ['$scope', '$timeout', 'uiGmapGoogleMapApi', class UnitPageCtrl {
-      constructor($scope, $timeout, uiGmapGoogleMapApi) {
-        this.showMap = false;
-        this.$scope = $scope;
-        this.$timeout = $timeout;
-        this.ui = uiGmapGoogleMapApi;
-        // Map creation and events ----------------------------
-        this.map = {
-          center: {
-            latitude: 37.996162679728116,
-            longitude: -98.0419921875
-          },
-          zoom: 13,
-          bounds: {},
-          mapEvents: {
-            click: (marker, eventName, model) => {
-              const thisMarker = {
-                id: 3,
-                geo: {
-                  type: 'Point',
-                  coordinates: [0.0, 0.0]
-                }
-              };
-              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
-              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
-              this.map.CoordInfoWindow.marker = thisMarker;
-              // need to re-render map when new marker is placed on click
-              $scope.$apply();
-            }
-          },
-          options: {
-            pixelOffset: {
-              width: -1,
-              height: -45
-            }
-          },
-          // ----------------------------------------------------
-
-          // Marker and events for finding Coordinates ----------
-          CoordMarkerEvents: {
-            click: (marker, eventName, model) => {
-              this.map.CoordInfoWindow.model = model;
-              this.map.CoordInfoWindow.show = true;
-            }
-          },
-          CoordInfoWindow: {
-            marker: {id: 3},
-            show: false,
-            closeClick: function() {
-              this.show = false;
-            }
-          }
-          // ----------------------------------------------------
-        };
-
-        this.options = {scrollwheel: true};
-      }
-      // ----------------------------------------------------
-
-      // Initialize map and add unit marker -----------------
-      $onInit() {
-        this.map.center = {latitude: this.coords[1], longitude: this.coords[0]};
-
-        this.marker = {
-          id: 4,
-          geo: {type: 'Point', coordinates: this.coords},
-        };
-
-        this.ui.then(() => {
-          this.$timeout(() => {
-
-            this.showMap = true;
-          }, 100)
+    // Passed to Component ------------------------------
+    // Function called any time Page loads or user scrolls past 50 units
+    $scope.lookup = (query) => {
+      $scope.loaded = false;
+      console.log("Looking up PTOs...");
+      console.log(query)
+      ARS.PaidTimeOffs(query)
+        .then((paidtimeoffs) => {
+          console.log("PTOs Loaded.");
+          $scope.paidtimeoffs = paidtimeoffs.map(mapPaidTimeOffs);
+          $scope.loaded = true;
+          $scope.spinnerOff();
         })
-
-      }
-      // ----------------------------------------------------
-    }]
-  });
-
-angular.module('UnitApp.Components')
-  .component('unitSat', {
-    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitSat.html',
-    bindings: {
-      unit: '<'
-    },
-    controller: ['$scope', '$timeout', 'uiGmapGoogleMapApi', class UnitSatCtrl {
-      constructor($scope, $timeout, uiGmapGoogleMapApi) {
-        this.showMap = false;
-        this.$scope = $scope;
-        this.$timeout = $timeout;
-        this.ui = uiGmapGoogleMapApi;
-        // Map creation and events ----------------------------
-        this.map = {
-          center: {
-            latitude: 37.996162679728116,
-            longitude: -98.0419921875
+        .catch((err) => console.log("Failed to load: ", err));
+    };
+/*
+    $scope.report = (query) => {
+      $http({method: 'GET',url: '/api/paidtimeoffs', params: query})
+        .then((res) =>{
+            const anchor = angular.element('<a/>');
+            anchor.attr({
+              href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
+              target: '_blank',
+              download: 'PartsReport.csv'
+            })[0].click();
           },
-          zoom: 18,
-          bounds: {},
-          mapEvents: {
-            click: (marker, eventName, model) => {
-              const thisMarker = {
-                id: 1,
-                geo: {
-                  type: 'Point',
-                  coordinates: [0.0, 0.0]
-                }
-              };
-              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
-              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
-              this.map.CoordInfoWindow.marker = thisMarker;
-              // need to re-render map when new marker is placed on click
-              $scope.$apply();
-            }
-          },
-          options: {
-            pixelOffset: {
-              width: -1,
-              height: -45
-            }
-          },
-        // ----------------------------------------------------
-  
-        // Marker and events for finding Coordinates ----------
-          CoordMarkerEvents: {
-            click: (marker, eventName, model) => {
-              this.map.CoordInfoWindow.model = model;
-              this.map.CoordInfoWindow.show = true;
-            }
-          },
-          CoordInfoWindow: {
-            marker: {id: 1},
-            show: false,
-            closeClick: function() {
-              this.show = false;
-            }
+          (err) => {
+            AlertService.add("danger", "Report failed to load", 2000);
+            console.log(err);
           }
-        // ----------------------------------------------------
-        };
+        );
+    };*/
 
-        this.options = {scrollwheel: false, mapTypeId: google.maps.MapTypeId.SATELLITE};
-      }
-      // ----------------------------------------------------
-
-      // Initialize map and add unit marker -----------------
-      $onInit() {
-        this.map.center = _.cloneDeep(this.unit.geo);
-  
-        let now = new Date();
-        let inSevenDays = moment().add(7, 'days');
-        
-        let pmDate = this.unit.nextPmDate ? new Date(this.unit.nextPmDate) : null;
-  
-        let icon = 'lib/public/images/marker_grey.png';
-        if(pmDate) {
-          //If pmDate has passed, icon is red
-          if (moment(now).isAfter(pmDate, 'day')) {
-            icon = 'lib/public/images/marker_red.png';
-          }
-          //If pmDate is under 7 days away, icon is yellow
-          else if(moment(inSevenDays).isAfter(pmDate, 'day')) {
-            icon = 'lib/public/images/marker_yellow.png';
-          }
-          //pmDate hasn't passed and is more than 7 days away
-          else {
-            icon = 'lib/public/images/marker_green.png';
-          }
-        }
-  
-        this.marker = {
-          id: 0,
-          geo: this.unit.geo,
-          options: {
-            icon
-          }
-        };
-        
-        this.ui.then(() => {
-          this.$timeout(() => {
-            this.showMap = true;
-          }, 100)
+    $scope.PaidTimeOffScrollLookup = (query) => {
+      console.log("Looking up Ptos...");
+      ARS.PaidTimeOffs(query)
+        .then((paidtimeoffs) => {
+          console.log("Part Orders Loaded.");
+          const pto = paidtimeoffs.map(mapPaidTimeOffs);
+          $scope.paidtimeoffs = $scope.paidtimeoffs.concat(pto);
         })
-        
-      }
-      // ----------------------------------------------------
-    }]
-  });
+        .catch((err) => console.log("Failed to load part orders: ", err));
+    };
+    // --------------------------------------------------
 
-angular.module('UnitApp.Components')
-  .component('unitSearch', {
-    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitSearch.html',
-    bindings: {
-      populateUnits: '&',
-      onTypeaheadChange: '&',
-      displayUnits: '<',
-      users: '<',
-      customers: '<',
-    },
-    controller: [ class UnitSearchCtrl {
-      constructor() {
-        this.params = {
-          numbers: null, //Unit Numbers
-          supervisor: null, //Supervisor techID
-          techs: null, //TechID unit is assigned to
-          customer: null,
-          from: null,
-          to: null,
-          size: 99999
-        };
+    // Create sorting parameters ------------------------
+    function mapPaidTimeOffs (pto) {
+      // set to local times
+      pto.DateFrom = DS.displayLocal(new Date(pto.DateFrom));
+      pto.DateTo = DS.displayLocal(new Date(pto.DateTo));
+      pto.epochDateFrom = new Date(pto.DateFrom).getTime();
+      pto.epochDateTo = new Date(pto.DateTo).getTime();
+      // set status
+      if (pto.approved) {
+        pto.status = 'approved';
       }
-      
-      // Search Changes -------------------------------------
-      unitChange(changedData, selected) {
-        this.onTypeaheadChange({ changedData, selected });
+      if (pto.rejected) {
+        pto.status = 'rejected';
       }
-      supervisorChange(changedData, selected) {
-        this.onTypeaheadChange({ changedData, selected });
+      if (!pto.rejected && !pto.approved) {
+        pto.status = 'not reviewed';
       }
-      techChange(changedData, selected) {
-        this.onTypeaheadChange({ changedData, selected });
-      }
-      customerChange(changedData, selected){
-        this.onTypeaheadChange({ changedData, selected });
-      }
-      // ----------------------------------------------------
-      
-      // Clear search terms ---------------------------------
-      clearText(selected){
-        switch (selected) {
-          case 'unitNumber':
-            this.params.numbers = null;
-            break;
-          case 'supervisor':
-            this.params.supervisor = null;
-            break;
-          case 'tech':
-            this.params.techs = null;
-            break;
-          case 'customer':
-            this.params.customer = null;
-            break;
-        }
-      }
-      // ----------------------------------------------------
-  
-      // Send search to Parent to populate Units ------------
-      search() {
-        const params = _.omitBy(this.params, _.isNull);
-        this.populateUnits({params});
-      }
-      // ----------------------------------------------------
-    }]
-  });
 
-
-
-angular.module('UnitApp.Controllers').controller('UnitIndexCtrl',
-['$scope', 'AlertService', 'ApiRequestService',
-function ($scope, AlertService, ApiRequestService) {
-  
-  // Variables ------------------------------------------
-  const ARS = ApiRequestService;               // local
-  $scope.title = "Units Map";                  // local
-  $scope.units = [];                           // to UnitMap
-  $scope.bounds = {};                          // to UnitMap
-  $scope.displayUnitsFromController = [];      // to UnitSearch
-  $scope.displayUsersFromController = [];      // to UnitSearch
-  $scope.displayCustomersFromController = [];  // to UnitSearch
-  // ----------------------------------------------------
-  
-  // Get Units on Search --------------------------------
-  $scope.setUnits = (params) => {
-    if(params.hasOwnProperty("numbers")) {
-      params.numbers = params.numbers.replace(/\s/g,'').split(",");
+      return pto;
     }
-    if(params.hasOwnProperty("techs")) {
-      params.techs = params.techs.replace(/\s/g,'').split(",");
+    // --------------------------------------------------
+
+    // Routing ------------------------------------------
+  /*  $scope.createPaidTimeOff = () => {
+      $location.url('/paidtimeoff/create');
+    };*/
+    // --------------------------------------------------
+  },
+]);
+
+angular.module('PaidTimeOffApp.Controllers')
+.controller('PaidTimeOffReviewCtrl', ['$scope', '$location', '$cookies', 'paidtimeoff', 'PaidTimeOffs', 'AlertService', 'DateService',
+function ($scope, $location, $cookies, paidtimeoff, PaidTimeOffs, AlertService, DateService) {
+  const DS = DateService;
+
+  $scope.paidtimeoff = paidtimeoff;
+
+  // init
+  const preLoad = () => {
+    $scope.paidtimeoff.DateFrom = DS.displayLocal(new Date($scope.paidtimeoff.DateFrom));
+    $scope.paidtimeoff.DateTo = DS.displayLocal(new Date($scope.paidtimeoff.DateTo));
+    $scope.paidtimeoff.created = DS.displayLocal(new Date($scope.paidtimeoff.created));
+    if ($scope.paidtimeoff.timeApproved) {
+      $scope.paidtimeoff.timeApproved = DS.displayLocal(new Date($scope.paidtimeoff.timeApproved));
     }
-    ARS.Units(params)
-      .then((units) => {
-        $scope.units = units.map((unit) => {
-          let now = new Date();
-          let inSevenDays = moment().add(7, 'days');
-          let pmDate = unit.nextPmDate ? new Date(unit.nextPmDate) : null;
-          
-          let icon = 'lib/public/images/marker_grey.png';
-          if(pmDate) {
-            //If pmDate has passed, icon is red
-            if (moment(now).isAfter(pmDate, 'day')) {
-              icon = 'lib/public/images/marker_red.png';
-            }
-            //If pmDate is under 7 days away, icon is yellow
-            else if(moment(inSevenDays).isAfter(pmDate, 'day')) {
-              icon = 'lib/public/images/marker_yellow.png';
-            }
-            //pmDate hasn't passed and is more than 7 days away
-            else {
-              icon = 'lib/public/images/marker_green.png';
-            }
-          }
-  
-          return {
-            id: unit.number,
-            geo: unit.geo,
-            show: false,
-            productSeries: unit.productSeries,
-            locationName: unit.locationName,
-            customerName: unit.customerName,
-            assignedTo: unit.assignedTo,
-            pmDate,
-            icon
-          }
-        })
-      })
-      .catch( (err) => {
-        AlertService.add('danger', "Failed to load", 2000);
-        console.log(err);
-      });
   };
-  // ----------------------------------------------------
-  
-  // Component methods ----------------------------------
-  $scope.typeaheadChange = function (changedData, selected) {
-    if(selected === 'unitNumber'){
-      ARS.Units({regexN: changedData})
-        .then((units) => {
-          $scope.displayUnitsFromController = units;
-        })
-        .catch((err) => console.log(err))
-    } else if( selected === 'supervisor' || selected === 'tech'){
-      //const name = changedData.toUpperCase();
-      ARS.Users({ regexName: name })
-        .then((users) => {
-          const userArray = [];
-          if(users.length > 0){
-            for(let user in users){
-              if(users.hasOwnProperty(user)){
-                if(users[user].hasOwnProperty('firstName')){
-                  const fullName = users[user].firstName.concat(" ").concat(users[user].lastName);
-                  const thisUser = users[user];
-                  thisUser.fullName = fullName;
-                  userArray.push(thisUser);
-                }
-              }
-            }
-            $scope.displayUsersFromController = userArray;
-          }
-        })
-        .catch((err) => console.log(err));
-    } else if( selected === 'customer'){
-      ARS.Customers({ regexName: changedData })
-        .then((customers) => {
-          $scope.displayCustomersFromController = customers;
-        })
-        .catch((err) => console.log(err));
+  preLoad();
+
+  const preSave = () => {
+    $scope.paidtimeoff.DateFrom = DS.saveToOrion(new Date($scope.paidtimeoff.DateFrom));
+    $scope.paidtimeoff.DateTo = DS.saveToOrion(new Date($scope.paidtimeoff.DateTo));
+    $scope.paidtimeoff.created = DS.saveToOrion(new Date($scope.paidtimeoff.created));
+    if ($scope.paidtimeoff.timeApproved) {
+      $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date($scope.paidtimeoff.timeApproved));
     }
-  }
-  // ----------------------------------------------------
-}]);
+  };
 
-angular.module('UnitApp.Controllers').controller('UnitViewCtrl',
-  ['$window', '$scope', '$route', '$location', 'AlertService', 'SessionService', 'ApiRequestService', 'unit',
-function ($window, $scope, $route, $location, AlertService, SessionService, ApiRequestService, unit) {
-  
-  // Variables ------------------------------------------
-  const ARS = ApiRequestService;
-  const SS = SessionService;
-  $scope.unit = unit;
-  $scope.title = unit.number;
-  $scope.user = {};
-  $scope.supervisor = {};
-  // ----------------------------------------------------
-  
-  //fetch user info for PM Report -----------------------
-  if(unit.assignedTo) {
-    ARS.getUser({id: unit.assignedTo})
-      .then((user) => {
-        $scope.user = user;
-        return ARS.getUser({ id: user.supervisor });
-      })
-      .then((supervisor) => {
-        $scope.supervisor = supervisor;
-      })
-      .catch((err) => {
-        AlertService.add('danger',"Could not populate user data for PM Report");
+  $scope.approvalStatusChange = (changedData, selected) => {
+    if (selected === 'approved') {
+      $scope.paidtimeoff.approved = changedData;
+      if ($scope.paidtimeoff.rejected) {
+        $scope.paidtimeoff.rejected = false;
+      }
+    }
+    if (selected === 'rejected') {
+      $scope.paidtimeoff.rejected = changedData;
+      if ($scope.paidtimeoff.approved) {
+        $scope.paidtimeoff.approved = false;
+      }
+    }
+  };
+
+  $scope.changeManagerComment = (changedData, selected) => {
+    $scope.paidtimeoff.managerComment = changedData;
+  };
+
+  $scope.update = (doc) => {
+    PaidTimeOffs.update({id: doc._id}, doc,
+      (res) => {
+        AlertService.add('success', "Update was successful.");
+        $location.url('/paidtimeoff');
+      }, (err) => {
         console.log(err);
+        // if error reset back to display times
+        preLoad();
+        AlertService.add('danger', 'An error occurred while attempting to update this PTO.');
       })
-  }
-  // ----------------------------------------------------
-  
-  // Routes ---------------------------------------------
-  $scope.searchUnits = () => {
-    SS.add("unitNumber",$scope.unit.number);
-    $window.open(`#/workorder`);
-  }
-  // ----------------------------------------------------
-}]);
+  };
 
-angular.module('UnitApp.Controllers').controller('UnitPageCtrl',
-  ['coords', '$scope',
-    function (coords, $scope) {
-      $scope.coords = coords;
-    }]);
+  $scope.setManagerReviewed = () => {
+    $scope.paidtimeoff.approvedBy = $cookies.get('tech');
+    $scope.paidtimeoff.timeApproved = DS.saveToOrion(new Date());
+    preSave();
+    $scope.update($scope.paidtimeoff);
+  };
+
+  $scope.setAdminReviewed = () => {
+    $scope.paidtimeoff.adminReviewed = true;
+    preSave();
+    $scope.update($scope.paidtimeoff);
+  };
+}]);
 
 angular.module('WorkOrderApp.Components')
 .component('woOverviewTable', {
@@ -4706,8 +4224,8 @@ angular.module('WorkOrderApp.Controllers').controller('WorkOrderCtrl',
 }]);
 
 angular.module('WorkOrderApp.Controllers').controller('WorkOrderEditCtrl',
-['$window', '$q', '$scope', '$location', '$timeout', '$uibModal', '$cookies', 'AlertService', 'TimeDisplayService', 'ApiRequestService', 'GeneralPartSearchService', 'ObjectService', 'CommonWOfunctions', 'WorkOrders', 'ReviewNotes', 'EditHistories', 'Units', 'Users', 'Customers', 'workorder', 'reviewNotes', 'editHistories', 'assettypes', 'me', 'parts', 'counties', 'states', 'applicationtypes', 'DateService', 'locations',
-function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertService, TimeDisplayService, ApiRequestService, GeneralPartSearchService, ObjectService, CommonWOfunctions, WorkOrders, ReviewNotes, EditHistories,  Units, Users, Customers, workorder, reviewNotes, editHistories, assettypes, me, parts, counties, states, applicationtypes, DateService, locations) {
+['$window', '$q', '$scope', '$location', '$timeout', '$uibModal', '$cookies', 'AlertService', 'TimeDisplayService', 'ApiRequestService', 'GeneralPartSearchService', 'ObjectService', 'CommonWOfunctions', 'WorkOrders', 'ReviewNotes', 'EditHistories', 'Units', 'Users', 'Customers', 'workorder', 'reviewNotes', 'editHistories', 'assettypes', 'me', 'parts', 'states', 'applicationtypes', 'DateService', 'locations',
+function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertService, TimeDisplayService, ApiRequestService, GeneralPartSearchService, ObjectService, CommonWOfunctions, WorkOrders, ReviewNotes, EditHistories,  Units, Users, Customers, workorder, reviewNotes, editHistories, assettypes, me, parts, states, applicationtypes, DateService, locations) {
 
   const ARS = ApiRequestService;
   const DS = DateService;
@@ -4719,7 +4237,6 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
     }
   });
   $scope.parts = parts;
-  $scope.counties = counties;
   $scope.assettypes = assettypes;
   $scope.states = states;
   $scope.applicationtypes = applicationtypes;
@@ -4741,9 +4258,38 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
   $scope.userRideAlongArray = [];
   $scope.SyncedToNetsuite = $scope.workorder.timeSynced || $scope.workorder.updated_at;
 
-  _.map($scope.counties,(obj) => {
-    $scope.countiesArray.push(obj.name);
-  });
+  /*const getCounties = (skp, lm) => {
+    return new Promise((resolve, reject) => {
+      let skip = skp || 0;
+      const limit = lm || 10;
+      ARS.http.get.countiesSplit({skip, limit})
+        .then((res) => {
+          console.log(res);
+          if (res.data.length === limit) {
+            res.data.forEach((county) => {
+              $scope.counties.push(county);
+            });
+            skip += 1;
+            return getCounties(skip, limit);
+          } else {
+            return null;
+          }
+        })
+        .then(resolve)
+        .catch(reject);
+    });
+  };
+  getCounties()
+    .then((res) => {
+      $timeout(() => {
+        console.log($scope.counties);
+        _.map($scope.counties,(obj) => {
+          $scope.countiesArray.push(obj.name);
+        });
+      })
+    })
+    .catch(console.error);*/
+
   _.map($scope.states,(obj) => {
     $scope.statesArray.push(obj.name);
   });
@@ -4887,6 +4433,17 @@ function ($window, $q, $scope, $location, $timeout, $uibModal, $cookies, AlertSe
         }
       }).catch(console.error);
   };
+
+  // County header info changes ---------------------
+  $scope.countyNameChange = (changedData) => {
+    // Get all units that include the newVal string in their number
+    ARS.Counties({regexN: changedData, limit: 12})
+      .then((counties) => {
+        $scope.countiesArray = counties;
+      })
+      .catch((err) => console.error(err));
+  };
+  // ------------------------------------------------
 
   // Unit Header info changes -----------------------
   $scope.unitNumberChange = (changedData) => {
@@ -6710,6 +6267,497 @@ angular.module('WorkOrderApp.Services')
   return CommonWOFunctions;
 }]);
 
+angular.module('UnitApp.Components')
+  .component('unitMap', {
+    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitMap.html',
+    bindings: {
+      units: '<',
+      bounds: '<'
+    },
+    controller: ['$scope',class UnitMapCtrl {
+      constructor($scope) {
+        // Map creation and events ----------------------------
+        this.map = {
+          center: {
+            latitude: 37.996162679728116,
+            longitude: -98.0419921875
+          },
+          zoom: 4,
+          mapEvents: {
+            click: (marker, eventName, model) => {
+              const thisMarker = {
+                id: 0,
+                geo: {
+                  type: 'Point',
+                  coordinates: [0.0,0.0]
+                }
+              };
+              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
+              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
+              this.map.CoordInfoWindow.marker = thisMarker;
+              // need to re-render map when new marker is placed on click
+              $scope.$apply();
+            }
+          },
+          options: {
+            pixelOffset: {
+              width: -1,
+              height: -45
+            }
+          },
+        // ----------------------------------------------------
+        
+        // Marker and events for finding Coordinates ----------
+          CoordMarkerEvents: {
+            click: (marker, eventName, model) => {
+              this.map.CoordInfoWindow.model = model;
+              this.map.CoordInfoWindow.show = true;
+              this.map.unitInfoWindow.show = false;
+            }
+          },
+          CoordInfoWindow: {
+            marker: {id: 0},
+            show: false,
+            closeClick: function() {
+              this.show = false;
+            }
+          },
+        // ----------------------------------------------------
+  
+        // Markers and events for Units -----------------------
+          unitMarkerEvents: {
+            click: (marker, eventName, model) => {
+              this.map.unitInfoWindow.model = model;
+              this.map.unitInfoWindow.show = true;
+              this.map.CoordInfoWindow.show = false;
+            }
+          },
+          unitInfoWindow: {
+            marker: {},
+            show: false,
+            closeClick: function() {
+              this.show = false;
+            }
+          }
+        // ----------------------------------------------------
+        };
+        this.options = {scrollwheel: false};
+      }
+    }]
+  });
+
+
+angular.module('UnitApp.Components')
+  .component('unitPage', {
+    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitPage.html',
+    bindings: {
+      coords: '<'
+    },
+    controller: ['$scope', '$timeout', 'uiGmapGoogleMapApi', class UnitPageCtrl {
+      constructor($scope, $timeout, uiGmapGoogleMapApi) {
+        this.showMap = false;
+        this.$scope = $scope;
+        this.$timeout = $timeout;
+        this.ui = uiGmapGoogleMapApi;
+        // Map creation and events ----------------------------
+        this.map = {
+          center: {
+            latitude: 37.996162679728116,
+            longitude: -98.0419921875
+          },
+          zoom: 13,
+          bounds: {},
+          mapEvents: {
+            click: (marker, eventName, model) => {
+              const thisMarker = {
+                id: 3,
+                geo: {
+                  type: 'Point',
+                  coordinates: [0.0, 0.0]
+                }
+              };
+              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
+              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
+              this.map.CoordInfoWindow.marker = thisMarker;
+              // need to re-render map when new marker is placed on click
+              $scope.$apply();
+            }
+          },
+          options: {
+            pixelOffset: {
+              width: -1,
+              height: -45
+            }
+          },
+          // ----------------------------------------------------
+
+          // Marker and events for finding Coordinates ----------
+          CoordMarkerEvents: {
+            click: (marker, eventName, model) => {
+              this.map.CoordInfoWindow.model = model;
+              this.map.CoordInfoWindow.show = true;
+            }
+          },
+          CoordInfoWindow: {
+            marker: {id: 3},
+            show: false,
+            closeClick: function() {
+              this.show = false;
+            }
+          }
+          // ----------------------------------------------------
+        };
+
+        this.options = {scrollwheel: true};
+      }
+      // ----------------------------------------------------
+
+      // Initialize map and add unit marker -----------------
+      $onInit() {
+        this.map.center = {latitude: this.coords[1], longitude: this.coords[0]};
+
+        this.marker = {
+          id: 4,
+          geo: {type: 'Point', coordinates: this.coords},
+        };
+
+        this.ui.then(() => {
+          this.$timeout(() => {
+
+            this.showMap = true;
+          }, 100)
+        })
+
+      }
+      // ----------------------------------------------------
+    }]
+  });
+
+angular.module('UnitApp.Components')
+  .component('unitSat', {
+    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitSat.html',
+    bindings: {
+      unit: '<'
+    },
+    controller: ['$scope', '$timeout', 'uiGmapGoogleMapApi', class UnitSatCtrl {
+      constructor($scope, $timeout, uiGmapGoogleMapApi) {
+        this.showMap = false;
+        this.$scope = $scope;
+        this.$timeout = $timeout;
+        this.ui = uiGmapGoogleMapApi;
+        // Map creation and events ----------------------------
+        this.map = {
+          center: {
+            latitude: 37.996162679728116,
+            longitude: -98.0419921875
+          },
+          zoom: 18,
+          bounds: {},
+          mapEvents: {
+            click: (marker, eventName, model) => {
+              const thisMarker = {
+                id: 1,
+                geo: {
+                  type: 'Point',
+                  coordinates: [0.0, 0.0]
+                }
+              };
+              thisMarker.geo.coordinates[0] = model[0].latLng.lng().toFixed(6);
+              thisMarker.geo.coordinates[1] = model[0].latLng.lat().toFixed(6);
+              this.map.CoordInfoWindow.marker = thisMarker;
+              // need to re-render map when new marker is placed on click
+              $scope.$apply();
+            }
+          },
+          options: {
+            pixelOffset: {
+              width: -1,
+              height: -45
+            }
+          },
+        // ----------------------------------------------------
+  
+        // Marker and events for finding Coordinates ----------
+          CoordMarkerEvents: {
+            click: (marker, eventName, model) => {
+              this.map.CoordInfoWindow.model = model;
+              this.map.CoordInfoWindow.show = true;
+            }
+          },
+          CoordInfoWindow: {
+            marker: {id: 1},
+            show: false,
+            closeClick: function() {
+              this.show = false;
+            }
+          }
+        // ----------------------------------------------------
+        };
+
+        this.options = {scrollwheel: false, mapTypeId: google.maps.MapTypeId.SATELLITE};
+      }
+      // ----------------------------------------------------
+
+      // Initialize map and add unit marker -----------------
+      $onInit() {
+        this.map.center = _.cloneDeep(this.unit.geo);
+  
+        let now = new Date();
+        let inSevenDays = moment().add(7, 'days');
+        
+        let pmDate = this.unit.nextPmDate ? new Date(this.unit.nextPmDate) : null;
+  
+        let icon = 'lib/public/images/marker_grey.png';
+        if(pmDate) {
+          //If pmDate has passed, icon is red
+          if (moment(now).isAfter(pmDate, 'day')) {
+            icon = 'lib/public/images/marker_red.png';
+          }
+          //If pmDate is under 7 days away, icon is yellow
+          else if(moment(inSevenDays).isAfter(pmDate, 'day')) {
+            icon = 'lib/public/images/marker_yellow.png';
+          }
+          //pmDate hasn't passed and is more than 7 days away
+          else {
+            icon = 'lib/public/images/marker_green.png';
+          }
+        }
+  
+        this.marker = {
+          id: 0,
+          geo: this.unit.geo,
+          options: {
+            icon
+          }
+        };
+        
+        this.ui.then(() => {
+          this.$timeout(() => {
+            this.showMap = true;
+          }, 100)
+        })
+        
+      }
+      // ----------------------------------------------------
+    }]
+  });
+
+angular.module('UnitApp.Components')
+  .component('unitSearch', {
+    templateUrl: '/lib/public/angular/apps/unit/views/component-views/unitSearch.html',
+    bindings: {
+      populateUnits: '&',
+      onTypeaheadChange: '&',
+      displayUnits: '<',
+      users: '<',
+      customers: '<',
+    },
+    controller: [ class UnitSearchCtrl {
+      constructor() {
+        this.params = {
+          numbers: null, //Unit Numbers
+          supervisor: null, //Supervisor techID
+          techs: null, //TechID unit is assigned to
+          customer: null,
+          from: null,
+          to: null,
+          size: 99999
+        };
+      }
+      
+      // Search Changes -------------------------------------
+      unitChange(changedData, selected) {
+        this.onTypeaheadChange({ changedData, selected });
+      }
+      supervisorChange(changedData, selected) {
+        this.onTypeaheadChange({ changedData, selected });
+      }
+      techChange(changedData, selected) {
+        this.onTypeaheadChange({ changedData, selected });
+      }
+      customerChange(changedData, selected){
+        this.onTypeaheadChange({ changedData, selected });
+      }
+      // ----------------------------------------------------
+      
+      // Clear search terms ---------------------------------
+      clearText(selected){
+        switch (selected) {
+          case 'unitNumber':
+            this.params.numbers = null;
+            break;
+          case 'supervisor':
+            this.params.supervisor = null;
+            break;
+          case 'tech':
+            this.params.techs = null;
+            break;
+          case 'customer':
+            this.params.customer = null;
+            break;
+        }
+      }
+      // ----------------------------------------------------
+  
+      // Send search to Parent to populate Units ------------
+      search() {
+        const params = _.omitBy(this.params, _.isNull);
+        this.populateUnits({params});
+      }
+      // ----------------------------------------------------
+    }]
+  });
+
+
+
+angular.module('UnitApp.Controllers').controller('UnitIndexCtrl',
+['$scope', 'AlertService', 'ApiRequestService',
+function ($scope, AlertService, ApiRequestService) {
+  
+  // Variables ------------------------------------------
+  const ARS = ApiRequestService;               // local
+  $scope.title = "Units Map";                  // local
+  $scope.units = [];                           // to UnitMap
+  $scope.bounds = {};                          // to UnitMap
+  $scope.displayUnitsFromController = [];      // to UnitSearch
+  $scope.displayUsersFromController = [];      // to UnitSearch
+  $scope.displayCustomersFromController = [];  // to UnitSearch
+  // ----------------------------------------------------
+  
+  // Get Units on Search --------------------------------
+  $scope.setUnits = (params) => {
+    if(params.hasOwnProperty("numbers")) {
+      params.numbers = params.numbers.replace(/\s/g,'').split(",");
+    }
+    if(params.hasOwnProperty("techs")) {
+      params.techs = params.techs.replace(/\s/g,'').split(",");
+    }
+    ARS.Units(params)
+      .then((units) => {
+        $scope.units = units.map((unit) => {
+          let now = new Date();
+          let inSevenDays = moment().add(7, 'days');
+          let pmDate = unit.nextPmDate ? new Date(unit.nextPmDate) : null;
+          
+          let icon = 'lib/public/images/marker_grey.png';
+          if(pmDate) {
+            //If pmDate has passed, icon is red
+            if (moment(now).isAfter(pmDate, 'day')) {
+              icon = 'lib/public/images/marker_red.png';
+            }
+            //If pmDate is under 7 days away, icon is yellow
+            else if(moment(inSevenDays).isAfter(pmDate, 'day')) {
+              icon = 'lib/public/images/marker_yellow.png';
+            }
+            //pmDate hasn't passed and is more than 7 days away
+            else {
+              icon = 'lib/public/images/marker_green.png';
+            }
+          }
+  
+          return {
+            id: unit.number,
+            geo: unit.geo,
+            show: false,
+            productSeries: unit.productSeries,
+            locationName: unit.locationName,
+            customerName: unit.customerName,
+            assignedTo: unit.assignedTo,
+            pmDate,
+            icon
+          }
+        })
+      })
+      .catch( (err) => {
+        AlertService.add('danger', "Failed to load", 2000);
+        console.log(err);
+      });
+  };
+  // ----------------------------------------------------
+  
+  // Component methods ----------------------------------
+  $scope.typeaheadChange = function (changedData, selected) {
+    if(selected === 'unitNumber'){
+      ARS.Units({regexN: changedData})
+        .then((units) => {
+          $scope.displayUnitsFromController = units;
+        })
+        .catch((err) => console.log(err))
+    } else if( selected === 'supervisor' || selected === 'tech'){
+      //const name = changedData.toUpperCase();
+      ARS.Users({ regexName: name })
+        .then((users) => {
+          const userArray = [];
+          if(users.length > 0){
+            for(let user in users){
+              if(users.hasOwnProperty(user)){
+                if(users[user].hasOwnProperty('firstName')){
+                  const fullName = users[user].firstName.concat(" ").concat(users[user].lastName);
+                  const thisUser = users[user];
+                  thisUser.fullName = fullName;
+                  userArray.push(thisUser);
+                }
+              }
+            }
+            $scope.displayUsersFromController = userArray;
+          }
+        })
+        .catch((err) => console.log(err));
+    } else if( selected === 'customer'){
+      ARS.Customers({ regexName: changedData })
+        .then((customers) => {
+          $scope.displayCustomersFromController = customers;
+        })
+        .catch((err) => console.log(err));
+    }
+  }
+  // ----------------------------------------------------
+}]);
+
+angular.module('UnitApp.Controllers').controller('UnitViewCtrl',
+  ['$window', '$scope', '$route', '$location', 'AlertService', 'SessionService', 'ApiRequestService', 'unit',
+function ($window, $scope, $route, $location, AlertService, SessionService, ApiRequestService, unit) {
+  
+  // Variables ------------------------------------------
+  const ARS = ApiRequestService;
+  const SS = SessionService;
+  $scope.unit = unit;
+  $scope.title = unit.number;
+  $scope.user = {};
+  $scope.supervisor = {};
+  // ----------------------------------------------------
+  
+  //fetch user info for PM Report -----------------------
+  if(unit.assignedTo) {
+    ARS.getUser({id: unit.assignedTo})
+      .then((user) => {
+        $scope.user = user;
+        return ARS.getUser({ id: user.supervisor });
+      })
+      .then((supervisor) => {
+        $scope.supervisor = supervisor;
+      })
+      .catch((err) => {
+        AlertService.add('danger',"Could not populate user data for PM Report");
+        console.log(err);
+      })
+  }
+  // ----------------------------------------------------
+  
+  // Routes ---------------------------------------------
+  $scope.searchUnits = () => {
+    SS.add("unitNumber",$scope.unit.number);
+    $window.open(`#/workorder`);
+  }
+  // ----------------------------------------------------
+}]);
+
+angular.module('UnitApp.Controllers').controller('UnitPageCtrl',
+  ['coords', '$scope',
+    function (coords, $scope) {
+      $scope.coords = coords;
+    }]);
+
 angular.module('PartOrderApp.Components')
 .controller('AddPartPOModalCtrl', [ '$scope', '$uibModalInstance',
 function ($scope, $uibModalInstance) {
@@ -7945,6 +7993,46 @@ function SelectTechOrWarehouseCtrl (LocationItemService) {
   // ------------------------------------------------------------
 }
 
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderComments', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woComments.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderEmissionsReadings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woEmissionsReadings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderHistory', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woHistory.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderUnitReadings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woUnitReadings.html',
+    scope: true
+  };
+}]);
+
 angular.module('WorkOrderApp.Controllers').controller('ConfirmationCtrl',
   function ($scope, $uibModalInstance){
     $scope.confirm = () => {
@@ -7996,46 +8084,6 @@ angular.module('WorkOrderApp.Controllers').controller('woLocationModalCtrl',['$w
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderComments', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woComments.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderEmissionsReadings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woEmissionsReadings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderHistory', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woHistory.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderUnitReadings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/woUnitReadings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
 .directive('reviewComments', [function () {
   return {
     restrict: 'E',
@@ -8074,64 +8122,35 @@ angular.module('WorkOrderApp.Directives')
   };
 }]);
 
-angular.module('WorkOrderApp.Controllers').controller('AddPartEditModalCtrl',
-  function ( $scope, $uibModalInstance, ObjectService){
-    $scope.part = {};
-    
-    $scope.changePartTextAreaField = (changedData, selected) => {
-      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
-    };
-    
-    $scope.changePartTextField = ( changedData, selected ) => {
-      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
-    };
-    
-    $scope.addPart = () => {
-      $uibModalInstance.close($scope.part);
-    };
-    $scope.cancel = () => {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
+angular.module('WorkOrderApp.Directives')
 
-angular.module('WorkOrderApp.Controllers').controller('JsaEditModalCtrl',
-  function ( $scope, $uibModalInstance, jsa, ObjectService ){
-    $scope.jsa = jsa;
-    
-    $scope.changeJsaTextAreaField = (changeData, selected) => {
-      ObjectService.updateNestedObjectValue($scope.jsa, changeData, selected);
-    };
-    
-    $scope.changeJsaCheckbox = (changedData, selected) => {
-      ObjectService.updateNestedObjectValue($scope.jsa, changedData, selected);
-    };
-    $scope.changeJsaTextField = (changedData, selected) => {
-      ObjectService.updateNonNestedObjectValue($scope.jsa, changedData, selected);
-    };
-    
-    $scope.ok = () => {
-      $uibModalInstance.close($scope.jsa);
-    };
-    $scope.cancel = function (){
-      $uibModalInstance.dismiss('cancel');
-    };
-    $scope.removeTech = (tech) => {
-      const index = $scope.jsa.techinicians.indexOf(tech);
-      $scope.jsa.techinicians.splice(index, 1);
-    };
-  });
+.directive('workorderPartsAdd', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
+    scope: true
+  };
+}]);
 
-angular.module('WorkOrderApp.Controllers').controller('JsaReviewModalCtrl',
-  function ( $scope, $uibModalInstance, jsa ){
-    $scope.jsa = jsa;
-    
-    $scope.ok = () => {
-      $uibModalInstance.close($scope.jsa);
-    };
-    $scope.cancel = () => {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPartsList', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderParts', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
+    scope: true
+  };
+}]);
 
 angular.module('WorkOrderApp.Directives')
 
@@ -8295,33 +8314,110 @@ angular.module('WorkOrderApp.Directives')
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderPartsAdd', [function () {
+.directive('workorderEngineChecks', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsAdd.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderPartsList', [function () {
+.directive('workorderEngineCompression', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/woPartsList.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
     scope: true
   };
 }]);
 
 angular.module('WorkOrderApp.Directives')
 
-.directive('workorderParts', [function () {
+.directive('workorderGeneralChecks', [function () {
   return {
     restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/parts/workorderParts.html',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
     scope: true
   };
 }]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderKillSettings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPmMisc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('workorderPm', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPM.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Controllers').controller('AddPartEditModalCtrl',
+  function ( $scope, $uibModalInstance, ObjectService){
+    $scope.part = {};
+    
+    $scope.changePartTextAreaField = (changedData, selected) => {
+      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
+    };
+    
+    $scope.changePartTextField = ( changedData, selected ) => {
+      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
+    };
+    
+    $scope.addPart = () => {
+      $uibModalInstance.close($scope.part);
+    };
+    $scope.cancel = () => {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
+
+angular.module('WorkOrderApp.Controllers').controller('JsaEditModalCtrl',
+  function ( $scope, $uibModalInstance, jsa, ObjectService ){
+    $scope.jsa = jsa;
+    
+    $scope.changeJsaTextAreaField = (changeData, selected) => {
+      ObjectService.updateNestedObjectValue($scope.jsa, changeData, selected);
+    };
+    
+    $scope.changeJsaCheckbox = (changedData, selected) => {
+      ObjectService.updateNestedObjectValue($scope.jsa, changedData, selected);
+    };
+    $scope.changeJsaTextField = (changedData, selected) => {
+      ObjectService.updateNonNestedObjectValue($scope.jsa, changedData, selected);
+    };
+    
+    $scope.ok = () => {
+      $uibModalInstance.close($scope.jsa);
+    };
+    $scope.cancel = function (){
+      $uibModalInstance.dismiss('cancel');
+    };
+    $scope.removeTech = (tech) => {
+      const index = $scope.jsa.techinicians.indexOf(tech);
+      $scope.jsa.techinicians.splice(index, 1);
+    };
+  });
 
 angular.module('WorkOrderApp.Directives')
 
@@ -8413,155 +8509,17 @@ angular.module('WorkOrderApp.Directives')
   };
 }]);
 
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderEngineChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderEngineCompression', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woEngineCompression.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderGeneralChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woGeneralChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderKillSettings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woKillSettings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPmMisc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPMMisc.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('workorderPm', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/edit/pm/woPM.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEngineChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewEngineCompression', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineCompression.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewGeneralChecks', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woGeneralChecks.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewKillSettings', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woKillSettings.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPmMisc', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPMMisc.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPm', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPM.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPartsAdd', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/woPartsAdd.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewPartsList', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/woPartsList.html',
-    scope: true
-  };
-}]);
-
-angular.module('WorkOrderApp.Directives')
-
-.directive('reviewParts', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/workorderParts.html',
-    scope: true
-  };
-}]);
+angular.module('WorkOrderApp.Controllers').controller('JsaReviewModalCtrl',
+  function ( $scope, $uibModalInstance, jsa ){
+    $scope.jsa = jsa;
+    
+    $scope.ok = () => {
+      $uibModalInstance.close($scope.jsa);
+    };
+    $scope.cancel = () => {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
 
 angular.module('WorkOrderApp.Directives')
 
@@ -8639,6 +8597,96 @@ angular.module('WorkOrderApp.Directives')
   return {
     restrict: 'E',
     templateUrl: '/lib/public/angular/apps/workorder/views/review/lc/workorderLaborCodes.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPartsAdd', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/woPartsAdd.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPartsList', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/woPartsList.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewParts', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/parts/workorderParts.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEngineChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewEngineCompression', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woEngineCompression.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewGeneralChecks', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woGeneralChecks.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewKillSettings', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woKillSettings.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPmMisc', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPMMisc.html',
+    scope: true
+  };
+}]);
+
+angular.module('WorkOrderApp.Directives')
+
+.directive('reviewPm', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/review/pm/woPM.html',
     scope: true
   };
 }]);

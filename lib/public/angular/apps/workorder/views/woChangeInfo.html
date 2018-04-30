@@ -21,12 +21,15 @@
       <input
         type="text"
         ng-style="myStyle"
-        name="county"
+        name="name"
         ng-model="workorder.unitChangeInfo.transferCounty"
-        uib-typeahead="county for county in countiesArray | filter:$viewValue | limitTo:12"
+        ng-change="countyNameChange(workorder.unitChangeInfo.transferCounty)"
+        uib-typeahead="county.name for county in countiesArray | filter:$viewValue | limitTo:12"
         class="form-control"
-        pes-swap-collection-match
+        pes-collection-match
+        typeahead-wait-ms="100"
         typeahead-select-on-exact="true"
+        typeahead-on-select="countyNameChange(workorder.unitChangeInfo.transferCounty)"
         ng-disabled="disabled">
     </div>
     <div class="form-group col-xs-4" ng-show="workorder.type === 'Transfer'">

@@ -60,12 +60,15 @@
     <input
       type="text"
       ng-style="myStyle"
-      name="county"
+      name="name"
       ng-model="workorder.header.county"
-      uib-typeahead="county for county in countiesArray | filter:$viewValue | limitTo:12"
+      ng-change="countyNameChange(workorder.header.county)"
+      uib-typeahead="county.name for county in countiesArray | filter:$viewValue | limitTo:12"
       class="form-control"
       pes-collection-match
+      typeahead-wait-ms="100"
       typeahead-select-on-exact="true"
+      typeahead-on-select="countyNameChange(workorder.header.county)"
       ng-disabled="disabled">
   </div>
 
