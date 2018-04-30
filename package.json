@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "test": "export NODE_ENV=test; mocha --check-leaks --reporter=nyan --use_strict test/tests.js",
-    "start": "node app.js"
+    "start": "node --max_old_space_size=2048 app.js"
   },
   "nyc": {
     "include": [

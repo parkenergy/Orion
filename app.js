@@ -64,7 +64,7 @@ app.get('/', (req, res) => {
 
 //Standard middleware
 log.info("Load standard middleware");
-app.use(bodyParser.json({ type: '*/*', limit: '100mb', extended: true}));
+app.use(bodyParser.json({ type: '*/*', limit: '20mb', extended: true}));
 
 app.use(cookieParser());
 app.use(sessions({
