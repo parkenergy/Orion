@@ -6,7 +6,9 @@
   	<text-area-field
       ng-show="workorder.pm ||
                workorder.type == 'Corrective' ||
-               workorder.type == 'Trouble Call'"
+               workorder.type == 'Trouble Call' ||
+               workorder.type == 'Swap' ||
+               workorder.type == 'Transfer'"
   		label-text="Description of Repairs Made"
   		placeholder-text="Please describe the repairs in detail"
       data="workorder.comments.repairsDescription"
@@ -40,6 +42,20 @@
       data="workorder.comments.releaseNotes"
       disabled="true">
   	</text-area-field>
+    <text-area-field
+      ng-show="workorder.type == 'Transfer'"
+      label-text="Unit Transfer Notes"
+      placeholder-text="Please provide unit transfer notes"
+      data="workorder.comments.transferReason"
+      disabled="true">
+    </text-area-field>
+    <text-area-field
+      ng-show="workorder.type == 'Swap'"
+      label-text="Unit Swap Notes"
+      placeholder-text="Please provide unit swap notes"
+      data="workorder.comments.swapReason"
+      disabled="true">
+    </text-area-field>
   	<text-area-field
       ng-show="workorder.type == 'Indirect'"
   		label-text="Indirect Notes"
