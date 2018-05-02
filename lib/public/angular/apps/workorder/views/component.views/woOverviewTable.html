@@ -295,9 +295,7 @@
         </tr>
         </thead>
 
-        <tbody infinite-scroll="$ctrl.loadOnScroll()"
-               infinite-scroll-immediate-check="false"
-               infinite-scroll-disabled="false">
+        <tbody>
         <tr ng-repeat="workorder in $ctrl.workorders | orderBy:$ctrl.orderByField:$ctrl.reverseSort"  ng-click="$ctrl.clickWorkOrder(workorder);"
             style="background-color: {{$ctrl.setBillableBackgroundColor(workorder)}}">
           <td>{{ workorder.unitNumber === '' ? '-' : workorder.unitNumber }}</td>
