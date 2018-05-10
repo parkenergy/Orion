@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 const BunyanSlack = require('bunyan-slack');
 
 const config = {

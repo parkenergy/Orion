@@ -1,16 +1,16 @@
-// 'use strict';
+'use strict';
 
 const express  = require('express'),
   config       = require('./config.js'),
   path         = require('path'),
   fs           = require('fs'),
-  Agenda       = require('agenda'),
+    // Agenda       = require('agenda'),
   log          = require('./lib/helpers/logger'),
   sessions     = require('client-sessions'),
   cookieParser = require('cookie-parser'),
   bodyParser   = require('body-parser'),
-  TH           = require('./lib/helpers/task_helper'),
-  DS           = require('./lib/databaseScripts'),
+    // TH           = require('./lib/helpers/task_helper'),
+    // DS           = require('./lib/databaseScripts'),
   mongoose     = require('mongoose');
 
 //Catch uncaught exceptions to log in bunyan
