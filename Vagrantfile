@@ -23,9 +23,10 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "ansible" do |ansible|
-     ansible.playbook = "provisioning/devBox.yml"
-     ansible.inventory_path = "provisioning/inventory"
-     ansible.sudo = true
+    ansible.compatibility_mode = "2.0"
+    ansible.playbook = "provisioning/devBox.yml"
+    ansible.inventory_path = "provisioning/inventory"
+    ansible.become = true
   end
 
 end

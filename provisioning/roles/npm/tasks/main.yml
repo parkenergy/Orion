@@ -9,7 +9,6 @@
     - mocha
     - chai
     - nodemon
-    - protractor
     - jshint
     - bunyan
     - browserify

@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 const express  = require('express'),
   config       = require('./config.js'),
@@ -7,7 +7,6 @@ const express  = require('express'),
   Agenda       = require('agenda'),
   log          = require('./lib/helpers/logger'),
   sessions     = require('client-sessions'),
-  Promise      = require('bluebird'),
   cookieParser = require('cookie-parser'),
   bodyParser   = require('body-parser'),
   TH           = require('./lib/helpers/task_helper'),
@@ -26,7 +25,7 @@ process.on('uncaughtException', (err) => {
 });
 
 //plugin bluebird as promise provider
-mongoose.Promise = Promise;
+// mongoose.Promise = Promise;
 
 //log environment
 log.info({env: process.env.NODE_ENV}, 'Starting for environment');
@@ -58,7 +57,7 @@ app.use('/lib/public', express.static(path.join(__dirname, '/lib/public')));
 
 //Serve SPA(index.ejs)
 app.get('/', (req, res) => {
-  var model = { appName: "Orion", title: "Orion" };
+  const model = { appName: "Orion", title: "Orion" };
   res.render('index', model);
 });
 
@@ -102,7 +101,7 @@ function loader(dir) {
 
   fs.readdirSync(dir)
     .forEach((fileName) => {
-      var modulePath = path.join(dir, fileName);
+      const modulePath = path.join(dir, fileName);
       log.info({path: modulePath, file: __filename, fn: "#loader()"}, "Load module");
       require(modulePath)(app);
     });

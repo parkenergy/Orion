@@ -9,7 +9,6 @@
 const CallReport = require('../../lib/models/callReport'),
   mongoose       = require('mongoose'),
   config         = require('../../config'),
-  Promise        = require('bluebird'),
   should         = require('should'),
   _              = require('lodash'),
   fixture        = require('../fixture/callReport.json');

@@ -2,24 +2,21 @@
  ----------------------------------------------------------------------------- */
 
 // Include gulp
-var gulp = require('gulp');
+const gulp = require('gulp');
 
 // Include Gulp Plugins
-var jshint = require('gulp-jshint');
-var less = require('gulp-less');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
-var nodemon = require('gulp-nodemon');
-var mocha = require('gulp-mocha');
-var rimraf = require('gulp-rimraf');
-var git = require('gulp-git');
-var exit = require('gulp-exit');
-var gitWatch = require('gulp-git-watch');
-var path = require('path');
+const  jshint = require('gulp-jshint'),
+  less = require('gulp-less'),
+  concat = require('gulp-concat'),
+  uglify = require('gulp-uglify-es').default,
+  nodemon = require('gulp-nodemon'),
+  mocha = require('gulp-mocha'),
+  strip = require('gulp-strip-comments');
+
+const path = require('path');
 
 // used to bundle server side code needed by the client
-var runSequence = require('run-sequence');
+const runSequence = require('run-sequence');
 
 /* TASKS
  ----------------------------------------------------------------------------- */
@@ -27,6 +24,7 @@ var runSequence = require('run-sequence');
 
 /* Sync (git)
  ----------------------------------------------------------------------------- */
+/*
 gulp.task('purge', function () {
   gulp.src('./lib/', { read: false })
     .pipe(rimraf({ force: true }))
@@ -43,11 +41,26 @@ gulp.task('updateSubmodules', function () {
   git.updateSubmodule({ args: '--init' });
 });
 
+*/
 
 /* Packaging
  ----------------------------------------------------------------------------- */
 gulp.task('model-packager', function() {
   return gulp.src('./models/**/*')
+    .pipe(strip())
+    .pipe(uglify({
+      ecma: 7,
+      compress: {
+        warnings: false,
+        inline: 3,
+        keep_classnames: true,
+        keep_fnames: true
+      },
+      mangle: {
+        keep_classnames: true,
+        keep_fnames: true
+      }
+    }))
     .pipe(gulp.dest('./lib/models'));
 });
 
@@ -69,6 +82,17 @@ gulp.task('scripts', function() { // concat js files
     './lib/public/bootstrap/bootstrap.min.js',
     './public/app/**/*.js'
   ])
+    .pipe(strip())
+    .pipe(uglify({
+      ecma: 7,
+      compress: {
+        warnings: false,
+        inline: 3,
+        keep_classnames: true,
+        keep_fnames: true
+      },
+      mangle: false,
+    }))
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('public'));
 });
@@ -144,7 +168,7 @@ gulp.task('watch', function() {
 });
 
 // Watch Remote Git Hash for Changes
-gulp.task('git-watch', function() {
+/*gulp.task('git-watch', function() {
   gitWatch({
     gitPull: ['git', 'pull', 'origin', 'master'],
     poll: 5*1000,
@@ -159,14 +183,14 @@ gulp.task('git-watch', function() {
     .on('change', function(newHash, oldHash) {
       console.log('Changed:', oldHash, '->', newHash, '\n');
     });
-});
+});*/
 
 /* Shutdown MongoDB
  ----------------------------------------------------------------------------- */
-var exec = require('child_process').exec;
+const exec = require('child_process').exec;
 
 gulp.task('shutdown-mongodb', function (callback) {
-  var cmd = "mongo admin --eval 'db.shutdownServer()' > /dev/null";
+  const cmd = "mongo admin --eval 'db.shutdownServer()' > /dev/null";
   exec(cmd, function (err) { callback(err); });
 });
 

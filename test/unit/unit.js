@@ -1,5 +1,4 @@
 const mongoose     = require('mongoose'),
-  Promise          = require('bluebird'),
   should           = require('should'),
   _                = require('lodash'),
   County           = require('../../lib/models/county'),
@@ -59,7 +58,7 @@ describe("Unit Units", () => {
       newUnit.netsuiteId = "s987";
       newUnit.customerName = "CUST 3210";
 
-      return Promise.join([
+      return Promise.all([
         Unit.createDoc(newUnit),
         User.createDoc(newUser),
       ]);

@@ -1,82 +1,73 @@
 {
-  "name": "Orion",
-  "version": "0.13.5",
-  "description": "A workorder tracking software system for Park Energy",
-  "main": "",
-  "scripts": {
-    "test": "export NODE_ENV=test; mocha --check-leaks --reporter=nyan --use_strict test/tests.js",
-    "start": "node --max_old_space_size=2048 app.js"
-  },
-  "nyc": {
-    "include": [
-      "lib/managers/workOrder.js",
-      "lib/managers/user.js",
-      "lib/managers/editHistory.js"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "author": "Travis Sturzl <travissturzl@gmail.com>",
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": ""
-  },
-  "engines": {
-    "node": "^6.11.5",
-    "npm": "^3.10.10"
-  },
-  "homepage": "",
-  "dependencies": {
-    "agenda": "^0.7.2",
-    "async": "^2.0.0-rc.3",
-    "axios": "^0.16.2",
-    "bluebird": "^3.3.4",
-    "body-parser": "^1.15.0",
-    "bunyan": "^1.8.0",
-    "bunyan-slack": "0.0.10",
-    "client-sessions": "^0.7.0",
-    "cookie-parser": "^1.4.1",
-    "deep-diff": "^0.3.4",
-    "ejs": "^2.3.1",
-    "express": "^4.13.4",
-    "express-bunyan-logger": "^1.2.0",
-    "express-query-boolean": "^1.0.0",
-    "lodash": "^4.11.1",
-    "mongoose": "^4.4.10",
-    "mongoose-autopopulate": "^0.4.0",
-    "needle": "^0.10.0",
-    "nodemailer": "^4.1.3",
-    "passport": "^0.3.2",
-    "passport-google-oauth": "^1.0.0",
-    "request-promise": "^3.0.0",
-    "tedb-utils": "0.0.3",
-    "xxhashjs": "^0.2.1"
-  },
-  "devDependencies": {
-    "browserify": "^10.2.0",
-    "chai": "^2.3.0",
-    "git-rev": "^0.2.1",
-    "gulp": "^3.8.11",
-    "gulp-concat": "^2.5.2",
-    "gulp-exit": "0.0.2",
-    "gulp-git": "^1.2.4",
-    "gulp-git-watch": "^0.1.0",
-    "gulp-if": "^1.2.5",
-    "gulp-jshint": "^1.10.0",
-    "gulp-less": "^3.0.3",
-    "gulp-mocha": "^2.2.0",
-    "gulp-nodemon": "^2.0.3",
-    "gulp-rename": "^1.2.2",
-    "gulp-rimraf": "^0.1.1",
-    "gulp-uglify": "^1.2.0",
-    "jshint": "^2.7.0",
-    "mocha": "^2.4.5",
-    "nock": "^9.0.2",
-    "nodemon": "^1.3.7",
-    "protractor": "^2.0.0",
-    "run-sequence": "^1.1.1",
-    "should": "^8.3.0"
-  }
+    "name": "Orion",
+    "version": "0.14.0",
+    "description": "A workorder tracking software system for Park Energy",
+    "main": "",
+    "scripts": {
+        "test": "export NODE_ENV=test; mocha --check-leaks --reporter=nyan --use_strict test/tests.js",
+        "start": "node --max_old_space_size=2048 app.js"
+    },
+    "nyc": {
+        "include": [
+            "lib/managers/workOrder.js",
+            "lib/managers/user.js",
+            "lib/managers/editHistory.js"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "author": "Travis Sturzl <travissturzl@gmail.com>",
+    "license": "UNLICENSED",
+    "bugs": {
+        "url": ""
+    },
+    "engines": {
+        "node": "^8.11.1",
+        "npm": "^5.6.0"
+    },
+    "homepage": "",
+    "dependencies": {
+        "agenda": "^1.0.3",
+        "async": "^2.0.0-rc.3",
+        "axios": "^0.18.0",
+        "body-parser": "^1.15.0",
+        "bunyan": "^1.8.0",
+        "bunyan-slack": "0.0.10",
+        "client-sessions": "^0.8.0",
+        "cookie-parser": "^1.4.1",
+        "deep-diff": "^1.0.0",
+        "ejs": "^2.3.1",
+        "express": "^4.13.4",
+        "express-bunyan-logger": "^1.2.0",
+        "express-query-boolean": "^2.0.0",
+        "lodash": "^4.11.1",
+        "mongoose": "^5.0.17",
+        "mongoose-autopopulate": "^0.6.1",
+        "nodemailer": "^4.1.3",
+        "passport": "^0.4.0",
+        "passport-google-oauth": "^1.0.0",
+        "request-promise": "^4.2.2",
+        "tedb-utils": "0.0.3",
+        "xxhashjs": "^0.2.1"
+    },
+    "devDependencies": {
+        "browserify": "^16.2.2",
+        "chai": "^4.1.2",
+        "gulp": "^3.8.11",
+        "gulp-concat": "^2.5.2",
+        "gulp-jshint": "^2.1.0",
+        "gulp-less": "^3.0.3",
+        "gulp-mocha": "^5.0.0",
+        "gulp-nodemon": "^2.0.3",
+        "gulp-strip-comments": "^2.5.2",
+        "gulp-uglify-es": "^1.0.1",
+        "jshint": "^2.7.0",
+        "mocha": "^5.1.1",
+        "nock": "^9.0.2",
+        "nodemon": "^1.3.7",
+        "run-sequence": "^2.2.1",
+        "should": "^13.2.1"
+    }
 }
