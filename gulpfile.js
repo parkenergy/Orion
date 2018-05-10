@@ -5,12 +5,10 @@
 const gulp = require('gulp');
 
 // Include Gulp Plugins
-const  jshint = require('gulp-jshint'),
-  less = require('gulp-less'),
+const less = require('gulp-less'),
   concat = require('gulp-concat'),
   uglify = require('gulp-uglify-es').default,
   nodemon = require('gulp-nodemon'),
-  mocha = require('gulp-mocha'),
   strip = require('gulp-strip-comments');
 
 const path = require('path');
@@ -45,8 +43,8 @@ gulp.task('updateSubmodules', function () {
 
 /* Packaging
  ----------------------------------------------------------------------------- */
-gulp.task('model-packager', function() {
-  return gulp.src('./models/**/*')
+/*gulp.task('model-packager', function() {
+  return gulp.src('./models/!**!/!*')
     .pipe(strip())
     .pipe(uglify({
       ecma: 7,
@@ -62,7 +60,7 @@ gulp.task('model-packager', function() {
       }
     }))
     .pipe(gulp.dest('./lib/models'));
-});
+});*/
 
 
 /* Bundling
@@ -100,14 +98,14 @@ gulp.task('scripts', function() { // concat js files
 
 /* LINT
  ----------------------------------------------------------------------------- */
-gulp.task('back-end-lint', function () {
+/*gulp.task('back-end-lint', function () {
   return gulp.src([
-    './lib/controllers/**/*.js',
-    './lib/helpers/**/*.js',
-    './lib/models/**/*.js',
-    './lib/routes/**/*.js',
-    './lib/tests/**/*.js',
-    './routes/**/*.js',
+    './lib/controllers/!**!/!*.js',
+    './lib/helpers/!**!/!*.js',
+    './lib/models/!**!/!*.js',
+    './lib/routes/!**!/!*.js',
+    './lib/tests/!**!/!*.js',
+    './routes/!**!/!*.js',
     './app.js',
     './gulpfile.js'
   ])
@@ -118,27 +116,24 @@ gulp.task('back-end-lint', function () {
 
 gulp.task('front-end-lint', function() {
   return gulp.src([
-    './lib/public/angular/**/*.js',
-    './public/app/**/*.js'
+    './lib/public/angular/!**!/!*.js',
+    './public/app/!**!/!*.js'
   ])
     .pipe(jshint({ esnext: true }))
     .pipe(jshint({esnext: true}))
     .pipe(jshint.reporter('default'));
-});
+});*/
 
 
 /* Testing
  ----------------------------------------------------------------------------- */
-gulp.task('mocha', function () {
-  // return gulp.src('./lib/tests/mocha/**/*.js', {read: false})
-  //     .pipe(mocha({reporter: 'nyan'}));
-});
+
 
 
 /* Start
  ----------------------------------------------------------------------------- */
 // launches the server with nodemon
-gulp.task('start', ['test'], function () {
+gulp.task('start', function () {
   nodemon({
     script: 'app.js',
     ext: 'js',
@@ -147,7 +142,7 @@ gulp.task('start', ['test'], function () {
       './public/lib/**/*.js',
       './app.js'
     ]})
-    .on('restart', 'test');
+      .on('restart');
 });
 
 /* Watching
@@ -200,20 +195,14 @@ gulp.task('shutdown-mongodb', function (callback) {
 //   runSequence('updateSubmodules', callback);
 // });
 //
+/*
 gulp.task('package', function (callback) {
   runSequence('model-packager', callback);
 });
+*/
 
 gulp.task('bundle', function (callback) {
   runSequence('less', 'scripts', callback);
-});
-
-gulp.task('lint', ['bundle'], function (callback) {
-  runSequence('back-end-lint', 'front-end-lint', callback);
-});
-
-gulp.task('test', ['lint'], function (callback) {
-  runSequence('mocha', callback);
 });
 
 gulp.task('default', function (callback) {
