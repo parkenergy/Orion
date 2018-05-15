@@ -82,7 +82,7 @@ gulp.task('scripts', function() { // concat js files
   ])
     .pipe(strip())
     .pipe(uglify({
-      ecma: 7,
+        ecma: 6,
       compress: {
         warnings: false,
         inline: 3,

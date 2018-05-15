@@ -271,7 +271,7 @@ describe("WorkOrder Units", () => {
                     docs.forEach(doc => {
                         doc.techId.should.equal("TEST003");
                     });
-                });
+                })
         }).slow(15000);
 
         it("Should list workorders with specific leaseName", () => {
