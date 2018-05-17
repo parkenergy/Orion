@@ -43,7 +43,7 @@ mongoose.connection.on('error', (err) => {
 mongoose.connection.on('connect', () => {
     console.log('MongoDB connected');
 });
-connectWithRetry();
+const connection = connectWithRetry();
 //mongoose.createConnection(config.mongodb).catch(err => {console.log(err)});
 
 //Init Express
