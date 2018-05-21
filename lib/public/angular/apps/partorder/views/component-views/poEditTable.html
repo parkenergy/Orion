@@ -22,7 +22,17 @@
           <td>{{ $ctrl.partorder.part.MPN }}</td>
           <td>{{ $ctrl.partorder.part.description }}</td>
           <td>{{ $ctrl.partorder.status }}</td>
-          <td>{{ $ctrl.partorder.quantity }}</td>
+            <!--<td>{{ $ctrl.partorder.quantity }}</td>-->
+            <td>
+                <number-field
+                    data="$ctrl.partorder.quantity"
+                    name="quantity"
+                    non-negative="true"
+                    integer-only="true"
+                    placeholder="EX: 15"
+                    disabled="$ctrl.partorder.status !== 'pending'"
+                ></number-field>
+            </td>
           <td>
             <div>
               <ul>
