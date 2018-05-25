@@ -33,7 +33,7 @@ log.info({env: process.env.NODE_ENV}, 'Starting for environment');
 
 //start mongoose and restart mongoose
 log.info({uri: config.mongodb}, 'Connecting to MongoDB[Mongoose]');
-/*const connectWithRetry = () => {
+const connectWithRetry = () => {
     console.log('MongoDB connection with retry');
     return mongoose.connect(config.mongodb);
 };
@@ -44,9 +44,9 @@ mongoose.connection.on('error', (err) => {
 mongoose.connection.on('connect', () => {
     console.log('MongoDB connected');
 });
-const connection = connectWithRetry();*/
-//mongoose.createConnection(config.mongodb).catch(err => {console.log(err)});
-mongoose.connect(config.mongodb);
+const connection = connectWithRetry();
+// mongoose.createConnection(config.mongodb).catch(err => {console.log(err)});
+// mongoose.connect(config.mongodb);
 
 //Init Express
 const app = express();
