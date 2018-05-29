@@ -6,10 +6,10 @@ const gulp = require('gulp');
 
 // Include Gulp Plugins
 const less = require('gulp-less'),
-  concat = require('gulp-concat'),
-  uglify = require('gulp-uglify-es').default,
-  nodemon = require('gulp-nodemon'),
-  strip = require('gulp-strip-comments');
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglify-es').default,
+    nodemon = require('gulp-nodemon'),
+    strip = require('gulp-strip-comments');
 
 const path = require('path');
 
@@ -68,31 +68,31 @@ gulp.task('updateSubmodules', function () {
 
 
 gulp.task('less', function () { // compile LESS to CSS
-  return gulp.src('./lib/public/stylesheets/site.less')
-    .pipe(less())
-    .pipe(gulp.dest('./lib/public/stylesheets'));
+    return gulp.src('./lib/public/stylesheets/site.less')
+        .pipe(less())
+        .pipe(gulp.dest('./lib/public/stylesheets'))
 });
 
 gulp.task('scripts', function() { // concat js files
-  return gulp.src([
-    './lib/public/angular/**/*.js',
-    './lib/public/scripts/**/*.js',
-    './lib/public/bootstrap/bootstrap.min.js',
-    './public/app/**/*.js'
-  ])
-    .pipe(strip())
-    .pipe(uglify({
-        ecma: 6,
-      compress: {
-        warnings: false,
-        inline: 3,
-        keep_classnames: true,
-        keep_fnames: true
-      },
-      mangle: false,
-    }))
-    .pipe(concat('bundle.js'))
-    .pipe(gulp.dest('public'));
+    return gulp.src([
+            './lib/public/angular/**/*.js',
+            './lib/public/scripts/**/*.js',
+            './lib/public/bootstrap/bootstrap.min.js',
+            './public/app/**/*.js'
+        ])
+        .pipe(strip())
+        .pipe(uglify({
+            ecma: 6,
+            compress: {
+                warnings: false,
+                inline: 3,
+                keep_classnames: true,
+                keep_fnames: true
+            },
+            mangle: false,
+        }))
+        .pipe(concat('bundle.js'))
+        .pipe(gulp.dest('public'))
 });
 
 
@@ -134,15 +134,16 @@ gulp.task('front-end-lint', function() {
  ----------------------------------------------------------------------------- */
 // launches the server with nodemon
 gulp.task('start', function () {
-  nodemon({
-    script: 'app.js',
-    ext: 'js',
-    watch: [
-      './public/bundle.js',
-      './public/lib/**/*.js',
-      './app.js'
-    ]})
-      .on('restart');
+    nodemon({
+        script: 'app.js',
+        ext: 'js',
+        watch: [
+            './public/bundle.js',
+            './public/lib/**/*.js',
+            './app.js'
+        ]
+    })
+        .on('restart')
 });
 
 /* Watching
@@ -151,14 +152,14 @@ gulp.task('start', function () {
 // Watch Local Files For Changes
 gulp.task('watch', function() {
 
-  gulp.watch(['./Common/**/*'], ['common-packager']);
+    gulp.watch(['./Common/**/*'], ['common-packager'])
 
-  gulp.watch([
-      './lib/public/**/*.less',
-      './lib/public/angular/**/*.js',
-      './public/app/**/*.js',
-      './public/scripts/**/*.js'],
-    ['less','scripts']);
+    gulp.watch([
+            './lib/public/**/*.less',
+            './lib/public/angular/**/*.js',
+            './public/app/**/*.js',
+            './public/scripts/**/*.js'],
+        ['less', 'scripts'])
 
 });
 
@@ -185,8 +186,8 @@ gulp.task('watch', function() {
 const exec = require('child_process').exec;
 
 gulp.task('shutdown-mongodb', function (callback) {
-  const cmd = "mongo admin --eval 'db.shutdownServer()' > /dev/null";
-  exec(cmd, function (err) { callback(err); });
+    const cmd = 'mongo admin --eval \'db.shutdownServer()\' > /dev/null'
+    exec(cmd, function (err) { callback(err) })
 });
 
 /* DEFAULT TASK
@@ -202,9 +203,9 @@ gulp.task('package', function (callback) {
 */
 
 gulp.task('bundle', function (callback) {
-  runSequence('less', 'scripts', callback);
+    runSequence('less', 'scripts', callback)
 });
 
 gulp.task('default', function (callback) {
-  runSequence('bundle', 'start', 'watch', callback);
+    runSequence('bundle', 'start', 'watch', callback)
 });
