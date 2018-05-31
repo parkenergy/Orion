@@ -40,6 +40,16 @@
                     class="glyphicon glyphicon-chevron-up"></span>
             </th>
 
+            <th ng-click="$ctrl.resort('unapproved')" class="col-xs-2">
+                Unapproved WOs
+                <span
+                    ng-show="$ctrl.sortType === 'unapproved' && !$ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-down"></span>
+                <span
+                    ng-show="$ctrl.sortType === 'unapproved' && $ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+
             <th ng-click="$ctrl.resort('idleUnits')" class="col-xs-1">
                 Idle
                 <span
@@ -60,7 +70,7 @@
                     class="glyphicon glyphicon-chevron-up"></span>
             </th>
 
-            <th ng-click="$ctrl.resort('activeUnits')" class="col-xs-2">
+            <th ng-click="$ctrl.resort('activeUnits')" class="col-xs-1">
                 Active
                 <span
                     ng-show="$ctrl.sortType === 'activeUnits' && !$ctrl.sortReverse"
@@ -89,6 +99,7 @@
             ng-click="$ctrl.routeToUser(user)">
             <td>{{ user.name }}</td>
             <td class="text-center">{{ user.totalHours.toFixed(2)}}</td>
+            <td class="text-center">{{ user.unapproved }}</td>
             <td class="text-center">{{ user.idleUnits }}</td>
             <td class="text-center">{{ user.testUnits }}</td>
             <td class="text-center">{{ user.activeUnits }}</td>
