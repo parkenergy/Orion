@@ -1,99 +1,103 @@
 <div id="AreaPMDash" class="container-fluid">
 
-  <!-- Header info -->
-  <div class="panel panel-default">
-    <div class="panel-heading clearfix title">
-      <h3 class="panel-title pull-left">{{$ctrl.areaName}}</h3>
+    <!-- Header info -->
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix title">
+            <h3 class="panel-title pull-left">{{$ctrl.areaName}}</h3>
 
-      <div class="pull-right status">Active PM Status: <span class="spaceMe" style="background-color: {{$ctrl.PMS.setBackgroundColor($ctrl.activePMStatus)}}">{{$ctrl.activePMStatus}}%</span></div>
-      <div class="pull-right status">Active: <span class="spaceMe">{{$ctrl.active}}</span></div>
-      <div class="pull-right status">Test: <span class="spaceMe">{{$ctrl.test}}</span></div>
-      <div class="pull-right status">Idle: <span class="spaceMe">{{$ctrl.idle}}</span></div>
-      <div class="pull-right status">Total: <span class="spaceMe">{{$ctrl.total}}</span></div>
+            <div class="pull-right status">Active PM Status: <span class="spaceMe"
+                                                                   style="background-color: {{$ctrl.PMS.setBackgroundColor($ctrl.activePMStatus)}}">{{$ctrl.activePMStatus}}%</span>
+            </div>
+            <div class="pull-right status">Active: <span class="spaceMe">{{$ctrl.active}}</span></div>
+            <div class="pull-right status">Test: <span class="spaceMe">{{$ctrl.test}}</span></div>
+            <div class="pull-right status">Idle: <span class="spaceMe">{{$ctrl.idle}}</span></div>
+            <div class="pull-right status">Total: <span class="spaceMe">{{$ctrl.total}}</span></div>
+        </div>
     </div>
-  </div>
 
-  <table class="table table-bordered table-striped table-hover">
-    <!-- headers -->
-    <thead>
-      <tr>
-        <!-- heading sort click -->
-        <th ng-click="$ctrl.resort('name')" class="col-xs-5">
-          Name
-          <span
-            ng-show="$ctrl.sortType === 'name' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'name' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+    <table class="table table-bordered table-striped table-hover">
+        <!-- headers -->
+        <thead>
+        <tr>
+            <!-- heading sort click -->
+            <th ng-click="$ctrl.resort('name')" class="col-xs-5">
+                Name
+                <span
+                    ng-show="$ctrl.sortType === 'name' && !$ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-down"></span>
+                <span
+                    ng-show="$ctrl.sortType === 'name' && $ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-up"></span>
+            </th>
 
-        <th ng-click="$ctrl.resort('totalHours')" class="col-xs-2">
-          Week Hours
-          <span
-            ng-show="$ctrl.sortType === 'totalHours' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'totalHours' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+            <th ng-click="$ctrl.resort('totalHours')" class="col-xs-2">
+                Week Hours
+                <span
+                    ng-show="$ctrl.sortType === 'totalHours' && !$ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-down"></span>
+                <span
+                    ng-show="$ctrl.sortType === 'totalHours' && $ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-up"></span>
+            </th>
 
-        <th ng-click="$ctrl.resort('idleUnits')" class="col-xs-1">
-          Idle
-          <span
-            ng-show="$ctrl.sortType === 'idleUnits' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'idleUnits' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+            <th ng-click="$ctrl.resort('idleUnits')" class="col-xs-1">
+                Idle
+                <span
+                    ng-show="$ctrl.sortType === 'idleUnits' && !$ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-down"></span>
+                <span
+                    ng-show="$ctrl.sortType === 'idleUnits' && $ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-up"></span>
+            </th>
 
-        <th ng-click="$ctrl.resort('testUnits')" class="col-xs-1">
-          Test
-          <span
-            ng-show="$ctrl.sortType === 'testUnits' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'testUnits' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+            <th ng-click="$ctrl.resort('testUnits')" class="col-xs-1">
+                Test
+                <span
+                    ng-show="$ctrl.sortType === 'testUnits' && !$ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-down"></span>
+                <span
+                    ng-show="$ctrl.sortType === 'testUnits' && $ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-up"></span>
+            </th>
 
-        <th ng-click="$ctrl.resort('activeUnits')" class="col-xs-2">
-          Active
-          <span
-            ng-show="$ctrl.sortType === 'activeUnits' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'activeUnits' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+            <th ng-click="$ctrl.resort('activeUnits')" class="col-xs-2">
+                Active
+                <span
+                    ng-show="$ctrl.sortType === 'activeUnits' && !$ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-down"></span>
+                <span
+                    ng-show="$ctrl.sortType === 'activeUnits' && $ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-up"></span>
+            </th>
 
-        <th ng-click="$ctrl.resort('percent')" class="col-xs-1">
-          Percent
-          <span
-            ng-show="$ctrl.sortType === 'percent' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'percent' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+            <th ng-click="$ctrl.resort('percent')" class="col-xs-1">
+                Percent
+                <span
+                    ng-show="$ctrl.sortType === 'percent' && !$ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-down"></span>
+                <span
+                    ng-show="$ctrl.sortType === 'percent' && $ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-up"></span>
+            </th>
 
-      </tr>
-    </thead>
+        </tr>
+        </thead>
 
-    <!-- Sorted Table -->
-    <tbody>
-      <tr ng-repeat="user in $ctrl.displayUsers | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
-        ng-click="$ctrl.routeToUser(user)">
-        <td>{{ user.name }}</td>
-        <td class="text-center">{{ user.totalHours.toFixed(2)}}</td>
-        <td class="text-center">{{ user.idleUnits }}</td>
-        <td class="text-center">{{ user.testUnits }}</td>
-        <td class="text-center">{{ user.activeUnits }}</td>
-        <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(user.percent)}}">{{ user.percent }}%</td>
-      </tr>
-    </tbody>
+        <!-- Sorted Table -->
+        <tbody>
+        <tr ng-repeat="user in $ctrl.displayUsers | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
+            ng-click="$ctrl.routeToUser(user)">
+            <td>{{ user.name }}</td>
+            <td class="text-center">{{ user.totalHours.toFixed(2)}}</td>
+            <td class="text-center">{{ user.idleUnits }}</td>
+            <td class="text-center">{{ user.testUnits }}</td>
+            <td class="text-center">{{ user.activeUnits }}</td>
+            <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(user.percent)}}">{{
+                user.percent }}%
+            </td>
+        </tr>
+        </tbody>
 
-  </table>
+    </table>
 
 </div>
