@@ -1,18 +1,18 @@
 'use strict';
 
-const express  = require('express'),
-    config = require('./config.js'),
-    path = require('path'),
-    fs = require('fs'),
-    Agenda = require('agenda'),
-    Gmailer = require('./lib/helpers/email_helper'),
-    log = require('./lib/helpers/logger'),
-    sessions = require('client-sessions'),
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    TH = require('./lib/helpers/task_helper'),
-    DS = require('./lib/databaseScripts'),
-    mongoose = require('mongoose');
+const express      = require('express'),
+      config       = require('./config.js'),
+      path         = require('path'),
+      fs           = require('fs'),
+      TH           = require('./lib/helpers/task_helper'),
+      DS           = require('./lib/databaseScripts'),
+      Agenda       = require('agenda'),
+      Gmailer      = require('./lib/helpers/email_helper'),
+      log          = require('./lib/helpers/logger'),
+      sessions     = require('client-sessions'),
+      cookieParser = require('cookie-parser'),
+      bodyParser   = require('body-parser'),
+      mongoose     = require('mongoose');
 
 //Catch uncaught exceptions to log in bunyan
 process.on('uncaughtException', (err) => {
