@@ -103,8 +103,8 @@
             <td class="text-center">{{ user.idleUnits }}</td>
             <td class="text-center">{{ user.testUnits }}</td>
             <td class="text-center">{{ user.activeUnits }}</td>
-            <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(user.percent)}}">{{
-                user.percent }}%
+            <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(user.percent)}}">
+                <div ng-show="user.percent !== -1">{{ user.percent }}%</div>
             </td>
         </tr>
         </tbody>
