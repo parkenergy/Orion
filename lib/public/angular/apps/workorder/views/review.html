@@ -34,7 +34,7 @@
     </div>
     <button ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect')" class="btn btn-lg btn-primary pull-right"
             style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
-            ng-click="submit()">
+            ng-click="debounceSubmit()">
       Submit
     </button>
     <div class="clearfix" style="height: 65px;"></div>
