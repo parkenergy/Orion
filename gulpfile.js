@@ -78,7 +78,7 @@ gulp.task('scripts', function() { // concat js files
             './lib/public/angular/**/*.js',
             './lib/public/scripts/**/*.js',
             './lib/public/bootstrap/bootstrap.min.js',
-            './public/app/**/*.js'
+            //'./public/app/**/*.js'
         ])
         .pipe(strip())
         .pipe(uglify({
