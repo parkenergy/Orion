@@ -62,7 +62,13 @@
                 <input type="checkbox" id="Rejected" name="rejected" ng-model="$ctrl.rejected"/>
               </div>
 
-              <!-- row 6 -->
+                <!-- row 5 -->
+                <div class="form-group">
+                    <label for="Pending">Pending</label>
+                    <input type="checkbox" id="Pending" name="pending" ng-model="$ctrl.pending"/>
+                </div>
+
+                <!-- row 6 -->
               <button
                 class="btn btn-primary form-inline"
                 type="button"
@@ -106,10 +112,10 @@
               </div>
 
               <!-- row 3 -->
-              <div class="form-group">
-                <label for="adminReviewed">Admin Reviewed</label>
-                <input type="checkbox" id="adminReviewed" name="adminReviewed" ng-model="$ctrl.adminReviewed"/>
-              </div>
+                <!--<div class="form-group">
+                  <label for="adminReviewed">Admin Reviewed</label>
+                  <input type="checkbox" id="adminReviewed" name="adminReviewed" ng-model="$ctrl.adminReviewed"/>
+                </div>-->
 
             </div>
 
@@ -201,7 +207,7 @@
       <tr ng-repeat="pto in $ctrl.paidtimeoffs | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter" ng-click="$ctrl.routeToPaidTimeOff(pto);">
         <td>{{ pto.username }}</td>
         <td>{{ pto.type }}</td>
-        <td>{{$ctrl.stringForType(pto)}}</td>
+          <td>{{ pto.status }}</td>
         <td>{{ pto.hours }}</td>
         <td>{{ pto.DateFrom | date: 'MM/dd/yyyy'}}</td>
         <td>{{ pto.DateTo | date: 'MM/dd/yyyy'}}</td>

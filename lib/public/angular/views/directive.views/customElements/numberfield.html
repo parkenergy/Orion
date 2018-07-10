@@ -1,6 +1,7 @@
 <div class="form-group" name="{{name}}">
   <label ng-show="labelText">{{labelText}}</label>
   <input type="number"
+         ng-disabled="disabled"
          non-negative="{{nonNegative}}"
          integer-only="{{integerOnly}}"
          class="form-control"
@@ -8,6 +9,5 @@
          name="{{name}}"
          ng-min="{{min}}"
          ng-max="{{max}}"
-         placeholder="{{placeholderText}}"
-         ng-disabled="disabled">
+         placeholder="{{placeholderText}}">
 </div>
