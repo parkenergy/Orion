@@ -6338,11 +6338,10 @@ input[type="checkbox"] {
   text-align: center;
   vertical-align: middle;
 }
-
 #PTOCReview div.row Button.submit-button {
-    width: 90%;
-    height: 100px;
-    margin: 0px 5% 15px 5%;
+  width: 90%;
+  height: 100px;
+  margin: 0px 5% 15px 5%;
 }
 #PTOCReview #table {
   margin-left: 25px;
