@@ -6157,9 +6157,9 @@ input[type="checkbox"] {
   }
 }
 #WorkOrderOverview div.rowissue {
-    margin-right: 0px;
-    margin-left: 0px;
-    padding: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding: 0px;
 }
 #WorkOrderOverview i.fa.fa-refresh.fa-spin.workorderdash {
   font-size: 80px;
