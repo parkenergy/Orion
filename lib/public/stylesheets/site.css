@@ -5894,6 +5894,7 @@ input[type="checkbox"] {
   -o-transform: scale(1.4, 1.4);
   margin-right: 10px;
 }
+
 #mcUnitView div.row.misc-row {
   margin-top: 0;
 }
@@ -6392,31 +6393,39 @@ input[type="checkbox"] {
   height: 100px;
   margin: 0 5% 15px 5%;
 }
+
 #MCUnitDiligenceOverviewTable {
-  margin-left: 25px;
-  margin-right: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
+
 #MCUnitDiligenceOverviewTable div.panel-body.mcudf-main-dash-body {
-  padding: 0px;
+    padding: 0px;
 }
+
 #MCUnitDiligenceOverviewTable div.panel-body.mcudf-main-dash-body div.mcudf-search-bar {
-  padding-top: 20px;
+    padding-top: 20px;
 }
+
 #MCUnitDiligenceOverviewTable div.panel-body.mcudf-main-dash-body table.table-bordered.table-striped.table-hover {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
+
 #MCUnitDiligenceOverviewTable div.panel-body.mcudf-main-dash-body table.table-bordered.table-striped.table-hover tr {
-  cursor: pointer;
+    cursor: pointer;
 }
+
 #woLocationModal div.row.misc-row {
-  margin-top: 0;
+    margin-top: 0;
 }
+
 #MCDiligenceOverview i.fa.fa-refresh.fa-spin.mc-diligence-overview {
-  font-size: 80px;
+    font-size: 80px;
 }
+
 #UnitDiligenceFormReview h4 {
-  text-align: center;
-  margin-top: 0px;
+    text-align: center;
+    margin-top: 0px;
 }
 #MyAccount i.fa.fa-refresh.fa-spin.myaccount {
   font-size: 80px;
