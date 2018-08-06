@@ -10,6 +10,8 @@
         <diligence-overview-table
             class="col-md-12"
             ng-show="loaded"
+            report-disabled="reportDisabled"
+            mc-unit-diligence-report="mcUnitDiligenceReport(query)"
             content-search="lookup(query)"
             scroll-content-search="MCDiligenceScrollLookup(query)"
             mc-unit-diligence-forms="mcUnitDiligenceForms"

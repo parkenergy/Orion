@@ -20,41 +20,21 @@
                     <form role="form">
 
                         <!-- col 1 -->
-                        <!--<div class="col-md-6">
+                        <div class="col-md-6">
 
-                            &lt;!&ndash; row 1 &ndash;&gt;
+                            <!-- row 1 -->
                             <div class="form-group">
                                 <label>From</label>
                                 <input
                                     class="form-control search"
                                     ng-model="$ctrl.dates.fromInput"
-                                    ng-change="$ctrl.crstartOfDay($ctrl.dates.fromInput)"
+                                    ng-change="$ctrl.startOfDay($ctrl.dates.fromInput)"
                                     name="fromDate" type="date"
                                     placeholder="yyyy-mm-dd">
                             </div>
 
-                            &lt;!&ndash; row 2 &ndash;&gt;
-                            <div class="form-group has-feedback">
-                                <label>Customer</label>
-                                <input
-                                    class="form-control search"
-                                    ng-model="$ctrl.customerName"
-                                    name="customer"
-                                    type="text"
-                                    ng-change="$ctrl.customerChange($ctrl.customerName, 'customer')"
-                                    uib-typeahead="customer.name for customer in $ctrl.customers | filter:$viewValue | limitTo:12"
-                                    typeahead-select-on-exact="true"
-                                    typeahead-wait-ms="100"
-                                    typeahead-on-select="$ctrl.customerChange($ctrl.customerName, 'customer')">
-                                <span
-                                    ng-if="$ctrl.customerName"
-                                    ng-click="$ctrl.clearText('customer')"
-                                    class="glyphicon glyphicon-remove form-control-feedback"
-                                    uib-tooltip="clear">
-                </span>
-                            </div>
 
-                            &lt;!&ndash; row 3 &ndash;&gt;
+                            <!-- row 2 -->
                             <button
                                 class="btn btn-primary form-inline"
                                 type="button"
@@ -66,42 +46,35 @@
 
                         </div>
 
-                        &lt;!&ndash; col 2 &ndash;&gt;
+                        <!-- col 2 -->
                         <div class="col-md-6">
 
-                            &lt;!&ndash; row 1&ndash;&gt;
+                            <!-- row 1-->
                             <div class="form-group">
                                 <label>To</label>
                                 <input
                                     class="form-control search"
                                     ng-model="$ctrl.dates.toInput"
-                                    ng-change="$ctrl.crendOfDay($ctrl.dates.toInput)"
+                                    ng-change="$ctrl.endOfDay($ctrl.dates.toInput)"
                                     name="toDate" type="date"
                                     placeholder="yyyy-mm-dd">
                             </div>
 
-                            &lt;!&ndash; row 2 &ndash;&gt;
-                            <div class="form-group has-feedback">
-                                <label>User Name</label>
-                                <input
-                                    class="form-control search"
-                                    ng-model="$ctrl.userName"
-                                    name="user"
-                                    type="text"
-                                    ng-change="$ctrl.userChange($ctrl.userName, 'user')"
-                                    uib-typeahead="user.username as user.fullName for user in $ctrl.users | filter:$viewValue | limitTo:12"
-                                    typeahead-select-on-exact="true"
-                                    typeahead-wait-ms="100"
-                                    typeahead-on-select="$ctrl.userChange($ctrl.userName, 'user')">
-                                <span
-                                    ng-if="$ctrl.userName"
-                                    ng-click="$ctrl.clearText('user')"
-                                    class="glyphicon glyphicon-remove form-control-feedback"
-                                    uib-tooltip="clear">
-                </span>
+                            <!-- row 2 -->
+                            <div class="form-group">
+                                <button
+                                    class="btn btn-primary"
+                                    type="button"
+                                    ng-class="{reportDisabled: disabled}"
+                                    data-toggle="collapse"
+                                    data-target="#mcDiligenceSearch"
+                                    ng-click="$ctrl.report('mcUnitDownload')"
+                                >
+                                    Download
+                                </button>
                             </div>
 
-                        </div>-->
+                        </div>
 
                     </form> <!-- End of Search Form -->
                 </div>  <!-- End of Search Panel-->
@@ -127,7 +100,6 @@
                         class="glyphicon glyphicon-chevron-up"></span>
                 </th>
 
-                <!-- Sort by MPN -->
                 <th ng-click="$ctrl.resort('reviewer')">
                     Reviewer
                     <span
@@ -138,7 +110,6 @@
                         class="glyphicon glyphicon-chevron-up"></span>
                 </th>
 
-                <!-- Sort by TechID-->
                 <th ng-click="$ctrl.resort('engine')">
                     Engine
                     <span
@@ -149,14 +120,43 @@
                         class="glyphicon glyphicon-chevron-up"></span>
                 </th>
 
-                <!-- Sort by Username -->
-                <th ng-click="$ctrl.resort('suction')">
-                    Suction
+                <th ng-click="$ctrl.resort('environmentalIssue')">
+                    Env Issue
                     <span
-                        ng-show="$ctrl.sortType == 'suction' && !$ctrl.sortReverse"
+                        ng-show="$ctrl.sortType == 'environmentalIssue' && !$ctrl.sortReverse"
                         class="glyphicon glyphicon-chevron-down"></span>
                     <span
-                        ng-show="$ctrl.sortType == 'suction' && $ctrl.sortReverse"
+                        ng-show="$ctrl.sortType == 'environmentalIssue' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <th ng-click="$ctrl.resort('compressor')">
+                    Compressor
+                    <span
+                        ng-show="$ctrl.sortType == 'compressor' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'compressor' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <th ng-click="$ctrl.resort('applicationType')">
+                    App Type
+                    <span
+                        ng-show="$ctrl.sortType == 'applicationType' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'applicationType' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <th ng-click="$ctrl.resort('leaseName')">
+                    Lease
+                    <span
+                        ng-show="$ctrl.sortType == 'leaseName' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'leaseName' && $ctrl.sortReverse"
                         class="glyphicon glyphicon-chevron-up"></span>
                 </th>
 
@@ -181,7 +181,10 @@
                 <td>{{ mcUnitDiligenceForm.unitNumber }}</td>
                 <td>{{ mcUnitDiligenceForm.reviewer }}</td>
                 <td>{{ mcUnitDiligenceForm.engine }}</td>
-                <td>{{ mcUnitDiligenceForm.suction }}</td>
+                <td>{{ mcUnitDiligenceForm.environmentalIssue }}</td>
+                <td>{{ mcUnitDiligenceForm.compressor }}</td>
+                <td>{{ mcUnitDiligenceForm.applicationType }}</td>
+                <td>{{ mcUnitDiligenceForm.leaseName }}</td>
                 <td>{{ mcUnitDiligenceForm.submitted | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
             </tr>
             </tbody>

@@ -1,0 +1,26 @@
+<div id="mcUnitView">
+    <div class="modal-header">
+        <h3 class="modal-title">Unit Location</h3>
+        <div class="row misc-row">
+            <div class="col-md-6">Latitude: {{latLong[0]}}</div>
+            <div class="col-md-6">Longitude: {{latLong[1]}}</div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <unit-sat unit="unit"></unit-sat>
+    </div>
+    <div class="modal-footer">
+        <button
+            class="btn btn-primary"
+            type="button"
+            ng-click="toUnitPage()">
+            Google Map
+        </button>
+        <button
+            class="btn btn-primary"
+            type="button"
+            ng-click="ok()">
+            Close
+        </button>
+    </div>
+</div>
