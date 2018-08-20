@@ -5894,7 +5894,6 @@ input[type="checkbox"] {
   -o-transform: scale(1.4, 1.4);
   margin-right: 10px;
 }
-
 #mcUnitView div.row.misc-row {
   margin-top: 0;
 }
@@ -6393,36 +6392,28 @@ input[type="checkbox"] {
   height: 100px;
   margin: 0 5% 15px 5%;
 }
-
 #MCUnitDiligenceOverviewTable {
     margin-left: 25px;
     margin-right: 25px;
 }
-
 #MCUnitDiligenceOverviewTable div.panel-body.mcudf-main-dash-body {
     padding: 0px;
 }
-
 #MCUnitDiligenceOverviewTable div.panel-body.mcudf-main-dash-body div.mcudf-search-bar {
     padding-top: 20px;
 }
-
 #MCUnitDiligenceOverviewTable div.panel-body.mcudf-main-dash-body table.table-bordered.table-striped.table-hover {
     margin-bottom: 0px;
 }
-
 #MCUnitDiligenceOverviewTable div.panel-body.mcudf-main-dash-body table.table-bordered.table-striped.table-hover tr {
     cursor: pointer;
 }
-
 #woLocationModal div.row.misc-row {
     margin-top: 0;
 }
-
 #MCDiligenceOverview i.fa.fa-refresh.fa-spin.mc-diligence-overview {
     font-size: 80px;
 }
-
 #UnitDiligenceFormReview h4 {
     text-align: center;
     margin-top: 0px;
