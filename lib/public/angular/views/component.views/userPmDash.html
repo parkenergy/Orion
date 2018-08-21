@@ -53,7 +53,17 @@
             class="glyphicon glyphicon-chevron-up"></span>
         </th>
 
-        <th ng-click="$ctrl.resort('customerName')" class="col-xs-3">
+          <th ng-show="$ctrl.isYard === true" ng-click="$ctrl.resort('productSeries')" class="col-xs-3">
+              Product Series
+              <span
+                  ng-show="$ctrl.sortType === 'productSeries' && !$ctrl.sortReverse"
+                  class="glyphicon glyphicon-chevron-down"></span>
+              <span
+                  ng-show="$ctrl.sortType === 'productSeries' && $ctrl.sortReverse"
+                  class="glyphicon glyphicon-chevron-up"></span>
+          </th>
+
+          <th ng-show="$ctrl.isYard === false" ng-click="$ctrl.resort('customerName')" class="col-xs-3">
          Customer
           <span
             ng-show="$ctrl.sortType === 'customerName' && !$ctrl.sortReverse"
