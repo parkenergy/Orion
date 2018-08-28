@@ -6,6 +6,8 @@
 .nyc_output
 .Spotlight-V100
 .Trasheslib-cov
+.vscode/*
+.vagrant/*
 profiling
 
 bower_components
