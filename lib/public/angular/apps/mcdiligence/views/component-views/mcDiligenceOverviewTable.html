@@ -12,6 +12,7 @@
                 <!-- Title -->
                 <div class="panel-heading" data-toggle="collapse" data-target="#mcDiligenceSearch">
                     <h3 class="panel-title">Search</h3>
+                    <span class="pull-right">{{$ctrl.mcUnitDiligenceFormCount}}</span>
                 </div>
 
                 <!-- collapsible search settings -->
@@ -173,9 +174,6 @@
             </tr>
             </thead>
             <!-- Sorted Table -->
-            <tbody infinite-scroll="$ctrl.loadOnScroll()"
-                   infinite-scroll-immediate-check="false"
-                   infinite-scroll-disabled="false">
             <tr ng-repeat="mcUnitDiligenceForm in $ctrl.mcUnitDiligenceForms | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter"
                 ng-click="$ctrl.routeToMCDiligenceForm(mcUnitDiligenceForm);">
                 <td>{{ mcUnitDiligenceForm.unitNumber }}</td>
