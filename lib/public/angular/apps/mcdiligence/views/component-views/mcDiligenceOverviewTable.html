@@ -18,33 +18,36 @@
                 <!-- collapsible search settings -->
                 <div class="panel-body collapse" id="mcDiligenceSearch">
                     <form role="form">
-                        <!-- col 1 -->
-                        <div class="col-md-6">
-
-                            <!-- row 1 -->
-                            <div class="form-group">
-                                <label>From</label>
-                                <input
-                                    class="form-control search"
-                                    ng-model="$ctrl.dates.fromInput"
-                                    ng-change="$ctrl.startOfDay($ctrl.dates.fromInput)"
-                                    name="fromDate" type="date"
-                                    placeholder="yyyy-mm-dd">
+                        <div class="row">
+                            <!-- col 1 -->
+                            <div class="col-md-6">
+                                <!-- row 1 -->
+                                <div class="form-group">
+                                    <label>From</label>
+                                    <input 
+                                        class="form-control search" 
+                                        ng-model="$ctrl.dates.fromInput" 
+                                        ng-change="$ctrl.startOfDay($ctrl.dates.fromInput)"
+                                        name="fromDate" 
+                                        type="date" 
+                                        placeholder="yyyy-mm-dd">
+                                </div>
+                                <!-- row 2 -->
                             </div>
-                            <!-- row 2 -->
-                        </div>
 
-                        <!-- col 2 -->
-                        <div class="col-md-6">
-                            <!-- row 1-->
-                            <div class="form-group">
-                                <label>To</label>
-                                <input
-                                    class="form-control search"
-                                    ng-model="$ctrl.dates.toInput"
-                                    ng-change="$ctrl.endOfDay($ctrl.dates.toInput)"
-                                    name="toDate" type="date"
-                                    placeholder="yyyy-mm-dd">
+                            <!-- col 2 -->
+                            <div class="col-md-6">
+                                <!-- row 1-->
+                                <div class="form-group">
+                                    <label>To</label>
+                                    <input 
+                                        class="form-control search" 
+                                        ng-model="$ctrl.dates.toInput" 
+                                        ng-change="$ctrl.endOfDay($ctrl.dates.toInput)"
+                                        name="toDate" 
+                                        type="date" 
+                                        placeholder="yyyy-mm-dd">
+                                </div>
                             </div>
                             <!-- row 2 -->
                         </div>
@@ -52,41 +55,27 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Unit Number</label>
-                                    <input id="unitNumber"
-                                    class="form-control search"
-                                    ng-model="$ctrl.unitNumber"
-                                    name="unitNumber"
-                                    type="text"/>
+                                    <input id="unitNumber" class="form-control search" ng-model="$ctrl.unitNumber" name="unitNumber" type="text" />
                                 </div>
-                                <button
-                                class="btn btn-primary form-inline"
-                                type="button"
-                                data-toggle="collapse"
-                                data-target="#mcDiligenceSearch"
-                                ng-click="$ctrl.submit()">
-                                Search
-                            </button>
+                                <button class="btn btn-primary form-inline" type="button" data-toggle="collapse" data-target="#mcDiligenceSearch"
+                                    ng-click="$ctrl.submit()">
+                                    Search
+                                </button>
                             </div>
                             <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Reviewer</label>
-                                        <input 
-                                            id="reviewer"
-                                            class="form-control search"
-                                            ng-model="$ctrl.reviewer"
-                                            name="reviewer"
-                                            type="text">
-                                    </div>
-                                    <div class="form-group">
-                                            <button
-                                                class="btn btn-primary"
-                                                type="button"
-                                            >
-                                                Download
-                                            </button>
-                                        </div>
-                                   
-                                </div>                        </div>
+                                <div class="form-group">
+                                    <label>Reviewer</label>
+                                    <input id="reviewer" class="form-control search" ng-model="$ctrl.reviewer" name="reviewer" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="button" ng-class="{reportDisabled: disabled}" data-toggle="collapse"
+                                        data-target="#mcDiligenceSearch" ng-click="$ctrl.report('mcUnitDownload')">
+                                        Download
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
 
                     </form> <!-- End of Search Form -->
                 </div>  <!-- End of Search Panel-->
