@@ -1,0 +1,19 @@
+{
+    "rootDir": "../",
+    "transform": {
+        "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest"
+    },
+    "moduleDirectories": [
+        "node_modules"
+    ],
+    "collectCoverageFrom": [
+        "src/**/*.js"
+    ],
+    "unmockedModulePathPatterns": [
+        "/node_modules/"
+    ],
+    "testRegex": "(/^spec/.*|\\.(test|spec))\\.(js)$",
+    "moduleFileExtensions": [
+        "js"
+    ]
+}
