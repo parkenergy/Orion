@@ -1,17 +1,17 @@
-const mongoose    = require('mongoose'),
-  should          = require('should'),
-  nock            = require('nock'),
-  fixture         = require('../fixture/workOrder.json')[0],
-  userFixture     = require('../fixture/user.json')[0],
-  unitFixture     = require('../fixture/unit.json')[0],
-  stateFixture    = require('../fixture/state.json'),
-  countyFixture   = require('../fixture/county.json')[0],
-  customerFixture = require('../fixture/customer.json'),
-  WorkOrder       = require('../../lib/models/workOrder'),
-  County          = require('../../lib/models/county'),
-  State           = require('../../lib/models/state'),
-  Unit            = require('../../lib/models/unit'),
-  Customer        = require('../../lib/models/customer');
+const mongoose        = require('mongoose'),
+      should          = require('should'),
+      nock            = require('nock'),
+      fixture         = require('../../spec/fixture/workOrder.json')[0],
+      userFixture     = require('../../spec/fixture/user.json')[0],
+      unitFixture     = require('../../spec/fixture/unit.json')[0],
+      stateFixture    = require('../../spec/fixture/state.json'),
+      countyFixture   = require('../../spec/fixture/county.json')[0],
+      customerFixture = require('../../spec/fixture/customer.json'),
+      WorkOrder       = require('../../lib/models/workOrder'),
+      County          = require('../../lib/models/county'),
+      State           = require('../../lib/models/state'),
+      Unit            = require('../../lib/models/unit'),
+      Customer        = require('../../lib/models/customer');
 
 before(() => {
   return WorkOrder.remove({})

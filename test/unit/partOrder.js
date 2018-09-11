@@ -7,15 +7,15 @@
  *
  */
 const PartOrder   = require('../../lib/models/partOrder'),
-  Part            = require('../../lib/models/part'),
-  User            = require('../../lib/models/user'),
-  mongoose        = require('mongoose'),
-  config          = require('../../config'),
-  should          = require('should'),
-  _               = require('lodash'),
-  fixture         = require('../fixture/partOrder.json'),
-  userFixture     = require('../fixture/user.json')[0],
-  partFixture     = require('../fixture/part.json');
+      Part        = require('../../lib/models/part'),
+      User        = require('../../lib/models/user'),
+      mongoose    = require('mongoose'),
+      config      = require('../../config'),
+      should      = require('should'),
+      _           = require('lodash'),
+      fixture     = require('../../spec/fixture/partOrder.json'),
+      userFixture = require('../../spec/fixture/user.json')[0],
+      partFixture = require('../../spec/fixture/part.json');
 
 
 describe("PartOrder Units", () => {

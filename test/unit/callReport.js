@@ -7,11 +7,11 @@
  *
  */
 const CallReport = require('../../lib/models/callReport'),
-  mongoose       = require('mongoose'),
-  config         = require('../../config'),
-  should         = require('should'),
-  _              = require('lodash'),
-  fixture        = require('../fixture/callReport.json');
+      mongoose   = require('mongoose'),
+      config     = require('../../config'),
+      should     = require('should'),
+      _          = require('lodash'),
+      fixture    = require('../../spec/fixture/callReport.json');
 
 
 describe("CallReport Units", () => {

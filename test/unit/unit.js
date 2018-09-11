@@ -1,18 +1,18 @@
-const mongoose     = require('mongoose'),
-  should           = require('should'),
-  _                = require('lodash'),
-  County           = require('../../lib/models/county'),
-  State            = require('../../lib/models/state'),
-  Area             = require('../../lib/models/area'),
-  WorkOrder        = require('../../lib/models/workOrder'),
-  Unit             = require('../../lib/models/unit'),
-  User             = require('../../lib/models/user'),
-  stateFixtrue     = require('../fixture/state.json'),
-  countyFixture    = require('../fixture/county.json'),
-  unitFixture      = require('../fixture/unit.json')[0],
-  userFixture      = require('../fixture/user.json')[0],
-  //userFixture      = require('../fixture/user.json'),
-  workOrderFixture = require('../fixture/workOrder.json');
+const mongoose         = require('mongoose'),
+      should           = require('should'),
+      _                = require('lodash'),
+      County           = require('../../lib/models/county'),
+      State            = require('../../lib/models/state'),
+      Area             = require('../../lib/models/area'),
+      WorkOrder        = require('../../lib/models/workOrder'),
+      Unit             = require('../../lib/models/unit'),
+      User             = require('../../lib/models/user'),
+      stateFixtrue     = require('../../spec/fixture/state.json'),
+      countyFixture    = require('../../spec/fixture/county.json'),
+      unitFixture      = require('../../spec/fixture/unit.json')[0],
+      userFixture      = require('../../spec/fixture/user.json')[0],
+      //userFixture      = require('../fixture/user.json'),
+      workOrderFixture = require('../../spec/fixture/workOrder.json');
 
 mongoose.Promise = Promise;
 

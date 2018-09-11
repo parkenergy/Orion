@@ -1,9 +1,9 @@
- const User = require('../../lib/models/user'),
-  mongoose  = require('mongoose'),
-  config    = require('../../config'),
-  should    = require('should'),
-  _         = require('lodash'),
-  fixture   = require('../fixture/user.json')[0];
+ const User     = require('../../lib/models/user'),
+       mongoose = require('mongoose'),
+       config   = require('../../config'),
+       should   = require('should'),
+       _        = require('lodash'),
+       fixture  = require('../../spec/fixture/user.json')[0];
 
 describe("User Units", () => {
   before(() => User.remove({}));
