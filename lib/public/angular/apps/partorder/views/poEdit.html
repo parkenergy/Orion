@@ -13,8 +13,9 @@
 
   <div>
     <po-edit-table
-      partorder="partorder"
-      on-selection="changeStatus(changedData, selected)">
+        partorder="partorder"
+        on-change-quantity="changeQuantity(changedData, selected)"
+        on-selection="changeStatus(changedData, selected)">
     </po-edit-table>
   </div>
 

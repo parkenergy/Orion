@@ -24,14 +24,15 @@
           <td>{{ $ctrl.partorder.status }}</td>
             <!--<td>{{ $ctrl.partorder.quantity }}</td>-->
             <td>
-                <number-field
+                <text-field
+                    label-text=""
+                    model-name="quantity"
+                    placeholder-text="EX: 15"
                     data="$ctrl.partorder.quantity"
-                    name="quantity"
-                    non-negative="true"
-                    integer-only="true"
-                    placeholder="EX: 15"
+                    on-data-change="$ctrl.quantityChange(changedData, selected)"
                     disabled="$ctrl.partorder.status !== 'pending'"
-                ></number-field>
+                >
+                </text-field>
             </td>
           <td>
             <div>
