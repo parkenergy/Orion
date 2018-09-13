@@ -1,58 +1,23 @@
 {
     "presets": [
-        [
-            "env",
+        ["@babel/preset-env",
             {
                 "targets": {
-                    "node": 6
+                    "node": 8
                 },
-                "useBuiltIns": true,
+                "useBuiltIns": "entry",
                 "modules": false
             }
-        ],
-        "es2015",
-        "stage-0"
+        ]
     ],
     "plugins": [
-        "add-module-exports"
-    ],
-    "env": {
-        "production": {
-            "presets": [
-                "react-optimize",
-                "minify"
-            ],
-            "plugins": [
-                "babel-plugin-dev-expression",
-                "transform-es2015-destructuring",
-                "transform-object-rest-spread"
-            ]
-        },
-        "development": {
-            "plugins": [
-                "transform-class-properties",
-                "transform-es2015-classes",
-                "transform-es2015-destructuring",
-                "transform-object-rest-spread"
-            ]
-        },
-        "test": {
-            "presets": [
-                [
-                    "env"
-                ]
-            ],
-            "plugins": [
-                "transform-export-extensions",
-                "transform-class-properties",
-                "transform-es2015-classes",
-                "transform-es2015-destructuring",
-                "transform-object-rest-spread"
-            ],
-            "only": [
-                "./**/*.js",
-                "node_modules/jest-runtime"
-            ]
-        }
-    }
+        "@babel/plugin-transform-modules-commonjs",
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-proposal-export-namespace-from",
+        "@babel/plugin-transform-parameters",
+        "@babel/plugin-transform-destructuring",
+        "@babel/plugin-transform-classes",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-object-rest-spread"
+    ]
 }
