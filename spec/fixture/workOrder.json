@@ -5,6 +5,7 @@
   "truckNSID" : "28",
   "unitNumber" : "123",
   "unit": null,
+    "atShop": false,
   "newEngineSerial" : "",
   "assetType" : "5",
   "timeSubmitted" : "2017-04-28T16:40:00.353Z",
@@ -167,6 +168,11 @@
         "minutes" : 0,
         "hours" : 0
       },
+        "inventory": {
+            "text": "Inventory",
+            "minutes": 0,
+            "hours": 0
+        },
       "washUnit" : {
         "text" : "Wash Unit",
         "minutes" : 15,
@@ -231,12 +237,14 @@
   },
   "comments" : {
     "timeAdjustmentNotes" : "",
-    "indirectNotes" : "Testing",
+    "indirectNotes" : "",
     "releaseNotes" : "",
     "newsetNotes" : "",
+      "swapReason": "",
+      "transferReason": "",
     "calloutReason" : "",
     "repairsReason" : "",
-    "repairsDescription" : ""
+    "repairsDescription" : "Testing"
   },
   "pmChecklist" : {
     "visibleLeaksNotes" : "n",
@@ -332,6 +340,7 @@
   "misc" : {
     "isUnitRunningOnDeparture" : false,
     "unitNotes" : "",
+      "typeOfAsset": "Park 343",
     "leaseNotes" : ""
   },
   "billingInfo" : {
@@ -343,6 +352,15 @@
     "isCustomerUnit" : false,
     "isRental" : true
   },
+    "unitChangeInfo": {
+        "swapDestination": "",
+        "swapUnitNumber": "",
+        "swapUnitNSID": "",
+        "transferState": "",
+        "transferCounty": "",
+        "transferLease": "",
+        "releaseDestination": ""
+    },
   "header" : {
     "leaseName" : "Willard #1",
     "state" : "Oklahoma",
