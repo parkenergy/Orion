@@ -204,17 +204,12 @@ describe('WorkOrder Units', () => {
 
             return WorkOrder.list(options)
                 .then((docs) => {
-                    console.log('list 1')
-                    console.log(docs)
-                    console.log(docs.length)
                     expect(docs).toBeTruthy()
                     expect(docs).toHaveLength(25)
                     options.skip+=25
 
                     return WorkOrder.list(options)
                 }).then((docs) => {
-                    console.log('list 2')
-                    console.log(docs.length)
                     expect(docs).toHaveLength(25)
                     options.skip+=25
 
