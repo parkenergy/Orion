@@ -1,0 +1,115 @@
+<div id="MCUnitDiligenceOverviewTable"
+     class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title">Unit Diligence Forms</h3>
+        <span class="pull-right">{{$ctrl.mcUnitDiligenceFormCount}}</span>
+    </div>
+    <div class="panel-body mcudf-main-dash-body">
+
+        <!--Start Search Table-->
+        <table class="table table-bordered table-striped table-hover">
+            <!--Search settings-->
+            <thead>
+            <tr>
+
+                <!-- Sort by Unit #-->
+                <th ng-click="$ctrl.resort('unitNumber')">
+                    Unit #
+                    <span
+                        ng-show="$ctrl.sortType == 'unitNumber' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'unitNumber' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <th ng-click="$ctrl.resort('reviewer')">
+                    Reviewer
+                    <span
+                        ng-show="$ctrl.sortType == 'reviewer' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'reviewer' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <th ng-click="$ctrl.resort('engine')">
+                    Engine
+                    <span
+                        ng-show="$ctrl.sortType == 'engine' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'engine' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <th ng-click="$ctrl.resort('environmentalIssue')">
+                    Env Issue
+                    <span
+                        ng-show="$ctrl.sortType == 'environmentalIssue' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'environmentalIssue' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <th ng-click="$ctrl.resort('compressor')">
+                    Compressor
+                    <span
+                        ng-show="$ctrl.sortType == 'compressor' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'compressor' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <th ng-click="$ctrl.resort('applicationType')">
+                    App Type
+                    <span
+                        ng-show="$ctrl.sortType == 'applicationType' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'applicationType' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <th ng-click="$ctrl.resort('leaseName')">
+                    Lease
+                    <span
+                        ng-show="$ctrl.sortType == 'leaseName' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'leaseName' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+
+                <!-- Sort by Time Created -->
+                <th ng-click="$ctrl.resort('epoch')">
+                    Time Submitted
+                    <span
+                        ng-show="$ctrl.sortType == 'epoch' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"></span>
+                    <span
+                        ng-show="$ctrl.sortType == 'epoch' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"></span>
+                </th>
+            </tr>
+            </thead>
+            <!-- Sorted Table -->
+            <tr ng-repeat="mcUnitDiligenceForm in $ctrl.mcUnitDiligenceForms | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter"
+                ng-click="$ctrl.routeToMCDiligenceForm(mcUnitDiligenceForm);">
+                <td>{{ mcUnitDiligenceForm.unitNumber }}</td>
+                <td>{{ mcUnitDiligenceForm.reviewer }}</td>
+                <td>{{ mcUnitDiligenceForm.engine }}</td>
+                <td>{{ mcUnitDiligenceForm.environmentalIssue }}</td>
+                <td>{{ mcUnitDiligenceForm.compressor }}</td>
+                <td>{{ mcUnitDiligenceForm.applicationType }}</td>
+                <td>{{ mcUnitDiligenceForm.leaseName }}</td>
+                <td>{{ mcUnitDiligenceForm.submitted | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+        <!--End Serch Table-->
+    </div>
+</div>
