@@ -13,11 +13,48 @@
     "plugins": [
         "@babel/plugin-transform-modules-commonjs",
         "@babel/plugin-proposal-export-default-from",
-        "@babel/plugin-proposal-export-namespace-from",
-        "@babel/plugin-transform-parameters",
-        "@babel/plugin-transform-destructuring",
-        "@babel/plugin-transform-classes",
-        "@babel/plugin-proposal-class-properties",
-        "@babel/plugin-proposal-object-rest-spread"
-    ]
+        "@babel/plugin-proposal-export-namespace-from"
+    ],
+    "env": {
+        "production": {
+            "plugins": [
+                "@babel/plugin-transform-modules-commonjs",
+                "@babel/plugin-proposal-export-default-from",
+                "@babel/plugin-proposal-export-namespace-from",
+                "@babel/plugin-transform-parameters",
+                "@babel/plugin-transform-destructuring",
+                "@babel/plugin-transform-classes",
+                "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-proposal-object-rest-spread"
+            ]
+        },
+        "development": {
+            "plugins": [
+                "@babel/plugin-transform-modules-commonjs",
+                "@babel/plugin-proposal-export-default-from",
+                "@babel/plugin-proposal-export-namespace-from",
+                "@babel/plugin-transform-parameters",
+                "@babel/plugin-transform-destructuring",
+                "@babel/plugin-transform-classes",
+                "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-proposal-object-rest-spread"
+            ]
+        },
+        "test": {
+            "plugins": [
+                "@babel/plugin-transform-modules-commonjs",
+                "@babel/plugin-proposal-export-default-from",
+                "@babel/plugin-proposal-export-namespace-from",
+                "@babel/plugin-transform-parameters",
+                "@babel/plugin-transform-destructuring",
+                "@babel/plugin-transform-classes",
+                "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-proposal-object-rest-spread"
+            ],
+            "only": [
+                "./**/*.js",
+                "node_modules/jest-runtime"
+            ]
+        }
+    }
 }

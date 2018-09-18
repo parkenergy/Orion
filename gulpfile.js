@@ -138,8 +138,7 @@ gulp.task('start', function () {
         script: 'app.js',
         ext: 'js',
         watch: [
-            './public/bundle.js',
-            './public/lib/**/*.js',
+            './lib/**/*.js',
             './app.js'
         ]
     })
@@ -157,8 +156,7 @@ gulp.task('watch', function() {
     gulp.watch([
             './lib/public/**/*.less',
             './lib/public/angular/**/*.js',
-            './public/app/**/*.js',
-            './public/scripts/**/*.js'],
+            './app.js'],
         ['less', 'scripts']);
 
 });
