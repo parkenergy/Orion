@@ -51,7 +51,7 @@
                                         ng-click="$ctrl.clearText('unitNumber')"
                                         class="glyphicon glyphicon-remove form-control-feedback"
                                         uib-tooltip="clear">
-                  </span>
+                                    </span>
                                 </div>
 
                                 <!-- row 3 -->
@@ -69,10 +69,28 @@
                                         ng-click="$ctrl.clearText('leaseName')"
                                         class="glyphicon glyphicon-remove form-control-feedback"
                                         uib-tooltip="clear">
-                  </span>
+                                    </span>
                                 </div>
 
                                 <!-- row 4 -->
+                                <div class="form-group has-feedback">
+                                    <label for="location">Type</label>
+                                    <input id="type"
+                                           class="form-control search"
+                                           name="type"
+                                           ng-model="$ctrl.type"
+                                           ng-change="$ctrl.changeTextField($ctrl.type, 'type')"
+                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                           type="text"/>
+                                    <span
+                                        ng-if="$ctrl.type"
+                                        ng-click="$ctrl.clearText('type')"
+                                        class="glyphicon glyphicon-remove form-control-feedback"
+                                        uib-tooltip="clear">
+                                    </span>
+                                </div>
+
+                                <!-- row 5 -->
                                 <div class="form-group">
                                     <label for="billable">Billable To Customer(Workorder): </label>
                                     <input id="billable"
@@ -83,7 +101,7 @@
                                            type="checkbox"/>
                                 </div>
 
-                                <!-- row 5 -->
+                                <!-- row 6 -->
                                 <div class="form-group">
                                     <label for="billParts">Billable To Customer(Parts): </label>
                                     <input id="billParts"
@@ -94,7 +112,7 @@
                                            type="checkbox"/>
                                 </div>
 
-                                <!-- row 6 -->
+                                <!-- row 7 -->
                                 <div class="form-group">
                                     <label for="billed">Billed To Customer(Workorder): </label>
                                     <input id="billed"
@@ -105,7 +123,29 @@
                                            type="checkbox"/>
                                 </div>
 
-                                <!-- row 7 -->
+                                <!-- row 8 -->
+                                <div class="form-group" style="display: block">
+                                    <div style="display: inline-block">
+                                        <label for="billed">NA</label>
+                                        <input id="pmNa"
+                                               name="pmNa"
+                                               ng-model="$ctrl.pmNa"
+                                               ng-change="$ctrl.changeCheckBox($ctrl.pmNa, 'pmNa')"
+                                               ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                               type="checkbox"/>
+                                    </div>
+                                    <div style="display: inline-block">
+                                        <label for="billed">PM</label>
+                                        <input id="pm"
+                                               name="pm"
+                                               ng-model="$ctrl.pm"
+                                               ng-change="$ctrl.changeCheckBox($ctrl.pm, 'pm')"
+                                               ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                               type="checkbox"/>
+                                    </div>
+                                </div>
+
+                                <!-- row 9 -->
                                 <button
                                     class="btn btn-primary form-inline"
                                     type="button"
