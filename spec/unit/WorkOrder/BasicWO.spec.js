@@ -1,17 +1,17 @@
 import mongoose from 'mongoose'
 import cloneDeep from 'lodash/cloneDeep'
 import range from 'lodash/range'
-import WorkOrder from '../../lib/models/workOrder'
-import User from '../../lib/models/user'
-import County from '../../lib/models/county'
-import State from '../../lib/models/state'
-import Unit from '../../lib/models/unit'
-import woFixture from '../fixture/workOrder.json'
-import userFixture from '../fixture/user.json'
-import unitFixture from '../fixture/unit.json'
-import stateFixture from '../fixture/state.json'
-import countyFixture from '../fixture/county.json'
-import config from '../../config'
+import WorkOrder from '../../../lib/models/workOrder'
+import User from '../../../lib/models/user'
+import County from '../../../lib/models/county'
+import State from '../../../lib/models/state'
+import Unit from '../../../lib/models/unit'
+import woFixture from '../../fixture/workOrder.json'
+import userFixture from '../../fixture/user.json'
+import unitFixture from '../../fixture/unit.json'
+import stateFixture from '../../fixture/state.json'
+import countyFixture from '../../fixture/county.json'
+import config from '../../../config'
 
 const woF = woFixture[0]
 const userF = userFixture[0]
@@ -19,6 +19,7 @@ const unitF = unitFixture[0]
 const countyF = countyFixture[0]
 
 beforeAll((done) => {
+    mongoose.Promise = Promise
     mongoose.connect(config.mongodb)
     mongoose.connection.on('connected', done)
 })
@@ -34,13 +35,13 @@ describe('WorkOrder Units', () => {
             .then(() => County.remove({}))
             .then(() => State.remove({}))
             .then(() => new User(userF).save())
-            .then(user => {
+            .then((user) => {
                 userId = user._id
                 userDoc = user
 
                 return new State(stateFixture).save()
             })
-            .then(state => {
+            .then((state) => {
                 stateDoc = state
                 return new County(countyF).save()
             })
@@ -63,7 +64,7 @@ describe('WorkOrder Units', () => {
         it('should create and return new document', () => {
             expect.assertions(9)
             return WorkOrder.createDoc(woF)
-                .then(doc => {
+                .then((doc) => {
                     expect(doc).toBeTruthy()
                     expect(doc).toHaveLength(1)
                     expect(doc[0].updated_at).toBeInstanceOf(Date)

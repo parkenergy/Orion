@@ -7,6 +7,7 @@ import fixture from '../fixture/user.json'
 const userF = fixture[0]
 
 beforeAll((done) => {
+    mongoose.Promise = Promise
     mongoose.connect(config.mongodb)
     mongoose.connection.on('connected', done)
 })
