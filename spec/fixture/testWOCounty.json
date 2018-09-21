@@ -1,7 +1,12 @@
-{
-  "_id" : "55d24ffb5a2d568a084de860",
-  "name" : "Wise",
-  "updated_at" : "2015-10-02T15:14:25.304Z",
-  "state" : "55d24ff95a2d568a084de666",
-  "__v" : 0
-}
+[
+    {
+        "_id": "5ae34a3710691837942fe321",
+        "__v": 0,
+        "name": "Ottawa",
+        "stateCounty": "OK-Ottawa",
+        "stateAbbr": "OK",
+        "geographicName": "Ottawa County, Oklahoma",
+        "updated_at": "2018-04-27T15:52:29.192Z",
+        "state": "5ae3480f10691837942fcdcc"
+    }
+]

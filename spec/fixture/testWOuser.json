@@ -1,13 +1,32 @@
-{
-  "_id" : "59b1624078df490941e1dc32",
-  "netsuiteId" : "1952",
-  "area" : "04 ARK-LA-TX",
-  "role" : "tech",
-  "supervisor" : "WSA001",
-  "email" : "slindsey@parkenergyservices.com",
-  "username" : "SLI001",
-  "lastName" : "LINDSEY",
-  "firstName" : "STEVEN",
-  "isSynced" : true,
-  "__v" : 0
-}
+[
+    {
+        "_id": "59b7ebbc78df490941e1dc33",
+        "netsuiteId": "1955",
+        "area": "09 DFW : 0901 C TEXAS",
+        "role": "tech",
+        "supervisor": "JMI002",
+        "email": "pramirez@parkenergyservices.com",
+        "username": "PRA001",
+        "lastName": "RAMIREZ",
+        "firstName": "PHILLIP",
+        "isSynced": true,
+        "__v": 0,
+        "hours": {
+            "weekStart": "2018-09-15T00:00:00.000Z",
+            "total": 30.1666666666667,
+            "PTO": 0,
+            "Travel": 8.91666666666667,
+            "Release": 0,
+            "Swap": 0,
+            "Transfer": 0,
+            "NewSet": 0,
+            "TroubleCall": 8.75,
+            "Corrective": 11.25,
+            "PM": 0,
+            "Indirect": 1.25,
+            "emailed": "none"
+        },
+        "location": "DAL0000 : 4776",
+        "areaId": "16"
+    }
+]

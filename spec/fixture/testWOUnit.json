@@ -1,27 +1,28 @@
-{
-  "_id": "58f61e8178df49094164a3d0",
-  "assignedTo": "AMI002",
-  "compressorSerial": "UTY251121",
-  "county": "55d24ffb5a2d568a084de860",
-  "customerName": "BRIAR ENERGY CORPORATION",
-  "engineSerial": "4EW6770",
-  "geo": {
-    "coordinates": [
-      -97.6573,
-      33.3047
-    ],
-    "type": "Point"
-  },
-  "id": "58f61e8178df49094164a3d0",
-  "isSynced": true,
-  "legalDescription": null,
-  "locationName": "H.E. SMITH",
-  "netsuiteId": "544",
-  "nextPmDate": "2017-11-24T00:00:00.000Z",
-  "number": "Q1607",
-  "pmCycle": "45",
-  "pmReport": "2017-11-24T00:00:00.000Z",
-  "productSeries": "Park 127",
-  "state" : "55d24ff95a2d568a084de666",
-  "status": "Active - On Contract"
-}
+[
+    {
+        "_id": "58f61e7e78df49094164a1db",
+        "number": "215",
+        "state": "5ae3480f10691837942fcdcc",
+        "county": "5ae34a3710691837942fe31d",
+        "assignedTo": "PRA001",
+        "compressorSerial": "0260-HP",
+        "engineSerial": "3-0002839",
+        "geo": {
+            "coordinates": [
+                -96.0626,
+                35.3364
+            ],
+            "type": "Point"
+        },
+        "customerName": "TRP-OK PROPERTIES LLC",
+        "netsuiteId": "38",
+        "legalDescription": "",
+        "locationName": "SNELL",
+        "productSeries": "Park 957",
+        "__v": 0,
+        "nextPmDate": "2018-10-27T00:00:00.000Z",
+        "pmCycle": "60",
+        "status": "Active - On Contract",
+        "isSynced": true
+    }
+]
