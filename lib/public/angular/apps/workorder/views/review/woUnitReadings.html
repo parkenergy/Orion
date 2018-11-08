@@ -3,46 +3,75 @@
     <h3 class="panel-title">Unit Readings</h3>
   </div>
   <div class="panel-body">
+    <div class="column">
+    <div class="row">
     <text-field
       class="col-xs-3"
-      label-text="Suction Pressure"
+      label-text="Engine Model"
       placeholder-text="0-100"
-      data="workorder.unitReadings.suctionPressure"
+      data="workorder.unitReadings.engineModel"
+      ng-show="workorder.unitReadings.engineModel"
       disabled="true">
     </text-field>
     <text-field
       class="col-xs-3"
-      label-text="Discharge Pressure"
+      label-text="Engine Serial"
       placeholder-text="0-100"
-      data="workorder.unitReadings.dischargePressure"
+      data="workorder.unitReadings.engineSerial"
+      ng-show="workorder.unitReadings.engineSerial"
       disabled="true">
     </text-field>
     <text-field
       class="col-xs-3"
-      label-text="Flow MCF"
+      label-text="Engine Battery"
       placeholder-text="0-100"
-      data="workorder.unitReadings.flowMCF"
+      data="workorder.unitReadings.engBattery"
+      ng-show="workorder.unitReadings.engBattery"
       disabled="true">
     </text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Oil Temp"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engOilTemp"
+      datatwo="workorder.unitReadings.engOilTempKill"
+      ng-show="workorder.unitReadings.engOilTemp"
+      disabled="true"
+    >
+    </dual-text-field>
+    
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine JW Temp"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engineJWTemp"
+      datatwo="workorder.unitReadings.engineJWTempKill"
+      ng-show="workorder.unitReadings.engineJWTemp"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Oil Pressure"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engineOilPressure"
+      datatwo="workorder.unitReadings.engineOilPressureKill"
+      ng-show="workorder.unitReadings.engineOilPressure"
+      disabled="true"
+    >
+    </dual-text-field>
     <text-field
       class="col-xs-3"
-      label-text="RPM"
+      label-text="Alternator Output"
       placeholder-text="0-100"
-      data="workorder.unitReadings.rpm"
-      disabled="true">
-    </text-field>
-    <text-field
-      class="col-xs-3"
-      label-text="Discharge Temp 1"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.dischargeTemp1"
-      disabled="true">
-    </text-field>
-    <text-field
-      class="col-xs-3"
-      label-text="Discharge Temp 2"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.dischargeTemp2"
+      data="workorder.unitReadings.alternatorOutput"
+      ng-show="workorder.unitReadings.alternatorOutput"
       disabled="true">
     </text-field>
     <text-field
@@ -50,68 +79,331 @@
       label-text="Hour Reading"
       placeholder-text="0-100"
       data="workorder.unitReadings.hourReading"
+      ng-show="workorder.unitReadings.hourReading"
       disabled="true">
     </text-field>
-    <div class="form-group col-xs-3">
-      <label>Compressor Serial</label>
-      <input
-        type="text"
-        ng-style="myStyle"
-        name="compressorSerial"
-        ng-model="workorder.unitReadings.compressorSerial"
-        ng-disabled="true"
-        class="form-control"
-        pes-collection-match
-        placeholder="0-100"
-      >
+    
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Air Inlet Temp"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engAirInletTemp"
+      datatwo="workorder.unitReadings.engAirInletTempKill"
+      ng-show="workorder.unitReadings.engAirInletTemp"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine JW Press"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engJWPress"
+      datatwo="workorder.unitReadings.engJWPressKill"
+      ng-show="workorder.unitReadings.engJWPress"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Turbo Exhaust Temp L"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engTurboExhTempL"
+      datatwo="workorder.unitReadings.engTurboExhTempLKill"
+      ng-show="workorder.unitReadings.engTurboExhTempL"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Turbo Exhaust Temp R"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engTurboExhTempR"
+      datatwo="workorder.unitReadings.engTurboExhTempRKill"
+      ng-show="workorder.unitReadings.engTurboExhTempR"
+      disabled="true"
+    >
+    </dual-text-field>
+    
+    <text-field
+      class="col-xs-3"
+      label-text="RPM"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.rpm"
+      ng-show="workorder.unitReadings.rpm"
+      disabled="true">
+    </text-field>
+    <text-field
+      class="col-xs-3"
+      label-text="Engine Ignition Timing"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.engIgnitionTiming"
+      ng-show="workorder.unitReadings.engIgnitionTiming"
+      disabled="true">
+    </text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Turbo Vacuum Boost L"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engVacuumBoostL"
+      datatwo="workorder.unitReadings.engVacuumBoostLKill"
+      ng-show="workorder.unitReadings.engVacuumBoostL"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Turbo Vacuum Boost R"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engVacuumBoostR"
+      datatwo="workorder.unitReadings.engVacuumBoostRKill"
+      ng-show="workorder.unitReadings.engVacuumBoostR"
+      disabled="true"
+    >
+    </dual-text-field>
     </div>
-    <div class="form-group col-xs-3">
-      <label>Engine Serial</label>
-      <input
-        type="text"
-        ng-style="myStyle"
-        name="engineSerial"
-        ng-model="workorder.unitReadings.engineSerial"
-        ng-disabled="true"
-        class="form-control"
-        pes-collection-match
-        placeholder="0-100"
-      >
-    </div>
+    <div class="row">
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Manifold Temp L"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engManifoldTempL"
+      datatwo="workorder.unitReadings.engManifoldTempLKill"
+      ng-show="workorder.unitReadings.engManifoldTempL"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Manifold Temp R"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.engManifoldTempR"
+      datatwo="workorder.unitReadings.engManifoldTempRKill"
+      ng-show="workorder.unitReadings.engManifoldTempR"
+      disabled="true"
+    >
+    </dual-text-field>
     <text-field
       class="col-xs-3"
-      label-text="Engine Oil Pressure"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.engineOilPressure"
-      disabled="true">
-    </text-field>
-    <text-field
-      class="col-xs-3"
-      label-text="Alternator Output"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.alternatorOutput"
-      disabled="true">
-    </text-field>
-    <text-field
-      class="col-xs-3"
-      label-text="Compressor Oil Pressure"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.compressorOilPressure"
-      disabled="true">
-    </text-field>
-    <text-field
-      class="col-xs-3"
-      label-text="Engine JW Temp"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.engineJWTemp"
-      disabled="true">
-    </text-field>
-    <text-field
-      class="col-xs-3"
-      label-text="Engine Manifold Vac"
+      label-text="Engine Manifold Vacuum"
       placeholder-text="0-100"
       data="workorder.unitReadings.engineManifoldVac"
+      ng-show="workorder.unitReadings.engineManifoldVac"
       disabled="true">
     </text-field>
+    <!-- <triple-text-field
+      class="col-xs-3"
+      input-styling="tripleInputStyling"
+      label-text="test"
+      placeholder-text-one="test"
+      placeholder-text-two="test"
+      placeholder-text-three="test"
+      dataone=""
+      datatwo=""
+      datathree=""
+      disabled="true"
+    >
+    </triple-text-field> -->
+  </div>
+
+  <!-- Compressors Info -->
+  <div class="row">
+    <text-field
+      class="col-xs-3"
+      label-text="Compressor Model"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.compressorModel"
+      ng-show="workorder.unitReadings.compressorModel"
+      disabled="true">
+    </text-field>
+    <text-field
+      class="col-xs-3"
+      label-text="Compressor Serial"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.compressorSerial"
+      ng-show="workorder.unitReadings.compressorSerial"
+      disabled="true">
+    </text-field>
+    <text-field
+      class="col-xs-3"
+      label-text="Suction Pressure"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.suctionPressure"
+      ng-show="workorder.unitReadings.suctionPressure"
+      disabled="true">
+    </text-field>
+  
+    <triple-text-field
+      class="col-xs-3"
+      input-styling="tripleInputStyling"
+      label-text="Suction Pressure 1"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Low"
+      placeholder-text-three="High"
+      dataone="workorder.unitReadings.compInterPress1"
+      datatwo="workorder.unitReadings.compInterPress1Low"
+      datathree="workorder.unitReadings.compInterPress1High"
+      ng-show="workorder.unitReadings.compInterPress1"
+      disabled="true"
+    >
+    </triple-text-field>
+    <triple-text-field
+      class="col-xs-3"
+      input-styling="tripleInputStyling"
+      label-text="Suction Pressure 2"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Low"
+      placeholder-text-three="High"
+      dataone="workorder.unitReadings.compInterPress2"
+      datatwo="workorder.unitReadings.compInterPress2Low"
+      datathree="workorder.unitReadings.compInterPress2High"
+      ng-show="workorder.unitReadings.compInterPress2"
+      disabled="true"
+    >
+    </triple-text-field>
+    <triple-text-field
+      class="col-xs-3"
+      input-styling="tripleInputStyling"
+      label-text="Suction Pressure 3"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Low"
+      placeholder-text-three="High"
+      dataone="workorder.unitReadings.compInterPress3"
+      datatwo="workorder.unitReadings.compInterPress3Low"
+      datathree="workorder.unitReadings.compInterPress3High"
+      ng-show="workorder.unitReadings.compInterPress3"
+      disabled="true"
+    >
+    </triple-text-field>
+  </div>
+  <div class="row">
+    <text-field
+      class="col-xs-3"
+      label-text="Discharge Temp Left"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.dischargeTemp1"
+      ng-show="workorder.unitReadings.dischargeTemp1"
+      disabled="true">
+    </text-field>
+    <text-field
+      class="col-xs-3"
+      label-text="Discharge Temp Right"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.dischargeTemp2"
+      ng-show="workorder.unitReadings.dischargeTemp2"
+      disabled="true">
+    </text-field>
+  </div>
+  <div class="row">
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Discharge Stg 1 Temp"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.dischargeStg1Temp"
+      datatwo="workorder.unitReadings.dischargeStg1TempKill"
+      ng-show="workorder.unitReadings.dischargeStg1Temp "
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Discharge Stg 2 Temp"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.dischargeStg2Temp"
+      datatwo="workorder.unitReadings.dischargeStg2TempKill"
+      ng-show="workorder.unitReadings.dischargeStg2Temp"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Discharge Stg 3 Temp"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.dischargeStg3Temp"
+      datatwo="workorder.unitReadings.dischargeStg3TempKill"
+      ng-show="workorder.unitReadings.dischargeStg3Temp"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Discharge Stg 4 Temp"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.dischargeStg4Temp"
+      datatwo="workorder.unitReadings.dischargeStg4TempKill"
+      ng-show="workorder.unitReadings.dischargeStg4Temp"
+      disabled="true"
+    >
+    </dual-text-field>
+  
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Compressor Oil Pressure"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.compressorOilPressure"
+      datatwo="workorder.unitReadings.compOilPressKill"
+      ng-show="workorder.unitReadings.compressorOilPressure"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Compressor Oil Temp"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.compOilTemp"
+      datatwo="workorder.unitReadings.compOilTempKill"
+      ng-show="workorder.unitReadings.compOilTemp"
+      disabled="true"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Compressor Diff PC Filter"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      dataone="workorder.unitReadings.compDiffPCFilter"
+      datatwo="workorder.unitReadings.compDiffPCFilterKill"
+      ng-show="workorder.unitReadings.compDiffPCFilter"
+      disabled="true"
+    >
+    </dual-text-field>
+    <text-field
+      class="col-xs-3"
+      label-text="Flow MCF"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.flowMCF"
+      ng-show="workorder.unitReadings.flowMCF"
+      disabled="true">
+    </text-field>
+  </div>
+  </div>
   </div>
 </div>

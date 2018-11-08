@@ -4,52 +4,65 @@
   </div>
   <div class="panel-body">
     <text-field
-      model-name="unitReadings.suctionPressure"
+      model-name="unitReadings.engineModel"
       on-data-change="changeThisTextField(changedData, selected)"
       class="col-xs-3"
-      label-text="Suction Pressure"
+      label-text="Engine Model"
       placeholder-text="0-100"
-      data="workorder.unitReadings.suctionPressure">
+      data="workorder.unitReadings.engineModel">
     </text-field>
     <text-field
-      model-name="unitReadings.dischargePressure"
+      model-name="unitReadings.engineSerial"
       on-data-change="changeThisTextField(changedData, selected)"
       class="col-xs-3"
-      label-text="Discharge Pressure"
+      label-text="Engine Serial"
       placeholder-text="0-100"
-      data="workorder.unitReadings.dischargePressure">
+      data="workorder.unitReadings.engineSerial">
     </text-field>
     <text-field
-      model-name="unitReadings.flowMCF"
+      model-name="unitReadings.engineBattery"
       on-data-change="changeThisTextField(changedData, selected)"
       class="col-xs-3"
-      label-text="Flow MCF"
+      label-text="Engine Battery"
       placeholder-text="0-100"
-      data="workorder.unitReadings.flowMCF">
+      data="workorder.unitReadings.engineBattery">
     </text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Oil Temp"
+      model-name-one="unitReadings.engOilTemp"
+      model-name-two="unitReadings.engOilTempKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engOilTemp"
+      datatwo="workorder.unitReadings.engOilTempKill"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Oil Pressure"
+      model-name-one="unitReadings.engineOilPressure"
+      model-name-two="unitReadings.engOilPressureKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engineOilPressure"
+      datatwo="workorder.unitReadings.engOilPressureKill"
+      ng-show="workorder.unitReadings.engineOilPressure"
+    >
+    </dual-text-field>
     <text-field
-      model-name="unitReadings.rpm"
+      model-name="unitReadings.alternatorOutput"
       on-data-change="changeThisTextField(changedData, selected)"
       class="col-xs-3"
-      label-text="RPM"
+      label-text="Alternator Output"
       placeholder-text="0-100"
-      data="workorder.unitReadings.rpm">
-    </text-field>
-    <text-field
-      model-name="unitReadings.dischargeTemp1"
-      on-data-change="changeThisTextField(changedData, selected)"
-      class="col-xs-3"
-      label-text="Discharge Temp 1"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.dischargeTemp1">
-    </text-field>
-    <text-field
-      model-name="unitReadings.dischargeTemp2"
-      on-data-change="changeThisTextField(changedData, selected)"
-      class="col-xs-3"
-      label-text="Discharge Temp 2"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.dischargeTemp2">
+      data="workorder.unitReadings.alternatorOutput"
+      ng-show="unitReadings.alternatorOutput"
+      >
     </text-field>
     <text-field
       model-name="unitReadings.hourReading"
@@ -57,71 +70,314 @@
       class="col-xs-3"
       label-text="Hour Reading"
       placeholder-text="0-100"
-      data="workorder.unitReadings.hourReading">
-    </text-field>
-    <div class="form-group col-xs-3">
-      <label>Compressor Serial</label>
-      <input
-        type="text"
-        ng-style="myStyle"
-        name="compressorSerial"
-        ng-model="workorder.unitReadings.compressorSerial"
-        class="form-control"
-        pes-collection-match
-        placeholder="0-100"
+      data="workorder.unitReadings.hourReading"
+      ng-show="unitReadings.hourReading"
       >
-    </div>
-    <div class="form-group col-xs-3">
-      <label>Engine Serial</label>
-      <input
-        type="text"
-        ng-style="myStyle"
-        name="engineSerial"
-        ng-model="workorder.unitReadings.engineSerial"
-        class="form-control"
-        pes-collection-match
-        placeholder="0-100"
+    </text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Air Inlet Temp"
+      model-name-one="unitReadings.engAirInletTemp"
+      model-name-two="unitReadings.engAirInletTempKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engAirInletTemp"
+      datatwo="workorder.unitReadings.engAirInletTempKill"
+      ng-show="workorder.unitReadings.engAirInletTemp"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine JW Pressure"
+      model-name-one="unitReadings.engJWPress"
+      model-name-two="unitReadings.engJWPressKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engJWPress"
+      datatwo="workorder.unitReadings.engJWPressKill"
+      ng-show="workorder.unitReadings.engJWPress"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Turbo Exh Temp L"
+      model-name-one="unitReadings.engTurboExhTempL"
+      model-name-two="unitReadings.engTurboExhTempLKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engTurboExhTempL"
+      datatwo="workorder.unitReadings.engTurboExhTempLKill"
+      ng-show="workorder.unitReadings.engTurboExhTempL"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Turbo Exh Temp R"
+      model-name-one="unitReadings.engTurboExhTempR"
+      model-name-two="unitReadings.engTurboExhTempRKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engTurboExhTempR"
+      datatwo="workorder.unitReadings.engTurboExhTempRKill"
+      ng-show="workorder.unitReadings.engTurboExhTempR"
+    >
+    </dual-text-field>
+    <text-field
+      model-name="unitReadings.rpm"
+      on-data-change="changeThisTextField(changedData, selected)"
+      class="col-xs-3"
+      label-text="RPM"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.rpm"
+      ng-show="unitReadings.rpm"
       >
-    </div>
-    <text-field
-      model-name="unitReadings.engineOilPressure"
-      on-data-change="changeThisTextField(changedData, selected)"
-      class="col-xs-3"
-      label-text="Engine Oil Pressure"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.engineOilPressure">
     </text-field>
     <text-field
-      model-name="unitReadings.alternatorOutput"
+      model-name="unitReadings.engIgnitionTiming"
       on-data-change="changeThisTextField(changedData, selected)"
       class="col-xs-3"
-      label-text="Alternator Output"
+      label-text="Engine Ignition Timing"
       placeholder-text="0-100"
-      data="workorder.unitReadings.alternatorOutput">
+      data="workorder.unitReadings.engIgnitionTiming"
+      ng-show="unitReadings.engIgnitionTiming"
+      >
     </text-field>
-    <text-field
-      model-name="unitReadings.compressorOilPressure"
-      on-data-change="changeThisTextField(changedData, selected)"
+    <dual-text-field
       class="col-xs-3"
-      label-text="Compressor Oil Pressure"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.compressorOilPressure">
-    </text-field>
-    <text-field
-      model-name="unitReadings.engineJWTemp"
+      input-styling="inputStyling"
+      label-text="Engine Turbo Exh Temp L"
+      model-name-one="unitReadings.engVacuumBoostL"
+      model-name-two="unitReadings.engVacuumBoostLKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
       on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engVacuumBoostL"
+      datatwo="workorder.unitReadings.engVacuumBoostLKill"
+      ng-show="workorder.unitReadings.engVacuumBoostL"
+    >
+    </dual-text-field>
+    <dual-text-field
       class="col-xs-3"
-      label-text="Engine JW Temp"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.engineJWTemp">
-    </text-field>
+      input-styling="inputStyling"
+      label-text="Engine Turbo Exh Temp R"
+      model-name-one="unitReadings.engVacuumBoostR"
+      model-name-two="unitReadings.engVacuumBoostRKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engVacuumBoostR"
+      datatwo="workorder.unitReadings.engVacuumBoostRKill"
+      ng-show="workorder.unitReadings.engVacuumBoostR"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Manifold Temp L"
+      model-name-one="unitReadings.engManifoldTempL"
+      model-name-two="unitReadings.engManifoldTempLKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engManifoldTempL"
+      datatwo="workorder.unitReadings.engManifoldTempLKill"
+      ng-show="workorder.unitReadings.engManifoldTempL"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Engine Manifold Temp R"
+      model-name-one="unitReadings.engManifoldTempR"
+      model-name-two="unitReadings.engManifoldTempRKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.engManifoldTempR"
+      datatwo="workorder.unitReadings.engManifoldTempRKill"
+      ng-show="workorder.unitReadings.engManifoldTempR"
+    >
+    </dual-text-field>
     <text-field
       model-name="unitReadings.engineManifoldVac"
       on-data-change="changeThisTextField(changedData, selected)"
       class="col-xs-3"
-      label-text="Engine Manifold Vac"
+      label-text="Engine Ignition Timing"
       placeholder-text="0-100"
-      data="workorder.unitReadings.engineManifoldVac">
+      data="workorder.unitReadings.engineManifoldVac"
+      ng-show="unitReadings.engineManifoldVac"
+      >
     </text-field>
+
+    <!-- compression -->
+  <div class="row">
+    <text-field
+    model-name="unitReadings.compressorModel"
+    on-data-change="changeThisTextField(changedData, selected)"
+    class="col-xs-3"
+    label-text="Compressor Model"
+    placeholder-text="0-100"
+    data="workorder.unitReadings.compressorModel"
+    ng-show="unitReadings.compressorModel"
+    >
+    </text-field>
+    <text-field
+    model-name="unitReadings.compressorSerial"
+    on-data-change="changeThisTextField(changedData, selected)"
+    class="col-xs-3"
+    label-text="Compressor Serial"
+    placeholder-text="0-100"
+    data="workorder.unitReadings.compressorSerial"
+    ng-show="unitReadings.compressorSerial"
+    >
+    </text-field>
+    <text-field
+    model-name="unitReadings.suctionPressure"
+    on-data-change="changeThisTextField(changedData, selected)"
+    class="col-xs-3"
+    label-text="Suction Pressure"
+    placeholder-text="0-100"
+    data="workorder.unitReadings.suctionPressure"
+    ng-show="unitReadings.suctionPressure"
+    >
+    </text-field>
+    <triple-text-field
+      class="col-xs-3"
+      input-styling="tripleInputStyling"
+      label-text="Stage Pressure 1"
+      on-data-change="changeThisTextField(changedData, selected)"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Low"
+      placeholder-text-three="High"
+      dataone="workorder.unitReadings.compInterPress1"
+      datatwo="workorder.unitReadings.compInterPress1Low"
+      datathree="workorder.unitReadings.compInterPress1High"
+      ng-show="workorder.unitReadings.compInterPress1"
+    >
+    </triple-text-field>
+    <triple-text-field
+      class="col-xs-3"
+      input-styling="tripleInputStyling"
+      label-text="Stage Pressure 2"
+      on-data-change="changeThisTextField(changedData, selected)"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Low"
+      placeholder-text-three="High"
+      dataone="workorder.unitReadings.compInterPress2"
+      datatwo="workorder.unitReadings.compInterPress2Low"
+      datathree="workorder.unitReadings.compInterPress2High"
+      ng-show="workorder.unitReadings.compInterPress2"
+    >
+    </triple-text-field>
+    <triple-text-field
+      class="col-xs-3"
+      input-styling="tripleInputStyling"
+      label-text="Stage Pressure 3"
+      on-data-change="changeThisTextField(changedData, selected)"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Low"
+      placeholder-text-three="High"
+      dataone="workorder.unitReadings.compInterPress3"
+      datatwo="workorder.unitReadings.compInterPress3Low"
+      datathree="workorder.unitReadings.compInterPress1High"
+      ng-show="workorder.unitReadings.compInterPress3"
+    >
+    </triple-text-field>
+    <text-field
+    model-name="unitReadings.dischargePressure"
+    on-data-change="changeThisTextField(changedData, selected)"
+    class="col-xs-3"
+    label-text="Discharge Pressure"
+    placeholder-text="0-100"
+    data="workorder.unitReadings.dischargePressure"
+    ng-show="unitReadings.dischargePressure"
+    >
+    </text-field>
+    <text-field
+    model-name="unitReadings.dischargeTemp1"
+    on-data-change="changeThisTextField(changedData, selected)"
+    class="col-xs-3"
+    label-text="Discharge Temp 1"
+    placeholder-text="0-100"
+    data="workorder.unitReadings.dischargeTemp1"
+    ng-show="unitReadings.dischargeTemp1"
+    >
+    </text-field>
+    <text-field
+    model-name="unitReadings.dischargeTemp2"
+    on-data-change="changeThisTextField(changedData, selected)"
+    class="col-xs-3"
+    label-text="Discharge Temp 2"
+    placeholder-text="0-100"
+    data="workorder.unitReadings.dischargeTemp2"
+    ng-show="unitReadings.dischargeTemp2"
+    >
+    </text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Discharge Stg 1 Temp"
+      model-name-one="unitReadings.dischargeStg1Temp"
+      model-name-two="unitReadings.dischargeStg1TempKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.dischargeStg1Temp"
+      datatwo="workorder.unitReadings.dischargeStg1TempKill"
+      ng-show="workorder.unitReadings.dischargeStg1Temp"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Discharge Stg 2 Temp"
+      model-name-one="unitReadings.dischargeStg2Temp"
+      model-name-two="unitReadings.dischargeStg2TempKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.dischargeStg2Temp"
+      datatwo="workorder.unitReadings.dischargeStg2TempKill"
+      ng-show="workorder.unitReadings.dischargeStg2Temp"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Discharge Stg 3 Temp"
+      model-name-one="unitReadings.dischargeStg3Temp"
+      model-name-two="unitReadings.dischargeStg3TempKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.dischargeStg3Temp"
+      datatwo="workorder.unitReadings.dischargeStg3TempKill"
+      ng-show="workorder.unitReadings.dischargeStg3Temp"
+    >
+    </dual-text-field>
+    <dual-text-field
+      class="col-xs-3"
+      input-styling="inputStyling"
+      label-text="Discharge Stg 4 Temp"
+      model-name-one="unitReadings.dischargeStg4Temp"
+      model-name-two="unitReadings.dischargeStg4TempKill"
+      placeholder-text-one="Gauge"
+      placeholder-text-two="Kill"
+      on-data-change="changeThisTextField(changedData, selected)"
+      dataone="workorder.unitReadings.dischargeStg4Temp"
+      datatwo="workorder.unitReadings.dischargeStg4TempKill"
+      ng-show="workorder.unitReadings.dischargeStg4Temp"
+    >
+    </dual-text-field>
+  </div>
+
   </div>
 </div>
