@@ -10,7 +10,7 @@
       label-text="Engine Model"
       placeholder-text="0-100"
       data="workorder.unitReadings.engineModel"
-      ng-show="workorder.unitReadings.engineModel"
+      ng-show="isFound('engineModel')"
       disabled="true">
     </text-field>
     <text-field
@@ -18,7 +18,6 @@
       label-text="Engine Serial"
       placeholder-text="0-100"
       data="workorder.unitReadings.engineSerial"
-      ng-show="workorder.unitReadings.engineSerial"
       disabled="true">
     </text-field>
     <text-field
@@ -26,7 +25,7 @@
       label-text="Engine Battery"
       placeholder-text="0-100"
       data="workorder.unitReadings.engBattery"
-      ng-show="workorder.unitReadings.engBattery"
+      ng-show="isFound('engBattery')"
       disabled="true">
     </text-field>
     <dual-text-field
@@ -37,7 +36,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engOilTemp"
       datatwo="workorder.unitReadings.engOilTempKill"
-      ng-show="workorder.unitReadings.engOilTemp"
+      ng-show="isFound('engOilTemp')"
       disabled="true"
     >
     </dual-text-field>
@@ -50,7 +49,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engineJWTemp"
       datatwo="workorder.unitReadings.engineJWTempKill"
-      ng-show="workorder.unitReadings.engineJWTemp"
+      ng-show="isFound('engineJWTemp')"
       disabled="true"
     >
     </dual-text-field>
@@ -62,7 +61,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engineOilPressure"
       datatwo="workorder.unitReadings.engineOilPressureKill"
-      ng-show="workorder.unitReadings.engineOilPressure"
+      ng-show="isFound('engineOilPressure')"
       disabled="true"
     >
     </dual-text-field>
@@ -71,7 +70,7 @@
       label-text="Alternator Output"
       placeholder-text="0-100"
       data="workorder.unitReadings.alternatorOutput"
-      ng-show="workorder.unitReadings.alternatorOutput"
+      ng-show="isFound('alternatorOutput')"
       disabled="true">
     </text-field>
     <text-field
@@ -79,7 +78,7 @@
       label-text="Hour Reading"
       placeholder-text="0-100"
       data="workorder.unitReadings.hourReading"
-      ng-show="workorder.unitReadings.hourReading"
+      ng-show="isFound('hourReading')"
       disabled="true">
     </text-field>
     
@@ -91,7 +90,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engAirInletTemp"
       datatwo="workorder.unitReadings.engAirInletTempKill"
-      ng-show="workorder.unitReadings.engAirInletTemp"
+      ng-show="isFound('engAirInletTemp')"
       disabled="true"
     >
     </dual-text-field>
@@ -103,7 +102,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engJWPress"
       datatwo="workorder.unitReadings.engJWPressKill"
-      ng-show="workorder.unitReadings.engJWPress"
+      ng-show="isFound('engJWPress')"
       disabled="true"
     >
     </dual-text-field>
@@ -115,7 +114,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engTurboExhTempL"
       datatwo="workorder.unitReadings.engTurboExhTempLKill"
-      ng-show="workorder.unitReadings.engTurboExhTempL"
+      ng-show="isFound('engTurboExhTempL')"
       disabled="true"
     >
     </dual-text-field>
@@ -127,7 +126,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engTurboExhTempR"
       datatwo="workorder.unitReadings.engTurboExhTempRKill"
-      ng-show="workorder.unitReadings.engTurboExhTempR"
+      ng-show="isFound('engTurboExhTempR')"
       disabled="true"
     >
     </dual-text-field>
@@ -137,7 +136,7 @@
       label-text="RPM"
       placeholder-text="0-100"
       data="workorder.unitReadings.rpm"
-      ng-show="workorder.unitReadings.rpm"
+      ng-show="isFound('rpm')"
       disabled="true">
     </text-field>
     <text-field
@@ -145,7 +144,7 @@
       label-text="Engine Ignition Timing"
       placeholder-text="0-100"
       data="workorder.unitReadings.engIgnitionTiming"
-      ng-show="workorder.unitReadings.engIgnitionTiming"
+      ng-show="isFound('engIgnitionTiming')"
       disabled="true">
     </text-field>
     <dual-text-field
@@ -156,7 +155,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engVacuumBoostL"
       datatwo="workorder.unitReadings.engVacuumBoostLKill"
-      ng-show="workorder.unitReadings.engVacuumBoostL"
+      ng-show="isFound('engVacuumBoostL')"
       disabled="true"
     >
     </dual-text-field>
@@ -168,7 +167,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engVacuumBoostR"
       datatwo="workorder.unitReadings.engVacuumBoostRKill"
-      ng-show="workorder.unitReadings.engVacuumBoostR"
+      ng-show="isFound('engVacuumBoostR')"
       disabled="true"
     >
     </dual-text-field>
@@ -182,7 +181,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engManifoldTempL"
       datatwo="workorder.unitReadings.engManifoldTempLKill"
-      ng-show="workorder.unitReadings.engManifoldTempL"
+      ng-show="isFound('engManifoldTempL')"
       disabled="true"
     >
     </dual-text-field>
@@ -194,7 +193,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.engManifoldTempR"
       datatwo="workorder.unitReadings.engManifoldTempRKill"
-      ng-show="workorder.unitReadings.engManifoldTempR"
+      ng-show="isFound('engManifoldTempR')"
       disabled="true"
     >
     </dual-text-field>
@@ -203,7 +202,7 @@
       label-text="Engine Manifold Vacuum"
       placeholder-text="0-100"
       data="workorder.unitReadings.engineManifoldVac"
-      ng-show="workorder.unitReadings.engineManifoldVac"
+      ng-show="isFound('engineManifoldVac')"
       disabled="true">
     </text-field>
     <!-- <triple-text-field
@@ -228,7 +227,6 @@
       label-text="Compressor Model"
       placeholder-text="0-100"
       data="workorder.unitReadings.compressorModel"
-      ng-show="workorder.unitReadings.compressorModel"
       disabled="true">
     </text-field>
     <text-field
@@ -236,7 +234,6 @@
       label-text="Compressor Serial"
       placeholder-text="0-100"
       data="workorder.unitReadings.compressorSerial"
-      ng-show="workorder.unitReadings.compressorSerial"
       disabled="true">
     </text-field>
     <text-field
@@ -244,7 +241,7 @@
       label-text="Suction Pressure"
       placeholder-text="0-100"
       data="workorder.unitReadings.suctionPressure"
-      ng-show="workorder.unitReadings.suctionPressure"
+      ng-show="isFound('suctionPressure')"
       disabled="true">
     </text-field>
   
@@ -258,7 +255,7 @@
       dataone="workorder.unitReadings.compInterPress1"
       datatwo="workorder.unitReadings.compInterPress1Low"
       datathree="workorder.unitReadings.compInterPress1High"
-      ng-show="workorder.unitReadings.compInterPress1"
+      ng-show="isFound('compInterPress1')"
       disabled="true"
     >
     </triple-text-field>
@@ -272,7 +269,7 @@
       dataone="workorder.unitReadings.compInterPress2"
       datatwo="workorder.unitReadings.compInterPress2Low"
       datathree="workorder.unitReadings.compInterPress2High"
-      ng-show="workorder.unitReadings.compInterPress2"
+      ng-show="isFound('compInterPress2')"
       disabled="true"
     >
     </triple-text-field>
@@ -286,18 +283,26 @@
       dataone="workorder.unitReadings.compInterPress3"
       datatwo="workorder.unitReadings.compInterPress3Low"
       datathree="workorder.unitReadings.compInterPress3High"
-      ng-show="workorder.unitReadings.compInterPress3"
+      ng-show="isFound('compInterPress3')"
       disabled="true"
     >
     </triple-text-field>
   </div>
   <div class="row">
+      <text-field
+      class="col-xs-3"
+      label-text="Discharge Pressure"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.dischargePressure"
+      ng-show="isFound('dischargePressure')"
+      disabled="true">
+    </text-field>
     <text-field
       class="col-xs-3"
       label-text="Discharge Temp Left"
       placeholder-text="0-100"
       data="workorder.unitReadings.dischargeTemp1"
-      ng-show="workorder.unitReadings.dischargeTemp1"
+      ng-show="isFound('dischargeTemp1')"
       disabled="true">
     </text-field>
     <text-field
@@ -305,7 +310,7 @@
       label-text="Discharge Temp Right"
       placeholder-text="0-100"
       data="workorder.unitReadings.dischargeTemp2"
-      ng-show="workorder.unitReadings.dischargeTemp2"
+      ng-show="isFound('dischargeTemp1')"
       disabled="true">
     </text-field>
   </div>
@@ -318,7 +323,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.dischargeStg1Temp"
       datatwo="workorder.unitReadings.dischargeStg1TempKill"
-      ng-show="workorder.unitReadings.dischargeStg1Temp "
+      ng-show="isFound('dischargeStg1Temp')"
       disabled="true"
     >
     </dual-text-field>
@@ -330,7 +335,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.dischargeStg2Temp"
       datatwo="workorder.unitReadings.dischargeStg2TempKill"
-      ng-show="workorder.unitReadings.dischargeStg2Temp"
+      ng-show="isFound('dischargeStg2Temp')"
       disabled="true"
     >
     </dual-text-field>
@@ -342,7 +347,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.dischargeStg3Temp"
       datatwo="workorder.unitReadings.dischargeStg3TempKill"
-      ng-show="workorder.unitReadings.dischargeStg3Temp"
+      ng-show="isFound('dischargeStg3Temp')"
       disabled="true"
     >
     </dual-text-field>
@@ -354,7 +359,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.dischargeStg4Temp"
       datatwo="workorder.unitReadings.dischargeStg4TempKill"
-      ng-show="workorder.unitReadings.dischargeStg4Temp"
+      ng-show="isFound('dischargeStg4Temp')"
       disabled="true"
     >
     </dual-text-field>
@@ -367,7 +372,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.compressorOilPressure"
       datatwo="workorder.unitReadings.compOilPressKill"
-      ng-show="workorder.unitReadings.compressorOilPressure"
+      ng-show="isFound('compressorOilPressure')"
       disabled="true"
     >
     </dual-text-field>
@@ -379,7 +384,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.compOilTemp"
       datatwo="workorder.unitReadings.compOilTempKill"
-      ng-show="workorder.unitReadings.compOilTemp"
+      ng-show="isFound('compOilTemp')"
       disabled="true"
     >
     </dual-text-field>
@@ -391,7 +396,7 @@
       placeholder-text-two="Kill"
       dataone="workorder.unitReadings.compDiffPCFilter"
       datatwo="workorder.unitReadings.compDiffPCFilterKill"
-      ng-show="workorder.unitReadings.compDiffPCFilter"
+      ng-show="isFound('compDiffPCFilter')"
       disabled="true"
     >
     </dual-text-field>
@@ -400,7 +405,7 @@
       label-text="Flow MCF"
       placeholder-text="0-100"
       data="workorder.unitReadings.flowMCF"
-      ng-show="workorder.unitReadings.flowMCF"
+      ng-show="isFound('flowMCF')"
       disabled="true">
     </text-field>
   </div>

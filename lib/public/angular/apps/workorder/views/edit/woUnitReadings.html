@@ -51,7 +51,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.engineOilPressure"
       datatwo="workorder.unitReadings.engOilPressureKill"
-      ng-show="workorder.unitReadings.engineOilPressure"
+      ng-show="isFound('engineOilPressure')"
     >
     </dual-text-field>
     <text-field
@@ -61,7 +61,7 @@
       label-text="Alternator Output"
       placeholder-text="0-100"
       data="workorder.unitReadings.alternatorOutput"
-      ng-show="unitReadings.alternatorOutput"
+      ng-show="isFound('alternatorOutput')"
       >
     </text-field>
     <text-field
@@ -71,7 +71,7 @@
       label-text="Hour Reading"
       placeholder-text="0-100"
       data="workorder.unitReadings.hourReading"
-      ng-show="unitReadings.hourReading"
+      ng-show="isFound('hourReading')"
       >
     </text-field>
     <dual-text-field
@@ -85,7 +85,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.engAirInletTemp"
       datatwo="workorder.unitReadings.engAirInletTempKill"
-      ng-show="workorder.unitReadings.engAirInletTemp"
+      ng-show="isFound('engAirInletTemp')"
     >
     </dual-text-field>
     <dual-text-field
@@ -99,7 +99,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.engJWPress"
       datatwo="workorder.unitReadings.engJWPressKill"
-      ng-show="workorder.unitReadings.engJWPress"
+      ng-show="isFound('engJWPress')"
     >
     </dual-text-field>
     <dual-text-field
@@ -113,7 +113,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.engTurboExhTempL"
       datatwo="workorder.unitReadings.engTurboExhTempLKill"
-      ng-show="workorder.unitReadings.engTurboExhTempL"
+      ng-show="isFound('engTurboExhTempL')"
     >
     </dual-text-field>
     <dual-text-field
@@ -127,7 +127,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.engTurboExhTempR"
       datatwo="workorder.unitReadings.engTurboExhTempRKill"
-      ng-show="workorder.unitReadings.engTurboExhTempR"
+      ng-show="isFound('engTurboExhTempR')"
     >
     </dual-text-field>
     <text-field
@@ -137,7 +137,7 @@
       label-text="RPM"
       placeholder-text="0-100"
       data="workorder.unitReadings.rpm"
-      ng-show="unitReadings.rpm"
+      ng-show="isFound('rpm')"
       >
     </text-field>
     <text-field
@@ -147,7 +147,7 @@
       label-text="Engine Ignition Timing"
       placeholder-text="0-100"
       data="workorder.unitReadings.engIgnitionTiming"
-      ng-show="unitReadings.engIgnitionTiming"
+      ng-show="isFound('engIgnitionTiming')"
       >
     </text-field>
     <dual-text-field
@@ -161,7 +161,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.engVacuumBoostL"
       datatwo="workorder.unitReadings.engVacuumBoostLKill"
-      ng-show="workorder.unitReadings.engVacuumBoostL"
+      ng-show="isFound('engVacuumBoostL')"
     >
     </dual-text-field>
     <dual-text-field
@@ -175,7 +175,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.engVacuumBoostR"
       datatwo="workorder.unitReadings.engVacuumBoostRKill"
-      ng-show="workorder.unitReadings.engVacuumBoostR"
+      ng-show="isFound('engVacuumBoostR')"
     >
     </dual-text-field>
     <dual-text-field
@@ -189,7 +189,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.engManifoldTempL"
       datatwo="workorder.unitReadings.engManifoldTempLKill"
-      ng-show="workorder.unitReadings.engManifoldTempL"
+      ng-show="isFound('engManifoldTempL')"
     >
     </dual-text-field>
     <dual-text-field
@@ -203,7 +203,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.engManifoldTempR"
       datatwo="workorder.unitReadings.engManifoldTempRKill"
-      ng-show="workorder.unitReadings.engManifoldTempR"
+      ng-show="isFound('engManifoldTempR')"
     >
     </dual-text-field>
     <text-field
@@ -213,7 +213,7 @@
       label-text="Engine Ignition Timing"
       placeholder-text="0-100"
       data="workorder.unitReadings.engineManifoldVac"
-      ng-show="unitReadings.engineManifoldVac"
+      ng-show="isFound('engineManifoldVac')"
       >
     </text-field>
 
@@ -226,7 +226,6 @@
     label-text="Compressor Model"
     placeholder-text="0-100"
     data="workorder.unitReadings.compressorModel"
-    ng-show="unitReadings.compressorModel"
     >
     </text-field>
     <text-field
@@ -236,7 +235,6 @@
     label-text="Compressor Serial"
     placeholder-text="0-100"
     data="workorder.unitReadings.compressorSerial"
-    ng-show="unitReadings.compressorSerial"
     >
     </text-field>
     <text-field
@@ -246,7 +244,6 @@
     label-text="Suction Pressure"
     placeholder-text="0-100"
     data="workorder.unitReadings.suctionPressure"
-    ng-show="unitReadings.suctionPressure"
     >
     </text-field>
     <triple-text-field
@@ -260,7 +257,7 @@
       dataone="workorder.unitReadings.compInterPress1"
       datatwo="workorder.unitReadings.compInterPress1Low"
       datathree="workorder.unitReadings.compInterPress1High"
-      ng-show="workorder.unitReadings.compInterPress1"
+      ng-show="isFound('compInterPress1')"
     >
     </triple-text-field>
     <triple-text-field
@@ -274,7 +271,7 @@
       dataone="workorder.unitReadings.compInterPress2"
       datatwo="workorder.unitReadings.compInterPress2Low"
       datathree="workorder.unitReadings.compInterPress2High"
-      ng-show="workorder.unitReadings.compInterPress2"
+      ng-show="isFound('compInterPress2')"
     >
     </triple-text-field>
     <triple-text-field
@@ -288,7 +285,7 @@
       dataone="workorder.unitReadings.compInterPress3"
       datatwo="workorder.unitReadings.compInterPress3Low"
       datathree="workorder.unitReadings.compInterPress1High"
-      ng-show="workorder.unitReadings.compInterPress3"
+      ng-show="isFound('compInterPress3')"
     >
     </triple-text-field>
     <text-field
@@ -298,7 +295,7 @@
     label-text="Discharge Pressure"
     placeholder-text="0-100"
     data="workorder.unitReadings.dischargePressure"
-    ng-show="unitReadings.dischargePressure"
+    ng-show="isFound('dischargePressure')"
     >
     </text-field>
     <text-field
@@ -308,7 +305,7 @@
     label-text="Discharge Temp 1"
     placeholder-text="0-100"
     data="workorder.unitReadings.dischargeTemp1"
-    ng-show="unitReadings.dischargeTemp1"
+    ng-show="isFound('dischargeTemp1')"
     >
     </text-field>
     <text-field
@@ -318,7 +315,7 @@
     label-text="Discharge Temp 2"
     placeholder-text="0-100"
     data="workorder.unitReadings.dischargeTemp2"
-    ng-show="unitReadings.dischargeTemp2"
+    ng-show="isFound('dischargeTemp2')"
     >
     </text-field>
     <dual-text-field
@@ -332,8 +329,8 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.dischargeStg1Temp"
       datatwo="workorder.unitReadings.dischargeStg1TempKill"
-      ng-show="workorder.unitReadings.dischargeStg1Temp"
-    >
+      ng-show="isFound('dischargeStg1Temp')"
+      >
     </dual-text-field>
     <dual-text-field
       class="col-xs-3"
@@ -346,7 +343,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.dischargeStg2Temp"
       datatwo="workorder.unitReadings.dischargeStg2TempKill"
-      ng-show="workorder.unitReadings.dischargeStg2Temp"
+      ng-show="isFound('dischargeStg2Temp')"
     >
     </dual-text-field>
     <dual-text-field
@@ -360,7 +357,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.dischargeStg3Temp"
       datatwo="workorder.unitReadings.dischargeStg3TempKill"
-      ng-show="workorder.unitReadings.dischargeStg3Temp"
+      ng-show="isFound('dischargeStg3Temp')"
     >
     </dual-text-field>
      <dual-text-field
@@ -374,7 +371,7 @@
       on-data-change="changeThisTextField(changedData, selected)"
       dataone="workorder.unitReadings.dischargeStg4Temp"
       datatwo="workorder.unitReadings.dischargeStg4TempKill"
-      ng-show="workorder.unitReadings.dischargeStg4Temp"
+      ng-show="isFound('dischargeStg4Temp')"
     >
     </dual-text-field>
   </div>
