@@ -5,14 +5,14 @@
   <div class="panel-body">
 
   	<text-area-field
-      model-name="comments.repairsDescription"
-      on-data-change="changeThisTextAreaField(changedData, selected)"
-      ng-show="workorder.pm ||
+        model-name="comments.repairsDescription"
+        on-data-change="changeThisTextAreaField(changedData, selected)"
+        ng-show="workorder.pm || workorder.pm2 || workorder.pm3 || workorder.pm4 || workorder.pm5 ||
                workorder.type == 'Corrective' ||
                workorder.type == 'Trouble Call'"
-  		label-text="Description of Repairs Made"
-  		placeholder-text="Please describe the repairs in detail"
-      data="workorder.comments.repairsDescription">
+        label-text="Description of Repairs Made"
+        placeholder-text="Please describe the repairs in detail"
+        data="workorder.comments.repairsDescription">
   	</text-area-field>
 
   	<text-area-field

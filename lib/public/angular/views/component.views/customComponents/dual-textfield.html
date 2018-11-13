@@ -1,0 +1,20 @@
+<!-- textbox -->
+<div id="Ctextfield" class="form-group" style="{{$ctrl.fieldStyling}}">
+    <label ng-hide="!$ctrl.labelText">{{$ctrl.labelText}}</label><br>
+    <input type="text"
+      ng-style="{{$ctrl.inputStyling}}"
+      class="form-control"
+      ng-change="$ctrl.onUpdate($ctrl.dataone, $ctrl.modelNameOne)"
+      ng-model="$ctrl.dataone"
+      name="{{$ctrl.dataone}}"
+      placeholder="{{$ctrl.placeholderTextOne}}"
+      ng-disabled="$ctrl.disabled">
+      <input type="text"
+      ng-style="{{$ctrl.inputStyling}}"
+      class="form-control"
+      ng-change="$ctrl.onUpdate($ctrl.datatwo, $ctrl.modelNameTwo)"
+      ng-model="$ctrl.datatwo"
+      name="{{$ctrl.datatwo}}"
+      placeholder="{{$ctrl.placeholderTextTwo}}"
+      ng-disabled="$ctrl.disabled">
+  </div>

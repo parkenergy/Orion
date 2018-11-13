@@ -6,8 +6,28 @@
     <div style="font-weight: normal; margin-bottom: 10px;">
       <input type="checkbox"
         ng-model="workorder.pm"
-        ng-change="pmChange(workorder.pm)">PM
+        ng-change="pmChange(workorder.pm, 'PM')">PM1
     </div>
+    <div style="font-weight: normal; margin-bottom: 10px;">
+      <input type="checkbox"
+        ng-model="workorder.pm2"
+        ng-change="pmChange(workorder.pm2, 'PM2')">PM2
+    </div>
+    <div style="font-weight: normal; margin-bottom: 10px;">
+      <input type="checkbox"
+        ng-model="workorder.pm3"
+        ng-change="pmChange(workorder.pm3, 'PM3')">PM3
+    </div>
+    <div style="font-weight: normal; margin-bottom: 10px;">
+      <input type="checkbox"
+        ng-model="workorder.pm4"
+        ng-change="pmChange(workorder.pm4, 'PM4')">PM4
+    </div>
+    <div style="font-weight: normal; margin-bottom: 10px;">
+      <input type="checkbox"
+        ng-model="workorder.pm5"
+        ng-change="pmChange(workorder.pm5, 'PM5')">PM5  
+    </div>    
     <div ng-repeat="obj in type" style="font-weight: normal; margin-bottom: 10px;">
       <input type="checkbox"
         ng-model="obj.value"
