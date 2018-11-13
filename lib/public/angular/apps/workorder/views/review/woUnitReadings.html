@@ -5,13 +5,22 @@
     <div class="panel-body">
         <div class="column">
             <div class="row">
-                <text-field
-                    class="col-xs-3"
-                    label-text="Engine Model"
-                    placeholder-text="0-100"
-                    data="workorder.unitReadings.displayEngineModel"
-                    disabled="true">
-                </text-field>
+                <div class="form-group col-xs-4">
+                    <label>Engine Model</label>
+                    <input
+                        type="text"
+                        ng-style="myStyle"
+                        name="model"
+                        ng-model="workorder.unitReadings.displayEngineModel"
+                        ng-change="unitEngineModelChange(workorder.unitReadings.displayEngineModel)"
+                        uib-typeahead="engine.model for engine in engineModels | filter:$viewValue | limitTo:12"
+                        class="form-control"
+                        pes-collection-match
+                        disabled="true"
+                        typeahead-wait-ms="100"
+                        typeahead-select-on-exact="true"
+                        typeahead-on-select="unitEngineModelChange(workorder.unitReadings.displayEngineModel)">
+                </div>
                 <text-field
                     class="col-xs-3"
                     label-text="Engine Serial"
@@ -221,13 +230,22 @@
 
             <!-- Compressors Info -->
             <div class="row">
-                <text-field
-                    class="col-xs-3"
-                    label-text="Compressor Model"
-                    placeholder-text="0-100"
-                    data="workorder.unitReadings.displayFrameModel"
-                    disabled="true">
-                </text-field>
+                <div class="form-group col-xs-4">
+                    <label>Frame Model</label>
+                    <input
+                        type="text"
+                        ng-style="myStyle"
+                        name="model"
+                        ng-model="workorder.unitReadings.displayFrameModel"
+                        ng-change="unitFrameModelChange(workorder.unitReadings.displayFrameModel)"
+                        uib-typeahead="frame.model for frame in frameModels | filter:$viewValue | limitTo:12"
+                        class="form-control"
+                        disabled="true"
+                        pes-collection-match
+                        typeahead-wait-ms="100"
+                        typeahead-select-on-exact="true"
+                        typeahead-on-select="unitFrameModelChange(workorder.unitReadings.displayFrameModel)">
+                </div>
                 <text-field
                     class="col-xs-3"
                     label-text="Compressor Serial"

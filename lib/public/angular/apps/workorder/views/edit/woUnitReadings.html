@@ -23,7 +23,7 @@
             on-data-change="changeThisTextField(changedData, selected)"
             class="col-xs-3"
             label-text="Engine Serial"
-            placeholder-text="0-100"
+            placeholder-text="0-10000"
             data="workorder.unitReadings.engineSerial">
         </text-field>
         <text-field
@@ -31,7 +31,7 @@
             on-data-change="changeThisTextField(changedData, selected)"
             class="col-xs-3"
             label-text="Engine Battery"
-            placeholder-text="0-100"
+            placeholder-text="0-10000"
             data="workorder.unitReadings.engineBattery">
         </text-field>
         <dual-text-field
@@ -66,7 +66,7 @@
             on-data-change="changeThisTextField(changedData, selected)"
             class="col-xs-3"
             label-text="Alternator Output"
-            placeholder-text="0-100"
+            placeholder-text="0-10000"
             data="workorder.unitReadings.alternatorOutput"
             ng-show="isFound('alternatorOutput')"
         >
@@ -76,7 +76,7 @@
             on-data-change="changeThisTextField(changedData, selected)"
             class="col-xs-3"
             label-text="Hour Reading"
-            placeholder-text="0-100"
+            placeholder-text="0-10000"
             data="workorder.unitReadings.hourReading"
             ng-show="isFound('hourReading')"
         >
@@ -142,7 +142,7 @@
             on-data-change="changeThisTextField(changedData, selected)"
             class="col-xs-3"
             label-text="RPM"
-            placeholder-text="0-100"
+            placeholder-text="0-10000"
             data="workorder.unitReadings.rpm"
             ng-show="isFound('rpm')"
         >
@@ -152,7 +152,7 @@
             on-data-change="changeThisTextField(changedData, selected)"
             class="col-xs-3"
             label-text="Engine Ignition Timing"
-            placeholder-text="0-100"
+            placeholder-text="0-10000"
             data="workorder.unitReadings.engIgnitionTiming"
             ng-show="isFound('engIgnitionTiming')"
         >
@@ -218,7 +218,7 @@
             on-data-change="changeThisTextField(changedData, selected)"
             class="col-xs-3"
             label-text="Engine Ignition Timing"
-            placeholder-text="0-100"
+            placeholder-text="0-10000"
             data="workorder.unitReadings.engineManifoldVac"
             ng-show="isFound('engineManifoldVac')"
         >
@@ -246,7 +246,7 @@
                 on-data-change="changeThisTextField(changedData, selected)"
                 class="col-xs-3"
                 label-text="Compressor Serial"
-                placeholder-text="0-100"
+                placeholder-text="0-10000"
                 data="workorder.unitReadings.compressorSerial"
             >
             </text-field>
@@ -255,7 +255,7 @@
                 on-data-change="changeThisTextField(changedData, selected)"
                 class="col-xs-3"
                 label-text="Suction Pressure"
-                placeholder-text="0-100"
+                placeholder-text="0-10000"
                 ng-show="isFound('suctionPressure')"
                 data="workorder.unitReadings.suctionPressure"
             >
@@ -307,7 +307,7 @@
                 on-data-change="changeThisTextField(changedData, selected)"
                 class="col-xs-3"
                 label-text="Discharge Pressure"
-                placeholder-text="0-100"
+                placeholder-text="0-10000"
                 data="workorder.unitReadings.dischargePressure"
                 ng-show="isFound('dischargePressure')"
             >
@@ -317,7 +317,7 @@
                 on-data-change="changeThisTextField(changedData, selected)"
                 class="col-xs-3"
                 label-text="Discharge Temp 1"
-                placeholder-text="0-100"
+                placeholder-text="0-10000"
                 data="workorder.unitReadings.dischargeTemp1"
                 ng-show="isFound('dischargeTemp1')"
             >
@@ -327,7 +327,7 @@
                 on-data-change="changeThisTextField(changedData, selected)"
                 class="col-xs-3"
                 label-text="Discharge Temp 2"
-                placeholder-text="0-100"
+                placeholder-text="0-10000"
                 data="workorder.unitReadings.dischargeTemp2"
                 ng-show="isFound('dischargeTemp2')"
             >
@@ -435,7 +435,7 @@
                 on-data-change="changeThisTextField(changedData, selected)"
                 class="col-xs-3"
                 label-text="Flow MMCF"
-                placeholder-text="0-100"
+                placeholder-text="0-10000"
                 data="workorder.unitReadings.flowMCF"
                 ng-show="isFound('flowMCF')"
             >
