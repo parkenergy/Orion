@@ -3,14 +3,29 @@
     <h3 class="panel-title">Unit Readings</h3>
   </div>
   <div class="panel-body">
-    <text-field
-      model-name="unitReadings.engineModel"
-      on-data-change="changeThisTextField(changedData, selected)"
-      class="col-xs-3"
-      label-text="Engine Model"
-      placeholder-text="0-100"
-      data="workorder.unitReadings.engineModel">
-    </text-field>
+      <!-- <text-field
+         model-name="unitReadings.engineModel"
+         on-data-change="changeThisTextField(changedData, selected)"
+         class="col-xs-3"
+         label-text="Engine Model"
+         placeholder-text="0-100"
+         data="workorder.unitReadings.engineModel">
+       </text-field>-->
+      <div class="form-group col-xs-4">
+          <label>Engine Model</label>
+          <input
+              type="text"
+              ng-style="myStyle"
+              name="model"
+              ng-model="workorder.unitReadings.displayEngineModel"
+              ng-change="unitEngineModelChange(workorder.unitReadings.displayEngineModel)"
+              uib-typeahead="engine.model for engine in engineModels | filter:$viewValue | limitTo:12"
+              class="form-control"
+              pes-collection-match
+              typeahead-wait-ms="100"
+              typeahead-select-on-exact="true"
+              typeahead-on-select="unitEngineModelChange(workorder.unitReadings.displayEngineModel)">
+      </div>
     <text-field
       model-name="unitReadings.engineSerial"
       on-data-change="changeThisTextField(changedData, selected)"
@@ -219,15 +234,30 @@
 
     <!-- compression -->
   <div class="row">
-    <text-field
-    model-name="unitReadings.compressorModel"
-    on-data-change="changeThisTextField(changedData, selected)"
-    class="col-xs-3"
-    label-text="Compressor Model"
-    placeholder-text="0-100"
-    data="workorder.unitReadings.compressorModel"
-    >
-    </text-field>
+      <!--<text-field
+      model-name="unitReadings.compressorModel"
+      on-data-change="changeThisTextField(changedData, selected)"
+      class="col-xs-3"
+      label-text="Compressor Model"
+      placeholder-text="0-100"
+      data="workorder.unitReadings.compressorModel"
+      >
+      </text-field>-->
+      <div class="form-group col-xs-4">
+          <label>Frame Model</label>
+          <input
+              type="text"
+              ng-style="myStyle"
+              name="model"
+              ng-model="workorder.unitReadings.displayFrameModel"
+              ng-change="unitFrameModelChange(workorder.unitReadings.displayFrameModel)"
+              uib-typeahead="frame.model for frame in frameModels | filter:$viewValue | limitTo:12"
+              class="form-control"
+              pes-collection-match
+              typeahead-wait-ms="100"
+              typeahead-select-on-exact="true"
+              typeahead-on-select="unitFrameModelChange(workorder.unitReadings.displayFrameModel)">
+      </div>
     <text-field
     model-name="unitReadings.compressorSerial"
     on-data-change="changeThisTextField(changedData, selected)"
