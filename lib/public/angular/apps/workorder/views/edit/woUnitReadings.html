@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <h3 class="panel-title">Unit Readings</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" ng-show="workorder.unitReadings.compressorModel || workorder.unitReadings.engineModel">
         <div class="form-group col-xs-4">
             <label>Engine Model</label>
             <input
@@ -442,5 +442,128 @@
             </text-field>
         </div>
 
+    </div>
+    <div class="panel-body"
+         ng-show="(!workorder.unitReadings.compressorModel && !workorder.unitReadings.engineModel) || (workorder.unitReadings.compressorModel === '' && workorder.unitReadings.engineModel === '')">
+        <text-field
+            model-name="unitReadings.suctionPressure"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Suction Pressure"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.suctionPressure">
+        </text-field>
+        <text-field
+            model-name="unitReadings.dischargePressure"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Discharge Pressure"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.dischargePressure">
+        </text-field>
+        <text-field
+            model-name="unitReadings.flowMCF"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Flow MCF"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.flowMCF">
+        </text-field>
+        <text-field
+            model-name="unitReadings.rpm"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="RPM"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.rpm">
+        </text-field>
+        <text-field
+            model-name="unitReadings.dischargeTemp1"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Discharge Temp 1"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.dischargeTemp1">
+        </text-field>
+        <text-field
+            model-name="unitReadings.dischargeTemp2"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Discharge Temp 2"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.dischargeTemp2">
+        </text-field>
+        <text-field
+            model-name="unitReadings.hourReading"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Hour Reading"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.hourReading">
+        </text-field>
+        <div class="form-group col-xs-3">
+            <label>Compressor Serial</label>
+            <input
+                type="text"
+                ng-style="myStyle"
+                name="compressorSerial"
+                ng-model="workorder.unitReadings.compressorSerial"
+                class="form-control"
+                pes-collection-match
+                placeholder="0-100"
+            >
+        </div>
+        <div class="form-group col-xs-3">
+            <label>Engine Serial</label>
+            <input
+                type="text"
+                ng-style="myStyle"
+                name="engineSerial"
+                ng-model="workorder.unitReadings.engineSerial"
+                class="form-control"
+                pes-collection-match
+                placeholder="0-100"
+            >
+        </div>
+        <text-field
+            model-name="unitReadings.engineOilPressure"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Engine Oil Pressure"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.engineOilPressure">
+        </text-field>
+        <text-field
+            model-name="unitReadings.alternatorOutput"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Alternator Output"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.alternatorOutput">
+        </text-field>
+        <text-field
+            model-name="unitReadings.compressorOilPressure"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Compressor Oil Pressure"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.compressorOilPressure">
+        </text-field>
+        <text-field
+            model-name="unitReadings.engineJWTemp"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Engine JW Temp"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.engineJWTemp">
+        </text-field>
+        <text-field
+            model-name="unitReadings.engineManifoldVac"
+            on-data-change="changeThisTextField(changedData, selected)"
+            class="col-xs-3"
+            label-text="Engine Manifold Vac"
+            placeholder-text="0-100"
+            data="workorder.unitReadings.engineManifoldVac">
+        </text-field>
     </div>
 </div>
