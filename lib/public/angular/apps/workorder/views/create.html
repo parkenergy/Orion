@@ -1,0 +1,23 @@
+<alerts></alerts>
+<header></header>
+
+<div id="woCreate">
+    <div class="highlight">
+        <create-start-end-date
+            workorder="workorder"
+        >
+        </create-start-end-date>
+        <p class="text-center">
+            Work Order Run Time: {{ pad(eHours) }}:{{ pad(eMinutes) }}:{{ pad(eSeconds) }}
+        </p>
+    </div>
+
+    <div>
+        <button class="btn btn-lg btn-primary pull-right"
+                style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
+                ng-click="debounceSubmit()">
+            Submit
+        </button>
+        <div class="clearfix" style="height: 65px;"></div>
+    </div>
+</div>
