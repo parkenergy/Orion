@@ -16,7 +16,9 @@
       <tbody>
         <tr ng-repeat="obj in oList = (workorder.parts
                                         | filter:searchPhrase
-                                        | orderBy:quantity:true)">
+                                        | orderBy:quantity:true)"
+            ng-style="isManual(obj)"
+        >
           <td>
             <div class="clearfix"><div ng-if="obj.number">{{obj.number}}</div></div>
             <div ng-if="obj.description">{{obj.description}}</div>
