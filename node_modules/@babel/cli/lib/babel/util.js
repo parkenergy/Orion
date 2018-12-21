@@ -81,8 +81,10 @@ function readdir(dirname, includeDotfiles, filter) {
   });
 }
 
-function readdirForCompilable(dirname, includeDotfiles) {
-  return readdir(dirname, includeDotfiles, isCompilableExtension);
+function readdirForCompilable(dirname, includeDotfiles, altExts) {
+  return readdir(dirname, includeDotfiles, function (filename) {
+    return isCompilableExtension(filename, altExts);
+  });
 }
 
 function isCompilableExtension(filename, altExts) {
