@@ -48,8 +48,10 @@
         "mongoose": "4.6.6",
         "mongoose-autopopulate": "^0.6.1",
         "nodemailer": "^4.1.3",
+        "nsrestlet": "^1.0.1",
         "passport": "^0.4.0",
         "passport-google-oauth": "^1.0.0",
+        "request": "^2.88.0",
         "tedb-utils": "0.0.3",
         "xxhashjs": "^0.2.1"
     },
