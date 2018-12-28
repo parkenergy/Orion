@@ -92,18 +92,45 @@
             <div class="col-md-4">
               <h4>
                 Cycle Time<br>
-                <small>{{unit.pmReport.cycleTime}}</small>
+                  <small>{{unit.pmCycle}}</small>
               </h4>
             </div>
 
             <div class="col-md-4">
               <h4>
-                Next PM Date<br>
-                <small>{{unit.pmReport.nextPmDate | date:'MM/dd/yyyy'}}</small>
+                  Next PM 1 Date<br>
+                  <small>{{unit.nextPM1Date | date:'MM/dd/yyyy'}}</small>
               </h4>
             </div>
+
+              <div class="col-md-4">
+                  <h4>
+                      Next PM 2 Date<br>
+                      <small>{{unit.nextPM2Date | date:'MM/dd/yyyy'}}</small>
+                  </h4>
+              </div>
           </div>
 
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>
+                        Next PM 3 Date<br>
+                        <small>{{unit.nextPM3Date | date:'MM/dd/yyyy'}}</small>
+                    </h4>
+                </div>
+                <div class="col-md-4">
+                    <h4>
+                        Next PM 4 Date<br>
+                        <small>{{unit.nextPM4Date | date:'MM/dd/yyyy'}}</small>
+                    </h4>
+                </div>
+                <div class="col-md-4">
+                    <h4>
+                        Next PM 5 Date<br>
+                        <small>{{unit.nextPM5Date | date:'MM/dd/yyyy'}}</small>
+                    </h4>
+                </div>
+            </div>
 
           <div class="row">
             <div class="col-md-4">
