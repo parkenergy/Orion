@@ -101,7 +101,9 @@
         <td class="text-center">{{ area.unapproved }}</td>
         <td class="text-center">{{ area.idleUnits }}</td>
         <td class="text-center">{{ area.activeUnits }}</td>
-        <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(area.percent)}}">{{ area.unitPercent }}%</td>
+          <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(area.unitPercent)}}">{{
+              area.unitPercent }}%
+          </td>
         <td class="text-center" style="background-color: {{$ctrl.PMS.setBackgroundColor(area.percent)}}">{{ area.percent }}%</td>
       </tr>
     </tbody>
