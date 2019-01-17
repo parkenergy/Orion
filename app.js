@@ -37,7 +37,7 @@ log.info({env: process.env.NODE_ENV}, 'Starting for environment');
 log.info({uri: config.mongodb}, 'Connecting to MongoDB[Mongoose]');
 const connectWithRetry = () => {
     console.log('MongoDB connection with retry');
-    return mongoose.connect(config.mongodb);
+    return mongoose.createConnection(config.mongodb)
 };
 mongoose.connection.on('error', (err) => {
     console.log(`Mongodb connection error: ${err}`);
