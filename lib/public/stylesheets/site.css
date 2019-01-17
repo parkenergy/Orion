@@ -6164,13 +6164,11 @@ input[type="checkbox"] {
 #WorkOrderOverview i.fa.fa-refresh.fa-spin.workorderdash {
   font-size: 80px;
 }
-
 #woCreate div.rowIssue {
     margin-right: 0px;
     margin-left: 0px;
     padding: 0px;
 }
-
 #woCreate i.fa.fa-refresh.fa-spin.createL {
     font-size: 80px;
 }
