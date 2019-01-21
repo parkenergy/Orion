@@ -21,6 +21,14 @@
         </div>
 
         <div>
+            <create-type-selector
+                workorder="workorder"
+                call-back="runCb(cb)"
+            >
+            </create-type-selector>
+        </div>
+
+        <div>
             <button class="btn btn-lg btn-primary pull-right"
                     style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
                     ng-click="debounceSubmit()">
