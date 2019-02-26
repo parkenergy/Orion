@@ -4,12 +4,9 @@ const express      = require('express'),
       config       = require('./config.js'),
       path         = require('path'),
       fs           = require('fs'),
-      TH           = require('./lib/helpers/task_helper'),
-      TBA          = require('./lib/helpers/tokenBasedAuthentication'),
-      pd           = require('./lib/databaseScripts/payrollDump'),
+      helpers      = require('./lib/helpers'),
       DS           = require('./lib/databaseScripts'),
       Agenda       = require('agenda'),
-      Gmailer      = require('./lib/helpers/email_helper'),
       log          = require('./lib/helpers/logger'),
       sessions     = require('client-sessions'),
       cookieParser = require('cookie-parser'),
@@ -37,7 +34,7 @@ log.info({env: process.env.NODE_ENV}, 'Starting for environment');
 log.info({uri: config.mongodb}, 'Connecting to MongoDB[Mongoose]');
 const connectWithRetry = () => {
     console.log('MongoDB connection with retry');
-    return mongoose.connect(config.mongodb);
+    return mongoose.connect(config.mongodb)
 };
 mongoose.connection.on('error', (err) => {
     console.log(`Mongodb connection error: ${err}`);
