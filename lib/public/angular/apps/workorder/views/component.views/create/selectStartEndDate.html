@@ -1,8 +1,19 @@
 <div id="WOselectStartEndDate">
     <!-- select time from to -->
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label>Date Started</label>
+            <input
+                class="form-control"
+                name="startTime"
+                ng-change="$ctrl.setStartTime($ctrl.dates.startInput)"
+                ng-keyup="$event.keyCode == 13"
+                ng-model="$ctrl.dates.startInput"
+                type="date"
+            >
+        </div>
+        <div class="col-md-2">
             <label>Time Started</label>
             <input
                 class="form-control"
@@ -10,20 +21,31 @@
                 ng-change="$ctrl.setStartTime($ctrl.dates.startInput)"
                 ng-keyup="$event.keyCode == 13"
                 ng-model="$ctrl.dates.startInput"
-                type="datetime-local"
+                type="time"
             >
         </div>
-        <div class="col-md-4">
-            <label>Time Submitted</label>
+        <div class="col-md-3">
+            <label>Date Finished</label>
             <input
                 class="form-control"
                 name="endTime"
                 ng-change="$ctrl.setEndTime($ctrl.dates.endInput)"
                 ng-keyup="$event.keyCode == 13"
                 ng-model="$ctrl.dates.endInput"
-                type="datetime-local"
+                type="date"
             >
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <label>Time Finished</label>
+            <input
+                class="form-control"
+                name="startTime"
+                ng-change="$ctrl.setEndTime($ctrl.dates.startInput)"
+                ng-keyup="$event.keyCode == 13"
+                ng-model="$ctrl.dates.startInput"
+                type="time"
+            >
+        </div>
+        <div class="col-md-1"></div>
     </div>
 </div>
