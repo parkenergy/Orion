@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Heading Information</h3>
+    </div>
+    <div class="panel-body">
+        <text-field
+            class="col-xs-4"
+            data="$ctrl.workorder.header.contactName"
+            label-text="Contact / Pumper Name"
+            model-name="header.contactName"
+            on-data-change="$ctrl.changeThisField(changedData, selected)">
+        </text-field>
+        <!--<type-ahead
+            class="col-xs-4"
+            label-text="Ride Along"
+            data="workorder.header.rideAlong"
+            model-name="header.rideAlong"
+            on-data-change="changeThisTypeahead(changedData, selected)"
+            item-path="header.rideAlong"
+            array-list="userRideAlongArray"
+            wait="100"
+            limit="12">
+        </type-ahead>-->
+        <text-field
+            class="col-xs-2"
+            data="$ctrl.workorder.header.startMileage"
+            label-text=" Start Mileage"
+            model-name="header.startMileage"
+            on-data-change="$ctrl.changeThisField(changedData, selected)">
+        </text-field>
+        <text-field
+            class="col-xs-2"
+            data="$ctrl.workorder.header.endMileage"
+            label-text="End Mileage"
+            model-name="header.endMileage"
+            on-data-change="$ctrl.changeThisField(changedData, selected)">
+        </text-field>
+        <select-list
+            array-list="$ctrl.applicationtypes"
+            class="col-xs-4"
+            data="$ctrl.workorder.header.applicationtype"
+            display-field="type"
+            label-text="Application Type"
+            model-name="header.applicationtype"
+            on-data-change="$ctrl.changeThisField(changedData, selected)"
+            select-field="netsuiteId">
+        </select-list>
+    </div>
+</div>

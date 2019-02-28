@@ -20,12 +20,23 @@
             </p>
         </div>
 
-        <div>
-            <create-type-selector
-                workorder="workorder"
-                call-back="runCb(cb)"
-            >
-            </create-type-selector>
+        <div class="row">
+            <div class="col-md-3">
+                <create-type-selector
+                    workorder="workorder"
+                    call-back="runCb(cb)"
+                >
+                </create-type-selector>
+            </div>
+
+            <div class="col-md-9">
+                <create-header-info
+                    workorder="workorder"
+                    call-back="runCb(cb)"
+                    applicationtypes="applicationTypes"
+                >
+                </create-header-info>
+            </div>
         </div>
 
         <div>
