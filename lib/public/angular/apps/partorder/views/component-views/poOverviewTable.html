@@ -12,7 +12,11 @@
         <!-- Title -->
         <div class="panel-heading" data-toggle="collapse" data-target="#poSearch">
           <h3 class="panel-title">Search</h3>
+            <span class="pull-right">{{$ctrl.poSearchCount}}</span>
         </div>
+          <div class="pull-right">
+
+          </div>
 
         <!-- collapsible search settings -->
         <div class="panel-body collapse" id="poSearch">
@@ -228,9 +232,16 @@
       </thead>
 
       <!-- Sorted Table -->
-      <tbody infinite-scroll="$ctrl.loadOnScroll()"
-        infinite-scroll-immediate-check="false"
-        infinite-scroll-disabled="false">
+        <tbody>
+        <tr>
+            <td>
+                <input ng-change="$ctrl.changeAllCheckBoxes()"
+                       ng-model="$ctrl.allChecked"
+                       type="checkbox"
+                >
+            </td>
+            <td>Select All</td>
+        </tr>
         <tr ng-repeat="order in $ctrl.partorders | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter">
           <td>
             <input type="checkbox"

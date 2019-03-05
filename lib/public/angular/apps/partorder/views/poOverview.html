@@ -15,13 +15,14 @@
     </div>
 
     <po-overview-table
-      ng-show="loaded"
-      list-it="listIt(po)"
-      partorders="partorders"
-      locations="locations"
-      scroll-content-search="PartOrderScrollLookup(query)"
-      content-search="lookup(query)"
-      get-part-order-report="report(query)">
+        ng-show="loaded"
+        list-it="listIt(po)"
+        po-search-count="POSearchCount"
+        partorders="partorders"
+        locations="locations"
+        scroll-content-search="PartOrderScrollLookup(query)"
+        content-search="lookup(query)"
+        get-part-order-report="report(query)">
     </po-overview-table>
   </div>
 
