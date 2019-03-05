@@ -226,33 +226,33 @@ describe('PartOrder Units', () => {
                     ordered:   true,
                     completed: true,
                 },
-                size:       10,
-                page:       0,
+                limit:       10,
+                skip:       0,
             }
             return PartOrder.list(options)
                 .then((docs) => {
                     expect(docs).toHaveLength(10)
-                    options.page += 10
+                    options.skip += 10
                     return PartOrder.list(options)
                 })
                 .then((docs) => {
                     expect(docs).toHaveLength(10)
-                    options.page += 10
+                    options.skip += 10
                     return PartOrder.list(options)
                 })
                 .then((docs) => {
                     expect(docs).toHaveLength(10)
-                    options.page += 10
+                    options.skip += 10
                     return PartOrder.list(options)
                 })
                 .then((docs) => {
                     expect(docs).toHaveLength(10)
-                    options.page += 10
+                    options.skip += 10
                     return PartOrder.list(options)
                 })
                 .then((docs) => {
                     expect(docs).toHaveLength(10)
-                    options.page += 10
+                    options.skip += 10
                     return PartOrder.list(options)
                 })
                 .then((docs) => {
@@ -273,8 +273,8 @@ describe('PartOrder Units', () => {
                     ordered:   false,
                     completed: false,
                 },
-                size:       50,
-                page:       0,
+                limit:       50,
+                skip:       0,
             }
 
             return PartOrder.list(options)
@@ -298,8 +298,8 @@ describe('PartOrder Units', () => {
                     ordered:   false,
                     completed: true,
                 },
-                size:       20,
-                page:       0,
+                limit:       20,
+                skip:       0,
             }
 
             return PartOrder.list(options)
@@ -327,8 +327,8 @@ describe('PartOrder Units', () => {
                     ordered:   true,
                     completed: true,
                 },
-                size:       60,
-                page:       0,
+                limit:       60,
+                skip:       0,
             }
 
             return PartOrder.list(options)
