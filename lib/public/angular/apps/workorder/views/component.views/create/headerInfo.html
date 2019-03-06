@@ -3,6 +3,83 @@
         <h3 class="panel-title">Heading Information</h3>
     </div>
     <div class="panel-body">
+        <div class="col-xs-4">
+            <label>Unit #</label>
+            <input
+                type="text"
+                name="number"
+                ng-model="$ctrl.workorder.header.unitNumber"
+                ng-change="$ctrl.unitNumberChange($ctrl.workorder.header.unitNumber)"
+                uib-typeahead="unit.number for unit in $ctrl.unitNumberArray | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-wait-ms="100"
+                typeahead-select-on-exact="true"
+                typeahead-on-select="$ctrl.unitNumberChange($ctrl.workorder.header.unitNumber)"
+                ng-disabled="disabled">
+        </div>
+
+        <!-- Customer Name -->
+        <div class="col-xs-4">
+            <label>Customer</label>
+            <input
+                type="text"
+                name="customer"
+                ng-model="$ctrl.workorder.header.customerName"
+                ng-change="$ctrl.customerChange($ctrl.workorder.header.customerName)"
+                uib-typeahead="customer.name for customer in $ctrl.customersArray | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-wait-ms="100"
+                typeahead-select-on-exact="true"
+                typeahead-on-select="$ctrl.customerChange($ctrl.workorder.header.customerName)"
+                ng-disabled="disabled">
+        </div>
+
+
+        <!-- Lease Name -->
+        <div class="col-xs-4">
+            <label>Lease</label>
+            <input
+                type="text"
+                name="lease"
+                ng-model="$ctrl.workorder.header.leaseName"
+                ng-change="$ctrl.leaseChange($ctrl.workorder.header.leaseName)"
+                uib-typeahead="unit.locationName for unit in $ctrl.unitLocationArray | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-wait-ms="100"
+                typeahead-select-on-exact="true"
+                typeahead-on-select="$ctrl.leaseChange($ctrl.workorder.header.leaseName)"
+                ng-disabled="disabled">
+        </div>
+
+        <!-- County -->
+        <div class="col-xs-4">
+            <label>County</label>
+            <input
+                type="text"
+                name="name"
+                ng-model="$ctrl.workorder.header.county"
+                ng-change="$ctrl.countyNameChange($ctrl.workorder.header.county)"
+                uib-typeahead="county.name for county in $ctrl.countiesArray | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-wait-ms="100"
+                typeahead-select-on-exact="true"
+                typeahead-on-select="$ctrl.countyNameChange($ctrl.workorder.header.county)"
+                ng-disabled="disabled">
+        </div>
+
+        <!-- State -->
+        <div class="col-xs-4">
+            <label>State</label>
+            <input
+                type="text"
+                name="state"
+                ng-model="$ctrl.workorder.header.state"
+                uib-typeahead="state.name for state in $ctrl.states | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-select-on-exact="true"
+                ng-disabled="disabled">
+        </div>
+        <!------------------------------------------------------>
         <text-field
             class="col-xs-4"
             data="$ctrl.workorder.header.contactName"
