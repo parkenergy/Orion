@@ -15,9 +15,16 @@
                 set-wo-time-submitted="setWOTimeSubmitted(time)"
             >
             </create-start-end-date>
-            <p class="text-center">
-                Work Order Run Time: {{ pad(eHours) }}:{{ pad(eMinutes) }}:{{ pad(eSeconds) }}
-            </p>
+        </div>
+
+        <div class="row">
+            <create-user-info
+                users="users"
+                locations="locations"
+                workorder="workorder"
+                call-back="runCb(cb)"
+            >
+            </create-user-info>
         </div>
 
         <div class="row">
@@ -55,6 +62,25 @@
                     </create-change-info>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
+            <create-unit-readings
+                workorder="workorder"
+                call-back="runCb(cb)"
+                wo-input-matrix="woInputMatrix"
+                engine-models="engineModels"
+                frame-models="frameModels"
+            >
+            </create-unit-readings>
+        </div>
+
+        <div class="row">
+            <create-comment
+                workorder="workorder"
+                call-back="runCb(cb)"
+            >
+            </create-comment>
         </div>
 
         <div>
