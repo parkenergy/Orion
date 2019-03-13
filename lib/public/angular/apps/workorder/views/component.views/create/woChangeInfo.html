@@ -35,7 +35,7 @@
                 type="text"
                 name="transferState"
                 ng-model="$ctrl.workorder.unitChangeInfo.transferState"
-                uib-typeahead="state for state in $ctrl.statesArray | filter:$viewValue | limitTo:12"
+                uib-typeahead="state.name for state in $ctrl.states | filter:$viewValue | limitTo:12"
                 class="form-control"
                 typeahead-select-on-exact="true"
                 ng-disabled="disabled">
