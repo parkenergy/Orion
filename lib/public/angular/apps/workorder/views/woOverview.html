@@ -7,6 +7,14 @@
     <div align="center">
       <i ng-show="spinner" class="fa fa-refresh fa-spin workorderdash"></i>
     </div>
+        <div class="row" ng-show="me.role === 'admin'">
+            <div class="col-md-4">
+                <button ng-click="routeToCrreate()">
+                    Create Contractor Work Order
+                </button>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
     <wo-overview-table
       class="col-md-12"
       ng-show="loaded"
