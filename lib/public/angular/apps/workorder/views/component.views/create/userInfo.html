@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">User Info</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-xs-4">
+            <!-- select contractor work time -->
+            <time-field
+                show="true"
+                label-text="Labor Time"
+                model-name="laborCodes.basic.contractor"
+                on-data-change="$ctrl.changeThisField(changedData, selected)"
+                data="$ctrl.workorder.laborCodes.basic.contractor"
+                hours="$ctrl.hours"
+                minutes="$ctrl.minutes"
+            >
+            </time-field>
+        </div>
+        <div class="col-xs-4">
+            <!-- select contractor -->
+            <label>User</label>
+            <input
+                type="text"
+                name="lease"
+                ng-model="$ctrl.workorder.techId"
+                ng-change="$ctrl.techChange($ctrl.workorder.techId)"
+                uib-typeahead="tech.username for tech in $ctrl.techs | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-wait-ms="100"
+                typeahead-select-on-exact="true"
+                typeahead-on-select="$ctrl.techChange($ctrl.workorder.techId)"
+                ng-disabled="disabled">
+        </div>
+        <div class="col-xs-4">
+            <!-- select Truck -->
+            <label>Truck</label>
+            <input
+                type="text"
+                name="truckId"
+                ng-model="$ctrl.workorder.truckId"
+                ng-change="$ctrl.truckChange($ctrl.workorder.truckId)"
+                uib-typeahead="truck.name for truck in $ctrl.trucks | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-wait-ms="100"
+                typeahead-select-on-exact="true"
+                typeahead-on-select="$ctrl.truckChange($ctrl.workorder.truckId)"
+                ng-disabled="disabled">
+        </div>
+    </div>
+</div>

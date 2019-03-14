@@ -1,3 +1,29 @@
-<div>
-    hello
+<div id="WOselectStartEndDate">
+    <!-- select time from to -->
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <label>Date Started</label>
+            <input
+                class="form-control"
+                name="startTime"
+                ng-change="$ctrl.setStartTime($ctrl.dates.startInput)"
+                ng-keyup="$event.keyCode == 13"
+                ng-model="$ctrl.dates.startInput"
+                type="date"
+            >
+        </div>
+        <div class="col-md-2">
+            <label>Time Started</label>
+            <input
+                class="form-control"
+                name="startTime"
+                ng-change="$ctrl.setStartTime($ctrl.dates.startInput)"
+                ng-keyup="$event.keyCode == 13"
+                ng-model="$ctrl.dates.startInput"
+                type="time"
+            >
+        </div>
+        <div class="col-md-3"></div>
+    </div>
 </div>

@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Comment</h3>
+    </div>
+    <div class="panel-body">
+        <text-area-field
+            model-name="comments.repairsDescription"
+            on-data-change="$ctrl.changeThisField(changedData, selected)"
+            label-text="Description of Repais Made"
+            placeholder-text="Please describe the repairs in detail"
+            data="$ctrl.workorder.comments.repairsDescription"
+        >
+        </text-area-field>
+    </div>
+</div>

@@ -1,0 +1,609 @@
+<div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Unit Information</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-xs-3">
+                    <label>Engine Model</label>
+                    <input
+                        type="text"
+                        name="engineModel"
+                        ng-model="$ctrl.workorder.unitReadings.displayEngineModel"
+                        ng-change="$ctrl.engineModelChange($ctrl.workorder.unitReadings.displayEngineModel)"
+                        uib-typeahead="engine.model for engine in $ctrl.engineModels | filter:$viewValue | limitTo:12"
+                        class="form-control"
+                        typeahead-wait-ms="100"
+                        typeahead-select-on-exact="true"
+                        typeahead-on-select="$ctrl.engineModelChange($ctrl.workorder.unitReadings.displayEngineModel)"
+                        ng-disabled="disabled"
+                    >
+                </div>
+                <div class="col-xs-3">
+                    <label>Engine Model</label>
+                    <input
+                        type="text"
+                        name="frameModel"
+                        ng-model="$ctrl.workorder.unitReadings.displayFrameModel"
+                        ng-change="$ctrl.frameModelChange($ctrl.workorder.unitReadings.displayFrameModel)"
+                        uib-typeahead="engine.model for engine in $ctrl.frameModels | filter:$viewValue | limitTo:12"
+                        class="form-control"
+                        typeahead-wait-ms="100"
+                        typeahead-select-on-exact="true"
+                        typeahead-on-select="$ctrl.frameModelChange($ctrl.workorder.unitReadings.displayFrameModel)"
+                        ng-disabled="disabled"
+                    >
+                </div>
+                <text-field
+                    model-name="unitReadings.engineSerial"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Engine Serial"
+                    data="$ctrl.workorder.unitReadings.engineSerial"
+                >
+                </text-field>
+                <text-field
+                    model-name="unitReadings.compressorSerial"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Compressor Serial"
+                    data="$ctrl.workorder.unitReadings.compressorSerial"
+                >
+                </text-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Engine</h3>
+            </div>
+            <div class="panel-body">
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine Oil Temp"
+                    model-name-one="unitReadings.engOilTemp"
+                    model-name-two="unitReadings.engOilTempKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engOilTemp"
+                    datatwo="$ctrl.workorder.unitReadings.engOilTempKill"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine Oil Pressure"
+                    model-name-one="unitReadings.engineOilPressure"
+                    model-name-two="unitReadings.engOilPressureKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engineOilPressure"
+                    datatwo="$ctrl.workorder.unitReadings.engOilPressureKill"
+                >
+                </dual-text-field>
+                <text-field
+                    model-name="unitReadings.alternatorOutput"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Alternator Output"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.alternatorOutput"
+                >
+                </text-field>
+                <text-field
+                    model-name="unitReadings.hourReading"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Hour Reading"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.hourReading"
+                >
+                </text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine Air Inlet Temp"
+                    model-name-one="unitReadings.engAirInletTemp"
+                    model-name-two="unitReadings.engAirInletTempKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engAirInletTemp"
+                    datatwo="$ctrl.workorder.unitReadings.engAirInletTempKill"
+                    ng-show="$ctrl.isFound('engAirInletTemp')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine JW Pressure"
+                    model-name-one="unitReadings.engJWPress"
+                    model-name-two="unitReadings.engJWPressKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engJWPress"
+                    datatwo="$ctrl.workorder.unitReadings.engJWPressKill"
+                    ng-show="$ctrl.isFound('engJWPress')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine Turbo Exh Temp L"
+                    model-name-one="unitReadings.engTurboExhTempL"
+                    model-name-two="unitReadings.engTurboExhTempLKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engTurboExhTempL"
+                    datatwo="$ctrl.workorder.unitReadings.engTurboExhTempLKill"
+                    ng-show="$ctrl.isFound('engTurboExhTempL')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine Turbo Exh Temp R"
+                    model-name-one="unitReadings.engTurboExhTempR"
+                    model-name-two="unitReadings.engTurboExhTempRKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engTurboExhTempR"
+                    datatwo="$ctrl.workorder.unitReadings.engTurboExhTempRKill"
+                    ng-show="$ctrl.isFound('engTurboExhTempR')"
+                >
+                </dual-text-field>
+                <text-field
+                    model-name="unitReadings.rpm"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="RPM"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.rpm"
+                >
+                </text-field>
+                <text-field
+                    model-name="unitReadings.engIgnitionTiming"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Engine Ignition Timing"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.engIgnitionTiming"
+                    ng-show="$ctrl.isFound('engIgnitionTiming')"
+                >
+                </text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine Turbo Exh Temp L"
+                    model-name-one="unitReadings.engVacuumBoostL"
+                    model-name-two="unitReadings.engVacuumBoostLKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engVacuumBoostL"
+                    datatwo="$ctrl.workorder.unitReadings.engVacuumBoostLKill"
+                    ng-show="$ctrl.isFound('engVacuumBoostL')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine Turbo Exh Temp R"
+                    model-name-one="unitReadings.engVacuumBoostR"
+                    model-name-two="unitReadings.engVacuumBoostRKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engVacuumBoostR"
+                    datatwo="$ctrl.workorder.unitReadings.engVacuumBoostRKill"
+                    ng-show="$ctrl.isFound('engVacuumBoostR')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine Manifold Temp L"
+                    model-name-one="unitReadings.engManifoldTempL"
+                    model-name-two="unitReadings.engManifoldTempLKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engManifoldTempL"
+                    datatwo="$ctrl.workorder.unitReadings.engManifoldTempLKill"
+                    ng-show="$ctrl.isFound('engManifoldTempL')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Engine Manifold Temp R"
+                    model-name-one="unitReadings.engManifoldTempR"
+                    model-name-two="unitReadings.engManifoldTempRKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.engManifoldTempR"
+                    datatwo="$ctrl.workorder.unitReadings.engManifoldTempRKill"
+                    ng-show="$ctrl.isFound('engManifoldTempR')"
+                >
+                </dual-text-field>
+                <text-field
+                    model-name="unitReadings.engineManifoldVac"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Engine Ignition Timing"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.engineManifoldVac"
+                >
+                </text-field>
+                <text-field
+                    model-name="unitReadings.engineJWTemp"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Engine JW Temp"
+                    placeholder-text="0-100"
+                    data="$ctrl.workorder.unitReadings.engineJWTemp">
+                </text-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Frame</h3>
+            </div>
+            <div class="panel-body">
+                <text-field
+                    model-name="unitReadings.suctionPressure"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Suction Pressure"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.suctionPressure"
+                >
+                </text-field>
+                <triple-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.tripleInputStyling"
+                    label-text="Stage Pressure 1"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Low"
+                    placeholder-text-three="High"
+                    dataone="$ctrl.workorder.unitReadings.compInterPress1"
+                    datatwo="$ctrl.workorder.unitReadings.compInterPress1Low"
+                    datathree="$ctrl.workorder.unitReadings.compInterPress1High"
+                    ng-show="$ctrl.isFound('compInterPress1')"
+                >
+                </triple-text-field>
+                <triple-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.tripleInputStyling"
+                    label-text="Stage Pressure 2"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Low"
+                    placeholder-text-three="High"
+                    dataone="$ctrl.workorder.unitReadings.compInterPress2"
+                    datatwo="$ctrl.workorder.unitReadings.compInterPress2Low"
+                    datathree="$ctrl.workorder.unitReadings.compInterPress2High"
+                    ng-show="$ctrl.isFound('compInterPress2')"
+                >
+                </triple-text-field>
+                <triple-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.tripleInputStyling"
+                    label-text="Stage Pressure 3"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Low"
+                    placeholder-text-three="High"
+                    dataone="$ctrl.workorder.unitReadings.compInterPress3"
+                    datatwo="$ctrl.workorder.unitReadings.compInterPress3Low"
+                    datathree="$ctrl.workorder.unitReadings.compInterPress1High"
+                    ng-show="$ctrl.isFound('compInterPress3')"
+                >
+                </triple-text-field>
+                <text-field
+                    model-name="unitReadings.dischargePressure"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Discharge Pressure"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.dischargePressure"
+                    ng-show="$ctrl.isFound('dischargePressure')"
+                >
+                </text-field>
+                <text-field
+                    model-name="unitReadings.dischargeTemp1"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Discharge Temp 1"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.dischargeTemp1"
+                >
+                </text-field>
+                <text-field
+                    model-name="unitReadings.dischargeTemp2"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Discharge Temp 2"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.dischargeTemp2"
+                >
+                </text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Discharge Stg 1 Temp"
+                    model-name-one="unitReadings.dischargeStg1Temp"
+                    model-name-two="unitReadings.dischargeStg1TempKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.dischargeStg1Temp"
+                    datatwo="$ctrl.workorder.unitReadings.dischargeStg1TempKill"
+                    ng-show="$ctrl.isFound('dischargeStg1Temp')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Discharge Stg 2 Temp"
+                    model-name-one="unitReadings.dischargeStg2Temp"
+                    model-name-two="unitReadings.dischargeStg2TempKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.dischargeStg2Temp"
+                    datatwo="$ctrl.workorder.unitReadings.dischargeStg2TempKill"
+                    ng-show="$ctrl.isFound('dischargeStg2Temp')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Discharge Stg 3 Temp"
+                    model-name-one="unitReadings.dischargeStg3Temp"
+                    model-name-two="unitReadings.dischargeStg3TempKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.dischargeStg3Temp"
+                    datatwo="$ctrl.workorder.unitReadings.dischargeStg3TempKill"
+                    ng-show="$ctrl.isFound('dischargeStg3Temp')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Discharge Stg 4 Temp"
+                    model-name-one="unitReadings.dischargeStg4Temp"
+                    model-name-two="unitReadings.dischargeStg4TempKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.dischargeStg4Temp"
+                    datatwo="$ctrl.workorder.unitReadings.dischargeStg4TempKill"
+                    ng-show="$ctrl.isFound('dischargeStg4Temp')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Compressor Oil Pressure"
+                    model-name-one="unitReadings.compressorOilPressure"
+                    model-name-two="unitReadings.compOilPressKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.compressorOilPressure"
+                    datatwo="$ctrl.workorder.unitReadings.compOilPressKill"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Compressor Oil Temp"
+                    model-name-one="unitReadings.compOilTemp"
+                    model-name-two="unitReadings.compOilTempKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.compOilTemp"
+                    datatwo="$ctrl.workorder.unitReadings.compOilTempKill"
+                    ng-show="$ctrl.isFound('compOilTemp')"
+                >
+                </dual-text-field>
+                <dual-text-field
+                    class="col-xs-3"
+                    input-styling="$ctrl.inputStyling"
+                    label-text="Diff. Pressure/Coalescer Filter"
+                    model-name-one="unitReadings.compDiffPCFilter"
+                    model-name-two="unitReadings.compDiffPCFilterKill"
+                    placeholder-text-one="Gauge"
+                    placeholder-text-two="Kill"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    dataone="$ctrl.workorder.unitReadings.compDiffPCFilter"
+                    datatwo="$ctrl.workorder.unitReadings.compDiffPCFilterKill"
+                    ng-show="$ctrl.isFound('compDiffPCFilter')"
+                >
+                </dual-text-field>
+                <text-field
+                    model-name="unitReadings.flowMCF"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Flow MMCF"
+                    placeholder-text="0-10000"
+                    data="$ctrl.workorder.unitReadings.flowMCF"
+                >
+                </text-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Engine Compression</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-xs-6">
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder1"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 1"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder1"
+                        ng-show="$ctrl.isFound('cylinder1')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder2"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 2"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder2"
+                        ng-show="$ctrl.isFound('cylinder2')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder3"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 3"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder3"
+                        ng-show="$ctrl.isFound('cylinder3')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder4"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 4"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder4"
+                        ng-show="$ctrl.isFound('cylinder4')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder5"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 5"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder5"
+                        ng-show="$ctrl.isFound('cylinder5')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder6"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 6"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder6"
+                        ng-show="$ctrl.isFound('cylinder6')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder7"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 7"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder7"
+                        ng-show="$ctrl.isFound('cylinder7')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder8"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 8"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder8"
+                        ng-show="$ctrl.isFound('cylinder8')"
+                    >
+                    </text-field>
+                </div>
+                <div class="col-xs-6">
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder9"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 9"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder9"
+                        ng-show="$ctrl.isFound('cylinder9')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder10"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 10"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder10"
+                        ng-show="$ctrl.isFound('cylinder10')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder11"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 11"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder11"
+                        ng-show="$ctrl.isFound('cylinder11')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder12"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 12"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder12"
+                        ng-show="$ctrl.isFound('cylinder12')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder13"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 13"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder13"
+                        ng-show="$ctrl.isFound('cylinder13')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder14"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 14"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder14"
+                        ng-show="$ctrl.isFound('cylinder14')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder15"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 15"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder15"
+                        ng-show="$ctrl.isFound('cylinder15')"
+                    >
+                    </text-field>
+                    <text-field
+                        model-name="pmChecklist.engineCompression.cylinder16"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                        label-text="Cylinder 16"
+                        placeholder-text="0-100"
+                        data="$ctrl.workorder.pmChecklist.engineCompression.cylinder16"
+                        ng-show="$ctrl.isFound('cylinder16')"
+                    >
+                    </text-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

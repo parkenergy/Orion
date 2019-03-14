@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-hover">
+            <tbody>
+            <tr ng-repeat="part in $ctrl.workorder.parts">
+                <td>{{part.componentName}}</td>
+                <td>{{part.MPN}}</td>
+                <td>{{part.description}}</td>
+                <td>
+                    <input type="number"
+                           min="1"
+                           class="form-control"
+                           name="quantity"
+                           ng-model="part.quantity"
+                    >
+                </td>
+                <td>
+                    <button class="btn btn-danger pull-right"
+                            ng-click="$ctrl.removePart(part)">
+                        remove
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

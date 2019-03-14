@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 class="panel-title">Part Picker</h1>
+        <div class="form-group clearfix">
+            <input type="text"
+                   class="form-control"
+                   name="searchPhrase"
+                   ng-model="$ctrl.searchPhrase"
+                   ng-change="$ctrl.searchPart($ctrl.searchPhrase)"
+                   placeholder="Search here..."
+            >
+        </div>
+    </div>
+    <div class="panel-body" ng-show="$ctrl.searchPhrase.length > 2">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th ng-click="$ctrl.resort('componentName')">
+                    Part
+                </th>
+                <th ng-click="$ctrl.resort('MPN')">
+                    MPN
+                </th>
+                <th ng-click="$ctrl.resort('description')">
+                    description
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="part in $ctrl.searchedParts | orderBy:$ctrl.orderByField:$ctrl.reverseSort"
+                ng-click="$ctrl.addPart(part)"
+            >
+                <td>{{part.componentName}}</td>
+                <td>{{part.MPN}}</td>
+                <td>{{part.description}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
