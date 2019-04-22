@@ -163,7 +163,18 @@
               class="glyphicon glyphicon-chevron-up"></span>
           </th>
 
-          <!-- Sort by MPN -->
+            <!-- Sort by Part #-->
+            <th ng-click="$ctrl.resort('part.MPN')">
+                MPN
+                <span
+                    ng-show="$ctrl.sortType == 'part.MPN' && !$ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-down"></span>
+                <span
+                    ng-show="$ctrl.sortType == 'part.MPN' && $ctrl.sortReverse"
+                    class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+
+          <!-- Sort by Description -->
           <th ng-click="$ctrl.resort('part.description')">
             Description
             <span
@@ -250,6 +261,7 @@
             >
           </td>
           <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.part.componentName || order.part.number }}</td>
+          <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.part.MPN}}</td>
           <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.part.description }}</td>
           <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.techId }}</td>
           <td ng-click="$ctrl.routeToPartOrder(order);">{{ order.destination }}</td>
