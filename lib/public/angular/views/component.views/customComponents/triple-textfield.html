@@ -1,28 +1,34 @@
 <!-- textbox -->
 <div id="Ctextfield" class="form-group" style="{{$ctrl.fieldStyling}}">
     <label ng-hide="!$ctrl.labelText">{{$ctrl.labelText}}</label><br>
-    <input type="text"
-      ng-style="{{$ctrl.inputStyling}}"
-      class="form-control"
-      ng-change="$ctrl.onUpdate($ctrl.dataone, $ctrl.modelNameOne)"
-      ng-model="$ctrl.dataone"
-      name="{{$ctrl.dataone}}"
-      placeholder="{{$ctrl.placeholderTextOne}}"
-      ng-disabled="$ctrl.disabled">
-      <input type="text"
-      ng-style="{{$ctrl.inputStyling}}"
-      class="form-control"
-      ng-change="$ctrl.onUpdate($ctrl.datatwo, $ctrl.modelNameTwo)"
-      ng-model="$ctrl.datatwo"
-      name="{{$ctrl.datatwo}}"
-      placeholder="{{$ctrl.placeholderTextTwo}}"
-      ng-disabled="$ctrl.disabled">
-      <input type="text"
-      ng-style="{{$ctrl.inputStyling}}"
-      class="form-control"
-      ng-change="$ctrl.onUpdate($ctrl.dataThree, $ctrl.modelNameThree)"
-      ng-model="$ctrl.datathree"
-      name="{{$ctrl.datathree}}"
-      placeholder="{{$ctrl.placeholderTextThree}}"
-      ng-disabled="$ctrl.disabled">
+    <div ng-style="{{$ctrl.inputStyling}}">
+        <input type="text"
+               class="form-control"
+               ng-change="$ctrl.onUpdate($ctrl.dataone, $ctrl.modelNameOne)"
+               ng-model="$ctrl.dataone"
+               name="{{$ctrl.dataone}}"
+               placeholder="{{$ctrl.placeholderTextOne}}"
+               ng-disabled="$ctrl.disabled">
+        <span class="text-muted"><small>Gauge</small></span><br>
+    </div>
+    <div ng-style="{{$ctrl.inputStyling}}">
+        <input type="text"
+               class="form-control"
+               ng-change="$ctrl.onUpdate($ctrl.datatwo, $ctrl.modelNameTwo)"
+               ng-model="$ctrl.datatwo"
+               name="{{$ctrl.datatwo}}"
+               placeholder="{{$ctrl.placeholderTextTwo}}"
+               ng-disabled="$ctrl.disabled">
+        <span class="text-muted"><small>Low</small></span><br>
+    </div>
+    <div ng-style="{{$ctrl.inputStyling}}">
+        <input type="text"
+               class="form-control"
+               ng-change="$ctrl.onUpdate($ctrl.dataThree, $ctrl.modelNameThree)"
+               ng-model="$ctrl.datathree"
+               name="{{$ctrl.datathree}}"
+               placeholder="{{$ctrl.placeholderTextThree}}"
+               ng-disabled="$ctrl.disabled">
+        <span class="text-muted"><small>High</small></span><br>
+    </div>
   </div>
