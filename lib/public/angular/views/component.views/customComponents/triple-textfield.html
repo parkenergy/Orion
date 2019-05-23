@@ -9,7 +9,7 @@
                name="{{$ctrl.dataone}}"
                placeholder="{{$ctrl.placeholderTextOne}}"
                ng-disabled="$ctrl.disabled">
-        <span class="text-muted"><small>Gauge</small></span><br>
+        <span class="text-muted"><small>{{$ctrl.placeholderTextOne}}</small></span><br>
     </div>
     <div ng-style="{{$ctrl.inputStyling}}">
         <input type="text"
@@ -19,7 +19,7 @@
                name="{{$ctrl.datatwo}}"
                placeholder="{{$ctrl.placeholderTextTwo}}"
                ng-disabled="$ctrl.disabled">
-        <span class="text-muted"><small>Low</small></span><br>
+        <span class="text-muted"><small>{{$ctrl.placeholderTextTwo}}</small></span><br>
     </div>
     <div ng-style="{{$ctrl.inputStyling}}">
         <input type="text"
@@ -29,6 +29,6 @@
                name="{{$ctrl.datathree}}"
                placeholder="{{$ctrl.placeholderTextThree}}"
                ng-disabled="$ctrl.disabled">
-        <span class="text-muted"><small>High</small></span><br>
+        <span class="text-muted"><small>{{$ctrl.placeholderTextThree}}</small></span><br>
     </div>
   </div>
