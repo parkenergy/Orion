@@ -1,0 +1,19 @@
+<div>
+    <div class="row">
+        <div class="col-xs-4 text-center">
+            <label>Run Time</label>
+            <p class="text-center">{{ $ctrl.TDS.pad($ctrl.elapsedHours) }}:{{ $ctrl.TDS.pad($ctrl.elapsedMinutes) }}:{{
+                $ctrl.TDS.pad($ctrl.elapsedSeconds) }}</p>
+        </div>
+        <div class="col-xs-4 text-center">
+            <label>Labor Time</label>
+            <p class="text-center">{{$ctrl.totalLaborTime.hours}}:{{$ctrl.totalLaborTime.minutes}}</p>
+        </div>
+        <div class="col-xs-4 text-center">
+            <label>Synced At</label>
+            <p class="text-center">
+                {{$ctrl.workorder.timeSubmitted | date: 'medium'}}
+            </p>
+        </div>
+    </div>
+</div>
