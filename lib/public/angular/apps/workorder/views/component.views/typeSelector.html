@@ -7,36 +7,43 @@
             <div style="font-weight: normal; margin-bottom: 10px;">
                 <input ng-change="$ctrl.pmChange($ctrl.workorder.pm, 'PM')"
                        ng-model="$ctrl.workorder.pm"
+                       ng-disabled="$ctrl.disabled"
                        type="checkbox">PM1
             </div>
             <div style="font-weight: normal; margin-bottom: 10px;">
                 <input ng-change="$ctrl.pmChange($ctrl.workorder.pm2, 'PM2')"
                        ng-model="$ctrl.workorder.pm2"
+                       ng-disabled="$ctrl.disabled"
                        type="checkbox">PM2
             </div>
             <div style="font-weight: normal; margin-bottom: 10px;">
                 <input ng-change="$ctrl.pmChange($ctrl.workorder.pm3, 'PM3')"
                        ng-model="$ctrl.workorder.pm3"
+                       ng-disabled="$ctrl.disabled"
                        type="checkbox">PM3
             </div>
             <div style="font-weight: normal; margin-bottom: 10px;">
                 <input ng-change="$ctrl.pmChange($ctrl.workorder.pm4, 'PM4')"
                        ng-model="$ctrl.workorder.pm4"
+                       ng-disabled="$ctrl.disabled"
                        type="checkbox">PM4
             </div>
             <div style="font-weight: normal; margin-bottom: 10px;">
                 <input ng-change="$ctrl.pmChange($ctrl.workorder.pm5, 'PM5')"
                        ng-model="$ctrl.workorder.pm5"
+                       ng-disabled="$ctrl.disabled"
                        type="checkbox">PM5
             </div>
             <div ng-repeat="obj in $ctrl.type" style="font-weight: normal; margin-bottom: 10px;">
                 <input ng-change="$ctrl.typeChange(obj)"
                        ng-model="obj.value"
+                       ng-disabled="$ctrl.disabled"
                        type="checkbox">{{ obj.text }}
             </div>
             <div ng-show="$ctrl.workorder.type === 'Corrective'">
                 <div style="font-weight: normal; margin-bottom: 10px;">
                     <input ng-model="$ctrl.workorder.atShop"
+                           ng-disabled="$ctrl.disabled"
                            type="checkbox">
                     {{'Shop Work?'}}
                 </div>

@@ -16,16 +16,77 @@
 
         <div class="row">
             <!-- Type Selector -->
-
+            <div class="col-md-3">
+                <div class="row" ng-style="{marginTop: 0}">
+                    <wo-type-selector
+                        workorder="workorder"
+                        call-back="runCb(cb)"
+                        disabled="disabled"
+                    >
+                    </wo-type-selector>
+                </div>
+                <div class="row" ng-style="{marginTop: 0}">
+                    <button
+                        class="btn btn-lg btn-primary"
+                        style="width: 100%;"
+                        ng-disabled="!disabled"
+                        ng-click="edit()"
+                    >
+                        Edit
+                    </button>
+                </div>
+            </div>
             <!-- Header -->
-
-            <!-- Unit Change Info -->
+            <div class="col-md-9">
+                <div class="row" ng-style="{marginTop: 0}">
+                    <wo-header-info
+                        workorder="workorder"
+                        call-back="runCb(cb)"
+                        engine-models="engineModels"
+                        frame-models="frameModels"
+                        asset-types="assetTypes"
+                        states="states"
+                        applicationtypes="applicationTypes"
+                        disabled="disabled"
+                    >
+                    </wo-header-info>
+                </div>
+                <div class="row"
+                     ng-show="workorder.type === 'Release' || workorder.type === 'Transfer' || workorder.type === 'Swap'" ng-style="{marginTop: 0}">
+                    <wo-change-info
+                        workorder="workorder"
+                        call-back="runCb(cb)"
+                        locations="locations"
+                        engine-models="engineModels"
+                        frame-models="frameModels"
+                        asset-types="assetTypes"
+                        states="states"
+                        disabled="disabled"
+                    >
+                    </wo-change-info>
+                </div>
+            </div>
         </div>
 
         <div class="row">
             <!-- Work Order Info -->
+            <div class="col-xs-4">
+                <review-info></review-info>
+            </div>
             <!-- Notes -->
+            <div class="col-xs-4">
+                <wo-notes
+                    workorder="workorder"
+                >
+                </wo-notes>
+            </div>
             <!-- History -->
+            <div class="col-xs-4">
+                <wo-histories
+                    workorder="workorder"
+                >
+                </wo-histories>
+            </div>
         </div>
 
         <div class="row">
