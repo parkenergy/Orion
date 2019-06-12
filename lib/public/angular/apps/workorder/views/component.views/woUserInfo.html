@@ -1,0 +1,17 @@
+<div class="panel panel-default" style="margin-bottom: 0px;">
+    <div class="panel-heading">
+        <h3 class="panel-title">Work Order Info</h3>
+    </div>
+    <div class="panel-body">
+        <div style="font-size: 15px;">
+            <p style="margin-bottom: 1px;">Tech Name: {{ $ctrl.workorder.technician.firstName }} {{ $ctrl.
+                workorder.technician.lastName }}</p>
+            <p style="margin-bottom: 1px;">Tech ID: {{ $ctrl.workorder.techId }}</p>
+            <p style="margin-bottom: 1px;">Truck ID: {{ $ctrl.workorder.truckId }} <span style="margin-left: 8px;">
+                Truck
+                NSID: {{ $ctrl.workorder.truckNSID }}</span></p>
+            <p style="margin-bottom: 1px;">Started: {{ $ctrl.workorder.timeStarted | date:'MM/dd/yyyy HH:mm' }}</p>
+            <p style="margin-bottom: 1px;">Ended: {{ $ctrl.workorder.timeSubmitted | date:'MM/dd/yyyy HH:mm'}}</p>
+        </div>
+    </div>
+</div>
