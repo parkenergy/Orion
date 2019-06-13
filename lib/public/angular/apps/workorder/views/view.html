@@ -94,7 +94,32 @@
 
         <div class="row">
             <!-- Unit Ownership + Billing Information -->
+            <div class="col-xs-4">
+                <wo-ownership
+                    call-back="runCb(cb)"
+                    workorder="workorder"
+                    disabled="disabled"
+                >
+                </wo-ownership>
+            </div>
+            <div class="col-xs-4">
+                <wo-billing-info
+                    call-back="runCb(cb)"
+                    workorder="workorder"
+                    disabled="disabled"
+                >
+                </wo-billing-info>
+            </div>
             <!-- JSA section -->
+            <div class="col-xs-4">
+                <wo-jsa-misc
+                    call-back="runCb(cb)"
+                    workorder="workorder"
+                    display-unit="displayUnit"
+                    disabled="disabled"
+                >
+                </wo-jsa-misc>
+            </div>
         </div>
 
         <div class="row">

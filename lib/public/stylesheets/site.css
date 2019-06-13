@@ -5897,14 +5897,14 @@ input[type="checkbox"] {
 #mcUnitView div.row.misc-row {
   margin-top: 0;
 }
+#WorkOrderOverviewTable thead tr.wo-dashboard {
+  cursor: pointer;
+}
 #woMisc-Edit div.row.misc-row {
   margin-top: 0;
 }
 #woMisc-Edit button.misc-map {
   margin-top: 10px;
-}
-#WorkOrderOverviewTable thead tr.wo-dashboard {
-  cursor: pointer;
 }
 #woMisc-Review div.row.misc-row {
   margin-top: 0;
