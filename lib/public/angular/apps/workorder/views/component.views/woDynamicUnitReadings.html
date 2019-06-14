@@ -1,0 +1,71 @@
+<div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Unit Information</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-xs-3">
+                    <label>Engine Model</label>
+                    <input
+                        type="text"
+                        name="engineModel"
+                        ng-model="$ctrl.workorder.unitReadings.displayEngineModel"
+                        ng-change="$ctrl.engineModelChange($ctrl.workorder.unitReadings.displayEngineModel)"
+                        uib-typeahead="engine.model for engine in $ctrl.engineModels | filter:$viewValue | limitTo:12"
+                        class="form-control"
+                        typeahead-wait-ms="100"
+                        typeahead-select-on-exact="true"
+                        typeahead-on-select="$ctrl.engineModelChange($ctrl.workorder.unitReadings.displayEngineModel)"
+                        ng-disabled="$ctrl.disabled"
+                    >
+                </div>
+                <div class="col-xs-3">
+                    <label>Compressor Model</label>
+                    <input
+                        type="text"
+                        name="frameModel"
+                        ng-model="$ctrl.workorder.unitReadings.displayFrameModel"
+                        ng-change="$ctrl.frameModelChange($ctrl.workorder.unitReadings.displayFrameModel)"
+                        uib-typeahead="engine.model for engine in $ctrl.frameModels | filter:$viewValue | limitTo:12"
+                        class="form-control"
+                        typeahead-wait-ms="100"
+                        typeahead-select-on-exact="true"
+                        typeahead-on-select="$ctrl.frameModelChange($ctrl.workorder.unitReadings.displayFrameModel)"
+                        ng-disabled="$ctrl.disabled"
+                    >
+                </div>
+                <text-field
+                    disabled="$ctrl.disabled"
+                    model-name="unitReadings.engineSerial"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Engine Serial"
+                    data="$ctrl.workorder.unitReadings.engineSerial"
+                >
+                </text-field>
+                <text-field
+                    disabled="$ctrl.disabled"
+                    model-name="unitReadings.compressorSerial"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="Compressor Serial"
+                    data="$ctrl.workorder.unitReadings.compressorSerial"
+                >
+                </text-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Engine</h3>
+            </div>
+            <div class="panel-body">
+                <div ng-repeat="input in $ctrl.inputs track by $index">
+                    <div ng-bind-html="$ctrl.renderHtml(input)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
