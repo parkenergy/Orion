@@ -62,8 +62,13 @@
                 <h3 class="panel-title">Engine</h3>
             </div>
             <div class="panel-body">
-                <div ng-repeat="input in $ctrl.inputs track by $index">
-                    <div ng-bind-html="$ctrl.renderHtml(input)"></div>
+                <div ng-repeat="inputObject in $ctrl.inputObjects track by $index">
+                    <wo-readings-input
+                        workorder="$ctrl.workorder"
+                        input-object="inputObject"
+                        disabled="$ctrl.disabled"
+                    >
+                    </wo-readings-input>
                 </div>
             </div>
         </div>
