@@ -1,0 +1,900 @@
+<div class="row" ng-style="{marginTop: 0}">
+    <div class="panel panel-default" ng-style="{marginBottom: 0}">
+        <div class="panel-heading">
+            <h3 class="panel-title">Labor Codes</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row" ng-style="{marginTop: 0}">
+                <div class="col-xs-3">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Basic Labor Codes</h3>
+                    </div>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.safety"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Safety"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.safety"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.positiveAdj"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Positive Time Adjustment"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.positiveAdj"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.negativeAdj"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Negative Time Adjustment"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.negativeAdj"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.lunch"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Lunch"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.lunch"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.custRelations"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Cust. Relations"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.custRelations"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.telemetry"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Telemetry"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.telemetry"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.environmental"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Environmental"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.environmental"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.diagnostic"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Diagnostic"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.diagnostic"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.serviceTravel"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Service Travel"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.serviceTravel"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.optimizeUnit"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Optimize Unit"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.optimizeUnit"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.pm"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="PM"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.pm"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.washUnit"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Wash Unit"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.washUnit"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.inventory"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Inventory"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.inventory"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.basic.training"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Training"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.basic.training"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                </div>
+                <div class="col-xs-3">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Engine Labor Codes</h3>
+                    </div>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.oilAndFilter"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Change Oil and Filter"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.oilAndFilter"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.addOil"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Add Oil"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.addOil"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.compression"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Check Compression"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.compression"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.replaceEngine"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Replace Engine"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.replaceEngine"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.replaceCylHead"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Replace Cylinder Head"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.replaceCylHead"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.coolingSystem"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Cooling System"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.coolingSystem"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.fuelSystem"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Fuel System"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.fuelSystem"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.ignition"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Ignition Repairs"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.ignition"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.starter"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Replace Starter"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.starter"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.lubrication"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Lubricating System"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.lubrication"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.exhaust"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Exhaust Repairs"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.exhaust"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.alternator"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Replace Alternator or Battery"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.alternator"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.driveOrCoupling"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Drive or Coupling"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.driveOrCoupling"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.sealsAndGaskets"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Seals and Gaskets"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.sealsAndGaskets"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.engineVibrationSwitch"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Engine Vibration Switch"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.engineVibrationSwitch"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.engineBelts"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Engine Belts"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.engineBelts"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.harnessRepair"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Harness Repair"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.harnessRepair"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.harnessRepair"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Harness Repair"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.harnessRepair"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.engine.EICSSensorActuators"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="EICS Sensor Actuators"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.engine.EICSSensorActuators"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                </div>
+                <div class="col-xs-3">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Emissions Labor Codes</h3>
+                    </div>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.install"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Install Emissions"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.install"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.test"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Test Emissions"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.test"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.repair"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Repair Emissions"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.repair"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.o2SensorReplace"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="O2 Sensor Replace"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.o2SensorReplace"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.catalystReplace"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Catalyst Replace"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.catalystReplace"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.emissi$ctrl.onsThermocoupling"
+                        disabled="$ctrl.disabled"
+                        hours="ho$ctrl.urs"
+                        label-text="Emissions Thermocoupling"
+                        minutes="minutes"
+                        model-name="laborCodes.emissions.emissionsThermocoupling"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.exhaustGasketReplace"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Exhaust Gasket Replace"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.exhaustGasketReplace"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.facilitySetup"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Facility Setup"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.facilitySetup"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.adjustment"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Adjustment"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.adjustment"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.troubleshooting"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Troubleshooting"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.troubleshooting"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.emissions.standBy"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Standby"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.emissions.standBy"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                </div>
+                <div class="col-xs-3">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel Labor Codes</h3>
+                    </div>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.panel"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Panel"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.panel"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.electrical"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Eletrical / Wiring"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.electrical"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.wiring"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Wiring"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.wiring"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.conduit"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Conduit"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.conduit"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.gauges"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Gauges"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.gauges"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.panelDampners"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Panel Dampners"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.panelDampners"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.tubing"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Tubing"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.tubing"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.programming"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Programming"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.programming"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.annuciator"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Annuciator"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.annuciator"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.panel.safetyShutdowns"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Safety Shutdowns"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.panel.safetyShutdowns"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                </div>
+            </div>
+            <div class="row" ng-style="{marginTop: 0}">
+                <div class="col-xs-3">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Compressor Labor Codes</h3>
+                    </div>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.inspect"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Inspect/Change Compressor"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.inspect"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.replace"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Replace Compressor"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.replace"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.addOil"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Add Oil"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.addOil"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.lubePump"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Lube Pump"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.lubePump"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.valves"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Valves"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.valves"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.alignment"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Alignment"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.alignment"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.piston"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Piston"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.piston"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.packing"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Packing"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.packing"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        $ctrl.
+                        data="$ctrl.workorder.laborCodes.compressor.compre$ctrl.ssorThermocouples"
+                        disabled="$ctrl.disabled"
+                        hours="hours"
+                        label-text="Compressor Thermo Couples"
+                        minutes="minutes"
+                        model-name="laborCodes.compressor.compressorThermocouples"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.noFlowSwitch"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="No Flow Switch"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.noFlowSwitch"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.compressor.overhaul"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Overhaul"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.compressor.overhaul"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        $ctrl.
+                        data="$ctrl.workorder.laborCodes.compressor.compre$ctrl.ssorVibrationSwitch"
+                        disabled="$ctrl.disabled"
+                        hours="hours"
+                        label-text="Compressor Vibration Switch"
+                        minutes="minutes"
+                        model-name="laborCodes.compressor.compressorVibrationSwitch"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                </div>
+                <div class="col-xs-3">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Cooler Labor Codes</h3>
+                    </div>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.cooling"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Cooling"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.cooling"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.coolTubeRepair"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Cool Tube Repair"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.coolTubeRepair"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.leakTesting"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Leak Testing"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.leakTesting"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.pluggingCoolerTube"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Plugging Cooler Tube"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.pluggingCoolerTube"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.flushCooler"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Flush Cooler"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.flushCooler"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.washCooler"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Wash Cooler"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.washCooler"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.coolerBelts"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Cooler Belts"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.coolerBelts"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.shaftBearing"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Shaft Bearing"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.shaftBearing"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.idlerBearing"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Idler Bearing"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.idlerBearing"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.fan"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Fan"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.fan"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.shivePulley"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Shive Pulley"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.shivePulley"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.cooler.coolerVibrationSwitch"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Cooler Vibration Switch"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.cooler.coolerVibrationSwitch"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                </div>
+                <div class="col-xs-3">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Vessel Labor Codes</h3>
+                    </div>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.vessel.dumpControl"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Dump Control System"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.vessel.dumpControl"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.vessel.reliefValve"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Relief Valves"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.vessel.reliefValve"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.vessel.suctionValve"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Suction/Discharge Valves"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.vessel.suctionValve"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.vessel.dumpValve"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Dump Valve"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.vessel.dumpValve"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.vessel.piping"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Piping"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.vessel.piping"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.vessel.screenWitchesHat"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Screen Witches Hat"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.vessel.screenWitchesHat"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                    <time-field
+                        data="$ctrl.workorder.laborCodes.vessel.vesselDampners"
+                        disabled="$ctrl.disabled"
+                        hours="$ctrl.hours"
+                        label-text="Vessel Dampners"
+                        minutes="$ctrl.minutes"
+                        model-name="laborCodes.vessel.vesselDampners"
+                        on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
+                        show="true">
+                    </time-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="row" ng-style="{marginTop: 0}">
+    <div class="panel panel-default" ng-style="{marginBottom: 0}">
+        <div class="panel-heading">
+            <h3 class="panel-title">Comments</h3>
+        </div>
+        <div class="panel-body">
+            <text-area-field
+                data="$ctrl.workorder.comments.repairsDescription"
+                disabled="$ctrl.disabled"
+                label-text="Description of Repairs Made"
+                model-name="comments.repairsDescription"
+                ng-show="$ctrl.workorder.pm || $ctrl.workorder.pm2 || $ctrl.workorder.pm3 || $ctrl.workorder.pm4 || $ctrl.workorder.pm5 ||
+               $ctrl.workorder.type == 'Corrective' ||
+               $ctrl.workorder.type == 'Trouble Call'"
+                on-data-change="$ctrl.changeThisTextAreaField(changedData, selected)"
+                placeholder-text="Please describe the repairs in detail">
+            </text-area-field>
+
+            <text-area-field
+                data="$ctrl.workorder.comments.repairsReason"
+                disabled="$ctrl.disabled"
+                label-text="Reason for Repairs Made"
+                model-name="comments.repairReason"
+                ng-show="$ctrl.workorder.type == 'Corrective'"
+                on-data-change="$ctrl.changeThisTextAreaField(changedData, selected)"
+                placeholder-text="Please describe the reason for the repairs in detail">
+            </text-area-field>
+
+            <text-area-field
+                data="$ctrl.workorder.comments.calloutReason"
+                disabled="$ctrl.disabled"
+                label-text="Reason for Call Out"
+                model-name="comments.calloutReason"
+                ng-show="$ctrl.workorder.type == 'Trouble Call'"
+                on-data-change="$ctrl.changeThisTextAreaField(changedData, selected)"
+                placeholder-text="Please describe the reason for the callout">
+            </text-area-field>
+
+            <text-area-field
+                data="$ctrl.workorder.comments.newsetNotes"
+                disabled="$ctrl.disabled"
+                label-text="New Set Notes"
+                model-name="comments.newsetNotes"
+                ng-show="$ctrl.workorder.type == 'New Set'"
+                on-data-change="$ctrl.changeThisTextAreaField(changedData, selected)"
+                placeholder-text="Please provide unit newset notes">
+            </text-area-field>
+
+            <text-area-field
+                data="$ctrl.workorder.comments.releaseNotes"
+                disabled="$ctrl.disabled"
+                label-text="Unit Release Notes"
+                model-name="comments.releaseNotes"
+                ng-show="$ctrl.workorder.type == 'Release'"
+                on-data-change="$ctrl.changeThisTextAreaField(changedData, selected)"
+                placeholder-text="Please provide unit release notes">
+            </text-area-field>
+
+            <text-area-field
+                data="$ctrl.workorder.comments.indirectNotes"
+                disabled="$ctrl.disabled"
+                label-text="Indirect Notes"
+                model-name="comments.indirectNotes"
+                ng-show="$ctrl.workorder.type == 'Indirect'"
+                on-data-change="$ctrl.changeThisTextAreaField(changedData, selected)"
+                placeholder-text="Please provide desciption of indirect work performed">
+            </text-area-field>
+
+            <text-area-field
+                data="$ctrl.workorder.comments.timeAdjustmentNotes"
+                disabled="$ctrl.disabled"
+                label-text="Time Adjustment Notes"
+                model-name="comments.timeAdjustmentNotes"
+                ng-show="$ctrl.timeAdjustment"
+                on-data-change="$ctrl.changeThisTextAreaField(changedData, selected)"
+                placeholder-text="Please provide reason for time adjustment">
+            </text-area-field>
+        </div>
+    </div>
+</div>
