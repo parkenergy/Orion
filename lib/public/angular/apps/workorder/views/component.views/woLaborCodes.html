@@ -7,7 +7,7 @@
             <div class="row" ng-style="{marginTop: 0}">
                 <div class="col-xs-3">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Basic Labor Codes</h3>
+                        <h3 class="panel-title"><b>Basic Labor Codes</b></h3>
                     </div>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.safety"
@@ -17,7 +17,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.safety"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.safety)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.positiveAdj"
@@ -27,7 +27,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.positiveAdj"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.positiveAdj)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.negativeAdj"
@@ -37,7 +37,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.negativeAdj"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.negativeAdj)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.lunch"
@@ -47,7 +47,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.lunch"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.lunch)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.custRelations"
@@ -57,7 +57,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.custRelations"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.custRelations)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.telemetry"
@@ -67,7 +67,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.telemetry"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.telemetry)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.environmental"
@@ -77,7 +77,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.environmental"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.environmental)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.diagnostic"
@@ -87,7 +87,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.diagnostic"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.diagnostic)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.serviceTravel"
@@ -97,7 +97,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.serviceTravel"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.serviceTravel)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.optimizeUnit"
@@ -107,7 +107,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.optimizeUnit"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.optimizeUnit)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.pm"
@@ -117,7 +117,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.pm"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.pm)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.washUnit"
@@ -127,7 +127,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.washUnit"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.washUnit)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.inventory"
@@ -137,7 +137,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.inventory"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.inventory)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.basic.training"
@@ -147,12 +147,12 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.basic.training"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.basic.training)">
                     </time-field>
                 </div>
                 <div class="col-xs-3">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Engine Labor Codes</h3>
+                        <h3 class="panel-title"><b>Engine Labor Codes</b></h3>
                     </div>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.oilAndFilter"
@@ -162,7 +162,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.oilAndFilter"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.oilAndFilter)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.addOil"
@@ -172,7 +172,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.addOil"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.addOil)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.compression"
@@ -182,7 +182,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.compression"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.compression)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.replaceEngine"
@@ -192,7 +192,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.replaceEngine"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.replaceEngine)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.replaceCylHead"
@@ -202,7 +202,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.replaceCylHead"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.replaceCylHead)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.coolingSystem"
@@ -212,7 +212,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.coolingSystem"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.coolingSystem)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.fuelSystem"
@@ -222,7 +222,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.fuelSystem"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.fuelSystem)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.ignition"
@@ -232,7 +232,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.ignition"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.ignition)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.starter"
@@ -242,7 +242,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.starter"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.starter)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.lubrication"
@@ -252,7 +252,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.lubrication"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.lubrication)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.exhaust"
@@ -262,7 +262,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.exhaust"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.exhaust)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.alternator"
@@ -272,7 +272,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.alternator"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.alternator)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.driveOrCoupling"
@@ -282,7 +282,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.driveOrCoupling"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.driveOrCoupling)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.sealsAndGaskets"
@@ -292,7 +292,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.sealsAndGaskets"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.sealsAndGaskets)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.engineVibrationSwitch"
@@ -302,7 +302,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.engineVibrationSwitch"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.engineVibrationSwitch)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.engineBelts"
@@ -312,7 +312,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.engineBelts"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.engineBelts)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.harnessRepair"
@@ -322,7 +322,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.harnessRepair"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.harnessRepair)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.harnessRepair"
@@ -332,7 +332,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.harnessRepair"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.harnessRepair)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.engine.EICSSensorActuators"
@@ -342,12 +342,12 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.engine.EICSSensorActuators"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.engine.EICSSensorActuators)">
                     </time-field>
                 </div>
                 <div class="col-xs-3">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Emissions Labor Codes</h3>
+                        <h3 class="panel-title"><b>Emissions Labor Codes</b></h3>
                     </div>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.install"
@@ -357,7 +357,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.install"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.install)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.test"
@@ -367,7 +367,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.test"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.test)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.repair"
@@ -377,7 +377,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.repair"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.repair)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.o2SensorReplace"
@@ -387,7 +387,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.o2SensorReplace"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.o2SensorReplace)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.catalystReplace"
@@ -397,17 +397,17 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.catalystReplace"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.catalystReplace)">
                     </time-field>
                     <time-field
-                        data="$ctrl.workorder.laborCodes.emissions.emissi$ctrl.onsThermocoupling"
+                        data="$ctrl.workorder.laborCodes.emissions.emissionsThermocoupling"
                         disabled="$ctrl.disabled"
-                        hours="ho$ctrl.urs"
+                        hours="$ctrl.hours"
                         label-text="Emissions Thermocoupling"
-                        minutes="minutes"
+                        minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.emissionsThermocoupling"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.emissionsThermocoupling)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.exhaustGasketReplace"
@@ -417,7 +417,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.exhaustGasketReplace"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.exhaustGasketReplace)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.facilitySetup"
@@ -427,7 +427,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.facilitySetup"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.facilitySetup)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.adjustment"
@@ -437,7 +437,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.adjustment"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.adjustment)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.troubleshooting"
@@ -447,7 +447,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.troubleshooting"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.troubleshooting)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.emissions.standBy"
@@ -457,12 +457,12 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.emissions.standBy"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.emissions.standBy)">
                     </time-field>
                 </div>
                 <div class="col-xs-3">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Panel Labor Codes</h3>
+                        <h3 class="panel-title"><b>Panel Labor Codes</b></h3>
                     </div>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.panel"
@@ -472,7 +472,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.panel"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.panel)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.electrical"
@@ -482,7 +482,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.electrical"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.electrical)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.wiring"
@@ -492,7 +492,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.wiring"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.wiring)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.conduit"
@@ -502,7 +502,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.conduit"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.conduit)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.gauges"
@@ -512,7 +512,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.gauges"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.gauges)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.panelDampners"
@@ -522,7 +522,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.panelDampners"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.panelDampners)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.tubing"
@@ -532,7 +532,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.tubing"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.tubing)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.programming"
@@ -542,7 +542,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.programming"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.programming)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.annuciator"
@@ -552,7 +552,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.annuciator"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.annuciator)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.panel.safetyShutdowns"
@@ -562,14 +562,14 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.panel.safetyShutdowns"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.panel.safetyShutdowns)">
                     </time-field>
                 </div>
             </div>
             <div class="row" ng-style="{marginTop: 0}">
                 <div class="col-xs-3">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Compressor Labor Codes</h3>
+                        <h3 class="panel-title"><b>Compressor Labor Codes</b></h3>
                     </div>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.inspect"
@@ -579,7 +579,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.inspect"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.inspect)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.replace"
@@ -589,7 +589,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.replace"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.replace)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.addOil"
@@ -599,7 +599,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.addOil"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.addOil)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.lubePump"
@@ -609,7 +609,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.lubePump"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.lubePump)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.valves"
@@ -619,7 +619,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.valves"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.valves)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.alignment"
@@ -629,7 +629,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.alignment"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.alignment)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.piston"
@@ -639,7 +639,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.piston"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.piston)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.packing"
@@ -649,18 +649,17 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.packing"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.packing)">
                     </time-field>
                     <time-field
-                        $ctrl.
-                        data="$ctrl.workorder.laborCodes.compressor.compre$ctrl.ssorThermocouples"
+                        data="$ctrl.workorder.laborCodes.compressor.compressorThermocouples"
                         disabled="$ctrl.disabled"
-                        hours="hours"
+                        hours="$ctrl.hours"
                         label-text="Compressor Thermo Couples"
-                        minutes="minutes"
+                        minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.compressorThermocouples"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.compressorThermocouples)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.noFlowSwitch"
@@ -670,7 +669,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.noFlowSwitch"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.noFlowSwitch)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.compressor.overhaul"
@@ -680,23 +679,22 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.overhaul"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.overhaul)">
                     </time-field>
                     <time-field
-                        $ctrl.
-                        data="$ctrl.workorder.laborCodes.compressor.compre$ctrl.ssorVibrationSwitch"
+                        data="$ctrl.workorder.laborCodes.compressor.compressorVibrationSwitch"
                         disabled="$ctrl.disabled"
-                        hours="hours"
+                        hours="$ctrl.hours"
                         label-text="Compressor Vibration Switch"
-                        minutes="minutes"
+                        minutes="$ctrl.minutes"
                         model-name="laborCodes.compressor.compressorVibrationSwitch"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.compressor.compressorVibrationSwitch)">
                     </time-field>
                 </div>
                 <div class="col-xs-3">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Cooler Labor Codes</h3>
+                        <h3 class="panel-title"><b>Cooler Labor Codes</b></h3>
                     </div>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.cooling"
@@ -706,7 +704,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.cooling"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.cooling)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.coolTubeRepair"
@@ -716,7 +714,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.coolTubeRepair"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.coolTubeRepair)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.leakTesting"
@@ -726,7 +724,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.leakTesting"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.leakTesting)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.pluggingCoolerTube"
@@ -736,7 +734,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.pluggingCoolerTube"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.pluggingCoolerTube)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.flushCooler"
@@ -746,7 +744,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.flushCooler"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.flushCooler)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.washCooler"
@@ -756,7 +754,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.washCooler"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.washCooler)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.coolerBelts"
@@ -766,7 +764,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.coolerBelts"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.coolerBelts)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.shaftBearing"
@@ -776,7 +774,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.shaftBearing"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.shaftBearing)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.idlerBearing"
@@ -786,7 +784,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.idlerBearing"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.idlerBearing)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.fan"
@@ -796,7 +794,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.fan"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.fan)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.shivePulley"
@@ -806,7 +804,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.shivePulley"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.shivePulley)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.cooler.coolerVibrationSwitch"
@@ -816,12 +814,12 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.cooler.coolerVibrationSwitch"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.cooler.coolerVibrationSwitch)">
                     </time-field>
                 </div>
                 <div class="col-xs-3">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Vessel Labor Codes</h3>
+                        <h3 class="panel-title"><b>Vessel Labor Codes</b></h3>
                     </div>
                     <time-field
                         data="$ctrl.workorder.laborCodes.vessel.dumpControl"
@@ -831,7 +829,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.vessel.dumpControl"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.vessel.dumpControl)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.vessel.reliefValve"
@@ -841,7 +839,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.vessel.reliefValve"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.vessel.reliefValve)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.vessel.suctionValve"
@@ -851,7 +849,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.vessel.suctionValve"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.vessel.suctionValve)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.vessel.dumpValve"
@@ -861,7 +859,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.vessel.dumpValve"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.vessel.dumpValve)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.vessel.piping"
@@ -871,7 +869,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.vessel.piping"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.vessel.piping)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.vessel.screenWitchesHat"
@@ -881,7 +879,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.vessel.screenWitchesHat"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.vessel.screenWitchesHat)">
                     </time-field>
                     <time-field
                         data="$ctrl.workorder.laborCodes.vessel.vesselDampners"
@@ -891,7 +889,7 @@
                         minutes="$ctrl.minutes"
                         model-name="laborCodes.vessel.vesselDampners"
                         on-data-change="$ctrl.changeThisTimeField(changedData, selected)"
-                        show="true">
+                        show="$ctrl.showUsed($ctrl.workorder.laborCodes.vessel.vesselDampners)">
                     </time-field>
                 </div>
             </div>

@@ -4,7 +4,7 @@
 <div id="woCreate">
     <div class="row rowIssue">
 
-        <div class="row">
+        <div class="row" ng-style="{marginTop: 0}">
             <!-- Show Work Order Run Time + is Submitted -->
             <div class="highlight">
                 <wo-time-submitted-view
@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-style="{marginTop: 0}">
             <!-- Type Selector -->
             <div class="col-md-3">
                 <div class="row" ng-style="{marginTop: 0}">
@@ -122,7 +122,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-style="{marginTop: 0}">
             <wo-dynamic-unit-readings
                 call-back="runCb(cb)"
                 workorder="workorder"
@@ -135,13 +135,13 @@
             </wo-dynamic-unit-readings>
         </div>
 
-        <div class="row">
+        <div class="row" ng-style="{marginTop: 0}">
             <!-- PM -->
             <!-- Checks -->
             <!-- SOP Checks -->
         </div>
 
-        <div class="row">
+        <div class="row" ng-style="{marginTop: 0}">
             <!-- Comments -->
             <wo-comments
                 call-back="runCb(cb)"
@@ -151,7 +151,7 @@
             </wo-comments>
         </div>
 
-        <div class="row">
+        <div class="row" ng-style="{marginTop: 0}">
             <!-- Labor Codes -->
             <wo-labor-codes
                 call-back="runCb(cb)"
