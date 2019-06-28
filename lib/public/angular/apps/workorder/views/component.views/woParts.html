@@ -1,0 +1,73 @@
+<div>
+    <!-- Part Picker -->
+    <div class="row" ng-style="{marginTop: 0}">
+        <div class="panel panel-default" ng-style="{marginBottom: 0}">
+            <div class="panel-heading">
+                <h3 class="panel-title">Parts</h3>
+                <hr ng-style="{marginTop: 5, marginBottom: 5}">
+                <form role="form">
+                    <div class="form-group has-feedback" ng-style="{width: '100%', padding: 10}">
+                        <input class="form-control search"
+                               ng-disabled="$ctrl.disabled"
+                               ng-model="$ctrl.searchPhrase"
+                               ng-style="{borderRadius: 5}"
+                               placeholder="Search.."
+                               type="text"
+                        >
+                        <span
+                            class="glyphicon glyphicon-remove form-control-feedback"
+                            ng-click="$ctrl.clearSearch()"
+                            ng-style="{marginRight: 10}"
+                            uib-tooltip="clear">
+                    </span>
+                    </div>
+                </form>
+                <p ng-show="$ctrl.searchPhrase.length > 2">Currenrretly displaying
+                    {{$ctrl.selectableSearchedParts.length}}
+                    matching parts.</p>
+            </div>
+            <div class="panel-body" ng-show="$ctrl.searchPhrase.length > 2" ng-style="{marginTop: 0}">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th ng-click="$ctrl.resort('MPN')">
+                            MPN
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  ng-show="$ctrl.orderByField == 'MPN' && !$ctrl.reverseSort"></span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  ng-show="$ctrl.orderByField == 'MPN' && $ctrl.reverseSort"></span>
+                        </th>
+                        <th ng-click="$ctrl.resort('componentName')">
+                            Component Name
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  ng-show="$ctrl.orderByField == 'componentName' && !$ctrl.reverseSort"></span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  ng-show="$ctrl.orderByField == 'componentName' && $ctrl.reverseSort"></span>
+                        </th>
+                        <th ng-click="$ctrl.resort('description')">
+                            Description
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  ng-show="$ctrl.orderByField == 'description' && !$ctrl.reverseSort"></span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  ng-show="$ctrl.orderByField == 'description' && $ctrl.reverseSort"></span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-click="$ctrl.clearSearchPhraseAndSelect(part)"
+                        ng-repeat="part in $ctrl.selectableSearchedParts | orderBy:$ctrl.orderByField:$ctrl.reverseSort"
+                    >
+                        <td>{{part.MPN}}</td>
+                        <td>{{part.componentName}}</td>
+                        <td>{{part.description}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-style="{marginTop: 0}">
+        <div class="panel panel-default" ng-style="{marginBottom: 0}">
+        </div>
+    </div>
+</div>

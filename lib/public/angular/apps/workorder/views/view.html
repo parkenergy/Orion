@@ -164,9 +164,14 @@
             </wo-labor-codes>
         </div>
 
-        <div class="row">
-            <!-- Part Picker -->
-            <!-- Part Results -->
+        <div class="row" ng-style="{marginTop: 0}">
+            <wo-parts
+                call-back="runCb(cb)"
+                disabled="disabled"
+                parts="parts"
+                workorder="workorder"
+            >
+            </wo-parts>
         </div>
 
         <!-- Submit -->
