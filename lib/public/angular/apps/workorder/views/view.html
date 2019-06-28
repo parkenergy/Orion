@@ -136,9 +136,12 @@
         </div>
 
         <div class="row" ng-style="{marginTop: 0}">
-            <!-- PM -->
-            <!-- Checks -->
-            <!-- SOP Checks -->
+            <wo-pm-checks
+                call-back="runCb(cb)"
+                disabled="disabled"
+                workorder="workorder"
+            >
+            </wo-pm-checks>
         </div>
 
         <div class="row" ng-style="{marginTop: 0}">
