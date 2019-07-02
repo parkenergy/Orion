@@ -8,6 +8,7 @@
             <!-- Show Work Order Run Time + is Submitted -->
             <div class="highlight">
                 <wo-time-submitted-view
+                    state="state"
                     call-back="runCb(cb)"
                     workorder="workorder"
                 />
@@ -166,6 +167,7 @@
 
         <div class="row" ng-style="{marginTop: 0}">
             <wo-parts
+                state="state"
                 call-back="runCb(cb)"
                 disabled="disabled"
                 parts="parts"
