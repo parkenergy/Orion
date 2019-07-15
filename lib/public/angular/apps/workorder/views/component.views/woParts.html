@@ -114,9 +114,44 @@
                     >
                         <td>{{part.number}}</td>
                         <td>{{part.description}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            <!--   <select ng-model="obj.laborCode">
+                                   <option ng-repeat="code in usedLaborCodes" value="{{code}}">{{code}}</option>
+                               </select>-->
+                            <select
+                                class="form-control"
+                                name="laborCode"
+                                ng-disabled="$ctrl.disabled"
+                                ng-model="part.laborCode">
+                                <option
+                                    ng-repeat="code in $ctrl.usedLaborCodes track by $index"
+                                    value="{{code}}"
+                                >
+                                    {{code}}
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="form-control"
+                                   name="quantity"
+                                   ng-disabled="$ctrl.disabled"
+                                   ng-model="part.quantity"
+                                   type="number"
+                            >
+                        </td>
+                        <td>
+                            <div class="form-group" ng-style="{'text-align': 'left'}">
+                                <input ng-disabled="$ctrl.disabled"
+                                       ng-model="part.isBillable"
+                                       ng-style="{display: 'inline-block'}"
+                                       type="checkbox">Is Part Billable?<br>
+                                <input ng-disabled="$ctrl.disabled"
+                                       ng-model="part.isWarranty"
+                                       ng-style="{display: 'inline-block'}"
+                                       type="checkbox">Is Part Warranty?
+                            </div>
+
+                        </td>
                         <td>
                             <button class="btn btn-danger pull-right" ng-click="$ctrl.removePart(part)">
                                 remove
