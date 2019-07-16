@@ -5,54 +5,82 @@
                 <h3 class="panel-title">Unit Information</h3>
             </div>
             <div class="panel-body">
-                <div class="col-xs-3">
-                    <label>Engine Model</label>
-                    <input
-                        type="text"
-                        name="engineModel"
-                        ng-model="$ctrl.workorder.unitReadings.displayEngineModel"
-                        ng-change="$ctrl.engineModelChange($ctrl.workorder.unitReadings.displayEngineModel)"
-                        uib-typeahead="engine.model for engine in $ctrl.engineModels | filter:$viewValue | limitTo:12"
-                        class="form-control"
-                        typeahead-wait-ms="100"
-                        typeahead-select-on-exact="true"
-                        typeahead-on-select="$ctrl.engineModelChange($ctrl.workorder.unitReadings.displayEngineModel)"
-                        ng-disabled="$ctrl.disabled"
+                <div class="row">
+                    <div class="col-xs-3">
+                        <label>Engine Model</label>
+                        <input
+                            class="form-control"
+                            name="engineModel"
+                            ng-change="$ctrl.engineModelChange($ctrl.workorder.unitReadings.displayEngineModel)"
+                            ng-disabled="$ctrl.disabled"
+                            ng-model="$ctrl.workorder.unitReadings.displayEngineModel"
+                            type="text"
+                            typeahead-on-select="$ctrl.engineModelChange($ctrl.workorder.unitReadings.displayEngineModel)"
+                            typeahead-select-on-exact="true"
+                            typeahead-wait-ms="100"
+                            uib-typeahead="engine.model for engine in $ctrl.engineModels | filter:$viewValue | limitTo:12"
+                        >
+                    </div>
+                    <div class="col-xs-3">
+                        <label>Compressor Model</label>
+                        <input
+                            class="form-control"
+                            name="frameModel"
+                            ng-change="$ctrl.frameModelChange($ctrl.workorder.unitReadings.displayFrameModel)"
+                            ng-disabled="$ctrl.disabled"
+                            ng-model="$ctrl.workorder.unitReadings.displayFrameModel"
+                            type="text"
+                            typeahead-on-select="$ctrl.frameModelChange($ctrl.workorder.unitReadings.displayFrameModel)"
+                            typeahead-select-on-exact="true"
+                            typeahead-wait-ms="100"
+                            uib-typeahead="engine.model for engine in $ctrl.frameModels | filter:$viewValue | limitTo:12"
+                        >
+                    </div>
+                    <text-field
+                        class="col-xs-3"
+                        data="$ctrl.workorder.unitReadings.engineSerial"
+                        disabled="$ctrl.disabled"
+                        label-text="Engine Serial"
+                        model-name="unitReadings.engineSerial"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
                     >
-                </div>
-                <div class="col-xs-3">
-                    <label>Compressor Model</label>
-                    <input
-                        type="text"
-                        name="frameModel"
-                        ng-model="$ctrl.workorder.unitReadings.displayFrameModel"
-                        ng-change="$ctrl.frameModelChange($ctrl.workorder.unitReadings.displayFrameModel)"
-                        uib-typeahead="engine.model for engine in $ctrl.frameModels | filter:$viewValue | limitTo:12"
-                        class="form-control"
-                        typeahead-wait-ms="100"
-                        typeahead-select-on-exact="true"
-                        typeahead-on-select="$ctrl.frameModelChange($ctrl.workorder.unitReadings.displayFrameModel)"
-                        ng-disabled="$ctrl.disabled"
+                    </text-field>
+                    <text-field
+                        class="col-xs-3"
+                        data="$ctrl.workorder.unitReadings.compressorSerial"
+                        disabled="$ctrl.disabled"
+                        label-text="Compressor Serial"
+                        model-name="unitReadings.compressorSerial"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
                     >
+                    </text-field>
                 </div>
-                <text-field
-                    disabled="$ctrl.disabled"
-                    model-name="unitReadings.engineSerial"
-                    on-data-change="$ctrl.changeThisField(changedData, selected)"
-                    class="col-xs-3"
-                    label-text="Engine Serial"
-                    data="$ctrl.workorder.unitReadings.engineSerial"
-                >
-                </text-field>
-                <text-field
-                    disabled="$ctrl.disabled"
-                    model-name="unitReadings.compressorSerial"
-                    on-data-change="$ctrl.changeThisField(changedData, selected)"
-                    class="col-xs-3"
-                    label-text="Compressor Serial"
-                    data="$ctrl.workorder.unitReadings.compressorSerial"
-                >
-                </text-field>
+                <div class="row" ng-show="$ctrl.newEngine || $ctrl.newCompressor">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-3" ng-show="!$ctrl.newEngine"></div>
+                    <text-field
+                        class="col-xs-3"
+                        data="$ctrl.workorder.newEngineSerial"
+                        disabled="$ctrl.disabled"
+                        label-text="New Engine Serial"
+                        model-name="newEngineSerial"
+                        ng-show="$ctrl.newEngine"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    >
+                    </text-field>
+                    <div class="col-xs-3" ng-show="!$ctrl.newCompressor"></div>
+                    <text-field
+                        class="col-xs-3"
+                        data="$ctrl.workorder.newCompressorSerial"
+                        disabled="$ctrl.disabled"
+                        label-text="New Compressor Serial"
+                        model-name="newCompressorSerial"
+                        ng-show="$ctrl.newCompressor"
+                        on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    >
+                    </text-field>
+                </div>
             </div>
         </div>
     </div>
@@ -96,7 +124,7 @@
                                 <input class="form-control search"
                                        name="fromDate"
                                        ng-disabled="$ctrl.disabled"
-                                       ng-change="$ctrl.latCali($ctrl.lastCaliDate)"
+                                       ng-change="$ctrl.lastCal($ctrl.lastCaliDate)"
                                        ng-model="$ctrl.lastCaliDate" type="date">
                             </div>
                         </div>
