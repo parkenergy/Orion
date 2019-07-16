@@ -177,5 +177,18 @@
         </div>
 
         <!-- Submit -->
+        <div ng-style="{}">
+            <div ng-show="workorder.netsuiteSyned || workorder.timeSynced">
+                Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
+            </div>
+            <button
+                class="btn btn-lg btn-primary pull-right"
+                ng-click="debounceSubmit()"
+                ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect') || workorder.timeSynced"
+                style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;">
+                Submit
+            </button>
+            <div class="clearfix" style="height: 65px;"></div>
+        </div>
     </div>
 </div>

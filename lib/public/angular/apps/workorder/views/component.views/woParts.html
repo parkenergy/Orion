@@ -26,6 +26,13 @@
                     {{$ctrl.selectableSearchedParts.length}}
                     matching parts.</p>
             </div>
+            <button
+                class="btn btn-lg btn-primary"
+                ng-Click="$ctrl.openManualPartModal()"
+                ng-style="{'margin-left': 10}"
+                type="button">
+                Add Part Manually
+            </button>
             <div class="panel-body" ng-show="$ctrl.searchPhrase.length > 2" ng-style="{marginTop: 0}">
                 <table class="table table-hover">
                     <thead>
@@ -133,6 +140,7 @@
                         </td>
                         <td>
                             <input class="form-control"
+                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
                                    name="quantity"
                                    ng-disabled="$ctrl.disabled"
                                    ng-model="part.quantity"
@@ -153,7 +161,10 @@
 
                         </td>
                         <td>
-                            <button class="btn btn-danger pull-right" ng-click="$ctrl.removePart(part)">
+                            <button class="btn btn-danger pull-right"
+                                    ng-click="$ctrl.removePart(part)"
+                                    ng-disabled="$ctrl.disabled"
+                            >
                                 remove
                             </button>
                         </td>

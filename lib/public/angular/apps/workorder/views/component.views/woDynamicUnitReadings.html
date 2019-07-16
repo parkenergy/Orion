@@ -95,6 +95,7 @@
                                 <label>Last Calibration</label>
                                 <input class="form-control search"
                                        name="fromDate"
+                                       ng-disabled="$ctrl.disabled"
                                        ng-change="$ctrl.latCali($ctrl.lastCaliDate)"
                                        ng-model="$ctrl.lastCaliDate" type="date">
                             </div>
