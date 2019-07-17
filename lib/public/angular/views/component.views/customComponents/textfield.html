@@ -1,12 +1,12 @@
 <!-- textbox -->
-<div id="Ctextfield" class="form-group" style="{{$ctrl.fieldStyling}}">
+<div class="form-group" id="Ctextfield" ng-class="{'has-error': $ctrl.hasError}" ng-style="$ctrl.fieldStyling">
   <label ng-hide="!$ctrl.labelText">{{$ctrl.labelText}}</label>
   <input type="text"
-    style="{{$ctrl.inputStyling}}"
-    class="form-control"
-    ng-change="$ctrl.onUpdate($ctrl.data)"
-    ng-model="$ctrl.data"
-    name="{{$ctrl.data}}"
-    placeholder="{{$ctrl.placeholderText}}"
-    ng-disabled="$ctrl.disabled">
+         class="form-control"
+         name="{{$ctrl.data}}"
+         ng-change="$ctrl.onUpdate($ctrl.data)"
+         ng-disabled="$ctrl.disabled"
+         ng-model="$ctrl.data"
+         ng-style="{{$ctrl.inputStyling}}"
+         placeholder="{{$ctrl.placeholderText}}">
 </div>
