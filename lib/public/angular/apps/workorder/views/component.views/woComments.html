@@ -11,7 +11,9 @@
                 model-name="comments.repairsDescription"
                 ng-show="$ctrl.workorder.pm || $ctrl.workorder.pm2 || $ctrl.workorder.pm3 || $ctrl.workorder.pm4 || $ctrl.workorder.pm5 ||
                $ctrl.workorder.type == 'Corrective' ||
-               $ctrl.workorder.type == 'Trouble Call'"
+               $ctrl.workorder.type == 'Trouble Call' ||
+               $ctrl.workorder.type == 'Swap' ||
+               $ctrl.workorder.type == 'Transfer'"
                 on-data-change="$ctrl.changeThisTextAreaField(changedData, selected)"
                 placeholder-text="Please describe the repairs in detail">
             </text-area-field>

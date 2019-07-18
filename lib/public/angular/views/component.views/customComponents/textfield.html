@@ -1,5 +1,6 @@
 <!-- textbox -->
-<div class="form-group" id="Ctextfield" ng-class="{'has-error': $ctrl.hasError}" ng-style="$ctrl.fieldStyling">
+<div class="form-group" id="Ctextfield" ng-class="{'has-error': $ctrl.hasError, 'has-success': !$ctrl.hasError}"
+     ng-style="$ctrl.fieldStyling">
   <label ng-hide="!$ctrl.labelText">{{$ctrl.labelText}}</label>
   <input type="text"
          class="form-control"

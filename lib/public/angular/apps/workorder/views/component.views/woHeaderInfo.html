@@ -4,10 +4,12 @@
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.numberError, 'has-success': !$ctrl.numberError}">
                 <label>Unit #</label>
                 <input
                     type="text"
+                    ng-style="$ctrl.border"
                     name="number"
                     ng-model="$ctrl.workorder.header.unitNumber"
                     ng-change="$ctrl.unitNumberChange($ctrl.workorder.header.unitNumber)"
@@ -20,9 +22,11 @@
             </div>
 
             <!-- Customer Name -->
-            <div class="col-xs-4">
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.customerError, 'has-success': !$ctrl.customerError}">
                 <label>Customer</label>
                 <input
+                    ng-style="$ctrl.border"
                     type="text"
                     name="customer"
                     ng-model="$ctrl.workorder.header.customerName"
@@ -37,9 +41,11 @@
 
 
             <!-- Lease Name -->
-            <div class="col-xs-4">
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.leaseError, 'has-success': !$ctrl.leaseError}">
                 <label>Lease</label>
                 <input
+                    ng-style="$ctrl.border"
                     type="text"
                     name="lease"
                     ng-model="$ctrl.workorder.header.leaseName"
@@ -56,9 +62,11 @@
 
         <div class="row">
             <!-- County -->
-            <div class="col-xs-4">
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.countyError, 'has-success': !$ctrl.countyError}">
                 <label>County</label>
                 <input
+                    ng-style="$ctrl.border"
                     type="text"
                     name="name"
                     ng-model="$ctrl.workorder.header.county"
@@ -72,9 +80,11 @@
             </div>
 
             <!-- State -->
-            <div class="col-xs-4">
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.stateError, 'has-success': !$ctrl.stateError}">
                 <label>State</label>
                 <input
+                    ng-style="$ctrl.border"
                     type="text"
                     name="state"
                     ng-model="$ctrl.workorder.header.state"
