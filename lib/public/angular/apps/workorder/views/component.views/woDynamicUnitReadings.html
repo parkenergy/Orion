@@ -6,7 +6,8 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-xs-3">
+                    <div class="col-xs-3 form-group"
+                         ng-class="{'has-error': $ctrl.engineModelError, 'has-success': !$ctrl.engineModelError}">
                         <label>Engine Model</label>
                         <input
                             class="form-control"
@@ -21,7 +22,8 @@
                             uib-typeahead="engine.model for engine in $ctrl.engineModels | filter:$viewValue | limitTo:12"
                         >
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-3 form-group"
+                         ng-class="{'has-error': $ctrl.frameModelError, 'has-success': !$ctrl.frameModelError}">
                         <label>Compressor Model</label>
                         <input
                             class="form-control"
@@ -36,25 +38,32 @@
                             uib-typeahead="engine.model for engine in $ctrl.frameModels | filter:$viewValue | limitTo:12"
                         >
                     </div>
-                    <text-field
-                        field-styling="$ctrl.myStyle"
-                        class="col-xs-3"
-                        data="$ctrl.workorder.unitReadings.engineSerial"
-                        disabled="$ctrl.disabled"
-                        label-text="Engine Serial"
-                        model-name="unitReadings.engineSerial"
-                        on-data-change="$ctrl.changeThisField(changedData, selected)"
-                    >
-                    </text-field>
-                    <text-field
-                        class="col-xs-3"
-                        data="$ctrl.workorder.unitReadings.compressorSerial"
-                        disabled="$ctrl.disabled"
-                        label-text="Compressor Serial"
-                        model-name="unitReadings.compressorSerial"
-                        on-data-change="$ctrl.changeThisField(changedData, selected)"
-                    >
-                    </text-field>
+                    <div class="col-xs-3 form-group"
+                         ng-class="{'has-error': $ctrl.engineSerialError, 'has-success': !$ctrl.engineSerialError}">
+                        <label>Engine Serial</label>
+                        <input
+                            class="form-control"
+                            name="engineSerial"
+                            ng-change="$ctrl.engineSerialChange($ctrl.workorder.unitReadings.engineSerial.toUpperCase())"
+                            ng-disabled="$ctrl.disabled"
+                            ng-model="$ctrl.workorder.unitReadings.engineSerial"
+                            ng-style="$ctrl.border"
+                            type="text"
+                        >
+                    </div>
+                    <div class="col-xs-3 form-group"
+                         ng-class="{'has-error': $ctrl.frameSerialError, 'has-success': !$ctrl.frameSerialError}">
+                        <label>Compressor Serial</label>
+                        <input
+                            class="form-control"
+                            name="compressorSerial"
+                            ng-change="$ctrl.frameSerialChange($ctrl.workorder.unitReadings.compressorSerial.toUpperCase())"
+                            ng-disabled="$ctrl.disabled"
+                            ng-model="$ctrl.workorder.unitReadings.compressorSerial"
+                            ng-style="$ctrl.border"
+                            type="text"
+                        >
+                    </div>
                 </div>
                 <div class="row" ng-show="$ctrl.newEngine || $ctrl.newCompressor">
                     <div class="col-xs-3"></div>
@@ -139,6 +148,9 @@
                     <div class="row" ng-show="panel === 'Emissions' && $ctrl.workorder.emissionsReadings.spotCheck"
                          ng-style="{marginTop: 0}">
                         <text-field
+                            init-require="$ctrl.workorder.emissionsReadings.spotCheck"
+                            input-required="$ctrl.workorder.emissionsReadings.spotCheck"
+                            input-styling="{'border-width': '6px'}"
                             class="col-xs-3"
                             data="$ctrl.workorder.emissionsReadings.NOxGrams"
                             disabled="$ctrl.disabled"
@@ -148,6 +160,9 @@
                         >
                         </text-field>
                         <text-field
+                            init-require="$ctrl.workorder.emissionsReadings.spotCheck"
+                            input-required="$ctrl.workorder.emissionsReadings.spotCheck"
+                            input-styling="{'border-width': '6px'}"
                             class="col-xs-3"
                             data="$ctrl.workorder.emissionsReadings.COGrams"
                             disabled="$ctrl.disabled"
@@ -157,6 +172,9 @@
                         >
                         </text-field>
                         <text-field
+                            init-require="$ctrl.workorder.emissionsReadings.spotCheck"
+                            input-required="$ctrl.workorder.emissionsReadings.spotCheck"
+                            input-styling="{'border-width': '6px'}"
                             class="col-xs-3"
                             data="$ctrl.workorder.emissionsReadings.NOxAllowable"
                             disabled="$ctrl.disabled"
@@ -166,6 +184,9 @@
                         >
                         </text-field>
                         <text-field
+                            init-require="$ctrl.workorder.emissionsReadings.spotCheck"
+                            input-required="$ctrl.workorder.emissionsReadings.spotCheck"
+                            input-styling="{'border-width': '6px'}"
                             class="col-xs-3"
                             data="$ctrl.workorder.emissionsReadings.COAllowable"
                             disabled="$ctrl.disabled"

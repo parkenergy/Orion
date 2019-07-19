@@ -5,7 +5,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-4 form-group"
-                 ng-class="{'has-error': $ctrl.numberError, 'has-success': !$ctrl.numberError}">
+                 ng-class="{'has-error': $ctrl.numberError, 'has-success': $ctrl.numberSuccess}">
                 <label>Unit #</label>
                 <input
                     type="text"
@@ -88,9 +88,12 @@
                     type="text"
                     name="state"
                     ng-model="$ctrl.workorder.header.state"
+                    ng-change="$ctrl.stateNameChange($ctrl.workorder.header.state)"
                     uib-typeahead="state.name for state in $ctrl.states | filter:$viewValue | limitTo:12"
                     class="form-control"
+                    typeahead-on-select="$ctrl.stateNameChange($ctrl.workorder.header.state)"
                     typeahead-select-on-exact="true"
+                    typeahead-wait-ms="100"
                     ng-disabled="$ctrl.disabled">
             </div>
 
