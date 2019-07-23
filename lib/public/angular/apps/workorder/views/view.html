@@ -142,7 +142,8 @@
             </wo-dynamic-unit-readings>
         </div>
 
-        <div class="row" ng-style="{marginTop: 0}">
+        <div class="row" ng-if="workorder.pm || workorder.pm2 || workorder.pm3 || workorder.pm4 || workorder.pm5"
+             ng-style="{marginTop: 0}">
             <wo-pm-checks
                 call-back="runCb(cb)"
                 disabled="disabled"
@@ -190,7 +191,7 @@
             <button
                 class="btn btn-lg btn-primary pull-right"
                 ng-click="debounceSubmit()"
-                ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect') || workorder.timeSynced"
+                ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect') || workorder.timeSynced || submittingWorkOrder"
                 style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;">
                 Submit
             </button>
