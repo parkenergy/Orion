@@ -27,6 +27,7 @@
                     matching parts.</p>
             </div>
             <button
+                ng-disabled="$ctrl.disabled"
                 class="btn btn-lg btn-primary"
                 ng-Click="$ctrl.openManualPartModal()"
                 ng-style="{'margin-left': 10}"

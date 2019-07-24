@@ -26,11 +26,11 @@
                     >
                     </wo-type-selector>
                 </div>
-                <div class="row" ng-style="{marginTop: 0}">
+                <div class="row" ng-show="me.role === 'admin'" ng-style="{marginTop: 0}">
                     <button
                         class="btn btn-lg btn-primary"
                         style="width: 100%;"
-                        ng-disabled="!disabled"
+                        ng-disabled="!disabled || workorder.timeSynced"
                         ng-click="edit()"
                     >
                         Edit
