@@ -3,6 +3,7 @@
         <h3 class="panel-title">Heading Information</h3>
     </div>
     <div class="panel-body">
+        <!-- Row 1 -->
         <div class="row">
             <div class="col-xs-4 form-group"
                  ng-class="{'has-error': $ctrl.numberError, 'has-success': $ctrl.numberSuccess}">
@@ -59,7 +60,7 @@
             </div>
 
         </div>
-
+        <!-- Row 2 -->
         <div class="row">
             <!-- County -->
             <div class="col-xs-4 form-group"
@@ -108,6 +109,44 @@
             </div>
         </div>
 
+        <!-- Row 3 ?-->
+        <div class="row" ng-if="$ctrl.workorder.type === 'Corrective' || $ctrl.workorder.type === 'Trouble Call'">
+            <div class="col-xs-4 form-group">
+                <label>Kill Code</label>
+                <select class="form-control"
+                        name="killCode"
+                        ng-disabled="$ctrl.disabled"
+                        ng-model="$ctrl.workorder.header.killCode"
+                        ng-options="item.netsuiteId as item.label for item in $ctrl.killCodes | filter:$select"
+                >
+                </select>
+            </div>
+            <div class="col-xs-4 form-group">
+                <label>Date of Callout</label>
+                <input
+                    class="form-control"
+                    id="dateOfCallout"
+                    name="timeOfCallout"
+                    ng-change="$ctrl.changeTimeOfCallout($ctrl.timeOfCallout)"
+                    ng-disabled="$ctrl.disabled"
+                    ng-model="$ctrl.timeOfCallout"
+                    type="date"
+                >
+            </div>
+            <div class="col-xs-4 form-group">
+                <label>Time of Callout</label>
+                <input
+                    class="form-control"
+                    name="timeOfCallout"
+                    ng-change="$ctrl.changeTimeOfCallout($ctrl.timeOfCallout)"
+                    ng-disabled="$ctrl.disabled"
+                    ng-model="$ctrl.timeOfCallout"
+                    type="time"
+                >
+            </div>
+        </div>
+
+        <!-- Row 4 -->
         <div class="row">
             <!-- Ride along -->
             <div class="col-xs-4">
