@@ -1,6 +1,6 @@
 {
     "name": "Orion",
-    "version": "0.18.0",
+    "version": "1.0.0",
     "description": "A workorder tracking software system for Park Energy",
     "main": "",
     "scripts": {
