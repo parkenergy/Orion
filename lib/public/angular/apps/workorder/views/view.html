@@ -1,0 +1,202 @@
+<alerts></alerts>
+<header></header>
+
+<div id="woCreate">
+    <div class="row rowIssue">
+
+        <div class="row" ng-style="{marginTop: 0}">
+            <!-- Show Work Order Run Time + is Submitted -->
+            <div class="highlight">
+                <wo-time-submitted-view
+                    state="state"
+                    call-back="runCb(cb)"
+                    workorder="workorder"
+                />
+            </div>
+        </div>
+
+        <div class="row" ng-style="{marginTop: 0}">
+            <!-- Type Selector -->
+            <div class="col-md-3">
+                <div class="row" ng-style="{marginTop: 0}">
+                    <wo-type-selector
+                        workorder="workorder"
+                        call-back="runCb(cb)"
+                        disabled="disabled"
+                    >
+                    </wo-type-selector>
+                </div>
+                <div class="row" ng-show="me.role === 'admin'" ng-style="{marginTop: 0}">
+                    <button
+                        class="btn btn-lg btn-primary"
+                        style="width: 100%;"
+                        ng-disabled="!disabled || workorder.timeSynced"
+                        ng-click="edit()"
+                    >
+                        Edit
+                    </button>
+                </div>
+            </div>
+            <!-- Header -->
+            <div class="col-md-9">
+                <div class="row" ng-style="{marginTop: 0}">
+                    <wo-header-info
+                        workorder="workorder"
+                        counties="counties"
+                        display-unit="displayUnit"
+                        call-back="runCb(cb)"
+                        engine-models="engineModels"
+                        frame-models="frameModels"
+                        asset-types="assetTypes"
+                        kill-codes="killCodes"
+                        states="states"
+                        header-unit="headerUnit"
+                        applicationtypes="applicationTypes"
+                        disabled="disabled"
+                        state="state"
+                    >
+                    </wo-header-info>
+                </div>
+                <div class="row"
+                     ng-show="workorder.type === 'Release' || workorder.type === 'Transfer' || workorder.type === 'Swap'" ng-style="{marginTop: 0}">
+                    <wo-change-info
+                        workorder="workorder"
+                        call-back="runCb(cb)"
+                        locations="locations"
+                        engine-models="engineModels"
+                        frame-models="frameModels"
+                        asset-types="assetTypes"
+                        states="states"
+                        counties="counties"
+                        disabled="disabled"
+                    >
+                    </wo-change-info>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Work Order Info -->
+            <div class="col-xs-4">
+                <wo-user-info
+                    workorder="workorder"
+                >
+                </wo-user-info>
+            </div>
+            <!-- Notes -->
+            <div class="col-xs-4">
+                <wo-notes
+                    workorder="workorder"
+                >
+                </wo-notes>
+            </div>
+            <!-- History -->
+            <div class="col-xs-4">
+                <wo-histories
+                    workorder="workorder"
+                >
+                </wo-histories>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Unit Ownership + Billing Information -->
+            <div class="col-xs-4">
+                <wo-ownership
+                    call-back="runCb(cb)"
+                    workorder="workorder"
+                    disabled="disabled"
+                >
+                </wo-ownership>
+            </div>
+            <div class="col-xs-4">
+                <wo-billing-info
+                    call-back="runCb(cb)"
+                    workorder="workorder"
+                    disabled="disabled"
+                >
+                </wo-billing-info>
+            </div>
+            <!-- JSA section -->
+            <div class="col-xs-4">
+                <wo-jsa-misc
+                    call-back="runCb(cb)"
+                    workorder="workorder"
+                    display-unit="displayUnit"
+                    disabled="disabled"
+                >
+                </wo-jsa-misc>
+            </div>
+        </div>
+
+        <div class="row" ng-style="{marginTop: 0}">
+            <wo-dynamic-unit-readings
+                state="state"
+                call-back="runCb(cb)"
+                workorder="workorder"
+                frame-models="frameModels"
+                engine-models="engineModels"
+                wo-input-matrix="woInputMatrixes"
+                wo-unit-input-matrix-object="woUnitInputMatrixObject"
+                disabled="disabled"
+            >
+            </wo-dynamic-unit-readings>
+        </div>
+
+        <div class="row" ng-if="workorder.pm || workorder.pm2 || workorder.pm3 || workorder.pm4 || workorder.pm5"
+             ng-style="{marginTop: 0}">
+            <wo-pm-checks
+                call-back="runCb(cb)"
+                disabled="disabled"
+                workorder="workorder"
+            >
+            </wo-pm-checks>
+        </div>
+
+        <div class="row" ng-style="{marginTop: 0}">
+            <!-- Comments -->
+            <wo-comments
+                call-back="runCb(cb)"
+                disabled="disabled"
+                workorder="workorder"
+            >
+            </wo-comments>
+        </div>
+
+        <div class="row" ng-style="{marginTop: 0}">
+            <!-- Labor Codes -->
+            <wo-labor-codes
+                call-back="runCb(cb)"
+                disabled="disabled"
+                workorder="workorder"
+            >
+            </wo-labor-codes>
+        </div>
+
+        <div class="row" ng-style="{marginTop: 0}">
+            <wo-parts
+                state="state"
+                call-back="runCb(cb)"
+                disabled="disabled"
+                parts="parts"
+                workorder="workorder"
+            >
+            </wo-parts>
+        </div>
+
+        <!-- Submit -->
+        <div ng-style="{}">
+            <div ng-show="workorder.netsuiteSyned || workorder.timeSynced">
+                Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
+            </div>
+            <button
+                class="btn btn-lg btn-primary pull-right"
+                ng-click="debounceSubmit()"
+                ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect') || workorder.timeSynced || submittingWorkOrder"
+                style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;">
+                Submit
+            </button>
+            <div class="clearfix" style="height: 65px;"></div>
+        </div>
+    </div>
+</div>

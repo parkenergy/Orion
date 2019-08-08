@@ -1,0 +1,177 @@
+<div class="row" ng-style="{marginTop: 0}">
+    <div class="panel panel-default" ng-style="{marginBottom: 0}">
+        <div class="panel-heading">
+            <h3 class="panel-title">Preventative Maintenance (PM) Checklist</h3>
+        </div>
+        <div class="panel-body col-xs-12" ng-style="$ctrl.block">
+            <div class="row" ng-style="$ctrl.inline">
+                <div class="col-xs-6">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><b>Engine Checks</b></h3>
+                    </div>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.battery"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Battery"
+                        model-name="pmChecklist.engineChecks.battery"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.capAndRotor"
+                        disabled="$ctrl.disabled"
+                        label-text="Changed Cap and Rotor"
+                        model-name="pmChecklist.engineChecks.capAndRotor"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.airFilter"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Air Filter"
+                        model-name="pmChecklist.engineChecks.airFilter"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.oilAndFilters"
+                        disabled="$ctrl.disabled"
+                        label-text="Change Engine Oil and Filters"
+                        model-name="pmChecklist.engineChecks.oilAndFilters"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.magPickup"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked and Cleaned Mag Pickup"
+                        model-name="pmChecklist.engineChecks.magPickup"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.belts"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Belts"
+                        model-name="pmChecklist.engineChecks.belts"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.guardsAndBrackets"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Guards and Brackets"
+                        model-name="pmChecklist.engineChecks.guardsAndBrackets"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.sparkPlugs"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked/Changed Spark Plugs"
+                        model-name="pmChecklist.engineChecks.sparkPlugs"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.plugWires"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked/Changed Plug Wires"
+                        model-name="pmChecklist.engineChecks.plugWires"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.engineChecks.driveLine"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Driveline"
+                        model-name="pmChecklist.engineChecks.driveLine"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                </div>
+            </div>
+            <div class="row" ng-style="$ctrl.inline">
+                <div class="col-xs-6">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><b>General Checks</b></h3>
+                    </div>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.kills"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Kills"
+                        model-name="pmChecklist.generalChecks.kills"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.airHoses"
+                        disabled="$ctrl.disabled"
+                        label-text="Inspected Air Hoses"
+                        model-name="pmChecklist.generalChecks.airHoses"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.coolerForCracks"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Cooler for Cracks"
+                        model-name="pmChecklist.generalChecks.coolerForCracks"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.coolerLouverMovement"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Cooler Louvers Movement"
+                        model-name="pmChecklist.generalChecks.coolerLouverMovement"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.coolerLouverCleaned"
+                        disabled="$ctrl.disabled"
+                        label-text="Cooler Louvers Cleaned"
+                        model-name="pmChecklist.generalChecks.coolerLouverCleaned"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.pressureReliefValve"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked/Changed PRV's"
+                        model-name="pmChecklist.generalChecks.pressureReliefValve"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.scrubberDump"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Scrubber Dump Controls"
+                        model-name="pmChecklist.generalChecks.scrubberDump"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.plugInSkid"
+                        disabled="$ctrl.disabled"
+                        label-text="Environmental Plug in Skid"
+                        model-name="pmChecklist.generalChecks.plugInSkid"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.filledDayTank"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked/Filled Day Tank"
+                        model-name="pmChecklist.generalChecks.filledDayTank"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.fanForCracking"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Fan for Cracking"
+                        model-name="pmChecklist.generalChecks.fanForCracking"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.panelWires"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked Panel Wires"
+                        model-name="pmChecklist.generalChecks.panelWires"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                    <check-box
+                        data="$ctrl.workorder.pmChecklist.generalChecks.oilPumpBelt"
+                        disabled="$ctrl.disabled"
+                        label-text="Checked/Changed Oil Pump Belts"
+                        model-name="pmChecklist.generalChecks.oilPumpBelt"
+                        on-data-change="$ctrl.changeThisCheckbox(changedData, selected)">
+                    </check-box>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

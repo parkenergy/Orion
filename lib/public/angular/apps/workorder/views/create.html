@@ -2,12 +2,13 @@
 <header></header>
 
 <div id="woCreate">
-    <div class="row rowIssue">
+    <!--<div class="row rowIssue">
         <div align="center">
             <i ng-show="loading" class="fa fa-refresh fa-spin createL"></i>
         </div>
-    </div>
-    <div class="row rowIssue" ng-show="!loading">
+    </div>-->
+    <!--<div class="row rowIssue" ng-show="!loading">-->
+    <div class="row rowIssue">
         <div class="highlight">
             <create-start-end-date
                 workorder="workorder"
@@ -29,16 +30,17 @@
 
         <div class="row">
             <div class="col-md-3">
-                <create-type-selector
+                <wo-type-selector
                     workorder="workorder"
                     call-back="runCb(cb)"
+                    disabled="disabled"
                 >
-                </create-type-selector>
+                </wo-type-selector>
             </div>
 
             <div class="col-md-9">
                 <div class="row">
-                    <create-header-info
+                    <wo-header-info
                         workorder="workorder"
                         call-back="runCb(cb)"
                         engine-models="engineModels"
@@ -46,8 +48,9 @@
                         asset-types="assetTypes"
                         states="states"
                         applicationtypes="applicationTypes"
+                        disabled="disabled"
                     >
-                    </create-header-info>
+                    </wo-header-info>
                 </div>
                 <div class="row" ng-show="workorder.type === 'Release' || workorder.type === 'Transfer' || workorder.type === 'Swap'">
                     <create-change-info

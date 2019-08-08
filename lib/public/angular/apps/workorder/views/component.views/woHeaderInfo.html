@@ -1,0 +1,202 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Heading Information</h3>
+    </div>
+    <div class="panel-body">
+        <!-- Row 1 -->
+        <div class="row">
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.numberError, 'has-success': $ctrl.numberSuccess}">
+                <label>Unit #</label>
+                <input
+                    type="text"
+                    ng-style="$ctrl.border"
+                    name="number"
+                    ng-model="$ctrl.workorder.header.unitNumber"
+                    ng-change="$ctrl.unitNumberChange($ctrl.workorder.header.unitNumber)"
+                    uib-typeahead="unit.number for unit in $ctrl.unitNumberArray | filter:$viewValue | limitTo:12"
+                    class="form-control"
+                    typeahead-wait-ms="100"
+                    typeahead-select-on-exact="true"
+                    typeahead-on-select="$ctrl.unitNumberChange($ctrl.workorder.header.unitNumber)"
+                    ng-disabled="$ctrl.disabled">
+            </div>
+
+            <!-- Customer Name -->
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.customerError, 'has-success': !$ctrl.customerError}">
+                <label>Customer</label>
+                <input
+                    ng-style="$ctrl.border"
+                    type="text"
+                    name="customer"
+                    ng-model="$ctrl.workorder.header.customerName"
+                    ng-change="$ctrl.customerChange($ctrl.workorder.header.customerName)"
+                    uib-typeahead="customer.name for customer in $ctrl.customersArray | filter:$viewValue | limitTo:12"
+                    class="form-control"
+                    typeahead-wait-ms="100"
+                    typeahead-select-on-exact="true"
+                    typeahead-on-select="$ctrl.customerChange($ctrl.workorder.header.customerName)"
+                    ng-disabled="$ctrl.disabled">
+            </div>
+
+
+            <!-- Lease Name -->
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.leaseError, 'has-success': !$ctrl.leaseError}">
+                <label>Lease</label>
+                <input
+                    ng-style="$ctrl.border"
+                    type="text"
+                    name="lease"
+                    ng-model="$ctrl.workorder.header.leaseName"
+                    ng-change="$ctrl.leaseChange($ctrl.workorder.header.leaseName)"
+                    uib-typeahead="unit.locationName for unit in $ctrl.unitLocationArray | filter:$viewValue | limitTo:12"
+                    class="form-control"
+                    typeahead-wait-ms="100"
+                    typeahead-select-on-exact="true"
+                    typeahead-on-select="$ctrl.leaseChange($ctrl.workorder.header.leaseName)"
+                    ng-disabled="$ctrl.disabled">
+            </div>
+
+        </div>
+        <!-- Row 2 -->
+        <div class="row">
+            <!-- County -->
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.countyError, 'has-success': !$ctrl.countyError}">
+                <label>County</label>
+                <input
+                    ng-style="$ctrl.border"
+                    type="text"
+                    name="name"
+                    ng-model="$ctrl.workorder.header.county"
+                    ng-change="$ctrl.countyNameChange($ctrl.workorder.header.county)"
+                    uib-typeahead="county.name for county in $ctrl.countiesArray | filter:$viewValue | limitTo:12"
+                    class="form-control"
+                    typeahead-wait-ms="100"
+                    typeahead-select-on-exact="true"
+                    typeahead-on-select="$ctrl.countyNameChange($ctrl.workorder.header.county)"
+                    ng-disabled="$ctrl.disabled">
+            </div>
+
+            <!-- State -->
+            <div class="col-xs-4 form-group"
+                 ng-class="{'has-error': $ctrl.stateError, 'has-success': !$ctrl.stateError}">
+                <label>State</label>
+                <input
+                    ng-style="$ctrl.border"
+                    type="text"
+                    name="state"
+                    ng-model="$ctrl.workorder.header.state"
+                    ng-change="$ctrl.stateNameChange($ctrl.workorder.header.state)"
+                    uib-typeahead="state.name for state in $ctrl.states | filter:$viewValue | limitTo:12"
+                    class="form-control"
+                    typeahead-on-select="$ctrl.stateNameChange($ctrl.workorder.header.state)"
+                    typeahead-select-on-exact="true"
+                    typeahead-wait-ms="100"
+                    ng-disabled="$ctrl.disabled">
+            </div>
+
+            <div class="col-xs-4">
+                <label>Contact/Pumper name</label>
+                <input
+                    type="text"
+                    name="contactName"
+                    ng-model="$ctrl.workorder.header.contactName"
+                    class="form-control"
+                    ng-disabled="$ctrl.disabled">
+            </div>
+        </div>
+
+        <!-- Row 3 ?-->
+        <div class="row" ng-if="$ctrl.workorder.type === 'Corrective' || $ctrl.workorder.type === 'Trouble Call'">
+            <div class="col-xs-4 form-group">
+                <label>Kill Code</label>
+                <select class="form-control"
+                        name="killCode"
+                        ng-disabled="$ctrl.disabled"
+                        ng-model="$ctrl.workorder.header.killCode"
+                        ng-options="item.netsuiteId as item.label for item in $ctrl.killCodes | filter:$select"
+                >
+                </select>
+            </div>
+            <div class="col-xs-4 form-group">
+                <label>Date of Callout</label>
+                <input
+                    class="form-control"
+                    id="dateOfCallout"
+                    name="timeOfCallout"
+                    ng-change="$ctrl.changeTimeOfCallout($ctrl.timeOfCallout)"
+                    ng-disabled="$ctrl.disabled"
+                    ng-model="$ctrl.timeOfCallout"
+                    type="date"
+                >
+            </div>
+            <div class="col-xs-4 form-group">
+                <label>Time of Callout</label>
+                <input
+                    class="form-control"
+                    name="timeOfCallout"
+                    ng-change="$ctrl.changeTimeOfCallout($ctrl.timeOfCallout)"
+                    ng-disabled="$ctrl.disabled"
+                    ng-model="$ctrl.timeOfCallout"
+                    type="time"
+                >
+            </div>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="row">
+            <!-- Ride along -->
+            <div class="col-xs-4">
+                <label>Ride Along</label>
+                <input
+                    type="text"
+                    name="rideAlong"
+                    ng-model="$ctrl.workorder.header.rideAlong"
+                    ng-change="$ctrl.rideAlongChange($ctrl.workorder.header.rideAlong)"
+                    uib-typeahead="user.fullName for user in $ctrl.usersArray | filter:$viewValue | limitTo:12"
+                    class="form-control"
+                    typeahead-wait-ms="100"
+                    typeahead-select-on-exact="true"
+                    typeahead-on-select="$ctrl.rideAlongChange($ctrl.workorder.header.customerName)"
+                    ng-disabled="$ctrl.disabled">
+            </div>
+
+            <!-- mileage -->
+            <div class="col-xs-2">
+                <label>Start Mileage</label>
+                <input type="text"
+                       name="startMileage"
+                       ng-model="$ctrl.workorder.header.startMileage"
+                       class="form-control"
+                       ng-disabled="$ctrl.disabled"
+                >
+            </div>
+
+            <div class="col-xs-2">
+                <label>End Mileage</label>
+                <input type="text"
+                       name="endMileage"
+                       ng-model="$ctrl.workorder.header.endMileage"
+                       class="form-control"
+                       ng-disabled="$ctrl.disabled"
+                >
+            </div>
+
+            <!-- Application Type -->
+            <div class="col-xs-4">
+                <label>Application Type</label>
+                <select name="applicationtype"
+                        class="form-control"
+                        ng-model="$ctrl.workorder.header.applicationtype"
+                        ng-options="item.netsuiteId as item.type for item in $ctrl.applicationtypes | filter:$select"
+                        ng-disabled="$ctrl.disabled"
+                >
+                </select>
+            </div>
+
+        </div>
+    </div>
+</div>

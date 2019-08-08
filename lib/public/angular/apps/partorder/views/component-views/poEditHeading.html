@@ -60,10 +60,11 @@
     <!--Show Tracking number if it exists-->
     <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeOrdered">
       <text-field
-        label-text="PO Number"
-        model-name="poNumber"
-        on-data-change="$ctrl.textFieldChange(changedData, selected)"
-        data="$ctrl.partorder.poNumber">
+          data="$ctrl.partorder.poNumber"
+          label-text="PO Number"
+          model-name="poNumber"
+          on-data-change="$ctrl.textFieldChange(changedData, selected)"
+      >
       </text-field>
     </div>
 

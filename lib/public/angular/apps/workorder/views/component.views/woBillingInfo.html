@@ -1,0 +1,46 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Billing Information</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-xs-6">
+            <div style="font-weight: normal; margin-bottom: 10px;">
+                <input ng-change="$ctrl.checkBoxChange($ctrl.workorder.billingInfo.billableToCustomer, 'billableToCustomer')"
+                       ng-model="$ctrl.workorder.billingInfo.billableToCustomer"
+                       ng-disabled="$ctrl.disabled"
+                       type="checkbox">Billable to Customer
+            </div>
+            <div style="font-weight: normal; margin-bottom: 10px;">
+                <input ng-change="$ctrl.checkBoxChange($ctrl.workorder.billingInfo.warrantyWork, 'warrantyWork')"
+                       ng-model="$ctrl.workorder.billingInfo.warrantyWork"
+                       ng-disabled="$ctrl.disabled"
+                       type="checkbox">Warranty Work
+            </div>
+            <div style="font-weight: normal; margin-bottom: 10px;">
+                <input ng-change="$ctrl.checkBoxChange($ctrl.workorder.billingInfo.AFE, 'AFE')"
+                       ng-model="$ctrl.workorder.billingInfo.AFE"
+                       ng-disabled="$ctrl.disabled"
+                       type="checkbox">AFE
+            </div>
+            <div style="font-weight: normal; margin-bottom: 10px;"
+                 ng-show="$ctrl.workorder.billingInfo.AFE"
+            >
+                <label>AFE #:</label>
+                <input
+                    type="text"
+                    name="AFENumber"
+                    ng-model="$ctrl.workorder.billingInfo.AFENumber"
+                    class="form-control"
+                    ng-disabled="$ctrl.disabled">
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div style="font-weight: normal; margin-bottom: 10px;">
+                <input ng-change="$ctrl.checkBoxChange($ctrl.workorder.billingInfo.billed, 'billed')"
+                       ng-model="$ctrl.workorder.billingInfo.billed"
+                       ng-disabled="$ctrl.disabled"
+                       type="checkbox">Billed
+            </div>
+        </div>
+    </div>
+</div>

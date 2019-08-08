@@ -1,0 +1,85 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Unit Change Information</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-xs-4" ng-show="$ctrl.workorder.type === 'Release'">
+            <label>Yard Destination</label>
+            <input
+                type="text"
+                name="releaseDestination"
+                ng-model="$ctrl.workorder.unitChangeInfo.releaseDestination"
+                uib-typeahead="yard.name for yard in $ctrl.yards | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-select-on-exact="true"
+                ng-disabled="$ctrl.disabled">
+        </div>
+
+        <div class="col-xs-4" ng-show="$ctrl.workorder.type === 'Transfer'">
+            <label>New County</label>
+            <input
+                type="text"
+                name="name"
+                ng-model="$ctrl.workorder.unitChangeInfo.transferCounty"
+                ng-change="$ctrl.countyNameChange($ctrl.workorder.unitChangeInfo.transferCounty)"
+                uib-typeahead="county.name for county in $ctrl.countiesArray | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-wait-ms="100"
+                typeahead-select-on-exact="true"
+                typeahead-on-select="$ctrl.countyNameChange($ctrl.workorder.unitChangeInfo.transferCounty)"
+                ng-disabled="$ctrl.disabled">
+        </div>
+        <div class="col-xs-4" ng-show="$ctrl.workorder.type === 'Transfer'">
+            <label>New State</label>
+            <input
+                type="text"
+                name="transferState"
+                ng-model="$ctrl.workorder.unitChangeInfo.transferState"
+                uib-typeahead="state.name for state in $ctrl.states | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-select-on-exact="true"
+                ng-disabled="$ctrl.disabled">
+        </div>
+        <div class="col-xs-4" ng-show="$ctrl.workorder.type === 'Transfer'">
+            <label>New Lease</label>
+            <input
+                type="text"
+                name="transferLease"
+                ng-model="$ctrl.workorder.unitChangeInfo.transferLease"
+                ng-change="$ctrl.leaseChange($ctrl.workorder.unitChangeInfo.transferLease)"
+                uib-typeahead="unit.locationName for unit in $ctrl.unitLocationArray | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-wait-ms="100"
+                typeahead-select-on-exact="true"
+                typeahead-on-select="$ctrl.leaseChange($ctrl.workorder.unitChangeInfo.transferLease)"
+                ng-disabled="$ctrl.disabled">
+        </div>
+
+        <div class="col-xs-4" ng-show="$ctrl.workorder.type === 'Swap'">
+            <label>New Unit #</label>
+            <input
+                type="text"
+                name="number"
+                ng-model="$ctrl.workorder.unitChangeInfo.swapUnitNumber"
+                ng-change="$ctrl.swapUnitNumberChange($ctrl.workorder.unitChangeInfo.swapUnitNumber)"
+                uib-typeahead="unit.number for unit in $ctrl.unitNumberArray | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-wait-ms="100"
+                typeahead-select-on-exact="true"
+                typeahead-on-select="$ctrl.swapUnitNumberChange($ctrl.workorder.unitChangeInfo.swapUnitNumber)"
+                ng-disabled="$ctrl.disabled">
+        </div>
+        <div class="col-xs-4" ng-show="$ctrl.workorder.type === 'Swap'">
+            <label>Old Unit Yard Destination</label>
+            <input
+                type="text"
+                name="swapDestination"
+                ng-model="$ctrl.workorder.unitChangeInfo.swapDestination"
+                uib-typeahead="yard.name for yard in $ctrl.yards | filter:$viewValue | limitTo:12"
+                class="form-control"
+                typeahead-select-on-exact="true"
+                ng-disabled="$ctrl.disabled">
+        </div>
+
+    </div>
+</div>

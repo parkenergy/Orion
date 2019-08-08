@@ -258,7 +258,79 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Frame</h3>
+                <h3 class="panel-title">Emissions Check</h3>
+            </div>
+            <div class="panel-body col-xs-12" ng-style="{display: 'block'}">
+                <div ng-style="{display: 'inline-block'}" class="col-xs-3">
+                    <input
+                        ng-change="$ctrl.spotChange($ctrl.workorder.unitReadings.spotCheck, 'checked')"
+                        ng-model="$ctrl.workorder.unitReadings.spotCheck"
+                        type="checkbox">
+                    Spot Check
+                </div>
+                <div ng-style="{display: 'inline-block'}" class="col-xs-3">
+                    <input
+                        ng-change="$ctrl.spotChange($ctrl.workorder.unitReadings.noSpotCheck, 'not_checked')"
+                        ng-model="$ctrl.workorder.unitReadings.noSpotCheck"
+                        type="checkbox">
+                    No Spot Check
+                </div>
+                <div class="col-xs-3" ng-show="$ctrl.workorder.unitReadings.spotCheck">
+                    <label>Last Calibration Date</label>
+                    <input
+                        class="form-control"
+                        type="date"
+                        ng-change=""
+                        ng-keyup="$event.keyCode == 13"
+                        ng-model="$ctrl.workorder.unitReadings.lastCalibration"
+                    >
+                </div>
+            </div>
+            <!--<div ng-show="$ctrl.workorder.unitReadings.spotCheck">-->
+            <div ng-show="$ctrl.workorder.unitReadings.spotCheck">
+                <text-field
+                    model-name="unitReadings.NOxGrams"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="NOx Grams"
+                    placeholder-text=""
+                    data="$ctrl.workorder.unitReadings.NOxGrams"
+                >
+                </text-field>
+                <text-field
+                    model-name="unitReadings.COGrams"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="CO Grams"
+                    placeholder-text=""
+                    data="$ctrl.workorder.unitReadings.COGrams"
+                >
+                </text-field>
+                <text-field
+                    model-name="unitReadings.NOxAllowable"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="NOx Allowable"
+                    placeholder-text=""
+                    data="$ctrl.workorder.unitReadings.NOxAllowable"
+                >
+                </text-field>
+                <text-field
+                    model-name="unitReadings.COAllowable"
+                    on-data-change="$ctrl.changeThisField(changedData, selected)"
+                    class="col-xs-3"
+                    label-text="CO Allowable"
+                    placeholder-text=""
+                    data="$ctrl.workorder.unitReadings.COAllowable"
+                >
+                </text-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Compressor</h3>
             </div>
             <div class="panel-body">
                 <text-field

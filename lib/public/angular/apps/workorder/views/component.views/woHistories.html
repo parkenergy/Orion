@@ -1,0 +1,65 @@
+<div class="panel panel-default" style="margin-bottom: 0px;">
+    <div class="panel-heading">
+        <h3 class="panel-title">History</h3>
+    </div>
+    <div class="panel-body" style="overflow-y: scroll; width: auto; height: 174px;">
+        <!--the reviewed and Submitted will be ng repeats with checks.-->
+        <div ng-repeat="submission in $ctrl.displaySubmissions">
+            <div class="row" style="margin-top: 5px;">
+                <div class="col-lg-12">
+                    <div class="media">
+                        <div class="media-body" style="font-size: 14px;">
+                            <div class="media-heading">
+                                {{ submission.type }}:
+                                <span class="pull-right text-muted">{{ submission.submissionTime | date:'MM/dd/yyyy HH:mm' }}</span>
+                            </div>
+                            <p>by: {{ submission.firstname }} {{ submission.lastname }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr style="margin-top: 6px; margin-bottom: 12px;">
+        </div>
+        <!--Seperated title-->
+        <div class="row" style="margin-top: 5px;">
+            <div class="col-lg-12">
+                <div class="media">
+                    <div class="media-body" style="font-size: 14px;">
+                        <div class="media-heading" style="text-align: center;">Changes: {{ $ctrl.editCount }}</div>
+                        <p class="text-muted" style="text-align: center;">By: {{ $ctrl.editor.firstName }} {{
+                            $ctrl.editor.lastName }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="margin-top: 6px; margin-bottom: 12px;">
+        <!--then an ng-repeate of all changes-->
+        <!--master font size div-->
+        <div ng-repeat="change in $ctrl.displayChanges" style="font-size: 12px;">
+            <div class="row" style="margin-top: 5px;">
+                <div class="col-lg-12">
+                    <div class="media">
+                        <div class="media-body">
+                            <p style="margin-bottom: 5px;">PanelName:
+                                <span class="pull-right">{{ change.panelName }}</span>
+                            </p>
+                            <p style="margin-bottom: 5px;">ItemName:
+                                <span class="pull-right">{{ change.itemName }}</span>
+                            </p>
+                            <p style="margin-bottom: 5px;">Type:
+                                <span class="pull-right">{{ change.type}}</span>
+                            </p>
+                            <p style="margin-bottom: 5px;">Before:
+                                <span class="pull-right">{{ change.before}}</span>
+                            </p>
+                            <p style="margin-bottom: 5px;">After:
+                                <span class="pull-right">{{ change.after }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr style="margin-top: 6px; margin-bottom: 12px;">
+        </div>
+    </div>
+</div>

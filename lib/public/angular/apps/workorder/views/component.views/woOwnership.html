@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Unit Ownership</h3>
+    </div>
+    <div class="panel-body">
+       <div style="font-weight: normal; margin-bottom: 10px;">
+           <input ng-change="$ctrl.checkBoxChange($ctrl.workorder.unitOwnership.isRental, 'isRental')"
+                  ng-model="$ctrl.workorder.unitOwnership.isRental"
+                  ng-disabled="$ctrl.disabled"
+                  type="checkbox">Rental Unit
+       </div>
+        <div style="font-weight: normal; margin-bottom: 10px;">
+            <input ng-change="$ctrl.checkBoxChange($ctrl.workorder.unitOwnership.isCustomerUnit, 'isCustomerUnit')"
+                   ng-model="$ctrl.workorder.unitOwnership.isCustomerUnit"
+                   ng-disabled="$ctrl.disabled"
+                   type="checkbox">Customer Unit
+        </div>
+    </div>
+</div>

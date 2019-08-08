@@ -1,0 +1,281 @@
+<div class="col-xs-3">
+
+    <!-- one input -->
+    <div class="form-group" ng-if="$ctrl.inputObject.inputs.length === 1">
+        <label>{{$ctrl.inputObject.label}}</label>
+        <div ng-style="$ctrl.inputStyling">
+            <div>
+                <!--Unit Readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('unitReadings') !== -1"
+                       ng-model="$ctrl.workorder.unitReadings[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!-- emissions readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('emissionsReadings') !== -1"
+                       ng-model="$ctrl.workorder.emissionsReadings[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!--PMCHeckList engine Compressions-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('pmChecklist.engineCompression') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.engineCompression[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist killSettings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('pmChecklist.killSettings') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.killSettings[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist and In ENgine-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="($ctrl.inputObject.inputs[0].path.indexOf('pmChecklist') !== -1) && ($ctrl.inputObject.panel === 'Engine')"
+                       ng-model="$ctrl.workorder.pmChecklist[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <span class="text-muted"><small>{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}</small></span><br>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2 inputs -->
+    <div class="form-group" ng-if="$ctrl.inputObject.inputs.length === 2">
+        <label>{{$ctrl.inputObject.label}}</label>
+        <div ng-style="$ctrl.block">
+            <div ng-style="$ctrl.inputStylingS">
+                <!--Unit Readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('unitReadings') !== -1"
+                       ng-model="$ctrl.workorder.unitReadings[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!-- emissions readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('emissionsReadings') !== -1"
+                       ng-model="$ctrl.workorder.emissionsReadings[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!--PMCHeckList engine Compressions-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('pmChecklist.engineCompression') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.engineCompression[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist killSettings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('pmChecklist.killSettings') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.killSettings[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist and In ENgine-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="($ctrl.inputObject.inputs[0].path.indexOf('pmChecklist')  !== -1) && ($ctrl.inputObject.panel === 'Engine')"
+                       ng-model="$ctrl.workorder.pmChecklist[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <span class="text-muted"><small>{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}</small></span><br>
+            </div>
+            <div ng-style="$ctrl.inputStylingE">
+                <!--Unit Readings-->
+                <input class="form-control"
+                       type="text"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-if="$ctrl.inputObject.inputs[1].path.indexOf('unitReadings') !== -1"
+                       ng-model="$ctrl.workorder.unitReadings[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       ng-disabled="$ctrl.disabled">
+                <!-- emissions readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[1].path.indexOf('emissionsReadings') !== -1"
+                       ng-model="$ctrl.workorder.emissionsReadings[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       type="text">
+                <!--PMCHeckList engine Compressions-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[1].path.indexOf('pmChecklist.engineCompression') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.engineCompression[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist killSettings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[1].path.indexOf('pmChecklist.killSettings') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.killSettings[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist and In ENgine-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="($ctrl.inputObject.inputs[1].path.indexOf('pmChecklist') !== -1) && ($ctrl.inputObject.panel === 'Engine')"
+                       ng-model="$ctrl.workorder.pmChecklist[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       type="text">
+                <span class="text-muted"><small>{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}</small></span><br>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3 inputs -->
+    <div class="form-group" ng-if="$ctrl.inputObject.inputs.length === 3">
+        <label>{{$ctrl.inputObject.label}}</label>
+        <div ng-style="$ctrl.block">
+            <div ng-style="$ctrl.inputStylingS">
+                <!--Unit Readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('unitReadings') !== -1"
+                       ng-model="$ctrl.workorder.unitReadings[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!-- emissions readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('emissionsReadings') !== -1"
+                       ng-model="$ctrl.workorder.emissionsReadings[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!--PMCHeckList engine Compressions-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('pmChecklist.engineCompression') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.engineCompression[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist killSettings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[0].path.indexOf('pmChecklist.killSettings') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.killSettings[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist and In ENgine-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[0].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="($ctrl.inputObject.inputs[0].path.indexOf('pmChecklist') !== -1) && ($ctrl.inputObject.panel === 'Engine')"
+                       ng-model="$ctrl.workorder.pmChecklist[$ctrl.inputObject.inputs[0].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}"
+                       type="text">
+                <span class="text-muted"><small>{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[0].placeholder)}}</small></span><br>
+            </div>
+            <div ng-style="$ctrl.inputStylingM">
+                <!--Unit Readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[1].path.indexOf('unitReadings') !== -1"
+                       ng-model="$ctrl.workorder.unitReadings[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       type="text">
+                <!-- emissions readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[1].path.indexOf('emissionsReadings') !== -1"
+                       ng-model="$ctrl.workorder.emissionsReadings[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       type="text">
+                <!--PMCHeckList engine Compressions-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[1].path.indexOf('pmChecklist.engineCompression') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.engineCompression[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist killSettings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[1].path.indexOf('pmChecklist.killSettings') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.killSettings[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist and In ENgine-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[1].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="($ctrl.inputObject.inputs[1].path.indexOf('pmChecklist') !== -1) && ($ctrl.inputObject.panel === 'Engine')"
+                       ng-model="$ctrl.workorder.pmChecklist[$ctrl.inputObject.inputs[1].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}"
+                       type="text">
+                <span class="text-muted"><small>{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[1].placeholder)}}</small></span><br>
+            </div>
+            <div ng-style="$ctrl.inputStylingE">
+                <!--Unit Readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[2].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[2].path.indexOf('unitReadings') !== -1"
+                       ng-model="$ctrl.workorder.unitReadings[$ctrl.inputObject.inputs[2].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[2].placeholder)}}"
+                       type="text">
+                <!-- emissions readings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[2].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[2].path.indexOf('emissionsReadings') !== -1"
+                       ng-model="$ctrl.workorder.emissionsReadings[$ctrl.inputObject.inputs[2].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[2].placeholder)}}"
+                       type="text">
+                <!--PMCHeckList engine Compressions-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[2].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[2].path.indexOf('pmChecklist.engineCompression') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.engineCompression[$ctrl.inputObject.inputs[2].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[2].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist killSettings-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[2].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="$ctrl.inputObject.inputs[2].path.indexOf('pmChecklist.killSettings') !== -1"
+                       ng-model="$ctrl.workorder.pmChecklist.killSettings[$ctrl.inputObject.inputs[2].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[2].placeholder)}}"
+                       type="text">
+                <!--PMCHecklist and In ENgine-->
+                <input class="form-control"
+                       name="$ctrl.inputObject.inputs[2].name"
+                       ng-disabled="$ctrl.disabled"
+                       ng-if="($ctrl.inputObject.inputs[2].path.indexOf('pmChecklist') !== -1) && ($ctrl.inputObject.panel === 'Engine')"
+                       ng-model="$ctrl.workorder.pmChecklist[$ctrl.inputObject.inputs[2].name]"
+                       placeholder="{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[2].placeholder)}}"
+                       type="text">
+                <span class="text-muted"><small>{{$ctrl.placeHolderDisplayer($ctrl.inputObject.inputs[2].placeholder)}}</small></span><br>
+            </div>
+        </div>
+    </div>
+</div>
