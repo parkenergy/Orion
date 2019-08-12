@@ -119,6 +119,7 @@
                     <tbody>
                     <tr
                         ng-repeat="part in $ctrl.selectedPartsObjs | orderBy:$ctrl.orderByFieldResult:$ctrl.reverseSortResult"
+                        ng-style="$ctrl.isManual(part)"
                     >
                         <td>{{part.number}}</td>
                         <td>{{part.description}}</td>
