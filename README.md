@@ -1,6 +1,17 @@
 # Orion
 [ ![Codeship Status for parkenergy/Orion](https://app.codeship.com/projects/20ffebf0-bb31-0134-1980-1216d6335015/status?branch=master)](https://app.codeship.com/projects/195602)
 
+
+# Orion Project Flow
+
+Develop on your localhost until you are ready for a release. To release you will have had to have built the project 
+with `gulp` in its vagrant box. Once you have the bundle.js built then you can push to master. Once master is been 
+pushed to the code is sent to codeship where the project is tested and then sent off to Aws EC2 instance. 
+
+Any changes you made to the database manually during development are not transfered over to the production database 
+when you push to master. Database changes are manual changes. This does not mean the back end code for the database 
+on nodejs, this means things like needing to index a field, or removing a column. 
+
 # CODESHIP
 You will need someone to add you to the codeship projects so you can see the process of codeship and any 
 configuration settings you want to set up with our CI/CD integration with them. Currently DJ is now an admin and can 
