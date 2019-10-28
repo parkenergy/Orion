@@ -11,7 +11,8 @@ const express = require("express"),
     sessions = require("client-sessions"),
     cookieParser = require("cookie-parser"),
     bodyParser = require("body-parser"),
-    mongoose = require("mongoose");
+    mongoose = require("mongoose"),
+    compression = require("compression");
 
 //Catch uncaught exceptions to log in bunyan
 process.on("uncaughtException", err => {
@@ -52,6 +53,8 @@ const connection = connectWithRetry();
 
 //Init Express
 const app = express();
+
+app.use(compression());
 
 //CORS
 app.use((req, res, next) => {
