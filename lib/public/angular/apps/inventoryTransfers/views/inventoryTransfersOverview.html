@@ -13,24 +13,42 @@
             <div class="panel-heading clearfix">
                 <h3 class="panel-title pull-left">Inventory Transfers</h3>
             </div>
-            <div class="panel-body inventoryTransfers-main-dash-body">
+            <div
+                class="panel-body inventoryTransfers-main-dash-body"
+                ng-show="loaded"
+            >
                 <div class="btn-group">
                     <label
                         class="btn"
-                        ng-model="showCompleted"
-                        uib-btn-radio="false"
-                        >Pending</label
+                        ng-model="currentTab"
+                        uib-btn-radio="'ManualParts'"
+                        >Manual Parts
+                        ({{manualPartsInventoryTransfers.length}})</label
                     >
                     <label
                         class="btn"
-                        ng-model="showCompleted"
-                        uib-btn-radio="true"
-                        >Completed</label
+                        ng-model="currentTab"
+                        uib-btn-radio="'Incomplete'"
+                        >Incomplete
+                        ({{incompletedInventoryTransfers.length}})</label
+                    >
+                    <label
+                        class="btn"
+                        ng-model="currentTab"
+                        uib-btn-radio="'Pending'"
+                        >Pending ({{waitingInventoryTransfers.length}})</label
+                    >
+                    <label
+                        class="btn"
+                        ng-model="currentTab"
+                        uib-btn-radio="'Completed'"
+                        >Completed
+                        ({{completedInventoryTransfers.length}})</label
                     >
                 </div>
                 <table
                     class="table table-bordered table-striped table-hover"
-                    ng-show="!showCompleted"
+                    ng-show="currentTab == 'Pending'"
                 >
                     <thead>
                         <th>
@@ -68,7 +86,7 @@
                 </table>
                 <table
                     class="table table-bordered table-striped table-hover"
-                    ng-show="showCompleted"
+                    ng-show="currentTab == 'Completed'"
                 >
                     <thead>
                         <tr>
@@ -105,6 +123,78 @@
                             <td>
                                 {{ inventoryTransfer.queue_submitted | date:
                                 'MM/dd/yyyy'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table
+                    class="table table-bordered table-striped table-hover"
+                    ng-show="currentTab == 'Incomplete'"
+                >
+                    <thead>
+                        <tr>
+                            <th>
+                                Origin
+                            </th>
+
+                            <th>
+                                Destination
+                            </th>
+                            <th>
+                                Parts
+                            </th>
+                            <th>
+                                Submitted Date
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr
+                            ng-repeat="inventoryTransfer in incompletedInventoryTransfers"
+                        >
+                            <td>{{ inventoryTransfer.origin }}</td>
+                            <td>{{ inventoryTransfer.destination }}</td>
+                            <td>{{ inventoryTransfer.parts }}</td>
+                            <td>
+                                {{ inventoryTransfer.inventorytransferDate |
+                                date: 'MM/dd/yyyy'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table
+                    class="table table-bordered table-striped table-hover"
+                    ng-show="currentTab == 'ManualParts'"
+                >
+                    <thead>
+                        <tr>
+                            <th>
+                                Origin
+                            </th>
+
+                            <th>
+                                Destination
+                            </th>
+                            <th>
+                                Parts
+                            </th>
+                            <th>
+                                Submitted Date
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr
+                            ng-repeat="inventoryTransfer in manualPartsInventoryTransfers"
+                        >
+                            <td>{{ inventoryTransfer.origin }}</td>
+                            <td>{{ inventoryTransfer.destination }}</td>
+                            <td>{{ inventoryTransfer.parts }}</td>
+                            <td>
+                                {{ inventoryTransfer.inventorytransferDate |
+                                date: 'MM/dd/yyyy'}}
                             </td>
                         </tr>
                     </tbody>
