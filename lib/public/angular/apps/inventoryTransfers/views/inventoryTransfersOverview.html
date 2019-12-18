@@ -148,7 +148,6 @@
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <tr
                             ng-repeat="inventoryTransfer in incompletedInventoryTransfers"
@@ -188,6 +187,7 @@
                     <tbody>
                         <tr
                             ng-repeat="inventoryTransfer in manualPartsInventoryTransfers"
+                            ng-click="openTransfers(inventoryTransfer._id)"
                         >
                             <td>{{ inventoryTransfer.origin }}</td>
                             <td>{{ inventoryTransfer.destination }}</td>

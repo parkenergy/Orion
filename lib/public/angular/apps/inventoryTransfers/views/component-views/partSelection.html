@@ -1,0 +1,48 @@
+<div id="PartSelectionModal">
+    <div class="modal-header">
+        <h3 class="modal-title">Select Part</h3>
+    </div>
+    <form name="search" ng-submit="searchParts()" novalidate>
+        <div class="modal-body">
+            <div class="row row-no-gutters" style="padding-bottom: 20px;">
+                <div class="col-xs-2"><label>Search</label></div>
+                <div class="col-xs-7">
+                    <input
+                        class="form-control"
+                        type="text"
+                        placeholder="REQUIRED"
+                        ng-model="searchTerm"
+                        name="searchTerm"
+                    />
+                </div>
+                <div class="col-xs-3">
+                    <button class="btn btn-default btn-block" type="submit">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <table
+                class="table table-condensed table-bordered table-striped table-hover"
+            >
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Netsuite ID</th>
+                        <th>Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="part in results" ng-click="selectPart(part)">
+                        <td>{{part.description}}</td>
+                        <td>{{part.netsuiteId}}</td>
+                        <td>{{part.componentName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warnning" ng-click="cancel()">Close</button>
+        </div>
+    </form>
+</div>

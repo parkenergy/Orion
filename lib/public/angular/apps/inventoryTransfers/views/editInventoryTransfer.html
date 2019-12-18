@@ -1,0 +1,58 @@
+<alerts></alerts>
+<header></header>
+
+<div id="InventoryTranfersOverview">
+    <div>
+        <div align="center">
+            <i
+                ng-show="spinner"
+                class="fa fa-refresh fa-spin inventory-transfers-overview"
+            ></i>
+        </div>
+        <div id="InventoryTransfersOverviewTable" class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">Inventory Transfers</h3>
+            </div>
+            <div
+                class="panel-body inventoryTransfers-main-dash-body"
+                ng-show="loaded"
+            >
+                <div>
+                    <strong>Tech:</strong> {{currentInventoryTransfer.techId}}
+                </div>
+                <div><strong>Parts:</strong></div>
+                <table
+                    class="table table-condensed table-bordered table-striped table-hover"
+                >
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Netsuite ID</th>
+                            <th>Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            ng-repeat="part in currentInventoryTransfer.parts"
+                            ng-class="{danger: part.isManual}"
+                            ng-click="selectPart(part, $index)"
+                        >
+                            <td>{{part.description}}</td>
+                            <td>{{part.quantity}}</td>
+                            <td>{{part.netsuiteId}}</td>
+                            <td>{{part.number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button
+                    class="btn btn-success pull-right"
+                    ng-click="updateTransfer()"
+                >
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
