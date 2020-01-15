@@ -14,5 +14,6 @@ yarn.lock
 bower_components
 npm-debug.log
 devLog.log
+.env
 
 *.orig
