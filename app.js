@@ -1,4 +1,5 @@
 "use strict";
+
 require("@google-cloud/debug-agent").start({
     projectId: "park-energy-production",
     keyFilename: "./service-account.json",
@@ -7,6 +8,7 @@ require("@google-cloud/debug-agent").start({
         version: require("./package.json").version
     }
 });
+
 const express = require("express"),
     config = require("./config.js"),
     path = require("path"),
