@@ -6,7 +6,8 @@ require("@google-cloud/debug-agent").start({
     serviceContext: {
         service: "Orion",
         version: require("./package.json").version
-    }
+    },
+    allowExpressions: true
 });
 
 const express = require("express"),
