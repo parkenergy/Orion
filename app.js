@@ -1,14 +1,16 @@
 "use strict";
 
-require("@google-cloud/debug-agent").start({
-    projectId: "park-energy-production",
-    keyFilename: "./service-account.json",
-    serviceContext: {
-        service: "Orion",
-        version: require("./package.json").version
-    },
-    allowExpressions: true
-});
+if (process.env.NODE_ENV === "production") {
+    require("@google-cloud/debug-agent").start({
+        projectId: "park-energy-production",
+        keyFilename: "./service-account.json",
+        serviceContext: {
+            service: "Orion",
+            version: require("./package.json").version
+        },
+        allowExpressions: true
+    });
+}
 
 const express = require("express"),
     config = require("./config.js"),
