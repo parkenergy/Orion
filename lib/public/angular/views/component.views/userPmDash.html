@@ -1,182 +1,247 @@
 <div id="UserPMDash" class="container-fluid">
+    <!-- Header info -->
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix title">
+            <h3 class="panel-title pull-left">{{ $ctrl.fullName }}</h3>
 
-  <!-- Header info -->
-  <div class="panel panel-default">
-    <div class="panel-heading clearfix title">
-      <h3 class="panel-title pull-left">{{ $ctrl.fullName }}</h3>
-
-      <div class="pull-right status">Active PM Status: <span class="spaceMe" style="background-color: {{$ctrl.PMS.setBackgroundColor($ctrl.activePMStatus)}}">{{$ctrl.activePMStatus}}%</span></div>
-      <div class="pull-right status">Active: <span class="spaceMe">{{$ctrl.active}}</span></div>
-      <div class="pull-right status">Test: <span class="spaceMe">{{$ctrl.test}}</span></div>
-      <div class="pull-right status">Idle: <span class="spaceMe">{{$ctrl.idle}}</span></div>
-      <div class="pull-right status">Total: <span class="spaceMe">{{$ctrl.total}}</span></div>
+            <div class="pull-right status">
+                Active PM Status:
+                <span
+                    class="spaceMe"
+                    style="background-color: {{$ctrl.PMS.setBackgroundColor($ctrl.activePMStatus)}}"
+                    >{{$ctrl.activePMStatus}}%</span
+                >
+            </div>
+            <div class="pull-right status">
+                Active: <span class="spaceMe">{{$ctrl.active}}</span>
+            </div>
+            <div class="pull-right status">
+                Test: <span class="spaceMe">{{$ctrl.test}}</span>
+            </div>
+            <div class="pull-right status">
+                Idle: <span class="spaceMe">{{$ctrl.idle}}</span>
+            </div>
+            <div class="pull-right status">
+                Total: <span class="spaceMe">{{$ctrl.total}}</span>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="supervisor">Supervisor: {{$ctrl.supervisor}}</div>
+    <div class="supervisor">Supervisor: {{$ctrl.supervisor}}</div>
 
-  <form class="form-inline">
-    <div class="form-group">
-      <label for="days">Days</label>
-      <input class="form-control"
-             type="number"
-             id="days"
-             ng-model="$ctrl.days"
-             name="days"
-             ng-change="$ctrl.dayChange($ctrl.days)"/>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="days">Days</label>
+            <input
+                class="form-control"
+                type="number"
+                id="days"
+                ng-model="$ctrl.days"
+                name="days"
+                ng-change="$ctrl.dayChange($ctrl.days)"
+            />
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="$ctrl.search()">
+            Search
+        </button>
+        <span class="spaceMe">
+            Total Work Orders: {{$ctrl.totalWorkorders}}
+        </span>
+        <span class="spaceMe">
+            Total Shown Work Orders: {{$ctrl.totalShownWOs}}
+        </span>
+    </form>
+
+    <div align="center">
+        <i ng-show="$ctrl.spin" class="fa fa-refresh fa-spin userpmdash"></i>
     </div>
-    <button type="submit" class="btn btn-primary" ng-click="$ctrl.search()">Search</button>
-    <span class="spaceMe">
-      Total Work Orders: {{$ctrl.totalWorkorders}}
-    </span>
-    <span class="spaceMe">
-      Total Shown Work Orders: {{$ctrl.totalShownWOs}}
-    </span>
-  </form>
 
-  <div align="center">
-    <i ng-show="$ctrl.spin" class="fa fa-refresh fa-spin userpmdash"></i>
-  </div>
+    <table
+        class="table table-bordered table-striped table-hover"
+        ng-show="$ctrl.loaded"
+    >
+        <!-- headers -->
+        <thead>
+            <tr>
+                <!-- heading sort click -->
+                <th ng-click="$ctrl.resort('unitNumber')">
+                    Unit #
+                    <span
+                        ng-show="$ctrl.sortType === 'unitNumber' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"
+                    ></span>
+                    <span
+                        ng-show="$ctrl.sortType === 'unitNumber' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"
+                    ></span>
+                </th>
 
-  <table class="table table-bordered table-striped table-hover" ng-show="$ctrl.loaded">
-    <!-- headers -->
-    <thead>
-      <tr>
-        <!-- heading sort click -->
-          <th ng-click="$ctrl.resort('unitNumber')">
-          Unit #
-          <span
-            ng-show="$ctrl.sortType === 'unitNumber' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'unitNumber' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+                <th
+                    ng-click="$ctrl.resort('productSeries')"
+                    ng-show="$ctrl.isYard === true"
+                >
+                    Product Series
+                    <span
+                        ng-show="$ctrl.sortType === 'productSeries' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"
+                    ></span>
+                    <span
+                        ng-show="$ctrl.sortType === 'productSeries' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"
+                    ></span>
+                </th>
 
-          <th ng-click="$ctrl.resort('productSeries')" ng-show="$ctrl.isYard === true">
-              Product Series
-              <span
-                  ng-show="$ctrl.sortType === 'productSeries' && !$ctrl.sortReverse"
-                  class="glyphicon glyphicon-chevron-down"></span>
-              <span
-                  ng-show="$ctrl.sortType === 'productSeries' && $ctrl.sortReverse"
-                  class="glyphicon glyphicon-chevron-up"></span>
-          </th>
+                <th
+                    ng-click="$ctrl.resort('customerName')"
+                    ng-show="$ctrl.isYard === false"
+                >
+                    Customer
+                    <span
+                        ng-show="$ctrl.sortType === 'customerName' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"
+                    ></span>
+                    <span
+                        ng-show="$ctrl.sortType === 'customerName' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"
+                    ></span>
+                </th>
 
-          <th ng-click="$ctrl.resort('customerName')" ng-show="$ctrl.isYard === false">
-         Customer
-          <span
-            ng-show="$ctrl.sortType === 'customerName' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'customerName' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+                <th ng-click="$ctrl.resort('leaseName')">
+                    Lease Name
+                    <span
+                        ng-show="$ctrl.sortType === 'leaseName' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"
+                    ></span>
+                    <span
+                        ng-show="$ctrl.sortType === 'leaseName' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"
+                    ></span>
+                </th>
 
-          <th ng-click="$ctrl.resort('leaseName')">
-          Lease Name
-          <span
-            ng-show="$ctrl.sortType === 'leaseName' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'leaseName' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+                <th ng-click="$ctrl.resort('PM')">
+                    PM
+                    <span
+                        ng-show="$ctrl.sortType === 'PM' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"
+                    ></span>
+                    <span
+                        ng-show="$ctrl.sortType === 'PM' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"
+                    ></span>
+                </th>
 
-          <th ng-click="$ctrl.resort('PM')">
-          PM
-          <span
-            ng-show="$ctrl.sortType === 'PM' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'PM' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+                <th ng-click="$ctrl.resort('status')">
+                    Status
+                    <span
+                        ng-show="$ctrl.sortType === 'status' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"
+                    ></span>
+                    <span
+                        ng-show="$ctrl.sortType === 'status' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"
+                    ></span>
+                </th>
 
-          <th ng-click="$ctrl.resort('status')">
-          Status
-          <span
-            ng-show="$ctrl.sortType === 'status' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'status' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
+                <th ng-click="$ctrl.resort('nextPmDate')">
+                    Next PM 1 Date
+                    <span
+                        ng-show="$ctrl.sortType === 'nextPmDate' && !$ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-down"
+                    ></span>
+                    <span
+                        ng-show="$ctrl.sortType === 'nextPmDate' && $ctrl.sortReverse"
+                        class="glyphicon glyphicon-chevron-up"
+                    ></span>
+                </th>
+                <th ng-click="$ctrl.resort('nextPM2Date')">
+                    Next PM 2 Date
+                    <span
+                        class="glyphicon glyphicon-chevron-down"
+                        ng-show="$ctrl.sortType === 'nextPM2Date' && !$ctrl.sortReverse"
+                    ></span>
+                    <span
+                        class="glyphicon glyphicon-chevron-up"
+                        ng-show="$ctrl.sortType === 'nextPM2Date' && $ctrl.sortReverse"
+                    ></span>
+                </th>
+                <th ng-click="$ctrl.resort('nextPM3Date')">
+                    Next PM 3 Date
+                    <span
+                        class="glyphicon glyphicon-chevron-down"
+                        ng-show="$ctrl.sortType === 'nextPM3Date' && !$ctrl.sortReverse"
+                    ></span>
+                    <span
+                        class="glyphicon glyphicon-chevron-up"
+                        ng-show="$ctrl.sortType === 'nextPM3Date' && $ctrl.sortReverse"
+                    ></span>
+                </th>
+                <th ng-click="$ctrl.resort('nextPM4Date')">
+                    Next PM 4 Date
+                    <span
+                        class="glyphicon glyphicon-chevron-down"
+                        ng-show="$ctrl.sortType === 'nextPM4Date' && !$ctrl.sortReverse"
+                    ></span>
+                    <span
+                        class="glyphicon glyphicon-chevron-up"
+                        ng-show="$ctrl.sortType === 'nextPM4Date' && $ctrl.sortReverse"
+                    ></span>
+                </th>
+                <th ng-click="$ctrl.resort('nextPM5Date')">
+                    Next PM 5 Date
+                    <span
+                        class="glyphicon glyphicon-chevron-down"
+                        ng-show="$ctrl.sortType === 'nextPM5Date' && !$ctrl.sortReverse"
+                    ></span>
+                    <span
+                        class="glyphicon glyphicon-chevron-up"
+                        ng-show="$ctrl.sortType === 'nextPM5Date' && $ctrl.sortReverse"
+                    ></span>
+                </th>
+            </tr>
+        </thead>
 
-          <th ng-click="$ctrl.resort('nextPmDate')">
-              Next PM 1 Date
-          <span
-            ng-show="$ctrl.sortType === 'nextPmDate' && !$ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-down"></span>
-          <span
-            ng-show="$ctrl.sortType === 'nextPmDate' && $ctrl.sortReverse"
-            class="glyphicon glyphicon-chevron-up"></span>
-        </th>
-          <th ng-click="$ctrl.resort('nextPM2Date')">
-              Next PM 2 Date
-              <span
-                  class="glyphicon glyphicon-chevron-down"
-                  ng-show="$ctrl.sortType === 'nextPM2Date' && !$ctrl.sortReverse"></span>
-              <span
-                  class="glyphicon glyphicon-chevron-up"
-                  ng-show="$ctrl.sortType === 'nextPM2Date' && $ctrl.sortReverse"></span>
-          </th>
-          <th ng-click="$ctrl.resort('nextPM3Date')">
-              Next PM 3 Date
-              <span
-                  class="glyphicon glyphicon-chevron-down"
-                  ng-show="$ctrl.sortType === 'nextPM3Date' && !$ctrl.sortReverse"></span>
-              <span
-                  class="glyphicon glyphicon-chevron-up"
-                  ng-show="$ctrl.sortType === 'nextPM3Date' && $ctrl.sortReverse"></span>
-          </th>
-          <th ng-click="$ctrl.resort('nextPM4Date')">
-              Next PM 4 Date
-              <span
-                  class="glyphicon glyphicon-chevron-down"
-                  ng-show="$ctrl.sortType === 'nextPM4Date' && !$ctrl.sortReverse"></span>
-              <span
-                  class="glyphicon glyphicon-chevron-up"
-                  ng-show="$ctrl.sortType === 'nextPM4Date' && $ctrl.sortReverse"></span>
-          </th>
-          <th ng-click="$ctrl.resort('nextPM5Date')">
-              Next PM 5 Date
-              <span
-                  class="glyphicon glyphicon-chevron-down"
-                  ng-show="$ctrl.sortType === 'nextPM5Date' && !$ctrl.sortReverse"></span>
-              <span
-                  class="glyphicon glyphicon-chevron-up"
-                  ng-show="$ctrl.sortType === 'nextPM5Date' && $ctrl.sortReverse"></span>
-          </th>
-
-      </tr>
-    </thead>
-
-    <!-- Sorted Table -->
-    <tbody>
-      <tr ng-repeat="unit in $ctrl.displayUnits | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
-        ng-click="$ctrl.searchUnits(unit)">
-        <td class="text-center">{{ unit.unitNumber }}</td>
-        <td class="text-center">{{ unit.customerName }}</td>
-        <td class="text-center">{{ unit.leaseName }}</td>
-        <td class="text-center">{{ unit.PM }}</td>
-        <td class="text-center">{{ unit.status }}</td>
-        <td class="text-center" style="background-color: {{$ctrl.PMS.setDateBackground(unit.nextPmDate)}}">{{ unit.nextPmDate | date:'MM/dd/yyyy' }}</td>
-          <td class="text-center" style="background-color: {{$ctrl.PMS.setDate2Background(unit)}}">{{ unit.nextPM2Date |
-              date:'MM/dd/yyyy' }}
-          </td>
-          <td class="text-center" style="background-color: {{$ctrl.PMS.setDate3Background(unit)}}">{{ unit.nextPM3Date |
-              date:'MM/dd/yyyy' }}
-          </td>
-          <td class="text-center" style="background-color: {{$ctrl.PMS.setDate4Background(unit)}}">{{ unit.nextPM4Date |
-              date:'MM/dd/yyyy' }}
-          </td>
-          <td class="text-center" style="background-color: {{$ctrl.PMS.setDate5Background(unit)}}">{{ unit.nextPM5Date |
-              date:'MM/dd/yyyy' }}
-          </td>
-      </tr>
-    </tbody>
-
-  </table>
-
+        <!-- Sorted Table -->
+        <tbody>
+            <tr
+                ng-repeat="unit in $ctrl.displayUnits | orderBy:$ctrl.sortType:!$ctrl.sortReverse"
+                ng-click="$ctrl.searchUnits(unit)"
+            >
+                <td class="text-center">{{ unit.unitNumber }}</td>
+                <td class="text-center">{{ unit.customerName }}</td>
+                <td class="text-center">{{ unit.leaseName }}</td>
+                <td class="text-center">{{ unit.PM }}</td>
+                <td class="text-center">{{ unit.status }}</td>
+                <td
+                    class="text-center"
+                    style="background-color: {{$ctrl.PMS.setDateBackground(unit.nextPmDate)}}"
+                >
+                    {{ unit.nextPmDate | date:'MM/dd/yyyy' }}
+                </td>
+                <td
+                    class="text-center"
+                    style="background-color: {{$ctrl.PMS.setDate2Background(unit)}}"
+                >
+                    {{ unit.nextPM2Date | date:'MM/dd/yyyy': 'UTC' }}
+                </td>
+                <td
+                    class="text-center"
+                    style="background-color: {{$ctrl.PMS.setDate3Background(unit)}}"
+                >
+                    {{ unit.nextPM3Date | date:'MM/dd/yyyy': 'UTC' }}
+                </td>
+                <td
+                    class="text-center"
+                    style="background-color: {{$ctrl.PMS.setDate4Background(unit)}}"
+                >
+                    {{ unit.nextPM4Date | date:'MM/dd/yyyy': 'UTC' }}
+                </td>
+                <td
+                    class="text-center"
+                    style="background-color: {{$ctrl.PMS.setDate5Background(unit)}}"
+                >
+                    {{ unit.nextPM5Date | date:'MM/dd/yyyy': 'UTC' }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

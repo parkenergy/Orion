@@ -2,7 +2,10 @@
     <div class="panel-heading">
         <h3 class="panel-title">Notes</h3>
     </div>
-    <div class="panel-body" style="overflow-y: scroll; width: auto; height: 117px;">
+    <div
+        class="panel-body"
+        style="overflow-y: scroll; width: auto; height: 117px;"
+    >
         <!-- NG REPEAT START-->
         <div ng-repeat="comment in $ctrl.reviewNotes">
             <div class="row" style="margin-top: 5px;">
@@ -12,17 +15,20 @@
                             <h6 class="media-heading">
                                 {{ comment.tech.firstName }} {{ comment.tech.lastName }}
                                 <span class="small pull-right">
-                  {{ comment.updated_at | date:'MM/dd/yyyy HH:mm' }}
-                </span>
+                                    {{ comment.updated_at | date:'MM/dd/yyyy HH:mm': 'UTC' }}
+                                </span>
                             </h6>
-                            <p class="text-muted" style="font-size: 15px; margin-bottom: 5px;">
+                            <p
+                                class="text-muted"
+                                style="font-size: 15px; margin-bottom: 5px;"
+                            >
                                 {{ comment.note }}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <hr style="margin-top: 6px; margin-bottom: 12px;">
+            <hr style="margin-top: 6px; margin-bottom: 12px;" />
         </div>
         <!-- NG REPEAT END -->
     </div>
@@ -30,20 +36,24 @@
         <form name="SubmitNote">
             <div class="input-group">
                 <div class="form-group">
-                    <input type="text"
-                           ng-disabled="$ctrl.sendingNote"
-                           ng-model="$ctrl.comment.note"
-                           class="form-control input-sm"
-                           placeholder="Note...">
+                    <input
+                        type="text"
+                        ng-disabled="$ctrl.sendingNote"
+                        ng-model="$ctrl.comment.note"
+                        class="form-control input-sm"
+                        placeholder="Note..."
+                    />
                 </div>
                 <span class="input-group-btn">
-          <button type="button"
-                  class="btn btn-primary btn-sm"
-                  id="btn-chat"
-                  ng-click="$ctrl.newNote()">
-            Submit
-          </button>
-        </span>
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        id="btn-chat"
+                        ng-click="$ctrl.newNote()"
+                    >
+                        Submit
+                    </button>
+                </span>
             </div>
         </form>
     </div>

@@ -2,41 +2,47 @@
 <header></header>
 
 <div id="woEdit">
-  <div class="highlight">
-    <p class="text-center">
-      Work Order Run Time: {{ pad(eHours) }}:{{ pad(eMinutes) }}:{{ pad(eSeconds) }}
-    </p>
-  </div>
-  <workorder-header></workorder-header>
-
-  <workorder-pm></workorder-pm>
-
-  <workorder-unit-readings></workorder-unit-readings>
-
-  <new-serial-numbers></new-serial-numbers>
-
-  <workorder-emissions-readings></workorder-emissions-readings>
-
-  <workorder-comments></workorder-comments>
-
-  <workorder-labor-codes></workorder-labor-codes>
-
-  <workorder-parts></workorder-parts>
-
-  <div>
-    <div ng-show="workorder.netsuiteSyned">
-      Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
+    <div class="highlight">
+        <p class="text-center">
+            Work Order Run Time: {{ pad(eHours) }}:{{ pad(eMinutes) }}:{{ pad(eSeconds) }}
+        </p>
     </div>
-    <button ng-disabled="workorder.netsuiteSyned" class="btn btn-lg btn-primary pull-left"
+    <workorder-header></workorder-header>
+
+    <workorder-pm></workorder-pm>
+
+    <workorder-unit-readings></workorder-unit-readings>
+
+    <new-serial-numbers></new-serial-numbers>
+
+    <workorder-emissions-readings></workorder-emissions-readings>
+
+    <workorder-comments></workorder-comments>
+
+    <workorder-labor-codes></workorder-labor-codes>
+
+    <workorder-parts></workorder-parts>
+
+    <div>
+        <div ng-show="workorder.netsuiteSyned">
+            Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss': 'UTC'}}
+        </div>
+        <button
+            ng-disabled="workorder.netsuiteSyned"
+            class="btn btn-lg btn-primary pull-left"
             style="width: 45%; height: 100px; margin-left: 20px; margin-bottom: 20px"
-            ng-click="save()">
-      Complete
-    </button>
-    <button ng-disabled="workorder.netsuiteSyned" class="btn btn-lg btn-danger pull-right"
+            ng-click="save()"
+        >
+            Complete
+        </button>
+        <button
+            ng-disabled="workorder.netsuiteSyned"
+            class="btn btn-lg btn-danger pull-right"
             style="width: 45%; height: 100px; margin-right: 20px; margin-bottom: 20px"
-            ng-click="destroy()">
-      Delete
-    </button>
-    <div class="clearfix" style="height: 65px;"></div>
-  </div>
+            ng-click="destroy()"
+        >
+            Delete
+        </button>
+        <div class="clearfix" style="height: 65px;"></div>
+    </div>
 </div>

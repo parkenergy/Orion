@@ -3,7 +3,6 @@
 
 <div id="woCreate">
     <div class="row rowIssue">
-
         <div class="row" ng-style="{marginTop: 0}">
             <!-- Show Work Order Run Time + is Submitted -->
             <div class="highlight">
@@ -26,7 +25,11 @@
                     >
                     </wo-type-selector>
                 </div>
-                <div class="row" ng-show="me.role === 'admin'" ng-style="{marginTop: 0}">
+                <div
+                    class="row"
+                    ng-show="me.role === 'admin'"
+                    ng-style="{marginTop: 0}"
+                >
                     <button
                         class="btn btn-lg btn-primary"
                         style="width: 100%;"
@@ -57,8 +60,11 @@
                     >
                     </wo-header-info>
                 </div>
-                <div class="row"
-                     ng-show="workorder.type === 'Release' || workorder.type === 'Transfer' || workorder.type === 'Swap'" ng-style="{marginTop: 0}">
+                <div
+                    class="row"
+                    ng-show="workorder.type === 'Release' || workorder.type === 'Transfer' || workorder.type === 'Swap'"
+                    ng-style="{marginTop: 0}"
+                >
                     <wo-change-info
                         workorder="workorder"
                         call-back="runCb(cb)"
@@ -78,24 +84,15 @@
         <div class="row">
             <!-- Work Order Info -->
             <div class="col-xs-4">
-                <wo-user-info
-                    workorder="workorder"
-                >
-                </wo-user-info>
+                <wo-user-info workorder="workorder"> </wo-user-info>
             </div>
             <!-- Notes -->
             <div class="col-xs-4">
-                <wo-notes
-                    workorder="workorder"
-                >
-                </wo-notes>
+                <wo-notes workorder="workorder"> </wo-notes>
             </div>
             <!-- History -->
             <div class="col-xs-4">
-                <wo-histories
-                    workorder="workorder"
-                >
-                </wo-histories>
+                <wo-histories workorder="workorder"> </wo-histories>
             </div>
         </div>
 
@@ -143,8 +140,11 @@
             </wo-dynamic-unit-readings>
         </div>
 
-        <div class="row" ng-if="workorder.pm || workorder.pm2 || workorder.pm3 || workorder.pm4 || workorder.pm5"
-             ng-style="{marginTop: 0}">
+        <div
+            class="row"
+            ng-if="workorder.pm || workorder.pm2 || workorder.pm3 || workorder.pm4 || workorder.pm5"
+            ng-style="{marginTop: 0}"
+        >
             <wo-pm-checks
                 call-back="runCb(cb)"
                 disabled="disabled"
@@ -187,13 +187,14 @@
         <!-- Submit -->
         <div ng-style="{}">
             <div ng-show="workorder.netsuiteSyned || workorder.timeSynced">
-                Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
+                Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss': 'UTC'}}
             </div>
             <button
                 class="btn btn-lg btn-primary pull-right"
                 ng-click="debounceSubmit()"
                 ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect') || workorder.timeSynced || submittingWorkOrder"
-                style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;">
+                style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
+            >
                 Submit
             </button>
             <div class="clearfix" style="height: 65px;"></div>

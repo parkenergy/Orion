@@ -1,94 +1,96 @@
-<div id="CrReviewContactInfo"
-     class="panel panel-default">
+<div id="CrReviewContactInfo" class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Contact Information</h3>
+    </div>
 
-  <div class="panel-heading">
-    <h3 class="panel-title">Contact Information</h3>
-  </div>
+    <!-- Panel -->
+    <div class="panel-body cr-rv-contact-info">
+        <!-- row 1-->
+        <div class="row">
+            <!-- col 1 -->
+            <div class="col-md-3">
+                <text-field
+                    data=" $ctrl.callreport.callTime | date: 'MM/dd/yyyy HH:mm:ss': 'UTC' "
+                    disabled="true"
+                    label-text="Date"
+                >
+                </text-field>
+            </div>
 
-  <!-- Panel -->
-  <div class="panel-body cr-rv-contact-info">
+            <!-- col 2 -->
+            <div class="col-md-3">
+                <text-field
+                    data="$ctrl.callreport.activityType"
+                    disabled="true"
+                    label-text="Activity Type"
+                >
+                </text-field>
+            </div>
 
-    <!-- row 1-->
-    <div class="row">
+            <!-- col 3 -->
+            <div class="col-md-3">
+                <text-field
+                    data="$ctrl.callreport.contactName"
+                    disabled="true"
+                    label-text="Contact Name"
+                >
+                </text-field>
+            </div>
 
-      <!-- col 1 -->
-      <div class="col-md-3">
-        <text-field
-            data=" $ctrl.callreport.callTime | date: 'MM/dd/yyyy HH:mm:ss' "
-            disabled="true"
-            label-text="Date">
-        </text-field>
-      </div>
+            <!-- col 4 -->
+            <div class="col-md-3">
+                <text-field
+                    data="$ctrl.callreport.title"
+                    disabled="true"
+                    label-text="Job Title"
+                >
+                </text-field>
+            </div>
+        </div>
+        <!-- end of row 1 -->
 
-      <!-- col 2 -->
-      <div class="col-md-3">
-        <text-field
-            data="$ctrl.callreport.activityType"
-            disabled="true"
-            label-text="Activity Type">
-        </text-field>
-      </div>
+        <!-- row 2 -->
+        <div class="row">
+            <!-- col 1 -->
+            <div class="col-md-2">
+                <text-field
+                    data="$ctrl.callreport.phoneNumber"
+                    disabled="true"
+                    label-text="Phone Number"
+                >
+                </text-field>
+            </div>
 
-      <!-- col 3 -->
-      <div class="col-md-3">
-        <text-field
-            data="$ctrl.callreport.contactName"
-            disabled="true"
-            label-text="Contact Name">
-        </text-field>
-      </div>
+            <div class="col-md-1">
+                <text-field
+                    data="$ctrl.callreport.extension"
+                    disabled="true"
+                    label-text="Ext:"
+                >
+                </text-field>
+            </div>
 
-      <!-- col 4 -->
-      <div class="col-md-3">
-        <text-field
-            data="$ctrl.callreport.title"
-            disabled="true"
-            label-text="Job Title">
-        </text-field>
-      </div>
+            <!-- col 2-3 -->
+            <div class="col-md-6">
+                <text-field
+                    data="$ctrl.callreport.email"
+                    disabled="true"
+                    label-text="Email"
+                >
+                </text-field>
+            </div>
 
-    </div> <!-- end of row 1 -->
-
-    <!-- row 2 -->
-    <div class="row">
-
-      <!-- col 1 -->
-      <div class="col-md-2">
-        <text-field
-            data="$ctrl.callreport.phoneNumber"
-            disabled="true"
-            label-text="Phone Number">
-        </text-field>
-      </div>
-
-      <div class="col-md-1">
-        <text-field
-            data="$ctrl.callreport.extension"
-            disabled="true"
-            label-text="Ext:">
-        </text-field>
-      </div>
-
-
-      <!-- col 2-3 -->
-      <div class="col-md-6">
-        <text-field
-            data="$ctrl.callreport.email"
-            disabled="true"
-            label-text="Email">
-        </text-field>
-      </div>
-
-      <!-- col 4 -->
-      <div class="col-md-3">
-        <text-field
-            data="$ctrl.callreport.decisionMaker"
-            disabled="true"
-            label-text="Decision Maker?">
-        </text-field>
-      </div>
-
-    </div> <!-- end of row 2 -->
-
-  </div> <!-- Panel End-->
+            <!-- col 4 -->
+            <div class="col-md-3">
+                <text-field
+                    data="$ctrl.callreport.decisionMaker"
+                    disabled="true"
+                    label-text="Decision Maker?"
+                >
+                </text-field>
+            </div>
+        </div>
+        <!-- end of row 2 -->
+    </div>
+    <!-- Panel End-->
 </div>

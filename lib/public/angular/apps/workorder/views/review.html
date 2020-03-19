@@ -1,42 +1,44 @@
-
 <alerts></alerts>
 <header></header>
 
 <div id="woReview">
-  <div class="highlight">
-    <p class="text-center">
-      Work Order Run Time: {{ pad(eHours) }}:{{ pad(eMinutes) }}:{{ pad(eSeconds) }}
-    </p>
-  </div>
-
-  <review-header></review-header>
-
-  <review-pm></review-pm>
-
-  <review-unit-readings></review-unit-readings>
-
-  <new-serial-numbers></new-serial-numbers>
-
-  <review-emissions-readings></review-emissions-readings>
-
-  <review-comments></review-comments>
-
-  <review-labor-codes></review-labor-codes>
-
-  <review-parts></review-parts>
-
-  <div id="submitReview">
-    <div ng-show="workorder.netsuiteId && (workorder.type !== 'Indirect')">
-      Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
+    <div class="highlight">
+        <p class="text-center">
+            Work Order Run Time: {{ pad(eHours) }}:{{ pad(eMinutes) }}:{{ pad(eSeconds) }}
+        </p>
     </div>
-    <div ng-show="workorder.syncedBy && (workorder.type === 'Indirect')">
-      Workorder Submitted {{ workorder.timeSynced | date: 'MM/dd/yy HH:mm:ss' }}
-    </div>
-    <button ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect')" class="btn btn-lg btn-primary pull-right"
+
+    <review-header></review-header>
+
+    <review-pm></review-pm>
+
+    <review-unit-readings></review-unit-readings>
+
+    <new-serial-numbers></new-serial-numbers>
+
+    <review-emissions-readings></review-emissions-readings>
+
+    <review-comments></review-comments>
+
+    <review-labor-codes></review-labor-codes>
+
+    <review-parts></review-parts>
+
+    <div id="submitReview">
+        <div ng-show="workorder.netsuiteId && (workorder.type !== 'Indirect')">
+            Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss': 'UTC'}}
+        </div>
+        <div ng-show="workorder.syncedBy && (workorder.type === 'Indirect')">
+            Workorder Submitted {{ workorder.timeSynced | date: 'MM/dd/yy HH:mm:ss': 'UTC' }}
+        </div>
+        <button
+            ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect')"
+            class="btn btn-lg btn-primary pull-right"
             style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
-            ng-click="debounceSubmit()">
-      Submit
-    </button>
-    <div class="clearfix" style="height: 65px;"></div>
-  </div>
+            ng-click="debounceSubmit()"
+        >
+            Submit
+        </button>
+        <div class="clearfix" style="height: 65px;"></div>
+    </div>
 </div>

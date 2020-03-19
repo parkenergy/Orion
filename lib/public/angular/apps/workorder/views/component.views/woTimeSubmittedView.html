@@ -2,22 +2,20 @@
     <div class="row">
         <div class="col-xs-4 text-center">
             <label>Run Time</label>
-            <p class="text-center">{{ $ctrl.TDS.pad($ctrl.elapsedTime.hours) }}:{{
-                $ctrl.TDS.pad($ctrl.elapsedTime.minutes)
-                }}:{{
-                $ctrl.elapsedTime.seconds}}</p>
+            <p class="text-center">
+                {{ $ctrl.TDS.pad($ctrl.elapsedTime.hours) }}:{{$ctrl.TDS.pad($ctrl.elapsedTime.minutes) }}:{{$ctrl.elapsedTime.seconds}}
+            </p>
         </div>
         <div class="col-xs-4 text-center">
             <label>Labor Time</label>
-            <p
-                class="text-center">
-                {{$ctrl.calcTime.totalLaborTime.hours}}:{{$ctrl.calcTime.totalLaborTime
-                .minutes}}</p>
+            <p class="text-center">
+                {{$ctrl.calcTime.totalLaborTime.hours}}:{{$ctrl.calcTime.totalLaborTime.minutes}}
+            </p>
         </div>
         <div class="col-xs-4 text-center">
             <label>Synced At</label>
             <p class="text-center">
-                {{$ctrl.workorder.timeSynced | date: 'medium'}}
+                {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss': 'UTC'}}
             </p>
         </div>
     </div>

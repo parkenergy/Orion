@@ -1,18 +1,21 @@
-<div id="MCUnitDiligenceOverviewTable"
-     class="panel panel-default">
+<div id="MCUnitDiligenceOverviewTable" class="panel panel-default">
     <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left">Unit Diligence Forms</h3>
     </div>
     <div class="panel-body mcudf-main-dash-body">
-
         <!-- Search Bar Panel -->
         <div class="col-md-9 mcudf-search-bar">
             <div class="panel panel-default">
-
                 <!-- Title -->
-                <div class="panel-heading" data-toggle="collapse" data-target="#mcDiligenceSearch">
+                <div
+                    class="panel-heading"
+                    data-toggle="collapse"
+                    data-target="#mcDiligenceSearch"
+                >
                     <h3 class="panel-title">Search</h3>
-                    <span class="pull-right">{{$ctrl.mcUnitDiligenceFormCount}}</span>
+                    <span class="pull-right"
+                        >{{$ctrl.mcUnitDiligenceFormCount}}</span
+                    >
                 </div>
 
                 <!-- collapsible search settings -->
@@ -24,13 +27,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>From</label>
-                                    <input 
-                                        class="form-control search" 
-                                        ng-model="$ctrl.dates.fromInput" 
+                                    <input
+                                        class="form-control search"
+                                        ng-model="$ctrl.dates.fromInput"
                                         ng-change="$ctrl.startOfDay($ctrl.dates.fromInput)"
-                                        name="fromDate" 
-                                        type="date" 
-                                        placeholder="yyyy-mm-dd">
+                                        name="fromDate"
+                                        type="date"
+                                        placeholder="yyyy-mm-dd"
+                                    />
                                 </div>
                             </div>
 
@@ -38,13 +42,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>To</label>
-                                    <input 
-                                        class="form-control search" 
-                                        ng-model="$ctrl.dates.toInput" 
+                                    <input
+                                        class="form-control search"
+                                        ng-model="$ctrl.dates.toInput"
                                         ng-change="$ctrl.endOfDay($ctrl.dates.toInput)"
-                                        name="toDate" 
-                                        type="date" 
-                                        placeholder="yyyy-mm-dd">
+                                        name="toDate"
+                                        type="date"
+                                        placeholder="yyyy-mm-dd"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -54,14 +59,26 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Unit Number</label>
-                                    <input id="unitNumber" class="form-control search" ng-model="$ctrl.unitNumber" name="unitNumber" type="text" />
+                                    <input
+                                        id="unitNumber"
+                                        class="form-control search"
+                                        ng-model="$ctrl.unitNumber"
+                                        name="unitNumber"
+                                        type="text"
+                                    />
                                 </div>
                             </div>
                             <!-- col 2 -->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Reviewer</label>
-                                    <input id="reviewer" class="form-control search" ng-model="$ctrl.reviewer" name="reviewer" type="text">
+                                    <input
+                                        id="reviewer"
+                                        class="form-control search"
+                                        ng-model="$ctrl.reviewer"
+                                        name="reviewer"
+                                        type="text"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -69,9 +86,13 @@
                         <div class="row">
                             <!-- col 1 -->
                             <div class="col-md-6">
-                                <button class="btn btn-primary form-inline" type="button" data-toggle="collapse"
-                                        data-target="#mcDiligenceSearch"
-                                        ng-click="$ctrl.submit()">
+                                <button
+                                    class="btn btn-primary form-inline"
+                                    type="button"
+                                    data-toggle="collapse"
+                                    data-target="#mcDiligenceSearch"
+                                    ng-click="$ctrl.submit()"
+                                >
                                     Search
                                 </button>
                             </div>
@@ -91,106 +112,124 @@
                                 </div>
                             </div>
                         </div>
-
-                    </form> <!-- End of Search Form -->
-                </div>  <!-- End of Search Panel-->
-
-
-            </div> <!-- End of Search Bar -->
-        </div> <!-- End of Search bar body -->
+                    </form>
+                    <!-- End of Search Form -->
+                </div>
+                <!-- End of Search Panel-->
+            </div>
+            <!-- End of Search Bar -->
+        </div>
+        <!-- End of Search bar body -->
 
         <!--Start Search Table-->
         <table class="table table-bordered table-striped table-hover">
             <!--Search settings-->
             <thead>
-            <tr>
+                <tr>
+                    <!-- Sort by Unit #-->
+                    <th ng-click="$ctrl.resort('unitNumber')">
+                        Unit #
+                        <span
+                            ng-show="$ctrl.sortType == 'unitNumber' && !$ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-down"
+                        ></span>
+                        <span
+                            ng-show="$ctrl.sortType == 'unitNumber' && $ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-up"
+                        ></span>
+                    </th>
 
-                <!-- Sort by Unit #-->
-                <th ng-click="$ctrl.resort('unitNumber')">
-                    Unit #
-                    <span
-                        ng-show="$ctrl.sortType == 'unitNumber' && !$ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-down"></span>
-                    <span
-                        ng-show="$ctrl.sortType == 'unitNumber' && $ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-up"></span>
-                </th>
+                    <th ng-click="$ctrl.resort('reviewer')">
+                        Reviewer
+                        <span
+                            ng-show="$ctrl.sortType == 'reviewer' && !$ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-down"
+                        ></span>
+                        <span
+                            ng-show="$ctrl.sortType == 'reviewer' && $ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-up"
+                        ></span>
+                    </th>
 
-                <th ng-click="$ctrl.resort('reviewer')">
-                    Reviewer
-                    <span
-                        ng-show="$ctrl.sortType == 'reviewer' && !$ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-down"></span>
-                    <span
-                        ng-show="$ctrl.sortType == 'reviewer' && $ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-up"></span>
-                </th>
+                    <th ng-click="$ctrl.resort('engine')">
+                        Engine
+                        <span
+                            ng-show="$ctrl.sortType == 'engine' && !$ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-down"
+                        ></span>
+                        <span
+                            ng-show="$ctrl.sortType == 'engine' && $ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-up"
+                        ></span>
+                    </th>
 
-                <th ng-click="$ctrl.resort('engine')">
-                    Engine
-                    <span
-                        ng-show="$ctrl.sortType == 'engine' && !$ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-down"></span>
-                    <span
-                        ng-show="$ctrl.sortType == 'engine' && $ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-up"></span>
-                </th>
+                    <th ng-click="$ctrl.resort('environmentalIssue')">
+                        Env Issue
+                        <span
+                            ng-show="$ctrl.sortType == 'environmentalIssue' && !$ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-down"
+                        ></span>
+                        <span
+                            ng-show="$ctrl.sortType == 'environmentalIssue' && $ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-up"
+                        ></span>
+                    </th>
 
-                <th ng-click="$ctrl.resort('environmentalIssue')">
-                    Env Issue
-                    <span
-                        ng-show="$ctrl.sortType == 'environmentalIssue' && !$ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-down"></span>
-                    <span
-                        ng-show="$ctrl.sortType == 'environmentalIssue' && $ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-up"></span>
-                </th>
+                    <th ng-click="$ctrl.resort('compressor')">
+                        Compressor
+                        <span
+                            ng-show="$ctrl.sortType == 'compressor' && !$ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-down"
+                        ></span>
+                        <span
+                            ng-show="$ctrl.sortType == 'compressor' && $ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-up"
+                        ></span>
+                    </th>
 
-                <th ng-click="$ctrl.resort('compressor')">
-                    Compressor
-                    <span
-                        ng-show="$ctrl.sortType == 'compressor' && !$ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-down"></span>
-                    <span
-                        ng-show="$ctrl.sortType == 'compressor' && $ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-up"></span>
-                </th>
+                    <th ng-click="$ctrl.resort('applicationType')">
+                        App Type
+                        <span
+                            ng-show="$ctrl.sortType == 'applicationType' && !$ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-down"
+                        ></span>
+                        <span
+                            ng-show="$ctrl.sortType == 'applicationType' && $ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-up"
+                        ></span>
+                    </th>
 
-                <th ng-click="$ctrl.resort('applicationType')">
-                    App Type
-                    <span
-                        ng-show="$ctrl.sortType == 'applicationType' && !$ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-down"></span>
-                    <span
-                        ng-show="$ctrl.sortType == 'applicationType' && $ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-up"></span>
-                </th>
+                    <th ng-click="$ctrl.resort('leaseName')">
+                        Lease
+                        <span
+                            ng-show="$ctrl.sortType == 'leaseName' && !$ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-down"
+                        ></span>
+                        <span
+                            ng-show="$ctrl.sortType == 'leaseName' && $ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-up"
+                        ></span>
+                    </th>
 
-                <th ng-click="$ctrl.resort('leaseName')">
-                    Lease
-                    <span
-                        ng-show="$ctrl.sortType == 'leaseName' && !$ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-down"></span>
-                    <span
-                        ng-show="$ctrl.sortType == 'leaseName' && $ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-up"></span>
-                </th>
-
-                <!-- Sort by Time Created -->
-                <th ng-click="$ctrl.resort('epoch')">
-                    Time Submitted
-                    <span
-                        ng-show="$ctrl.sortType == 'epoch' && !$ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-down"></span>
-                    <span
-                        ng-show="$ctrl.sortType == 'epoch' && $ctrl.sortReverse"
-                        class="glyphicon glyphicon-chevron-up"></span>
-                </th>
-            </tr>
+                    <!-- Sort by Time Created -->
+                    <th ng-click="$ctrl.resort('epoch')">
+                        Time Submitted
+                        <span
+                            ng-show="$ctrl.sortType == 'epoch' && !$ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-down"
+                        ></span>
+                        <span
+                            ng-show="$ctrl.sortType == 'epoch' && $ctrl.sortReverse"
+                            class="glyphicon glyphicon-chevron-up"
+                        ></span>
+                    </th>
+                </tr>
             </thead>
             <!-- Sorted Table -->
-            <tr ng-repeat="mcUnitDiligenceForm in $ctrl.mcUnitDiligenceForms | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter"
-                ng-click="$ctrl.routeToMCDiligenceForm(mcUnitDiligenceForm);">
+            <tr
+                ng-repeat="mcUnitDiligenceForm in $ctrl.mcUnitDiligenceForms | orderBy:$ctrl.sortType:!$ctrl.sortReverse | filter:$ctrl.searchFilter"
+                ng-click="$ctrl.routeToMCDiligenceForm(mcUnitDiligenceForm);"
+            >
                 <td>{{ mcUnitDiligenceForm.unitNumber }}</td>
                 <td>{{ mcUnitDiligenceForm.reviewer }}</td>
                 <td>{{ mcUnitDiligenceForm.engine }}</td>
@@ -198,10 +237,10 @@
                 <td>{{ mcUnitDiligenceForm.compressor }}</td>
                 <td>{{ mcUnitDiligenceForm.applicationType }}</td>
                 <td>{{ mcUnitDiligenceForm.leaseName }}</td>
-                <td>{{ mcUnitDiligenceForm.submitted | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+                <td>
+                    {{ mcUnitDiligenceForm.submitted | date: 'MM/dd/yyyy HH:mm:ss': 'UTC'}}
+                </td>
             </tr>
-            </tbody>
-
         </table>
         <!--End Serch Table-->
     </div>

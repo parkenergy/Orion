@@ -1,13 +1,11 @@
 <alerts></alerts>
 
 <div id="UnitDiligenceFormReview" class="container-fluid">
-
     <div class="row">
         <h4>Created By <span>{{mcDiligenceForm.reviewer}}</span></h4>
     </div>
 
     <div class="row">
-
         <!-- unit number -->
         <div class="col-xs-3">
             <text-field
@@ -42,7 +40,7 @@
         <div class="col-xs-3">
             <text-field
                 label-text="Submitted"
-                data="mcDiligenceForm.submitted | date: 'MM/dd/yyyy HH:mm:ss'"
+                data="mcDiligenceForm.submitted | date: 'MM/dd/yyyy HH:mm:ss': 'UTC'"
                 disabled="true"
             >
             </text-field>
@@ -134,11 +132,7 @@
 
         <!-- latitude -->
         <div class="col-xs-2">
-            <text-field
-                label-text="Latitude"
-                data="latLong[0]"
-                disabled="true"
-            >
+            <text-field label-text="Latitude" data="latLong[0]" disabled="true">
             </text-field>
         </div>
 
@@ -151,7 +145,6 @@
             >
             </text-field>
         </div>
-
     </div>
 
     <div class="row">
@@ -163,19 +156,15 @@
             >
             </text-field>
         </div>
-        <div class="col-xs-8">
-        </div>
+        <div class="col-xs-8"></div>
         <div class="col-xs-2">
-            <button class="btn btn-info btn-sm"
-                    ng-click="openUnitView()"
-            >
+            <button class="btn btn-info btn-sm" ng-click="openUnitView()">
                 View Map
             </button>
         </div>
     </div>
 
     <div class="row">
-
         <!-- lease name -->
         <div class="col-xs-12">
             <text-field
@@ -185,18 +174,17 @@
             >
             </text-field>
         </div>
-
     </div>
 
     <div class="row">
-
         <!-- environmental issues checkbox -->
         <div class="col-md-2">
             <label>Environmental Issues</label>
             <input
                 type="checkbox"
                 ng-model="mcDiligenceForm.environmentalIssue"
-                disabled="true">
+                disabled="true"
+            />
         </div>
 
         <!-- comments -->
@@ -207,23 +195,24 @@
             disabled="true"
         >
         </text-area-field>
-
     </div>
 
     <!-- table of images -->
     <div class="row" id="table">
         <table class="table table-bordered table-striped">
             <thead>
-            <tr>
-                <th>Download</th>
-            </tr>
+                <tr>
+                    <th>Download</th>
+                </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="image in mcDiligenceForm.images">
-                <td>
-                    <a href="{{image.imageURL}}" target="_blank">{{image.desc}}</a>
-                </td>
-            </tr>
+                <tr ng-repeat="image in mcDiligenceForm.images">
+                    <td>
+                        <a href="{{image.imageURL}}" target="_blank"
+                            >{{image.desc}}</a
+                        >
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

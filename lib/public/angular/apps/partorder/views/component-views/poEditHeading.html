@@ -1,86 +1,96 @@
 <div id="PoEditHeading">
-  <div class="row">
+    <div class="row">
+        <div class="col-md-2 col-xs-2">
+            <div>Tech ID</div>
+            <div class="poeh-content">{{ $ctrl.partorder.techId }}</div>
+        </div>
 
-    <div class="col-md-2 col-xs-2">
-      <div>Tech ID</div>
-      <div class="poeh-content">{{ $ctrl.partorder.techId }}</div>
+        <div class="col-md-2 col-xs-2">
+            <div>Destination ID</div>
+            <div class="poeh-content">{{ $ctrl.destinationLocation }}</div>
+        </div>
+
+        <div class="col-md-3 col-xs-3">
+            <div>Request Created</div>
+            <div class="poeh-content">
+                {{ $ctrl.partorder.timeCreated | date: 'MM/dd/yyyy HH:mm:ss':'UTC' }}
+            </div>
+        </div>
+
+        <!--Show Time Submitted if it exists-->
+        <div class="col-md-3 col-xs-3" ng-if="$ctrl.partorder.timeSubmitted">
+            <div>Request Submitted</div>
+            <div class="poeh-content">
+                {{ $ctrl.partorder.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss':'UTC' }}
+            </div>
+        </div>
+
+        <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeSubmitted">
+            Order Not Uploaded Yet
+        </div>
     </div>
 
-    <div class="col-md-2 col-xs-2">
-      <div>Destination ID</div>
-      <div class="poeh-content">{{ $ctrl.destinationLocation }}</div>
-    </div>
+    <!-- Fromatting for 2nd row for item alignment -->
+    <div class="row">
+        <!--Show manager ID if it exists-->
+        <div class="col-md-2 col-xs-2" ng-if="$ctrl.partorder.approvedBy">
+            <div>Manager ID</div>
+            <div class="poeh-content">{{ $ctrl.partorder.approvedBy}}</div>
+        </div>
 
-    <div class="col-md-3 col-xs-3">
-      <div>Request Created</div>
-      <div class="poeh-content">{{ $ctrl.partorder.timeCreated | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
-    </div>
+        <div
+            class="col-md-2 col-xs-2"
+            ng-show="!$ctrl.partorder.approvedBy"
+        ></div>
 
-    <!--Show Time Submitted if it exists-->
-    <div class="col-md-3 col-xs-3" ng-if="$ctrl.partorder.timeSubmitted">
-      <div>Request Submitted</div>
-      <div class="poeh-content">{{ $ctrl.partorder.timeSubmitted | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
-    </div>
+        <!--Show origin Id if it exists-->
+        <div
+            class="col-md-2 col-xs-2"
+            ng-show="!$ctrl.partorder.timeOrdered && !$ctrl.partorder.originNSID"
+        >
+            <select-list
+                label-text="Origin Location"
+                on-data-change="$ctrl.selectFieldChange(changedData, selected)"
+                select-field="netsuiteId"
+                display-field="name"
+                model-name="originNSID"
+                data="$ctrl.partorder.originNSID"
+                array-list="$ctrl.locationWarehouseObjArray"
+            >
+            </select-list>
+        </div>
 
-    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeSubmitted">
-      Order Not Uploaded Yet
-    </div>
-  </div>
+        <div class="col-md-2 col-xs-2" ng-show="$ctrl.originLocation">
+            <div>Origin Location</div>
+            <div class="poeh-content">{{ $ctrl.originLocation }}</div>
+        </div>
 
-  <!-- Fromatting for 2nd row for item alignment -->
-  <div class="row">
+        <!--Show Tracking number if it exists-->
+        <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeOrdered">
+            <text-field
+                data="$ctrl.partorder.poNumber"
+                label-text="PO Number"
+                model-name="poNumber"
+                on-data-change="$ctrl.textFieldChange(changedData, selected)"
+            >
+            </text-field>
+        </div>
 
-    <!--Show manager ID if it exists-->
-    <div class="col-md-2 col-xs-2" ng-if="$ctrl.partorder.approvedBy">
-      <div>Manager ID</div>
-      <div class="poeh-content">{{ $ctrl.partorder.approvedBy}}</div>
-    </div>
+        <div class="col-md-3 col-xs-3" ng-show="$ctrl.partorder.timeOrdered">
+            <div>PO Number</div>
+            <div class="poeh-content">{{ $ctrl.partorder.poNumber}}</div>
+        </div>
 
-    <div class="col-md-2 col-xs-2" ng-show="!$ctrl.partorder.approvedBy">
-    </div>
+        <!--Show Time Shipped if it exists-->
+        <div class="col-md-3 col-xs-3" ng-if="$ctrl.partorder.timeOrdered">
+            <div>Request Ordered</div>
+            <div class="poeh-content">
+                {{ $ctrl.partorder.timeOrdered | date: 'MM/dd/yyyy HH:mm:ss':'UTC' }}
+            </div>
+        </div>
 
-    <!--Show origin Id if it exists-->
-    <div class="col-md-2 col-xs-2" ng-show="!$ctrl.partorder.timeOrdered && !$ctrl.partorder.originNSID">
-        <select-list
-          label-text="Origin Location"
-          on-data-change="$ctrl.selectFieldChange(changedData, selected)"
-          select-field="netsuiteId"
-          display-field="name"
-          model-name="originNSID"
-          data="$ctrl.partorder.originNSID"
-          array-list="$ctrl.locationWarehouseObjArray">
-        </select-list>
+        <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeOrdered">
+            Parts Not Ordered Yet
+        </div>
     </div>
-
-    <div class="col-md-2 col-xs-2" ng-show="$ctrl.originLocation">
-      <div>Origin Location</div>
-      <div class="poeh-content">{{ $ctrl.originLocation }}</div>
-    </div>
-
-    <!--Show Tracking number if it exists-->
-    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeOrdered">
-      <text-field
-          data="$ctrl.partorder.poNumber"
-          label-text="PO Number"
-          model-name="poNumber"
-          on-data-change="$ctrl.textFieldChange(changedData, selected)"
-      >
-      </text-field>
-    </div>
-
-    <div class="col-md-3 col-xs-3" ng-show="$ctrl.partorder.timeOrdered">
-      <div>PO Number</div>
-      <div class="poeh-content">{{ $ctrl.partorder.poNumber}}</div>
-    </div>
-
-    <!--Show Time Shipped if it exists-->
-    <div class="col-md-3 col-xs-3" ng-if="$ctrl.partorder.timeOrdered">
-      <div>Request Ordered</div>
-      <div class="poeh-content">{{ $ctrl.partorder.timeOrdered | date: 'MM/dd/yyyy HH:mm:ss' }}</div>
-    </div>
-
-    <div class="col-md-3 col-xs-3" ng-show="!$ctrl.partorder.timeOrdered">
-      Parts Not Ordered Yet
-    </div>
-  </div>
 </div>

@@ -1,13 +1,16 @@
 <div id="WorkOrderOverviewTable">
-
     <div class="panel panel-default">
-
         <div class="panel-heading">
             <h3 class="panel-title">
                 <span>Work Orders</span>
-                <i Popover-animation="true" class="glyphicon glyphicon-question-sign pull-right"
-                   popover-placement="left" popover-template="unitNumberPopover.html"
-                   popover-title="Where are the rest of the work orders?" popover-trigger="click"/>
+                <i
+                    Popover-animation="true"
+                    class="glyphicon glyphicon-question-sign pull-right"
+                    popover-placement="left"
+                    popover-template="unitNumberPopover.html"
+                    popover-title="Where are the rest of the work orders?"
+                    popover-trigger="click"
+                />
             </h3>
         </div>
 
@@ -15,133 +18,163 @@
             <!-- Search Bar -->
             <div class="col-md-11">
                 <div class="panel panel-default">
-                    <div class="panel-heading" data-toggle="collapse" data-target="#showSearch"
-                         ng-click="$ctrl.clicked()">
+                    <div
+                        class="panel-heading"
+                        data-toggle="collapse"
+                        data-target="#showSearch"
+                        ng-click="$ctrl.clicked()"
+                    >
                         <h3 class="panel-title">Search</h3>
                         <span class="pull-right">{{$ctrl.woSearchCount}}</span>
                     </div>
                     <div class="panel-body collapse" id="showSearch">
                         <form role="form">
-
                             <!-- col 1 -->
                             <div class="col-md-6">
-
                                 <!-- row 1 -->
                                 <div class="form-group">
                                     <label>From</label>
-                                    <input class="form-control search"
-                                           ng-model="$ctrl.dates.fromInput"
-                                           ng-change="$ctrl.startOfDay($ctrl.dates.fromInput)"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           name="fromDate" type="date">
+                                    <input
+                                        class="form-control search"
+                                        ng-model="$ctrl.dates.fromInput"
+                                        ng-change="$ctrl.startOfDay($ctrl.dates.fromInput)"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        name="fromDate"
+                                        type="date"
+                                    />
                                 </div>
 
                                 <!-- row 2 -->
                                 <div class="form-group has-feedback">
                                     <label for="unit">Unit Number</label>
-                                    <input id="unit"
-                                           class="form-control search"
-                                           name="unitNumber"
-                                           ng-model="$ctrl.unitNumber"
-                                           ng-change="$ctrl.changeTextField($ctrl.unitNumber, 'unitNumber')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="text"/>
+                                    <input
+                                        id="unit"
+                                        class="form-control search"
+                                        name="unitNumber"
+                                        ng-model="$ctrl.unitNumber"
+                                        ng-change="$ctrl.changeTextField($ctrl.unitNumber, 'unitNumber')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="text"
+                                    />
                                     <span
                                         ng-if="$ctrl.unitNumber"
                                         ng-click="$ctrl.clearText('unitNumber')"
                                         class="glyphicon glyphicon-remove form-control-feedback"
-                                        uib-tooltip="clear">
+                                        uib-tooltip="clear"
+                                    >
                                     </span>
                                 </div>
 
                                 <!-- row 3 -->
                                 <div class="form-group has-feedback">
                                     <label for="location">Location</label>
-                                    <input id="location"
-                                           class="form-control search"
-                                           name="location"
-                                           ng-model="$ctrl.leaseName"
-                                           ng-change="$ctrl.changeTextField($ctrl.leaseName, 'leaseName')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="text"/>
+                                    <input
+                                        id="location"
+                                        class="form-control search"
+                                        name="location"
+                                        ng-model="$ctrl.leaseName"
+                                        ng-change="$ctrl.changeTextField($ctrl.leaseName, 'leaseName')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="text"
+                                    />
                                     <span
                                         ng-if="$ctrl.leaseName"
                                         ng-click="$ctrl.clearText('leaseName')"
                                         class="glyphicon glyphicon-remove form-control-feedback"
-                                        uib-tooltip="clear">
+                                        uib-tooltip="clear"
+                                    >
                                     </span>
                                 </div>
 
                                 <!-- row 4 -->
                                 <div class="form-group has-feedback">
                                     <label for="location">Type</label>
-                                    <input id="type"
-                                           class="form-control search"
-                                           name="type"
-                                           ng-model="$ctrl.type"
-                                           ng-change="$ctrl.changeTextField($ctrl.type, 'type')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="text"/>
+                                    <input
+                                        id="type"
+                                        class="form-control search"
+                                        name="type"
+                                        ng-model="$ctrl.type"
+                                        ng-change="$ctrl.changeTextField($ctrl.type, 'type')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="text"
+                                    />
                                     <span
                                         ng-if="$ctrl.type"
                                         ng-click="$ctrl.clearText('type')"
                                         class="glyphicon glyphicon-remove form-control-feedback"
-                                        uib-tooltip="clear">
+                                        uib-tooltip="clear"
+                                    >
                                     </span>
                                 </div>
 
                                 <!-- row 5 -->
                                 <div class="form-group">
-                                    <label for="billable">Billable To Customer(Workorder): </label>
-                                    <input id="billable"
-                                           name="billable"
-                                           ng-model="$ctrl.billable"
-                                           ng-change="$ctrl.changeCheckBox($ctrl.billable, 'billable')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="checkbox"/>
+                                    <label for="billable"
+                                        >Billable To Customer(Workorder):
+                                    </label>
+                                    <input
+                                        id="billable"
+                                        name="billable"
+                                        ng-model="$ctrl.billable"
+                                        ng-change="$ctrl.changeCheckBox($ctrl.billable, 'billable')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="checkbox"
+                                    />
                                 </div>
 
                                 <!-- row 6 -->
                                 <div class="form-group">
-                                    <label for="billParts">Billable To Customer(Parts): </label>
-                                    <input id="billParts"
-                                           name="billParts"
-                                           ng-model="$ctrl.billParts"
-                                           ng-change="$ctrl.changeCheckBox($ctrl.billParts, 'billParts')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="checkbox"/>
+                                    <label for="billParts"
+                                        >Billable To Customer(Parts):
+                                    </label>
+                                    <input
+                                        id="billParts"
+                                        name="billParts"
+                                        ng-model="$ctrl.billParts"
+                                        ng-change="$ctrl.changeCheckBox($ctrl.billParts, 'billParts')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="checkbox"
+                                    />
                                 </div>
 
                                 <!-- row 7 -->
                                 <div class="form-group">
-                                    <label for="billed">Billed To Customer(Workorder): </label>
-                                    <input id="billed"
-                                           name="billed"
-                                           ng-model="$ctrl.billed"
-                                           ng-change="$ctrl.changeCheckBox($ctrl.billed, 'billed')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="checkbox"/>
+                                    <label for="billed"
+                                        >Billed To Customer(Workorder):
+                                    </label>
+                                    <input
+                                        id="billed"
+                                        name="billed"
+                                        ng-model="$ctrl.billed"
+                                        ng-change="$ctrl.changeCheckBox($ctrl.billed, 'billed')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="checkbox"
+                                    />
                                 </div>
 
                                 <!-- row 8 -->
                                 <div class="form-group" style="display: block">
                                     <div style="display: inline-block">
                                         <label for="billed">NA</label>
-                                        <input id="pmNa"
-                                               name="pmNa"
-                                               ng-model="$ctrl.pmNa"
-                                               ng-change="$ctrl.changeCheckBox($ctrl.pmNa, 'pmNa')"
-                                               ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                               type="checkbox"/>
+                                        <input
+                                            id="pmNa"
+                                            name="pmNa"
+                                            ng-model="$ctrl.pmNa"
+                                            ng-change="$ctrl.changeCheckBox($ctrl.pmNa, 'pmNa')"
+                                            ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                            type="checkbox"
+                                        />
                                     </div>
                                     <div style="display: inline-block">
                                         <label for="billed">PM</label>
-                                        <input id="pm"
-                                               name="pm"
-                                               ng-model="$ctrl.pm"
-                                               ng-change="$ctrl.changeCheckBox($ctrl.pm, 'pm')"
-                                               ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                               type="checkbox"/>
+                                        <input
+                                            id="pm"
+                                            name="pm"
+                                            ng-model="$ctrl.pm"
+                                            ng-change="$ctrl.changeCheckBox($ctrl.pm, 'pm')"
+                                            ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                            type="checkbox"
+                                        />
                                     </div>
                                 </div>
 
@@ -149,112 +182,139 @@
                                 <button
                                     class="btn btn-primary form-inline"
                                     type="button"
-                                    data-toggle="collapse" data-target="#showSearch"
-                                    ng-click="$ctrl.submit()">
+                                    data-toggle="collapse"
+                                    data-target="#showSearch"
+                                    ng-click="$ctrl.submit()"
+                                >
                                     Search
                                 </button>
-
                             </div>
 
                             <!-- col 2 -->
                             <div class="col-md-6">
-
                                 <!-- row 1 -->
                                 <div class="form-group">
                                     <label>To</label>
-                                    <input class="form-control search"
-                                           ng-model="$ctrl.dates.toInput"
-                                           ng-change="$ctrl.endOfDay($ctrl.dates.toInput)"
-                                           name="toDate"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="date">
+                                    <input
+                                        class="form-control search"
+                                        ng-model="$ctrl.dates.toInput"
+                                        ng-change="$ctrl.endOfDay($ctrl.dates.toInput)"
+                                        name="toDate"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="date"
+                                    />
                                 </div>
 
                                 <!-- row 2 -->
                                 <div class="form-group has-feedback">
                                     <label for="tech">Technician</label>
-                                    <input id="tech"
-                                           class="form-control search"
-                                           name="techName"
-                                           ng-model="$ctrl.techName"
-                                           ng-change="$ctrl.changeTextField($ctrl.techName, 'techName')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="text"/>
+                                    <input
+                                        id="tech"
+                                        class="form-control search"
+                                        name="techName"
+                                        ng-model="$ctrl.techName"
+                                        ng-change="$ctrl.changeTextField($ctrl.techName, 'techName')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="text"
+                                    />
                                     <span
                                         ng-if="$ctrl.techName"
                                         ng-click="$ctrl.clearText('techName')"
                                         class="glyphicon glyphicon-remove form-control-feedback"
-                                        uib-tooltip="clear">
-                  </span>
+                                        uib-tooltip="clear"
+                                    >
+                                    </span>
                                 </div>
 
                                 <!-- row 3 -->
                                 <div class="form-group has-feedback">
                                     <label for="customer">Customer</label>
-                                    <input id="customer"
-                                           class="form-control search"
-                                           name="customer"
-                                           ng-model="$ctrl.customerName"
-                                           ng-change="$ctrl.changeTextField($ctrl.customerName, 'customerName')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="text"/>
+                                    <input
+                                        id="customer"
+                                        class="form-control search"
+                                        name="customer"
+                                        ng-model="$ctrl.customerName"
+                                        ng-change="$ctrl.changeTextField($ctrl.customerName, 'customerName')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="text"
+                                    />
                                     <span
                                         ng-if="$ctrl.customerName"
                                         ng-click="$ctrl.clearText('customerName')"
                                         class="glyphicon glyphicon-remove form-control-feedback"
-                                        uib-tooltip="clear">
-                  </span>
+                                        uib-tooltip="clear"
+                                    >
+                                    </span>
                                 </div>
 
                                 <!-- row 4-->
-                                <div ng-show="($ctrl.role === 'admin')" class="form-group has-feedback">
-                                    <label for="supervisor">Supervisor username</label>
-                                    <input id="supervisor"
-                                           class="form-control search"
-                                           name="searchSupervisor"
-                                           ng-model="$ctrl.searchSupervisor"
-                                           ng-change="$ctrl.changeTextField($ctrl.searchSupervisor, 'supervisor')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="text"/>
+                                <div
+                                    ng-show="($ctrl.role === 'admin')"
+                                    class="form-group has-feedback"
+                                >
+                                    <label for="supervisor"
+                                        >Supervisor username</label
+                                    >
+                                    <input
+                                        id="supervisor"
+                                        class="form-control search"
+                                        name="searchSupervisor"
+                                        ng-model="$ctrl.searchSupervisor"
+                                        ng-change="$ctrl.changeTextField($ctrl.searchSupervisor, 'supervisor')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="text"
+                                    />
                                     <span
                                         ng-if="$ctrl.searchSupervisor"
                                         ng-click="$ctrl.clearText('searchSupervisor')"
                                         class="glyphicon glyphicon-remove form-control-feedback"
-                                        uib-tooltip="clear">
-                  </span>
+                                        uib-tooltip="clear"
+                                    >
+                                    </span>
                                 </div>
-
 
                                 <!-- row 5 -->
                                 <div class="form-group">
-                                    <label for="unapproved">Unapproved by Manager</label>
-                                    <input id="unapproved"
-                                           name="unapproved"
-                                           ng-model="$ctrl.unapproved"
-                                           ng-change="$ctrl.changeCheckBox($ctrl.unapproved, 'unapproved')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="checkbox"/>
+                                    <label for="unapproved"
+                                        >Unapproved by Manager</label
+                                    >
+                                    <input
+                                        id="unapproved"
+                                        name="unapproved"
+                                        ng-model="$ctrl.unapproved"
+                                        ng-change="$ctrl.changeCheckBox($ctrl.unapproved, 'unapproved')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="checkbox"
+                                    />
                                 </div>
 
                                 <!-- row 6 -->
                                 <div class="form-group">
-                                    <label for="approved">Approved by Manager</label>
-                                    <input id="approved"
-                                           name="approved"
-                                           ng-model="$ctrl.approved"
-                                           ng-change="$ctrl.changeCheckBox($ctrl.approved, 'approved')"
-                                           ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
-                                           type="checkbox"/>
+                                    <label for="approved"
+                                        >Approved by Manager</label
+                                    >
+                                    <input
+                                        id="approved"
+                                        name="approved"
+                                        ng-model="$ctrl.approved"
+                                        ng-change="$ctrl.changeCheckBox($ctrl.approved, 'approved')"
+                                        ng-keyup="$event.keyCode == 13 && $ctrl.submit()"
+                                        type="checkbox"
+                                    />
                                 </div>
 
                                 <!-- row 7 -->
                                 <div class="form-group">
-                                    <label for="synced">Submitted to Netsuite</label>
-                                    <input id="synced"
-                                           name="synced"
-                                           ng-model="$ctrl.synced"
-                                           ng-change="$ctrl.changeCheckBox($ctrl.synced, 'synced')"
-                                           type="checkbox"/>
+                                    <label for="synced"
+                                        >Submitted to Netsuite</label
+                                    >
+                                    <input
+                                        id="synced"
+                                        name="synced"
+                                        ng-model="$ctrl.synced"
+                                        ng-change="$ctrl.changeCheckBox($ctrl.synced, 'synced')"
+                                        type="checkbox"
+                                    />
                                 </div>
 
                                 <!-- row 8 -->
@@ -263,24 +323,30 @@
                                         class="btn btn-primary form-inline"
                                         ng-class="{reportDisabled: disabled}"
                                         type="button"
-                                        data-toggle="collapse" data-target="#showSearch"
-                                        ng-click="$ctrl.report('payrollDump')">
+                                        data-toggle="collapse"
+                                        data-target="#showSearch"
+                                        ng-click="$ctrl.report('payrollDump')"
+                                    >
                                         Payroll Dump
                                     </button>
                                     <button
                                         class="btn btn-primary form-inline"
                                         ng-class="{reportDisabled: disabled}"
                                         type="button"
-                                        data-toggle="collapse" data-target="#showSearch"
-                                        ng-click="$ctrl.report('woDump')">
+                                        data-toggle="collapse"
+                                        data-target="#showSearch"
+                                        ng-click="$ctrl.report('woDump')"
+                                    >
                                         Excel WO Dump
                                     </button>
                                     <button
                                         class="btn btn-primary form-inline"
                                         ng-class="{reportDisabled: disabled}"
                                         type="button"
-                                        data-toggle="collapse" data-target="#showSearch"
-                                        ng-click="$ctrl.report('woPartsDump')">
+                                        data-toggle="collapse"
+                                        data-target="#showSearch"
+                                        ng-click="$ctrl.report('woPartsDump')"
+                                    >
                                         Excel WO Parts Dump
                                     </button>
                                 </div>
@@ -291,101 +357,144 @@
                                         class="btn btn-danger form-inline"
                                         ng-class="{reportDisabled: disabled}"
                                         type="button"
-                                        data-toggle="collapse" data-target="#showSearch"
-                                        ng-click="$ctrl.SyncAllSearched()">
+                                        data-toggle="collapse"
+                                        data-target="#showSearch"
+                                        ng-click="$ctrl.SyncAllSearched()"
+                                    >
                                         Sync Searched WOs
                                     </button>
                                 </div>
-
                             </div>
-
                         </form>
                     </div>
                 </div>
-            </div> <!-- End Search Bar -->
+            </div>
+            <!-- End Search Bar -->
 
             <!-- Work order table -->
             <table class="table table-hover">
-
                 <thead>
-                <tr class="wo-dashboard">
-                    <th ng-click="$ctrl.resort('unitSort');">
-                        Unit #
-                        <span ng-show="$ctrl.orderByField == 'unitSort' && !$ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-up"></span>
-                        <span ng-show="$ctrl.orderByField == 'unitSort' && $ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-down"></span>
-                    </th>
-                    <th ng-click="$ctrl.resort('techName');">
-                        Tech
-                        <span ng-show="$ctrl.orderByField == 'techName' && !$ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-up"></span>
-                        <span ng-show="$ctrl.orderByField == 'techName' && $ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-down"></span>
-                    </th>
-                    <th ng-click="$ctrl.resort('orderType');">
-                        Type
-                        <span ng-show="$ctrl.orderByField == 'orderType' && !$ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-up"></span>
-                        <span ng-show="$ctrl.orderByField == 'orderType' && $ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-down"></span>
-                    </th>
-                    <th ng-click="$ctrl.resort('stateName');">
-                        State
-                        <span ng-show="$ctrl.orderByField == 'stateName' && !$ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-up"></span>
-                        <span ng-show="$ctrl.orderByField == 'stateName' && $ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-down"></span>
-                    </th>
-                    <th ng-click="$ctrl.resort('locationName');">
-                        Location
-                        <span ng-show="$ctrl.orderByField == 'locationName' && !$ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-up"></span>
-                        <span ng-show="$ctrl.orderByField == 'locationName' && $ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-down"></span>
-                    </th>
-                    <th ng-click="$ctrl.resort('header.customerName');">
-                        Customer
-                        <span ng-show="$ctrl.orderByField == 'customerName' && !$ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-up"></span>
-                        <span ng-show="$ctrl.orderByField == 'customerName' && $ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-down"></span>
-                    </th>
-                    <th ng-click="$ctrl.resort('epoch');">
-                        Time Started
-                        <span ng-show="$ctrl.orderByField == 'epoch' && !$ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-up"></span>
-                        <span ng-show="$ctrl.orderByField == 'epoch' && $ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-down"></span>
-                    </th>
-                    <th ng-click="$ctrl.resort('totalMinutes');">
-                        Total WO Time
-                        <span ng-show="$ctrl.orderByField == 'totalWoTime' && !$ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-up"></span>
-                        <span ng-show="$ctrl.orderByField == 'totalWoTime' && $ctrl.reverseSort"
-                              class="glyphicon glyphicon-chevron-down"></span>
-                    </th>
-                </tr>
+                    <tr class="wo-dashboard">
+                        <th ng-click="$ctrl.resort('unitSort');">
+                            Unit #
+                            <span
+                                ng-show="$ctrl.orderByField == 'unitSort' && !$ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-up"
+                            ></span>
+                            <span
+                                ng-show="$ctrl.orderByField == 'unitSort' && $ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-down"
+                            ></span>
+                        </th>
+                        <th ng-click="$ctrl.resort('techName');">
+                            Tech
+                            <span
+                                ng-show="$ctrl.orderByField == 'techName' && !$ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-up"
+                            ></span>
+                            <span
+                                ng-show="$ctrl.orderByField == 'techName' && $ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-down"
+                            ></span>
+                        </th>
+                        <th ng-click="$ctrl.resort('orderType');">
+                            Type
+                            <span
+                                ng-show="$ctrl.orderByField == 'orderType' && !$ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-up"
+                            ></span>
+                            <span
+                                ng-show="$ctrl.orderByField == 'orderType' && $ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-down"
+                            ></span>
+                        </th>
+                        <th ng-click="$ctrl.resort('stateName');">
+                            State
+                            <span
+                                ng-show="$ctrl.orderByField == 'stateName' && !$ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-up"
+                            ></span>
+                            <span
+                                ng-show="$ctrl.orderByField == 'stateName' && $ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-down"
+                            ></span>
+                        </th>
+                        <th ng-click="$ctrl.resort('locationName');">
+                            Location
+                            <span
+                                ng-show="$ctrl.orderByField == 'locationName' && !$ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-up"
+                            ></span>
+                            <span
+                                ng-show="$ctrl.orderByField == 'locationName' && $ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-down"
+                            ></span>
+                        </th>
+                        <th ng-click="$ctrl.resort('header.customerName');">
+                            Customer
+                            <span
+                                ng-show="$ctrl.orderByField == 'customerName' && !$ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-up"
+                            ></span>
+                            <span
+                                ng-show="$ctrl.orderByField == 'customerName' && $ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-down"
+                            ></span>
+                        </th>
+                        <th ng-click="$ctrl.resort('epoch');">
+                            Time Started
+                            <span
+                                ng-show="$ctrl.orderByField == 'epoch' && !$ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-up"
+                            ></span>
+                            <span
+                                ng-show="$ctrl.orderByField == 'epoch' && $ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-down"
+                            ></span>
+                        </th>
+                        <th ng-click="$ctrl.resort('totalMinutes');">
+                            Total WO Time
+                            <span
+                                ng-show="$ctrl.orderByField == 'totalWoTime' && !$ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-up"
+                            ></span>
+                            <span
+                                ng-show="$ctrl.orderByField == 'totalWoTime' && $ctrl.reverseSort"
+                                class="glyphicon glyphicon-chevron-down"
+                            ></span>
+                        </th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                <tr ng-repeat="workorder in $ctrl.workorders | orderBy:$ctrl.orderByField:$ctrl.reverseSort"
-                    ng-click="$ctrl.clickWorkOrder(workorder);"
-                    style="background-color: {{$ctrl.setBillableBackgroundColor(workorder)}}">
-                    <td>{{ workorder.unitNumber === '' ? '-' : workorder.unitNumber }}</td>
-                    <td>{{ workorder.techName }}</td>
-                    <td>{{ workorder.orderType }}{{workorder.pm ? ' (PM)': ''}}</td>
-                    <td>{{ workorder.stateName }}</td>
-                    <td>{{ workorder.locationName}}</td>
-                    <td>{{ workorder.customerName }}</td>
-                    <td>{{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm'}}</td>
-                    <td>{{ $ctrl.pad(workorder.totalWoTime.hours) }}:{{ $ctrl.pad(workorder.totalWoTime.minutes) }}</td>
-                </tr>
+                    <tr
+                        ng-repeat="workorder in $ctrl.workorders | orderBy:$ctrl.orderByField:$ctrl.reverseSort"
+                        ng-click="$ctrl.clickWorkOrder(workorder);"
+                        style="background-color: {{$ctrl.setBillableBackgroundColor(workorder)}}"
+                    >
+                        <td>
+                            {{ workorder.unitNumber === '' ? '-' : workorder.unitNumber }}
+                        </td>
+                        <td>{{ workorder.techName }}</td>
+                        <td>
+                            {{ workorder.orderType }}{{workorder.pm ? ' (PM)':''}}
+                        </td>
+                        <td>{{ workorder.stateName }}</td>
+                        <td>{{ workorder.locationName}}</td>
+                        <td>{{ workorder.customerName }}</td>
+                        <td>
+                            {{ workorder.timeStarted | date:'MM/dd/yyyy HH:mm':'UTC'}}
+                        </td>
+                        <td>
+                            {{ $ctrl.pad(workorder.totalWoTime.hours) }}:{{$ctrl.pad(workorder.totalWoTime.minutes) }}
+                        </td>
+                    </tr>
                 </tbody>
-
-            </table> <!-- end of workorder table -->
-        </div> <!-- panel body -->
-
-    </div> <!-- default panel -->
-
-</div> <!-- WorkOrderOverviewTable -->
+            </table>
+            <!-- end of workorder table -->
+        </div>
+        <!-- panel body -->
+    </div>
+    <!-- default panel -->
+</div>
+<!-- WorkOrderOverviewTable -->
