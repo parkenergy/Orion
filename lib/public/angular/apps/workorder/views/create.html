@@ -57,7 +57,10 @@
                     >
                     </wo-header-info>
                 </div>
-                <div class="row" ng-show="workorder.type === 'Release' || workorder.type === 'Transfer' || workorder.type === 'Swap'">
+                <div
+                    class="row"
+                    ng-show="workorder.type === 'Release' || workorder.type === 'Transfer' || workorder.type === 'Swap'"
+                >
                     <create-change-info
                         workorder="workorder"
                         call-back="runCb(cb)"
@@ -84,10 +87,7 @@
         </div>
 
         <div class="row">
-            <create-comment
-                workorder="workorder"
-                call-back="runCb(cb)"
-            >
+            <create-comment workorder="workorder" call-back="runCb(cb)">
             </create-comment>
         </div>
 
@@ -98,17 +98,16 @@
                 parts="parts"
             >
             </create-part-super-table>
-            <create-part-results
-                workorder="workorder"
-                call-back="runCb(cb)"
-            >
+            <create-part-results workorder="workorder" call-back="runCb(cb)">
             </create-part-results>
         </div>
 
         <div>
-            <button class="btn btn-lg btn-primary pull-right"
-                    style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
-                    ng-click="debounceSubmit()">
+            <button
+                class="btn btn-lg btn-primary pull-right"
+                style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
+                ng-click="debounceSubmit()"
+            >
                 Submit
             </button>
             <div class="clearfix" style="height: 65px;"></div>

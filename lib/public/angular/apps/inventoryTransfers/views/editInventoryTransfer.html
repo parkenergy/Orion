@@ -21,6 +21,32 @@
                     <strong>Tech:</strong> {{currentInventoryTransfer.techId}}
                 </div>
                 <div><strong>Parts:</strong></div>
+                <div>
+                    <strong>Origin:</strong>
+                    <select
+                        ng-model="currentInventoryTransfer.originLocation"
+                        ng-change="originChange()"
+                    >
+                        <option
+                            ng-repeat="location in locations"
+                            value="{{location._id}}"
+                            >{{location.name}}</option
+                        >
+                    </select>
+                </div>
+                <div>
+                    <strong>Destination:</strong>
+                    <select
+                        ng-model="currentInventoryTransfer.destinationLocation"
+                        ng-change="destinationChange()"
+                    >
+                        <option
+                            ng-repeat="location in locations"
+                            value="{{location._id}}"
+                            >{{location.name}}</option
+                        >
+                    </select>
+                </div>
                 <table
                     class="table table-condensed table-bordered table-striped table-hover"
                 >

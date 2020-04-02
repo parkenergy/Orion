@@ -3,7 +3,8 @@
         <div class="col-xs-4 text-center">
             <label>Run Time</label>
             <p class="text-center">
-                {{ $ctrl.TDS.pad($ctrl.elapsedTime.hours) }}:{{$ctrl.TDS.pad($ctrl.elapsedTime.minutes) }}:{{$ctrl.elapsedTime.seconds}}
+                {{
+                $ctrl.TDS.pad($ctrl.elapsedTime.hours)}}:{{$ctrl.TDS.pad($ctrl.elapsedTime.minutes)}}:{{$ctrl.elapsedTime.seconds}}
             </p>
         </div>
         <div class="col-xs-4 text-center">
@@ -15,7 +16,8 @@
         <div class="col-xs-4 text-center">
             <label>Synced At</label>
             <p class="text-center">
-                {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss': 'UTC'}}
+                {{ $parent.SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss':
+                'UTC'}}
             </p>
         </div>
     </div>
