@@ -1,0 +1,42 @@
+<div id="PartSelectionModal">
+    <div class="modal-header">
+        <h3 class="modal-title">Edit Part</h3>
+    </div>
+    <form name="search" ng-submit="update()" novalidate>
+        <div class="modal-body">
+            <div class="row row-no-gutters" style="padding-bottom: 20px;">
+                <div class="form-group">
+                    <label for="partQuantity">Quantity</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="partQuantity"
+                        ng-model="part.quantity"
+                    />
+                </div>
+                <table
+                    class="table table-condensed table-bordered table-striped table-hover"
+                >
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Netsuite ID</th>
+                            <th>Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-click="selectPart(part)">
+                            <td>{{part.description}}</td>
+                            <td>{{part.netsuiteId}}</td>
+                            <td>{{part.componentName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warnning" ng-click="cancel()">Close</button>
+            <button class="btn btn-success" ng-click="update()">Update</button>
+        </div>
+    </form>
+</div>

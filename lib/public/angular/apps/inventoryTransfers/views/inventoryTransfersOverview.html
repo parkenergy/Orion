@@ -21,14 +21,6 @@
                     <label
                         class="btn"
                         ng-model="currentTab"
-                        uib-btn-radio="'ManualParts'"
-                        ng-change="updateTable()"
-                        >Manual Parts
-                        ({{manualPartsInventoryTransfers.length}})</label
-                    >
-                    <label
-                        class="btn"
-                        ng-model="currentTab"
                         uib-btn-radio="'Incomplete'"
                         ng-change="updateTable()"
                         >Incomplete
@@ -266,74 +258,6 @@
                     <tbody>
                         <tr
                             ng-repeat="inventoryTransfer in incompletedInventoryTransfers | orderBy:orderByField:reverseSort"
-                        >
-                            <td>{{ inventoryTransfer.origin }}</td>
-                            <td>{{ inventoryTransfer.destination }}</td>
-                            <td>{{ inventoryTransfer.parts }}</td>
-                            <td>
-                                {{ inventoryTransfer.inventorytransferDate |
-                                date: 'MM/dd/yyyy': 'UTC'}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table
-                    class="table table-bordered table-striped table-hover"
-                    ng-show="currentTab == 'ManualParts'"
-                >
-                    <thead>
-                        <tr>
-                            <th ng-click="changeSort('origin')">
-                                Origin
-                                <span
-                                    ng-show="orderByField == 'origin' && !reverseSort"
-                                    class="glyphicon glyphicon-chevron-down"
-                                ></span>
-                                <span
-                                    ng-show="orderByField == 'origin' && reverseSort"
-                                    class="glyphicon glyphicon-chevron-up"
-                                ></span>
-                            </th>
-
-                            <th ng-click="changeSort('destination')">
-                                Destination
-                                <span
-                                    ng-show="orderByField == 'destination' && !reverseSort"
-                                    class="glyphicon glyphicon-chevron-down"
-                                ></span>
-                                <span
-                                    ng-show="orderByField == 'destination' && reverseSort"
-                                    class="glyphicon glyphicon-chevron-up"
-                                ></span>
-                            </th>
-                            <th ng-click="changeSort('parts')">
-                                Parts
-                                <span
-                                    ng-show="orderByField == 'parts' && !reverseSort"
-                                    class="glyphicon glyphicon-chevron-down"
-                                ></span>
-                                <span
-                                    ng-show="orderByField == 'parts' && reverseSort"
-                                    class="glyphicon glyphicon-chevron-up"
-                                ></span>
-                            </th>
-                            <th ng-click="changeSort('inventorytransferDate')">
-                                Submitted Date
-                                <span
-                                    ng-show="orderByField == 'inventorytransferDate' && !reverseSort"
-                                    class="glyphicon glyphicon-chevron-down"
-                                ></span>
-                                <span
-                                    ng-show="orderByField == 'inventorytransferDate' && reverseSort"
-                                    class="glyphicon glyphicon-chevron-up"
-                                ></span>
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr
-                            ng-repeat="inventoryTransfer in manualPartsInventoryTransfers | orderBy:orderByField:reverseSort"
                             ng-click="openTransfers(inventoryTransfer._id)"
                         >
                             <td>{{ inventoryTransfer.origin }}</td>
