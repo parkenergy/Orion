@@ -107,6 +107,8 @@
                     <tbody>
                         <tr
                             ng-repeat="inventoryTransfer in waitingInventoryTransfers | orderBy:orderByField:reverseSort"
+                            ng-click="openTransfers(inventoryTransfer._id)"
+
                         >
                             <td>{{ inventoryTransfer.origin }}</td>
                             <td>{{ inventoryTransfer.destination }}</td>
