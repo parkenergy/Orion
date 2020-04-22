@@ -5,7 +5,8 @@
     <div class="panel-body">
         <div style="font-size: 15px;">
             <p style="margin-bottom: 1px;">
-                Tech Name: {{ $ctrl.workorder.technician.firstName }} {{ $ctrl.workorder.technician.lastName }}
+                Tech Name: {{ $ctrl.workorder.technician.firstName }} {{
+                $ctrl.workorder.technician.lastName }}
             </p>
             <p style="margin-bottom: 1px;">
                 Tech ID: {{ $ctrl.workorder.techId }}
@@ -17,10 +18,12 @@
                 >
             </p>
             <p style="margin-bottom: 1px;">
-                Started: {{ $ctrl.workorder.timeStarted | date:'MM/dd/yyyy HH:mm': 'UTC' }}
+                Started: {{ $ctrl.workorder.timeStarted | date:'MM/dd/yyyy
+                HH:mm' }}
             </p>
             <p style="margin-bottom: 1px;">
-                Ended: {{ $ctrl.workorder.timeSubmitted | date:'MM/dd/yyyy HH:mm': 'UTC'}}
+                Ended: {{ $ctrl.workorder.timeSubmitted | date:'MM/dd/yyyy
+                HH:mm'}}
             </p>
         </div>
     </div>
