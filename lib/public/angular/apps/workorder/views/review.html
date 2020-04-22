@@ -26,10 +26,10 @@
 
     <div id="submitReview">
         <div ng-show="workorder.netsuiteId && (workorder.type !== 'Indirect')">
-            Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss': 'UTC'}}
+            Workorder Submitted to Netsuite: {{ SyncedToNetsuite | date: 'MM/dd/yyyy HH:mm:ss'}}
         </div>
         <div ng-show="workorder.syncedBy && (workorder.type === 'Indirect')">
-            Workorder Submitted {{ workorder.timeSynced | date: 'MM/dd/yy HH:mm:ss': 'UTC' }}
+            Workorder Submitted {{ workorder.timeSynced | date: 'MM/dd/yy HH:mm:ss' }}
         </div>
         <button
             ng-disabled="workorder.netsuiteId || (workorder.netsuiteSyned && workorder.type === 'Indirect')"
