@@ -153,8 +153,8 @@
                                 </div>
 
                                 <!-- row 8 -->
-                                <div class="form-group" style="display: block">
-                                    <div style="display: inline-block">
+                                <div class="form-group" style="display: block;">
+                                    <div style="display: inline-block;">
                                         <label for="billed">NA</label>
                                         <input
                                             id="pmNa"
@@ -165,7 +165,7 @@
                                             type="checkbox"
                                         />
                                     </div>
-                                    <div style="display: inline-block">
+                                    <div style="display: inline-block;">
                                         <label for="billed">PM</label>
                                         <input
                                             id="pm"
@@ -477,7 +477,7 @@
                         </td>
                         <td>{{ workorder.techName }}</td>
                         <td>
-                            {{ workorder.orderType }}{{workorder.pm ? ' (PM)':''}}
+                            {{ workorder.orderType }}{{(workorder.pm || workorder.pm2 || workorder.pm3 || workorder.pm4 || workorder.pm5) ? ' (PM)':''}}
                         </td>
                         <td>{{ workorder.stateName }}</td>
                         <td>{{ workorder.locationName}}</td>
