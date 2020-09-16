@@ -1,50 +1,60 @@
 <div id="woMisc-Edit">
     <div class="panel panel-default">
         <div class="panel-body">
-
             <!-- row of 3 buttons -->
             <div class="row misc-row">
                 <button
-                    class="btn  btn-primary col-md-4"
-                    ng-click="$ctrl.openLeaseNotes()">
+                    class="btn btn-primary col-md-4"
+                    ng-click="$ctrl.openLeaseNotes()"
+                >
                     Lease Notes
                 </button>
                 <button
                     class="btn btn-primary col-md-4"
-                    ng-click="$ctrl.openJSA()">
+                    ng-click="$ctrl.openJSA()"
+                >
                     JSA
                 </button>
                 <button
-                    class="btn  btn-primary col-md-4"
-                    ng-click="$ctrl.openUnitNotes()">
+                    class="btn btn-primary col-md-4"
+                    ng-click="$ctrl.openUnitNotes()"
+                >
                     Unit Notes
                 </button>
-            </div> <!-- end 3 button row-->
+            </div>
+            <!-- end 3 button row-->
 
             <!-- asset type row -->
             <div class="row misc-row">
                 <div class="col-md-8">
                     Asset Type: {{$ctrl.displayUnit.productSeries}}
                 </div>
-            </div> <!-- end asset type row-->
+            </div>
+            <!-- end asset type row-->
 
             <!-- checkbox and view button row -->
             <div class="row misc-row">
-                <div class="col-md-8" style="font-weight: normal; margin-bottom: 10px;">
+                <div
+                    class="col-md-8"
+                    style="font-weight: normal; margin-bottom: 10px"
+                >
                     <input
                         ng-change="$ctrl.checkBoxChange($ctrl.workorder.misc.isUnitRunningOnDeparture, 'isUnitRunningOnDeparture')"
-                           ng-model="$ctrl.workorder.misc.isUnitRunningOnDeparture"
-                           ng-disabled="$ctrl.disabled"
-                           type="checkbox">Unit Running on Departure
+                        ng-model="$ctrl.workorder.misc.isUnitRunningOnDeparture"
+                        ng-disabled="$ctrl.disabled"
+                        type="checkbox"
+                    />Unit Running on Departure
                 </div>
-                <button class="btn btn-info btn-sm col-md-4 misc-map"
-                        ng-click="$ctrl.openUnitView()">
+                <button
+                    class="btn btn-info btn-sm col-md-4 misc-map"
+                    ng-click="$ctrl.openUnitView()"
+                >
                     View Map
                 </button>
-            </div> <!-- end of checkbox view button row -->
+            </div>
+            <!-- end of checkbox view button row -->
 
-            <!-- lat long row -->
-            <div class="row misc-row">
+            <!-- <div class="row misc-row">
                 <div class="form-group col-xs-6">
                     <label>Latitude</label>
                     <input
@@ -67,9 +77,7 @@
                         placeholder="Ex: -97.5399"
                     >
                 </div>
-            </div> <!-- end of lat long row -->
-
+            </div> -->
         </div>
     </div>
-
 </div>
