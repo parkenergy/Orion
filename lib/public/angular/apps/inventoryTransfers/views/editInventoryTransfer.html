@@ -30,8 +30,9 @@
                         <option
                             ng-repeat="location in locations"
                             value="{{location._id}}"
-                            >{{location.name}}</option
                         >
+                            {{location.name}}
+                        </option>
                     </select>
                 </div>
                 <div>
@@ -43,8 +44,9 @@
                         <option
                             ng-repeat="location in locations"
                             value="{{location._id}}"
-                            >{{location.name}}</option
                         >
+                            {{location.name}}
+                        </option>
                     </select>
                 </div>
                 <table
@@ -77,6 +79,12 @@
                     ng-click="updateTransfer()"
                 >
                     Update
+                </button>
+                <button
+                    class="btn btn-success pull-right"
+                    ng-click="pushTransfer()"
+                >
+                    Push
                 </button>
             </div>
         </div>
