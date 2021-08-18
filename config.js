@@ -10,7 +10,8 @@ const config = {
             name: "Orion",
             streams: [
                 {
-                    stream: process.stdout,
+                   // stream: process.stdout,
+                    path: 'orion.log',
                     level: "info"
                 },
                 {
