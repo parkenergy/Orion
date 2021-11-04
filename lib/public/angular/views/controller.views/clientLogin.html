@@ -61,9 +61,26 @@ https://s3-us-west-2.amazonaws.com/orion-diligence-ios-app-deployment/manifest.p
             Tap Here to Install<br/>Directly On Your Device</a></div>
 
     </div>-->
-
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<button type="button"  onclick="testLog()">
+    </button>
 </div>
 <!--<script type="application/javascript">
+function testLog() {
+     document.cookie = "OrionNotLoggedInRoute=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "role=admin";
+document.cookie = "tech=RRA002";
+location.replace("http://orion.parkenergyservices.com/#/myaccount")
+}
+
+
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     /*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
