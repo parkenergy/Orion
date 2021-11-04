@@ -3,7 +3,7 @@
  * (c) 2016 Sahat Yalkabov 
  * License: MIT 
  */
-
+//  redirectUri: window.location.origin,
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
@@ -40,7 +40,7 @@
                     name: 'google',
                     url: '/auth/google',
                     authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-                    redirectUri: window.location.origin,
+                    redirectUri: "http://orion.parkenergyservices.com/",
                     requiredUrlParams: ['scope'],
                     optionalUrlParams: ['display', 'state'],
                     scope: ['profile', 'email'],
