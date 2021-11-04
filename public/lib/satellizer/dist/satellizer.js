@@ -48,7 +48,7 @@
                     scopeDelimiter: ' ',
                     display: 'popup',
                     oauthType: '2.0',
-                    popupOptions: { width: 652, height: 633 },
+                    popupOptions: { width: 652, height: 833 },
                     state: function () { return encodeURIComponent(Math.random().toString(36).substr(2)); }
                 },
                 github: {
