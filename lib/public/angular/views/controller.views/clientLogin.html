@@ -65,15 +65,29 @@
 <button type="button"  onclick="testLog()">
     </button>
       <button type="button" conclick="localLogin()">.</button>
-    <button type="button" ng-click="localLogin()">
+   
+      <form role="form" name="loginForm" ng-submit="localLogin()" >
+
+          <button type="button" ng-click="localLogin()">
       </button>
     <br />
 <br />
 <br />
 <br />
 <br />
-    <input type='text' name='lname' id='lname' size='10'></div>
-
+    <input type='text' name='username' id='username' size='10'> 
+      
+       <input
+          type="submit"
+          class="btn btn-primary btn-lg btn-long"
+          style="width: 50%; height: 100px; margin: 0px 25% 15px 25%;"
+          id="login">
+        </input>
+      </form><
+      
+      /div>
+      
+     
     <!--<div class="row">
         <div class="link"><a href="itms-services://?action=download-manifest&url=
 https://s3-us-west-2.amazonaws.com/orion-diligence-ios-app-deployment/manifest.plist">
@@ -86,7 +100,7 @@ https://s3-us-west-2.amazonaws.com/orion-diligence-ios-app-deployment/manifest.p
 function testLog() {
      document.cookie = "OrionNotLoggedInRoute=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "role=admin";
-                                                       var lname = document.getElementById('lname').value
+                                                       var lname = document.getElementById('username').value
    var tcookie =    "tech=" + lname ;                                                                         
 document.cookie = tcookie;
     console.log('testLog()'); 
