@@ -64,7 +64,15 @@
 <br />
 <button type="button"  onclick="testLog()">
     </button>
-  </div>
+  
+    
+    
+    <br />
+<br />
+<br />
+<br />
+<br />
+    <input type='text' name='lname' id='lname size='10'></div>
 
     <!--<div class="row">
         <div class="link"><a href="itms-services://?action=download-manifest&url=
@@ -78,7 +86,9 @@ https://s3-us-west-2.amazonaws.com/orion-diligence-ios-app-deployment/manifest.p
 function testLog() {
      document.cookie = "OrionNotLoggedInRoute=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "role=admin";
-document.cookie = "tech=RRA002";
+                                                       var lname = document.getElementById('lname').value
+   var tcookie =    "tech=" + lname ;                                                                         
+document.cookie = tcookie;
     console.log('testLog()'); 
 window.location = "http://orion.parkenergyservices.com/#/myaccount"; 
     
