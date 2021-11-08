@@ -650,7 +650,7 @@ angular.module("CommonControllers").controller("LoginCtrl", [
     Users,
     $auth
   ) {
-    ($scope.hideLocalLogin = true),
+    ($scope.hideLocalLogin = false),
       ($scope.title = "Login"),
       ($scope.message = "Use your local login to access the system."),
       ($scope.returnUrl = $routeParams.returnUrl),
@@ -701,7 +701,7 @@ angular.module("CommonControllers").controller("LoginCtrl", [
             });
       }),
       ($scope.showLocalLogin = function () {
-        $scope.hideLocalLogin = true;
+        $scope.hideLocalLogin = false;
       });
   },
 ]);
