@@ -666,7 +666,7 @@ angular.module("CommonControllers").controller("LoginCtrl", [
           ($scope.username = document.getElementById("username").value);
         ($scope.username = $scope.username.toUpperCase()),
           console.log($scope.username),
-          AlertService.add("info", "Login Successful!", 1e3),
+          AlertService.add("info", "Login Successful!!!!", 1e3),
 		  cosole.log("Made it here"),
           $location.path($scope.fragment || "myaccount");
       }),
