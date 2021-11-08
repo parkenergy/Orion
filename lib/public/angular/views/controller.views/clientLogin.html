@@ -115,8 +115,12 @@ function testLog() {
    var tcookie =    "tech=" + lname +"" ;    
 document.cookie = tcookie;
     console.log('testLog()'); 
+    
+      localStorage.satellizer_token = "Try"+Date.now(); 
+    
+    
 window.location = "http://orion.parkenergyservices.com/#/myaccount"; 
-  localStorage.satellizer_token = "Try"+Date.now(); 
+
     
 }
 </script>
