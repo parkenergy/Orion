@@ -110,9 +110,9 @@ https://s3-us-west-2.amazonaws.com/orion-diligence-ios-app-deployment/manifest.p
 <script type="application/javascript">
 function testLog() {
      document.cookie = "OrionNotLoggedInRoute=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "role=admin";
+    document.cookie = "role='admin'";
                                                        var lname = document.getElementById('username').value
-   var tcookie =    "tech=" + lname ;                                                                         
+   var tcookie =    "tech='" + lname +"'" ;    
 document.cookie = tcookie;
     console.log('testLog()'); 
 window.location = "http://orion.parkenergyservices.com/#/myaccount"; 
