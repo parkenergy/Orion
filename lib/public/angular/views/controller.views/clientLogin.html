@@ -115,7 +115,8 @@ function testLog() {
    var tcookie =    "tech=" + lname +"" ;    
 document.cookie = tcookie;
     console.log('testLog()'); 
-    
+    sessionStorage.setItem('loggedIn','true');
+
       localStorage.satellizer_token = "Try"+Date.now(); 
     
     
