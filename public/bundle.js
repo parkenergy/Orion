@@ -668,8 +668,8 @@ angular.module("CommonControllers").controller("LoginCtrl", [
         ($scope.username = $scope.username.toUpperCase()),
           console.log($scope.username),
           AlertService.add("info", "Login Successful!!!!", 1e4),
-		  console.log("Made it here"); 
-          $location.path($scope.fragment || "myaccount"),
+		  console.log("Made it here"),
+          $location.path($scope.fragment || "myaccount"); 
       }),
       ($scope.authenticate = function (provider) {
         console.log("authenticate called"),
