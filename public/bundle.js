@@ -663,6 +663,7 @@ angular.module("CommonControllers").controller("LoginCtrl", [
         ),
       ($scope.localLogin = function () {
         console.log("localLogin"),
+            alert('test');
           ($scope.username = document.getElementById("username").value);
         ($scope.username = $scope.username.toUpperCase()),
           console.log($scope.username),
