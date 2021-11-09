@@ -99,7 +99,7 @@ angular.module("Orion.Controllers", []),
             scopeDelimiter: " ",
             display: "popup",
             type: "2.0",
-            popupOptions: { width: 452, height: 833 },
+            popupOptions: { width: 452, height: 633 },
             clientId:
               "402483966217-5crk767d69pcn25dhds4htv3o67kdpuc.apps.googleusercontent.com",
             responseType: "token",
