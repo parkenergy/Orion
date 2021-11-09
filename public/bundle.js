@@ -101,7 +101,7 @@ angular.module("Orion.Controllers", []),
             type: "2.0",
             popupOptions: { width: 452, height: 633 },
             clientId:
-              "XXXXXXXXXXXX402483966217-5crk767d69pcn25dhds4htv3o67kdpuc.apps.googleusercontent.com",
+              "24229647507-pvt4ttv086umiomjpgv7f1r2d5rc9nr7.apps.googleusercontent.com",
             responseType: "token",
           }),
           ($authProvider.httpInterceptor = function () {
