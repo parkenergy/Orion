@@ -91,7 +91,7 @@ angular.module("Orion.Controllers", []),
           $authProvider.google({
             url: "/auth/google",
             authorizationEndpoint: "https://accounts.google.com/o/oauth2/auth",
-            redirectUri: "http://orion.parkenergyservices.com",
+            redirectUri: window.location.origin,
             requiredUrlParams: ["scope"],
             optionalUrlParams: ["display"],
             scope: ["profile", "email"],
