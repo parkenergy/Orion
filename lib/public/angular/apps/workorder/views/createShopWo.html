@@ -1,0 +1,116 @@
+<alerts></alerts>
+<header></header>
+
+<div id="woCreate">
+    <!--<div class="row rowIssue">
+        <div align="center">
+            <i ng-show="loading" class="fa fa-refresh fa-spin createL"></i>
+        </div>
+    </div>-->
+    <!--<div class="row rowIssue" ng-show="!loading">-->
+    <div class="row rowIssue">
+        <div class="highlight">
+            <create-start-end-date
+                workorder="workorder"
+                set-wo-time-started="setWOTimeStarted(time)"
+                set-wo-time-submitted="setWOTimeSubmitted(time)"
+            >
+            </create-start-end-date>
+        </div>
+
+        <div class="row">
+            <create-user-info
+                users="users"
+                locations="locations"
+                workorder="workorder"
+                call-back="runCb(cb)"
+            >
+            </create-user-info>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <wo-type-selector
+                    workorder="workorder"
+                    call-back="runCb(cb)"
+                    disabled="disabled"
+                >
+                </wo-type-selector>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+                    <wo-header-info
+                        workorder="workorder"
+                        counties="counties"
+                        display-unit="displayUnit"
+                        call-back="runCb(cb)"
+                        engine-models="engineModels"
+                        frame-models="frameModels"
+                        asset-types="assetTypes"
+                        kill-codes="killCodes"
+                        states="states"
+                        header-unit="headerUnit"
+                        applicationtypes="applicationTypes"
+                        disabled="disabled"
+                        state="state"
+                    >
+                    </wo-header-info>
+                </div>
+                <div
+                    class="row"
+                    ng-show="workorder.type === 'Release' || workorder.type === 'Transfer' || workorder.type === 'Swap'"
+                >
+                    <create-change-info
+                        workorder="workorder"
+                        call-back="runCb(cb)"
+                        locations="locations"
+                        engine-models="engineModels"
+                        frame-models="frameModels"
+                        asset-types="assetTypes"
+                        states="states"
+                    >
+                    </create-change-info>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <create-unit-readings
+                workorder="workorder"
+                call-back="runCb(cb)"
+                wo-input-matrix="woInputMatrix"
+                engine-models="engineModels"
+                frame-models="frameModels"
+            >
+            </create-unit-readings>
+        </div>
+
+        <div class="row">
+            <create-comment workorder="workorder" call-back="runCb(cb)">
+            </create-comment>
+        </div>
+
+        <div class="row">
+            <create-part-super-table
+                workorder="workorder"
+                call-back="runCb(cb)"
+                parts="parts"
+            >
+            </create-part-super-table>
+            <create-part-results workorder="workorder" call-back="runCb(cb)">
+            </create-part-results>
+        </div>
+
+        <div>
+            <button
+                class="btn btn-lg btn-primary pull-right"
+                style="width: 90%; height: 100px; margin: 0px 5% 15px 5%;"
+                ng-click="debounceSubmit()"
+            >
+                Submit
+            </button>
+            <div class="clearfix" style="height: 65px;"></div>
+        </div>
+    </div>
+</div>
