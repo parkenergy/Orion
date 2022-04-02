@@ -2499,7 +2499,17 @@ angular.module("WorkOrderApp.Controllers", []),
               return Users.get({ id: "me" }).$promise;
             },
           },
-        });
+        })
+              .when('/workorder/createShop', {
+          needsLogin:  true,
+          controller:  'WorkOrderCreateCtrl',
+          templateUrl: '/lib/public/angular/apps/workorder/views/createShopWo.html',
+          resolve:     {
+              me: function ($route, $q, Users) {
+                  return Users.get({id: 'me'}).$promise
+              },
+          },
+      });
     },
   ]),
   angular.module("WorkOrderApp").run([
