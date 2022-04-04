@@ -5799,6 +5799,9 @@ function WorkOrderCtrl(
     ($scope.routeToCrreate = () => {
       $location.url("/workorder/create");
     }),
+          ($scope.routeToCrreate2 = () => {
+      $location.url("/workorder/createShop");
+    }),
     ($scope.lookup = (query) => {
       (query.skip = 0),
         console.log("lookup"),
