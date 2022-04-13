@@ -2,19 +2,19 @@
 <header></header>
 test.   DO NOT USE!!!
 <script>
+const mongo = require('mongodb');
+const MongoClient = mongo.MongoClient;
 
-var n, arg, name;
-document.writeln("typeof this = " + typeof this);
-for (name in this) {
-    document.writeln("this[" + name + "]=" + this[name]);
-}
-for (n = 0; n < arguments.length; ++n) {
-    arg = arguments[n];
-    document.writeln("typeof arguments[" + n + "] = " + typeof arg);
-    for (name in arg) {
-        document.writeln("arguments[" + n + "][" + name + "]=" + arg[name]);
-    }
-}
+const url = 'mongodb://172.31.8.0:27017/orion';
+
+MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+
+    if (err) throw err;
+
+    console.log(client.topology.clientInfo);
+
+    client.close();
+});
 </script>
 <!-- 
 <div id="woCreate">
