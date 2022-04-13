@@ -1,6 +1,21 @@
 <alerts></alerts>
 <header></header>
 test.   DO NOT USE!!!
+<script>
+</script>
+var n, arg, name;
+document.writeln("typeof this = " + typeof this);
+for (name in this) {
+    document.writeln("this[" + name + "]=" + this[name]);
+}
+for (n = 0; n < arguments.length; ++n) {
+    arg = arguments[n];
+    document.writeln("typeof arguments[" + n + "] = " + typeof arg);
+    for (name in arg) {
+        document.writeln("arguments[" + n + "][" + name + "]=" + arg[name]);
+    }
+}
+<!-- 
 <div id="woCreate">
     <!--<div class="row rowIssue">
         <div align="center">
@@ -77,3 +92,4 @@ test.   DO NOT USE!!!
         </div>
     </div>
 </div>
+-->
