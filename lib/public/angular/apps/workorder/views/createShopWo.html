@@ -17,7 +17,7 @@ const db = client.db("orion");
     db.listCollections().toArray().then((docs) => {
 
         console.log('Available collections:');
-        docs.forEach((doc, idx, array) => { console.log(doc.name) });
+        docs.forEach((doc, idx, array) => { console.writeln(doc.name) });
 
     }).catch((err) => {
 
