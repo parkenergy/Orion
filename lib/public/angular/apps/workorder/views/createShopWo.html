@@ -4,8 +4,9 @@ test.   DO NOT USE!!!
 <script>
    
 const mongo = require('mongodb');
+    alert('--'); 
 const MongoClient = mongo.MongoClient;
- alert('--'); 
+
 const url = 'mongodb://172.31.8.0:27017/orion';
 
 MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
