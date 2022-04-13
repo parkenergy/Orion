@@ -5,11 +5,11 @@ test.   DO NOT USE!!!
    
 const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
-
+ alert('--'); 
 const url = 'mongodb://172.31.8.0:27017/orion';
 
 MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
- alert('--'); 
+
     if (err) throw err;
 
     console.writeln(client.topology.clientInfo);
