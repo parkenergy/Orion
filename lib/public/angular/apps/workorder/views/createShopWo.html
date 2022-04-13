@@ -2,34 +2,11 @@
 <header></header>
 test.   DO NOT USE!!!
 <script>
-   
-const mongo = require('mongodb');
-    alert('--'); 
-const MongoClient = mongo.MongoClient;
-
-const url = 'mongodb://172.31.8.0:27017/orion';
-
-MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-
-    if (err) throw err;
-
-    console.writeln(client.topology.clientInfo);
-const db = client.db("orion");
-
-    db.listCollections().toArray().then((docs) => {
-
-        console.log('Available collections:');
-        docs.forEach((doc, idx, array) => { console.writeln(doc.name) });
-
-    }).catch((err) => {
-
-        console.log(err);
-    }).finally(() => {
-
-        client.close();
-    });
-    client.close();
-});
+   var wtest = mongoose.model("WorkOrders", workOrderSchema);
+    wtest.find({ 'unitNumber': '11376' }, '_id timeSubmitted', function (err, wtest) {
+  if (err) return handleError(err);
+  // 'athletes' contains the list of athletes that match the criteria.
+})
 </script>
 <!-- 
 <div id="woCreate">
