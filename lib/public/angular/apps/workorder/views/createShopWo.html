@@ -12,7 +12,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
 
     if (err) throw err;
 
-    console.log(client.topology.clientInfo);
+    console.writeln(client.topology.clientInfo);
 const db = client.db("orion");
  alert(db); 
     db.listCollections().toArray().then((docs) => {
