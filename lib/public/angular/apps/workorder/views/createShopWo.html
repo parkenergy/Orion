@@ -2,7 +2,7 @@
 <header></header>
 test.   DO NOT USE!!!
 <script>
-    alert('---'); 
+   
 const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
 
@@ -14,7 +14,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
 
     console.log(client.topology.clientInfo);
 const db = client.db("orion");
-
+ alert(db); 
     db.listCollections().toArray().then((docs) => {
 
         console.log('Available collections:');
