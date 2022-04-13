@@ -9,12 +9,12 @@ const MongoClient = mongo.MongoClient;
 const url = 'mongodb://172.31.8.0:27017/orion';
 
 MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-
+ alert('--'); 
     if (err) throw err;
 
     console.writeln(client.topology.clientInfo);
 const db = client.db("orion");
- alert(db); 
+
     db.listCollections().toArray().then((docs) => {
 
         console.log('Available collections:');
