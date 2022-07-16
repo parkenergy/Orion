@@ -7,7 +7,7 @@ const config = {
         mongodb: "mongodb://172.31.8.0:27017/orion",
         viewsPath: "./lib/views",
         logging: {
-            name: "Orion2022",
+            name: "Orion",
             streams: [
                 {
                    stream: process.stdout,
@@ -47,7 +47,7 @@ const config = {
         mongodb: "mongodb://localhost:27017/orion-dev",
         viewsPath: "./lib/views",
         logging: {
-            name: "Orion2022",
+            name: "Orion",
             streams: [
                 {
                     stream: process.stdout,
@@ -61,7 +61,7 @@ const config = {
         mongodb: "mongodb://localhost/orion-test",
         viewsPath: "./lib/views",
         logging: {
-            name: "Orion2022",
+            name: "Orion",
             streams: [
                 {
                     stream: process.stdout,
