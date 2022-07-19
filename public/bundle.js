@@ -1154,7 +1154,8 @@ angular.module("CommonServices").factory("DateService", [
           : new Date(d),
       saveToOrion(date) {
         const offset = date.getTimezoneOffset();
-        return new Date(date.getTime() - 60 * offset * 1e3);
+       // return new Date(date.getTime() - 60 * offset * 1e3);
+          return date; 
       },
       displayLocal: (date) => date,
       UTCtoLocaleDate(date) {
