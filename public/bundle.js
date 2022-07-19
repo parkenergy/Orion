@@ -6212,6 +6212,8 @@ function WorkOrderViewCtrl(
       })
       .catch(console.error);
   const setSave = (wo) => {
+      /*
+      Code to change workorder display from UTC to local 
       wo.timeStarted &&
         (console.log("setSave"),
         console.log(wo.timeStarted),
@@ -6223,6 +6225,7 @@ function WorkOrderViewCtrl(
           (wo.timeApproved = DS.saveToOrion(new Date(wo.timeApproved))),
         wo.timeSynced &&
           (wo.timeSynced = DS.saveToOrion(new Date(wo.timeSynced)));
+          /*
     },
     setDisplay = (wo) => {
       wo.timeStarted &&
