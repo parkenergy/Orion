@@ -3,7 +3,7 @@ const BunyanSlack = require("bunyan-slack");
 
 const config = {
     production: {
-        it_service: "Inventorytransferservice.us-west-2.elasticbeanstalk.com",
+        it_service: "34.223.93.100:8080",//"Inventorytransferservice.us-west-2.elasticbeanstalk.com",
         mongodb: "mongodb://172.31.8.0:27017/orion",
         viewsPath: "./lib/views",
         logging: {
@@ -28,7 +28,7 @@ const config = {
         port: 3000
     },
     staging: {
-        it_service: "http://localhost:8888",
+        it_service: "http://34.223.93.100:8080",
         mongodb: "mongodb://localhost/orion-stage",
         viewsPath: "./lib/views",
         logging: {
@@ -43,7 +43,7 @@ const config = {
         port: 3000
     },
     development: {
-        it_service: "http://localhost:8888",
+        it_service: "http://34.223.93.100:8080",
         mongodb: "mongodb://localhost:27017/orion-dev",
         viewsPath: "./lib/views",
         logging: {
