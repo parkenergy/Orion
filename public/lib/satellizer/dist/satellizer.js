@@ -3,7 +3,7 @@
  * (c) 2016 Sahat Yalkabov 
  * License: MIT 
  */
-//  redirectUri: window.location.origin,
+
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
@@ -40,7 +40,7 @@
                     name: 'google',
                     url: '/auth/google',
                     authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-                    redirectUri: "http://orion.parkenergyservices.com/",
+                    redirectUri: window.location.origin,
                     requiredUrlParams: ['scope'],
                     optionalUrlParams: ['display', 'state'],
                     scope: ['profile', 'email'],
@@ -48,7 +48,7 @@
                     scopeDelimiter: ' ',
                     display: 'popup',
                     oauthType: '2.0',
-                    popupOptions: { width: 652, height: 833 },
+                    popupOptions: { width: 452, height: 633 },
                     state: function () { return encodeURIComponent(Math.random().toString(36).substr(2)); }
                 },
                 github: {
