@@ -34,7 +34,6 @@ angular.module("Orion", [
     "Orion.Directives",
     "Orion.Services",
     "UnitApp",
-    //"PaidTimeOffApp",
     "InventoryTransfersApp",
     "PartOrderApp",
     "CallReportApp",
@@ -2796,6 +2795,305 @@ angular
         }
     ]);
 
+angular.module('CommonComponents')
+.component('checkBox', {
+  templateUrl: '/lib/public/angular/views/component.views/customComponents/checkbox.html',
+  bindings: {
+    labelText: '@',
+    modelName: '@',
+    boxStyling: '@',
+    inputStyling: '@',
+    onDataChange: '&',
+    data: '<',
+    disabled: '<'
+  },
+  controller: CheckBoxCtrl
+});
+
+function CheckBoxCtrl () {
+  // Variables -------------------------------------------
+  var self = this;
+  // -----------------------------------------------------
+
+  // Pass back changes -----------------------------------
+  self.onUpdate = function (item) {
+    self.onDataChange({ changedData: item, selected: self.modelName });
+  };
+  // -----------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('dateField',{
+  templateUrl: '/lib/public/angular/views/component.views/customComponents/datefield.html',
+  bindings: {
+    labelText: '@',
+    modelName: '@',
+    placeholderText: '@',
+    onDataChange: '&',
+    data: '<',
+    weeks: '<'
+  },
+  controller: DateFieldCtrl
+});
+
+function DateFieldCtrl () {
+  // Variables -------------------------------------------
+  var self = this;
+  // -----------------------------------------------------
+
+  // Pass back Changes -----------------------------------
+  self.onUpdate = function (item) {
+    console.log(item);
+    self.onDataChange({ changedData: item, selected: self.modelName });
+  };
+  // -----------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('dualTextField',{
+  templateUrl: '/lib/public/angular/views/component.views/customComponents/dual-textfield.html',
+  bindings: {
+    labelText: '@',
+    modelNameOne: '@',
+    modelNameTwo: '@',
+    inputStyling: '<',
+    fieldStyling: '@',
+    placeholderTextOne: '@',
+    placeholderTextTwo: '@',
+    onDataChange: '&',
+    dataone: '<',
+    datatwo: '<',
+    disabled: '<'
+  },
+  controller: DualTextFieldCtrl
+});
+
+function DualTextFieldCtrl () {
+  // Variables -------------------------------------------
+  var self = this;
+  // -----------------------------------------------------
+
+  // Pass back Changes -----------------------------------
+  self.onUpdate = function (item, modelName) {
+    self.onDataChange({ changedData: item, selected: modelName });
+  };
+  // -----------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('selectList', {
+  templateUrl: '/lib/public/angular/views/component.views/customComponents/selectlist.html',
+  bindings: {
+    labelText: '@',
+    selectField: '@',
+    modelName: '@',
+    displayField: '@',
+    onDataChange: '&',
+    arrayList: '<',
+    data: '<',
+    disabled: '<'
+  },
+  controller: SelectListCtrl
+});
+
+function SelectListCtrl () {
+  var self = this;
+
+  // Pass back the Changed Item to Parent -----------
+  self.onUpdate = function (item) {
+    self.onDataChange({ changedData: item, selected: self.modelName});
+  };
+  // ------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('textAreaField', {
+  templateUrl: '/lib/public/angular/views/component.views/customComponents/textareafield.html',
+  bindings: {
+    labelText: '@',
+    modelName: '@',
+    placeholderText: '@',
+    rows: '@',
+    onDataChange: '&',
+    data: '<',
+    disabled: '<'
+  },
+  controller: TextAreaFieldCtrl
+});
+
+function TextAreaFieldCtrl () {
+  // Variables -----------------------------------------
+  var self = this;
+  // ---------------------------------------------------
+
+  // Pass back Changes ---------------------------------
+  self.onUpdate = function (item) {
+    self.onDataChange({ changedData: item, selected: self.modelName });
+  };
+  // ---------------------------------------------------
+}
+
+class TextFieldCtrl {
+    constructor(Utils) {
+        this.utils = Utils
+        this.hasError = false
+
+        this.onUpdate = this.onUpdate.bind(this)
+    }
+
+    $onInit() {
+        if (this.initRequire && (this.data === '' || this.data === null || this.data === undefined)) {
+            this.hasError = true
+        }
+    }
+
+
+    // Pass back Changes -----------------------------------
+    onUpdate(item) {
+        if (this.inputRequired && (item === '' || item === null || item === undefined)) {
+            this.hasError = true
+        } else if (this.inputRequired && (item !== '' || item !== null || item !== undefined)) {
+            this.hasError = false
+        }
+
+        this.onDataChange({
+            changedData: item,
+            selected:    this.modelName
+        });
+    }
+
+    // -----------------------------------------------------
+}
+
+angular.module('CommonComponents')
+       .component('textField', {
+           templateUrl: '/lib/public/angular/views/component.views/customComponents/textfield.html',
+           bindings:    {
+               labelText:       '@',
+               modelName:       '@',
+               inputStyling:    '@',
+               fieldStyling:    '@',
+               placeholderText: '@',
+               onDataChange:    '&',
+               data:            '<',
+               disabled:        '<',
+               initRequire:     '<',
+               inputRequired:   '<'
+           },
+           controller:  ['Utils', TextFieldCtrl]
+       })
+
+
+angular.module('CommonComponents')
+.component('timeField', {
+  templateUrl: '/lib/public/angular/views/component.views/customComponents/timefield.html',
+  bindings: {
+    labelText: '@',
+    modelName: '@',
+    onDataChange: '&',
+    data: '<',
+    hours: '<',
+    minutes: '<',
+    show: '<',
+    disabled: '<'
+  },
+  controller: class TimeFieldCtrl {
+      constructor() {}
+
+      $onChanges(ch) {}
+
+      onUpdate(item) {
+          this.onDataChange({changedData: item, selected: this.modelName})
+      }
+  }
+});
+
+angular.module('CommonComponents')
+.component('tripleTextField',{
+  templateUrl: '/lib/public/angular/views/component.views/customComponents/triple-textfield.html',
+  bindings: {
+    labelText: '@',
+    modelNameOne: '@',
+    modelNameTwo: '@',
+    modelNameThree: '@',
+    inputStyling: '<',
+    fieldStyling: '@',
+    placeholderTextOne: '@',
+    placeholderTextTwo: '@',
+    placeholderTextThree: '@',
+    onDataChange: '&',
+    dataone: '<',
+    datatwo: '<',
+    datathree: '<',
+    disabled: '<'
+  },
+  controller: TripleTextFieldCtrl
+});
+
+function TripleTextFieldCtrl () {
+  // Variables -------------------------------------------
+  var self = this;
+  // -----------------------------------------------------
+
+  // Pass back Changes -----------------------------------
+  self.onUpdate = function (item, modelName) {
+    self.onDataChange({ changedData: item, selected: modelName });
+  };
+  // -----------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.component('typeAhead',{
+  templateUrl: '/lib/public/angular/views/component.views/customComponents/typeahead.html',
+  bindings: {
+    labelText: '@',
+    itemPath: '@',
+    modelName: '@',
+    placeholderText: '@',
+    onDataChange: '&',
+    wait: '<',
+    arrayList: '<',
+    data: '<',
+    limit: '<',
+    disabled: '<'
+  },
+  controller: ['ObjectService', TypeAheadCtrl]
+});
+
+function TypeAheadCtrl (ObjectService) {
+  var self = this;
+  self.objItemArray = [];
+
+  // Make array list display field ------------------
+  self.$onChanges = function (changes) {
+    if ( !self.disabled ){
+      if(self.arrayList){
+        if(self.arrayList.length > 0){
+          if (typeof self.arrayList[0] === 'object') {
+            self.arrayList.map(function (obj) {
+              self.objItemArray.push(ObjectService.getNestedObjectValue(obj,self.itemPath));
+            });
+          } else if (
+            (typeof self.arrayList[0] === 'string') ||
+            (typeof self.arrayList[0] === 'number') ||
+            (typeof self.arrayList[0] === 'boolean')) {
+            self.objItemArray = self.arrayList;
+          } else {
+            console.error({arrayList: self.arrayList}, "An Error occurred while attempting to display typeahead item: " + self.labelText +".");
+          }
+        }
+      }
+    }
+  };
+  // ------------------------------------------------
+
+  // Pass back the Changed Item to Parent -----------
+  self.onUpdate = function (item) {
+    self.onDataChange({ changedData: item, selected: self.modelName});
+  };
+  // ------------------------------------------------
+}
+
 angular.module('CallReportApp.Controllers', []);
 angular.module('CallReportApp.Components', []);
 angular.module('CallReportApp.Directives', []);
@@ -3302,305 +3600,6 @@ function ($route, $rootScope, $location) {
     };
 }]);
 
-angular.module('CommonComponents')
-.component('checkBox', {
-  templateUrl: '/lib/public/angular/views/component.views/customComponents/checkbox.html',
-  bindings: {
-    labelText: '@',
-    modelName: '@',
-    boxStyling: '@',
-    inputStyling: '@',
-    onDataChange: '&',
-    data: '<',
-    disabled: '<'
-  },
-  controller: CheckBoxCtrl
-});
-
-function CheckBoxCtrl () {
-  // Variables -------------------------------------------
-  var self = this;
-  // -----------------------------------------------------
-
-  // Pass back changes -----------------------------------
-  self.onUpdate = function (item) {
-    self.onDataChange({ changedData: item, selected: self.modelName });
-  };
-  // -----------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('dateField',{
-  templateUrl: '/lib/public/angular/views/component.views/customComponents/datefield.html',
-  bindings: {
-    labelText: '@',
-    modelName: '@',
-    placeholderText: '@',
-    onDataChange: '&',
-    data: '<',
-    weeks: '<'
-  },
-  controller: DateFieldCtrl
-});
-
-function DateFieldCtrl () {
-  // Variables -------------------------------------------
-  var self = this;
-  // -----------------------------------------------------
-
-  // Pass back Changes -----------------------------------
-  self.onUpdate = function (item) {
-    console.log(item);
-    self.onDataChange({ changedData: item, selected: self.modelName });
-  };
-  // -----------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('dualTextField',{
-  templateUrl: '/lib/public/angular/views/component.views/customComponents/dual-textfield.html',
-  bindings: {
-    labelText: '@',
-    modelNameOne: '@',
-    modelNameTwo: '@',
-    inputStyling: '<',
-    fieldStyling: '@',
-    placeholderTextOne: '@',
-    placeholderTextTwo: '@',
-    onDataChange: '&',
-    dataone: '<',
-    datatwo: '<',
-    disabled: '<'
-  },
-  controller: DualTextFieldCtrl
-});
-
-function DualTextFieldCtrl () {
-  // Variables -------------------------------------------
-  var self = this;
-  // -----------------------------------------------------
-
-  // Pass back Changes -----------------------------------
-  self.onUpdate = function (item, modelName) {
-    self.onDataChange({ changedData: item, selected: modelName });
-  };
-  // -----------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('selectList', {
-  templateUrl: '/lib/public/angular/views/component.views/customComponents/selectlist.html',
-  bindings: {
-    labelText: '@',
-    selectField: '@',
-    modelName: '@',
-    displayField: '@',
-    onDataChange: '&',
-    arrayList: '<',
-    data: '<',
-    disabled: '<'
-  },
-  controller: SelectListCtrl
-});
-
-function SelectListCtrl () {
-  var self = this;
-
-  // Pass back the Changed Item to Parent -----------
-  self.onUpdate = function (item) {
-    self.onDataChange({ changedData: item, selected: self.modelName});
-  };
-  // ------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('textAreaField', {
-  templateUrl: '/lib/public/angular/views/component.views/customComponents/textareafield.html',
-  bindings: {
-    labelText: '@',
-    modelName: '@',
-    placeholderText: '@',
-    rows: '@',
-    onDataChange: '&',
-    data: '<',
-    disabled: '<'
-  },
-  controller: TextAreaFieldCtrl
-});
-
-function TextAreaFieldCtrl () {
-  // Variables -----------------------------------------
-  var self = this;
-  // ---------------------------------------------------
-
-  // Pass back Changes ---------------------------------
-  self.onUpdate = function (item) {
-    self.onDataChange({ changedData: item, selected: self.modelName });
-  };
-  // ---------------------------------------------------
-}
-
-class TextFieldCtrl {
-    constructor(Utils) {
-        this.utils = Utils
-        this.hasError = false
-
-        this.onUpdate = this.onUpdate.bind(this)
-    }
-
-    $onInit() {
-        if (this.initRequire && (this.data === '' || this.data === null || this.data === undefined)) {
-            this.hasError = true
-        }
-    }
-
-
-    // Pass back Changes -----------------------------------
-    onUpdate(item) {
-        if (this.inputRequired && (item === '' || item === null || item === undefined)) {
-            this.hasError = true
-        } else if (this.inputRequired && (item !== '' || item !== null || item !== undefined)) {
-            this.hasError = false
-        }
-
-        this.onDataChange({
-            changedData: item,
-            selected:    this.modelName
-        });
-    }
-
-    // -----------------------------------------------------
-}
-
-angular.module('CommonComponents')
-       .component('textField', {
-           templateUrl: '/lib/public/angular/views/component.views/customComponents/textfield.html',
-           bindings:    {
-               labelText:       '@',
-               modelName:       '@',
-               inputStyling:    '@',
-               fieldStyling:    '@',
-               placeholderText: '@',
-               onDataChange:    '&',
-               data:            '<',
-               disabled:        '<',
-               initRequire:     '<',
-               inputRequired:   '<'
-           },
-           controller:  ['Utils', TextFieldCtrl]
-       })
-
-
-angular.module('CommonComponents')
-.component('timeField', {
-  templateUrl: '/lib/public/angular/views/component.views/customComponents/timefield.html',
-  bindings: {
-    labelText: '@',
-    modelName: '@',
-    onDataChange: '&',
-    data: '<',
-    hours: '<',
-    minutes: '<',
-    show: '<',
-    disabled: '<'
-  },
-  controller: class TimeFieldCtrl {
-      constructor() {}
-
-      $onChanges(ch) {}
-
-      onUpdate(item) {
-          this.onDataChange({changedData: item, selected: this.modelName})
-      }
-  }
-});
-
-angular.module('CommonComponents')
-.component('tripleTextField',{
-  templateUrl: '/lib/public/angular/views/component.views/customComponents/triple-textfield.html',
-  bindings: {
-    labelText: '@',
-    modelNameOne: '@',
-    modelNameTwo: '@',
-    modelNameThree: '@',
-    inputStyling: '<',
-    fieldStyling: '@',
-    placeholderTextOne: '@',
-    placeholderTextTwo: '@',
-    placeholderTextThree: '@',
-    onDataChange: '&',
-    dataone: '<',
-    datatwo: '<',
-    datathree: '<',
-    disabled: '<'
-  },
-  controller: TripleTextFieldCtrl
-});
-
-function TripleTextFieldCtrl () {
-  // Variables -------------------------------------------
-  var self = this;
-  // -----------------------------------------------------
-
-  // Pass back Changes -----------------------------------
-  self.onUpdate = function (item, modelName) {
-    self.onDataChange({ changedData: item, selected: modelName });
-  };
-  // -----------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.component('typeAhead',{
-  templateUrl: '/lib/public/angular/views/component.views/customComponents/typeahead.html',
-  bindings: {
-    labelText: '@',
-    itemPath: '@',
-    modelName: '@',
-    placeholderText: '@',
-    onDataChange: '&',
-    wait: '<',
-    arrayList: '<',
-    data: '<',
-    limit: '<',
-    disabled: '<'
-  },
-  controller: ['ObjectService', TypeAheadCtrl]
-});
-
-function TypeAheadCtrl (ObjectService) {
-  var self = this;
-  self.objItemArray = [];
-
-  // Make array list display field ------------------
-  self.$onChanges = function (changes) {
-    if ( !self.disabled ){
-      if(self.arrayList){
-        if(self.arrayList.length > 0){
-          if (typeof self.arrayList[0] === 'object') {
-            self.arrayList.map(function (obj) {
-              self.objItemArray.push(ObjectService.getNestedObjectValue(obj,self.itemPath));
-            });
-          } else if (
-            (typeof self.arrayList[0] === 'string') ||
-            (typeof self.arrayList[0] === 'number') ||
-            (typeof self.arrayList[0] === 'boolean')) {
-            self.objItemArray = self.arrayList;
-          } else {
-            console.error({arrayList: self.arrayList}, "An Error occurred while attempting to display typeahead item: " + self.labelText +".");
-          }
-        }
-      }
-    }
-  };
-  // ------------------------------------------------
-
-  // Pass back the Changed Item to Parent -----------
-  self.onUpdate = function (item) {
-    self.onDataChange({ changedData: item, selected: self.modelName});
-  };
-  // ------------------------------------------------
-}
-
 angular.module('CommonControllers').controller('SuperTableCtrl',
 ['$scope', 'AlertService',
   function ($scope, AlertService) {
@@ -3904,6 +3903,167 @@ angular.module('CommonDirectives')
 
 
 */
+
+/**
+ *            GeneralDestinationSelection
+ *
+ * Created by marcusjwhelan on 11/14/16.
+ *
+ * Contact: marcus.j.whelan@gmail.com
+ *
+ */
+angular.module('CommonComponents')
+.component('generalDestinationSelection', {
+  templateUrl: '/lib/public/angular/views/customContainers/GeneralDestinationSelection.html',
+  bindings: {
+    ccPanelTitle: '@',
+    ccLabelOrigin: '@',
+    ccLabelDestination: '@',
+    ccReturnType: '@',
+    ccOriginType: '@',
+    ccDestinationType: '@',
+    ccOriginModelName: '@',
+    ccDestinationModelName: '@',
+    ccOriginChange: '&',
+    ccDestinationChange: '&',
+    ccDataOrigin: '<',
+    ccDataDestination: '<',
+    ccLocations: '<'
+  },
+  controller: ['LocationItemService', OriginDestinationLocationCtrl]
+});
+
+function OriginDestinationLocationCtrl (LocationItemService) {
+  // Variables --------------------------------------
+  var self = this;
+  self.originArray = [];
+  self.destinationArray = [];
+  // ------------------------------------------------
+
+  // Fill Origin Array ------------------------------
+  // Add Any origin type you would like and add a location item
+  // Service to serve that type below.
+  if (self.ccOriginType === 'warehouse') {
+    self.originArray = LocationItemService.getLocationWarehouseObjArray(self.ccLocations);
+  } else {
+    self.originArray = self.ccLocations;
+  }
+  // ------------------------------------------------
+
+  // Fill Destination Array -------------------------
+  // Add any Destination type you would like and add a location
+  // item service to serve that type below
+  if (self.ccDestinationType === 'warehouse-truck') {
+    self.destinationArray = LocationItemService.getTruckObj(self.ccLocations);
+  } else {
+    self.destinationArray = self.ccLocations;
+  }
+  // ------------------------------------------------
+
+  // On Changes to Either Pass Back to Parent CTRL --
+  self.OriginChange = function (changedData, selected) {
+    self.ccOriginChange({ changedData: changedData, selected: selected});
+  };
+  self.DestinationChange = function (changedData, selected) {
+    self.ccDestinationChange({ changedData: changedData, selected: selected});
+  };
+  // ------------------------------------------------
+}
+
+angular.module('CommonComponents')
+.controller('AddPartModalCtrl',['$scope', '$uibModalInstance',
+  function ($scope, $uibModalInstance) {
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  }])
+.component('generalPartsList', {
+  templateUrl: 'lib/public/angular/views/customComponents/GeneralPartsList.html',
+  bindings: {
+    ccData: '<',
+    ccPanelTitle: '@',
+    ccTableClass: '@',
+    ccOnManualAdd: '&',
+    ccOnDelete: '&'
+  },
+  controller: ['$uibModal',GeneralPartsListCtrl]
+});
+
+function GeneralPartsListCtrl ($uibModal) {
+  // Variables ----------------------------------------------------------
+  var self = this;
+  // --------------------------------------------------------------------
+
+  // This Calls the Manual Part Modal Ctrl Above ------------------------
+  self.openManualPartModal = function(){
+    var modalInstance = $uibModal.open({
+      templateUrl: '/lib/public/angular/views/modals/manualAddPartModal.html',
+      controller: 'AddPartModalCtrl'
+    });
+
+    // Take Results of Modal Instance and Push into Parts Array ---------
+    modalInstance.result.then(function (part){
+      var thisPart = part;
+      thisPart.quantity = 0;
+      thisPart.isManual = true;
+      self.ccOnManualAdd({part: thisPart});
+    });
+  };
+  // --------------------------------------------------------------------
+}
+
+/**
+ *            selectTechWarehouseId
+ *
+ * Created by marcusjwhelan on 11/10/16.
+ *
+ * Contact: marcus.j.whelan@gmail.com
+ *
+ */
+
+/// NEED TO FINISH UPDATING  REFERENCE General DestinationSelection.js
+angular.module('CommonComponents')
+.component('selectTechWarehouseId', {
+  templateUrl: 'lib/public/angular/views/customComponents/selectTechWarehouseId.html',
+  bindings: {
+    ccPanelTitle: '@',
+    ccClass: '@',
+    ccLabel: '@',
+    ccModelName: '@',
+    ccReturnType: '@',
+    ccType: '@',
+    ccOnDataChange: '&',
+    ccData: '<',
+    ccLocations: '<'
+  },
+  controller: ['LocationItemService', SelectTechOrWarehouseCtrl]
+});
+
+function SelectTechOrWarehouseCtrl (LocationItemService) {
+  // Variables --------------------------------------------------
+  var self = this;
+  self.locationWarehouseArray = [];
+  self.locationWarehouseNSIDArray = [];
+  // ------------------------------------------------------------
+
+  // Push All Warehouse ID --------------------------------------
+  if (self.ccType === "name") {
+    // get the location id array
+    self.locationWarehouseArray = LocationItemService.getLocationNameArray(self.ccTruckId, self.ccLocations);
+  }
+  if (self.ccType === "netsuiteId") {
+    // get all location Objects plus
+    self.locationTechWarehouseObjArray = LocationItemService.getLocationTechWarehouseObjArray(self.ccTruckId, self.ccLocations);
+  }
+  // ------------------------------------------------------------
+
+
+  // Pass Back Change to Parent ---------------------------------
+  self.onChange = function (changedData, selected) {
+    self.ccOnDataChange({ item: changedData , type: self.ccType, selected: selected });
+  };
+  // ------------------------------------------------------------
+}
 
 angular.module('CallReportApp.Components')
 .component('crCreateContactInfo',{
@@ -10386,1303 +10546,6 @@ angular
         controller: [woUserInfo]
     })
 
-angular.module('WorkOrderApp.Directives')
-.directive('newSerialNumbers', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/newSerial.html',
-    scope: true
-  };
-}]);
-
-/**
- * Created by marcusjwhelan on 10/20/16.
- */
-angular
-    .module("WorkOrderApp.Directives")
-    .directive("pesCollectionMatch", function () {
-        return {
-            restrict: "A",
-            require: "ngModel",
-            link: function (scope, elem, attr, ctrl) {
-                // set the border of the input for color to be larger
-                scope.myStyle = {
-                    borderWidth: "6px",
-                };
-                // validity setters.
-                var setInvalid = function (arg) {
-                    ctrl.$setValidity(arg, false);
-                    if (elem.parent().hasClass("has-success")) {
-                        elem.parent().removeClass("has-success");
-                        elem.parent().addClass("has-error");
-                    } else {
-                        elem.parent().addClass("has-error");
-                    }
-                };
-                var setHighlight = function (arg) {
-                    ctrl.$setValidity(arg, false);
-                    if (elem.parent().hasClass("has-success")) {
-                        elem.parent().removeClass("has-success");
-                    }
-                    if (elem.parent().hasClass("has-error")) {
-                        elem.parent().removeClass("has-error");
-                    }
-                    elem.parent().addClass("has-highlight");
-                };
-                var setValid = function (arg) {
-                    ctrl.$setValidity(arg, true);
-                    if (elem.parent().hasClass("has-error")) {
-                        elem.parent().removeClass("has-error");
-                        elem.parent().addClass("has-success");
-                    } else {
-                        elem.parent().addClass("has-success");
-                    }
-                };
-
-                // runs on page load and on item selection.
-                scope.$watch(
-                    attr.ngModel,
-                    _.debounce(function (viewValue) {
-                        scope.$apply(function () {
-                            // get the model name EG header.unitNumber
-                            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
-                            var attribute = attr.ngModel;
-                            var unitExists;
-
-                            // if there is a unit and not a Indirect WO
-                            if (
-                                scope.displayUnit &&
-                                scope.workorder.type !== "Indirect"
-                            ) {
-                                unitExists = "is_unit";
-                                // if there is no unit and not a Indirect WO
-                            } else if (
-                                !scope.displayUnit &&
-                                scope.workorder.type !== "Indirect"
-                            ) {
-                                unitExists = "should_unit";
-                                // its an Indirect WO. false unless empty
-                            } else {
-                                unitExists = "no_unit";
-                            }
-
-                            var checkUnitFields = function (vv) {
-                                // get the index of the unit number out of the array
-                                switch (attribute) {
-                                    case "workorder.header.unitNumber":
-                                        if (unitExists === "is_unit") {
-                                            var number;
-                                            if (
-                                                scope.workorder.type ===
-                                                "Transfer"
-                                            ) {
-                                                number =
-                                                    scope.headerUnit.number;
-                                            } else {
-                                                number =
-                                                    scope.displayUnit.number;
-                                            }
-                                            if (
-                                                number.toUpperCase() ===
-                                                scope.workorder.header.unitNumber.toUpperCase()
-                                            ) {
-                                                if (
-                                                    scope.workorder.header.unitNumber.toUpperCase() ===
-                                                        scope.workorder.unitNumber.toUpperCase() &&
-                                                    scope.workorder.type !==
-                                                        "Swap"
-                                                ) {
-                                                    setValid(attribute);
-                                                } else {
-                                                    setInvalid(attribute);
-                                                }
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-                                    case "workorder.header.customerName":
-                                        // customer
-                                        if (unitExists === "is_unit") {
-                                            var customerName;
-                                            if (
-                                                scope.workorder.type === "Swap"
-                                            ) {
-                                                customerName =
-                                                    scope.headerUnit
-                                                        .customerName;
-                                            } else {
-                                                customerName =
-                                                    scope.displayUnit
-                                                        .customerName;
-                                            }
-                                            if (
-                                                customerName.toUpperCase() ===
-                                                scope.workorder.header.customerName.toUpperCase()
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-
-                                        break;
-                                    case "workorder.header.leaseName":
-                                        // lease
-                                        if (unitExists === "is_unit") {
-                                            var locationName;
-                                            if (
-                                                scope.workorder.type === "Swap"
-                                            ) {
-                                                locationName =
-                                                    scope.headerUnit
-                                                        .locationName;
-                                            } else {
-                                                locationName =
-                                                    scope.displayUnit
-                                                        .locationName;
-                                            }
-                                            if (
-                                                locationName.toUpperCase() ===
-                                                scope.workorder.header.leaseName.toUpperCase()
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-
-                                        break;
-                                    case "workorder.header.county":
-                                        // county
-                                        if (unitExists === "is_unit") {
-                                            var county;
-                                            if (
-                                                scope.workorder.type === "Swap"
-                                            ) {
-                                                county =
-                                                    scope.headerUnit.county ===
-                                                        null ||
-                                                    scope.headerUnit.county ===
-                                                        undefined
-                                                        ? ""
-                                                        : scope.countiesObj[
-                                                              scope.headerUnit
-                                                                  .county
-                                                          ].name;
-                                            } else {
-                                                county =
-                                                    scope.displayUnit.county ===
-                                                        null ||
-                                                    scope.displayUnit.county ===
-                                                        undefined
-                                                        ? ""
-                                                        : scope.countiesObj[
-                                                              scope.displayUnit
-                                                                  .county
-                                                          ].name;
-                                            }
-                                            if (
-                                                county.toUpperCase() ===
-                                                scope.workorder.header.county.toUpperCase()
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-
-                                        break;
-                                    case "workorder.header.state":
-                                        // state
-                                        if (unitExists === "is_unit") {
-                                            var state;
-                                            if (
-                                                scope.workorder.type === "Swap"
-                                            ) {
-                                                state =
-                                                    scope.headerUnit.state ===
-                                                        null ||
-                                                    scope.headerUnit.state ===
-                                                        undefined
-                                                        ? ""
-                                                        : scope.statesObj[
-                                                              scope.headerUnit
-                                                                  .state
-                                                          ].name;
-                                            } else {
-                                                state =
-                                                    scope.displayUnit.state ===
-                                                        null ||
-                                                    scope.displayUnit.state ===
-                                                        undefined
-                                                        ? ""
-                                                        : scope.statesObj[
-                                                              scope.displayUnit
-                                                                  .state
-                                                          ].name;
-                                            }
-                                            if (
-                                                state.toUpperCase() ===
-                                                scope.workorder.header.state.toUpperCase()
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-
-                                        break;
-                                    case "workorder.unitReadings.compressorSerial":
-                                        // compressor serial
-                                        if (unitExists === "is_unit") {
-                                            var compressorSerial =
-                                                scope.displayUnit
-                                                    .compressorSerial === null
-                                                    ? ""
-                                                    : scope.displayUnit
-                                                          .compressorSerial;
-                                            if (
-                                                compressorSerial ===
-                                                scope.workorder.unitReadings
-                                                    .compressorSerial
-                                            ) {
-                                                if (
-                                                    scope.workorder.type ===
-                                                    "Swap"
-                                                ) {
-                                                    setHighlight(attribute);
-                                                } else {
-                                                    setValid(attribute);
-                                                }
-                                            } else {
-                                                if (
-                                                    scope.workorder.type ===
-                                                    "Swap"
-                                                ) {
-                                                    setHighlight(attribute);
-                                                } else {
-                                                    setInvalid(attribute);
-                                                }
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-
-                                    case "workorder.unitReadings.engineSerial":
-                                        // Engine serial
-                                        if (unitExists === "is_unit") {
-                                            var engineSerial =
-                                                scope.displayUnit
-                                                    .engineSerial === null
-                                                    ? ""
-                                                    : scope.displayUnit
-                                                          .engineSerial;
-                                            if (
-                                                engineSerial ===
-                                                scope.workorder.unitReadings
-                                                    .engineSerial
-                                            ) {
-                                                if (
-                                                    scope.workorder.type ===
-                                                    "Swap"
-                                                ) {
-                                                    setHighlight(attribute);
-                                                } else {
-                                                    setValid(attribute);
-                                                }
-                                            } else {
-                                                if (
-                                                    scope.workorder.type ===
-                                                    "Swap"
-                                                ) {
-                                                    setHighlight(attribute);
-                                                } else {
-                                                    setInvalid(attribute);
-                                                }
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-
-                                    // case "workorder.geo.coordinates[1]":
-                                    //   // Engine serial
-                                    //   if (unitExists === 'is_unit') {
-                                    //     var latitude;
-                                    //     if (scope.workorder.type === 'Swap') {
-                                    //       latitude = scope.headerUnit.geo.coordinates[1] === 0 ? 0 : scope.headerUnit.geo.coordinates[1];
-                                    //     } else {
-                                    //       latitude = scope.displayUnit.geo.coordinates[1] === 0 ? 0 : scope.displayUnit.geo.coordinates[1];
-                                    //     }
-                                    //     if (latitude === scope.workorder.geo.coordinates[1]) {
-                                    //       setValid(attribute);
-                                    //     } else {
-                                    //       if (scope.workorder.atShop) {
-                                    //         setValid(attribute);
-                                    //       } else {
-                                    //         setInvalid(attribute);
-                                    //       }
-                                    //     }
-                                    //   } else if (unitExists === 'should_unit') {
-                                    //     setInvalid(attribute);
-                                    //   } else if (unitExists === 'no_unit') {
-                                    //     if (vv) {
-                                    //       setInvalid(attribute);
-                                    //     } else {
-                                    //       setValid(attribute);
-                                    //     }
-                                    //   }
-                                    //   break;
-
-                                    // case "workorder.geo.coordinates[0]":
-                                    //   // Engine serial
-                                    //   if (unitExists === 'is_unit') {
-                                    //     var longitude;
-                                    //     if (scope.workorder.type === 'Swap') {
-                                    //       longitude = scope.headerUnit.geo.coordinates[0] === 0 ? 0 : scope.headerUnit.geo.coordinates[0];
-                                    //     } else {
-                                    //       longitude = scope.displayUnit.geo.coordinates[0] === 0 ? 0 : scope.displayUnit.geo.coordinates[0];
-                                    //     }
-                                    //     if (longitude === scope.workorder.geo.coordinates[0]) {
-                                    //       setValid(attribute);
-                                    //     } else {
-                                    //       if (scope.workorder.atShop) {
-                                    //         setValid(attribute);
-                                    //       } else {
-                                    //         setInvalid(attribute);
-                                    //       }
-                                    //     }
-                                    //   } else if (unitExists === 'should_unit') {
-                                    //     setInvalid(attribute);
-                                    //   } else if (unitExists === 'no_unit') {
-                                    //     if (vv) {
-                                    //       setInvalid(attribute);
-                                    //     } else {
-                                    //       setValid(attribute);
-                                    //     }
-                                    //   }
-                                    //   break;
-                                    case "workorder.unitReadings.displayEngineModel":
-                                        if (unitExists === "is_unit") {
-                                            // get _id from current WO unit engine
-                                            let engineModelID = "";
-
-                                            scope.engineModels.forEach(
-                                                (engine) => {
-                                                    if (
-                                                        scope.displayUnit
-                                                            .engineModel
-                                                    ) {
-                                                        if (
-                                                            engine.netsuiteId ===
-                                                            scope.displayUnit
-                                                                .engineModel
-                                                        ) {
-                                                            engineModelID =
-                                                                engine.netsuiteId;
-                                                        }
-                                                    }
-                                                }
-                                            );
-
-                                            if (
-                                                engineModelID ===
-                                                scope.workorder.unitReadings
-                                                    .engineModel
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-                                    case "workorder.unitReadings.displayFrameModel":
-                                        if (unitExists === "is_unit") {
-                                            // get _id from current WO unit engine
-                                            let frameModelID = "";
-
-                                            scope.frameModels.forEach(
-                                                (frame) => {
-                                                    if (
-                                                        scope.displayUnit
-                                                            .frameModel
-                                                    ) {
-                                                        if (
-                                                            frame.netsuiteId ===
-                                                            scope.displayUnit
-                                                                .frameModel
-                                                        ) {
-                                                            frameModelID =
-                                                                frame.netsuiteId;
-                                                        }
-                                                    }
-                                                }
-                                            );
-
-                                            if (
-                                                frameModelID ===
-                                                scope.workorder.unitReadings
-                                                    .compressorModel
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-                                }
-                            };
-                            // if empty don't set has-error
-                            if (
-                                viewValue ||
-                                viewValue === "" ||
-                                viewValue === null ||
-                                viewValue === 0
-                            ) {
-                                checkUnitFields(viewValue);
-
-                                return viewValue;
-                            }
-                        });
-                    }, 300)
-                ); // 300 ms wait. Don't do it every change
-            },
-        };
-    })
-    .directive("unitInput", [
-        function () {
-            return {
-                restrict: "E",
-                templateUrl:
-                    "/lib/public/angular/apps/workorder/views/unitInput.html",
-                scope: false,
-            };
-        },
-    ]);
-
-angular.module('WorkOrderApp.Directives')
-  .directive('pesSwapCollectionMatch', function () {
-    return {
-      restrict: 'A',
-      require: 'ngModel',
-      link: function(scope, elem, attr, ctrl){
-        scope.myStyle = {
-          borderWidth: "6px",
-        };
-        // validity setters.
-        var setInvalid = function(arg){
-          ctrl.$setValidity( arg, false);
-          if(elem.parent().hasClass('has-success')){
-            elem.parent().removeClass('has-success');
-            elem.parent().addClass('has-highlight');
-          } else {
-            elem.parent().addClass('has-highlight');
-          }
-        };
-        var setValid = function(arg){
-          ctrl.$setValidity( arg, true );
-          if(elem.parent().hasClass('has-error')){
-            elem.parent().removeClass('has-error');
-            elem.parent().addClass('has-highlight');
-          } else {
-            elem.parent().addClass('has-highlight');
-          }
-        };
-
-        scope.$watch(attr.ngModel, _.debounce(function(viewValue){
-          scope.$apply(function(){
-            // get the model name EG header.unitNumber
-            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
-            var attribute = attr.ngModel;
-            var unitExists;
-            // if there is a unit and not a Indirect WO
-            if(scope.displayUnit && scope.workorder.type !== 'Indirect'){
-              unitExists = 'is_unit';
-              // if there is no unit and not a Indirect WO
-            } else if(!scope.displayUnit && scope.workorder.type !== 'Indirect') {
-              unitExists = 'should_unit';
-              // its an Indirect WO. false unless empty
-            } else {
-              unitExists = 'no_unit'
-            }
-
-            var checkUnitFields = function () {
-              switch(attribute) {
-                case 'workorder.unitChangeInfo.transferCounty':
-                  if (unitExists === 'is_unit') {
-                      var county = (scope.displayUnit.county === null ||
-                          scope.displayUnit.county === undefined)
-                          ? ''
-                          : scope.countiesObj[scope.displayUnit.county].name
-                    if (county.toUpperCase() === scope.workorder.unitChangeInfo.transferCounty.toUpperCase()) {
-                      setValid(attribute)
-                    } else {
-                      setInvalid(attribute)
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-                case 'workorder.unitChangeInfo.transferState':
-                  if (unitExists === 'is_unit') {
-                      var state = (scope.displayUnit.state === null || scope.displayUnit.state ===
-                          undefined) ? '' : scope.statesObj[scope.displayUnit.state].name
-                    if (state.toUpperCase() === scope.workorder.unitChangeInfo.transferState.toUpperCase()) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-                case 'workorder.unitChangeInfo.transferLease':
-                  if (unitExists === 'is_unit') {
-                    if (scope.displayUnit.locationName.toUpperCase() === scope.workorder.unitChangeInfo.transferLease.toUpperCase()) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-                case 'workorder.unitChangeInfo.swapUnitNumber':
-                  if (unitExists === 'is_unit') {
-                    if (scope.displayUnit.number.toUpperCase() === scope.workorder.unitChangeInfo.swapUnitNumber.toUpperCase()) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-              }
-            };
-
-            if(viewValue || viewValue === '' || viewValue === null || viewValue === 0){
-              checkUnitFields(viewValue);
-
-              return viewValue;
-            }
-          })
-        },300)); // 300 ms wait. Don't do it every change
-      }
-    }
-  })
-  .directive('unitChangeInfo', [function() {
-    return {
-      restrict: 'E',
-      templateUrl: '/lib/public/angular/apps/workorder/views/woChangeInfo.html',
-      scope: true
-    };
-  }]);
-
-function CommonWOfunctions($timeout, ObjectService, ApiRequestService, TimeDisplayService) {
-    const TDS = TimeDisplayService
-    const OS = ObjectService
-    const ARS = ApiRequestService
-    const timeout = $timeout
-    return {
-        engineReplace(wo) {
-            return (+wo.laborCodes.engine.replaceEngine.hours > 0 || +wo.laborCodes.engine.replaceEngine.minutes > 0)
-        },
-        frameReplace(wo) {
-            return (+wo.laborCodes.compressor.replace.hours > 0 || +wo.laborCodes.compressor.replace.minutes > 0)
-        },
-        getUnaccountedTime(eHours, eMinutes, laborH, laborM) {
-            let unaccountedHours = 0
-            let unaccountedMinutes = (eHours - laborH) * 60
-            unaccountedMinutes += eMinutes - laborM
-            if (unaccountedMinutes > 0) {
-                unaccountedHours = Math.floor(unaccountedMinutes / 60)
-            } else {
-                unaccountedHours = Math.ceil(unaccountedMinutes / 60)
-            }
-            unaccountedMinutes = Math.round(unaccountedMinutes % 60)
-            return TDS.timeManager(unaccountedHours, unaccountedMinutes)
-        },
-        getTotalLaborTime(wo) {
-            let laborH = 0
-            let laborM = 0
-            let totalMinutes = 0
-            let AdjMinutes = 0
-
-            const {laborCodes} = wo
-            const laborCs = Object.keys(laborCodes)
-            laborCs.forEach((item) => {
-                const lcChild = Object.keys(laborCodes[item])
-                lcChild.forEach((child) => {
-                    if (laborCodes[item][child].text === 'Negative Time Adjustment') {
-                        totalMinutes -= +laborCodes[item][child].hours * 60
-                        totalMinutes -= +laborCodes[item][child].minutes
-                        AdjMinutes -= +laborCodes[item][child].hours * 60
-                        AdjMinutes -= +laborCodes[item][child].minutes
-                    } else {
-                        totalMinutes += +laborCodes[item][child].hours * 60
-                        totalMinutes += +laborCodes[item][child].minutes
-                        if (laborCodes[item][child].text === 'Positive Time Adjustment' ||
-                            laborCodes[item][child].text === 'Lunch') {
-                            AdjMinutes += +laborCodes[item][child].hours * 60
-                            AdjMinutes += +laborCodes[item][child].minutes
-                        }
-                    }
-                })
-            })
-            let AdjH
-            if (AdjMinutes > 0) {
-                AdjH = Math.floor(AdjMinutes / 60)
-            } else {
-                AdjH = Math.ceil(AdjMinutes / 60)
-            }
-            if (totalMinutes > 0) {
-                laborH = Math.floor(totalMinutes / 60)
-            } else {
-                laborH = Math.ceil(totalMinutes / 60)
-            }
-            laborM = Math.round(totalMinutes % 60)
-            const AdjM = Math.round(AdjMinutes % 60)
-            const ShowH = laborH - AdjH
-            const ShowM = laborM - AdjM
-            return {laborH, laborM, totalLaborTime: TDS.timeManager(ShowH, ShowM)}
-        },
-        getTimeElapsed(wo) {
-            const start = new Date(wo.timeStarted)
-            const end = new Date(wo.timeSubmitted)
-
-            const milli = (end.getTime() - start.getTime()).toFixed()
-            const seconds = Math.floor(((milli/1000) % 60))
-            const minutes = Math.floor(((milli/6e4) % 60))
-            const hours = Math.floor(((milli/36e5)))
-            return {hours, minutes, seconds}
-        },
-
-        /**
-         *  Method used to change header information
-         * depending on the type that is selected
-         * @param wo - workorder
-         * @param du - display unit
-         * @param hu - header unit
-         */
-        runHeaderValidation (wo, du, hu) {
-            const header = wo.header
-            wo.header = null
-            if (wo.type !== 'Swap') {
-                //this.setDisplayUnit(header.unitNumber, wo, du, hu)
-                wo.comments.swapReason = ''
-                wo.unitChangeInfo.swapUnitNSID = ''
-                wo.unitChangeInfo.swapUnitNumber = ''
-                wo.unitChangeInfo.swapDestination = ''
-            }
-            if (wo.type !== 'Transfer') {
-                wo.unitChangeInfo.transferLease = ''
-                wo.unitChangeInfo.transferCounty = ''
-                wo.unitChangeInfo.transferState = ''
-                wo.comments.transferReason = ''
-            }
-            if (wo.type !== 'Release') {
-                wo.unitChangeInfo.releaseDestination = ''
-            }
-            timeout(() => {
-                wo.header = header
-            })
-        },
-
-        /**
-         * Change Display and Header unit if swap is selected
-         * only used in runHeaderValidation local method
-         * @param number - unit number
-         * @param wo - passed from parent method
-         * @param du - passed from parent method
-         * @param hu - passed from parent method
-         */
-        setDisplayUnit (number, wo, du, hu) {
-            ARS.Units({regexN: number})
-               .then((units) => {
-                   timeout(() => {
-                       du = units[0]
-                       hu = units[0]
-                   })
-               })
-               .catch((err) => console.error(err))
-        },
-
-        // Add Component Name to every part in wo -------------
-        addComponentNameToParts (wo, parts) {
-            if (wo.hasOwnProperty('parts')) {
-                if (wo.parts.length !== 0) {
-                    wo.parts.map(function (part) {
-                        const netsuiteId = +part.netsuiteId
-                        _.forEach(parts, function (obj) {
-                            if (obj.netsuiteId === netsuiteId) {
-                                part.componentName = (obj.componentName) ? obj.componentName : ''
-                            }
-                        })
-                    })
-                }
-            }
-            return wo
-        },
-        // ----------------------------------------------------
-
-        // clear all emissions, unitReadings, pmChecklist items
-        // that are not associated with this WO
-        clearNoneEngineFrame (wo, woInputs) {
-            woInputs.forEach((input) => {
-                let found = false
-                const always = new RegExp('-')
-                input.engines.forEach((engine) => {
-                    if (engine.netsuiteId === wo.unitReadings.engineModel || input.pmType.match(always)) {
-                        found = true
-                    }
-                })
-                input.compressors.forEach((frame) => {
-                    if (frame.netsuiteId === wo.unitReadings.compressorModel || input.pmType.match(always)) {
-                        found = true
-                    }
-                })
-                if (!found) {
-                    // clear this input
-                    OS.setObjValue(wo, input.path, '')
-                }
-            })
-            return wo
-        },
-
-        defaultWO () {
-            return {
-                netsuiteId:          '',
-                netsuiteSyned:       false,
-                truckId:             '',
-                truckNSID:           '',
-                unitNumber:          '',
-                techId:              '',
-                newEngineSerial:     '',
-                newCompressorSerial: '',
-
-                managerApproved: false,
-                approvedBy:      '',
-                syncedBy:        '',
-
-                timePosted: new Date(),
-
-                timeStarted:   null,
-                timeSubmitted: null,
-                timeApproved:  null,
-                timeSynced:    null,
-
-                pm:     false, // pm1
-                pm2:    false,
-                pm3:    false,
-                pm4:    false,
-                pm5:    false,
-                totalMileage: 0,
-                type:   '',
-                atShop: false,
-
-                header: {
-                    unitNumber:      '',
-                    unitNumberNSID:  '',
-                    customerName:    '',
-                    contactName:     '',
-                    county:          '',
-                    state:           '',
-                    leaseName:       '',
-                    rideAlong:       '',
-                    startMileage:    null,
-                    endMileage:      null,
-                    applicationtype: '',
-                },
-
-                unitChangeInfo: {
-                    releaseDestination: '',
-                    transferLease:      '',
-                    transferCounty:     '',
-                    transferState:      '',
-                    swapUnitNSID:       '',
-                    swapUnitNumber:     '',
-                    swapDestination:    '',
-                },
-
-                unitOwnership: {
-                    isRental:       false,
-                    isCustomerUnit: false,
-                },
-
-                billingInfo: {
-                    billableToCustomer: false,
-                    billed:             false,
-                    warrantyWork:       false,
-                    AFENumber:          '',
-                    AFE:                false,
-                },
-
-                misc: {
-                    leaseNotes:               '',
-                    unitNotes:                '',
-                    typeOfAsset:              '',
-                    isUnitRunningOnDeparture: false,
-                },
-
-                geo: {
-                    type:        'Point', // default: 'Point' },
-                    coordinates: [0.0, 0.0], // default: [0.0, 0.0],
-                },
-
-                unitReadings: {
-                    // for local use ONLY
-                    displayEngineModel:    '',
-                    displayFrameModel:     '',
-                    // Engine
-                    engineModel:           '',
-                    engineSerial:          '',   //       *
-                    engBattery:            '',
-                    engOilTemp:            '', // guage
-                    engOilTempKill:        '',
-                    engineJWTemp:          '', // guage *
-                    engineJWTempKill:      '',
-                    engineOilPressure:     '', // guage *
-                    engOilPressureKill:    '',
-                    alternatorOutput:      '', // guage *
-                    hourReading:           '', // guage *
-                    engAirInletTemp:       '', // guage
-                    engAirInletTempKill:   '',
-                    engJWPress:            '',
-                    engJWPressKill:        '',
-                    engTurboExhTempR:      '', // guage
-                    engTurboExhTempRKill:  '',
-                    engTurboExhTempL:      '', // guage
-                    engTurboExhTempLKill:  '',
-                    rpm:                   '', // guage *
-                    engIgnitionTiming:     '', // guage
-                    engVacuumBoostR:       '', // guage
-                    engVacuumBoostRKill:   '',
-                    engVacuumBoostL:       '', // guage
-                    engVacuumBoostLKill:   '',
-                    engManifoldTempR:      '', // guage
-                    engManifoldTempRKill:  '',
-                    engManifoldTempL:      '', // guage
-                    engManifoldTempLKill:  '',
-                    engineManifoldVac:     '', //       *
-                    // Compressor
-                    compressorModel:       '',
-                    compressorSerial:      '',   //       *
-                    suctionPressure:       '', // guage *
-                    compInterPress1:       '', // guage
-                    compInterPress1Low:    '',
-                    compInterPress1High:   '',
-                    compInterPress2:       '', // guage
-                    compInterPress2Low:    '',
-                    compInterPress2High:   '',
-                    compInterPress3:       '', // guage
-                    compInterPress3Low:    '',
-                    compInterPress3High:   '',
-                    dischargePressure:     '', // final *
-                    dischargeTemp1:        '', // guage *
-                    dischargeTemp2:        '', // guage *
-                    dischargeStg1Temp:     '',
-                    dischargeStg1TempKill: '',
-                    dischargeStg3Temp:     '',
-                    dischargeStg3TempKill: '',
-                    dischargeStg4Temp:     '',
-                    dischargeStg4TempKill: '',
-                    compressorOilPressure: '', // guage *
-                    compOilPressKill:      '',
-                    compOilTemp:           '', // guage
-                    compOilTempKill:       '',
-                    compDiffPCFilter:      '', // guage
-                    compDiffPCFilterKill:  '',
-                    lubeRate:              '',
-                    flowMCF:               '', // guage *
-                },
-
-                emissionsReadings: {
-                    afrmvTarget:             '',
-                    catalystTempPre:         '',
-                    catalystTempPreCatKill:  '',
-                    catalystTempPost:        '',
-                    catalystTempPostCatKill: '',
-                    afrMake:                 '',
-                    afrModel:                '',
-                    afrSN:                   '',
-                    EICSCPUSoftware:         '',
-                    EICSDisplaySoftware:     '',
-                    catalystHousingMake:     '',
-                    catalystHousingModel:    '',
-                    catalystHousingSN:       '',
-                    catalystElementMake:     '',
-                    catalystElementSN1:      '',
-                    catalystElementSN2:      '',
-                    o2Sensors:               '',
-                    NOxSensor:               '',
-                    testPInchesH2O:          '',
-                    spotCheck:               false,
-                    noSpotCheck:             false,
-                    lastCalibration:         null,
-                    NOxGrams:                '',
-                    COGrams:                 '',
-                    NOxAllowable:            '',
-                    COAllowable:             '',
-                },
-
-                pmChecklist: {
-
-                    killSettings: {
-                        highSuctionKill:       '',
-                        highDischargeKill:     '',
-                        lowSuctionKill:        '',
-                        lowDischargeKill:      '',
-                        highDischargeTempKill: '',
-                    },
-                    taskList:     [],
-                    engineChecks: {
-                        battery:             false,
-                        capAndRotor:         false,
-                        airFilter:           false,
-                        oilAndFilters:       false,
-                        magPickup:           false,
-                        belts:               false,
-                        guardsAndBrackets:   false,
-                        sparkPlugs:          false,
-                        plugWires:           false,
-                        driveLine:           false,
-                        batteryNa:           false,
-                        capAndRotorNa:       false,
-                        airFilterNa:         false,
-                        oilAndFiltersNa:     false,
-                        magPickupNa:         false,
-                        beltsNa:             false,
-                        guardsAndBracketsNa: false,
-                        sparkPlugsNa:        false,
-                        plugWiresNa:         false,
-                        driveLineNa:         false,
-                    },
-
-                    generalChecks: {
-                        kills:                  false,
-                        airHoses:               false,
-                        coolerForCracks:        false,
-                        coolerLouverMovement:   false,
-                        coolerLouverCleaned:    false,
-                        pressureReliefValve:    false,
-                        scrubberDump:           false,
-                        plugInSkid:             false,
-                        filledDayTank:          false,
-                        fanForCracking:         false,
-                        panelWires:             false,
-                        oilPumpBelt:            false,
-                        killsNa:                false,
-                        airHosesNa:             false,
-                        coolerForCracksNa:      false,
-                        coolerLouverMovementNa: false,
-                        coolerLouverCleanedNa:  false,
-                        pressureReliefValveNa:  false,
-                        scrubberDumpNa:         false,
-                        plugInSkidNa:           false,
-                        filledDayTankNa:        false,
-                        fanForCrackingNa:       false,
-                        panelWiresNa:           false,
-                        oilPumpBeltNa:          false,
-                    },
-
-                    fuelPressureFirstCut:  '',
-                    fuelPressureSecondCut: '',
-                    fuelPressureThirdCut:  '',
-                    visibleLeaksNotes:     '',
-                    engineCompression:     {
-                        cylinder1:  '',
-                        cylinder2:  '',
-                        cylinder3:  '',
-                        cylinder4:  '',
-                        cylinder5:  '',
-                        cylinder6:  '',
-                        cylinder7:  '',
-                        cylinder8:  '',
-                        cylinder9:  '',
-                        cylinder10: '',
-                        cylinder11: '',
-                        cylinder12: '',
-                        cylinder13: '',
-                        cylinder14: '',
-                        cylinder15: '',
-                        cylinder16: '',
-                    },
-                },
-
-                comments: {
-                    repairsDescription:  '',
-                    repairsReason:       '',
-                    calloutReason:       '',
-                    swapReason:          '',
-                    transferReason:      '',
-                    newsetNotes:         '',
-                    releaseNotes:        '',
-                    indirectNotes:       '',
-                    timeAdjustmentNotes: '',
-                },
-
-                laborCodes: {
-                    basic: {
-                        contractor:    {hours: 0, minutes: 0, text: 'Contractor'},
-                        safety:        {hours: 0, minutes: 0, text: 'Safety'},
-                        positiveAdj:   {hours: 0, minutes: 0, text: 'Positive Time Adjustment'},
-                        negativeAdj:   {hours: 0, minutes: 0, text: 'Negative Time Adjustment'},
-                        lunch:         {hours: 0, minutes: 0, text: 'Lunch'},
-                        custRelations: {hours: 0, minutes: 0, text: 'Cust. Relations'},
-                        telemetry:     {hours: 0, minutes: 0, text: 'Telemetry'},
-                        environmental: {hours: 0, minutes: 0, text: 'Environment'},
-                        diagnostic:    {hours: 0, minutes: 0, text: 'Diagnostic'},
-                        serviceTravel: {hours: 0, minutes: 0, text: 'Service Travel'},
-                        optimizeUnit:  {hours: 0, minutes: 0, text: 'Optimize Unit'},
-                        pm:            {hours: 0, minutes: 0, text: 'PM'},
-                        washUnit:      {hours: 0, minutes: 0, text: 'Wash Unit'},
-                        inventory:     {hours: 0, minutes: 0, text: 'Inventory'},
-                        training:      {hours: 0, minutes: 0, text: 'Training'},
-                    },
-
-                    engine:     {
-                        oilAndFilter:          {hours: 0, minutes: 0, text: 'Oil and Filter'},
-                        addOil:                {hours: 0, minutes: 0, text: 'Add Oil'},
-                        compression:           {hours: 0, minutes: 0, text: 'Compression'},
-                        replaceEngine:         {hours: 0, minutes: 0, text: 'Replace Engine'},
-                        replaceCylHead:        {hours: 0, minutes: 0, text: 'Replace Cyl Head'},
-                        coolingSystem:         {hours: 0, minutes: 0, text: 'Cooling System'},
-                        fuelSystem:            {hours: 0, minutes: 0, text: 'Fuel System'},
-                        ignition:              {hours: 0, minutes: 0, text: 'Ignition'},
-                        starter:               {hours: 0, minutes: 0, text: 'Starter'},
-                        lubrication:           {hours: 0, minutes: 0, text: 'Lubrication'},
-                        exhaust:               {hours: 0, minutes: 0, text: 'Exhaust'},
-                        alternator:            {hours: 0, minutes: 0, text: 'Alternator'},
-                        driveOrCoupling:       {hours: 0, minutes: 0, text: 'Drive or Coupling'},
-                        sealsAndGaskets:       {hours: 0, minutes: 0, text: 'Seals and Gaskets'},
-                        engineVibrationSwitch: {hours: 0, minutes: 0, text: 'Vibration Switch'},
-                        engineBelts:           {hours: 0, minutes: 0, text: 'Belts'},
-                        harnessRepair:         {hours: 0, minutes: 0, text: 'Harness Repair'},
-                        EICSSensorActuators:   {
-                            hours:   0,
-                            minutes: 0,
-                            text:    'EICS Sensor/Actuators',
-                        },
-                    },
-                    emissions:  {
-                        install:                 {hours: 0, minutes: 0, text: 'Install'},
-                        test:                    {hours: 0, minutes: 0, text: 'Test'},
-                        repair:                  {hours: 0, minutes: 0, text: 'Repair'},
-                        o2SensorReplace:         {hours: 0, minutes: 0, text: 'O2 Sensor Replace'},
-                        catalystReplace:         {hours: 0, minutes: 0, text: 'Catalyst Replace'},
-                        emissionsThermocoupling: {hours: 0, minutes: 0, text: 'Thermocoupling'},
-                        exhaustGasketReplace:    {
-                            hours:   0,
-                            minutes: 0,
-                            text:    'Exhaust Gasket Replace',
-                        },
-                        facilitySetup:           {hours: 0, minutes: 0, text: 'Facility Setup'},
-                        adjustment:              {hours: 0, minutes: 0, text: 'Adjustment'},
-                        troubleshooting:         {hours: 0, minutes: 0, text: 'Troubleshooting'},
-                        standBy:                 {hours: 0, minutes: 0, text: 'Stand-by'},
-                    },
-                    panel:      {
-                        panel:           {hours: 0, minutes: 0, text: 'Panel'},
-                        electrical:      {hours: 0, minutes: 0, text: 'Electrical'},
-                        wiring:          {hours: 0, minutes: 0, text: 'Wiring'},
-                        conduit:         {hours: 0, minutes: 0, text: 'Conduit'},
-                        gauges:          {hours: 0, minutes: 0, text: 'Gauges'},
-                        panelDampners:   {hours: 0, minutes: 0, text: 'Dampners'},
-                        tubing:          {hours: 0, minutes: 0, text: 'Tubing'},
-                        programming:     {hours: 0, minutes: 0, text: 'Programming'},
-                        annuciator:      {hours: 0, minutes: 0, text: 'Annuciator'},
-                        safetyShutdowns: {hours: 0, minutes: 0, text: 'Safety Shutdowns'},
-                    },
-                    compressor: {
-                        inspect:                   {hours: 0, minutes: 0, text: 'Inspect'},
-                        replace:                   {hours: 0, minutes: 0, text: 'Replace'},
-                        addOil:                    {hours: 0, minutes: 0, text: 'Add Oil'},
-                        lubePump:                  {hours: 0, minutes: 0, text: 'Lube Pump'},
-                        valves:                    {hours: 0, minutes: 0, text: 'Valves'},
-                        alignment:                 {hours: 0, minutes: 0, text: 'Alignment'},
-                        piston:                    {hours: 0, minutes: 0, text: 'Piston'},
-                        packing:                   {hours: 0, minutes: 0, text: 'Packing'},
-                        compressorThermocouples:   {hours: 0, minutes: 0, text: 'Thermocouples'},
-                        noFlowSwitch:              {hours: 0, minutes: 0, text: 'No Flow Switch'},
-                        overhaul:                  {hours: 0, minutes: 0, text: 'Overhaul'},
-                        compressorVibrationSwitch: {hours: 0, minutes: 0, text: 'Vibration Switch'},
-                    },
-                    cooler:     {
-                        cooling:               {hours: 0, minutes: 0, text: 'Cooling'},
-                        coolTubeRepair:        {hours: 0, minutes: 0, text: 'Cool Tube Repair'},
-                        leakTesting:           {hours: 0, minutes: 0, text: 'Leak Testing'},
-                        pluggingCoolerTube:    {hours: 0, minutes: 0, text: 'Plugging Cooler Tube'},
-                        flushCooler:           {hours: 0, minutes: 0, text: 'Flush Cooler'},
-                        washCooler:            {hours: 0, minutes: 0, text: 'Wash Cooler'},
-                        coolerBelts:           {hours: 0, minutes: 0, text: 'Belts'},
-                        shaftBearing:          {hours: 0, minutes: 0, text: 'Shaft Bearing'},
-                        idlerBearing:          {hours: 0, minutes: 0, text: 'Idler Bearing'},
-                        fan:                   {hours: 0, minutes: 0, text: 'Fan'},
-                        shivePulley:           {hours: 0, minutes: 0, text: 'Shive Pulley'},
-                        coolerVibrationSwitch: {hours: 0, minutes: 0, text: 'Vibration Switch'},
-                    },
-                    vessel:     {
-                        dumpControl:      {hours: 0, minutes: 0, text: 'Dump Control'},
-                        reliefValve:      {hours: 0, minutes: 0, text: 'Relief Valve'},
-                        suctionValve:     {hours: 0, minutes: 0, text: 'Suction Valve'},
-                        dumpValve:        {hours: 0, minutes: 0, text: 'Dump Valve'},
-                        piping:           {hours: 0, minutes: 0, text: 'Piping'},
-                        screenWitchesHat: {hours: 0, minutes: 0, text: 'Screen/Witches Hat'},
-                        vesselDampners:   {hours: 0, minutes: 0, text: 'Dampners'},
-                    },
-                },
-                parts:      [],
-
-                jsa: {
-                    agree:                false,
-                    location:             '',
-                    customer:             '',
-                    descriptionOfWork:    '',
-                    emergencyEvac:        '',
-                    hazardPlanning:       '',
-                    techinicians:         [],
-                    controlsAndPractices: {
-                        confinedSpaceEntry:        false,
-                        spillKit:                  false,
-                        restrictAccess:            false,
-                        cutResistantGloves:        false,
-                        ppe:                       false,
-                        reviewEmergencyActionPlan: false,
-                        drinkWater:                false,
-                        electrician:               false,
-                        heatResistantGloves:       false,
-                        lockoutTagout:             false,
-                        depressurize:              false,
-                        chemGloves:                false,
-                        siteJobOrientation:        false,
-                        samplingMonitoring:        false,
-                        equipmentCooldown:         false,
-                        fireExtinguisher:          false,
-                    },
-                    potentialHazards:     {
-                        bodyPosition:           false,
-                        pinch:                  false,
-                        crushOrStriking:        false,
-                        sharpEdges:             false,
-                        materialHandling:       false,
-                        environmental:          false,
-                        lifting:                false,
-                        elevatedBodyTemp:       false,
-                        h2s:                    false,
-                        hotColdSurfaces:        false,
-                        laceration:             false,
-                        chemExposure:           false,
-                        fallFromElevation:      false,
-                        slickSurfaces:          false,
-                        excavation:             false,
-                        slips:                  false,
-                        trips:                  false,
-                        falls:                  false,
-                        equipment:              false,
-                        fireExplosionPotential: false,
-                        eletricShock:           false,
-                        confinedSpace:          false,
-                    },
-                },
-            }
-        },
-    }
-}
-
-angular
-    .module('WorkOrderApp.Services')
-    .factory('CommonWOfunctions',
-        ['$timeout', 'ObjectService', 'ApiRequestService', 'TimeDisplayService', CommonWOfunctions])
-
 function WorkOrderCreateCtrlFunc(
     $scope,
     $location,
@@ -13057,6 +11920,1303 @@ angular
         WorkOrderViewCtrl,
     ]);
 
+angular.module('WorkOrderApp.Directives')
+.directive('newSerialNumbers', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/newSerial.html',
+    scope: true
+  };
+}]);
+
+/**
+ * Created by marcusjwhelan on 10/20/16.
+ */
+angular
+    .module("WorkOrderApp.Directives")
+    .directive("pesCollectionMatch", function () {
+        return {
+            restrict: "A",
+            require: "ngModel",
+            link: function (scope, elem, attr, ctrl) {
+                // set the border of the input for color to be larger
+                scope.myStyle = {
+                    borderWidth: "6px",
+                };
+                // validity setters.
+                var setInvalid = function (arg) {
+                    ctrl.$setValidity(arg, false);
+                    if (elem.parent().hasClass("has-success")) {
+                        elem.parent().removeClass("has-success");
+                        elem.parent().addClass("has-error");
+                    } else {
+                        elem.parent().addClass("has-error");
+                    }
+                };
+                var setHighlight = function (arg) {
+                    ctrl.$setValidity(arg, false);
+                    if (elem.parent().hasClass("has-success")) {
+                        elem.parent().removeClass("has-success");
+                    }
+                    if (elem.parent().hasClass("has-error")) {
+                        elem.parent().removeClass("has-error");
+                    }
+                    elem.parent().addClass("has-highlight");
+                };
+                var setValid = function (arg) {
+                    ctrl.$setValidity(arg, true);
+                    if (elem.parent().hasClass("has-error")) {
+                        elem.parent().removeClass("has-error");
+                        elem.parent().addClass("has-success");
+                    } else {
+                        elem.parent().addClass("has-success");
+                    }
+                };
+
+                // runs on page load and on item selection.
+                scope.$watch(
+                    attr.ngModel,
+                    _.debounce(function (viewValue) {
+                        scope.$apply(function () {
+                            // get the model name EG header.unitNumber
+                            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
+                            var attribute = attr.ngModel;
+                            var unitExists;
+
+                            // if there is a unit and not a Indirect WO
+                            if (
+                                scope.displayUnit &&
+                                scope.workorder.type !== "Indirect"
+                            ) {
+                                unitExists = "is_unit";
+                                // if there is no unit and not a Indirect WO
+                            } else if (
+                                !scope.displayUnit &&
+                                scope.workorder.type !== "Indirect"
+                            ) {
+                                unitExists = "should_unit";
+                                // its an Indirect WO. false unless empty
+                            } else {
+                                unitExists = "no_unit";
+                            }
+
+                            var checkUnitFields = function (vv) {
+                                // get the index of the unit number out of the array
+                                switch (attribute) {
+                                    case "workorder.header.unitNumber":
+                                        if (unitExists === "is_unit") {
+                                            var number;
+                                            if (
+                                                scope.workorder.type ===
+                                                "Transfer"
+                                            ) {
+                                                number =
+                                                    scope.headerUnit.number;
+                                            } else {
+                                                number =
+                                                    scope.displayUnit.number;
+                                            }
+                                            if (
+                                                number.toUpperCase() ===
+                                                scope.workorder.header.unitNumber.toUpperCase()
+                                            ) {
+                                                if (
+                                                    scope.workorder.header.unitNumber.toUpperCase() ===
+                                                        scope.workorder.unitNumber.toUpperCase() &&
+                                                    scope.workorder.type !==
+                                                        "Swap"
+                                                ) {
+                                                    setValid(attribute);
+                                                } else {
+                                                    setInvalid(attribute);
+                                                }
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+                                    case "workorder.header.customerName":
+                                        // customer
+                                        if (unitExists === "is_unit") {
+                                            var customerName;
+                                            if (
+                                                scope.workorder.type === "Swap"
+                                            ) {
+                                                customerName =
+                                                    scope.headerUnit
+                                                        .customerName;
+                                            } else {
+                                                customerName =
+                                                    scope.displayUnit
+                                                        .customerName;
+                                            }
+                                            if (
+                                                customerName.toUpperCase() ===
+                                                scope.workorder.header.customerName.toUpperCase()
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+
+                                        break;
+                                    case "workorder.header.leaseName":
+                                        // lease
+                                        if (unitExists === "is_unit") {
+                                            var locationName;
+                                            if (
+                                                scope.workorder.type === "Swap"
+                                            ) {
+                                                locationName =
+                                                    scope.headerUnit
+                                                        .locationName;
+                                            } else {
+                                                locationName =
+                                                    scope.displayUnit
+                                                        .locationName;
+                                            }
+                                            if (
+                                                locationName.toUpperCase() ===
+                                                scope.workorder.header.leaseName.toUpperCase()
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+
+                                        break;
+                                    case "workorder.header.county":
+                                        // county
+                                        if (unitExists === "is_unit") {
+                                            var county;
+                                            if (
+                                                scope.workorder.type === "Swap"
+                                            ) {
+                                                county =
+                                                    scope.headerUnit.county ===
+                                                        null ||
+                                                    scope.headerUnit.county ===
+                                                        undefined
+                                                        ? ""
+                                                        : scope.countiesObj[
+                                                              scope.headerUnit
+                                                                  .county
+                                                          ].name;
+                                            } else {
+                                                county =
+                                                    scope.displayUnit.county ===
+                                                        null ||
+                                                    scope.displayUnit.county ===
+                                                        undefined
+                                                        ? ""
+                                                        : scope.countiesObj[
+                                                              scope.displayUnit
+                                                                  .county
+                                                          ].name;
+                                            }
+                                            if (
+                                                county.toUpperCase() ===
+                                                scope.workorder.header.county.toUpperCase()
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+
+                                        break;
+                                    case "workorder.header.state":
+                                        // state
+                                        if (unitExists === "is_unit") {
+                                            var state;
+                                            if (
+                                                scope.workorder.type === "Swap"
+                                            ) {
+                                                state =
+                                                    scope.headerUnit.state ===
+                                                        null ||
+                                                    scope.headerUnit.state ===
+                                                        undefined
+                                                        ? ""
+                                                        : scope.statesObj[
+                                                              scope.headerUnit
+                                                                  .state
+                                                          ].name;
+                                            } else {
+                                                state =
+                                                    scope.displayUnit.state ===
+                                                        null ||
+                                                    scope.displayUnit.state ===
+                                                        undefined
+                                                        ? ""
+                                                        : scope.statesObj[
+                                                              scope.displayUnit
+                                                                  .state
+                                                          ].name;
+                                            }
+                                            if (
+                                                state.toUpperCase() ===
+                                                scope.workorder.header.state.toUpperCase()
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+
+                                        break;
+                                    case "workorder.unitReadings.compressorSerial":
+                                        // compressor serial
+                                        if (unitExists === "is_unit") {
+                                            var compressorSerial =
+                                                scope.displayUnit
+                                                    .compressorSerial === null
+                                                    ? ""
+                                                    : scope.displayUnit
+                                                          .compressorSerial;
+                                            if (
+                                                compressorSerial ===
+                                                scope.workorder.unitReadings
+                                                    .compressorSerial
+                                            ) {
+                                                if (
+                                                    scope.workorder.type ===
+                                                    "Swap"
+                                                ) {
+                                                    setHighlight(attribute);
+                                                } else {
+                                                    setValid(attribute);
+                                                }
+                                            } else {
+                                                if (
+                                                    scope.workorder.type ===
+                                                    "Swap"
+                                                ) {
+                                                    setHighlight(attribute);
+                                                } else {
+                                                    setInvalid(attribute);
+                                                }
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+
+                                    case "workorder.unitReadings.engineSerial":
+                                        // Engine serial
+                                        if (unitExists === "is_unit") {
+                                            var engineSerial =
+                                                scope.displayUnit
+                                                    .engineSerial === null
+                                                    ? ""
+                                                    : scope.displayUnit
+                                                          .engineSerial;
+                                            if (
+                                                engineSerial ===
+                                                scope.workorder.unitReadings
+                                                    .engineSerial
+                                            ) {
+                                                if (
+                                                    scope.workorder.type ===
+                                                    "Swap"
+                                                ) {
+                                                    setHighlight(attribute);
+                                                } else {
+                                                    setValid(attribute);
+                                                }
+                                            } else {
+                                                if (
+                                                    scope.workorder.type ===
+                                                    "Swap"
+                                                ) {
+                                                    setHighlight(attribute);
+                                                } else {
+                                                    setInvalid(attribute);
+                                                }
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+
+                                    // case "workorder.geo.coordinates[1]":
+                                    //   // Engine serial
+                                    //   if (unitExists === 'is_unit') {
+                                    //     var latitude;
+                                    //     if (scope.workorder.type === 'Swap') {
+                                    //       latitude = scope.headerUnit.geo.coordinates[1] === 0 ? 0 : scope.headerUnit.geo.coordinates[1];
+                                    //     } else {
+                                    //       latitude = scope.displayUnit.geo.coordinates[1] === 0 ? 0 : scope.displayUnit.geo.coordinates[1];
+                                    //     }
+                                    //     if (latitude === scope.workorder.geo.coordinates[1]) {
+                                    //       setValid(attribute);
+                                    //     } else {
+                                    //       if (scope.workorder.atShop) {
+                                    //         setValid(attribute);
+                                    //       } else {
+                                    //         setInvalid(attribute);
+                                    //       }
+                                    //     }
+                                    //   } else if (unitExists === 'should_unit') {
+                                    //     setInvalid(attribute);
+                                    //   } else if (unitExists === 'no_unit') {
+                                    //     if (vv) {
+                                    //       setInvalid(attribute);
+                                    //     } else {
+                                    //       setValid(attribute);
+                                    //     }
+                                    //   }
+                                    //   break;
+
+                                    // case "workorder.geo.coordinates[0]":
+                                    //   // Engine serial
+                                    //   if (unitExists === 'is_unit') {
+                                    //     var longitude;
+                                    //     if (scope.workorder.type === 'Swap') {
+                                    //       longitude = scope.headerUnit.geo.coordinates[0] === 0 ? 0 : scope.headerUnit.geo.coordinates[0];
+                                    //     } else {
+                                    //       longitude = scope.displayUnit.geo.coordinates[0] === 0 ? 0 : scope.displayUnit.geo.coordinates[0];
+                                    //     }
+                                    //     if (longitude === scope.workorder.geo.coordinates[0]) {
+                                    //       setValid(attribute);
+                                    //     } else {
+                                    //       if (scope.workorder.atShop) {
+                                    //         setValid(attribute);
+                                    //       } else {
+                                    //         setInvalid(attribute);
+                                    //       }
+                                    //     }
+                                    //   } else if (unitExists === 'should_unit') {
+                                    //     setInvalid(attribute);
+                                    //   } else if (unitExists === 'no_unit') {
+                                    //     if (vv) {
+                                    //       setInvalid(attribute);
+                                    //     } else {
+                                    //       setValid(attribute);
+                                    //     }
+                                    //   }
+                                    //   break;
+                                    case "workorder.unitReadings.displayEngineModel":
+                                        if (unitExists === "is_unit") {
+                                            // get _id from current WO unit engine
+                                            let engineModelID = "";
+
+                                            scope.engineModels.forEach(
+                                                (engine) => {
+                                                    if (
+                                                        scope.displayUnit
+                                                            .engineModel
+                                                    ) {
+                                                        if (
+                                                            engine.netsuiteId ===
+                                                            scope.displayUnit
+                                                                .engineModel
+                                                        ) {
+                                                            engineModelID =
+                                                                engine.netsuiteId;
+                                                        }
+                                                    }
+                                                }
+                                            );
+
+                                            if (
+                                                engineModelID ===
+                                                scope.workorder.unitReadings
+                                                    .engineModel
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+                                    case "workorder.unitReadings.displayFrameModel":
+                                        if (unitExists === "is_unit") {
+                                            // get _id from current WO unit engine
+                                            let frameModelID = "";
+
+                                            scope.frameModels.forEach(
+                                                (frame) => {
+                                                    if (
+                                                        scope.displayUnit
+                                                            .frameModel
+                                                    ) {
+                                                        if (
+                                                            frame.netsuiteId ===
+                                                            scope.displayUnit
+                                                                .frameModel
+                                                        ) {
+                                                            frameModelID =
+                                                                frame.netsuiteId;
+                                                        }
+                                                    }
+                                                }
+                                            );
+
+                                            if (
+                                                frameModelID ===
+                                                scope.workorder.unitReadings
+                                                    .compressorModel
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+                                }
+                            };
+                            // if empty don't set has-error
+                            if (
+                                viewValue ||
+                                viewValue === "" ||
+                                viewValue === null ||
+                                viewValue === 0
+                            ) {
+                                checkUnitFields(viewValue);
+
+                                return viewValue;
+                            }
+                        });
+                    }, 300)
+                ); // 300 ms wait. Don't do it every change
+            },
+        };
+    })
+    .directive("unitInput", [
+        function () {
+            return {
+                restrict: "E",
+                templateUrl:
+                    "/lib/public/angular/apps/workorder/views/unitInput.html",
+                scope: false,
+            };
+        },
+    ]);
+
+angular.module('WorkOrderApp.Directives')
+  .directive('pesSwapCollectionMatch', function () {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, elem, attr, ctrl){
+        scope.myStyle = {
+          borderWidth: "6px",
+        };
+        // validity setters.
+        var setInvalid = function(arg){
+          ctrl.$setValidity( arg, false);
+          if(elem.parent().hasClass('has-success')){
+            elem.parent().removeClass('has-success');
+            elem.parent().addClass('has-highlight');
+          } else {
+            elem.parent().addClass('has-highlight');
+          }
+        };
+        var setValid = function(arg){
+          ctrl.$setValidity( arg, true );
+          if(elem.parent().hasClass('has-error')){
+            elem.parent().removeClass('has-error');
+            elem.parent().addClass('has-highlight');
+          } else {
+            elem.parent().addClass('has-highlight');
+          }
+        };
+
+        scope.$watch(attr.ngModel, _.debounce(function(viewValue){
+          scope.$apply(function(){
+            // get the model name EG header.unitNumber
+            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
+            var attribute = attr.ngModel;
+            var unitExists;
+            // if there is a unit and not a Indirect WO
+            if(scope.displayUnit && scope.workorder.type !== 'Indirect'){
+              unitExists = 'is_unit';
+              // if there is no unit and not a Indirect WO
+            } else if(!scope.displayUnit && scope.workorder.type !== 'Indirect') {
+              unitExists = 'should_unit';
+              // its an Indirect WO. false unless empty
+            } else {
+              unitExists = 'no_unit'
+            }
+
+            var checkUnitFields = function () {
+              switch(attribute) {
+                case 'workorder.unitChangeInfo.transferCounty':
+                  if (unitExists === 'is_unit') {
+                      var county = (scope.displayUnit.county === null ||
+                          scope.displayUnit.county === undefined)
+                          ? ''
+                          : scope.countiesObj[scope.displayUnit.county].name
+                    if (county.toUpperCase() === scope.workorder.unitChangeInfo.transferCounty.toUpperCase()) {
+                      setValid(attribute)
+                    } else {
+                      setInvalid(attribute)
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+                case 'workorder.unitChangeInfo.transferState':
+                  if (unitExists === 'is_unit') {
+                      var state = (scope.displayUnit.state === null || scope.displayUnit.state ===
+                          undefined) ? '' : scope.statesObj[scope.displayUnit.state].name
+                    if (state.toUpperCase() === scope.workorder.unitChangeInfo.transferState.toUpperCase()) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+                case 'workorder.unitChangeInfo.transferLease':
+                  if (unitExists === 'is_unit') {
+                    if (scope.displayUnit.locationName.toUpperCase() === scope.workorder.unitChangeInfo.transferLease.toUpperCase()) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+                case 'workorder.unitChangeInfo.swapUnitNumber':
+                  if (unitExists === 'is_unit') {
+                    if (scope.displayUnit.number.toUpperCase() === scope.workorder.unitChangeInfo.swapUnitNumber.toUpperCase()) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+              }
+            };
+
+            if(viewValue || viewValue === '' || viewValue === null || viewValue === 0){
+              checkUnitFields(viewValue);
+
+              return viewValue;
+            }
+          })
+        },300)); // 300 ms wait. Don't do it every change
+      }
+    }
+  })
+  .directive('unitChangeInfo', [function() {
+    return {
+      restrict: 'E',
+      templateUrl: '/lib/public/angular/apps/workorder/views/woChangeInfo.html',
+      scope: true
+    };
+  }]);
+
+function CommonWOfunctions($timeout, ObjectService, ApiRequestService, TimeDisplayService) {
+    const TDS = TimeDisplayService
+    const OS = ObjectService
+    const ARS = ApiRequestService
+    const timeout = $timeout
+    return {
+        engineReplace(wo) {
+            return (+wo.laborCodes.engine.replaceEngine.hours > 0 || +wo.laborCodes.engine.replaceEngine.minutes > 0)
+        },
+        frameReplace(wo) {
+            return (+wo.laborCodes.compressor.replace.hours > 0 || +wo.laborCodes.compressor.replace.minutes > 0)
+        },
+        getUnaccountedTime(eHours, eMinutes, laborH, laborM) {
+            let unaccountedHours = 0
+            let unaccountedMinutes = (eHours - laborH) * 60
+            unaccountedMinutes += eMinutes - laborM
+            if (unaccountedMinutes > 0) {
+                unaccountedHours = Math.floor(unaccountedMinutes / 60)
+            } else {
+                unaccountedHours = Math.ceil(unaccountedMinutes / 60)
+            }
+            unaccountedMinutes = Math.round(unaccountedMinutes % 60)
+            return TDS.timeManager(unaccountedHours, unaccountedMinutes)
+        },
+        getTotalLaborTime(wo) {
+            let laborH = 0
+            let laborM = 0
+            let totalMinutes = 0
+            let AdjMinutes = 0
+
+            const {laborCodes} = wo
+            const laborCs = Object.keys(laborCodes)
+            laborCs.forEach((item) => {
+                const lcChild = Object.keys(laborCodes[item])
+                lcChild.forEach((child) => {
+                    if (laborCodes[item][child].text === 'Negative Time Adjustment') {
+                        totalMinutes -= +laborCodes[item][child].hours * 60
+                        totalMinutes -= +laborCodes[item][child].minutes
+                        AdjMinutes -= +laborCodes[item][child].hours * 60
+                        AdjMinutes -= +laborCodes[item][child].minutes
+                    } else {
+                        totalMinutes += +laborCodes[item][child].hours * 60
+                        totalMinutes += +laborCodes[item][child].minutes
+                        if (laborCodes[item][child].text === 'Positive Time Adjustment' ||
+                            laborCodes[item][child].text === 'Lunch') {
+                            AdjMinutes += +laborCodes[item][child].hours * 60
+                            AdjMinutes += +laborCodes[item][child].minutes
+                        }
+                    }
+                })
+            })
+            let AdjH
+            if (AdjMinutes > 0) {
+                AdjH = Math.floor(AdjMinutes / 60)
+            } else {
+                AdjH = Math.ceil(AdjMinutes / 60)
+            }
+            if (totalMinutes > 0) {
+                laborH = Math.floor(totalMinutes / 60)
+            } else {
+                laborH = Math.ceil(totalMinutes / 60)
+            }
+            laborM = Math.round(totalMinutes % 60)
+            const AdjM = Math.round(AdjMinutes % 60)
+            const ShowH = laborH - AdjH
+            const ShowM = laborM - AdjM
+            return {laborH, laborM, totalLaborTime: TDS.timeManager(ShowH, ShowM)}
+        },
+        getTimeElapsed(wo) {
+            const start = new Date(wo.timeStarted)
+            const end = new Date(wo.timeSubmitted)
+
+            const milli = (end.getTime() - start.getTime()).toFixed()
+            const seconds = Math.floor(((milli/1000) % 60))
+            const minutes = Math.floor(((milli/6e4) % 60))
+            const hours = Math.floor(((milli/36e5)))
+            return {hours, minutes, seconds}
+        },
+
+        /**
+         *  Method used to change header information
+         * depending on the type that is selected
+         * @param wo - workorder
+         * @param du - display unit
+         * @param hu - header unit
+         */
+        runHeaderValidation (wo, du, hu) {
+            const header = wo.header
+            wo.header = null
+            if (wo.type !== 'Swap') {
+                //this.setDisplayUnit(header.unitNumber, wo, du, hu)
+                wo.comments.swapReason = ''
+                wo.unitChangeInfo.swapUnitNSID = ''
+                wo.unitChangeInfo.swapUnitNumber = ''
+                wo.unitChangeInfo.swapDestination = ''
+            }
+            if (wo.type !== 'Transfer') {
+                wo.unitChangeInfo.transferLease = ''
+                wo.unitChangeInfo.transferCounty = ''
+                wo.unitChangeInfo.transferState = ''
+                wo.comments.transferReason = ''
+            }
+            if (wo.type !== 'Release') {
+                wo.unitChangeInfo.releaseDestination = ''
+            }
+            timeout(() => {
+                wo.header = header
+            })
+        },
+
+        /**
+         * Change Display and Header unit if swap is selected
+         * only used in runHeaderValidation local method
+         * @param number - unit number
+         * @param wo - passed from parent method
+         * @param du - passed from parent method
+         * @param hu - passed from parent method
+         */
+        setDisplayUnit (number, wo, du, hu) {
+            ARS.Units({regexN: number})
+               .then((units) => {
+                   timeout(() => {
+                       du = units[0]
+                       hu = units[0]
+                   })
+               })
+               .catch((err) => console.error(err))
+        },
+
+        // Add Component Name to every part in wo -------------
+        addComponentNameToParts (wo, parts) {
+            if (wo.hasOwnProperty('parts')) {
+                if (wo.parts.length !== 0) {
+                    wo.parts.map(function (part) {
+                        const netsuiteId = +part.netsuiteId
+                        _.forEach(parts, function (obj) {
+                            if (obj.netsuiteId === netsuiteId) {
+                                part.componentName = (obj.componentName) ? obj.componentName : ''
+                            }
+                        })
+                    })
+                }
+            }
+            return wo
+        },
+        // ----------------------------------------------------
+
+        // clear all emissions, unitReadings, pmChecklist items
+        // that are not associated with this WO
+        clearNoneEngineFrame (wo, woInputs) {
+            woInputs.forEach((input) => {
+                let found = false
+                const always = new RegExp('-')
+                input.engines.forEach((engine) => {
+                    if (engine.netsuiteId === wo.unitReadings.engineModel || input.pmType.match(always)) {
+                        found = true
+                    }
+                })
+                input.compressors.forEach((frame) => {
+                    if (frame.netsuiteId === wo.unitReadings.compressorModel || input.pmType.match(always)) {
+                        found = true
+                    }
+                })
+                if (!found) {
+                    // clear this input
+                    OS.setObjValue(wo, input.path, '')
+                }
+            })
+            return wo
+        },
+
+        defaultWO () {
+            return {
+                netsuiteId:          '',
+                netsuiteSyned:       false,
+                truckId:             '',
+                truckNSID:           '',
+                unitNumber:          '',
+                techId:              '',
+                newEngineSerial:     '',
+                newCompressorSerial: '',
+
+                managerApproved: false,
+                approvedBy:      '',
+                syncedBy:        '',
+
+                timePosted: new Date(),
+
+                timeStarted:   null,
+                timeSubmitted: null,
+                timeApproved:  null,
+                timeSynced:    null,
+
+                pm:     false, // pm1
+                pm2:    false,
+                pm3:    false,
+                pm4:    false,
+                pm5:    false,
+                totalMileage: 0,
+                type:   '',
+                atShop: false,
+
+                header: {
+                    unitNumber:      '',
+                    unitNumberNSID:  '',
+                    customerName:    '',
+                    contactName:     '',
+                    county:          '',
+                    state:           '',
+                    leaseName:       '',
+                    rideAlong:       '',
+                    startMileage:    null,
+                    endMileage:      null,
+                    applicationtype: '',
+                },
+
+                unitChangeInfo: {
+                    releaseDestination: '',
+                    transferLease:      '',
+                    transferCounty:     '',
+                    transferState:      '',
+                    swapUnitNSID:       '',
+                    swapUnitNumber:     '',
+                    swapDestination:    '',
+                },
+
+                unitOwnership: {
+                    isRental:       false,
+                    isCustomerUnit: false,
+                },
+
+                billingInfo: {
+                    billableToCustomer: false,
+                    billed:             false,
+                    warrantyWork:       false,
+                    AFENumber:          '',
+                    AFE:                false,
+                },
+
+                misc: {
+                    leaseNotes:               '',
+                    unitNotes:                '',
+                    typeOfAsset:              '',
+                    isUnitRunningOnDeparture: false,
+                },
+
+                geo: {
+                    type:        'Point', // default: 'Point' },
+                    coordinates: [0.0, 0.0], // default: [0.0, 0.0],
+                },
+
+                unitReadings: {
+                    // for local use ONLY
+                    displayEngineModel:    '',
+                    displayFrameModel:     '',
+                    // Engine
+                    engineModel:           '',
+                    engineSerial:          '',   //       *
+                    engBattery:            '',
+                    engOilTemp:            '', // guage
+                    engOilTempKill:        '',
+                    engineJWTemp:          '', // guage *
+                    engineJWTempKill:      '',
+                    engineOilPressure:     '', // guage *
+                    engOilPressureKill:    '',
+                    alternatorOutput:      '', // guage *
+                    hourReading:           '', // guage *
+                    engAirInletTemp:       '', // guage
+                    engAirInletTempKill:   '',
+                    engJWPress:            '',
+                    engJWPressKill:        '',
+                    engTurboExhTempR:      '', // guage
+                    engTurboExhTempRKill:  '',
+                    engTurboExhTempL:      '', // guage
+                    engTurboExhTempLKill:  '',
+                    rpm:                   '', // guage *
+                    engIgnitionTiming:     '', // guage
+                    engVacuumBoostR:       '', // guage
+                    engVacuumBoostRKill:   '',
+                    engVacuumBoostL:       '', // guage
+                    engVacuumBoostLKill:   '',
+                    engManifoldTempR:      '', // guage
+                    engManifoldTempRKill:  '',
+                    engManifoldTempL:      '', // guage
+                    engManifoldTempLKill:  '',
+                    engineManifoldVac:     '', //       *
+                    // Compressor
+                    compressorModel:       '',
+                    compressorSerial:      '',   //       *
+                    suctionPressure:       '', // guage *
+                    compInterPress1:       '', // guage
+                    compInterPress1Low:    '',
+                    compInterPress1High:   '',
+                    compInterPress2:       '', // guage
+                    compInterPress2Low:    '',
+                    compInterPress2High:   '',
+                    compInterPress3:       '', // guage
+                    compInterPress3Low:    '',
+                    compInterPress3High:   '',
+                    dischargePressure:     '', // final *
+                    dischargeTemp1:        '', // guage *
+                    dischargeTemp2:        '', // guage *
+                    dischargeStg1Temp:     '',
+                    dischargeStg1TempKill: '',
+                    dischargeStg3Temp:     '',
+                    dischargeStg3TempKill: '',
+                    dischargeStg4Temp:     '',
+                    dischargeStg4TempKill: '',
+                    compressorOilPressure: '', // guage *
+                    compOilPressKill:      '',
+                    compOilTemp:           '', // guage
+                    compOilTempKill:       '',
+                    compDiffPCFilter:      '', // guage
+                    compDiffPCFilterKill:  '',
+                    lubeRate:              '',
+                    flowMCF:               '', // guage *
+                },
+
+                emissionsReadings: {
+                    afrmvTarget:             '',
+                    catalystTempPre:         '',
+                    catalystTempPreCatKill:  '',
+                    catalystTempPost:        '',
+                    catalystTempPostCatKill: '',
+                    afrMake:                 '',
+                    afrModel:                '',
+                    afrSN:                   '',
+                    EICSCPUSoftware:         '',
+                    EICSDisplaySoftware:     '',
+                    catalystHousingMake:     '',
+                    catalystHousingModel:    '',
+                    catalystHousingSN:       '',
+                    catalystElementMake:     '',
+                    catalystElementSN1:      '',
+                    catalystElementSN2:      '',
+                    o2Sensors:               '',
+                    NOxSensor:               '',
+                    testPInchesH2O:          '',
+                    spotCheck:               false,
+                    noSpotCheck:             false,
+                    lastCalibration:         null,
+                    NOxGrams:                '',
+                    COGrams:                 '',
+                    NOxAllowable:            '',
+                    COAllowable:             '',
+                },
+
+                pmChecklist: {
+
+                    killSettings: {
+                        highSuctionKill:       '',
+                        highDischargeKill:     '',
+                        lowSuctionKill:        '',
+                        lowDischargeKill:      '',
+                        highDischargeTempKill: '',
+                    },
+                    taskList:     [],
+                    engineChecks: {
+                        battery:             false,
+                        capAndRotor:         false,
+                        airFilter:           false,
+                        oilAndFilters:       false,
+                        magPickup:           false,
+                        belts:               false,
+                        guardsAndBrackets:   false,
+                        sparkPlugs:          false,
+                        plugWires:           false,
+                        driveLine:           false,
+                        batteryNa:           false,
+                        capAndRotorNa:       false,
+                        airFilterNa:         false,
+                        oilAndFiltersNa:     false,
+                        magPickupNa:         false,
+                        beltsNa:             false,
+                        guardsAndBracketsNa: false,
+                        sparkPlugsNa:        false,
+                        plugWiresNa:         false,
+                        driveLineNa:         false,
+                    },
+
+                    generalChecks: {
+                        kills:                  false,
+                        airHoses:               false,
+                        coolerForCracks:        false,
+                        coolerLouverMovement:   false,
+                        coolerLouverCleaned:    false,
+                        pressureReliefValve:    false,
+                        scrubberDump:           false,
+                        plugInSkid:             false,
+                        filledDayTank:          false,
+                        fanForCracking:         false,
+                        panelWires:             false,
+                        oilPumpBelt:            false,
+                        killsNa:                false,
+                        airHosesNa:             false,
+                        coolerForCracksNa:      false,
+                        coolerLouverMovementNa: false,
+                        coolerLouverCleanedNa:  false,
+                        pressureReliefValveNa:  false,
+                        scrubberDumpNa:         false,
+                        plugInSkidNa:           false,
+                        filledDayTankNa:        false,
+                        fanForCrackingNa:       false,
+                        panelWiresNa:           false,
+                        oilPumpBeltNa:          false,
+                    },
+
+                    fuelPressureFirstCut:  '',
+                    fuelPressureSecondCut: '',
+                    fuelPressureThirdCut:  '',
+                    visibleLeaksNotes:     '',
+                    engineCompression:     {
+                        cylinder1:  '',
+                        cylinder2:  '',
+                        cylinder3:  '',
+                        cylinder4:  '',
+                        cylinder5:  '',
+                        cylinder6:  '',
+                        cylinder7:  '',
+                        cylinder8:  '',
+                        cylinder9:  '',
+                        cylinder10: '',
+                        cylinder11: '',
+                        cylinder12: '',
+                        cylinder13: '',
+                        cylinder14: '',
+                        cylinder15: '',
+                        cylinder16: '',
+                    },
+                },
+
+                comments: {
+                    repairsDescription:  '',
+                    repairsReason:       '',
+                    calloutReason:       '',
+                    swapReason:          '',
+                    transferReason:      '',
+                    newsetNotes:         '',
+                    releaseNotes:        '',
+                    indirectNotes:       '',
+                    timeAdjustmentNotes: '',
+                },
+
+                laborCodes: {
+                    basic: {
+                        contractor:    {hours: 0, minutes: 0, text: 'Contractor'},
+                        safety:        {hours: 0, minutes: 0, text: 'Safety'},
+                        positiveAdj:   {hours: 0, minutes: 0, text: 'Positive Time Adjustment'},
+                        negativeAdj:   {hours: 0, minutes: 0, text: 'Negative Time Adjustment'},
+                        lunch:         {hours: 0, minutes: 0, text: 'Lunch'},
+                        custRelations: {hours: 0, minutes: 0, text: 'Cust. Relations'},
+                        telemetry:     {hours: 0, minutes: 0, text: 'Telemetry'},
+                        environmental: {hours: 0, minutes: 0, text: 'Environment'},
+                        diagnostic:    {hours: 0, minutes: 0, text: 'Diagnostic'},
+                        serviceTravel: {hours: 0, minutes: 0, text: 'Service Travel'},
+                        optimizeUnit:  {hours: 0, minutes: 0, text: 'Optimize Unit'},
+                        pm:            {hours: 0, minutes: 0, text: 'PM'},
+                        washUnit:      {hours: 0, minutes: 0, text: 'Wash Unit'},
+                        inventory:     {hours: 0, minutes: 0, text: 'Inventory'},
+                        training:      {hours: 0, minutes: 0, text: 'Training'},
+                    },
+
+                    engine:     {
+                        oilAndFilter:          {hours: 0, minutes: 0, text: 'Oil and Filter'},
+                        addOil:                {hours: 0, minutes: 0, text: 'Add Oil'},
+                        compression:           {hours: 0, minutes: 0, text: 'Compression'},
+                        replaceEngine:         {hours: 0, minutes: 0, text: 'Replace Engine'},
+                        replaceCylHead:        {hours: 0, minutes: 0, text: 'Replace Cyl Head'},
+                        coolingSystem:         {hours: 0, minutes: 0, text: 'Cooling System'},
+                        fuelSystem:            {hours: 0, minutes: 0, text: 'Fuel System'},
+                        ignition:              {hours: 0, minutes: 0, text: 'Ignition'},
+                        starter:               {hours: 0, minutes: 0, text: 'Starter'},
+                        lubrication:           {hours: 0, minutes: 0, text: 'Lubrication'},
+                        exhaust:               {hours: 0, minutes: 0, text: 'Exhaust'},
+                        alternator:            {hours: 0, minutes: 0, text: 'Alternator'},
+                        driveOrCoupling:       {hours: 0, minutes: 0, text: 'Drive or Coupling'},
+                        sealsAndGaskets:       {hours: 0, minutes: 0, text: 'Seals and Gaskets'},
+                        engineVibrationSwitch: {hours: 0, minutes: 0, text: 'Vibration Switch'},
+                        engineBelts:           {hours: 0, minutes: 0, text: 'Belts'},
+                        harnessRepair:         {hours: 0, minutes: 0, text: 'Harness Repair'},
+                        EICSSensorActuators:   {
+                            hours:   0,
+                            minutes: 0,
+                            text:    'EICS Sensor/Actuators',
+                        },
+                    },
+                    emissions:  {
+                        install:                 {hours: 0, minutes: 0, text: 'Install'},
+                        test:                    {hours: 0, minutes: 0, text: 'Test'},
+                        repair:                  {hours: 0, minutes: 0, text: 'Repair'},
+                        o2SensorReplace:         {hours: 0, minutes: 0, text: 'O2 Sensor Replace'},
+                        catalystReplace:         {hours: 0, minutes: 0, text: 'Catalyst Replace'},
+                        emissionsThermocoupling: {hours: 0, minutes: 0, text: 'Thermocoupling'},
+                        exhaustGasketReplace:    {
+                            hours:   0,
+                            minutes: 0,
+                            text:    'Exhaust Gasket Replace',
+                        },
+                        facilitySetup:           {hours: 0, minutes: 0, text: 'Facility Setup'},
+                        adjustment:              {hours: 0, minutes: 0, text: 'Adjustment'},
+                        troubleshooting:         {hours: 0, minutes: 0, text: 'Troubleshooting'},
+                        standBy:                 {hours: 0, minutes: 0, text: 'Stand-by'},
+                    },
+                    panel:      {
+                        panel:           {hours: 0, minutes: 0, text: 'Panel'},
+                        electrical:      {hours: 0, minutes: 0, text: 'Electrical'},
+                        wiring:          {hours: 0, minutes: 0, text: 'Wiring'},
+                        conduit:         {hours: 0, minutes: 0, text: 'Conduit'},
+                        gauges:          {hours: 0, minutes: 0, text: 'Gauges'},
+                        panelDampners:   {hours: 0, minutes: 0, text: 'Dampners'},
+                        tubing:          {hours: 0, minutes: 0, text: 'Tubing'},
+                        programming:     {hours: 0, minutes: 0, text: 'Programming'},
+                        annuciator:      {hours: 0, minutes: 0, text: 'Annuciator'},
+                        safetyShutdowns: {hours: 0, minutes: 0, text: 'Safety Shutdowns'},
+                    },
+                    compressor: {
+                        inspect:                   {hours: 0, minutes: 0, text: 'Inspect'},
+                        replace:                   {hours: 0, minutes: 0, text: 'Replace'},
+                        addOil:                    {hours: 0, minutes: 0, text: 'Add Oil'},
+                        lubePump:                  {hours: 0, minutes: 0, text: 'Lube Pump'},
+                        valves:                    {hours: 0, minutes: 0, text: 'Valves'},
+                        alignment:                 {hours: 0, minutes: 0, text: 'Alignment'},
+                        piston:                    {hours: 0, minutes: 0, text: 'Piston'},
+                        packing:                   {hours: 0, minutes: 0, text: 'Packing'},
+                        compressorThermocouples:   {hours: 0, minutes: 0, text: 'Thermocouples'},
+                        noFlowSwitch:              {hours: 0, minutes: 0, text: 'No Flow Switch'},
+                        overhaul:                  {hours: 0, minutes: 0, text: 'Overhaul'},
+                        compressorVibrationSwitch: {hours: 0, minutes: 0, text: 'Vibration Switch'},
+                    },
+                    cooler:     {
+                        cooling:               {hours: 0, minutes: 0, text: 'Cooling'},
+                        coolTubeRepair:        {hours: 0, minutes: 0, text: 'Cool Tube Repair'},
+                        leakTesting:           {hours: 0, minutes: 0, text: 'Leak Testing'},
+                        pluggingCoolerTube:    {hours: 0, minutes: 0, text: 'Plugging Cooler Tube'},
+                        flushCooler:           {hours: 0, minutes: 0, text: 'Flush Cooler'},
+                        washCooler:            {hours: 0, minutes: 0, text: 'Wash Cooler'},
+                        coolerBelts:           {hours: 0, minutes: 0, text: 'Belts'},
+                        shaftBearing:          {hours: 0, minutes: 0, text: 'Shaft Bearing'},
+                        idlerBearing:          {hours: 0, minutes: 0, text: 'Idler Bearing'},
+                        fan:                   {hours: 0, minutes: 0, text: 'Fan'},
+                        shivePulley:           {hours: 0, minutes: 0, text: 'Shive Pulley'},
+                        coolerVibrationSwitch: {hours: 0, minutes: 0, text: 'Vibration Switch'},
+                    },
+                    vessel:     {
+                        dumpControl:      {hours: 0, minutes: 0, text: 'Dump Control'},
+                        reliefValve:      {hours: 0, minutes: 0, text: 'Relief Valve'},
+                        suctionValve:     {hours: 0, minutes: 0, text: 'Suction Valve'},
+                        dumpValve:        {hours: 0, minutes: 0, text: 'Dump Valve'},
+                        piping:           {hours: 0, minutes: 0, text: 'Piping'},
+                        screenWitchesHat: {hours: 0, minutes: 0, text: 'Screen/Witches Hat'},
+                        vesselDampners:   {hours: 0, minutes: 0, text: 'Dampners'},
+                    },
+                },
+                parts:      [],
+
+                jsa: {
+                    agree:                false,
+                    location:             '',
+                    customer:             '',
+                    descriptionOfWork:    '',
+                    emergencyEvac:        '',
+                    hazardPlanning:       '',
+                    techinicians:         [],
+                    controlsAndPractices: {
+                        confinedSpaceEntry:        false,
+                        spillKit:                  false,
+                        restrictAccess:            false,
+                        cutResistantGloves:        false,
+                        ppe:                       false,
+                        reviewEmergencyActionPlan: false,
+                        drinkWater:                false,
+                        electrician:               false,
+                        heatResistantGloves:       false,
+                        lockoutTagout:             false,
+                        depressurize:              false,
+                        chemGloves:                false,
+                        siteJobOrientation:        false,
+                        samplingMonitoring:        false,
+                        equipmentCooldown:         false,
+                        fireExtinguisher:          false,
+                    },
+                    potentialHazards:     {
+                        bodyPosition:           false,
+                        pinch:                  false,
+                        crushOrStriking:        false,
+                        sharpEdges:             false,
+                        materialHandling:       false,
+                        environmental:          false,
+                        lifting:                false,
+                        elevatedBodyTemp:       false,
+                        h2s:                    false,
+                        hotColdSurfaces:        false,
+                        laceration:             false,
+                        chemExposure:           false,
+                        fallFromElevation:      false,
+                        slickSurfaces:          false,
+                        excavation:             false,
+                        slips:                  false,
+                        trips:                  false,
+                        falls:                  false,
+                        equipment:              false,
+                        fireExplosionPotential: false,
+                        eletricShock:           false,
+                        confinedSpace:          false,
+                    },
+                },
+            }
+        },
+    }
+}
+
+angular
+    .module('WorkOrderApp.Services')
+    .factory('CommonWOfunctions',
+        ['$timeout', 'ObjectService', 'ApiRequestService', 'TimeDisplayService', CommonWOfunctions])
+
 'use strict';
 
 /**
@@ -13071,167 +13231,6 @@ module.exports = function(mdb, collection, cb) {
   this.db_init(collection, cb);
   return this;
 };
-
-/**
- *            GeneralDestinationSelection
- *
- * Created by marcusjwhelan on 11/14/16.
- *
- * Contact: marcus.j.whelan@gmail.com
- *
- */
-angular.module('CommonComponents')
-.component('generalDestinationSelection', {
-  templateUrl: '/lib/public/angular/views/customContainers/GeneralDestinationSelection.html',
-  bindings: {
-    ccPanelTitle: '@',
-    ccLabelOrigin: '@',
-    ccLabelDestination: '@',
-    ccReturnType: '@',
-    ccOriginType: '@',
-    ccDestinationType: '@',
-    ccOriginModelName: '@',
-    ccDestinationModelName: '@',
-    ccOriginChange: '&',
-    ccDestinationChange: '&',
-    ccDataOrigin: '<',
-    ccDataDestination: '<',
-    ccLocations: '<'
-  },
-  controller: ['LocationItemService', OriginDestinationLocationCtrl]
-});
-
-function OriginDestinationLocationCtrl (LocationItemService) {
-  // Variables --------------------------------------
-  var self = this;
-  self.originArray = [];
-  self.destinationArray = [];
-  // ------------------------------------------------
-
-  // Fill Origin Array ------------------------------
-  // Add Any origin type you would like and add a location item
-  // Service to serve that type below.
-  if (self.ccOriginType === 'warehouse') {
-    self.originArray = LocationItemService.getLocationWarehouseObjArray(self.ccLocations);
-  } else {
-    self.originArray = self.ccLocations;
-  }
-  // ------------------------------------------------
-
-  // Fill Destination Array -------------------------
-  // Add any Destination type you would like and add a location
-  // item service to serve that type below
-  if (self.ccDestinationType === 'warehouse-truck') {
-    self.destinationArray = LocationItemService.getTruckObj(self.ccLocations);
-  } else {
-    self.destinationArray = self.ccLocations;
-  }
-  // ------------------------------------------------
-
-  // On Changes to Either Pass Back to Parent CTRL --
-  self.OriginChange = function (changedData, selected) {
-    self.ccOriginChange({ changedData: changedData, selected: selected});
-  };
-  self.DestinationChange = function (changedData, selected) {
-    self.ccDestinationChange({ changedData: changedData, selected: selected});
-  };
-  // ------------------------------------------------
-}
-
-angular.module('CommonComponents')
-.controller('AddPartModalCtrl',['$scope', '$uibModalInstance',
-  function ($scope, $uibModalInstance) {
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-  }])
-.component('generalPartsList', {
-  templateUrl: 'lib/public/angular/views/customComponents/GeneralPartsList.html',
-  bindings: {
-    ccData: '<',
-    ccPanelTitle: '@',
-    ccTableClass: '@',
-    ccOnManualAdd: '&',
-    ccOnDelete: '&'
-  },
-  controller: ['$uibModal',GeneralPartsListCtrl]
-});
-
-function GeneralPartsListCtrl ($uibModal) {
-  // Variables ----------------------------------------------------------
-  var self = this;
-  // --------------------------------------------------------------------
-
-  // This Calls the Manual Part Modal Ctrl Above ------------------------
-  self.openManualPartModal = function(){
-    var modalInstance = $uibModal.open({
-      templateUrl: '/lib/public/angular/views/modals/manualAddPartModal.html',
-      controller: 'AddPartModalCtrl'
-    });
-
-    // Take Results of Modal Instance and Push into Parts Array ---------
-    modalInstance.result.then(function (part){
-      var thisPart = part;
-      thisPart.quantity = 0;
-      thisPart.isManual = true;
-      self.ccOnManualAdd({part: thisPart});
-    });
-  };
-  // --------------------------------------------------------------------
-}
-
-/**
- *            selectTechWarehouseId
- *
- * Created by marcusjwhelan on 11/10/16.
- *
- * Contact: marcus.j.whelan@gmail.com
- *
- */
-
-/// NEED TO FINISH UPDATING  REFERENCE General DestinationSelection.js
-angular.module('CommonComponents')
-.component('selectTechWarehouseId', {
-  templateUrl: 'lib/public/angular/views/customComponents/selectTechWarehouseId.html',
-  bindings: {
-    ccPanelTitle: '@',
-    ccClass: '@',
-    ccLabel: '@',
-    ccModelName: '@',
-    ccReturnType: '@',
-    ccType: '@',
-    ccOnDataChange: '&',
-    ccData: '<',
-    ccLocations: '<'
-  },
-  controller: ['LocationItemService', SelectTechOrWarehouseCtrl]
-});
-
-function SelectTechOrWarehouseCtrl (LocationItemService) {
-  // Variables --------------------------------------------------
-  var self = this;
-  self.locationWarehouseArray = [];
-  self.locationWarehouseNSIDArray = [];
-  // ------------------------------------------------------------
-
-  // Push All Warehouse ID --------------------------------------
-  if (self.ccType === "name") {
-    // get the location id array
-    self.locationWarehouseArray = LocationItemService.getLocationNameArray(self.ccTruckId, self.ccLocations);
-  }
-  if (self.ccType === "netsuiteId") {
-    // get all location Objects plus
-    self.locationTechWarehouseObjArray = LocationItemService.getLocationTechWarehouseObjArray(self.ccTruckId, self.ccLocations);
-  }
-  // ------------------------------------------------------------
-
-
-  // Pass Back Change to Parent ---------------------------------
-  self.onChange = function (changedData, selected) {
-    self.ccOnDataChange({ item: changedData , type: self.ccType, selected: selected });
-  };
-  // ------------------------------------------------------------
-}
 
 angular.module('MCDiligenceApp.Controllers')
     .controller('mcDiligenceModalCtrl', ['$window', '$scope', '$uibModalInstance',
