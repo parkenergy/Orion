@@ -9890,7 +9890,7 @@ class woPmChecks {
 angular
     .module('WorkOrderApp.Components')
     .component('woPmChecks', {
-        templateUrl:   '/lib/public/angular/apps/workorder/views/component.views/woPmChecks.html', bindings: {
+        templateUrl:   '/lib/public/angular/apps/workorder/views/component.views/woPMChecks.html', bindings: {
             callBack:  '&',
             workorder: '<',
             disabled:  '<',
@@ -10574,686 +10574,100 @@ angular
         controller: [woUserInfo]
     })
 
-angular.module('WorkOrderApp.Directives')
-.directive('newSerialNumbers', [function () {
-  return {
-    restrict: 'E',
-    templateUrl: '/lib/public/angular/apps/workorder/views/newSerial.html',
-    scope: true
-  };
-}]);
-
-/**
- * Created by marcusjwhelan on 10/20/16.
- */
-angular
-    .module("WorkOrderApp.Directives")
-    .directive("pesCollectionMatch", function () {
-        return {
-            restrict: "A",
-            require: "ngModel",
-            link: function (scope, elem, attr, ctrl) {
-                // set the border of the input for color to be larger
-                scope.myStyle = {
-                    borderWidth: "6px",
-                };
-                // validity setters.
-                var setInvalid = function (arg) {
-                    ctrl.$setValidity(arg, false);
-                    if (elem.parent().hasClass("has-success")) {
-                        elem.parent().removeClass("has-success");
-                        elem.parent().addClass("has-error");
-                    } else {
-                        elem.parent().addClass("has-error");
-                    }
-                };
-                var setHighlight = function (arg) {
-                    ctrl.$setValidity(arg, false);
-                    if (elem.parent().hasClass("has-success")) {
-                        elem.parent().removeClass("has-success");
-                    }
-                    if (elem.parent().hasClass("has-error")) {
-                        elem.parent().removeClass("has-error");
-                    }
-                    elem.parent().addClass("has-highlight");
-                };
-                var setValid = function (arg) {
-                    ctrl.$setValidity(arg, true);
-                    if (elem.parent().hasClass("has-error")) {
-                        elem.parent().removeClass("has-error");
-                        elem.parent().addClass("has-success");
-                    } else {
-                        elem.parent().addClass("has-success");
-                    }
-                };
-
-                // runs on page load and on item selection.
-                scope.$watch(
-                    attr.ngModel,
-                    _.debounce(function (viewValue) {
-                        scope.$apply(function () {
-                            // get the model name EG header.unitNumber
-                            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
-                            var attribute = attr.ngModel;
-                            var unitExists;
-
-                            // if there is a unit and not a Indirect WO
-                            if (
-                                scope.displayUnit &&
-                                scope.workorder.type !== "Indirect"
-                            ) {
-                                unitExists = "is_unit";
-                                // if there is no unit and not a Indirect WO
-                            } else if (
-                                !scope.displayUnit &&
-                                scope.workorder.type !== "Indirect"
-                            ) {
-                                unitExists = "should_unit";
-                                // its an Indirect WO. false unless empty
-                            } else {
-                                unitExists = "no_unit";
-                            }
-
-                            var checkUnitFields = function (vv) {
-                                // get the index of the unit number out of the array
-                                switch (attribute) {
-                                    case "workorder.header.unitNumber":
-                                        if (unitExists === "is_unit") {
-                                            var number;
-                                            if (
-                                                scope.workorder.type ===
-                                                "Transfer"
-                                            ) {
-                                                number =
-                                                    scope.headerUnit.number;
-                                            } else {
-                                                number =
-                                                    scope.displayUnit.number;
-                                            }
-                                            if (
-                                                number.toUpperCase() ===
-                                                scope.workorder.header.unitNumber.toUpperCase()
-                                            ) {
-                                                if (
-                                                    scope.workorder.header.unitNumber.toUpperCase() ===
-                                                        scope.workorder.unitNumber.toUpperCase() &&
-                                                    scope.workorder.type !==
-                                                        "Swap"
-                                                ) {
-                                                    setValid(attribute);
-                                                } else {
-                                                    setInvalid(attribute);
-                                                }
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-                                    case "workorder.header.customerName":
-                                        // customer
-                                        if (unitExists === "is_unit") {
-                                            var customerName;
-                                            if (
-                                                scope.workorder.type === "Swap"
-                                            ) {
-                                                customerName =
-                                                    scope.headerUnit
-                                                        .customerName;
-                                            } else {
-                                                customerName =
-                                                    scope.displayUnit
-                                                        .customerName;
-                                            }
-                                            if (
-                                                customerName.toUpperCase() ===
-                                                scope.workorder.header.customerName.toUpperCase()
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-
-                                        break;
-                                    case "workorder.header.leaseName":
-                                        // lease
-                                        if (unitExists === "is_unit") {
-                                            var locationName;
-                                            if (
-                                                scope.workorder.type === "Swap"
-                                            ) {
-                                                locationName =
-                                                    scope.headerUnit
-                                                        .locationName;
-                                            } else {
-                                                locationName =
-                                                    scope.displayUnit
-                                                        .locationName;
-                                            }
-                                            if (
-                                                locationName.toUpperCase() ===
-                                                scope.workorder.header.leaseName.toUpperCase()
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-
-                                        break;
-                                    case "workorder.header.county":
-                                        // county
-                                        if (unitExists === "is_unit") {
-                                            var county;
-                                            if (
-                                                scope.workorder.type === "Swap"
-                                            ) {
-                                                county =
-                                                    scope.headerUnit.county ===
-                                                        null ||
-                                                    scope.headerUnit.county ===
-                                                        undefined
-                                                        ? ""
-                                                        : scope.countiesObj[
-                                                              scope.headerUnit
-                                                                  .county
-                                                          ].name;
-                                            } else {
-                                                county =
-                                                    scope.displayUnit.county ===
-                                                        null ||
-                                                    scope.displayUnit.county ===
-                                                        undefined
-                                                        ? ""
-                                                        : scope.countiesObj[
-                                                              scope.displayUnit
-                                                                  .county
-                                                          ].name;
-                                            }
-                                            if (
-                                                county.toUpperCase() ===
-                                                scope.workorder.header.county.toUpperCase()
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-
-                                        break;
-                                    case "workorder.header.state":
-                                        // state
-                                        if (unitExists === "is_unit") {
-                                            var state;
-                                            if (
-                                                scope.workorder.type === "Swap"
-                                            ) {
-                                                state =
-                                                    scope.headerUnit.state ===
-                                                        null ||
-                                                    scope.headerUnit.state ===
-                                                        undefined
-                                                        ? ""
-                                                        : scope.statesObj[
-                                                              scope.headerUnit
-                                                                  .state
-                                                          ].name;
-                                            } else {
-                                                state =
-                                                    scope.displayUnit.state ===
-                                                        null ||
-                                                    scope.displayUnit.state ===
-                                                        undefined
-                                                        ? ""
-                                                        : scope.statesObj[
-                                                              scope.displayUnit
-                                                                  .state
-                                                          ].name;
-                                            }
-                                            if (
-                                                state.toUpperCase() ===
-                                                scope.workorder.header.state.toUpperCase()
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-
-                                        break;
-                                    case "workorder.unitReadings.compressorSerial":
-                                        // compressor serial
-                                        if (unitExists === "is_unit") {
-                                            var compressorSerial =
-                                                scope.displayUnit
-                                                    .compressorSerial === null
-                                                    ? ""
-                                                    : scope.displayUnit
-                                                          .compressorSerial;
-                                            if (
-                                                compressorSerial ===
-                                                scope.workorder.unitReadings
-                                                    .compressorSerial
-                                            ) {
-                                                if (
-                                                    scope.workorder.type ===
-                                                    "Swap"
-                                                ) {
-                                                    setHighlight(attribute);
-                                                } else {
-                                                    setValid(attribute);
-                                                }
-                                            } else {
-                                                if (
-                                                    scope.workorder.type ===
-                                                    "Swap"
-                                                ) {
-                                                    setHighlight(attribute);
-                                                } else {
-                                                    setInvalid(attribute);
-                                                }
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-
-                                    case "workorder.unitReadings.engineSerial":
-                                        // Engine serial
-                                        if (unitExists === "is_unit") {
-                                            var engineSerial =
-                                                scope.displayUnit
-                                                    .engineSerial === null
-                                                    ? ""
-                                                    : scope.displayUnit
-                                                          .engineSerial;
-                                            if (
-                                                engineSerial ===
-                                                scope.workorder.unitReadings
-                                                    .engineSerial
-                                            ) {
-                                                if (
-                                                    scope.workorder.type ===
-                                                    "Swap"
-                                                ) {
-                                                    setHighlight(attribute);
-                                                } else {
-                                                    setValid(attribute);
-                                                }
-                                            } else {
-                                                if (
-                                                    scope.workorder.type ===
-                                                    "Swap"
-                                                ) {
-                                                    setHighlight(attribute);
-                                                } else {
-                                                    setInvalid(attribute);
-                                                }
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-
-                                    // case "workorder.geo.coordinates[1]":
-                                    //   // Engine serial
-                                    //   if (unitExists === 'is_unit') {
-                                    //     var latitude;
-                                    //     if (scope.workorder.type === 'Swap') {
-                                    //       latitude = scope.headerUnit.geo.coordinates[1] === 0 ? 0 : scope.headerUnit.geo.coordinates[1];
-                                    //     } else {
-                                    //       latitude = scope.displayUnit.geo.coordinates[1] === 0 ? 0 : scope.displayUnit.geo.coordinates[1];
-                                    //     }
-                                    //     if (latitude === scope.workorder.geo.coordinates[1]) {
-                                    //       setValid(attribute);
-                                    //     } else {
-                                    //       if (scope.workorder.atShop) {
-                                    //         setValid(attribute);
-                                    //       } else {
-                                    //         setInvalid(attribute);
-                                    //       }
-                                    //     }
-                                    //   } else if (unitExists === 'should_unit') {
-                                    //     setInvalid(attribute);
-                                    //   } else if (unitExists === 'no_unit') {
-                                    //     if (vv) {
-                                    //       setInvalid(attribute);
-                                    //     } else {
-                                    //       setValid(attribute);
-                                    //     }
-                                    //   }
-                                    //   break;
-
-                                    // case "workorder.geo.coordinates[0]":
-                                    //   // Engine serial
-                                    //   if (unitExists === 'is_unit') {
-                                    //     var longitude;
-                                    //     if (scope.workorder.type === 'Swap') {
-                                    //       longitude = scope.headerUnit.geo.coordinates[0] === 0 ? 0 : scope.headerUnit.geo.coordinates[0];
-                                    //     } else {
-                                    //       longitude = scope.displayUnit.geo.coordinates[0] === 0 ? 0 : scope.displayUnit.geo.coordinates[0];
-                                    //     }
-                                    //     if (longitude === scope.workorder.geo.coordinates[0]) {
-                                    //       setValid(attribute);
-                                    //     } else {
-                                    //       if (scope.workorder.atShop) {
-                                    //         setValid(attribute);
-                                    //       } else {
-                                    //         setInvalid(attribute);
-                                    //       }
-                                    //     }
-                                    //   } else if (unitExists === 'should_unit') {
-                                    //     setInvalid(attribute);
-                                    //   } else if (unitExists === 'no_unit') {
-                                    //     if (vv) {
-                                    //       setInvalid(attribute);
-                                    //     } else {
-                                    //       setValid(attribute);
-                                    //     }
-                                    //   }
-                                    //   break;
-                                    case "workorder.unitReadings.displayEngineModel":
-                                        if (unitExists === "is_unit") {
-                                            // get _id from current WO unit engine
-                                            let engineModelID = "";
-
-                                            scope.engineModels.forEach(
-                                                (engine) => {
-                                                    if (
-                                                        scope.displayUnit
-                                                            .engineModel
-                                                    ) {
-                                                        if (
-                                                            engine.netsuiteId ===
-                                                            scope.displayUnit
-                                                                .engineModel
-                                                        ) {
-                                                            engineModelID =
-                                                                engine.netsuiteId;
-                                                        }
-                                                    }
-                                                }
-                                            );
-
-                                            if (
-                                                engineModelID ===
-                                                scope.workorder.unitReadings
-                                                    .engineModel
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-                                    case "workorder.unitReadings.displayFrameModel":
-                                        if (unitExists === "is_unit") {
-                                            // get _id from current WO unit engine
-                                            let frameModelID = "";
-
-                                            scope.frameModels.forEach(
-                                                (frame) => {
-                                                    if (
-                                                        scope.displayUnit
-                                                            .frameModel
-                                                    ) {
-                                                        if (
-                                                            frame.netsuiteId ===
-                                                            scope.displayUnit
-                                                                .frameModel
-                                                        ) {
-                                                            frameModelID =
-                                                                frame.netsuiteId;
-                                                        }
-                                                    }
-                                                }
-                                            );
-
-                                            if (
-                                                frameModelID ===
-                                                scope.workorder.unitReadings
-                                                    .compressorModel
-                                            ) {
-                                                setValid(attribute);
-                                            } else {
-                                                setInvalid(attribute);
-                                            }
-                                        } else if (
-                                            unitExists === "should_unit"
-                                        ) {
-                                            setInvalid(attribute);
-                                        } else if (unitExists === "no_unit") {
-                                            if (vv) {
-                                                setInvalid(attribute);
-                                            } else {
-                                                setValid(attribute);
-                                            }
-                                        }
-                                        break;
-                                }
-                            };
-                            // if empty don't set has-error
-                            if (
-                                viewValue ||
-                                viewValue === "" ||
-                                viewValue === null ||
-                                viewValue === 0
-                            ) {
-                                checkUnitFields(viewValue);
-
-                                return viewValue;
-                            }
-                        });
-                    }, 300)
-                ); // 300 ms wait. Don't do it every change
-            },
-        };
-    })
-    .directive("unitInput", [
-        function () {
-            return {
-                restrict: "E",
-                templateUrl:
-                    "/lib/public/angular/apps/workorder/views/unitInput.html",
-                scope: false,
-            };
-        },
-    ]);
-
-angular.module('WorkOrderApp.Directives')
-  .directive('pesSwapCollectionMatch', function () {
-    return {
-      restrict: 'A',
-      require: 'ngModel',
-      link: function(scope, elem, attr, ctrl){
-        scope.myStyle = {
-          borderWidth: "6px",
-        };
-        // validity setters.
-        var setInvalid = function(arg){
-          ctrl.$setValidity( arg, false);
-          if(elem.parent().hasClass('has-success')){
-            elem.parent().removeClass('has-success');
-            elem.parent().addClass('has-highlight');
-          } else {
-            elem.parent().addClass('has-highlight');
-          }
-        };
-        var setValid = function(arg){
-          ctrl.$setValidity( arg, true );
-          if(elem.parent().hasClass('has-error')){
-            elem.parent().removeClass('has-error');
-            elem.parent().addClass('has-highlight');
-          } else {
-            elem.parent().addClass('has-highlight');
-          }
-        };
-
-        scope.$watch(attr.ngModel, _.debounce(function(viewValue){
-          scope.$apply(function(){
-            // get the model name EG header.unitNumber
-            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
-            var attribute = attr.ngModel;
-            var unitExists;
-            // if there is a unit and not a Indirect WO
-            if(scope.displayUnit && scope.workorder.type !== 'Indirect'){
-              unitExists = 'is_unit';
-              // if there is no unit and not a Indirect WO
-            } else if(!scope.displayUnit && scope.workorder.type !== 'Indirect') {
-              unitExists = 'should_unit';
-              // its an Indirect WO. false unless empty
-            } else {
-              unitExists = 'no_unit'
-            }
-
-            var checkUnitFields = function () {
-              switch(attribute) {
-                case 'workorder.unitChangeInfo.transferCounty':
-                  if (unitExists === 'is_unit') {
-                      var county = (scope.displayUnit.county === null ||
-                          scope.displayUnit.county === undefined)
-                          ? ''
-                          : scope.countiesObj[scope.displayUnit.county].name
-                    if (county.toUpperCase() === scope.workorder.unitChangeInfo.transferCounty.toUpperCase()) {
-                      setValid(attribute)
-                    } else {
-                      setInvalid(attribute)
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-                case 'workorder.unitChangeInfo.transferState':
-                  if (unitExists === 'is_unit') {
-                      var state = (scope.displayUnit.state === null || scope.displayUnit.state ===
-                          undefined) ? '' : scope.statesObj[scope.displayUnit.state].name
-                    if (state.toUpperCase() === scope.workorder.unitChangeInfo.transferState.toUpperCase()) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-                case 'workorder.unitChangeInfo.transferLease':
-                  if (unitExists === 'is_unit') {
-                    if (scope.displayUnit.locationName.toUpperCase() === scope.workorder.unitChangeInfo.transferLease.toUpperCase()) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-                case 'workorder.unitChangeInfo.swapUnitNumber':
-                  if (unitExists === 'is_unit') {
-                    if (scope.displayUnit.number.toUpperCase() === scope.workorder.unitChangeInfo.swapUnitNumber.toUpperCase()) {
-                      setValid(attribute);
-                    } else {
-                      setInvalid(attribute);
-                    }
-                  } else if (unitExists === 'should_unit') {
-                    setInvalid(attribute);
-                  }
-                  break;
-              }
-            };
-
-            if(viewValue || viewValue === '' || viewValue === null || viewValue === 0){
-              checkUnitFields(viewValue);
-
-              return viewValue;
-            }
-          })
-        },300)); // 300 ms wait. Don't do it every change
-      }
-    }
-  })
-  .directive('unitChangeInfo', [function() {
-    return {
-      restrict: 'E',
-      templateUrl: '/lib/public/angular/apps/workorder/views/woChangeInfo.html',
-      scope: true
+angular.module('WorkOrderApp.Controllers').controller('AddPartEditModalCtrl',
+  function ( $scope, $uibModalInstance, ObjectService){
+    $scope.part = {};
+    
+    $scope.changePartTextAreaField = (changedData, selected) => {
+      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
     };
-  }]);
+    
+    $scope.changePartTextField = ( changedData, selected ) => {
+      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
+    };
+    
+    $scope.addPart = () => {
+      $uibModalInstance.close($scope.part);
+    };
+    $scope.cancel = () => {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
+
+angular.module('WorkOrderApp.Controllers').controller('ConfirmationCtrl',
+  function ($scope, $uibModalInstance){
+    $scope.confirm = () => {
+      $uibModalInstance.close(true);
+    };
+    $scope.cancel = () => {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
+
+angular.module('WorkOrderApp.Controllers').controller('ErrorCtrl',
+  function ($scope, $uibModalInstance){
+    $scope.ok = () => {
+      $uibModalInstance.close();
+    };
+  });
+
+angular.module('WorkOrderApp.Controllers').controller('JsaEditModalCtrl',
+  function ( $scope, $uibModalInstance, jsa, ObjectService ){
+    $scope.jsa = jsa;
+    
+    $scope.changeJsaTextAreaField = (changeData, selected) => {
+      ObjectService.updateNestedObjectValue($scope.jsa, changeData, selected);
+    };
+    
+    $scope.changeJsaCheckbox = (changedData, selected) => {
+      ObjectService.updateNestedObjectValue($scope.jsa, changedData, selected);
+    };
+    $scope.changeJsaTextField = (changedData, selected) => {
+      ObjectService.updateNonNestedObjectValue($scope.jsa, changedData, selected);
+    };
+    
+    $scope.ok = () => {
+      $uibModalInstance.close($scope.jsa);
+    };
+    $scope.cancel = function (){
+      $uibModalInstance.dismiss('cancel');
+    };
+    $scope.removeTech = (tech) => {
+      const index = $scope.jsa.techinicians.indexOf(tech);
+      $scope.jsa.techinicians.splice(index, 1);
+    };
+  });
+
+function NotesModal($scope, $uibModalInstance, obj){
+    $scope.notes = obj.notes;
+    $scope.disabled = obj.disabled
+
+    $scope.changeNoteTextAreaField = ( changedData, selected ) => {
+        $scope.notes = changedData;
+    };
+
+    $scope.ok = () => {
+        $uibModalInstance.close($scope.notes);
+    };
+    $scope.cancel = () => {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+angular
+    .module('WorkOrderApp.Controllers')
+    .controller('NotesModalCtrl', NotesModal);
+
+angular.module('WorkOrderApp.Controllers').controller('SubmitAllModalCtrl',
+    function ($scope, $uibModalInstance) {
+
+        $scope.ok = () => {
+            $uibModalInstance.close(true);
+        };
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss(false);
+        };
+    });
 
 function WorkOrderCreateCtrlFunc(
     $scope,
@@ -12629,6 +12043,704 @@ angular
         WorkOrderViewCtrl,
     ]);
 
+function geoViewModal($window, $scope, $uibModalInstance, obj) {
+    $scope.unit = obj.unit;
+    $scope.unit.geo = obj.geo;
+
+    $scope.toUnitPage = () => {
+        $uibModalInstance.close();
+        $window.open('#/unit/page/' + $scope.unit.geo.coordinates[1]+','+$scope.unit.geo.coordinates[0]);
+    };
+    $scope.ok = () => {
+        $uibModalInstance.close();
+    };
+}
+
+angular
+    .module('WorkOrderApp.Controllers')
+    .controller('woLocationModalCtrl',['$window', '$scope', '$uibModalInstance', 'obj', geoViewModal]);
+
+angular.module('WorkOrderApp.Directives')
+.directive('newSerialNumbers', [function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/lib/public/angular/apps/workorder/views/newSerial.html',
+    scope: true
+  };
+}]);
+
+/**
+ * Created by marcusjwhelan on 10/20/16.
+ */
+angular
+    .module("WorkOrderApp.Directives")
+    .directive("pesCollectionMatch", function () {
+        return {
+            restrict: "A",
+            require: "ngModel",
+            link: function (scope, elem, attr, ctrl) {
+                // set the border of the input for color to be larger
+                scope.myStyle = {
+                    borderWidth: "6px",
+                };
+                // validity setters.
+                var setInvalid = function (arg) {
+                    ctrl.$setValidity(arg, false);
+                    if (elem.parent().hasClass("has-success")) {
+                        elem.parent().removeClass("has-success");
+                        elem.parent().addClass("has-error");
+                    } else {
+                        elem.parent().addClass("has-error");
+                    }
+                };
+                var setHighlight = function (arg) {
+                    ctrl.$setValidity(arg, false);
+                    if (elem.parent().hasClass("has-success")) {
+                        elem.parent().removeClass("has-success");
+                    }
+                    if (elem.parent().hasClass("has-error")) {
+                        elem.parent().removeClass("has-error");
+                    }
+                    elem.parent().addClass("has-highlight");
+                };
+                var setValid = function (arg) {
+                    ctrl.$setValidity(arg, true);
+                    if (elem.parent().hasClass("has-error")) {
+                        elem.parent().removeClass("has-error");
+                        elem.parent().addClass("has-success");
+                    } else {
+                        elem.parent().addClass("has-success");
+                    }
+                };
+
+                // runs on page load and on item selection.
+                scope.$watch(
+                    attr.ngModel,
+                    _.debounce(function (viewValue) {
+                        scope.$apply(function () {
+                            // get the model name EG header.unitNumber
+                            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
+                            var attribute = attr.ngModel;
+                            var unitExists;
+
+                            // if there is a unit and not a Indirect WO
+                            if (
+                                scope.displayUnit &&
+                                scope.workorder.type !== "Indirect"
+                            ) {
+                                unitExists = "is_unit";
+                                // if there is no unit and not a Indirect WO
+                            } else if (
+                                !scope.displayUnit &&
+                                scope.workorder.type !== "Indirect"
+                            ) {
+                                unitExists = "should_unit";
+                                // its an Indirect WO. false unless empty
+                            } else {
+                                unitExists = "no_unit";
+                            }
+
+                            var checkUnitFields = function (vv) {
+                                // get the index of the unit number out of the array
+                                switch (attribute) {
+                                    case "workorder.header.unitNumber":
+                                        if (unitExists === "is_unit") {
+                                            var number;
+                                            if (
+                                                scope.workorder.type ===
+                                                "Transfer"
+                                            ) {
+                                                number =
+                                                    scope.headerUnit.number;
+                                            } else {
+                                                number =
+                                                    scope.displayUnit.number;
+                                            }
+                                            if (
+                                                number.toUpperCase() ===
+                                                scope.workorder.header.unitNumber.toUpperCase()
+                                            ) {
+                                                if (
+                                                    scope.workorder.header.unitNumber.toUpperCase() ===
+                                                        scope.workorder.unitNumber.toUpperCase() &&
+                                                    scope.workorder.type !==
+                                                        "Swap"
+                                                ) {
+                                                    setValid(attribute);
+                                                } else {
+                                                    setInvalid(attribute);
+                                                }
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+                                    case "workorder.header.customerName":
+                                        // customer
+                                        if (unitExists === "is_unit") {
+                                            var customerName;
+                                            if (
+                                                scope.workorder.type === "Swap"
+                                            ) {
+                                                customerName =
+                                                    scope.headerUnit
+                                                        .customerName;
+                                            } else {
+                                                customerName =
+                                                    scope.displayUnit
+                                                        .customerName;
+                                            }
+                                            if (
+                                                customerName.toUpperCase() ===
+                                                scope.workorder.header.customerName.toUpperCase()
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+
+                                        break;
+                                    case "workorder.header.leaseName":
+                                        // lease
+                                        if (unitExists === "is_unit") {
+                                            var locationName;
+                                            if (
+                                                scope.workorder.type === "Swap"
+                                            ) {
+                                                locationName =
+                                                    scope.headerUnit
+                                                        .locationName;
+                                            } else {
+                                                locationName =
+                                                    scope.displayUnit
+                                                        .locationName;
+                                            }
+                                            if (
+                                                locationName.toUpperCase() ===
+                                                scope.workorder.header.leaseName.toUpperCase()
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+
+                                        break;
+                                    case "workorder.header.county":
+                                        // county
+                                        if (unitExists === "is_unit") {
+                                            var county;
+                                            if (
+                                                scope.workorder.type === "Swap"
+                                            ) {
+                                                county =
+                                                    scope.headerUnit.county ===
+                                                        null ||
+                                                    scope.headerUnit.county ===
+                                                        undefined
+                                                        ? ""
+                                                        : scope.countiesObj[
+                                                              scope.headerUnit
+                                                                  .county
+                                                          ].name;
+                                            } else {
+                                                county =
+                                                    scope.displayUnit.county ===
+                                                        null ||
+                                                    scope.displayUnit.county ===
+                                                        undefined
+                                                        ? ""
+                                                        : scope.countiesObj[
+                                                              scope.displayUnit
+                                                                  .county
+                                                          ].name;
+                                            }
+                                            if (
+                                                county.toUpperCase() ===
+                                                scope.workorder.header.county.toUpperCase()
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+
+                                        break;
+                                    case "workorder.header.state":
+                                        // state
+                                        if (unitExists === "is_unit") {
+                                            var state;
+                                            if (
+                                                scope.workorder.type === "Swap"
+                                            ) {
+                                                state =
+                                                    scope.headerUnit.state ===
+                                                        null ||
+                                                    scope.headerUnit.state ===
+                                                        undefined
+                                                        ? ""
+                                                        : scope.statesObj[
+                                                              scope.headerUnit
+                                                                  .state
+                                                          ].name;
+                                            } else {
+                                                state =
+                                                    scope.displayUnit.state ===
+                                                        null ||
+                                                    scope.displayUnit.state ===
+                                                        undefined
+                                                        ? ""
+                                                        : scope.statesObj[
+                                                              scope.displayUnit
+                                                                  .state
+                                                          ].name;
+                                            }
+                                            if (
+                                                state.toUpperCase() ===
+                                                scope.workorder.header.state.toUpperCase()
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+
+                                        break;
+                                    case "workorder.unitReadings.compressorSerial":
+                                        // compressor serial
+                                        if (unitExists === "is_unit") {
+                                            var compressorSerial =
+                                                scope.displayUnit
+                                                    .compressorSerial === null
+                                                    ? ""
+                                                    : scope.displayUnit
+                                                          .compressorSerial;
+                                            if (
+                                                compressorSerial ===
+                                                scope.workorder.unitReadings
+                                                    .compressorSerial
+                                            ) {
+                                                if (
+                                                    scope.workorder.type ===
+                                                    "Swap"
+                                                ) {
+                                                    setHighlight(attribute);
+                                                } else {
+                                                    setValid(attribute);
+                                                }
+                                            } else {
+                                                if (
+                                                    scope.workorder.type ===
+                                                    "Swap"
+                                                ) {
+                                                    setHighlight(attribute);
+                                                } else {
+                                                    setInvalid(attribute);
+                                                }
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+
+                                    case "workorder.unitReadings.engineSerial":
+                                        // Engine serial
+                                        if (unitExists === "is_unit") {
+                                            var engineSerial =
+                                                scope.displayUnit
+                                                    .engineSerial === null
+                                                    ? ""
+                                                    : scope.displayUnit
+                                                          .engineSerial;
+                                            if (
+                                                engineSerial ===
+                                                scope.workorder.unitReadings
+                                                    .engineSerial
+                                            ) {
+                                                if (
+                                                    scope.workorder.type ===
+                                                    "Swap"
+                                                ) {
+                                                    setHighlight(attribute);
+                                                } else {
+                                                    setValid(attribute);
+                                                }
+                                            } else {
+                                                if (
+                                                    scope.workorder.type ===
+                                                    "Swap"
+                                                ) {
+                                                    setHighlight(attribute);
+                                                } else {
+                                                    setInvalid(attribute);
+                                                }
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+
+                                    // case "workorder.geo.coordinates[1]":
+                                    //   // Engine serial
+                                    //   if (unitExists === 'is_unit') {
+                                    //     var latitude;
+                                    //     if (scope.workorder.type === 'Swap') {
+                                    //       latitude = scope.headerUnit.geo.coordinates[1] === 0 ? 0 : scope.headerUnit.geo.coordinates[1];
+                                    //     } else {
+                                    //       latitude = scope.displayUnit.geo.coordinates[1] === 0 ? 0 : scope.displayUnit.geo.coordinates[1];
+                                    //     }
+                                    //     if (latitude === scope.workorder.geo.coordinates[1]) {
+                                    //       setValid(attribute);
+                                    //     } else {
+                                    //       if (scope.workorder.atShop) {
+                                    //         setValid(attribute);
+                                    //       } else {
+                                    //         setInvalid(attribute);
+                                    //       }
+                                    //     }
+                                    //   } else if (unitExists === 'should_unit') {
+                                    //     setInvalid(attribute);
+                                    //   } else if (unitExists === 'no_unit') {
+                                    //     if (vv) {
+                                    //       setInvalid(attribute);
+                                    //     } else {
+                                    //       setValid(attribute);
+                                    //     }
+                                    //   }
+                                    //   break;
+
+                                    // case "workorder.geo.coordinates[0]":
+                                    //   // Engine serial
+                                    //   if (unitExists === 'is_unit') {
+                                    //     var longitude;
+                                    //     if (scope.workorder.type === 'Swap') {
+                                    //       longitude = scope.headerUnit.geo.coordinates[0] === 0 ? 0 : scope.headerUnit.geo.coordinates[0];
+                                    //     } else {
+                                    //       longitude = scope.displayUnit.geo.coordinates[0] === 0 ? 0 : scope.displayUnit.geo.coordinates[0];
+                                    //     }
+                                    //     if (longitude === scope.workorder.geo.coordinates[0]) {
+                                    //       setValid(attribute);
+                                    //     } else {
+                                    //       if (scope.workorder.atShop) {
+                                    //         setValid(attribute);
+                                    //       } else {
+                                    //         setInvalid(attribute);
+                                    //       }
+                                    //     }
+                                    //   } else if (unitExists === 'should_unit') {
+                                    //     setInvalid(attribute);
+                                    //   } else if (unitExists === 'no_unit') {
+                                    //     if (vv) {
+                                    //       setInvalid(attribute);
+                                    //     } else {
+                                    //       setValid(attribute);
+                                    //     }
+                                    //   }
+                                    //   break;
+                                    case "workorder.unitReadings.displayEngineModel":
+                                        if (unitExists === "is_unit") {
+                                            // get _id from current WO unit engine
+                                            let engineModelID = "";
+
+                                            scope.engineModels.forEach(
+                                                (engine) => {
+                                                    if (
+                                                        scope.displayUnit
+                                                            .engineModel
+                                                    ) {
+                                                        if (
+                                                            engine.netsuiteId ===
+                                                            scope.displayUnit
+                                                                .engineModel
+                                                        ) {
+                                                            engineModelID =
+                                                                engine.netsuiteId;
+                                                        }
+                                                    }
+                                                }
+                                            );
+
+                                            if (
+                                                engineModelID ===
+                                                scope.workorder.unitReadings
+                                                    .engineModel
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+                                    case "workorder.unitReadings.displayFrameModel":
+                                        if (unitExists === "is_unit") {
+                                            // get _id from current WO unit engine
+                                            let frameModelID = "";
+
+                                            scope.frameModels.forEach(
+                                                (frame) => {
+                                                    if (
+                                                        scope.displayUnit
+                                                            .frameModel
+                                                    ) {
+                                                        if (
+                                                            frame.netsuiteId ===
+                                                            scope.displayUnit
+                                                                .frameModel
+                                                        ) {
+                                                            frameModelID =
+                                                                frame.netsuiteId;
+                                                        }
+                                                    }
+                                                }
+                                            );
+
+                                            if (
+                                                frameModelID ===
+                                                scope.workorder.unitReadings
+                                                    .compressorModel
+                                            ) {
+                                                setValid(attribute);
+                                            } else {
+                                                setInvalid(attribute);
+                                            }
+                                        } else if (
+                                            unitExists === "should_unit"
+                                        ) {
+                                            setInvalid(attribute);
+                                        } else if (unitExists === "no_unit") {
+                                            if (vv) {
+                                                setInvalid(attribute);
+                                            } else {
+                                                setValid(attribute);
+                                            }
+                                        }
+                                        break;
+                                }
+                            };
+                            // if empty don't set has-error
+                            if (
+                                viewValue ||
+                                viewValue === "" ||
+                                viewValue === null ||
+                                viewValue === 0
+                            ) {
+                                checkUnitFields(viewValue);
+
+                                return viewValue;
+                            }
+                        });
+                    }, 300)
+                ); // 300 ms wait. Don't do it every change
+            },
+        };
+    })
+    .directive("unitInput", [
+        function () {
+            return {
+                restrict: "E",
+                templateUrl:
+                    "/lib/public/angular/apps/workorder/views/unitInput.html",
+                scope: false,
+            };
+        },
+    ]);
+
+angular.module('WorkOrderApp.Directives')
+  .directive('pesSwapCollectionMatch', function () {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, elem, attr, ctrl){
+        scope.myStyle = {
+          borderWidth: "6px",
+        };
+        // validity setters.
+        var setInvalid = function(arg){
+          ctrl.$setValidity( arg, false);
+          if(elem.parent().hasClass('has-success')){
+            elem.parent().removeClass('has-success');
+            elem.parent().addClass('has-highlight');
+          } else {
+            elem.parent().addClass('has-highlight');
+          }
+        };
+        var setValid = function(arg){
+          ctrl.$setValidity( arg, true );
+          if(elem.parent().hasClass('has-error')){
+            elem.parent().removeClass('has-error');
+            elem.parent().addClass('has-highlight');
+          } else {
+            elem.parent().addClass('has-highlight');
+          }
+        };
+
+        scope.$watch(attr.ngModel, _.debounce(function(viewValue){
+          scope.$apply(function(){
+            // get the model name EG header.unitNumber
+            // var attribute = attr.ngModel.slice(attr.ngModel.indexOf('.') + 1);
+            var attribute = attr.ngModel;
+            var unitExists;
+            // if there is a unit and not a Indirect WO
+            if(scope.displayUnit && scope.workorder.type !== 'Indirect'){
+              unitExists = 'is_unit';
+              // if there is no unit and not a Indirect WO
+            } else if(!scope.displayUnit && scope.workorder.type !== 'Indirect') {
+              unitExists = 'should_unit';
+              // its an Indirect WO. false unless empty
+            } else {
+              unitExists = 'no_unit'
+            }
+
+            var checkUnitFields = function () {
+              switch(attribute) {
+                case 'workorder.unitChangeInfo.transferCounty':
+                  if (unitExists === 'is_unit') {
+                      var county = (scope.displayUnit.county === null ||
+                          scope.displayUnit.county === undefined)
+                          ? ''
+                          : scope.countiesObj[scope.displayUnit.county].name
+                    if (county.toUpperCase() === scope.workorder.unitChangeInfo.transferCounty.toUpperCase()) {
+                      setValid(attribute)
+                    } else {
+                      setInvalid(attribute)
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+                case 'workorder.unitChangeInfo.transferState':
+                  if (unitExists === 'is_unit') {
+                      var state = (scope.displayUnit.state === null || scope.displayUnit.state ===
+                          undefined) ? '' : scope.statesObj[scope.displayUnit.state].name
+                    if (state.toUpperCase() === scope.workorder.unitChangeInfo.transferState.toUpperCase()) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+                case 'workorder.unitChangeInfo.transferLease':
+                  if (unitExists === 'is_unit') {
+                    if (scope.displayUnit.locationName.toUpperCase() === scope.workorder.unitChangeInfo.transferLease.toUpperCase()) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+                case 'workorder.unitChangeInfo.swapUnitNumber':
+                  if (unitExists === 'is_unit') {
+                    if (scope.displayUnit.number.toUpperCase() === scope.workorder.unitChangeInfo.swapUnitNumber.toUpperCase()) {
+                      setValid(attribute);
+                    } else {
+                      setInvalid(attribute);
+                    }
+                  } else if (unitExists === 'should_unit') {
+                    setInvalid(attribute);
+                  }
+                  break;
+              }
+            };
+
+            if(viewValue || viewValue === '' || viewValue === null || viewValue === 0){
+              checkUnitFields(viewValue);
+
+              return viewValue;
+            }
+          })
+        },300)); // 300 ms wait. Don't do it every change
+      }
+    }
+  })
+  .directive('unitChangeInfo', [function() {
+    return {
+      restrict: 'E',
+      templateUrl: '/lib/public/angular/apps/workorder/views/woChangeInfo.html',
+      scope: true
+    };
+  }]);
+
 function CommonWOfunctions($timeout, ObjectService, ApiRequestService, TimeDisplayService) {
     const TDS = TimeDisplayService
     const OS = ObjectService
@@ -13279,118 +13391,6 @@ angular.module('MCDiligenceApp.Controllers')
                 $uibModalInstance.close();
             };
         }]);
-
-angular.module('WorkOrderApp.Controllers').controller('AddPartEditModalCtrl',
-  function ( $scope, $uibModalInstance, ObjectService){
-    $scope.part = {};
-    
-    $scope.changePartTextAreaField = (changedData, selected) => {
-      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
-    };
-    
-    $scope.changePartTextField = ( changedData, selected ) => {
-      ObjectService.updateNonNestedObjectValue($scope.part, changedData, selected);
-    };
-    
-    $scope.addPart = () => {
-      $uibModalInstance.close($scope.part);
-    };
-    $scope.cancel = () => {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
-
-angular.module('WorkOrderApp.Controllers').controller('ConfirmationCtrl',
-  function ($scope, $uibModalInstance){
-    $scope.confirm = () => {
-      $uibModalInstance.close(true);
-    };
-    $scope.cancel = () => {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
-
-angular.module('WorkOrderApp.Controllers').controller('ErrorCtrl',
-  function ($scope, $uibModalInstance){
-    $scope.ok = () => {
-      $uibModalInstance.close();
-    };
-  });
-
-angular.module('WorkOrderApp.Controllers').controller('JsaEditModalCtrl',
-  function ( $scope, $uibModalInstance, jsa, ObjectService ){
-    $scope.jsa = jsa;
-    
-    $scope.changeJsaTextAreaField = (changeData, selected) => {
-      ObjectService.updateNestedObjectValue($scope.jsa, changeData, selected);
-    };
-    
-    $scope.changeJsaCheckbox = (changedData, selected) => {
-      ObjectService.updateNestedObjectValue($scope.jsa, changedData, selected);
-    };
-    $scope.changeJsaTextField = (changedData, selected) => {
-      ObjectService.updateNonNestedObjectValue($scope.jsa, changedData, selected);
-    };
-    
-    $scope.ok = () => {
-      $uibModalInstance.close($scope.jsa);
-    };
-    $scope.cancel = function (){
-      $uibModalInstance.dismiss('cancel');
-    };
-    $scope.removeTech = (tech) => {
-      const index = $scope.jsa.techinicians.indexOf(tech);
-      $scope.jsa.techinicians.splice(index, 1);
-    };
-  });
-
-function NotesModal($scope, $uibModalInstance, obj){
-    $scope.notes = obj.notes;
-    $scope.disabled = obj.disabled
-
-    $scope.changeNoteTextAreaField = ( changedData, selected ) => {
-        $scope.notes = changedData;
-    };
-
-    $scope.ok = () => {
-        $uibModalInstance.close($scope.notes);
-    };
-    $scope.cancel = () => {
-        $uibModalInstance.dismiss('cancel');
-    };
-}
-
-angular
-    .module('WorkOrderApp.Controllers')
-    .controller('NotesModalCtrl', NotesModal);
-
-angular.module('WorkOrderApp.Controllers').controller('SubmitAllModalCtrl',
-    function ($scope, $uibModalInstance) {
-
-        $scope.ok = () => {
-            $uibModalInstance.close(true);
-        };
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss(false);
-        };
-    });
-
-function geoViewModal($window, $scope, $uibModalInstance, obj) {
-    $scope.unit = obj.unit;
-    $scope.unit.geo = obj.geo;
-
-    $scope.toUnitPage = () => {
-        $uibModalInstance.close();
-        $window.open('#/unit/page/' + $scope.unit.geo.coordinates[1]+','+$scope.unit.geo.coordinates[0]);
-    };
-    $scope.ok = () => {
-        $uibModalInstance.close();
-    };
-}
-
-angular
-    .module('WorkOrderApp.Controllers')
-    .controller('woLocationModalCtrl',['$window', '$scope', '$uibModalInstance', 'obj', geoViewModal]);
 
 /*
  *
