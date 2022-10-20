@@ -975,10 +975,16 @@ angular.module('CommonControllers').controller('LoginCtrl',
                                 console.log("Authed as: ", res.data.username);
                                 $cookies.put('tech', res.data.username || "Logged Out");
                                 $cookies.put('role', res.data.role);
-                                
+
+                                //$cookies.remove('OrionNotLoggedInRoute');
+                                //$location.path('myaccount');
+                                const OrionNotLoggedInRoute = $cookies.get('OrionNotLoggedInRoute');
+                                if (OrionNotLoggedInRoute) {
                                     $cookies.remove('OrionNotLoggedInRoute');
-                            
+                                    $location.path(OrionNotLoggedInRoute);
+                                } else {
                                     $location.path('myaccount');
+                                }
                                 
                             }).catch(function (res) {
                             console.log('did not auth');
@@ -3689,8 +3695,10 @@ angular.module('CommonDirectives')
 
       const minValidator = viewValue => {
         viewValue = +viewValue;
-          let min = true;
-          let max = true;
+
+        let min = true;
+        let max = true;
+
         if(scope.min == 0){
             min = viewValue > -1;
         } else if(scope.min == 1){
@@ -3698,32 +3706,37 @@ angular.module('CommonDirectives')
         } else if(scope.min == null){
             scope.check = true;
         }
-          if (scope.max == 0 || scope.max !== null || scope.max !== false) {
-              max = viewValue <= scope.max;
-          }
-          if (min && max) {
+
+        if (scope.max !== 0 && scope.max !== null && scope.max !== false && scope.max !== undefined) {
+          max = viewValue <= scope.max;
+        }
+
+        if (min && max) {
           ctrl.$setValidity('ngMin', true);
+
           if(elem.parent().hasClass('has-error')){
             elem.parent().removeClass('has-error');
             elem.parent().addClass('has-success');
           } else {
             elem.parent().addClass('has-success');
           }
+
           return viewValue;
-        }
-        else{
+        } else{
           ctrl.$setValidity('ngMin', false);
+
           if(elem.parent().hasClass('has-success')){
             elem.parent().removeClass('has-success');
             elem.parent().addClass('has-error');
           } else {
             elem.parent().addClass('has-error');
           }
+
           return undefined;
         }
       };
 
-        ctrl.$parsers.unshift(minValidator);
+      ctrl.$parsers.unshift(minValidator);
     }
   };
 })
@@ -5323,9 +5336,9 @@ angular
 
                 // Show Table of parts if Part Isn't Empty -------
                 Empty() {
-                    if (_.isEmpty(this.part)) {
+                    /*if (_.isEmpty(this.part)) {
                         return false;
-                    }
+                    }*/
                     return true;
                 }
                 // -----------------------------------------------
@@ -5870,6 +5883,20 @@ function ($scope, $timeout, $uibModal, $cookies, $location, AlertService, Genera
       part: {}
     }
   }
+  //
+  let partSet = []
+  let fakePartOrder = {
+    part: {}
+  }
+
+  const partOrderProxy = new Proxy(fakePartOrder, {
+    set (obj, prop, value) {
+      partSet.unshift(value)
+
+      //add part to html part table
+      let partTable = document.getElementById('manualPartOrderTable')
+    }
+  })
   // Passed Functions to Add Part Component -------
   $scope.addManualPart = (part) => {
     $scope.partorder.part = part;
@@ -5889,7 +5916,7 @@ function ($scope, $timeout, $uibModal, $cookies, $location, AlertService, Genera
   // -----------------------------------------------
 
   // Construction for Search Table -----------------
-  $scope.partsTableModel = GeneralPartSearchService.partTableModel($scope.parts,'replace',$scope.partorder);
+  $scope.partsTableModel = GeneralPartSearchService.partTableModel($scope.parts,'replace', $scope.partorder);
   // -----------------------------------------------
 
   // Save Part Order -------------------------------
@@ -5902,6 +5929,7 @@ function ($scope, $timeout, $uibModal, $cookies, $location, AlertService, Genera
     $scope.partorder.timeSubmitted = now;
     $scope.partorder.techId = $scope.techId;
     setTimesToSave();
+
     // Finally save new Part Order
     PartOrders.save({},$scope.partorder,
       (res) => {
