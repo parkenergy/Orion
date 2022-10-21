@@ -18,21 +18,21 @@
             <th>Remove</th>
           </tr>
         </thead>
-        <tbody id="manualPartOrderTable" ng-show="$ctrl.Empty()">
-          <tr>
+        <tbody>
+          <tr ng-repeat="part in $ctrl.partSet track by $index">
             <td>
-              <div class="clearfix">{{ $ctrl.part.MPN }}</div>
+              <div class="clearfix">{{ part.MPN }}</div>
               <div ng-show="$ctrl.part.description !== null">
-                {{ $ctrl.part.description }}
+                {{ part.description }}
               </div>
               <div ng-show="$ctrl.part.description === null">
-                {{ $ctrl.part.smartPart }}
+                {{ part.smartPart }}
               </div>
             </td>
             <td>
               <number-field
                 placeholder-text="Quantity Used"
-                data="$ctrl.part.quantity"
+                data="part.quantity"
                 non-negative="true"
                 name="quantity"
                 min="1"
@@ -41,7 +41,7 @@
             </td>
             <td>
               <button class="btn btn-danger pull-right"
-                      ng-click="$ctrl.onDelete()">
+                      ng-click="$ctrl.deletePart($index)">
                 remove
               </button>
             </td>
@@ -49,5 +49,4 @@
         </tbody>
       </table>
     </div>
-  </div>
 </div>

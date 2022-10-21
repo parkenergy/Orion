@@ -80,7 +80,7 @@ gulp.task('scripts', function() { // concat js files
             './lib/public/bootstrap/bootstrap.min.js',
             //'./public/app/**/*.js'
         ])
-        /*.pipe(strip())
+        .pipe(strip())
         .pipe(uglify({
             ecma:     8,
             compress: {
@@ -92,7 +92,7 @@ gulp.task('scripts', function() { // concat js files
             mangle:   false,
         }).on('error', function(e){
             console.log(e);
-        }))*/
+        }))
         .pipe(concat('bundle.js'))
         .pipe(gulp.dest('public'));
 });
