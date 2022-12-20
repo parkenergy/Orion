@@ -90,9 +90,9 @@ gulp.task('scripts', function() { // concat js files
                 keep_fnames: true
             },
             mangle:   false,
-        }).on('error', function(e){
+        })/*.on('error', function(e){
             console.log(e);
-        }))
+        })*/)
         .pipe(concat('bundle.js'))
         .pipe(gulp.dest('public'));
 });

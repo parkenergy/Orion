@@ -28,7 +28,7 @@ const config = {
         port: 3000
     },
     staging: {
-        it_service: "http://34.223.93.100:8080",
+        it_service: "https://34.223.93.100:8080",
         mongodb: "mongodb://localhost/orion-stage",
         viewsPath: "./lib/views",
         logging: {
@@ -43,7 +43,7 @@ const config = {
         port: 3000
     },
     development: {
-        it_service: "http://34.223.93.100:8080",
+        it_service: "https://34.223.93.100:8080",
         mongodb: "mongodb://localhost:27017/orion-dev",
         viewsPath: "./lib/views",
         logging: {

@@ -10,10 +10,12 @@
                     Lease Notes
                 </button>
                 <button
+                    id="jsa_kpa_button"
                     class="btn btn-primary col-md-4"
+                    ng-init="$ctrl.checkKPA()"
                     ng-click="$ctrl.openJSA()"
                 >
-                    JSA
+                    {{jsa_kpa}}
                 </button>
                 <button
                     class="btn btn-primary col-md-4"
