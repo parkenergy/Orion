@@ -29,98 +29,12 @@
                     <label
                         class="btn"
                         ng-model="currentTab"
-                        uib-btn-radio="'Pending'"
-                        ng-change="updateTable()"
-                        >Pending ({{waitingInventoryTransfers.length}})</label
-                    >
-                    <label
-                        class="btn"
-                        ng-model="currentTab"
                         uib-btn-radio="'Completed'"
                         ng-change="updateTable()"
-                        >Recently Completed
+                        >Recently Synced
                     </label>
                 </div>
-                <table
-                    class="table table-bordered table-striped table-hover"
-                    ng-show="currentTab == 'Pending'"
-                >
-                    <thead>
-                        <th ng-click="changeSort('origin')">
-                            Origin
-                            <span
-                                ng-show="orderByField == 'origin' && !reverseSort"
-                                class="glyphicon glyphicon-chevron-down"
-                            ></span>
-                            <span
-                                ng-show="orderByField == 'origin' && reverseSort"
-                                class="glyphicon glyphicon-chevron-up"
-                            ></span>
-                        </th>
 
-                        <th ng-click="changeSort('destination')">
-                            Destination
-                            <span
-                                ng-show="orderByField == 'destination' && !reverseSort"
-                                class="glyphicon glyphicon-chevron-down"
-                            ></span>
-                            <span
-                                ng-show="orderByField == 'destination' && reverseSort"
-                                class="glyphicon glyphicon-chevron-up"
-                            ></span>
-                        </th>
-                        <th ng-click="changeSort('techId')">
-                            Tech
-                            <span
-                                ng-show="orderByField == 'techId' && !reverseSort"
-                                class="glyphicon glyphicon-chevron-down"
-                            ></span>
-                            <span
-                                ng-show="orderByField == 'techId' && reverseSort"
-                                class="glyphicon glyphicon-chevron-up"
-                            ></span>
-                        </th>
-                        <th ng-click="changeSort('parts')">
-                            Parts
-                            <span
-                                ng-show="orderByField == 'parts' && !reverseSort"
-                                class="glyphicon glyphicon-chevron-down"
-                            ></span>
-                            <span
-                                ng-show="orderByField == 'parts' && reverseSort"
-                                class="glyphicon glyphicon-chevron-up"
-                            ></span>
-                        </th>
-                        <th ng-click="changeSort('inventorytransferDate')">
-                            Submitted Date
-                            <span
-                                ng-show="orderByField == 'inventorytransferDate' && !reverseSort"
-                                class="glyphicon glyphicon-chevron-down"
-                            ></span>
-                            <span
-                                ng-show="orderByField == 'inventorytransferDate' && reverseSort"
-                                class="glyphicon glyphicon-chevron-up"
-                            ></span>
-                        </th>
-                    </thead>
-
-                    <tbody>
-                        <tr
-                            ng-repeat="inventoryTransfer in waitingInventoryTransfers | orderBy:orderByField:reverseSort"
-                            ng-click="openTransfers(inventoryTransfer._id)"
-
-                        >
-                            <td>{{ inventoryTransfer.origin }}</td>
-                            <td>{{ inventoryTransfer.destination }}</td>
-                            <td>{{ inventoryTransfer.techId }}</td>
-                            <td>{{ inventoryTransfer.parts }}</td>
-                            <td>
-                                {{ inventoryTransfer.inventorytransferDate |
-                                date: 'MM/dd/yyyy': 'UTC'}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
                 <table
                     class="table table-bordered table-striped table-hover"
                     ng-show="currentTab == 'Completed'"
