@@ -24,7 +24,7 @@
                 name="lease"
                 ng-model="$ctrl.workorder.techId"
                 ng-change="$ctrl.techChange($ctrl.workorder.techId)"
-                uib-typeahead="tech.username for tech in $ctrl.techs | filter:$viewValue | limitTo:12"
+                uib-typeahead="tech.username for tech in $ctrl.techs | filter:$viewValue | limitTo:50"
                 class="form-control"
                 typeahead-wait-ms="100"
                 typeahead-select-on-exact="true"
