@@ -1,31 +1,14 @@
 <div id="UnitPage" ng-if="$ctrl.showMap">
-  <ui-gmap-google-map center="$ctrl.map.center" zoom="$ctrl.map.zoom" bounds="$ctrl.map.bounds" draggable="true" options="$ctrl.options" events="$ctrl.map.mapEvents">
-
-    <!-- Click Coordinate Info Window -->
-    <ui-gmap-window
-      show="$ctrl.map.CoordInfoWindow.show"
-      coords="$ctrl.map.CoordInfoWindow.marker.geo"
-      options="$ctrl.map.options"
-      closeClick="$ctrl.map.CoordInfoWindow.closeClick()"
-      templateParameter="$ctrl.map.CoordInfoWindow">
-      <div>
-        <b>Latitude: </b> {{ $ctrl.map.CoordInfoWindow.marker.geo.coordinates[1] }}
-        <br>
-        <b>Longitude: </b> {{ $ctrl.map.CoordInfoWindow.marker.geo.coordinates[0] }}
-      </div>
-    </ui-gmap-window>
-
-    <!-- Click Coordinate marker -->
-    <ui-gmap-marker
-      idKey="$ctrl.map.CoordInfoWindow.marker.id"
-      coords="$ctrl.map.CoordInfoWindow.marker.geo"
-      events="$ctrl.map.CoordMarkerEvents">
-    </ui-gmap-marker>
-
-
-    <!-- Unit Marker -->
-    <ui-gmap-marker idkey="$ctrl.marker.id" coords="$ctrl.marker.geo" >
-    </ui-gmap-marker>
-
-  </ui-gmap-google-map>
+  <div id="unitPageMap" style="height: 500px;"></div>
+  <script>
+    function initMap() {
+      const mapOptions = {
+        center: { lat: {{ $ctrl.map.center.latitude }}, lng: {{ $ctrl.map.center.longitude }} },
+        zoom: {{ $ctrl.map.zoom }},
+        scrollwheel: {{ $ctrl.options.scrollwheel }}
+      };
+      const mapElement = document.getElementById('unitPageMap');
+      $ctrl.mapInstance = new google.maps.Map(mapElement, mapOptions);
+    }
+  </script>
 </div>
